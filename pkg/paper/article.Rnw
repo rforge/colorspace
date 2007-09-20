@@ -1,0 +1,236 @@
+\documentclass{article}
+\usepackage{graphicx}
+\begin{document}
+
+This article aims to set out the technical information that is
+necessary for producing precise specifications
+of colour within a software environment.  
+
+
+
+
+This article is aimed at the developers of software for
+statistical graphics, so it is not an exhaustive discussion of
+colour.  However, sufficient background material is included 
+to allow an understanding of the terms and concepts used in this
+article.  
+
+It is hoped that the information will also be generally useful
+for people working with colours as data values, including 
+the generation of sets of colours for statistical plots.
+
+\section{What's wrong with RGB?}
+
+The most common way to specify colours in a software system
+is as an RGB triplet.  In this system, a colour is specified 
+as an amount of red, an amount of green, and an amount of blue,
+where the amounts range from 0 (none) to 1 (as much as possible).
+In some systems, the amounts are specified in the range 0 to 255
+(because it is common to use 8 bits to store each colour component
+and $2^8 = 256$), and it is not uncommon to write values within this 
+range in hexadecimal notation so that values range from \#00 to
+\#FF (F has the decimal value 15 and the second digit 
+specifies a multiple of
+16, so $15*16 + 15 = 255$).
+
+For example, in HTML, the colour red is specified as \#FF0000.
+
+\subsection{RGB is unintuitive}
+
+This system for specifying colour has some appeal.  It appears 
+straightforward to specify simple colours:  red is all red and no green
+or blue, green and blue are similar, white is all three colours, and black is
+none.
+
+However, intuition rapidly runs out of steam in this system.  What is the
+RGB specification for the colour brown?  What about pink or orange?
+
+It is possible to create colour palettes for the RGB system and 
+to select colours by eye, but this is not appropriate for situations
+where it is necessary to select sets of colours.  For example, 
+it might be useful to represent an ordinal variable as different
+shades of brown.  Given the RGB specification for brown, how 
+can we specify lighter shades of brown?  
+
+\subsection{RGB is not perceptually uniform}
+
+An intuitive answer to the previous question would be to linearly
+interpolate between the RGB values for brown and the RGB values
+for white, but this only serves to highlight another problem with the
+RGB system, which is that it is not a \emph{perceptually uniform} system.
+This means that a unit step within RGB space does not produce a 
+constant perceptual change in colour.
+Figure \ref{figure:shadesofbrown} shows the linear interpolation in
+RGB space compared to a similar interpolation in a perceptually uniform space.
+
+<<echo=FALSE>>=
+library(grid)
+library(colorspace)
+
+<<rgbnotuniform, echo=FALSE, fig=TRUE, height=3, include=FALSE>>=
+# grid.newpage()
+
+# RGB
+N <- 100
+grid.rect(x=1:N/N, width=1/N, y=.75, height=0.4,
+          just=c("right", "centre"),
+          gp=gpar(col=NA,
+            fill=rgb(seq(165, 255, length=N),
+              seq(42, 255, length=N),
+              seq(42, 255, length=N), max=255)))
+
+# HCL
+
+# col2rgb("brown")
+#       [,1]
+# red    165
+# green   42
+# blue    42
+# N <- 20
+
+# > as(RGB(165/255, 42/255, 42/255), "polarLAB")
+#             L        C        H
+# [1,] 58.72249 41.92013 24.42661
+
+cols <- coords(as(polarLAB(seq(58.7224, 99, length=N),
+                           seq(41.92013, 0, length=N),
+                           24.42661), "RGB"))
+
+grid.rect(x=1:N/N, width=1/N, y=0.25, height=0.4,
+          just=c("right", "centre"),
+          gp=gpar(col=NA, fill=rgb(cols[,1], cols[,2], cols[,3])))
+
+@ 
+\begin{figure}
+\includegraphics[width=\textwidth]{article-rgbnotuniform}
+\caption{\label{figure:shadesofbrown}A linear interpolation
+from brown to white in RGB space (top) and a perceptually uniform
+ space (bottom).  Equal-sized horizontal steps result in non-equal-sized
+perceptual changes in colour in the RGB interpolation (the perceived 
+colour changes rapidly at the left end and more slowly at the 
+right end).}
+\end{figure}
+
+\subsection{RGB is device-dependent}
+
+A further problem with RGB colour specifications is that it is unclear
+what ``red'', ``green'', and ``blue'' actually mean.
+
+The colour of light is determined by its wave-length. A typical human can 
+perceive light in the range 400nm to 700nm.  A coherent
+light source (e.g., a laser) at the 400nm range appears blue and a coherent
+light source at the 700nm range appears red.  Most light sources
+(e.g., light bulbs, or the Sun)
+are not coherent and emit light at many different wave lengths.
+A light source can be characterised by its Spectral Power Distribution (SPD),
+which is how much of each wavelength of light the light source emits.
+
+On an LCD computer screen, 
+each pixel is made up from three sub-pixels, which are
+coloured red, green, and blue.  A full red colour is produced by emitting 
+light at full power from just the red sub-pixel.  However, this red is not
+a single wavelength.
+Figure \ref{figure:SPD} shows the SPDs might look like 
+for the red, green, and blue
+sub-pixels of a typical computer monitor.
+
+% source: http://white.stanford.edu/~brian/scielab/scielab1-1-1/
+
+<<spd, echo=FALSE, fig=TRUE, include=FALSE>>=
+SPD <- read.table("displaySPD.txt", skip=5,
+    col.names=c("r", "g", "b"))
+wavelengths <- scan("wavelength.txt", what=numeric(), skip=5)
+
+plot(wavelengths, SPD$r, type="l", col="red", lwd=3,
+     ylab="", xlab="wavelength", axes=FALSE)
+lines(wavelengths, SPD$g, type="l", col="green", lwd=3)
+lines(wavelengths, SPD$b, type="l", col="blue", lwd=3)
+box()
+axis(1)
+
+
+@ 
+\begin{figure}
+\includegraphics[width=\textwidth]{article-spd}
+\caption{\label{figure:SPD}SPD for red, green, and blue on
+a typical computer monitor.}
+\end{figure}
+
+In order to know what light is emitted in response to an RGB colour 
+specification like \#FF0000, it is necessary to know the SPDs for
+the device that will be producing the light.
+This can vary considerably between different devices such as computer
+monitors and data projectors (beamers).
+
+For less-than-full red, the SPD stays the same shape and just
+less light is emitted (the result is a darker colour).
+However, there is a further complication because the decrease is not linear.
+Figure \ref{figure:gamma} shows the curves relating the amount of
+light emitted as a function of the sizes of the RGB components
+for a typical computer monitor.
+These are commonly referred to as ``display gamma curves'' because
+the curve is, for convenience, approximated by a power function
+with a single exponent called gamma.  Although each curve is slightly 
+different, it is common to use a single gamma value for a
+particular device.  Figure \ref{figure:gamma} shows the power curve
+for the standard gamma value of 2.2 as a dotted line.
+
+% source: http://white.stanford.edu/~brian/scielab/scielab1-1-1/
+
+<<gamma, echo=FALSE, fig=TRUE, include=FALSE>>=
+gamma <- read.table("gamma.txt", skip=5)
+
+plot(seq(0, 1, length=dim(gamma)[1]), gamma[,1],
+     type="l", col="red", lwd=3,
+     xlab="amount of primary", ylab="intensity")
+lines(seq(0, 1, length=dim(gamma)[1]), gamma[,2],
+     type="l", col="green", lwd=3)
+lines(seq(0, 1, length=dim(gamma)[1]), gamma[,3],
+     type="l", col="blue", lwd=3)
+lines(seq(0, 1, length=dim(gamma)[1]),
+     seq(0, 1, length=dim(gamma)[1])^2.2,
+     type="l", lty="dotted", lwd=3)
+
+@ 
+\begin{figure}
+\includegraphics[width=\textwidth]{article-gamma}
+\caption{\label{figure:gamma}Gamma curves for red, green, and blue on
+a typical computer monitor.}
+\end{figure}
+
+In order to know how much light is emitted in response
+to an RGB colour specification, for example, \#990000, it is necessary
+to know the gamma for the device that will be producing the light. 
+This can also vary considerably between different devices such as computer
+monitors and data projectors (beamers).
+
+In summary, we have what we will call the \emph{RGB uncertainty principle}:
+in RGB space, you don't know where you are, 
+you don't know how fast you are moving, and 
+you don't know which way to go.
+
+It is simply not adequate for a software system to only allow 
+the user to specify colours in an RGB system.
+
+\section{Device-independence:  CIE XYZ}
+
+Human perception of colours.  Standard observer.
+
+Chromaticities.
+
+\section{Perceptual uniformity:  CIE Lab}
+
+\section{Intuitive colour choice:  HCL}
+
+\section{sRGB}
+
+RGB is still important because that is how you express colours
+in some systems, ergo it is necessary to allow people to work
+in a nice colourspace, but then convert to RGB.
+
+\section{Other colour spaces}
+
+CMYK for print.  Simple-minded RGB-CMY is easy, but wrong.
+Sophisticated RGB-CMY is damn nigh impossible.
+
+\end{document}

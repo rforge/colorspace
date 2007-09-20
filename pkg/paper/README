@@ -1,0 +1,24 @@
+
+1. 
+Files obtained from
+http://white.stanford.edu/~brian/scielab/scielab1-1-1/
+
+
+2.
+Excerpt from Octave session to convert .mat files to ASCII ...
+
+octave:1> load displaySPD.mat
+octave:2> displaySPD
+octave:3> save ("-text", "displaySPD.txt", "displaySPD")
+octave:4> who
+
+*** local user variables:
+
+__nargin__  displaySPD  wavelength
+
+octave:5> wavelength
+octave:6> save ("-text", "wavelength.txt", "wavelength")
+
+(Similar process for displayGamma.mat)
+
+
