@@ -4,50 +4,50 @@
 
 This article aims to set out the technical information that is
 necessary for producing precise specifications
-of colour within a software environment.  
+of color within a software environment.  
 
 
 
 
 This article is aimed at the developers of software for
 statistical graphics, so it is not an exhaustive discussion of
-colour.  However, sufficient background material is included 
+color.  However, sufficient background material is included 
 to allow an understanding of the terms and concepts used in this
 article.  
 
 It is hoped that the information will also be generally useful
-for people working with colours as data values, including 
-the generation of sets of colours for statistical plots.
+for people working with colors as data values, including 
+the generation of sets of colors for statistical plots.
 
 \section{What's wrong with RGB?}
 
-The most common way to specify colours in a software system
-is as an RGB triplet.  In this system, a colour is specified 
+The most common way to specify colors in a software system
+is as an RGB triplet.  In this system, a color is specified 
 as an amount of red, an amount of green, and an amount of blue,
 where the amounts range from 0 (none) to 1 (as much as possible).
 In some systems, the amounts are specified in the range 0 to 255
-(because it is common to use 8 bits to store each colour component
+(because it is common to use 8 bits to store each color component
 and $2^8 = 256$), and it is not uncommon to write values within this 
 range in hexadecimal notation so that values range from \#00 to
 \#FF (F has the decimal value 15 and the second digit 
 specifies a multiple of
 16, so $15*16 + 15 = 255$).
 
-For example, in HTML, the colour red is specified as \#FF0000.
+For example, in HTML, the color red is specified as \#FF0000.
 
 \subsection{RGB is unintuitive}
 
-This system for specifying colour has some appeal.  It appears 
-straightforward to specify simple colours:  red is all red and no green
-or blue, green and blue are similar, white is all three colours, and black is
+This system for specifying color has some appeal.  It appears 
+straightforward to specify simple colors:  red is all red and no green
+or blue, green and blue are similar, white is all three colors, and black is
 none.
 
 However, intuition rapidly runs out of steam in this system.  What is the
-RGB specification for the colour brown?  What about pink or orange?
+RGB specification for the color brown?  What about pink or orange?
 
-It is possible to create colour palettes for the RGB system and 
-to select colours by eye, but this is not appropriate for situations
-where it is necessary to select sets of colours.  For example, 
+It is possible to create color palettes for the RGB system and 
+to select colors by eye, but this is not appropriate for situations
+where it is necessary to select sets of colors.  For example, 
 it might be useful to represent an ordinal variable as different
 shades of brown.  Given the RGB specification for brown, how 
 can we specify lighter shades of brown?  
@@ -59,7 +59,7 @@ interpolate between the RGB values for brown and the RGB values
 for white, but this only serves to highlight another problem with the
 RGB system, which is that it is not a \emph{perceptually uniform} system.
 This means that a unit step within RGB space does not produce a 
-constant perceptual change in colour.
+constant perceptual change in color.
 Figure \ref{figure:shadesofbrown} shows the linear interpolation in
 RGB space compared to a similar interpolation in a perceptually uniform space.
 
@@ -106,17 +106,17 @@ grid.rect(x=1:N/N, width=1/N, y=0.25, height=0.4,
 \caption{\label{figure:shadesofbrown}A linear interpolation
 from brown to white in RGB space (top) and a perceptually uniform
  space (bottom).  Equal-sized horizontal steps result in non-equal-sized
-perceptual changes in colour in the RGB interpolation (the perceived 
-colour changes rapidly at the left end and more slowly at the 
+perceptual changes in color in the RGB interpolation (the perceived 
+color changes rapidly at the left end and more slowly at the 
 right end).}
 \end{figure}
 
 \subsection{RGB is device-dependent}
 
-A further problem with RGB colour specifications is that it is unclear
+A further problem with RGB color specifications is that it is unclear
 what ``red'', ``green'', and ``blue'' actually mean.
 
-The colour of light is determined by its wave-length. A typical human can 
+The color of light is determined by its wave-length. A typical human can 
 perceive light in the range 400nm to 700nm.  A coherent
 light source (e.g., a laser) at the 400nm range appears blue and a coherent
 light source at the 700nm range appears red.  Most light sources
@@ -127,7 +127,7 @@ which is how much of each wavelength of light the light source emits.
 
 On an LCD computer screen, 
 each pixel is made up from three sub-pixels, which are
-coloured red, green, and blue.  A full red colour is produced by emitting 
+colored red, green, and blue.  A full red color is produced by emitting 
 light at full power from just the red sub-pixel.  However, this red is not
 a single wavelength.
 Figure \ref{figure:SPD} shows the SPDs might look like 
@@ -156,19 +156,19 @@ axis(1)
 a typical computer monitor.}
 \end{figure}
 
-In order to know what light is emitted in response to an RGB colour 
+In order to know what light is emitted in response to an RGB color 
 specification like \#FF0000, it is necessary to know the SPDs for
 the device that will be producing the light.
 This can vary considerably between different devices such as computer
 monitors and data projectors (beamers).
 
 For less-than-full red, the SPD stays the same shape and just
-less light is emitted (the result is a darker colour).
+less light is emitted (the result is a darker color).
 However, there is a further complication because the decrease is not linear.
 Figure \ref{figure:gamma} shows the curves relating the amount of
 light emitted as a function of the sizes of the RGB components
 for a typical computer monitor.
-These are commonly referred to as ``display gamma curves'' because
+These are commonly referred to as \emph{display gamma curves} because
 the curve is, for convenience, approximated by a power function
 with a single exponent called gamma.  Although each curve is slightly 
 different, it is common to use a single gamma value for a
@@ -199,7 +199,7 @@ a typical computer monitor.}
 \end{figure}
 
 In order to know how much light is emitted in response
-to an RGB colour specification, for example, \#990000, it is necessary
+to an RGB color specification, for example, \#990000, it is necessary
 to know the gamma for the device that will be producing the light. 
 This can also vary considerably between different devices such as computer
 monitors and data projectors (beamers).
@@ -209,26 +209,189 @@ in RGB space, you don't know where you are,
 you don't know how fast you are moving, and 
 you don't know which way to go.
 
+\textit{Add mention of gamut as well;  RGB principle adds ... and 
+there are places that you just can't get to!}
+
 It is simply not adequate for a software system to only allow 
-the user to specify colours in an RGB system.
+the user to specify colors in an RGB system.
 
-\section{Device-independence:  CIE XYZ}
+\subsection{Why RGB?}
 
-Human perception of colours.  Standard observer.
+If RGB has all of these problems, do we need to deal with the
+RGB colorspace at all?
 
-Chromaticities.
+Yes. The RGB colorspace is still important because it is the way that
+colors need to be specified for producing graphics output on 
+computer monitors.
+The point is that RGB space may be where you need to end up, but it is
+not a good place to start.
 
-\section{Perceptual uniformity:  CIE Lab}
+\section{CIE colorspaces}
 
-\section{Intuitive colour choice:  HCL}
+One thing that has not been mentioned so far is the problem that,
+even if we could give a description of a color that everyone
+would agree upon (e.g., a spectral power distribution), 
+we cannot guarantee that
+every person would experience the same color, because perception
+of color is a subjective task.  This is the starting point for
+a discussion of alternative color spaces to RGB.
+
+Given that no two people can expect to have exactly the same
+subjective response to the same physical stimulus, we must do the
+next best thing and target a \emph{standard observer}.
+This is the approach taken by the
+International Commission on Illumination---referred to 
+as the CIE, after its French title,
+Commission Internationale de l'Eclairage.
+
+\subsection{Device-independence:  CIE XYZ}
+
+Based on experiments with human subjects, the CIE developed the
+CIE XYZ colorspace.  In this colorspace, 
+any SPD, that is any color, can be mapped to a unique triplet
+of XYZ values, which represent the standard observer's perception of
+the color.  
+
+This is a device-independent colorspace.  The specification of a
+color is absolute in the sense that it corresponds to a unique
+physical stimulus and there is no ambiguity in terms of 
+what the standard observer's response to the color should be.
+
+This is a good first step, but CIE XYZ does not give us 
+everything we need.  For example, if we want to specify a
+simple color, such as ``red'', which three values should we use?
+
+In this colorspace, Y corresponds roughly to how bright a color
+appears, but the X and Z components have no simple intuitive 
+meaning.  Furthermore, unit steps within this colorspace are
+not perceptually equal, so generating a palette of colors cannot
+proceed in a rational manner.  This leads us on to consideration 
+to other colorspaces that are derived from CIE XYZ.
+
+\subsection{Perceptual uniformity:  CIE LUV}
+
+The CIE LUV colorspace, technically referred to as CIE L*u*v*,
+ is a transformation of CIE XYZ in a 
+reasonably successful attempt to achieve perceptual uniformity.
+Again, any color can be specified as a triplet of values,
+with the advantage that a unit step in any direction corresponds to a 
+fixed perceptual change in color.  However, the problem of 
+intuitively specifying colors remains.
+
+\subsection{Intuitive color choice:  CIE LCh}
+
+The CIE LCh colorspace is a re-expression of CIE LUV using
+polar coordinates for the U-V plane.  In this colorspace,
+any color may be described by a triplet of values, a unit
+step is perceptually uniform throughout the colorspace, 
+and the three dimensions of the colorspace have intuitive 
+interpretations:  
+
+\begin{description}
+\item[L] corresponds to the luminance or
+brightness of the color.  This is normalised to
+the range 0 to 100.
+\item[C] corresponds to the chroma (colorfulness, or purity) of the color.
+Lowering the chroma produces a color that is closer to grey.
+The range of this parameter depends on the luminance and hue.  For example,
+the range of possible chromas is much smaller for 
+very dark colors (low luminance);  in the extreme case of luminance 0,
+which corresponds to black, chroma can only take the value 0.
+\item[h] corresponds to the hue of the color.
+This value can range from 0 to 360, with 0 corresponding to red, 
+120 to green, 240 to blue, and so on.
+\end{description}
+
+This then is a colorspace in which it makes sense to specify colors.
+The specification does not depend on a particular device, selection
+of colors is intuitive, and color palettes can be obtained in a
+rational fashion.
+
+Only one problem remains:  we can conveniently specify a color
+using CIE LCh, but in order to render that color we need a
+specification that a rendering device understands.
+For example, in order to display a color on screen,
+we need to be able to convert a CIE LCh color into an RGB
+color specification.
+
+\section{Colorspace conversions}
+
+The conversion from CIE LCh to RGB consists of a series
+of steps.  We start with conversions between the various
+CIE colorspaces.
+
+\subsection{LCh to LUV}
+
+This is simply a conversion from the polar expression to
+cartesian coordinates in the U-V plane.  
+
+$$u* = C \times cos(h)$$
+
+$$v* = C \times sin(h)$$
+
+The L component 
+is unchanged.
+
+\subsection{LUV to XYZ}
+
+This conversion is non-linear, reflecting the non-linear
+nature of human color perception.
+
+The conversion also depends on the concept of a \emph{white point}.
+For computer monitors, the white point is what you get when you
+combine red, green, and blue channels at full power.  This is not as
+unambiguous as it sounds because it depends both on the SPDs 
+of the red, green, and blue channels \emph{and} on the relative 
+powerfulness of the maximum for each channel.  In effect, it is 
+possible for two monitors to have very different white points, 
+with one, for example, much ``bluer'' than another if the maximum
+of the blue channel is set higher.\footnote{It may be easier
+to think about a white point in terms of a printed image.  In that case,
+the white point is an area of the image that perfectly reflects the
+ambient lighting conditions.  In other words, the white point
+corresponds to whatever illumination is being used to view the image.}
+
+Typically, the white point for a computer monitor is set by the
+manufacturer and the common setting used these days is something called 
+\emph{D65}, which is a CIE specification of a colour that
+corresponds roughly to the SPD of daylight.  
+
+\subsection{XYZ to RGB}
+
+The first point to recall is that a CIE color specification
+is device independent;  it corresponds to an unambiguous 
+perceptual response (for the standard observer).  On the
+other hand, an RGB color specification is quite ambiguous,
+depending on the physical characteristics of the screen
+pixels.
+
+This means that the conversion from CIE colorspace to RGB
+should, ideally, occur for a particular device, \emph{and}
+it can only occur then if the characteristics of that
+device, such as the SPDs of the screen pixels, are known.
+
+It is possible to achieve this level of detail by measuring
+the physical characteristics of a device, but for a general-purpose
+system it is sensible to use a default based on industry standards.
+
+
+\subsection{D65}
+
+The standard white point.
+
+\subsection{Rec. 709}
+
+The standard RGB chromaticities.
 
 \section{sRGB}
 
-RGB is still important because that is how you express colours
-in some systems, ergo it is necessary to allow people to work
-in a nice colourspace, but then convert to RGB.
 
-\section{Other colour spaces}
+The problem also remains:  given a CIE specification, how do we 
+make a specific device emit that color.  Ergo transformations
+between colorspaces.
+
+
+\section{Other color spaces}
 
 CMYK for print.  Simple-minded RGB-CMY is easy, but wrong.
 Sophisticated RGB-CMY is damn nigh impossible.
