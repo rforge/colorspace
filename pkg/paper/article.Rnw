@@ -1,4 +1,6 @@
 \documentclass{article}
+\setlength{\parskip}{.1in}
+\setlength{\parindent}{0in}
 \usepackage{graphicx}
 \begin{document}
 
@@ -261,8 +263,8 @@ This is a good first step, but CIE XYZ does not give us
 everything we need.  For example, if we want to specify a
 simple color, such as ``red'', which three values should we use?
 
-In this colorspace, Y corresponds roughly to how bright a color
-appears, but the X and Z components have no simple intuitive 
+In this colorspace, $Y$ corresponds roughly to how bright a color
+appears, but the $X$ and $Z$ components have no simple intuitive 
 meaning.  Furthermore, unit steps within this colorspace are
 not perceptually equal, so generating a palette of colors cannot
 proceed in a rational manner.  This leads us on to consideration 
@@ -270,7 +272,7 @@ to other colorspaces that are derived from CIE XYZ.
 
 \subsection{Perceptual uniformity:  CIE LUV}
 
-The CIE LUV colorspace, technically referred to as CIE L*u*v*,
+The CIE LUV colorspace
  is a transformation of CIE XYZ in a 
 reasonably successful attempt to achieve perceptual uniformity.
 Again, any color can be specified as a triplet of values,
@@ -278,9 +280,9 @@ with the advantage that a unit step in any direction corresponds to a
 fixed perceptual change in color.  However, the problem of 
 intuitively specifying colors remains.
 
-\subsection{Intuitive color choice:  CIE LCh}
+\subsection{Intuitive color choice:  CIE LCH}
 
-The CIE LCh colorspace is a re-expression of CIE LUV using
+The CIE LCH colorspace is a re-expression of CIE LUV using
 polar coordinates for the U-V plane.  In this colorspace,
 any color may be described by a triplet of values, a unit
 step is perceptually uniform throughout the colorspace, 
@@ -288,16 +290,16 @@ and the three dimensions of the colorspace have intuitive
 interpretations:  
 
 \begin{description}
-\item[L] corresponds to the luminance or
+\item[$L$] corresponds to the luminance or
 brightness of the color.  This is normalised to
 the range 0 to 100.
-\item[C] corresponds to the chroma (colorfulness, or purity) of the color.
+\item[$C$] corresponds to the chroma (colorfulness, or purity) of the color.
 Lowering the chroma produces a color that is closer to grey.
 The range of this parameter depends on the luminance and hue.  For example,
 the range of possible chromas is much smaller for 
 very dark colors (low luminance);  in the extreme case of luminance 0,
 which corresponds to black, chroma can only take the value 0.
-\item[h] corresponds to the hue of the color.
+\item[$H$] corresponds to the hue of the color.
 This value can range from 0 to 360, with 0 corresponding to red, 
 120 to green, 240 to blue, and so on.
 \end{description}
@@ -308,26 +310,26 @@ of colors is intuitive, and color palettes can be obtained in a
 rational fashion.
 
 Only one problem remains:  we can conveniently specify a color
-using CIE LCh, but in order to render that color we need a
+using CIE LCH, but in order to render that color we need a
 specification that a rendering device understands.
 For example, in order to display a color on screen,
-we need to be able to convert a CIE LCh color into an RGB
+we need to be able to convert a CIE LCH color into an RGB
 color specification.
 
 \section{Colorspace conversions}
 
-The conversion from CIE LCh to RGB consists of a series
+The conversion from CIE LCH to RGB consists of a series
 of steps.  We start with conversions between the various
 CIE colorspaces.
 
-\subsection{LCh to LUV}
+\subsection{LCH to LUV}
 
 This is simply a conversion from the polar expression to
 cartesian coordinates in the U-V plane.  
 
-$$u* = C \times cos(h)$$
+$$U = C \cos(H)$$
 
-$$v* = C \times sin(h)$$
+$$V = C \sin(H)$$
 
 The L component 
 is unchanged.
@@ -335,26 +337,71 @@ is unchanged.
 \subsection{LUV to XYZ}
 
 This conversion is non-linear, reflecting the non-linear
-nature of human color perception.
+nature of human color perception.  It is also performed in 
+several stages, reflecting the historical development of the
+CIE LUV colorspace, which builds upon a couple of other
+earlier transformations of the CIE XYZ colorspace.
 
 The conversion also depends on the concept of a \emph{white point}.
-For computer monitors, the white point is what you get when you
-combine red, green, and blue channels at full power.  This is not as
-unambiguous as it sounds because it depends both on the SPDs 
-of the red, green, and blue channels \emph{and} on the relative 
-powerfulness of the maximum for each channel.  In effect, it is 
-possible for two monitors to have very different white points, 
-with one, for example, much ``bluer'' than another if the maximum
-of the blue channel is set higher.\footnote{It may be easier
+For now, we can just think of the white point as representing the
+viewing conditions under which the colour is to be shown.
+\footnote{It is relatively straightforward 
 to think about a white point in terms of a printed image.  In that case,
 the white point is an area of the image that perfectly reflects the
 ambient lighting conditions.  In other words, the white point
 corresponds to whatever illumination is being used to view the image.}
+The white point is important because the perception of colors
+is dependent on the viewing conditions.  For example, an image
+will look different when viewed under a pink light instead
+of a white light.  More subtly, 
+an image will look different when viewed outside in normal sunlight compared
+to inside with fluorescent lighting.
 
-Typically, the white point for a computer monitor is set by the
-manufacturer and the common setting used these days is something called 
-\emph{D65}, which is a CIE specification of a colour that
-corresponds roughly to the SPD of daylight.  
+The white point is expressed as CIE XYZ tristimulus values.
+There are a number of established white points used in practice,
+with the most popular being a representation of normal daylight,
+called $D65$:
+
+% Source:  Ross's code, confirmed by published article
+
+$$\begin{array}{c}X_r = 95.047\\
+                  Y_r = 100.000\\
+                  Z_r = 108.883
+  \end{array}$$
+
+\textit{Put more of these in an appendix?}
+
+% Source:  http://brucelindbloom.com/
+
+The value of $Y$ is relatively straightforward to calculate from the
+value of $L$:
+
+$$Y = \left\{\begin{array}{l l}((L + 16)/116)^3 & \quad L > 7.999592 \\
+                               L/903.3 & \quad L \leq 7.999592 \\
+             \end{array} 
+      \right.$$
+
+Before we can calculate $X$ and $Z$, we need to calculate several 
+intermediate values:
+
+$$\begin{array}{l}u_r = \frac{4X_r}{X_r + 15Y_r + 3Z_r}\\
+                  v_r = \frac{9Y_r}{X_r + 15Y_r + 3Z_r}\\
+  \end{array}$$
+
+$$\begin{array}{l}a = \frac{1}{3}\left(\frac{52L}{U + 13Lu_r} - 1\right)\\
+                  b = -5Y\\
+                  c = -\frac{1}{3}\\
+                  d = Y\left(\frac{39L}{V + 13Lv_r} - 5\right)\\
+  \end{array}$$
+
+\textit{Check me: should those be straight 
+U and V, or ``normalised'' versions?}
+
+The values of $X$ and $Y$ are now calculated from these values:
+
+$$X = \frac{d - b}{a - c}$$
+
+$$Z = Xa + b$$
 
 \subsection{XYZ to RGB}
 
@@ -374,22 +421,60 @@ It is possible to achieve this level of detail by measuring
 the physical characteristics of a device, but for a general-purpose
 system it is sensible to use a default based on industry standards.
 
+\textit{Fixme:  need to deinfe ``primaries'' earlier.}
 
-\subsection{D65}
+One such standard is the ITU-R BT.709-2 Recommendation (for
+high-definition television), which specifies CIE XYZ values
+for the $R$, $G$, and $B$ primaries of a display device.
 
-The standard white point.
+\textit{Fixme:  need to deinfe ``channels'' earlier.}
 
-\subsection{Rec. 709}
+The second point is that we again need a white point in
+order to perform the conversion.
+For computer monitors, the white point is what you get when you
+combine red, green, and blue channels at full power.  This is not as
+unambiguous as it sounds because it depends both on the SPDs 
+of the red, green, and blue channels \emph{and} on the relative 
+powerfulness of the maximum for each channel.  In effect, it is 
+possible for two monitors to have very different white points, 
+with one, for example, much ``bluer'' than another if the maximum
+of the blue channel is set higher.
 
-The standard RGB chromaticities.
+Typically, the white point for a computer monitor is set by the
+manufacturer and the common setting used these days is 
+D65 (as described in the previous section).
+
+Using the 709-2 Recommendation primaries and a D65 white point,
+the conversions are:
+
+% source:  Poynton's Color FAQ
+
+\textit{Check me again:  are we dealing with tristimulus values
+or chromaticities?  Ross's code says chromaticities, but Bruce
+Lindbloom's site seems to allow working in tristimulus values.}
+
+$$R = 3.240479X - 1.537150Y - 0.498535Z$$
+
+$$G = -0.969256X + 1.875992Y + 0.041556Z$$
+
+$$B = 0.055648X - 0.204043Y + 1.057311Z$$
+
+\textit{Discuss calculation of transforms from RGB primaries that
+are not Rec. 709?}
+
+\textit{Need to talk about clipping to the RGB gamut}
+
+\section{Gamma correction}
 
 \section{sRGB}
 
-
-The problem also remains:  given a CIE specification, how do we 
-make a specific device emit that color.  Ergo transformations
-between colorspaces.
-
+The sRGB colorspace consists of colour specifications as 
+RGB tristimulus values, \emph{plus} fixed CIE specifications of
+the $R$, $G$, and $B$ primaries, \emph{plus} a fixed white point, 
+\emph{plus} a fixed gamma.
+This is in effect a device-independent colorspace because it
+dictates the characteristics of a display device (and the viewing
+conditions).
 
 \section{Other color spaces}
 
