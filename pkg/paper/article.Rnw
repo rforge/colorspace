@@ -66,41 +66,40 @@ Figure \ref{figure:shadesofbrown} shows the linear interpolation in
 RGB space compared to a similar interpolation in a perceptually uniform space.
 
 <<echo=FALSE>>=
-library(grid)
-library(colorspace)
+library("grid")
+library("colorspace")
+@
 
 <<rgbnotuniform, echo=FALSE, fig=TRUE, height=3, include=FALSE>>=
 # grid.newpage()
 
 # RGB
 N <- 100
+
+col <- "brown"
+col.rgb <- as.vector(col2rgb(col))
+col.lch <- as.vector(coords(as(RGB(col.rgb[1]/255, col.rgb[2]/255, col.rgb[3]/255), "polarLAB")))
+
+fill.rgb <- rgb(seq(col.rgb[1], 255, length=N),
+                seq(col.rgb[2], 255, length=N),
+                seq(col.rgb[3], 255, length=N), max=255)
+fill.lch <- coords(as(polarLAB(seq(col.lch[1], 99, length=N),
+                               seq(col.lch[2], 0, length=N),
+                                   col.lch[3]), "RGB"))
+fill.lch <- rgb(fill.lch[,1], fill.lch[,2], fill.lch[,3]) ## we do not even get this behaviour with
+                                                          ## hex(..., gamma = 1)
+							  ## only for the inverse there is
+							  ## hex2RGB(..., gamma = NA)
+
 grid.rect(x=1:N/N, width=1/N, y=.75, height=0.4,
           just=c("right", "centre"),
           gp=gpar(col=NA,
-            fill=rgb(seq(165, 255, length=N),
-              seq(42, 255, length=N),
-              seq(42, 255, length=N), max=255)))
-
-# HCL
-
-# col2rgb("brown")
-#       [,1]
-# red    165
-# green   42
-# blue    42
-# N <- 20
-
-# > as(RGB(165/255, 42/255, 42/255), "polarLAB")
-#             L        C        H
-# [1,] 58.72249 41.92013 24.42661
-
-cols <- coords(as(polarLAB(seq(58.7224, 99, length=N),
-                           seq(41.92013, 0, length=N),
-                           24.42661), "RGB"))
+          fill=fill.rgb))
 
 grid.rect(x=1:N/N, width=1/N, y=0.25, height=0.4,
           just=c("right", "centre"),
-          gp=gpar(col=NA, fill=rgb(cols[,1], cols[,2], cols[,3])))
+          gp=gpar(col=NA,
+          fill=fill.lch))
 
 @ 
 \begin{figure}
@@ -124,7 +123,7 @@ light source (e.g., a laser) at the 400nm range appears blue and a coherent
 light source at the 700nm range appears red.  Most light sources
 (e.g., light bulbs, or the Sun)
 are not coherent and emit light at many different wave lengths.
-A light source can be characterised by its Spectral Power Distribution (SPD),
+A light source can be characterised by its spectral power distribution (SPD),
 which is how much of each wavelength of light the light source emits.
 
 On an LCD computer screen, 
@@ -246,10 +245,10 @@ International Commission on Illumination---referred to
 as the CIE, after its French title,
 Commission Internationale de l'Eclairage.
 
-\subsection{Device-independence:  CIE XYZ}
+\subsection{Device-independence:  CIEXYZ}
 
 Based on experiments with human subjects, the CIE developed the
-CIE XYZ colorspace.  In this colorspace, 
+CIEXYZ colorspace.  In this colorspace, 
 any SPD, that is any color, can be mapped to a unique triplet
 of XYZ values, which represent the standard observer's perception of
 the color.  
@@ -259,7 +258,7 @@ color is absolute in the sense that it corresponds to a unique
 physical stimulus and there is no ambiguity in terms of 
 what the standard observer's response to the color should be.
 
-This is a good first step, but CIE XYZ does not give us 
+This is a good first step, but CIEXYZ does not give us 
 everything we need.  For example, if we want to specify a
 simple color, such as ``red'', which three values should we use?
 
@@ -268,21 +267,21 @@ appears, but the $X$ and $Z$ components have no simple intuitive
 meaning.  Furthermore, unit steps within this colorspace are
 not perceptually equal, so generating a palette of colors cannot
 proceed in a rational manner.  This leads us on to consideration 
-to other colorspaces that are derived from CIE XYZ.
+to other colorspaces that are derived from CIEXYZ.
 
-\subsection{Perceptual uniformity:  CIE LUV}
+\subsection{Perceptual uniformity:  CIELUV}
 
-The CIE LUV colorspace
- is a transformation of CIE XYZ in a 
+The CIELUV colorspace
+ is a transformation of CIEXYZ in a 
 reasonably successful attempt to achieve perceptual uniformity.
 Again, any color can be specified as a triplet of values,
 with the advantage that a unit step in any direction corresponds to a 
 fixed perceptual change in color.  However, the problem of 
 intuitively specifying colors remains.
 
-\subsection{Intuitive color choice:  CIE LCH}
+\subsection{Intuitive color choice:  CIELCH}
 
-The CIE LCH colorspace is a re-expression of CIE LUV using
+The CIELCH colorspace is a re-expression of CIELUV using
 polar coordinates for the U-V plane.  In this colorspace,
 any color may be described by a triplet of values, a unit
 step is perceptually uniform throughout the colorspace, 
@@ -310,15 +309,15 @@ of colors is intuitive, and color palettes can be obtained in a
 rational fashion.
 
 Only one problem remains:  we can conveniently specify a color
-using CIE LCH, but in order to render that color we need a
+using CIELCH, but in order to render that color we need a
 specification that a rendering device understands.
 For example, in order to display a color on screen,
-we need to be able to convert a CIE LCH color into an RGB
+we need to be able to convert a CIELCH color into an RGB
 color specification.
 
 \section{Colorspace conversions}
 
-The conversion from CIE LCH to RGB consists of a series
+The conversion from CIELCH to RGB consists of a series
 of steps.  We start with conversions between the various
 CIE colorspaces.
 
@@ -339,13 +338,13 @@ is unchanged.
 This conversion is non-linear, reflecting the non-linear
 nature of human color perception.  It is also performed in 
 several stages, reflecting the historical development of the
-CIE LUV colorspace, which builds upon a couple of other
-earlier transformations of the CIE XYZ colorspace.
+CIELUV colorspace, which builds upon a couple of other
+earlier transformations of the CIEXYZ colorspace.
 
 The conversion also depends on the concept of a \emph{white point}.
 For now, we can just think of the white point as representing the
-viewing conditions under which the colour is to be shown.
-\footnote{It is relatively straightforward 
+viewing conditions under which the colour is to be
+shown.\footnote{It is relatively straightforward 
 to think about a white point in terms of a printed image.  In that case,
 the white point is an area of the image that perfectly reflects the
 ambient lighting conditions.  In other words, the white point
@@ -357,7 +356,7 @@ of a white light.  More subtly,
 an image will look different when viewed outside in normal sunlight compared
 to inside with fluorescent lighting.
 
-The white point is expressed as CIE XYZ tristimulus values.
+The white point is expressed as CIEXYZ tristimulus values.
 There are a number of established white points used in practice,
 with the most popular being a representation of normal daylight,
 called $D65$:
@@ -424,7 +423,7 @@ system it is sensible to use a default based on industry standards.
 \textit{Fixme:  need to deinfe ``primaries'' earlier.}
 
 One such standard is the ITU-R BT.709-2 Recommendation (for
-high-definition television), which specifies CIE XYZ values
+high-definition television), which specifies CIEXYZ values
 for the $R$, $G$, and $B$ primaries of a display device.
 
 \textit{Fixme:  need to deinfe ``channels'' earlier.}
