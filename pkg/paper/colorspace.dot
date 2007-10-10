@@ -1,0 +1,53 @@
+graph colorspace {
+
+{ rank = min
+    L1 [label="" color=white]
+    polarLUV [label = "HCL (polar CIELUV)" shape=ellipse style=filled]
+    polarLAB [label = "polar CIELAB" shape=ellipse style=filled]
+    R1 [label="" color=white]
+}
+
+{ rank = same
+    L2 [label="" color=white]
+    LUV [label = "CIELUV" shape=box style=filled]
+    LAB [label = "CIELAB" shape=box style=filled]
+    HunterLAB [label = "Hunter LAB" shape=box]
+    R2 [label="" color=white]
+}
+
+{ rank = same
+    L3 [label="" color=white]
+    XYZ [label = "CIEXYZ" shape=box style=filled]
+    R3 [label="" color=white]
+}
+
+{ rank = same
+    L4 [label="" color=white]
+    RGB [label = "RGB" shape=box style=filled]
+    R4 [label="" color=white]
+}
+
+{ rank = max
+    L5 [label="" color=white]
+    HSV [label = "HSV" shape=ellipse style=filled]
+    HLS [label = "HLS" shape=ellipse]
+    sRGB [label = "sRGB" shape=box]
+    R5 [label="" color=white]
+}
+
+LUV -- polarLUV
+LAB -- polarLAB
+XYZ -- LUV
+XYZ -- LAB
+XYZ -- HunterLAB
+
+XYZ -- RGB
+
+RGB -- HSV
+RGB -- HLS
+RGB -- sRGB
+
+L1 -- L2 -- L3 -- L4 -- L5 [color=white]
+R1 -- R2 -- R3 -- R4 -- R5 [color=white]
+}
+
