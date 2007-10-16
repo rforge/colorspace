@@ -291,6 +291,9 @@ static int HSV_to_RGB(double h, double s, double v,
 /* 
  * rgb all in [0,1] 
  * h in [0, 360], ls in [0,1]
+ *
+ * Form:
+ * http://wiki.beyondunreal.com/wiki/RGB_To_HLS_Conversion
  */
 static int RGB_to_HLS(double r, double g, double b,
 		      double *h, double *l, double *s)
