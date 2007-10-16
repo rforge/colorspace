@@ -463,7 +463,29 @@ are not Rec. 709?}
 
 \textit{Need to talk about clipping to the RGB gamut}
 
-\section{Gamma correction}
+\subsection{Gamma correction}
+
+The RGB tristimulus values that we have calculated to this point 
+have taken into account the SPDs of the red, green, and blue 
+pixels on a screen (the primaries), 
+and the relative powerfulness of each channel 
+(the white point), but we still have to worry about the non-linear
+relationship between the input values and the amount of light
+emitted from each pixel (the display gamma).
+
+We know that RGB tristimulus values will undergo an exponential 
+transformation when displayed by the monitor, so we invert that
+transformation in the tristimulus values that we store.
+
+The exponential transformation may vary between different screens
+or projectors, but again there is a standard transformation 
+that is implemented in most modern equipment.
+
+$$C' = \left\{\begin{array}{l l}12.92C & \quad C \leq 0.0031308 \\
+                                (1 + \alpha)C^{1/2.4} - 0.055 & 
+                                \quad C > 0.0031308 \\
+             \end{array} 
+      \right.$$
 
 \section{sRGB}
 
@@ -476,6 +498,10 @@ dictates the characteristics of a display device (and the viewing
 conditions).
 
 \section{Other color spaces}
+
+HLS (and others) because you may have been given a colour in
+such a (crappy) colorspace and want to convert it to something
+better in order to work with it.
 
 CMYK for print.  Simple-minded RGB-CMY is easy, but wrong.
 Sophisticated RGB-CMY is damn nigh impossible.
