@@ -1,4 +1,4 @@
-%%% three blocks of entries: color, software, own
+%%% three blocks of entries: color, software, examples, own
 
 %% color
 
@@ -178,8 +178,6 @@
 
 
 
-
-
 %% software
 
 @Manual{color:R:2007,
@@ -196,9 +194,9 @@
   author       = {Paul Murrell},
   title	       = {The \textbf{grid} Graphics Package},
   journal      = {\textsf{R} News},
-  year	       = 2002,
-  volume       = 2,
-  number       = 2,
+  year	       = {2002},
+  volume       = {2},
+  number       = {2},
   pages	       = {14--19},
   month	       = {June},
   url	       = {http://CRAN.R-project.org/doc/Rnews/}
@@ -216,15 +214,139 @@
   title 	= {\textbf{colorspace}: Colorspace Manipulation},
   author 	= {Ross Ihaka},
   year 		= {2006},
-  note 		= {\textsf{R} package version 0.95}
+  note 		= {\textsf{R} package version 0.95},
+  url		= {http://CRAN.R-project.org/}
 }
 
-@Manual{color:Meyer+Zeileis+Hornik:2006,
+@Manual{color:Meyer+Zeileis+Hornik:2007,
   title 	= {\textbf{vcd}: Visualizing Categorical Data},
   author 	= {David Meyer and Achim Zeileis and Kurt Hornik},
-  year 		= {2006},
-  note 		= {\textsf{R} package version 1.0-2}
+  year 		= {2007},
+  note 		= {\textsf{R} package version 1.0-6},
+  url		= {http://CRAN.R-project.org/}
 }
+
+@Manual{color:Lumley:2007,
+  title		= {\textbf{dichromat}: Color Schemes for Dichromats},
+  author	= {Thomas Lumley},
+  year		= {2007},
+  note		= {\textsf{R} package version 1.2-2},
+  url		= {http://CRAN.R-project.org/}
+}
+
+
+
+
+
+%% examples
+
+@Article{color:Kneib:2006,
+  author	= {Thomas Kneib},
+  title		= {Mixed Model-based Inference in Geoadditive Hazard Regression for
+		   Interval-censored Survival Times},
+  year		= {2006},
+  journal	= {Computational Statistics \& Data Analysis},
+  volume	= {51},
+  pages		= {777--792},
+  doi		= {10.1016/j.csda.2006.06.019},  
+  note		= {Figure~5 (left)}
+}
+
+@Article{color:Harezlak+Coull+Laird:2007,
+  author	= {Jaroslaw Harezlak and Brent A. Coull and Nan M. Laird
+  		   and Shannon R. Magari and David C. Christiani},
+  title		= {Penalized solutions to functional regression problems},
+  year		= {2007},
+  journal	= {Computational Statistics \& Data Analysis},
+  volume	= {51},
+  pages		= {4911--4925},
+  doi		= {10.1016/j.csda.2006.09.034},  
+  note		= {Figure~8}
+}
+
+@Article{color:Tenenhaus+Giron+Viennet:2007,
+  author	= {Arthur Tenenhaus and Alain Giron and Emmanuel Viennet and
+		   Michel B{\'e}ra and Gilbert Saporta and Bernard Fertil},
+  title		= {Kernel Logistic {PLS}: A Tool for Supervised Nonlinear Dimensionality
+  		   Reduction and Binary Classification},
+  year		= {2007},
+  journal	= {Computational Statistics \& Data Analysis},
+  volume	= {51},
+  pages		= {4083--4100},
+  doi		= {10.1016/j.csda.2007.01.004},  
+  note		= {Figure~2}
+}
+
+@Article{color:Gelfand+Banerjee+Sirmans:2007,
+  author	= {Alan E. Gelfand and Sudipto Banerjee and C. F. Sirmans
+  		   and Yong Tu and Seow Eng Ong},
+  title		= {Multilevel Modeling Using Spatial Processes: Application to the
+		   {S}ingapore Housing Market},
+  year		= {2007},
+  journal	= {Computational Statistics \& Data Analysis},
+  volume	= {51},
+  pages		= {3567--3579},
+  doi		= {10.1016/j.csda.2006.11.019},
+  note		= {Figure~3}
+}
+
+@Article{color:Gneiting+Sevcikova+Percival:2006,
+  author	= {Tilmann Gneiting and Hana \v{S}ev\v{c}\'ikov\'a and Donald B. Percival
+                   and Martin Schlather and Yindeng Jiang},
+  title		= {Fast and Exact Simulation of Large Gaussian Lattice Systems in {$\mathbb{R}^2$}:
+                   Exploring the Limits},
+  year		= {2006},
+  journal	= {Journal of Computational and Graphical Statistics},
+  volume	= {15},
+  number	= {3},
+  pages		= {483--501},
+  doi		= {10.1198/106186006X128551},
+  note		= {Figures~1--4}
+}
+
+@Article{color:Yang+Buckley+Dudoit:2002,
+  author	= {Yee Hwa Yang and Michael J. Buckley and Sandrine Dudoit and Terence P. Speed},
+  title		= {Comparison of Methods for Image Analysis on {cDNA} Microarray Data},
+  year		= {2002},
+  journal	= {Journal of Computational and Graphical Statistics},
+  volume	= {11},
+  number	= {1},
+  pages		= {108--136},
+  note		= {Figure~4a}
+}
+
+@Article{color:Friendly:2002,
+  author	= {Michael Friendly},
+  title		= {A Brief History of the Mosaic Display},
+  year		= {2002},
+  journal	= {Journal of Computational and Graphical Statistics},
+  volume	= {11},
+  number	= {1},
+  pages		= {89--107},
+  note		= {Figure~11 (left, middle)}
+}
+
+@Article{color:Celeux+Hurn+Robert:2000,
+  author	= {Gilles Celeux and Merrilee Hurn and Christian P. Robert},
+  title		= {Computational and Inferential Difficulties with Mixture Posterior Distributions},
+  year		= {2000},
+  journal	= {Journal of the American Statistical Association},
+  volume	= {95},
+  number	= {451},
+  pages		= {957--970},
+  note		= {Figure~3}
+}
+
+@Article{color:Azzalini+Bowman:1990,
+  author	= {A. Azzalini and A. W. Bowman},
+  title		= {A Look at Some Data on the {O}ld {F}aithful Geyser},
+  journal	= {Applied Statistics},
+  year		= {1990},
+  volume	= {39},
+  pages		= {357--365},
+}
+
+
 
 
 
@@ -235,8 +357,10 @@
   title		= {Residual-based Shadings for Visualizing (Conditional) Independence},
   journal	= {Journal of Computational and Graphical Statistics},
   year		= {2007},
-  note		= {Forthcoming},
-  url           = {http://statmath.wu-wien.ac.at/~zeileis/papers/Zeileis+Meyer+Hornik-2007.pdf}
+  volume	= {16},
+  number	= {3},
+  pages		= {507--525},
+  doi		= {10.1198/106186007X237856}
 }
 
 @Article{color:Meyer+Zeileis+Hornik:2006b,
