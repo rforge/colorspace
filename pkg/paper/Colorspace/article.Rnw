@@ -497,6 +497,10 @@ This is in effect a device-independent colorspace because it
 dictates the characteristics of a display device (and the viewing
 conditions).
 
+\textit{Why not use CIE XYZ for storage?  (especially because
+sRGB has limited gamut)  Because CIE storage would
+mean lots more conversions when sending output to graphics devices(?)}
+
 \section{Other color spaces}
 
 HLS (and others) because you may have been given a colour in
