@@ -516,4 +516,7 @@ colours that differ mostly only in hue, but which still are
 distinguishable when printed in black-and-white.)  Then convert the
 colours to RGB for sending to a screen device.
 
+Another example is converting an entire image to greyscale
+(as in the tiger example used in grImport talks).
+
 \end{document}
