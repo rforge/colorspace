@@ -506,4 +506,14 @@ better in order to work with it.
 CMYK for print.  Simple-minded RGB-CMY is easy, but wrong.
 Sophisticated RGB-CMY is damn nigh impossible.
 
+\section{An example}
+
+As an example to demonstrate what all of this gives you, implement
+a function that generates colours within a CIEHCL space where the
+colours are as far apart from each other as possible, but limited
+to a narrow L range and a narrow C range.  (The idea is to have
+colours that differ mostly only in hue, but which still are 
+distinguishable when printed in black-and-white.)  Then convert the
+colours to RGB for sending to a screen device.
+
 \end{document}
