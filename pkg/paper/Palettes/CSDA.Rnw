@@ -2,6 +2,7 @@
 %% need no \usepackage{Sweave}
 \SweaveOpts{engine=R, eps=FALSE, echo=FALSE, results=hide}
 \usepackage{amsfonts,rotating}
+\usepackage{paralist}
 
 \title{Choosing Color Palettes for Statistical Graphics}
 \author{Achim Zeileis\\Wirtschaftsuniversit\"at Wien
@@ -41,16 +42,73 @@ generate_png <- TRUE
 \section{Introduction} \label{sec:intro}
 
 Color is an integral element of graphical displays in general, and many statistical
-graphics in particular. Statistical software packages typically provide various color
-palettes and allow practitioners to employ these for visualizing data in various types
-of displays. However, more often than not, there is relatively little guidance about
-how to choose a suitable palette for a certain visualization task. Consequently,
-sub-optimal color palettes are used quite frequently for color graphics displayed in journal articles
-or on presentation slides which could easily be enhanced if the underlying information
-were captured appropriately in the color schemes. Here, we address
-this problem by suggesting a color selection strategy for visualizing both categorical
-and numerical information by selecting colors along axes in a color space whose axes
-can be matched with perceptual axes of the human visual system.
+graphics in particular.  Furthermore, 
+an increasing amount of research is being published and viewed online, making
+it easier to include color in published plots.
+However, selecting which colors to use for a statistical graphic is
+not a trivial task.  
+
+There are three main obstacles to overcome:
+\begin{compactitem}
+\item
+The colors should not be unappealing.  
+\end{compactitem}
+
+It is not necessary for the 
+colors in a statistical plot to reflect the latest in fashion trends, 
+but basic 
+principles such as avoiding fully saturated colors should be
+adhered to.  The requirement is not that the user should have
+a degree in graphic design, but
+that the software should allow the user to select colors and provide
+control over basic properties such as how bright the colors are.
+
+In order to be able to control basic perceptual features of colors,
+it is necessary to work in a \emph{colorspace} that describes 
+colors in terms of their perceptual properties.
+This article will describe an appropriate colorspace for
+selecting colors.
+
+
+
+\begin{compactitem}
+\item 
+The colors in a statistical graphic
+should cooperate with each other.  
+\end{compactitem}
+
+The typical purpose 
+of color in a statistical graphic is to distinguish between different 
+areas or symbols in the plot---to distinguish between different
+groups or between different levels of a variable.  This means
+that there will typically be several colors, or a \emph{palette}
+of colors, used within a plot and 
+that those colours should be related to each other.
+
+Part of the solution to this problem is to work in an
+appropriate colorspace, as in the previous point, so that 
+motion within the colorspace and distances between colors 
+have an intuitive and rational meaning.  However, 
+there still remains the issue of providing basic navigation 
+tools so that users can conveniently generate color
+palettes.  The main part of this article will describe
+algorithms for generating color palettes for common 
+applications in statistical graphics.
+
+
+\begin{compactitem}
+\item
+The colors should work everywhere.  
+\end{compactitem}
+
+In the ideal situation, colors 
+should be selected so that they continue to work in any 
+context.  For example, different areas of a plot should still be 
+distiguishable when printed in black-and-white, or when the person
+viewing the graphic is colour-blind.
+This article will also briefly address these issues.
+
+
 
 For implementing color palettes in computer programs, typically color spaces are
 employed that provide a mapping to Red-Green-Blue (RGB) colors. RGB is an additive
@@ -72,6 +130,7 @@ For statistical graphics, this is important because it can introduce size distor
 the perception of shaded areas and color-caused optical illusions \citep{color:Cleveland+McGill:1983}.
 Furthermore, the use of HSV colors encourages the use of flashy and highly saturated
 colors which are good for drawing attention to a plot but hard to look at for a longer time.
+
 
 Despite these known drawbacks, HSV space is still the predominantly-used color model in
 color picker tools \citep{color:Moretti+Lyons:2002,color:Meier+Spalter+Karelitz:2004}
@@ -100,6 +159,9 @@ coordinates in this space.
 %% color implementation from package \pkg{colorspace} \citep{color:Ihaka:2006}. This gives the user
 %% both a conceptual and computational tool box for experimenting with color palettes for
 %% a particular display.
+
+
+
 
 The remainder of the paper is organized as follows: Section~\ref{sec:motivation} provides
 several motivating examples, showing how typical HSV-based graphics can be enhanced
@@ -135,7 +197,7 @@ of an eruption of the Old Faithful geyser in Yellowstone National Park
 and the waiting time for this eruption. It reveals a multi-modal distribution: short waiting
 times (around 50 minutes) are typically followed by a long eruption (around 4 minutes)
 whereas long waiting times (around 80 minutes) can be followed by either a long
-or short eruption (around 4 minutes). 
+or short eruption (around 2 minutes). 
 
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[t!]
