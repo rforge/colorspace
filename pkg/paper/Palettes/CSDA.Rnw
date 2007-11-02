@@ -1,9 +1,8 @@
 \documentclass[shortnames]{Z}
 %% need no \usepackage{Sweave}
 \SweaveOpts{engine=R, eps=FALSE, echo=FALSE, results=hide}
-\usepackage{amsfonts,rotating}
-\usepackage{paralist}
 
+%FIXME% Different/better title?
 \title{Choosing Color Palettes for Statistical Graphics}
 \author{Achim Zeileis\\Wirtschaftsuniversit\"at Wien
    \And Kurt Hornik\\Wirtschaftsuniversit\"at Wien
@@ -46,14 +45,9 @@ graphics in particular.  Furthermore,
 an increasing amount of research is being published and viewed online, making
 it easier to include color in published plots.
 However, selecting which colors to use for a statistical graphic is
-not a trivial task.  
+not a trivial task. There are three main obstacles to overcome:
 
-There are three main obstacles to overcome:
-\begin{compactitem}
-\item
-The colors should not be unappealing.  
-\end{compactitem}
-
+\paragraph{The colors should not be unappealing.}
 It is not necessary for the 
 colors in a statistical plot to reflect the latest in fashion trends, 
 but basic 
@@ -62,7 +56,6 @@ adhered to.  The requirement is not that the user should have
 a degree in graphic design, but
 that the software should allow the user to select colors and provide
 control over basic properties such as how bright the colors are.
-
 In order to be able to control basic perceptual features of colors,
 it is necessary to work in a \emph{colorspace} that describes 
 colors in terms of their perceptual properties.
@@ -70,13 +63,7 @@ This article will describe an appropriate colorspace for
 selecting colors.
 
 
-
-\begin{compactitem}
-\item 
-The colors in a statistical graphic
-should cooperate with each other.  
-\end{compactitem}
-
+\paragraph{The colors in a statistical graphic should cooperate with each other.}
 The typical purpose 
 of color in a statistical graphic is to distinguish between different 
 areas or symbols in the plot---to distinguish between different
@@ -84,7 +71,6 @@ groups or between different levels of a variable.  This means
 that there will typically be several colors, or a \emph{palette}
 of colors, used within a plot and 
 that those colours should be related to each other.
-
 Part of the solution to this problem is to work in an
 appropriate colorspace, as in the previous point, so that 
 motion within the colorspace and distances between colors 
@@ -95,20 +81,18 @@ palettes.  The main part of this article will describe
 algorithms for generating color palettes for common 
 applications in statistical graphics.
 
-
-\begin{compactitem}
-\item
-The colors should work everywhere.  
-\end{compactitem}
-
+\paragraph{The colors should work everywhere.}
 In the ideal situation, colors 
 should be selected so that they continue to work in any 
 context.  For example, different areas of a plot should still be 
 distiguishable when printed in black-and-white, or when the person
 viewing the graphic is colour-blind.
 This article will also briefly address these issues.
+%FIXME% Also mention that the colors should work on different devices.
+%FIXME% Explain that we discuss how and under which circumstances this
+%FIXME% is achieved.
 
-
+%FIXME% A sentence or so is needed as a "bridge".
 
 For implementing color palettes in computer programs, typically color spaces are
 employed that provide a mapping to Red-Green-Blue (RGB) colors. RGB is an additive
@@ -160,9 +144,6 @@ coordinates in this space.
 %% both a conceptual and computational tool box for experimenting with color palettes for
 %% a particular display.
 
-
-
-
 The remainder of the paper is organized as follows: Section~\ref{sec:motivation} provides
 several motivating examples, showing how typical HSV-based graphics can be enhanced
 by using HCL-based palettes. Section~\ref{sec:spaces} gives a brief introduction
@@ -175,24 +156,20 @@ Section~\ref{sec:discussion} concludes the paper with a discussion.
 
 \section{Motivation} \label{sec:motivation}
 
-To show what can be gained by selecting appropriate color schemes, we present a collection
-of illustrations with typical color graphics based on HSV palettes (always in the left panels)
-and more suitable HCL palettes (always in the right panels). All HSV color palettes (and some
-of the data sets) are taken from recent publications in statistical journals such as
-\textit{Journal of the American Statistical Association},
-\textit{Journal of Computational and Graphical Statistics} or
-\textit{Computational Statistics \& Data Analysis}. The examples have been selected to provide
-an overview of typically colored statistical graphics and their respective pitfalls (concerning
-color palette choice).
-%% All graphics are in principle very useful but can be even enhanced
-%% by using better color schemes.
+To show what can be gained by selecting appropriate color schemes,
+we present two examples for typical color graphics, contrasting
+commonly-used HSV palettes with more suitable HCL palettes.
+Both examples and all HSV palettes are taken from (the electronic
+version of) recent publications in
+\textit{Computational Statistics \& Data Analysis} (Volume~51).
 
 Our first illustration is a heatmap, a very popular display for visualizing a scalar function of
-two arguments. Here, we use a bivariate kernel density estimate \citep[for the Old
-Faithful geyser eruptions data from][]{color:Azzalini+Bowman:1990}---other typical applications
-include objective functions with two arguments \citep[as in][]{color:Gneiting+Sevcikova+Percival:2006}
-or (physical) measurements on a 2-dimensional grid \citep[as in][]{color:Yang+Buckley+Dudoit:2002}.
-Figure~\ref{fig:bkde} shows such a heatmap bringing out the relationship between the duration
+two arguments. Here, we use a bivariate kernel density estimate \citep[for the Old Faithful
+geyser eruptions data from][]{color:Azzalini+Bowman:1990}---other typical applications include 
+classification maps \citep[as in][Figure~2]{color:Tenenhaus+Giron+Viennet:2007},
+function surfaces \citep[as in][Figure~8]{color:Harezlak+Coull+Laird:2007}, or
+measurements on a spatial grid \citep[as in][Figure~3]{color:Gelfand+Banerjee+Sirmans:2007}.
+Figure~\ref{fig:bkde} shows a heatmap bringing out the relationship between the duration
 of an eruption of the Old Faithful geyser in Yellowstone National Park 
 and the waiting time for this eruption. It reveals a multi-modal distribution: short waiting
 times (around 50 minutes) are typically followed by a long eruption (around 4 minutes)
@@ -209,7 +186,7 @@ if(generate_png) {
   geyser2 <- cbind(geyser$duration, geyser$waiting)
   dens <- bkde2D(geyser2, bandwidth = c(0.2, 3), gridsize = c(201, 201))
   plot_bkde2D <- function(x, col = NULL, xlab = "duration", ylab = "waiting time", legend = FALSE, ...) {
-    if(is.null(col)) col <- rev(grey.colors(33))
+    if(is.null(col)) col <- rev(gray.colors(33))
     if(legend) {
       filled.contour(x$x1, x$x2, x$fhat, col = col, nlevels = length(col), xlab = xlab, ylab = ylab, ...)
     } else {
@@ -238,7 +215,7 @@ if(generate_png) {
 <<bkde-pal>>=
 if(generate_png) {
   png(file = "bkde-pal.png", height = 160, width = 396)
-  par(mfrow = c(4, 1), mar = c(0, 0, 0, 0), oma = c(2, 1.5, 0, 1.5))
+  par(mfrow = c(4, 1), mar = c(0.5, 0, 0, 0), oma = c(2, 1.5, 0, 1.5))
   plot(0, 0, type="n", xlim = c(0, 0.03), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
   abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 4, col = 
@@ -260,7 +237,7 @@ if(generate_png) {
   abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 4, col = 
     rev(sequential_hcl(99, c = 0, l = c(30, 90), power = c(1/5, 1.5))))
   box()
-  axis(1, cex.axis = 1.5)
+  axis(1, cex.axis = 1.8)
   dev.off()
 }
 @
@@ -275,8 +252,10 @@ in printed papers when the journal does not offer color graphics---however, in j
 that support color graphics (or on presentation slides and in interactive usage in statistical
 software packages), many users prefer to have colored displays and most often use HSV
 palettes (as in the two left two panels). These palettes code the variable of interest
-by varying hue in an HSV color wheel as done by \citet[Figure~4a]{color:Yang+Buckley+Dudoit:2002}
-or \citet[Figures~1--4]{color:Gneiting+Sevcikova+Percival:2006}. The palette in the upper left panel
+by varying hue in an HSV color wheel as done by 
+\citet[Figure~8]{color:Harezlak+Coull+Laird:2007}
+or \citet[Figure~2]{color:Tenenhaus+Giron+Viennet:2007}. 
+The palette in the upper left panel
 codes increasing density by going from a blue to a red hue (via green and yellow)---a similar
 strategy are the ``heat colors'' in the lower left panel that increase from yellow to red.
 The latter works a bit better than the former, however both palettes exhibit several drawbacks.
@@ -285,18 +264,21 @@ density. The heatmap looks very flashy which---although good for drawing attenti
 it hard to hold the attention of the viewer for a longer time because the large areas shaded
 with saturated colors can be distracting and produce after-image effects \citep{color:Ihaka:2003}.
 
-%FIXME% examples for sequential palettes:
-%%      color:Gelfand+Banerjee+Sirmans:2007
-
 In contrast, the gray colors used in the top right panel do not exhibit the same disadvantages,
 coding the variable of interest much better and without flashy colors. If, however, the user wants
-to add some color to the plot, this could be done by using a better balanced version of the heat
-colors (as shown in the bottom right panel). These colors also increase from a yellow to a red
-hue while being balanced towards the same gray as in the grayscale palette (i.e., when converted
-to a grayscale or printed out on a grayscale printer, the upper and lower right panel would 
-essentially look identical). Both palettes have in common that they give increasing perceptual emphasis
+to increase the contrast by adding some color to the plot, this could be done by using a better
+balanced version of the heat colors (as shown in the bottom right panel). These colors also
+increase from a yellow to a red hue while being balanced towards the same gray as in the
+grayscale palette. Thus, when converted to a grayscale or printed out on a grayscale printer
+(as in the printed version of \textit{Computational Statistics \& Data Analysis}),
+the upper and lower right panel would look (virtually) identical.
+Both palettes have in common that they give increasing perceptual emphasis
 to regions with increasing density, resulting in a heatmap that highlights the (small)
 interesting high-density regions and not to the large low-density regions surrounding them.
+By balancing the lower right panel towards light/dark contrasts, it is assured that the graphic
+is intelligible for color-blind readers and that the same graphic works in
+colored electronic versions and printed grayscale versions of a publication.
+
 
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[p!]
@@ -329,7 +311,7 @@ if(generate_png) {
 <<nigeria-pal>>=
 if(generate_png) {
   png(file = "nigeria-pal.png", height = 120, width = 396)
-  par(mfrow = c(3, 1), mar = c(0, 0, 0, 0), oma = c(2, 0.2, 0, 0.2))
+  par(mfrow = c(3, 1), mar = c(0.5, 0, 0, 0), oma = c(2, 0.2, 0, 0.2))
   plot(0, 0, type="n", xlim = c(-0.65, 0.65), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
   abline(v = seq(from = -0.65, to = 0.65, length.out = 99), lwd = 4, col = 
@@ -345,7 +327,7 @@ if(generate_png) {
   abline(v = seq(from = -0.65, to = 0.65, length.out = 99), lwd = 4, col = 
     rev(diverge_hcl(99, h = c(300, 120), c = 60, l = c(45, 90), power = 1.2)))
   box()
-  axis(1, cex = 1.5)
+  axis(1, cex.axis = 1.8)
   dev.off()
 }
 @
@@ -354,13 +336,17 @@ if(generate_png) {
 \end{center}
 \end{figure}
 
-A similar example is presented in Figure~\ref{fig:nigeria}
+The second example is presented in Figure~\ref{fig:nigeria}
 \citep[taken from][Figure~5, left]{color:Kneib:2006}, depicting posterior mode estimates
-for childhood mortality in different regions of Nigeria. Deviations from a model for
-childhoold mortality are brought out by shading a map according to the corresponding
-residuals, revealing decreased mortality in the south-west and increased mortality in
+for childhood mortality in different regions of Nigeria. Spatial variations (not included
+in the model) in childhood mortality are brought out by shading a map according to the
+corresponding model deviations, 
+revealing decreased mortality in the south-west and increased mortality in
 the north-east. \cite{color:Kneib:2006} uses an HSV-based palette coding the residuals by
-the hue, going from green via yellow to red. Our HCL-based palette also employs green
+the hue, going from green via yellow to red (see the upper left panel of Figure~\ref{fig:nigeria}).
+Similar approaches are used by \citet[Figure~8]{color:Harezlak+Coull+Laird:2007} and
+\citet[Figure~2]{color:Tenenhaus+Giron+Viennet:2007}. 
+Our first HCL-based palette in the middle left panel also employs green
 and red hues for negative and postive residuals respectively, but codes neutral values
 (around 0) by a neutral light gray. Compared to the HSV-based palette, this offers again
 a number of advantages: only the interesting areas are highlighted by high-chroma colors;
@@ -368,163 +354,25 @@ flashy colors are avoided making it easier to look at the display for a longer t
 and negative residuals with the same absolute size receive the same perceptual weight
 by being balanced towards the same gray.
 
-%FIXME% other bad examples for diverging
-%%      color:Harezlak+Coull+Laird:2007
-%%      color:Tenenhaus+Giron+Viennet:2007
-
-\setkeys{Gin}{width=\textwidth}
-\begin{figure}[t!]
-\begin{center}
-<<seats, fig=TRUE, height=4, width=11>>=
-par(mar = rep(0.8, 4), mfrow = c(1, 2))
-seats <- structure(c(226, 61, 54, 51, 222),
-  .Names = c("CDU/CSU", "FDP",  "Linke", "Gruene", "SPD"))
-parties_hcl <- rainbow_hcl(6, c = 60, l = 75)[c(5, 2, 6, 3, 1)]
-parties_hsv <- hsv(c(0, 60, 300, 120, 0)/360, v = c(0, 1, 1, 1, 1))
-names(parties_hcl) <- names(parties_hsv) <- names(seats)
-names(seats)[4] <- "Grüne"
-pie(seats, clockwise = TRUE, col = parties_hsv, radius = 1)
-pie(seats, clockwise = TRUE, col = parties_hcl, radius = 1)
-@
-\caption{\label{fig:seats} Seats in the German parliament.}
-\end{center}
-\end{figure}
+Another advantage of the HCL-based palette becomes apparent when we collapse the
+red-green distinctions in the colors to emulate what a person with protanopia
+(a common red-green color blindness) would see. The right panel of Figure~\ref{fig:nigeria}
+displays the respective palettes from the left panel, but transformed for protanopic
+vision using the tools of \cite{color:Lumley:2006}. In the upper right panel, the
+low-mortality regions in the south-west just ``disappear'' because they are transformed
+to virtually the same yellow as the average-mortality regions. In contrast, in the middle
+right panel, regions with increased and decreased mortality remain clearly distinguishable.
+Only the type and amount of color is changed (red turns gray, green turns yellow/brown) but
+regions with large deviations are still easily indentifiable by being balanced towards
+darker grays. To avoid that one of the two ``branches'' of the palette is only gray
+in the protanopic version, we could also employ a purple (rather than a red) hue for
+positive deviations. This is used in the lower panels of Figure~\ref{fig:nigeria}
+showing that after collapsing red-green distinctions, a useful yellow/brown--gray--blue
+palette remains from the original green--gray--purple palette. Thus, the lower left
+panel could be used ensuring that it works for both normal and protanopic vision.
+Similar arguments hold for deuteranopic vision.
 
 
-Although problematic for many tasks, pie charts can be useful for visualizing
-whether a set of pie segments constitutes a majority. A typical application is shown
-in Figure~\ref{fig:seats}, visualizing the distribution of seats in the German parliament
-``Bundestag'' following the 2005 election. In this election, five parties were able to
-obtain enough votes to enter the Bundestag---however, neither the governing
-coalition of SPD and Gr\"une nor the opposition of CDU/CSU and FDP could assemble a majority.
-Given that no party would enter a coalition with the leftists ``Die Linke'', this lead to
-a big coalition of CDU/CSU and SPD. In graphical displays, the parties are usually matched
-by using colors as metaphors: red for the social democrats SPD, black for the conservative
-CDU/CSU, yellow for the liberal FDP, green for the green party ``Die Gr\"unen'' and purple 
-for the leftist party ``Die Linke''. The left panel shows fully saturated HSV colors as usually
-found in the (German) media whereas the right panel uses less flashy HCL colors with the
-same hues (except for the CDU/CSU where a blue hue instead of the extreme ``color'' black
-is used). The advantage of the latter is again that they are easier to hold in focus for
-a longer time. Furthermore, they are all balanced towards the same gray and have the same
-amount of color, resulting in a perceptually balanced palette that does not introduce undesired
-graphical distractions. While it could be argued that this pie chart is such a simple
-display that a well-balanced palette is not so important and that flashy colors are to
-be preferred, the balancing properties of the HCL-based palette are very important in more
-complex displays such as the mosaic display in Figure~\ref{fig:votes}. This re-uses the same
-colors and shows the distribution of votes in the 2005 election
-stratified by province (Bundesland). The order of provinces is from 
-north to south, first for the 10 western provinces (the former Federal Republic of Germany, FRG),
-then for the 6 eastern provinces (the former German Democratic Republic, GDR). 
-Clearly, the SPD performed better in the north and the CDU/CSU better in the south; furthermore,
-Die Linke performed particularly well in the eastern provinces and in Saarland.
-
-\setkeys{Gin}{width=\textwidth}
-\begin{sidewaysfigure}[p]
-\begin{center}
-<<votes, fig=TRUE, height=6, width=14, eval=FALSE>>=
-data("Bundestag2005", package = "vcd")
-votes <- Bundestag2005[c(1, 3:5, 9, 11, 13:16, 2, 6:8, 10, 12),
-                       c("CDU/CSU", "FDP", "SPD", "Gruene", "Linke")]
-parties_hcl <- parties_hcl[colnames(votes)]
-parties_hsv <- parties_hsv[colnames(votes)]
-dimnames(votes)[[1]][c(9, 16)] <- c("Baden-Württemberg", "Thüringen")
-dimnames(votes)[[2]][c(4, 5)] <- c("Gr", "Li")
-
-grid.newpage()
-pushViewport(viewport(layout = grid.layout(1, 2)))
-pushViewport(viewport(layout.pos.col=1, layout.pos.row=1))
-mosaic(votes, gp = gpar(fill = parties_hsv),
-  spacing = spacing_highlighting, labeling = labeling_left,
-  labeling_args = list(rot_labels = c(0, 90, 0, 0), pos_labels = "center",
-  just_labels = c("center","center","center","right"), varnames = FALSE),
-  margins = unit(c(2.5, 1, 1, 12), "lines"),
-  keep_aspect_ratio = FALSE, newpage = FALSE)
-popViewport()
-pushViewport(viewport(layout.pos.col=2, layout.pos.row=1))
-mosaic(votes, gp = gpar(fill = parties_hcl),
-  spacing = spacing_highlighting, labeling = labeling_left,
-  labeling_args = list(rot_labels = c(0, 90, 0, 0), pos_labels = "center",
-  just_labels = c("center","center","center","right"), varnames = FALSE),
-  margins = unit(c(2.5, 1, 1, 12), "lines"),
-  keep_aspect_ratio = FALSE, newpage = FALSE)
-popViewport(2)
-@
-\caption{\label{fig:votes} Votes in the German election 2005 (by province).}
-\end{center}
-\end{sidewaysfigure}
-
-Color choice is usually much more important in graphical displays with
-shaded areas compared to displays with only points or lines. However, color choice
-becomes much more relevant also in scatter plots when there are many points. As an
-example, Figure~\ref{fig:scatter} depicts a scatter plot with three clusters similar to 
-the one shown in \citet[Figure~3]{color:Celeux+Hurn+Robert:2000}. To indicate cluster
-membership, three different colors (green, yellow, red) are employed. The HSV colors in
-the left panel are again very flashy and differ strongly with respect to luminance: the
-yellow is much lighter and hardly visible. In contrast, the HCL colors in the right
-panel use the same hues, but are balanced with respect to chroma and luminance, i.e.,
-the amount of color and gray.
-
-As our final example, Figure~\ref{fig:haireye} \citep[taken from][Figure~11, left/middle]{color:Friendly:2002}
-visualizes the cross-tabulation of hair end eye color of 592 students in a mosaic display.
-Clearly, hair and eye color are not independent and the pattern of association is highlighted
-by means of residual-based shading. Cells associated with Pearson residuals whose absolute value exceeds
-(2 or) 4 are shaded (light) blue/red. This shows that there are significantly more students
-with black hair and brown eyes, blond hair and blue eyes, red hair and green eyes than expected
-under independence. Conversely, fewer students than expected have blond hair and brown/hazel eyes
-or black hair and blue eyes. Comparing the HSV and HCL colors in Figure~\ref{fig:haireye},
-it is shown again that the HCL colors are better balanced (between the red and blue colors)
-and less flashy. Even the cells associated with small residuals (below 2) are a bit easier
-to read when shaded in a light grey rather than white. More details and extensions to residual-based
-shadings can be found in \cite{color:Zeileis+Meyer+Hornik:2007}.
-
-
-\setkeys{Gin}{width=\textwidth}
-\begin{figure}[h!]
-\begin{center}
-<<scatter>>=
-if(generate_png) {
-  set.seed(123)
-  vc <- function(var1, var2, cov)
-    matrix(c(var1, cov * sqrt(var1 * var2), cov * sqrt(var1 * var2), var2), ncol = 2)
-  dat <- rbind(rmvnorm(1000, c(0, 0), vc(0.05, 0.3, -0.95)),
-               rmvnorm(1000, c(1.8, 2.5), vc(0.12, 0.25, 0)),
-               rmvnorm(1000, c(3.8, 3.5), vc(0.02, 0.15, -0.8)))
-  dat <- data.frame(y = dat[,2], x = dat[,1], id = rep(1:3, rep(1000, 3)))
-
-  png(file = "scatter.png", height = 350, width = 840)
-  par(mfrow = c(1, 2), mar = rep(0.5, 4))
-  plot(y ~ x, data = dat, axes = FALSE, xlab = "", ylab = "", pch = c(3, 22, 1)[id],
-    col = hsv(c(1/3, 1/6, 0))[id])
-  box()
-  plot(y ~ x, data = dat, axes = FALSE, xlab = "", ylab = "", pch = c(3, 22, 1)[id],
-    col = hcl2hex(c(120, 60, 0), 70, 65, fix = FALSE)[id])
-  box()
-  dev.off()
-}
-@
-\includegraphics{scatter}
-\caption{\label{fig:scatter} Scatter plot with three clusters.}
-\end{center}
-\end{figure}
-
-
-\setkeys{Gin}{width=\textwidth}
-\begin{figure}[h!]
-\begin{center}
-<<haireye, fig=TRUE, height=5.5, width=12, eval=FALSE>>=
-he <- margin.table(HairEyeColor, 1:2)
-grid.newpage()
-pushViewport(viewport(layout = grid.layout(1, 2)))
-pushViewport(viewport(layout.pos.col=1, layout.pos.row=1))
-mosaic(he, gp = shading_hsv, split_vertical = TRUE, newpage = FALSE, legend = FALSE)
-popViewport()
-pushViewport(viewport(layout.pos.col=2, layout.pos.row=1))
-mosaic(he, gp = shading_hcl, split_vertical = TRUE, newpage = FALSE, legend = FALSE)
-popViewport(2)
-@
-\caption{\label{fig:haireye} Extended mosaic display for hair and eye color data.}
-\end{center}
-\end{figure}
 
 \section{Color spaces} \label{sec:spaces}
 
@@ -533,7 +381,7 @@ human color vision evolved. It has been hypothesized that it developed in three
 distinct stages: 1.~perception of \emph{light/dark} contrasts (monochrome only),
 2.~\emph{yellow/blue} contrasts (usually associated with our notion of warm/cold colors),
 3.~\emph{green/red} contrasts (helpful for assessing the ripeness of fruit). See 
-\cite{color:Ihaka:2003} for more details and references.
+\cite{color:Ihaka:2003} and \cite{color:Lumley:2006} for more details and references.
 
 Due to these three color axes, colors are typically described as
 locations in 3-dimensional spaces. However, human perception of color
@@ -560,8 +408,21 @@ confounded:
 %% which is most easily seen when converting the vertical sections to 
 %% gray scale images in Figure~\ref{fig:hsv-hcl-gray}. Clearly,
 The brightness of
-colors is not uniform over hues and saturations (given value)---therefore,
+colors is not uniform over hues and saturations (given value, see Figure~\ref{fig:wheel})---therefore,
 HSV colors are often not considered to be perceptually based.
+
+\setkeys{Gin}{width=\textwidth}
+\begin{figure}[b!]
+\begin{center}
+<<wheel, fig=TRUE, height=4, width=11>>=
+par(mar = rep(0.8, 4), mfrow = c(1, 2))
+par(mfrow = c(1,2), mar = c(1,1,1,1), oma = c(0,0,0,0))
+pie(rep(1,6), radius = 1, col = rainbow(6), labels = 360 * 0:5/6)
+pie(rep(1,6), radius = 1, col = rainbow_hcl(6, c = 50, l = 70), labels = 360 * 0:5/6)
+@
+\caption{\label{fig:wheel} HSV-based and HCL-based color wheel.}
+\end{center}
+\end{figure}
 
 To overcome these drawbacks, various color spaces have been suggested
 that properly map to the perception dimensions, the most prominent of which are
@@ -579,7 +440,7 @@ a triplet $(H, C, L)$ with $H \in [0, 360]$ and $C, L \in [0, 100]$.
 %% with increasing luminance) which becomes obvious when converting the colors to
 %% a gray scale as in Figure~\ref{fig:hsv-hcl-gray}. 
 Given a certain luminance $L$, all colors resulting from different combinations
-of hue $H$ and chroma $C$ are balanced towards the same gray (and look the same
+of hue $H$ and chroma $C$ are balanced towards the same gray (and thus look virtually identical
 when converted to a gray scale). However, the admissible combinations of
 chroma and luminance coordinates (within the space's boundaries) depend on the hue chosen.
 The reason for this is that some hues lead to light and others to dark colors,
@@ -595,19 +456,6 @@ which will be addressed in the following sections.
 \section{Color palettes} \label{sec:palettes}
 
 \subsection{Qualitative palettes} \label{sec:qualitative}
-
-\setkeys{Gin}{width=\textwidth}
-\begin{figure}[b!]
-\begin{center}
-<<wheel, fig=TRUE, height=4, width=11>>=
-par(mar = rep(0.8, 4), mfrow = c(1, 2))
-par(mfrow = c(1,2), mar = c(1,1,1,1), oma = c(0,0,0,0))
-pie(rep(1,6), radius = 1, col = rainbow(6), labels = 360 * 0:5/6)
-pie(rep(1,6), radius = 1, col = rainbow_hcl(6, c = 50, l = 70), labels = 360 * 0:5/6)
-@
-\caption{\label{fig:wheel} HSV-based and HCL-based color wheel.}
-\end{center}
-\end{figure}
 
 \setkeys{Gin}{width=0.8\textwidth}
 \begin{figure}[p]
@@ -649,8 +497,8 @@ Qualitative palettes are sets of colors for depicting different categories,
 i.e., for coding a categorical variable. Usually, these should give the same
 perceptual weight to each category so that no group is perceived to be larger or more
 important than any other one. Typical applications of qualitative palettes in
-statistics would be bar plots \citep[see][]{color:Ihaka:2003}, pie charts (see Figure~\ref{fig:seats}) 
-or highlighted mosaic displays (see Figure~\ref{fig:votes}).
+statistics would be bar plots \citep[see][]{color:Ihaka:2003}, pie charts
+or highlighted mosaic displays.
 
 \cite{color:Ihaka:2003} describes a simple strategy for choosing such palettes: chroma
 and luminance are kept fixed and only the hue is varied for obtaining different colors
@@ -783,8 +631,9 @@ Diverging palettes are also used for coding numerical information ranging in a c
 interval---however, this interval includes a neutral value. Examples for this include
 residuals or correlations (both with the neutral value 0) or binary classification
 probabilities (with neutral value 0.5) that could be visualized in mosaic plots
-(see Figure~\ref{fig:haireye}), classification maps or model-based shading in maps
-such as Figure~\ref{fig:nigeria}. Analogously to the previous
+\citep[e.g., as in][Figure~3]{color:Zeileis+Meyer+Hornik:2007},
+classification maps \citep[e.g., as in][Figure~2]{color:Tenenhaus+Giron+Viennet:2007}
+or model-based shading in maps such as Figure~\ref{fig:nigeria}. Analogously to the previous
 section, we suppose that we want to visualize an intensity or interestingness $i$
 from the interval $[-1, 1]$ (without loss of generality).
 
@@ -858,7 +707,7 @@ Given useful sequential palettes, deriving diverging palettes is easy: two diffe
 chosen for adding color to the same amount of `gray' at a given intensity $|i|$.
 Figure~\ref{fig:pal-d-construct} shows the chroma/luminance plane back to back for the
 hues $H = 0$ and 260 with two different paths---giving slightly different emphasis on
-luminance or chroma contrasts---from a full red over a neutral grey to a full blue.
+luminance or chroma contrasts---from a full red over a neutral gray to a full blue.
 As Figure~\ref{fig:pal-s-construct} illustrates, the pair of hues should be chosen carefully
 because the admissible values in the chrome/luminance plane differ across hues.
 Clearly, for deriving symmetric palettes, only colors from the intersection of the
@@ -962,40 +811,3 @@ graphical parameters and thus adapting the colors to their particular graphical 
 \bibliography{color}
 
 \end{document}
-
-<<barplot, eval=FALSE>>=
-x <- rbind(
-c(255, 255, 111),
-c(255, 255,  47),
-c(120,  50,   1),
-c(102, 204, 102),
-c( 50, 204, 204),
-c(203, 153, 204),
-c(102, 204, 102),
-c(255,  47,  47),
-c(102, 204, 102))/255
-
-y <- c(10, 20, 25, 18, 16, 13, 21, 15, 18) - 3
-
-par(mfrow = c(1, 2))
-barplot(y, col = hex(RGB(x[,1], x[,2], x[,3])), space = 0)
-## barplot(y, col = hcl(attr(as(RGB(x[,1], x[,2], x[,3]), "polarLUV"), "coords")[,"H"],
-##  c = 40, l = 80), space = 0)
-barplot(y, col = rainbow_hcl(7, c = 40, l = 80)[c(3, 5, 2, 4, 6, 1, 4, 7, 4)], space = 0)
-@
-
-<<barplot2, eval=FALSE>>
-## from Takasaki & Kwamura (2007, CSDA, Figure 2, Columns 1-6)
-x <- cbind(c( 2,  6, 91,  1), c(35, 30, 20, 15), c(41,  9,  8, 42),
-           c(10, 40, 40, 10), c(21, 39, 30, 10), c(35, 13, 17, 35))
-mybarplot <- function(x, col = NULL, ...) {
-  barplot(x, space = 1.5, names = 1:6, las = 1, col = col)
-  grid(lty = 1, ny = NULL, nx = 0, col = "black")
-  barplot(x, space = 1.5, names = 1:6, las = 1, col = col, add = TRUE)
-}
-
-par(mfrow = c(1, 3))
-mybarplot(x, col = c("#8995FF", "#AA0DA4", "#F9FFB9", "#B3FFEE"))
-mybarplot(x, col = hcl(c(260, 310, 60, 150), c = 40, l = 80))
-mybarplot(x, col = grey.colors(4))
-@
