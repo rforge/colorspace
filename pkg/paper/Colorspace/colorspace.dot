@@ -23,22 +23,17 @@ graph colorspace {
 
 { rank = same
     L4 [label="" color=white]
-    sRGB [label = "sRGB" shape=box style=filled]
-    cRGB [label = "cRGB" shape=box style=filled]
+    RGB [label = "RGB" shape=box]
+    HSV [label = "HSV" shape=ellipse]
+    HLS [label = "HLS" shape=ellipse]
     R4 [label="" color=white]
 }
 
-{ rank = same
-    L5 [label="" color=white]
-    RGB [label = "RGB" shape=box]
-    R5 [label="" color=white]
-}
-
 { rank = max
-    L6 [label="" color=white]
-    HSV [label = "HSV" shape=ellipse]
-    HLS [label = "HLS" shape=ellipse]
-    R6 [label="" color=white]
+    L5 [label="" color=white]
+    sRGB [label = "sRGB" shape=box style=filled]
+    cRGB [label = "cRGB" shape=box style=filled]
+    R5 [label="" color=white]
 }
 
 LUV -- polarLUV
@@ -47,15 +42,15 @@ XYZ -- LUV
 XYZ -- LAB
 XYZ -- HunterLAB
 
-XYZ -- sRGB
-XYZ -- cRGB
+XYZ -- RGB [label="white point\n(default: D65)"]
 
-cRGB -- RGB
-sRGB -- RGB [style=dotted]
 RGB -- HSV
 RGB -- HLS
 
-L1 -- L2 -- L3 -- L4 -- L5 -- L6 [color=white]
-R1 -- R2 -- R3 -- R4 -- R5 -- R6 [color=white]
+cRGB -- RGB [label="gamma\n(default: 2.4)"]
+sRGB -- RGB [label="gamma = 2.4\n(if white point = D65)"]
+
+L1 -- L2 -- L3 -- L4 -- L5 [color=white]
+R1 -- R2 -- R3 -- R4 -- R5 [color=white]
 }
 
