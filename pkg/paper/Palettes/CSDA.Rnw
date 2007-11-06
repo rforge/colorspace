@@ -42,112 +42,113 @@ generate_png <- TRUE
 
 \section{Introduction} \label{sec:intro}
 
+%FIXME% The intro is a bit too long and needs to be condensed.
+
 Color is an integral element of graphical displays in general, and many statistical
-graphics in particular.  Furthermore, 
-an increasing amount of research is being published and viewed online, making
-it easier to include color in published plots.
-However, selecting which colors to use for a statistical graphic is
-not a trivial task. There are three main obstacles to overcome:
+graphics in particular. Statistical software packages allow practicioners
+to easily create color graphics which are therefore virtually omnipresent in electronic
+publications such as technical reports, presentation slides, or the electronic
+version of journal articles (e.g., in \emph{Computational Statistics \& Data Analysis})
+and increasingly also in printed journals. However, more often than not,
+color choice in such displays is sub-optimal because there is relatively
+little guidance about how to choose appropriate colors for a particular visualization
+task---and doing so is not a trivial task. There are three main obstacles to overcome:
 
 \paragraph{The colors should not be unappealing.}
-It is not necessary for the 
-colors in a statistical plot to reflect the latest in fashion trends, 
-but basic 
-principles such as avoiding fully saturated colors should be
-adhered to.  The requirement is not that the user should have
-a degree in graphic design, but
-that the software should allow the user to select colors and provide
-control over basic properties such as how bright the colors are.
-In order to be able to control basic perceptual features of colors,
-it is necessary to work in a \emph{colorspace} that describes 
-colors in terms of their perceptual properties.
+It is not necessary for the colors in a statistical plot to reflect the latest
+in fashion trends, but basic principles such as avoiding fully saturated colors
+should be adhered to. The requirement is not that the user should have
+a degree in graphic design, but that the software should provide users with an
+intuitive way to select colors and control their basic properties such as how
+bright the colors are. Thus, it is necessary to employ a \emph{color model}
+or \emph{color space} that describes colors in terms of their perceptual
+properties hue, brightness, and colorfulness.
 
-Typically, software allows the user to specify colors as 
-Red-Green-Blue (RGB) triplets.  
-RGB is an additive
-color model which is used for generating colors on computer screens
-\citep[by mixing different amounts of the primary colors red, green and blue,
-see][for more details]{color:Poynton:2000}.
-Unfortunately, it is impossible to control
-the perceptual properties of a color in this colorspace because there
-is no single dimension that corresponds to, for example, the brightness
-of the colour.  In
-this article we will describe a more appropriate colorspace for
-selecting colors.
+A color model typically supported by software packages is the specification
+of colors as Red-Green-Blue (RGB) triplets. However, this specification
+does not correspond to human color perception but to color generation on
+a computer screen where different color sensations are created by
+by mixing different amounts of the primary colors red, green and blue
+\citep[see][for more details]{color:Poynton:2000}. For humans, it is
+virtually impossible to control the perceptual properties of a color in this
+color space because there is no single dimension that corresponds to, for example,
+the hue or the brightness of the color. Therefore, various perceptually based
+color spaces have been suggested where each dimension of the color space can
+be matched with a perceptual property. One approach widely implemented in
+software packages are Hue-Saturation-Value (HSV) triplets \citep{color:Smith:1978},
+a simple transformation of RGB triplets \citep[see]{color:Wiki+HSV:2007}.
+Unfortunately, the dimensions in HSV space map poorly to perceptual
+properties---furthermore, the use of HSV colors encourages the use of flashy and
+highly saturated colors which are good for drawing attention to a plot but hard
+to look at for a longer time. A perceptually based color model that avoids
+these problems are Hue-Chroma-Luminance (HCL) triplets \citep[see][]{color:Ihaka:2003},
+a transformation of CIELUV color space \citep[see]{color:Wiki+CIELUV:2007}.
+Albeit being less commonly available in software packages, it is extremely
+useful for sepecifying colors intuitively.
+
 
 \paragraph{The colors in a statistical graphic should cooperate with each other.}
-The typical purpose 
-of color in a statistical graphic is to distinguish between different 
-areas or symbols in the plot---to distinguish between different
-groups or between different levels of a variable.  This means
+The typical purpose of color in a statistical graphic is to distinguish
+between different areas or symbols in the plot---to distinguish between
+different groups or between different levels of a variable.  This means
 that there will typically be several colors, or a \emph{palette}
-of colors, used within a plot and 
-that those colors should be related to each other.
+of colors, used within a plot and that those colors should be related to
+each other.
 
-Part of the solution to this problem is to work in an
-appropriate colorspace, as in the previous point, so that 
-motion within the colorspace and distances between colors 
-have an intuitive and rational meaning.  
-For example, another common software 
-approach \citep{color:Moretti+Lyons:2002,color:Meier+Spalter+Karelitz:2004} 
-is to allow
-colors to be specified as Hue-Saturation-Value (HSV) 
-triplets \citep{color:Smith:1978},
-where each dimension controls a separate perceptual 
-property of the color.  
-HSV space is a simple transformation of RGB
-space 
-\citep[see][for more details on HSV colors and links to further information about the other color
-spaces discussed in the following]{color:Wiki+HSV:2007} and,
-unfortunately, the dimensions in 
-HSV space are not truly independent.  
-For example,
-a change in hue results in a color that may also be
-perceptually brighter and more saturated.  
-This means that it is relatively difficult to select sets of
-HSV coordinates that yield colors that are ``in harmony'' \citep[see][]{color:Munsell:1905}.
-For statistical graphics, this is important because it can introduce size distortions in
-the perception of shaded areas and color-caused optical illusions \citep{color:Cleveland+McGill:1983}.
-Furthermore, the use of HSV colors encourages the use of flashy and highly saturated
-colors which are good for drawing attention to a plot but hard to look at for a longer time.
-
-A different approach to obtaining a color palette is provided by the 
-\pkg{ColorBrewer.org} \citep{color:Harrower+Brewer:2003}
-online tool for selecting color schemes for maps. It provides a rich
-collection of prefabricated palettes (with a fixed maximal number
-of colors) and guides its users how to choose a suitable palette for coding
-various types of information.  The drawback to this tool is that
-it only provides a fixed set of colors for each palette and there
-is no way to extend the existing palettes.
-
-Following \cite{color:Brewer:1999} and \cite{color:Harrower+Brewer:2003}, we distinguish
-three types of palettes: qualitative, sequential and diverging. The first is tailored
-for coding categorical information and the latter two are aimed at numerical variables
-(or ordinal variables if some numerical coding for its levels is used).
-Unlike \pkg{ColorBrewer.org}, we not only provide fixed sets of colors but suggest
-a general principle for selecting colors by traversing paths along perceptual axes in
-a suitable color space. Consequently, the user can decide which path exactly should be
-taken and how many colors should be selected. The color space we will work in
- is the
-Hue-Chroma-Luminance (HCL) color space \citep[see][]{color:Ihaka:2003} and we show how
-the general principles suggested can be turned into formulas describing paths of
-coordinates in this space.
+A natural solution to this task is to vary (at least) one perceptual property
+of the colors, e.g., the hue or the brightness, keeping other properties
+fixed. In a perceptually based color space, this corresponds to selecting
+colors by traversing paths through this space along its dimensions.
+This approach is implemented in many color picker tools
+\citep{color:Moretti+Lyons:2002,color:Meier+Spalter+Karelitz:2004},
+however, most commonly based on the HSV model.
+As argued above, the dimensions in HSV space are not truly independent and
+hence it is not possible to vary just one perceptual property while keeping
+the others fixed. For example, a change in hue results in a color that may also be
+perceptually brighter and more saturated. This means that it is relatively
+difficult to select sets of HSV coordinates that yield colors that are
+``in harmony'' \citep[see][]{color:Munsell:1905}. For statistical graphics,
+this is important because it can introduce size distortions in the perception
+of shaded areas and color-caused optical illusions \citep{color:Cleveland+McGill:1983}.
+These problems can again be addressed by employing HCL colors as a more
+appropriate perceptually based color model. Above, we argued that HCL space
+is useful because it allows humans to understand where within the space
+a particular HCL triplet is located. Here, we extend this argument: HCL also allows
+us to understand where we are going, i.e., motion within the color space and
+distances between colors  have an intuitive and rational meaning.  
 
 \paragraph{The colors should work everywhere.}
 The final issue to deal with is that, in an ideal situation, colors 
 should be selected so that they continue to work in any 
 context.  For example, different areas of a plot should still be 
-distiguishable when the person
-viewing the graphic is color-blind
-or when the graphic is printed in black-and-white instead of being
-viewed on screen.
-These goals cannot always be attained, but we will discuss 
-situations where attention should be paid to these issues and
-suggest strategies for resolving any problems.
-%FIXME% Also mention that the colors should work on different devices.
+distinguishable when the graphic is displayed on an LCD projector
+rather than a computer screen, or when it is printed on a grayscale
+printer, or when the person viewing the graphic is color-blind.
+These goals cannot always be attained, but attention should be paid
+to these issues and in many situations it is also possible to
+resolve any problems.
 
+An approach exemplary in this respect is \pkg{ColorBrewer.org}
+\citep{color:Harrower+Brewer:2003}, an online tool for selecting color
+schemes for maps. It provides a rich collection of prefabricated palettes
+(with a fixed maximal number of colors), supplies information about the
+suitability for color-blind viewers or grayscale printing, and guides its
+users how to choose a suitable palette for coding various types of
+information. The drawback to this tool is that it only provides a fixed
+set of colors for each palette and there is no way to extend the
+existing palettes.
 
-%FIXME% A sentence or so is needed as a "bridge".
+Following \cite{color:Brewer:1999} and \cite{color:Harrower+Brewer:2003}, we 
+take a similar approach and distinguish three types of palettes: qualitative,
+sequential and diverging. The first is tailored for coding categorical
+information and the latter two are aimed at numerical variables (or ordinal
+variables if some numerical coding for its levels is used). Unlike
+\pkg{ColorBrewer.org}, we not only provide fixed sets of colors but suggest
+a general principle for selecting colors by traversing paths along perceptual axes in
+HCL color space. Consequently, the user can decide which path exactly should be
+taken and how many colors should be selected. Furthermore, by matching
+the paths with perceptual meaning, the suitability of a palette for color-blind
+viewers or grayscale printing can be assessed.
 
 %% Given a mapping from HCL to RGB coordinates, our formulas are
 %% extremely easy to implement in software and we provide such an implementation
@@ -157,14 +158,14 @@ suggest strategies for resolving any problems.
 %% both a conceptual and computational tool box for experimenting with color palettes for
 %% a particular display.
 
-\paragraph{}
 The remainder of the paper is organized as follows: Section~\ref{sec:motivation} provides
-several motivating examples, showing how typical HSV-based graphics can be enhanced
+some motivating examples, showing how typical HSV-based graphics can be enhanced
 by using HCL-based palettes. Section~\ref{sec:spaces} gives a brief introduction
 to the underlying HSV and HCL color spaces before Section~\ref{sec:palettes} 
 suggests strategies for deriving HCL-based qualitative, sequential, and diverging palettes.
 Section~\ref{sec:software} offers some general remarks on the implementation in statistical
-software packages as well as some details on the implementation in \proglang{R}.
+software packages as well as some details on the implementation in the \proglang{R}
+system for statistical computing \citep{color:R:2007}.
 Section~\ref{sec:discussion} concludes the paper with a discussion.
 
 
@@ -282,15 +283,15 @@ In contrast, the gray colors used in the top right panel do not exhibit the same
 coding the variable of interest much better and without flashy colors. If, however, the user wants
 to increase the contrast by adding some color to the plot, this could be done by using a better
 balanced version of the heat colors (as shown in the bottom right panel). These colors also
-increase from a yellow to a red hue while being balanced towards the same gray as in the
-grayscale palette. Thus, when converted to a grayscale or printed out on a grayscale printer
+increase from a yellow to a red hue while using the same brightness levels as in the grayscale
+palette. Thus, when converted to a grayscale or printed out on a grayscale printer
 (as in the printed version of \textit{Computational Statistics \& Data Analysis}),
 the upper and lower right panel would look (virtually) identical.
 Both palettes have in common that they give increasing perceptual emphasis
 to regions with increasing density, resulting in a heatmap that highlights the (small)
 interesting high-density regions and not to the large low-density regions surrounding them.
-By balancing the lower right panel towards light/dark contrasts, it is assured that the graphic
-is intelligible for color-blind readers and that the same graphic works in
+By balancing the lower right panel with respect to its brightness levels (i.e., light/dark contrasts),
+it is assured that the graphic is intelligible for color-blind readers and that the same graphic works in
 colored electronic versions and printed grayscale versions of a publication.
 
 
@@ -366,7 +367,7 @@ and red hues for negative and postive residuals respectively, but codes neutral 
 a number of advantages: only the interesting areas are highlighted by high-chroma colors;
 flashy colors are avoided making it easier to look at the display for a longer time; positive
 and negative residuals with the same absolute size receive the same perceptual weight
-by being balanced towards the same gray.
+by being balanced with respect to their brightness.
 
 Another advantage of the HCL-based palette becomes apparent when we collapse the
 red-green distinctions in the colors to emulate what a person with protanopia
@@ -454,8 +455,9 @@ a triplet $(H, C, L)$ with $H \in [0, 360]$ and $C, L \in [0, 100]$.
 %% with increasing luminance) which becomes obvious when converting the colors to
 %% a gray scale as in Figure~\ref{fig:hsv-hcl-gray}. 
 Given a certain luminance $L$, all colors resulting from different combinations
-of hue $H$ and chroma $C$ are balanced towards the same gray (and thus look virtually identical
-when converted to a gray scale). However, the admissible combinations of
+of hue $H$ and chroma $C$ have the same level of brightness, i.e.,
+are balanced towards the same gray and thus look virtually identical
+when converted to a gray scale. However, the admissible combinations of
 chroma and luminance coordinates (within the space's boundaries) depend on the hue chosen.
 The reason for this is that some hues lead to light and others to dark colors,
 e.g., full chroma yellow is brighter (i.e., has higher luminance) than full chroma blue.
@@ -526,9 +528,8 @@ It shows the hue/chroma plane of HCL space given a luminance of $L = 70$. Not al
 combinations of hue and chroma are admissible, however for a chroma of $C = 50$ a full
 color wheel can be obtained.
 For choosing the hues in a certain palette, various strategies are conceivable.
-%% FIXME:  the figures referred to below no longer exist!!
-A simple and intuitive one is to use colors as metaphors for categories
-(e.g., for political parties as in Figures~\ref{fig:seats} and \ref{fig:votes}),
+A simple and intuitive one is to use colors as metaphors for categories (e.g., for political parties),
+%% (e.g., for political parties as in Figures~\ref{fig:seats} and \ref{fig:votes}),
 another approach would be to use segments from
 the color wheel corresponding to nearby or distant colors. The latter is shown
 in Figure~\ref{fig:pal-q-examples} which depicts
@@ -771,7 +772,7 @@ of all palettes discussed above. Qualitative palettes are provided by
 \code{sequential_hcl()} while \code{heat_hcl()} offers sequential palettes based on
 a range of hues. Diverging palettes can be obtained by \code{diverge_hcl()}.
 Technical documentation along with a large collection of examples is available via
-\verb/help("rainbow_hcl", package = "vcd")/. \proglang{R} code for reproducing
+\verb/help("rainbow_hcl", package = "vcd")/. Furthermore, \proglang{R} code for reproducing
 Figures~\ref{fig:pal-q-examples}, \ref{fig:pal-s-examples} and \ref{fig:pal-d-examples}
 (and some illustrations) can be accessed via \code{vignette("hcl-colors", package = "vcd")}.
 
