@@ -4,8 +4,7 @@
 
 \usepackage{amsfonts}
 
-%FIXME% Different/better title?
-\title{Escaping RGBland: selecting colors for \\statistical graphics}
+\title{Escaping RGBland: Selecting Colors for Statistical Graphics}
 \author{Achim Zeileis\\Wirtschaftsuniversit\"at Wien
    \And Kurt Hornik\\Wirtschaftsuniversit\"at Wien
    \And Paul Murrell\\The University of Auckland}
@@ -58,10 +57,10 @@ little guidance about how to choose appropriate colors for a particular visualiz
 When selecting colors for a statistical graphic,
 there are three main obstacles to overcome:
 
-\textit{The colors should not be unappealing.}
+\textbf{The colors should not be unappealing.}
 It is not necessary for the colors in a statistical plot to reflect 
 fashion trends, but basic principles such as avoiding large areas
-of fully saturated colors \citep{Tufte-1990-EIN}
+of fully saturated colors \citep{color:Tufte:1990}
 should be adhered to. 
 The requirement is not that the user should have
 a degree in graphic design, but that the software should provide users with an
@@ -75,18 +74,18 @@ A color model typically supported by software packages involves
 of colors as Red-Green-Blue (RGB) triplets. However, this specification
 corresponds to color generation on
 a computer screen 
-\citep[see][for more details]{color:Poynton:2000}
+\citep[see][]{color:Poynton:2000}
 rather than
 corresponding to human color perception. For humans, it is
 virtually impossible to control the perceptual properties of a color in this
-color space because there is no single dimension that corresponds to, for example,
+color space because there is no single dimension that corresponds to, e.g.,
 the hue or the brightness of the color. As a consequence, 
 various perceptually-based
 color spaces have been suggested, where each dimension of the color space can
 be matched with a perceptual property. One approach widely implemented in
 software packages involves
  Hue-Saturation-Value (HSV) triplets \citep{color:Smith:1978},
-a simple transformation of RGB triplets \citep[see]{color:Wiki+HSV:2007}.
+a simple transformation of RGB triplets \citep[see][]{color:Wiki+HSV:2007}.
 Unfortunately, the dimensions in HSV space map poorly to perceptual
 properties and the use of HSV colors encourages the use of 
 highly saturated colors. 
@@ -94,11 +93,11 @@ A perceptually based color model that avoids
 these problems involves
 Hue-Chroma-Luminance (HCL) triplets \citep[see][]{color:Ihaka:2003},
 which is
-a transformation of CIELUV color space \citep[see]{color:Wiki+CIELUV:2007}.
+a transformation of CIELUV color space \citep[see][]{color:Wiki+CIELUV:2007}.
 This is the colorspace we advocate in this article.
 
 
-\textit{The colors in a statistical graphic should cooperate with each other.}
+\textbf{The colors in a statistical graphic should cooperate with each other.}
 The typical purpose of color in a statistical graphic is to distinguish
 between different areas or symbols in the plot---to distinguish between
 different groups or between different levels of a variable.  This means
@@ -112,7 +111,7 @@ fixed. In a perceptually based color space, this corresponds to selecting
 colors by traversing paths through this space along its dimensions.
 This approach is implemented in many color picker tools
 \citep{color:Moretti+Lyons:2002,color:Meier+Spalter+Karelitz:2004},
-however, most are commonly based on the HSV model.
+however, these are typically based on the HSV model.
 As argued above, the dimensions in HSV space are not truly independent and
 hence it is not possible to vary just one perceptual property while keeping
 the others fixed. This means that it is relatively
@@ -121,7 +120,7 @@ difficult to select sets of HSV coordinates that yield colors that are
 this is important because it can introduce size distortions in the perception
 of shaded areas and can produce
  optical illusions \citep{color:Cleveland+McGill:1983}.
-These problems can again be addressed by employing an HCL colorspace. 
+These problems can again be addressed by employing the HCL colorspace. 
 In addition to
 the earlier point that HCL space
 is useful because it allows humans to understand where within the space
@@ -130,7 +129,7 @@ HCL also allows
 us to understand motion within the color space because
 distances between colors  have an intuitive and rational meaning.  
 
-\textit{The colors should work everywhere.}
+\textbf{The colors should work everywhere.}
 The final issue to deal with is that, in an ideal situation, colors 
 should be selected so that they continue to work in any 
 context.  For example, different areas of a plot should still be 
@@ -144,9 +143,8 @@ resolve any problems.
 An example of this approach is \pkg{ColorBrewer.org}
 \citep{color:Harrower+Brewer:2003}, an online tool for selecting color
 schemes for maps. It provides a collection of prefabricated palettes, 
-supplies information about the
-suitability for color-blind viewers or grayscale printing, and guides its
-users how to choose a suitable palette for coding various types of
+information about the suitability for printers or color-blind viewers,
+and guidance on how to choose a suitable palette for coding various types of
 information. The drawback to this tool is that it only provides a fixed
 set of colors for each palette and there is no way to extend the
 existing palettes.
@@ -155,8 +153,7 @@ Following \cite{color:Brewer:1999} and \cite{color:Harrower+Brewer:2003}, we
 take a similar approach and distinguish three types of palettes: qualitative,
 sequential and diverging. The first is tailored for coding categorical
 information and the latter two are aimed at numerical or ordinal
-variables. Unlike
-\pkg{ColorBrewer.org}, we suggest
+variables. Unlike \pkg{ColorBrewer.org}, we suggest
 a general principle for selecting colors by 
 traversing paths along perceptual axes in
 HCL color space. Consequently, the user can decide which path exactly should be
@@ -190,7 +187,7 @@ we present two examples for typical color graphics, contrasting
 commonly-used HSV palettes with more suitable HCL palettes.
 Both examples and all HSV palettes are taken from (the electronic
 version of) recent publications in
-\textit{Computational Statistics \& Data Analysis} (Volume~51).
+\emph{Computational Statistics \& Data Analysis} (Volume~51).
 
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[t!]
@@ -299,7 +296,7 @@ to increase the contrast by adding some color to the plot, this could be done by
 balanced version of the heat colors (as shown in the bottom right panel). These colors also
 increase from a yellow to a red hue while using the same brightness levels as in the grayscale
 palette. Thus, when converted to a grayscale or printed out on a grayscale printer
-(as in the printed version of \textit{Computational Statistics \& Data Analysis}),
+(as in the printed version of \emph{Computational Statistics \& Data Analysis}),
 the upper and lower right panel would look (virtually) identical.
 Both palettes have in common that they give increasing perceptual emphasis
 to regions with increasing density, resulting in a heatmap that highlights the (small)
@@ -448,15 +445,13 @@ par(mar = rep(0.8, 4), mfrow = c(1, 2))
 par(mfrow = c(1,2), mar = c(1,1,1,1), oma = c(0,0,0,0))
 par(lwd=3)
 pie(rep(1,6), radius = 1, col = rainbow(6), labels = 360 * 0:5/6)
-par(lwd=1, new=TRUE)
-pie(rep(1,60), radius = 1, col = rainbow(60), 
-    border=NA, labels = NA)
+par(lwd=0.5, new=TRUE)
+pie(rep(1, 100), radius = 1, col = rainbow(100), border = NA, labels = NA)
 par(lwd=3)
 pie(rep(1,6), radius = 1, col = rainbow_hcl(6, c = 50, l = 70), 
     labels = 360 * 0:5/6)
-par(lwd=1, new=TRUE)
-pie(rep(1,60), radius = 1, col = rainbow_hcl(60, c = 50, l = 70), 
-    border=NA, labels = NA)
+par(lwd=0.5, new=TRUE)
+pie(rep(1, 100), radius = 1, col = rainbow_hcl(100, c = 50, l = 70), border = NA, labels = NA)
 @
 \caption{\label{fig:wheel} HSV-based and HCL-based color wheel.}
 \end{center}
@@ -640,8 +635,8 @@ par(mfrow = c(5, 1), mar = c(0.25, 0, 0.25, 0))
 pal(sequential_hcl(12, c = 0, power = 2.2))
 pal(sequential_hcl(12, power = 2.2))
 pal(heat_hcl(12, c = c(80, 30), l = c(30, 90), power = c(1/5, 2)))
-pal(terrain_hcl(12, c = c(65, 0), l = c(45, 90), power = c(1/2, 1.5)))
 pal(rev(heat_hcl(12, h = c(0, -100), l = c(75, 40), c = c(40, 80), power = 1)))
+pal(terrain_hcl(12, c = c(65, 0), l = c(45, 90), power = c(1/2, 1.5)))
 @
 \caption{\label{fig:pal-s-examples} Examples for sequential palettes, varying
 only luminance (first panel), chroma and luminance (second panel), and hue,
