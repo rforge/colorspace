@@ -45,29 +45,32 @@ generate_png <- TRUE
 %FIXME% The intro is a bit too long and needs to be condensed.
 
 Color is an integral element of graphical displays in general, and many statistical
-graphics in particular. Statistical software packages allow practicioners
-to easily create color graphics which are therefore virtually omnipresent in electronic
+graphics in particular. 
+It is easy to create color graphics with any statistical software 
+pacakge and color images are therefore virtually omnipresent in electronic
 publications such as technical reports, presentation slides, or the electronic
 version of journal articles (e.g., in \emph{Computational Statistics \& Data Analysis})
 and increasingly also in printed journals. However, more often than not,
 color choice in such displays is sub-optimal because there is relatively
 little guidance about how to choose appropriate colors for a particular visualization
-task---and doing so is not a trivial task. There are three main obstacles to overcome:
+task---and doing so is not a trivial task. 
+When selecting colors for a statistical graphic,
+there are three main obstacles to overcome:
 
 \paragraph{The colors should not be unappealing.}
 It is not necessary for the colors in a statistical plot to reflect the latest
 in fashion trends, but basic principles such as avoiding fully saturated colors
 should be adhered to. The requirement is not that the user should have
 a degree in graphic design, but that the software should provide users with an
-intuitive way to select colors and control their basic properties such as how
+intuitive way to select colors and control their basic properties, such as how
 bright the colors are. Thus, it is necessary to employ a \emph{color model}
 or \emph{color space} that describes colors in terms of their perceptual
-properties hue, brightness, and colorfulness.
+properties: hue, brightness, and colorfulness.
 
 A color model typically supported by software packages is the specification
 of colors as Red-Green-Blue (RGB) triplets. However, this specification
 does not correspond to human color perception but to color generation on
-a computer screen where different color sensations are created by
+a computer screen where different color sensations are created
 by mixing different amounts of the primary colors red, green and blue
 \citep[see][for more details]{color:Poynton:2000}. For humans, it is
 virtually impossible to control the perceptual properties of a color in this
@@ -81,9 +84,11 @@ Unfortunately, the dimensions in HSV space map poorly to perceptual
 properties---furthermore, the use of HSV colors encourages the use of flashy and
 highly saturated colors which are good for drawing attention to a plot but hard
 to look at for a longer time. A perceptually based color model that avoids
-these problems are Hue-Chroma-Luminance (HCL) triplets \citep[see][]{color:Ihaka:2003},
+these problems involves
+Hue-Chroma-Luminance (HCL) triplets \citep[see][]{color:Ihaka:2003},
+which is
 a transformation of CIELUV color space \citep[see]{color:Wiki+CIELUV:2007}.
-Albeit being less commonly available in software packages, it is extremely
+Although this is less commonly available in software packages, it is extremely
 useful for sepecifying colors intuitively.
 
 
@@ -95,13 +100,13 @@ that there will typically be several colors, or a \emph{palette}
 of colors, used within a plot and that those colors should be related to
 each other.
 
-A natural solution to this task is to vary (at least) one perceptual property
+A natural solution for this task is to vary (at least) one perceptual property
 of the colors, e.g., the hue or the brightness, keeping other properties
 fixed. In a perceptually based color space, this corresponds to selecting
 colors by traversing paths through this space along its dimensions.
 This approach is implemented in many color picker tools
 \citep{color:Moretti+Lyons:2002,color:Meier+Spalter+Karelitz:2004},
-however, most commonly based on the HSV model.
+however, most are commonly based on the HSV model.
 As argued above, the dimensions in HSV space are not truly independent and
 hence it is not possible to vary just one perceptual property while keeping
 the others fixed. For example, a change in hue results in a color that may also be
@@ -109,7 +114,8 @@ perceptually brighter and more saturated. This means that it is relatively
 difficult to select sets of HSV coordinates that yield colors that are
 ``in harmony'' \citep[see][]{color:Munsell:1905}. For statistical graphics,
 this is important because it can introduce size distortions in the perception
-of shaded areas and color-caused optical illusions \citep{color:Cleveland+McGill:1983}.
+of shaded areas and can produce
+ optical illusions \citep{color:Cleveland+McGill:1983}.
 These problems can again be addressed by employing HCL colors as a more
 appropriate perceptually based color model. Above, we argued that HCL space
 is useful because it allows humans to understand where within the space
@@ -128,7 +134,7 @@ These goals cannot always be attained, but attention should be paid
 to these issues and in many situations it is also possible to
 resolve any problems.
 
-An approach exemplary in this respect is \pkg{ColorBrewer.org}
+An example of this approach is \pkg{ColorBrewer.org}
 \citep{color:Harrower+Brewer:2003}, an online tool for selecting color
 schemes for maps. It provides a rich collection of prefabricated palettes
 (with a fixed maximal number of colors), supplies information about the
