@@ -503,7 +503,7 @@ mean lots more conversions when sending output to graphics devices(?)}
 
 \section{Other color spaces}
 
-HSV and HLS (and others) because you may have been given a colour in
+HSV and HSL (and others) because you may have been given a colour in
 such a (crappy) colorspace and want to convert it to something
 better in order to work with it.  And basically just for completeness!
 
