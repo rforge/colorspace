@@ -25,7 +25,7 @@ graph colorspace {
     L4 [label="" color=white]
     RGB [label = "RGB" shape=box]
     HSV [label = "HSV" shape=ellipse]
-    HLS [label = "HLS" shape=ellipse]
+    HSL [label = "HSL" shape=ellipse]
     R4 [label="" color=white]
 }
 
@@ -45,7 +45,7 @@ XYZ -- HunterLAB
 XYZ -- RGB [label="white point\n(default: D65)"]
 
 RGB -- HSV
-RGB -- HLS
+RGB -- HSL
 
 cRGB -- RGB [label="gamma\n(default: 2.4)"]
 sRGB -- RGB [label="gamma = 2.4\n(if white point = D65)"]
