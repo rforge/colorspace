@@ -5,7 +5,7 @@
 \usepackage{amsfonts}
 
 %FIXME% Different/better title?
-\title{Choosing Color Palettes for Statistical Graphics}
+\title{Escaping RGBland: selecting colors for \\statistical graphics}
 \author{Achim Zeileis\\Wirtschaftsuniversit\"at Wien
    \And Kurt Hornik\\Wirtschaftsuniversit\"at Wien
    \And Paul Murrell\\The University of Auckland}
@@ -44,55 +44,61 @@ generate_png <- TRUE
 
 %FIXME% The intro is a bit too long and needs to be condensed.
 
-Color is an integral element of graphical displays in general, and many statistical
+Color is an integral element of graphical displays in general, 
+and many statistical
 graphics in particular. 
 It is easy to create color graphics with any statistical software 
 pacakge and color images are therefore virtually omnipresent in electronic
 publications such as technical reports, presentation slides, or the electronic
 version of journal articles (e.g., in \emph{Computational Statistics \& Data Analysis})
 and increasingly also in printed journals. However, more often than not,
-color choice in such displays is sub-optimal because there is relatively
-little guidance about how to choose appropriate colors for a particular visualization
-task---and doing so is not a trivial task. 
+color choice in such displays is sub-optimal because selecting colors is not
+a trivial task and there is relatively
+little guidance about how to choose appropriate colors for a particular visualization. 
 When selecting colors for a statistical graphic,
 there are three main obstacles to overcome:
 
-\paragraph{The colors should not be unappealing.}
-It is not necessary for the colors in a statistical plot to reflect the latest
-in fashion trends, but basic principles such as avoiding fully saturated colors
-should be adhered to. The requirement is not that the user should have
+\textit{The colors should not be unappealing.}
+It is not necessary for the colors in a statistical plot to reflect 
+fashion trends, but basic principles such as avoiding large areas
+of fully saturated colors \citep{Tufte-1990-EIN}
+should be adhered to. 
+The requirement is not that the user should have
 a degree in graphic design, but that the software should provide users with an
-intuitive way to select colors and control their basic properties, such as how
-bright the colors are. Thus, it is necessary to employ a \emph{color model}
+intuitive way to select colors and control their basic properties. 
+Thus, it is necessary to employ a \emph{color model}
 or \emph{color space} that describes colors in terms of their perceptual
 properties: hue, brightness, and colorfulness.
 
-A color model typically supported by software packages is the specification
+A color model typically supported by software packages involves
+ the specification
 of colors as Red-Green-Blue (RGB) triplets. However, this specification
-does not correspond to human color perception but to color generation on
-a computer screen where different color sensations are created
-by mixing different amounts of the primary colors red, green and blue
-\citep[see][for more details]{color:Poynton:2000}. For humans, it is
+corresponds to color generation on
+a computer screen 
+\citep[see][for more details]{color:Poynton:2000}
+rather than
+corresponding to human color perception. For humans, it is
 virtually impossible to control the perceptual properties of a color in this
 color space because there is no single dimension that corresponds to, for example,
-the hue or the brightness of the color. Therefore, various perceptually based
-color spaces have been suggested where each dimension of the color space can
+the hue or the brightness of the color. As a consequence, 
+various perceptually-based
+color spaces have been suggested, where each dimension of the color space can
 be matched with a perceptual property. One approach widely implemented in
-software packages are Hue-Saturation-Value (HSV) triplets \citep{color:Smith:1978},
+software packages involves
+ Hue-Saturation-Value (HSV) triplets \citep{color:Smith:1978},
 a simple transformation of RGB triplets \citep[see]{color:Wiki+HSV:2007}.
 Unfortunately, the dimensions in HSV space map poorly to perceptual
-properties---furthermore, the use of HSV colors encourages the use of flashy and
-highly saturated colors which are good for drawing attention to a plot but hard
-to look at for a longer time. A perceptually based color model that avoids
+properties and the use of HSV colors encourages the use of 
+highly saturated colors. 
+A perceptually based color model that avoids
 these problems involves
 Hue-Chroma-Luminance (HCL) triplets \citep[see][]{color:Ihaka:2003},
 which is
 a transformation of CIELUV color space \citep[see]{color:Wiki+CIELUV:2007}.
-Although this is less commonly available in software packages, it is extremely
-useful for sepecifying colors intuitively.
+This is the colorspace we advocate in this article.
 
 
-\paragraph{The colors in a statistical graphic should cooperate with each other.}
+\textit{The colors in a statistical graphic should cooperate with each other.}
 The typical purpose of color in a statistical graphic is to distinguish
 between different areas or symbols in the plot---to distinguish between
 different groups or between different levels of a variable.  This means
@@ -109,21 +115,22 @@ This approach is implemented in many color picker tools
 however, most are commonly based on the HSV model.
 As argued above, the dimensions in HSV space are not truly independent and
 hence it is not possible to vary just one perceptual property while keeping
-the others fixed. For example, a change in hue results in a color that may also be
-perceptually brighter and more saturated. This means that it is relatively
+the others fixed. This means that it is relatively
 difficult to select sets of HSV coordinates that yield colors that are
 ``in harmony'' \citep[see][]{color:Munsell:1905}. For statistical graphics,
 this is important because it can introduce size distortions in the perception
 of shaded areas and can produce
  optical illusions \citep{color:Cleveland+McGill:1983}.
-These problems can again be addressed by employing HCL colors as a more
-appropriate perceptually based color model. Above, we argued that HCL space
+These problems can again be addressed by employing an HCL colorspace. 
+In addition to
+the earlier point that HCL space
 is useful because it allows humans to understand where within the space
-a particular HCL triplet is located. Here, we extend this argument: HCL also allows
-us to understand where we are going, i.e., motion within the color space and
+a particular HCL triplet is located,  
+HCL also allows
+us to understand motion within the color space because
 distances between colors  have an intuitive and rational meaning.  
 
-\paragraph{The colors should work everywhere.}
+\textit{The colors should work everywhere.}
 The final issue to deal with is that, in an ideal situation, colors 
 should be selected so that they continue to work in any 
 context.  For example, different areas of a plot should still be 
@@ -136,8 +143,8 @@ resolve any problems.
 
 An example of this approach is \pkg{ColorBrewer.org}
 \citep{color:Harrower+Brewer:2003}, an online tool for selecting color
-schemes for maps. It provides a rich collection of prefabricated palettes
-(with a fixed maximal number of colors), supplies information about the
+schemes for maps. It provides a collection of prefabricated palettes, 
+supplies information about the
 suitability for color-blind viewers or grayscale printing, and guides its
 users how to choose a suitable palette for coding various types of
 information. The drawback to this tool is that it only provides a fixed
@@ -147,10 +154,11 @@ existing palettes.
 Following \cite{color:Brewer:1999} and \cite{color:Harrower+Brewer:2003}, we 
 take a similar approach and distinguish three types of palettes: qualitative,
 sequential and diverging. The first is tailored for coding categorical
-information and the latter two are aimed at numerical variables (or ordinal
-variables if some numerical coding for its levels is used). Unlike
-\pkg{ColorBrewer.org}, we not only provide fixed sets of colors but suggest
-a general principle for selecting colors by traversing paths along perceptual axes in
+information and the latter two are aimed at numerical or ordinal
+variables. Unlike
+\pkg{ColorBrewer.org}, we suggest
+a general principle for selecting colors by 
+traversing paths along perceptual axes in
 HCL color space. Consequently, the user can decide which path exactly should be
 taken and how many colors should be selected. Furthermore, by matching
 the paths with perceptual meaning, the suitability of a palette for color-blind
@@ -183,19 +191,6 @@ commonly-used HSV palettes with more suitable HCL palettes.
 Both examples and all HSV palettes are taken from (the electronic
 version of) recent publications in
 \textit{Computational Statistics \& Data Analysis} (Volume~51).
-
-Our first illustration is a heatmap, a very popular display for visualizing a scalar function of
-two arguments. Here, we use a bivariate kernel density estimate \citep[for the Old Faithful
-geyser eruptions data from][]{color:Azzalini+Bowman:1990}---other typical applications include 
-classification maps \citep[as in][Figure~2]{color:Tenenhaus+Giron+Viennet:2007},
-function surfaces \citep[as in][Figure~8]{color:Harezlak+Coull+Laird:2007}, or
-measurements on a spatial grid \citep[as in][Figure~3]{color:Gelfand+Banerjee+Sirmans:2007}.
-Figure~\ref{fig:bkde} shows a heatmap bringing out the relationship between the duration
-of an eruption of the Old Faithful geyser in Yellowstone National Park 
-and the waiting time for this eruption. It reveals a multi-modal distribution: short waiting
-times (around 50 minutes) are typically followed by a long eruption (around 4 minutes)
-whereas long waiting times (around 80 minutes) can be followed by either a long
-or short eruption (around 2 minutes). 
 
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[t!]
@@ -266,6 +261,19 @@ if(generate_png) {
 \caption{\label{fig:bkde} Bivariate density estimation for Old Faithful geyser eruptions.}
 \end{center}
 \end{figure}
+
+Our first illustration is a heatmap, a very popular display for visualizing a scalar function of
+two arguments. Here, we use a bivariate kernel density estimate \citep[for the Old Faithful
+geyser eruptions data from][]{color:Azzalini+Bowman:1990}---other typical applications include 
+classification maps \citep[as in][Figure~2]{color:Tenenhaus+Giron+Viennet:2007},
+function surfaces \citep[as in][Figure~8]{color:Harezlak+Coull+Laird:2007}, or
+measurements on a spatial grid \citep[as in][Figure~3]{color:Gelfand+Banerjee+Sirmans:2007}.
+Figure~\ref{fig:bkde} shows a heatmap bringing out the relationship between the duration
+of an eruption of the Old Faithful geyser in Yellowstone National Park 
+and the waiting time for this eruption. It reveals a multi-modal distribution: short waiting
+times (around 50 minutes) are typically followed by a long eruption (around 4 minutes)
+whereas long waiting times (around 80 minutes) can be followed by either a long
+or short eruption (around 2 minutes). 
 
 A simple and very effective palette for such a display is a set of gray colors
 as in the top right panel of Figure~\ref{fig:bkde}. This is often (appropriately) used
@@ -438,8 +446,17 @@ HSV colors are often not considered to be perceptually based.
 <<wheel, fig=TRUE, height=4, width=11>>=
 par(mar = rep(0.8, 4), mfrow = c(1, 2))
 par(mfrow = c(1,2), mar = c(1,1,1,1), oma = c(0,0,0,0))
+par(lwd=3)
 pie(rep(1,6), radius = 1, col = rainbow(6), labels = 360 * 0:5/6)
-pie(rep(1,6), radius = 1, col = rainbow_hcl(6, c = 50, l = 70), labels = 360 * 0:5/6)
+par(lwd=1, new=TRUE)
+pie(rep(1,60), radius = 1, col = rainbow(60), 
+    border=NA, labels = NA)
+par(lwd=3)
+pie(rep(1,6), radius = 1, col = rainbow_hcl(6, c = 50, l = 70), 
+    labels = 360 * 0:5/6)
+par(lwd=1, new=TRUE)
+pie(rep(1,60), radius = 1, col = rainbow_hcl(60, c = 50, l = 70), 
+    border=NA, labels = NA)
 @
 \caption{\label{fig:wheel} HSV-based and HCL-based color wheel.}
 \end{center}
@@ -799,7 +816,8 @@ HCL color space.
 We provide paths through HCL space along perceptual axes of the human visual system
 so that colors selected along these paths match human perceptual dimensions.
 This gives the users the possibility to conveniently experiment with the HCL-based
-palettes by varying several graphical parameters. For qualitative
+palettes by varying several simple and intuitive 
+graphical parameters. For qualitative
 palettes, these are the coordinates on the chroma and luminance axis, respectively,
 controlling whether the colors are light or dark and how colorful they are.
 For sequential and diverging palettes, the user can decide whether contrasts
