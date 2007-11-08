@@ -47,7 +47,7 @@ Color is an integral element of graphical displays in general,
 and many statistical
 graphics in particular. 
 It is easy to create color graphics with any statistical software 
-pacakge and color images are therefore virtually omnipresent in electronic
+package and color images are therefore virtually omnipresent in electronic
 publications such as technical reports, presentation slides, or the electronic
 version of journal articles (e.g., in \emph{Computational Statistics \& Data Analysis})
 and increasingly also in printed journals. However, more often than not,
@@ -94,7 +94,7 @@ these problems involves
 Hue-Chroma-Luminance (HCL) triplets \citep[see][]{color:Ihaka:2003},
 which is
 a transformation of CIELUV color space \citep[see][]{color:Wiki+CIELUV:2007}.
-This is the colorspace we advocate in this article.
+This is the color space we advocate in this article.
 
 
 \textbf{The colors in a statistical graphic should cooperate with each other.}
@@ -120,7 +120,7 @@ difficult to select sets of HSV coordinates that yield colors that are
 this is important because it can introduce size distortions in the perception
 of shaded areas and can produce
  optical illusions \citep{color:Cleveland+McGill:1983}.
-These problems can again be addressed by employing the HCL colorspace. 
+These problems can again be addressed by employing the HCL color space. 
 In addition to
 the earlier point that HCL space
 is useful because it allows humans to understand where within the space
@@ -198,7 +198,7 @@ if(generate_png) {
   ## geyser2 <- cbind(geyser$duration[-299], geyser$waiting[-1])
   geyser2 <- cbind(geyser$duration, geyser$waiting)
   dens <- bkde2D(geyser2, bandwidth = c(0.2, 3), gridsize = c(201, 201))
-  plot_bkde2D <- function(x, col = NULL, xlab = "duration", ylab = "waiting time", legend = FALSE, ...) {
+  plot_bkde2D <- function(x, col = NULL, xlab = "", ylab = "", legend = FALSE, ...) {
     if(is.null(col)) col <- rev(gray.colors(33))
     if(legend) {
       filled.contour(x$x1, x$x2, x$fhat, col = col, nlevels = length(col), xlab = xlab, ylab = ylab, ...)
@@ -214,7 +214,7 @@ if(generate_png) {
   }
 
   png(file = "bkde.png", height = 810, width = 840)
-  par(mfrow = c(2, 2))
+  par(mfrow = c(2, 2), mar = c(4.5, 3.5, 1, 1))
   plot_bkde2D(dens, col = hsv(seq(from = 2/3, to = 0, length = 33), 0.8, 0.9))
   ## plot_bkde2D(dens, col = rainbow(33, start = 1/3, end = 1, v = 0.8, s = 0.9))
   plot_bkde2D(dens, col = rev(sequential_hcl(33, c = 0, l = c(30, 90), power = c(1/5, 1.5))))
@@ -255,7 +255,10 @@ if(generate_png) {
 }
 @
 \includegraphics{bkde-pal}
-\caption{\label{fig:bkde} Bivariate density estimation for Old Faithful geyser eruptions.}
+\caption{\label{fig:bkde} Bivariate density estimation of duration (x-axis) and
+waiting time (y-axis) for Old Faithful geyser eruptions. The palettes employed
+are (counterclockwise) an HSV-based rainbow, HSV-based heat colors, HCL-based heat colors
+and grayscales.}
 \end{center}
 \end{figure}
 
@@ -278,7 +281,7 @@ in printed papers when the journal does not offer color graphics---however, in j
 that support color graphics (or on presentation slides and in interactive usage in statistical
 software packages), many users prefer to have colored displays and most often use HSV
 palettes (as in the two left two panels). These palettes code the variable of interest
-by varying hue in an HSV color wheel as done by 
+by varying hue in an HSV color wheel, yielding a ``rainbow'' of colors, as done by 
 \citet[Figure~8]{color:Harezlak+Coull+Laird:2007}
 or \citet[Figure~2]{color:Tenenhaus+Giron+Viennet:2007}. 
 The palette in the upper left panel
@@ -358,7 +361,9 @@ if(generate_png) {
 }
 @
 \includegraphics{nigeria-pal}
-\caption{\label{fig:nigeria} Posterior mode estimates for childhood mortality in Nigeria.}
+\caption{\label{fig:nigeria} Posterior mode estimates for childhood mortality in Nigeria.
+The color palettes employed are an HSV-based rainbow and two HCL-based diverging palettes.
+In the right panels red-green contrasts are collapsed to emulate protanopic vision.}
 \end{center}
 \end{figure}
 
@@ -440,26 +445,26 @@ HSV colors are often not considered to be perceptually based.
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[b!]
 \begin{center}
-<<wheel, fig=TRUE, height=4, width=11>>=
+<<wheel, fig=TRUE, height=3.64, width=10>>=
 par(mar = rep(0.8, 4), mfrow = c(1, 2))
-par(mfrow = c(1,2), mar = c(1,1,1,1), oma = c(0,0,0,0))
-par(lwd=3)
+par(mfrow = c(1, 2), mar = c(1, 1, 1, 1), oma = c(0, 0, 0, 0))
+par(lwd = 3)
 pie(rep(1,6), radius = 1, col = rainbow(6), labels = 360 * 0:5/6)
-par(lwd=0.5, new=TRUE)
-pie(rep(1, 100), radius = 1, col = rainbow(100), border = NA, labels = NA)
-par(lwd=3, new=TRUE)
-pie(1, radius=0.5, labels=NA)
-par(lwd=0.5, new=TRUE)
-pie(1, radius=0.5, border=NA, labels=NA)
-par(lwd=3)
+par(lwd = 0.5, new = TRUE)
+pie(rep(1, 90), radius = 1, col = rainbow(90), border = NA, labels = NA)
+par(lwd = 3, new = TRUE)
+pie(1, radius = 0.55, labels = NA)
+par(lwd = 0.5, new = TRUE)
+pie(1, radius = 0.55, border = NA, labels = NA)
+par(lwd = 3)
 pie(rep(1,6), radius = 1, col = rainbow_hcl(6, c = 50, l = 70), 
     labels = 360 * 0:5/6)
 par(lwd=0.5, new=TRUE)
-pie(rep(1, 100), radius = 1, col = rainbow_hcl(100, c = 50, l = 70), border = NA, labels = NA)
-par(lwd=3, new=TRUE)
-pie(1, radius=0.5, labels=NA)
-par(lwd=0.5, new=TRUE)
-pie(1, radius=0.5, border=NA, labels=NA)
+pie(rep(1, 90), radius = 1, col = rainbow_hcl(90, c = 50, l = 70), border = NA, labels = NA)
+par(lwd = 3, new = TRUE)
+pie(1, radius = 0.55, labels = NA)
+par(lwd = 0.5, new = TRUE)
+pie(1, radius = 0.55, border = NA, labels = NA)
 @
 \caption{\label{fig:wheel} HSV-based and HCL-based color wheel.}
 \end{center}
