@@ -447,11 +447,19 @@ par(lwd=3)
 pie(rep(1,6), radius = 1, col = rainbow(6), labels = 360 * 0:5/6)
 par(lwd=0.5, new=TRUE)
 pie(rep(1, 100), radius = 1, col = rainbow(100), border = NA, labels = NA)
+par(lwd=3, new=TRUE)
+pie(1, radius=0.5, labels=NA)
+par(lwd=0.5, new=TRUE)
+pie(1, radius=0.5, border=NA, labels=NA)
 par(lwd=3)
 pie(rep(1,6), radius = 1, col = rainbow_hcl(6, c = 50, l = 70), 
     labels = 360 * 0:5/6)
 par(lwd=0.5, new=TRUE)
 pie(rep(1, 100), radius = 1, col = rainbow_hcl(100, c = 50, l = 70), border = NA, labels = NA)
+par(lwd=3, new=TRUE)
+pie(1, radius=0.5, labels=NA)
+par(lwd=0.5, new=TRUE)
+pie(1, radius=0.5, border=NA, labels=NA)
 @
 \caption{\label{fig:wheel} HSV-based and HCL-based color wheel.}
 \end{center}
