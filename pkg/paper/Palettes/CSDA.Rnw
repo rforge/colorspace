@@ -24,6 +24,15 @@
 
 \begin{document}
 
+%% only for statreport version:
+%% \fronttitle{Escaping RGBland: Selecting Colors for Statistical Graphics}
+%% \frontauthor{Achim Zeileis, Kurt Hornik, Paul Murrell}
+%% \frontnumber{61}
+%% \frontdate{November 2007}
+%% \frontpage
+%% \maketitle
+
+
 <<preliminaries>>=
 library("colorspace")
 library("mvtnorm")
@@ -41,8 +50,6 @@ generate_png <- TRUE
 
 \section{Introduction} \label{sec:intro}
 
-%FIXME% The intro is a bit too long and needs to be condensed.
-
 Color is an integral element of graphical displays in general, 
 and many statistical
 graphics in particular. 
@@ -57,7 +64,7 @@ little guidance about how to choose appropriate colors for a particular visualiz
 When selecting colors for a statistical graphic,
 there are three main obstacles to overcome:
 
-\textbf{The colors should not be unappealing.}
+\textbf{\textit{The colors should not be unappealing.}}
 It is not necessary for the colors in a statistical plot to reflect 
 fashion trends, but basic principles such as avoiding large areas
 of fully saturated colors \citep{color:Tufte:1990}
@@ -97,7 +104,7 @@ a transformation of CIELUV color space \citep[see][]{color:Wiki+CIELUV:2007}.
 This is the color space we advocate in this article.
 
 
-\textbf{The colors in a statistical graphic should cooperate with each other.}
+\textbf{\textit{The colors in a statistical graphic should cooperate with each other.}}
 The typical purpose of color in a statistical graphic is to distinguish
 between different areas or symbols in the plot---to distinguish between
 different groups or between different levels of a variable.  This means
@@ -129,7 +136,7 @@ HCL also allows
 us to understand motion within the color space because
 distances between colors  have an intuitive and rational meaning.  
 
-\textbf{The colors should work everywhere.}
+\textbf{\textit{The colors should work everywhere.}}
 The final issue to deal with is that, in an ideal situation, colors 
 should be selected so that they continue to work in any 
 context.  For example, different areas of a plot should still be 
@@ -407,28 +414,60 @@ Similar arguments hold for deuteranopic vision.
 
 \section{Color spaces} \label{sec:spaces}
 
-For choosing color palettes it is helpful to have an idea how
-human color vision evolved. It has been hypothesized that it developed in three
+For choosing color palettes, it is helpful to have a basic idea how
+human color vision works. It has been hypothesized that it evolved in three
 distinct stages: 1.~perception of \emph{light/dark} contrasts (monochrome only),
 2.~\emph{yellow/blue} contrasts (usually associated with our notion of warm/cold colors),
 3.~\emph{green/red} contrasts (helpful for assessing the ripeness of fruit). See 
 \cite{color:Ihaka:2003} and \cite{color:Lumley:2006} for more details and references.
+Furthermore, physiological studies have shown that light is captured by three
+distinct receptors (so-called cones) in the retina and hence coded in three dimensions
+by the human visual system. The perception of this coding, i.e., the subjective
+experience of this light, is less well-understood; however, current psychophysical
+theories all describe perception in terms of three dimensions \citep{color:Knoblauch:2002}.
+Therefore, colors are typically described as locations in 3-dimensional spaces.
 
-Due to these three color axes, colors are typically described as
-locations in 3-dimensional spaces. However, human perception of color
-does not correspond to the physiological axes above, but rather to polar
-coordinates in the color plane (yellow/blue vs.~green/red) plus a third
-light/dark axis. Thus, perceptually-based color spaces try to capture the
-perceptual axes
+The three dimensions used by humans to describe colors are typically:
 \begin{itemize}
-  \item \emph{hue} (dominant wavelength)
-  \item \emph{chroma} (colorfulness, intensity of color as compared to gray)
-  \item \emph{luminance} (brightness, amount of gray)
+  \item \emph{hue} (dominant wavelength),
+  \item \emph{chroma} (colorfulness, intensity of color as compared to gray),
+  \item \emph{luminance} (brightness, amount of gray).
 \end{itemize}
+Thus, they do not correspond to the axes described above,
+but rather to polar coordinates in the color plane (yellow/blue vs.~green/red) plus a third
+light/dark axis. Color models that attempt to capture these perceptual axes
+are also called perceptually-based color spaces.
+
+\setkeys{Gin}{width=\textwidth}
+\begin{figure}[b!]
+\begin{center}
+<<wheel, fig=TRUE, height=3.6, width=10>>=
+par(mar = rep(0.8, 4), mfrow = c(1, 2))
+par(mfrow = c(1, 2), mar = c(1, 1, 1, 1), oma = c(0, 0, 0, 0))
+par(lwd = 3)
+pie(rep(1,6), radius = 1, col = rainbow(6), labels = 360 * 0:5/6, init.angle = -30)
+par(lwd = 0.5, new = TRUE)
+pie(rep(1, 90), radius = 1, col = rainbow(90), border = NA, labels = NA, init.angle = -2)
+par(lwd = 3, new = TRUE)
+pie(1, radius = 0.55, labels = NA)
+par(lwd = 0.5, new = TRUE)
+pie(1, radius = 0.55, border = NA, labels = NA)
+par(lwd = 3)
+pie(rep(1,6), radius = 1, col = rainbow_hcl(6, c = 50, l = 70), labels = 360 * 0:5/6, init.angle = -30)
+par(lwd=0.5, new=TRUE)
+pie(rep(1, 90), radius = 1, col = rainbow_hcl(90, c = 50, l = 70), border = NA, labels = NA, init.angle = -2)
+par(lwd = 3, new = TRUE)
+pie(1, radius = 0.55, labels = NA)
+par(lwd = 0.5, new = TRUE)
+pie(1, radius = 0.55, border = NA, labels = NA)
+@
+\caption{\label{fig:wheel} HSV-based and HCL-based color wheel.}
+\end{center}
+\end{figure}
 
 A popular implementation of such a color space, available in many graphics and
 statistics software packages, are HSV colors. They are a simple transformation of RGB colors
-and are defined by a triplet $(H, S, V)$ with $H \in [0, 360]$ and $S, V \in [0, 100]$.
+defined by a triplet $(H, S, V)$ with $H \in [0, 360]$ and $S, V \in [0, 100]$.
 %% HSV space has the shape of a single regular cone (often inflated to a regular
 %% cylinder). Vertical sections through this space are shown in the upper panel
 %% of Figure~\ref{fig:hsv-hcl}, depicting hue and saturation given different value levels.
@@ -441,34 +480,6 @@ confounded:
 The brightness of
 colors is not uniform over hues and saturations (given value, see Figure~\ref{fig:wheel})---therefore,
 HSV colors are often not considered to be perceptually based.
-
-\setkeys{Gin}{width=\textwidth}
-\begin{figure}[b!]
-\begin{center}
-<<wheel, fig=TRUE, height=3.64, width=10>>=
-par(mar = rep(0.8, 4), mfrow = c(1, 2))
-par(mfrow = c(1, 2), mar = c(1, 1, 1, 1), oma = c(0, 0, 0, 0))
-par(lwd = 3)
-pie(rep(1,6), radius = 1, col = rainbow(6), labels = 360 * 0:5/6)
-par(lwd = 0.5, new = TRUE)
-pie(rep(1, 90), radius = 1, col = rainbow(90), border = NA, labels = NA)
-par(lwd = 3, new = TRUE)
-pie(1, radius = 0.55, labels = NA)
-par(lwd = 0.5, new = TRUE)
-pie(1, radius = 0.55, border = NA, labels = NA)
-par(lwd = 3)
-pie(rep(1,6), radius = 1, col = rainbow_hcl(6, c = 50, l = 70), 
-    labels = 360 * 0:5/6)
-par(lwd=0.5, new=TRUE)
-pie(rep(1, 90), radius = 1, col = rainbow_hcl(90, c = 50, l = 70), border = NA, labels = NA)
-par(lwd = 3, new = TRUE)
-pie(1, radius = 0.55, labels = NA)
-par(lwd = 0.5, new = TRUE)
-pie(1, radius = 0.55, border = NA, labels = NA)
-@
-\caption{\label{fig:wheel} HSV-based and HCL-based color wheel.}
-\end{center}
-\end{figure}
 
 To overcome these drawbacks, various color spaces have been suggested
 that properly map to the perception dimensions, the most prominent of which are
@@ -784,8 +795,7 @@ color system which may vary between different packages, but standardized RGB (sR
 is often used. The typical way of coordinate conversion is to go first from HCL to
 CIELUV by simply transforming the polar $H$ and $C$ coordinates back to the original
 $U$ and $V$. Subsequently, CIELUV is converted to CIEXYZ which in turn is converted
-to sRGB (with the latter conversion depending on the device used for display).
-The details of these conversions are somewhat technical and tedious (and hence
+to sRGB. The details of these conversions are somewhat technical and tedious (and hence
 omitted here), however the conversion formulas are still straightfoward to
 implement and can, for example, be found in \cite{color:Wiki+CIELUV:2007} or
 \cite{color:Poynton:2000}.
@@ -850,11 +860,11 @@ graphical parameters and thus adapting the colors to their particular graphical 
 
 %% \section*{Acknowledgments}
 %% 
-%% We are thankful to David Meyer, Ross Ihaka, Brian~D.~Ripley,
+%% We are thankful to David Meyer, Ross Ihaka, Ken Knoblauch, Brian~D.~Ripley,
 %% Thomas Kneib, Michael H\"ohle, and Thomas Lumley for feedback, suggestions and discussions.
 
 %% Referees:
-%% Ross Ihaka, Thomas Lumley, Cynthia Brewer, Martin Maechler
+%% Ross Ihaka, Thomas Lumley, Cynthia Brewer, Martin Maechler, Ken Knoblauch
 
 \bibliography{color}
 
