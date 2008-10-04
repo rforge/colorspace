@@ -578,8 +578,8 @@ in Figure~\ref{fig:pal-q-examples} which depicts
 examples for generating qualitative sets of colors $(H, 50, 70)$.
 In the upper left panel colors from the full spectrum are used ($H = 30, 120, 210, 300$)
 creating a `dynamic' set of colors. The upper right panel shows a `harmonic'
-set with $H = 60, 120, 180, 240$. Warm colors (from the blue/green part of the spectrum: 
-$H = 270, 230, 190, 150$) and cold colors (from the yellow/red part of the spectrum:
+set with $H = 60, 120, 180, 240$. Cold colors (from the blue/green part of the spectrum: 
+$H = 270, 230, 190, 150$) and warm colors (from the yellow/red part of the spectrum:
 $H = 90, 50, 10, 330$) are shown in the lower left and right panel, respectively.
 
 
