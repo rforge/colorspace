@@ -1,0 +1,7 @@
+Changes in Version 0.96
+
+  o moved color palettes from vcd to colorspace
+  
+  o added infrastructure for HLS color space
+
+  o new CITATION file
