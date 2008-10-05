@@ -79,31 +79,22 @@ Thus, it is necessary to employ a \emph{color model}
 or \emph{color space} that describes colors in terms of their perceptual
 properties: hue, brightness, and colorfulness.
 
-A color model typically supported by software packages involves
- the specification
+A color model typically supported by software packages involves the specification
 of colors as Red-Green-Blue (RGB) triplets. However, this specification
-corresponds to color generation on
-a computer screen 
-\citep[see][]{color:Poynton:2000}
-rather than
-corresponding to human color perception. For humans, it is
+corresponds to color generation on a computer screen \citep[see][]{color:Poynton:2000}
+rather than corresponding to human color perception. For humans, it is
 virtually impossible to control the perceptual properties of a color in this
 color space because there is no single dimension that corresponds to, e.g.,
-the hue or the brightness of the color. As a consequence, 
-various perceptually-based
+the hue or the brightness of the color. As a consequence, various perceptually-based
 color spaces have been suggested, where each dimension of the color space can
 be matched with a perceptual property. One approach widely implemented in
-software packages involves
- Hue-Saturation-Value (HSV) triplets \citep{color:Smith:1978},
+software packages involves Hue-Saturation-Value (HSV) triplets \citep{color:Smith:1978},
 a simple transformation of RGB triplets \citep[see][]{color:Wiki+HSV:2007}.
 Unfortunately, the dimensions in HSV space map poorly to perceptual
 properties and the use of HSV colors encourages the use of 
-highly saturated colors. 
-A perceptually based color model that avoids
-these problems involves
-Hue-Chroma-Luminance (HCL) triplets \citep[see][]{color:Ihaka:2003},
-which is
-a transformation of CIELUV color space \citep[see][]{color:Wiki+CIELUV:2007}.
+highly saturated colors. A perceptually based color model that avoids
+these problems involves Hue-Chroma-Luminance (HCL) triplets \citep[see][]{color:Ihaka:2003},
+which is a transformation of CIELUV color space \citep[see][]{color:Wiki+CIELUV:2007}.
 This is the color space we advocate in this article.
 
 
@@ -173,7 +164,7 @@ viewers or grayscale printing can be assessed.
 
 %% Given a mapping from HCL to RGB coordinates, our formulas are
 %% extremely easy to implement in software and we provide such an implementation
-%% in the \proglang{R} language \citep{color:R:2007} using the powerful \proglang{R} graphics
+%% in the \proglang{R} language \citep{color:R:2008} using the powerful \proglang{R} graphics
 %% system \citep[see][]{color:Murrell:2006} and the HCL
 %% color implementation from package \pkg{colorspace} \citep{color:Ihaka:2006}. This gives the user
 %% both a conceptual and computational tool box for experimenting with color palettes for
@@ -184,9 +175,10 @@ some motivating examples, showing how typical HSV-based graphics can be enhanced
 by using HCL-based palettes. Section~\ref{sec:spaces} gives a brief introduction
 to the underlying HSV and HCL color spaces before Section~\ref{sec:palettes} 
 suggests strategies for deriving HCL-based qualitative, sequential, and diverging palettes.
+Some more more illustrations are presented in Section~\ref{sec:illustrations}.
 Section~\ref{sec:software} offers some general remarks on the implementation in statistical
 software packages as well as some details on the implementation in the \proglang{R}
-system for statistical computing \citep{color:R:2007}.
+system for statistical computing \citep{color:R:2008}.
 Section~\ref{sec:discussion} concludes the paper with a discussion.
 
 
@@ -959,7 +951,7 @@ omitted here), however the conversion formulas are still straightfoward to
 implement and can, for example, be found in \cite{color:Wiki+CIELUV:2007} or
 \cite{color:Poynton:2000}.
 
-The \proglang{R} system for statistical computing \citep{color:R:2007} already comes
+The \proglang{R} system for statistical computing \citep{color:R:2008} already comes
 with an open-source implementation of HCL (and other color spaces) in the package
 \pkg{colorspace} \citep{color:Ihaka:2006}. The coordinate transformations mentioned
 above are contained in \proglang{C} code within \pkg{colorspace} that are easy to
