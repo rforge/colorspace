@@ -1,0 +1,93 @@
+\documentclass[a4paper]{article}
+\usepackage{a4wide}
+
+\begin{document}
+
+\textbf{Reviewer 1}
+
+\begin{itemize}
+  \item \textit{It would be helpful to point out that the CIE Luv colour
+        space is only roughly perceptually uniform -- it is a compromise
+	between perceptual uniformity and simplicity of conversion formulas.
+	According to the authors' reference Poynton (2000) it has a non-uniformity
+	of 6:1 compared to 80:1 for the XYZ colour space -- I don't know what the
+	non-uniformity is for HSV, but gamma correction presumably means that it
+	is smaller than for XYZ.}
+
+        Paul?
+	
+  \item \textit{The article really should have better references to the scientific
+        literature on colour. Lumley (2006) and Ihaka (2003) are useful, especially
+        the latter, but neither is really peer-reviewed literature.  I don't know
+        what the journal's policy is on Wikipedia as a reference [although this is
+        the sort of topic where Wikipedia typically does quite well]}
+	
+	We added some references (Paul, Kurt?) but also kept the Wikipedia
+	references because they are quite helpful as overviews.
+\end{itemize}
+
+
+\textbf{Reviewer 2}
+
+\begin{itemize}
+  \item \textit{p.7 line 9fb. There is confusion here. ``Warm colors
+        (from the blue/green part of the spectrum...) and cold colors
+	(from the yellow/red ....)''}
+	
+	fixed
+	
+  \item \textit{p.13 Harezlak reference. In all other articles, key words in the article
+        title are capitalized, except in this reference. I personally would prefer
+        if only the lead word in the article title were capitalized.}
+	
+	fixed (capitalized in the underlying {\sc Bib}{\TeX} file, the rest
+	will be handled by Elsevier's style files)
+	
+  \item \textit{p.14 Murrell reference. ``Chapmann" should be ``Chapman". I guess a little
+        germaninzation is not too bad :-)}
+	
+	Maybe Tschappmann? :-) More seriously: fixed, and thanks for spotting this.
+\end{itemize}
+
+
+\textbf{3rd party review}
+
+\begin{itemize}
+  \item \textit{This is a potentially useful paper, although right now it needs more
+        work.  The paper is lacking several common statistics examples: a
+        scatterplot, barchart or mosaic plot, to introduce and establish the
+        credentials of the color choices. Cindy Brewer's work covers maps very
+        nicely. But the big problem in using these methods for statistical
+        graphics is that we don't have large swatches of adjoining colour.}
+	
+	New section: Illustrations.
+	
+  \item \textit{Its clear that the HCL is the better approach, as described in Ihaka's
+        work. I have a difficult time determining how this paper expands on
+        Ihaka's work to make substantial new contributions.}
+	
+	Ihaka's work just covered qualitative palettes (as referenced in Section~4.1),
+	the other color selection strategies are novel.
+
+  \item \textit{The defaults in statistical graphics packages should use of these
+        ideas to create better initial color choices for the user. One would
+        expect that the software that these authors have provided will make it
+        easier for new developers to build good color defaults into their
+        plots. But its not clear that it would be easy to use the vcd
+        functions, or that all new packages should depend on vcd. Wouldn't it
+        be more accessible to R users if there was a separate color package,
+        or part of colorspace, that would make these color scales available?}
+	
+	This is a good point! All functions have been moved from vcd to colorspace.
+
+  \item \textit{The color defaults in ggplot2 (http://had.co.nz/ggplot2/) are based on
+        some similar ideas as described in this paper. I'm not sure what the
+        overlap or connection is, but ggplot2 provides an excellent example of
+        great default color schemes, for all sorts of statistical graphics.}
+	
+	I think Hadley copied some code (in order not to depend on vcd), following
+	my suggestion to do so. We could also cite ggplot2.
+
+\end{itemize}
+
+\end{document}
