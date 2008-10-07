@@ -215,13 +215,13 @@ if(generate_png) {
     invisible(x)
   }
 
-  png(file = "bkde.png", height = 810, width = 840)
+  png(file = "bkde.png", height = 800, width = 830)
   par(mfrow = c(2, 2), mar = c(4.5, 3.5, 1, 1))
   plot_bkde2D(dens, col = hsv(seq(from = 2/3, to = 0, length = 33), 0.8, 0.9))
   ## plot_bkde2D(dens, col = rainbow(33, start = 1/3, end = 1, v = 0.8, s = 0.9))
-  plot_bkde2D(dens, col = rev(sequential_hcl(33, c = 0, l = c(30, 90), power = c(1/5, 1.5))))
+  plot_bkde2D(dens, col = rev(heat_hcl(33, c = 0, l = c(30, 90), power = c(1/5, 1.3))))
   plot_bkde2D(dens, col = rev(heat.colors(33)))
-  plot_bkde2D(dens, col = rev(heat_hcl(33, c = c(80, 30), l = c(30, 90), power = c(1/5, 1.5))))
+  plot_bkde2D(dens, col = rev(heat_hcl(33, c = c(80, 30), l = c(30, 90), power = c(1/5, 1.3))))
   dev.off()
 }
 @
@@ -229,28 +229,28 @@ if(generate_png) {
 \setkeys{Gin}{width=.47\textwidth}
 <<bkde-pal>>=
 if(generate_png) {
-  png(file = "bkde-pal.png", height = 160, width = 396)
-  par(mfrow = c(4, 1), mar = c(0.5, 0, 0, 0), oma = c(2, 1.5, 0, 1.5))
+  png(file = "bkde-pal.png", height = 160, width = 400)
+  par(mfrow = c(4, 1), mar = c(0.5, 0, 0, 0), oma = c(2, 1.7, 0, 1.9))
   plot(0, 0, type="n", xlim = c(0, 0.03), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
-  abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 4, col = 
+  abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 6, col = 
     hsv(seq(from = 2/3, to = 0, length = 99), 0.8, 0.9))
     ## rainbow(99, start = 1/3, end = 1, v = 0.8, s = 0.9))
   box()
   plot(0, 0, type="n", xlim = c(0, 0.03), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
-  abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 4, col = 
+  abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 6, col = 
     rev(heat.colors(99)))
   box()
   plot(0, 0, type="n", xlim = c(0, 0.03), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
-  abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 4, col = 
-    rev(heat_hcl(99, c = c(80, 30), l = c(30, 90), power = c(1/5, 1.5))))
+  abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 6, col = 
+    rev(heat_hcl(99, c = c(80, 30), l = c(30, 90), power = c(1/5, 1.3))))
   box()
   plot(0, 0, type="n", xlim = c(0, 0.03), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
-  abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 4, col = 
-    rev(sequential_hcl(99, c = 0, l = c(30, 90), power = c(1/5, 1.5))))
+  abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 6, col = 
+    rev(heat_hcl(99, c = 0, l = c(30, 90), power = c(1/5, 1.3))))
   box()
   axis(1, cex.axis = 1.8)
   dev.off()
@@ -345,17 +345,17 @@ if(generate_png) {
   par(mfrow = c(3, 1), mar = c(0.5, 0, 0, 0), oma = c(2, 0.2, 0, 0.2))
   plot(0, 0, type="n", xlim = c(-0.65, 0.65), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
-  abline(v = seq(from = -0.65, to = 0.65, length.out = 99), lwd = 4, col = 
+  abline(v = seq(from = -0.65, to = 0.65, length.out = 99), lwd = 6, col = 
     rev(rainbow(99, start = 0, end = 1/3)))
   box()
   plot(0, 0, type="n", xlim = c(-0.65, 0.65), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
-  abline(v = seq(from = -0.65, to = 0.65, length.out = 99), lwd = 4, col = 
+  abline(v = seq(from = -0.65, to = 0.65, length.out = 99), lwd = 6, col = 
     rev(diverge_hcl(99, h = c(0, 120), c = 60, l = c(45, 90), power = 1.2)))
   box()
   plot(0, 0, type="n", xlim = c(-0.65, 0.65), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
-  abline(v = seq(from = -0.65, to = 0.65, length.out = 99), lwd = 4, col = 
+  abline(v = seq(from = -0.65, to = 0.65, length.out = 99), lwd = 6, col = 
     rev(diverge_hcl(99, h = c(300, 120), c = 60, l = c(45, 90), power = 1.2)))
   box()
   axis(1, cex.axis = 1.8)
