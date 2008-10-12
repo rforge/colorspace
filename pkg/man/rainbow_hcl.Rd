@@ -78,8 +78,9 @@ diverge_hsv(n, h = c(240, 0), s = 1, v = 1, power = 1,
 }
 
 \references{
-  Zeileis A. and Hornik K. (2006), Choosing Color Palettes for Statistical Graphics.
-  Report 41, Department of Statistics and Mathematics, Wirtschaftsuniversität Wien,
+  Zeileis A., Hornik K. and Murrell P. (2007),
+  Escaping RGBland: Selecting Colors for Statistical Graphics.
+  Report 61, Department of Statistics and Mathematics, Wirtschaftsuniversität Wien,
   Research Report Series, \url{http://epub.wu-wien.ac.at/}.
 }
 
@@ -103,7 +104,7 @@ wheel <- function(col, radius = 1, ...)
 pal <- function(col, border = "light gray")
 {
   n <- length(col)
-  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), axes = FALSE, xlab = "", ylab="")
+  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), axes = FALSE, xlab = "", ylab = "")
   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
 }
 
@@ -129,10 +130,10 @@ pal(heat_hcl(12, c = c(80, 30), l = c(30, 90), power = c(1/5, 1.5)))
 
 ## compare base and vcd palettes
 par(mfrow = c(2, 1))
-wheel(rainbow(12));wheel(rainbow_hcl(12))
-pal(diverge_hcl(7, c = 100, l = c(50, 90)));pal(diverge_hsv(7))
-pal(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)));pal(cm.colors(7))
-pal(heat_hcl(12));pal(heat.colors(12))
-pal(terrain_hcl(12));pal(terrain.colors(12))
+wheel(rainbow(12)); wheel(rainbow_hcl(12))
+pal(diverge_hcl(7, c = 100, l = c(50, 90))); pal(diverge_hsv(7))
+pal(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))); pal(cm.colors(7))
+pal(heat_hcl(12)); pal(heat.colors(12))
+pal(terrain_hcl(12)); pal(terrain.colors(12))
 }
 \keyword{color}

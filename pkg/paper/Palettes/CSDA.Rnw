@@ -289,7 +289,7 @@ or \citet[Figure~2]{color:Tenenhaus+Giron+Viennet:2007}.
 The palette in the upper left panel
 codes increasing density by going from a blue to a red hue (via green and yellow)---a similar
 strategy are the ``heat colors'' in the lower left panel that increase from yellow to red.
-The latter works a bit better than the former, however both palettes exhibit several drawbacks.
+The latter works somewhat better than the former, however both palettes exhibit several drawbacks.
 The modes in the map look much more like ``rings'' rather than a smoothly increasing/decreasing 
 density. The heatmap looks very flashy which---although good for drawing attention to a plot---makes
 it hard to hold the attention of the viewer for a longer time because the large areas shaded
@@ -928,7 +928,7 @@ with black hair and brown eyes, blond hair and blue eyes, red hair and green eye
 under independence. Conversely, fewer students than expected have blond hair and brown/hazel eyes
 or black hair and blue eyes. Comparing the HSV and HCL colors in Figure~\ref{fig:haireye},
 it is shown again that the HCL colors are better balanced (between the red and blue colors)
-and less flashy. Even the cells associated with small residuals (below 2) are a bit easier
+and less flashy. Even the cells associated with small residuals (below 2) are somewhat easier
 to read when shaded in a light grey rather than white. More details and extensions to residual-based
 shadings can be found in \cite{color:Zeileis+Meyer+Hornik:2007}.
 
@@ -939,7 +939,7 @@ shadings can be found in \cite{color:Zeileis+Meyer+Hornik:2007}.
 Implementing the different color palettes suggested in the previous section 
 is extremely easy if the software environment chosen already provides an implementation
 of HCL colors: from the formulas provided above the HCL coordinates for a
-palette can be conveniently computed. A bit more work is required if the software
+palette can be conveniently computed. Somewhat more work is required if the software
 package does not yet provide an HCL implementation. In that case, additional
 functionality is needed for translating HCL coordinates to the software package's 
 color system which may vary between different packages, but standardized RGB (sRGB)
@@ -951,22 +951,24 @@ omitted here), however the conversion formulas are still straightfoward to
 implement and can, for example, be found in \cite{color:Wiki+CIELUV:2007} or
 \cite{color:Poynton:2000}.
 
-The \proglang{R} system for statistical computing \citep{color:R:2008} already comes
-with an open-source implementation of HCL (and other color spaces) in the package
-\pkg{colorspace} \citep{color:Ihaka:2006}. The coordinate transformations mentioned
-above are contained in \proglang{C} code within \pkg{colorspace} that are easy to
-port to other statistical software systems. Based on \pkg{colorspace} and
-the \proglang{R} graphics system \citep[see][]{color:Murrell:2006},
-the package \pkg{vcd} \citep{color:Meyer+Zeileis+Hornik:2007} provides implementations
-of all palettes discussed above. Qualitative palettes are provided by
+The \proglang{R} system for statistical computing \citep{color:R:2008} provides
+an open-source implementation of HCL (and other color spaces) in the package
+\pkg{colorspace}, originally written by Ross Ihaka. The coordinate transformations mentioned
+above are contained in \proglang{C}~code within \pkg{colorspace} that are easy to
+port to other statistical software systems. Starting from version~0.96, \pkg{colorspace}
+\citep{color:Ihaka+Murrell+Hornik+Zeileis:2008} also includes
+an implementation of all palettes discussed above. 
+\citep[Originally, the code for the palettes was in the \pkg{vcd} package,]%
+[but it was recently moved to \pkg{colorspace} to be more easily acessible.]%
+{color:Meyer+Zeileis+Hornik:2008} Qualitative palettes are provided by
 \code{rainbow_hcl()} (named after the HSV-based function \code{rainbow()} in base
 \proglang{R}). Sequential palettes based on a single hue are implemented in the function
 \code{sequential_hcl()} while \code{heat_hcl()} offers sequential palettes based on
 a range of hues. Diverging palettes can be obtained by \code{diverge_hcl()}.
-Technical documentation along with a large collection of examples is available via
-\verb/help("rainbow_hcl", package = "vcd")/. Furthermore, \proglang{R} code for reproducing
+Technical documentation along with a large collection of example palettes is available via
+\verb/help("rainbow_hcl", package = "colorspace")/. Furthermore, \proglang{R}~code for reproducing
 Figures~\ref{fig:pal-q-examples}, \ref{fig:pal-s-examples} and \ref{fig:pal-d-examples}
-(and some illustrations) can be accessed via \code{vignette("hcl-colors", package = "vcd")}.
+(and some illustrations) can be accessed via \code{vignette("hcl-colors", package = "colorspace")}.
 
 
 \section{Discussion} \label{sec:discussion}
@@ -995,13 +997,6 @@ experience (as illustrated in Section~\ref{sec:motivation}), chroma contrasts
 work sufficiently well if a small set of colors is used. However, when a larger
 set of colors is used (e.g., for heatmaps where extreme values should be identifiable)
 it is much more important to have a big difference in luminance.
-%% Another parameter in these 
-%% palettes is the rate at which the intensity $|i|$ is increased from $0$ to $1$:
-%% Employing a function $|i|^p$ for this, small
-%% powers $p$ can be used if palettes with a lot of color should be 
-%% constructed (e.g., to clearly separate regions in a classification map). On
-%% the other hand, large powers $p$ will result in palettes with less color
-%% (e.g., appropriate to highlight only extreme regions firmly classified in such a map).
 
 Based on these conceputal guidelines and the computational tools readily
 provided in the \proglang{R} system for statistical computing (and easily implemented in other
@@ -1013,9 +1008,6 @@ graphical parameters and thus adapting the colors to their particular graphical 
 %% 
 %% We are thankful to David Meyer, Ross Ihaka, Ken Knoblauch, Brian~D.~Ripley,
 %% Thomas Kneib, Michael H\"ohle, and Thomas Lumley for feedback, suggestions and discussions.
-
-%% Referees:
-%% Ross Ihaka, Thomas Lumley, Cynthia Brewer, Martin Maechler, Ken Knoblauch
 
 \bibliography{color}
 
