@@ -18,7 +18,8 @@
   coding information contained in some variable. When this involves
   the shading of areas (and not only points or lines)---e.g., as in bar plots, pie charts,
   mosaic displays or heatmaps---it is important that the colors are perceptually based
-  and do not introduce optical illusions or systematic bias. It is discussed
+  and do not introduce optical illusions or systematic bias. This article
+discusses
   how the perceptually-based Hue-Chroma-Luminance (HCL) color space can be used for deriving suitable
   color palettes for coding categorical data (qualitative palettes) and numerical
   variables (sequential and diverging palettes).
@@ -92,7 +93,7 @@ software packages involves Hue-Saturation-Value (HSV) triplets \citep{color:Smit
 a simple transformation of RGB triplets \citep[see][]{color:Wiki+HSV:2007}.
 Unfortunately, the dimensions in HSV space map poorly to perceptual
 properties and the use of HSV colors encourages the use of 
-highly saturated colors. A perceptually based color model that avoids
+highly saturated colors. A perceptually based color model that mitigates
 these problems involves Hue-Chroma-Luminance (HCL) triplets \citep[see][]{color:Ihaka:2003},
 which is a transformation of CIELUV color space \citep[see][]{color:Wiki+CIELUV:2007}.
 This is the color space we advocate in this article.
@@ -414,7 +415,9 @@ human color vision works. It has been hypothesized that it evolved in three
 distinct stages: 1.~perception of \emph{light/dark} contrasts (monochrome only),
 2.~\emph{yellow/blue} contrasts (usually associated with our notion of warm/cold colors),
 3.~\emph{green/red} contrasts (helpful for assessing the ripeness of fruit). See 
-\cite{color:Ihaka:2003} and \cite{color:Lumley:2006} for more details and references.
+\cite{color:Kaiser+Boynton:1996}, 
+\cite{color:Knoblauch:2002}, \cite{color:Ihaka:2003}, 
+and \cite{color:Lumley:2006} for more details and references.
 Furthermore, physiological studies have shown that light is captured by three
 distinct receptors (so-called cones) in the retina and hence coded in three dimensions
 by the human visual system. The perception of this coding, i.e., the subjective
@@ -477,8 +480,14 @@ colors is not uniform over hues and saturations (given value, see Figure~\ref{fi
 HSV colors are often not considered to be perceptually based.
 
 To overcome these drawbacks, various color spaces have been suggested
-that properly map to the perception dimensions, the most prominent of which are
-the CIELUV and CIELAB spaces developed by the \cite{color:CIE:2004}. \cite{color:Ihaka:2003}
+that more closely map to the perception dimensions, the most prominent of which are
+the CIELUV and CIELAB spaces developed by the \cite{color:CIE:2004}. 
+These color spaces are still not perfect---such an ideal is never
+truly attainable because color perception will always
+differ between individuals---but they offer a significant
+improvement over HSV, as Figure~\ref{fig:wheel} illustrates.
+
+\cite{color:Ihaka:2003}
 argues that CIELUV colors are typically preferred for use with emissive technologies
 such as computer screens which makes them an obvious candidate for implementation
 in statistical software packages. By taking polar coordinates in the UV plane of
@@ -780,6 +789,12 @@ whereas the others mostly rely on chroma contrasts.
 
 \section{Illustrations} \label{sec:illustrations}
 
+This section provides several more demonstrations of how 
+HCL-based color palettes can be used to produce statistical
+plots that are less ``flashy'' and more perceptually balanced,
+so that the viewer can
+extract information from the plots more easily and more accurately.
+
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[b!]
 \begin{center}
@@ -970,6 +985,9 @@ Technical documentation along with a large collection of example palettes is ava
 Figures~\ref{fig:pal-q-examples}, \ref{fig:pal-s-examples} and \ref{fig:pal-d-examples}
 (and some illustrations) can be accessed via \code{vignette("hcl-colors", package = "colorspace")}.
 
+The default color palettes in the \pkg{ggplot2} package 
+\citep{color:Wickham:2008} are also based on similar ideas to 
+those discussed in this article.
 
 \section{Discussion} \label{sec:discussion}
 
