@@ -1,3 +1,5 @@
+
+#include <ctype.h>
 #include <R.h>
 #include <Rinternals.h>
 #include <Rmath.h>
@@ -38,22 +40,20 @@ static double ftrans(double u, double gamma)
 	return u / 12.92;
 }
 
-static int DEVRGB_to_RGB(double R, double G, double B, double gamma,
+static void DEVRGB_to_RGB(double R, double G, double B, double gamma,
 			 double *r, double *g, double *b)
 {
     *r = ftrans(R, gamma);
     *g = ftrans(G, gamma);
     *b = ftrans(B, gamma);
-    return 1;
 }
 
-static int RGB_to_DEVRGB(double R, double G, double B, double gamma,
+static void RGB_to_DEVRGB(double R, double G, double B, double gamma,
 			 double *r, double *g, double *b)
 {
     *r = gtrans(R, gamma);
     *g = gtrans(G, gamma);
     *b = gtrans(B, gamma);
-    return 1;
 }
 
 /* ----- CIE-XYZ <-> Device independent RGB -----
@@ -64,35 +64,35 @@ static int RGB_to_DEVRGB(double R, double G, double B, double gamma,
  *
  */
 
-static int RGB_to_XYZ(double R, double G, double B,
+static void RGB_to_XYZ(double R, double G, double B,
 		      double XN, double YN, double ZN,
 		      double *X, double *Y, double *Z)
 {
     *X = YN * (0.412453 * R + 0.357580 * G + 0.180423 * B);
     *Y = YN * (0.212671 * R + 0.715160 * G + 0.072169 * B);
     *Z = YN * (0.019334 * R + 0.119193 * G + 0.950227 * B);
-    return 1;
 }
 
-static int XYZ_to_RGB(double X, double Y, double Z,
+static void XYZ_to_RGB(double X, double Y, double Z,
 		      double XN, double YN, double ZN,
 		      double *R, double *G, double *B)
 {
     *R = ( 3.240479 * X - 1.537150 * Y - 0.498535 * Z) / YN;
     *G = (-0.969256 * X + 1.875992 * Y + 0.041556 * Z) / YN;
     *B = ( 0.055648 * X - 0.204043 * Y + 1.057311 * Z) / YN;
-    return 1;
 }
 
 
 /* ----- CIE-XYZ <-> CIE-LAB ----- */
 
+/* UNUSED ?
 static double g(double t)
 {
     return (t > 7.999625) ? pow(t, 3) : (t - 16.0 / 116.0) / 7.787;
 }
+*/
 
-static int LAB_to_XYZ(double L, double A, double B,
+static void LAB_to_XYZ(double L, double A, double B,
 		      double XN, double YN, double ZN,
 		      double *X, double *Y, double *Z)
 {
@@ -124,7 +124,6 @@ static int LAB_to_XYZ(double L, double A, double B,
 	*Z = ZN * (fz - 16.0 / 116.0) / 7.787;
     else
 	*Z = ZN * pow(fz, 3);
-    return 1;
 }
 
 static double f(double t)
@@ -132,7 +131,7 @@ static double f(double t)
     return (t > 0.008856) ? pow(t, 1.0/3.0) : 7.787 * t + 16.0/116.0;
 } 
 
-static int XYZ_to_LAB(double X, double Y, double Z,
+static void XYZ_to_LAB(double X, double Y, double Z,
 		      double XN, double YN, double ZN,
 		      double *L, double *A, double *B)
 {
@@ -149,7 +148,6 @@ static int XYZ_to_LAB(double X, double Y, double Z,
     zt = f(zr);
     *A = 500.0 * (xt - yt);
     *B = 200.0 * (yt - zt);
-    return 1;
 }
 
 
@@ -157,12 +155,10 @@ static int XYZ_to_LAB(double X, double Y, double Z,
  *
  *  Hunter LAB is no longer part of the public API, but the code
  *  is still here in case it is needed.
- *
- */
 
-static int XYZ_to_HLAB(double X, double Y, double Z,
-		       double XN, double YN, double ZN,
-		       double *L, double *A, double *B)
+static void XYZ_to_HLAB(double X, double Y, double Z,
+                        double XN, double YN, double ZN,
+                        double *L, double *A, double *B)
 {
     X = X / XN;
     Y = Y / YN;
@@ -173,9 +169,9 @@ static int XYZ_to_HLAB(double X, double Y, double Z,
     *L = 10 * *L;
 }
 
-static int HLAB_to_XYZ(double L, double A, double B,
-		       double XN, double YN, double ZN,
-		       double *X, double *Y, double *Z)
+static void HLAB_to_XYZ(double L, double A, double B,
+                        double XN, double YN, double ZN,
+                        double *X, double *Y, double *Z)
 {
     double vX, vY, vZ;
     vY = L / 10;
@@ -191,13 +187,15 @@ static int HLAB_to_XYZ(double L, double A, double B,
     *X = *X * XN;
     *Y = *Y * YN;
     *Z = *Z * ZN;
-    return 1;
 }
+
+ *
+ */
 
 /* ----- LAB <-> polarLAB ----- */
 
-static int LAB_to_polarLAB(double L, double A, double B,
-			   double *l, double *c, double *h)
+static void LAB_to_polarLAB(double L, double A, double B,
+                            double *l, double *c, double *h)
 {
     double vH;
     vH = RAD2DEG(atan2(B, A));
@@ -206,10 +204,9 @@ static int LAB_to_polarLAB(double L, double A, double B,
     *l = L;
     *c = sqrt(A * A + B * B);
     *h = vH;
-    return 1;
 }
 
-static int polarLAB_to_LAB(double L, double C, double H,
+static void polarLAB_to_LAB(double L, double C, double H,
 			   double *l, double *a, double *b)
 {
     *l = L;
@@ -233,7 +230,7 @@ static double min3(double a, double b, double c)
     return a;
 }
 
-static int RGB_to_HSV(double r, double g, double b,
+static void RGB_to_HSV(double r, double g, double b,
 		      double *h, double *s, double *v)
 {
     double y, x, f;
@@ -254,13 +251,12 @@ static int RGB_to_HSV(double r, double g, double b,
 	*h = 0; *s = 0; *v = y;
 #endif
     }
-    return 1;
 }
 
 #define RETURN_RGB(red,green,blue) *r=red;*g=green;*b=blue;break;
 
-static int HSV_to_RGB(double h, double s, double v,
-                double *r, double *g, double *b)
+static void HSV_to_RGB(double h, double s, double v,
+                       double *r, double *g, double *b)
 {
     double m, n, f;
     int i;
@@ -285,7 +281,6 @@ static int HSV_to_RGB(double h, double s, double v,
 	case 5: RETURN_RGB(v, m, n);
 	}
     }
-    return 1;
 }
 
 /* 
@@ -295,8 +290,8 @@ static int HSV_to_RGB(double h, double s, double v,
  * From:
  * http://wiki.beyondunreal.com/wiki/RGB_To_HLS_Conversion
  */
-static int RGB_to_HLS(double r, double g, double b,
-		      double *h, double *l, double *s)
+static void RGB_to_HLS(double r, double g, double b,
+                       double *h, double *l, double *s)
 {
     double min, max;
 
@@ -352,8 +347,8 @@ static double qtrans(double q1, double q2, double hue) {
     return result;
 }
 
-static int HLS_to_RGB(double h, double l, double s,
-                      double *r, double *g, double *b)
+static void HLS_to_RGB(double h, double l, double s,
+                       double *r, double *g, double *b)
 {  
     double p1 = NA_REAL;
     double p2 = NA_REAL;
@@ -387,9 +382,9 @@ static void XYZ_to_uv(double X, double Y, double Z, double *u, double *v)
     *v = 4.5 * y / (6 * y - x + 1.5);
 }
 
-static int XYZ_to_LUV(double X, double Y, double Z,
-		      double XN, double YN, double ZN,
-		      double *L, double *U, double *V)
+static void XYZ_to_LUV(double X, double Y, double Z,
+                       double XN, double YN, double ZN,
+                       double *L, double *U, double *V)
 {
     double u, v, uN, vN, y;
     XYZ_to_uv(X, Y, Z, &u, &v);
@@ -400,9 +395,9 @@ static int XYZ_to_LUV(double X, double Y, double Z,
     *V = 13 * *L * (v - vN);
 }
 
-static int LUV_to_XYZ(double L, double U, double V,
-		      double XN, double YN, double ZN,
-		      double *X, double *Y, double *Z)
+static void LUV_to_XYZ(double L, double U, double V,
+                       double XN, double YN, double ZN,
+                       double *X, double *Y, double *Z)
 {
     double u, v, uN, vN;
     if (L <= 0 && U == 0 && V == 0) {
@@ -416,31 +411,28 @@ static int LUV_to_XYZ(double L, double U, double V,
 	*X =  9.0 * *Y * u / (4 * v);
 	*Z =  - *X / 3 - 5 * *Y + 3 * *Y / v;
     }
-    return 1;
 }
 
 
 /* ----- LUV <-> polarLUV ----- */
 
-static int LUV_to_polarLUV(double L, double U, double V,
-			   double *l, double *c, double *h)
+static void LUV_to_polarLUV(double L, double U, double V,
+                            double *l, double *c, double *h)
 {
     *l = L;
     *c = sqrt(U * U + V * V);
     *h = RAD2DEG(atan2(V, U));
     while (*h > 360) *h -= 360;
     while (*h < 0) *h += 360;
-    return 1;
 }
 
-static int polarLUV_to_LUV(double l, double c, double h,
-		      double *L, double *U, double *V)
+static void polarLUV_to_LUV(double l, double c, double h,
+                            double *L, double *U, double *V)
 {
     h = DEG2RAD(h);
     *L = l;
     *U = c * cos(h);
     *V = c * sin(h);
-    return 1;
 }
 
 /* ----- Argument Checking ----- */
@@ -1271,7 +1263,7 @@ static const char HEXDIG[] = {
 
 SEXP RGB_to_RColor(SEXP rgb, SEXP gamma, SEXP fixup)
 {
-    double gammavalue, r, g, b, Xn, Yn, Zn;
+    double gammavalue, r, g, b;
     int fixupvalue, i, ir, ig, ib, n, nagen;
     char hex[8];
     SEXP ans;
@@ -1330,7 +1322,7 @@ static int decodeHexDigit(int x)
   }
 }
 
-static void decodeHexStr(char *x, double *r, double *g, double *b)
+static void decodeHexStr(const char * const x, double *r, double *g, double *b)
 {
   int d1, d2, d3, d4, d5, d6;
   d1 = decodeHexDigit(x[1]);
@@ -1362,7 +1354,7 @@ SEXP hex_to_RGB(SEXP hex, SEXP gamma)
     gammavalue = asReal(gamma);
     ans = allocMatrix(REALSXP, n, 3);
     for(i = 0; i < n; i++) {
-        decodeHexStr(CHAR(STRING_ELT(hex,i)), &r, &g, &b);
+        decodeHexStr(CHAR(STRING_ELT(hex, i)), &r, &g, &b);
         if (R_FINITE(gammavalue) && gammavalue > 0)
             DEVRGB_to_RGB(r, g, b, gammavalue, &r, &g, &b);
         REAL(ans)[i] = r;

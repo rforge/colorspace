@@ -1,6 +1,5 @@
 Package: colorspace
-Version: 0.96
-Date: 2008-10-17
+Version: 0.97
 Title: Color Space Manipulation
 Author: Ross Ihaka, Paul Murrell, Kurt Hornik, Achim Zeileis
 Maintainer: Ross Ihaka <ihaka@stat.auckland.ac.nz>

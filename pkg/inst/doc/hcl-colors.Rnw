@@ -5,12 +5,13 @@
 \title{HCL-Based Color Palettes in \proglang{R}}
 \Plaintitle{HCL-Based Color Palettes in R}
 \author{Achim Zeileis\\Wirtschaftsuniversit\"at Wien
-   \And Kurt Hornik\\Wirtschaftsuniversit\"at Wien}
-\Plainauthor{Achim Zeileis, Kurt Hornik}
+   \And Kurt Hornik\\Wirtschaftsuniversit\"at Wien
+   \And Paul Murrell\\University of Auckland}
+\Plainauthor{Achim Zeileis, Kurt Hornik, Paul Murrell}
 \Keywords{HCL colors, qualitative palette, sequential palette, diverging palette}
 
 \Abstract{
-  The package \pkg{vcd} provides various functions providing perceptually-based
+  The package \pkg{colorspace} provides various functions providing perceptually-based
   color palettes for coding categorical data (qualitative palettes) and numerical
   variables (sequential and diverging palettes). We illustrate how these
   functions can be employed to generate various flavours of these palettes (with
@@ -27,16 +28,26 @@
   E-mail: \email{Achim.Zeileis@R-project.org}, \email{Kurt.Hornik@R-project.org}\\
   URL: \url{http://statmath.wu-wien.ac.at/~zeileis/},\\
   \phantom{URL:} \url{http://statmath.wu-wien.ac.at/~hornik/}
+
+  Paul Murrell\\
+  Department of Statistics\\
+  The University of Auckland\\
+  Private Bag 92019\\
+  Auckland\\
+  New Zealand\\
+  E-mail: \email{paul@stat.auckland.ac.nz}\\
+  URL: \url{http://www.stat.auckland.ac.nz/~paul/}
 }
 
 \begin{document}
 
 %\VignetteIndexEntry{HCL-Based Color Palettes in R}
-%\VignetteDepends{vcd,colorspace,MASS,KernSmooth,mvtnorm,kernlab}
+%\VignetteDepends{colorspace,vcd,MASS,KernSmooth,mvtnorm,kernlab}
 %\VignetteKeywords{HCL colors, qualitative palette, sequential palette, diverging palette}
 %\VignettePackage{colorspace}
 
 <<preliminaries>>=
+library("colorspace")
 library("vcd")
 library("mvtnorm")
 library("kernlab")
@@ -50,7 +61,7 @@ and \cite{color:Zeileis+Hornik+Murrell:2007} providing
 further technical details on the construction of the palettes as well as
 \proglang{R} code illustrating the use of varying palettes in practice.
 The palettes as well as some graphical functions demonstrated are contained
-in the package \pkg{vcd}.
+in the package \pkg{colorspace}.
 As a simple convenience function we will use the function
 <<pal, echo=TRUE>>=
 pal <- function(col, border = "light gray", ...)
@@ -64,7 +75,7 @@ pal <- function(col, border = "light gray", ...)
 which displays a set of colors using a sequence of shaded rectangles.
 
 In the remainder of this vignette, we first outline how different types of palettes
-can be constructed and generated using the tools from \pkg{vcd}. Subsequently,
+can be constructed and generated using the tools from \pkg{colorspace}. Subsequently,
 we present a collection of examples illustrating the tools in practice.
 
 
@@ -74,11 +85,11 @@ we present a collection of examples illustrating the tools in practice.
 
 Qualitative palettes are sets of colors for depicting different categories,
 i.e., for coding a categorical variable. To give the same
-perceptual weight to each category, chroma and luminance are kept 
+perceptual weight to each category, chroma and luminance are kept constant
 and only the hue is varied for obtaining different colors
 (which are consequently all balanced towards the same gray). 
 
-In \pkg{vcd}, qualitative palettes are implemented in the function
+In \pkg{colorspace}, qualitative palettes are implemented in the function
 \begin{Soutput}
 rainbow_hcl(n, c = 50, l = 70, start = 0, end = 360*(n-1)/n, ...)
 \end{Soutput}
@@ -97,8 +108,8 @@ pal(rainbow_hcl(4, start = 90, end = -30), main = "warm")
 @
 From left to right and top to down, this shows a palette from the full spectrum ($H = 30, 120, 210, 300$)
 creating a `dynamic' set of colors, a `harmonic'
-set with $H = 60, 120, 180, 240$, warm colors (from the blue/green part of the spectrum: 
-$H = 270, 230, 190, 150$) and cold colors (from the yellow/red part of the spectrum:
+set with $H = 60, 120, 180, 240$, cold colors (from the blue/green part of the spectrum: 
+$H = 270, 230, 190, 150$) and warm colors (from the yellow/red part of the spectrum:
 $H = 90, 50, 10, 330$), respectively.
 
 \setkeys{Gin}{width=0.75\textwidth}
@@ -130,7 +141,7 @@ to increase non-linearly via a function of type $i^p$, the resulting formula is:
   \[ (H_2 - i \cdot (H_1 - H_2), C_{\max} - i^{p_1} \cdot (C_{\max} - C_{\min}),
       L_{\max} - i^{p_2} \cdot (L_{\max} - L_{\min})). \]
 
-Two different ``flavors'' of this formula are readily implemented in \pkg{vcd},
+Two different ``flavors'' of this formula are readily implemented in \pkg{colorspace},
 employing different defaults. For single hue palettes with $H_1 = H_2$ the 
 function
 \begin{Soutput}
@@ -138,7 +149,7 @@ sequential_hcl(n, h = 260, c = c(80, 0), l = c(30, 90), power = 1.5, ...)
 \end{Soutput}
 is provided where the first element of \code{c} and \code{l} give the starting chroma and luminance
 coordinate (by default colorful and dark) and the second element the ending coordinate
-(by default light gray). The \code{power} argument implements the parameter $p$ 
+(by default gray and light). The \code{power} argument implements the parameter $p$ 
 from the $i^p$ function (and can be a vector of length 2). Sequential palettes using an
 interval of hues are provided by
 \begin{Soutput}
