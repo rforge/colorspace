@@ -484,8 +484,10 @@ that more closely map to the perception dimensions, the most prominent of which 
 the CIELUV and CIELAB spaces developed by the \cite{color:CIE:2004}. 
 These color spaces are still not perfect---such an ideal is never
 truly attainable because color perception will always
-differ between individuals---but they offer a significant
+differ between individuals---but they facilitate color matching for humans
+\citep{color:Zhang+Montag:2006} and offer a significant
 improvement over HSV, as Figure~\ref{fig:wheel} illustrates.
+
 
 \cite{color:Ihaka:2003}
 argues that CIELUV colors are typically preferred for use with emissive technologies
@@ -560,7 +562,7 @@ i.e., for coding a categorical variable. Usually, these should give the same
 perceptual weight to each category so that no group is perceived to be larger or more
 important than any other one. Typical applications of qualitative palettes in
 statistics would be bar plots \citep[see][]{color:Ihaka:2003}, pie charts
-or highlighted mosaic displays.
+or highlighted mosaic displays (see Section~\ref{sec:illustrations}).
 
 \cite{color:Ihaka:2003} describes a simple strategy for choosing such palettes: chroma
 and luminance are kept fixed and only the hue is varied for obtaining different colors
@@ -595,7 +597,8 @@ high values are interesting. Suppose we need to visualize an intensity or
 interestingness $i$ which (without loss of generality) is scaled to the unit
 interval. A typical application in statistics are heatmaps (see Figure~\ref{fig:bkde}).
 
-The simplest solution to this task is to employ light/dark contrasts, i.e., rely
+The simplest solution to this task is to employ light/dark contrasts
+\citep{color:Ware:1988,color:Levkowitz+Herman:1992}, i.e., rely
 on the most basic perceptual axis. The interestingness can be coded
 by an increasing amount of gray corresponding to decreasing luminance in HCL space:
   \[ (H, 0, 90 - i \cdot 60), \]
@@ -813,33 +816,6 @@ pie(seats, clockwise = TRUE, col = parties_hcl, radius = 1)
 \end{center}
 \end{figure}
 
-Although problematic for many tasks, pie charts can be useful for visualizing
-whether a set of pie segments constitutes a majority. A typical application is shown
-in Figure~\ref{fig:seats}, visualizing the distribution of seats in the German parliament
-``Bundestag'' following the 2005 election. In this election, five parties were able to
-obtain enough votes to enter the Bundestag---however, neither the governing
-coalition of SPD and Gr\"une nor the opposition of CDU/CSU and FDP could assemble a majority.
-Given that no party would enter a coalition with the leftists ``Die Linke'', this lead to
-a big coalition of CDU/CSU and SPD. In graphical displays, the parties are usually matched
-by using colors as metaphors: red for the social democrats SPD, black for the conservative
-CDU/CSU, yellow for the liberal FDP, green for the green party ``Die Gr\"unen'' and purple 
-for the leftist party ``Die Linke''. The left panel shows fully saturated HSV colors as usually
-found in the (German) media whereas the right panel uses less flashy HCL colors with the
-same hues (except for the CDU/CSU where a blue hue instead of the extreme ``color'' black
-is used). The advantage of the latter is again that they are easier to hold in focus for
-a longer time. Furthermore, they are all balanced towards the same gray and have the same
-amount of color, resulting in a perceptually balanced palette that does not introduce undesired
-graphical distractions. While it could be argued that this pie chart is such a simple
-display that a well-balanced palette is not so important and that flashy colors are to
-be preferred, the balancing properties of the HCL-based palette are very important in more
-complex displays such as the mosaic display in Figure~\ref{fig:votes}. This re-uses the same
-colors and shows the distribution of votes in the 2005 election
-stratified by province (Bundesland). The order of provinces is from 
-north to south, first for the 10 western provinces (the former Federal Republic of Germany, FRG),
-then for the 6 eastern provinces (the former German Democratic Republic, GDR). 
-Clearly, the SPD performed better in the north and the CDU/CSU better in the south; furthermore,
-Die Linke performed particularly well in the eastern provinces and in Saarland.
-
 \setkeys{Gin}{width=\textwidth}
 \begin{sidewaysfigure}[p]
 \begin{center}
@@ -874,6 +850,33 @@ popViewport(2)
 \caption{\label{fig:votes} Votes in the German election 2005 (by province).}
 \end{center}
 \end{sidewaysfigure}
+
+Although problematic for many tasks, pie charts can be useful for visualizing
+whether a set of pie segments constitutes a majority. A typical application is shown
+in Figure~\ref{fig:seats}, visualizing the distribution of seats in the German parliament
+``Bundestag'' following the 2005 election. In this election, five parties were able to
+obtain enough votes to enter the Bundestag---however, neither the governing
+coalition of SPD and Gr\"une nor the opposition of CDU/CSU and FDP could assemble a majority.
+Given that no party would enter a coalition with the leftists ``Die Linke'', this lead to
+a big coalition of CDU/CSU and SPD. In graphical displays, the parties are usually matched
+by using colors as metaphors: red for the social democrats SPD, black for the conservative
+CDU/CSU, yellow for the liberal FDP, green for the green party ``Die Gr\"unen'' and purple 
+for the leftist party ``Die Linke''. The left panel shows fully saturated HSV colors as usually
+found in the (German) media whereas the right panel uses less flashy HCL colors with the
+same hues (except for the CDU/CSU where a blue hue instead of the extreme ``color'' black
+is used). The advantage of the latter is again that they are easier to hold in focus for
+a longer time. Furthermore, they are all balanced towards the same gray and have the same
+amount of color, resulting in a perceptually balanced palette that does not introduce undesired
+graphical distractions. While it could be argued that this pie chart is such a simple
+display that a well-balanced palette is not so important and that flashy colors are to
+be preferred, the balancing properties of the HCL-based palette are very important in more
+complex displays such as the mosaic display in Figure~\ref{fig:votes}. This re-uses the same
+colors and shows the distribution of votes in the 2005 election
+stratified by province (Bundesland). The order of provinces is from 
+north to south, first for the 10 western provinces (the former Federal Republic of Germany, FRG),
+then for the 6 eastern provinces (the former German Democratic Republic, GDR). 
+Clearly, the SPD performed better in the north and the CDU/CSU better in the south; furthermore,
+Die Linke performed particularly well in the eastern provinces and in Saarland.
 
 Color choice is usually much more important in graphical displays with
 shaded areas compared to displays with only points or lines. However, color choice
