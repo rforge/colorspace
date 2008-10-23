@@ -95,7 +95,7 @@ Unfortunately, the dimensions in HSV space map poorly to perceptual
 properties and the use of HSV colors encourages the use of 
 highly saturated colors. A perceptually based color model that mitigates
 these problems involves Hue-Chroma-Luminance (HCL) triplets \citep[see][]{color:Ihaka:2003},
-which is a transformation of CIELUV color space \citep[see][]{color:Wiki+CIELUV:2007}.
+resulting from a transformation of CIELUV color space \citep[see][]{color:Wiki+CIELUV:2007}.
 This is the color space we advocate in this article.
 
 
@@ -176,7 +176,7 @@ some motivating examples, showing how typical HSV-based graphics can be enhanced
 by using HCL-based palettes. Section~\ref{sec:spaces} gives a brief introduction
 to the underlying HSV and HCL color spaces before Section~\ref{sec:palettes} 
 suggests strategies for deriving HCL-based qualitative, sequential, and diverging palettes.
-Some more more illustrations are presented in Section~\ref{sec:illustrations}.
+Some more illustrations are presented in Section~\ref{sec:illustrations}.
 Section~\ref{sec:software} offers some general remarks on the implementation in statistical
 software packages as well as some details on the implementation in the \proglang{R}
 system for statistical computing \citep{color:R:2008}.
@@ -1025,10 +1025,10 @@ statistical software packages), users can generate palettes varying these
 graphical parameters and thus adapting the colors to their particular graphical display.
 
 
-%% \section*{Acknowledgments}
-%% 
-%% We are thankful to David Meyer, Ross Ihaka, Ken Knoblauch, Brian~D.~Ripley,
-%% Thomas Kneib, Michael H\"ohle, and Thomas Lumley for feedback, suggestions and discussions.
+\section*{Acknowledgments}
+
+We are thankful to Michael H\"ohle, Ross Ihaka, Thomas Kneib, Ken Knoblauch,
+Thomas Lumley, David Meyer, and Brian~D.~Ripley for feedback, suggestions, and discussions.
 
 \bibliography{color}
 
