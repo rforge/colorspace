@@ -1,7 +1,40 @@
-\documentclass[a4paper]{article}
-\usepackage{a4wide}
+\documentclass{wuletter}
+\signature{Achim Zeileis, Kurt Hornik, Paul Murrell}
+\usepackage[american]{babel}
+\renewcommand{\rmdefault}{phv}
 
 \begin{document}
+\begin{letter}{
+Erricos~J.~Kontoghiorghes\\
+School of Computer Science and Information Systems\\
+Birkbeck College\\
+University of London\\
+Malet Street, London WC1E 7HX, United Kingdom}
+
+\concerning{Revision of CSDA-D-07-00860}
+
+\opening{Dear Prof.~Kontoghiorghes,}
+
+please find attached the revision of our manuscript
+\begin{quote}
+\textit{Escaping RGBland: Selecting Colors for Statistical Graphics}
+\end{quote}
+for \emph{Computational Statistics \& Data Analysis}. 
+
+We would like to thank you, the associate editor and the referees
+for the most helpful reviews of our work. We tried to incorporate
+all of the suggestions. In particular, we have complemented the
+examples from Section~2 (heatmaps, maps) by a set of further illustrations
+in a new Section~5 (including pie charts, highlighted mosaic displays,
+scatter plots, and mosaic displays with residual-based shading).
+Furthermore, we have included some more references to the color and
+computer graphics literature. A detailed point-to-point reply is
+included below.
+
+\closing{Best regards,}
+\end{letter}
+
+\newpage
 
 \textbf{Reviewer 1}
 
@@ -12,18 +45,24 @@
 	According to the authors' reference Poynton (2000) it has a non-uniformity
 	of 6:1 compared to 80:1 for the XYZ colour space -- I don't know what the
 	non-uniformity is for HSV, but gamma correction presumably means that it
-	is smaller than for XYZ.}
+	is smaller than for XYZ.}\\[-0.3cm]
 
-        Paul?
+        Yes, uniformity is a bit more complicated. Hence, we refrain from 
+	discussing its details explicitly here, and have included some
+	remarks in Section~3 pointing out that the CIELUV model also has
+	limitations.
 	
   \item \textit{The article really should have better references to the scientific
         literature on colour. Lumley (2006) and Ihaka (2003) are useful, especially
         the latter, but neither is really peer-reviewed literature.  I don't know
         what the journal's policy is on Wikipedia as a reference [although this is
-        the sort of topic where Wikipedia typically does quite well]}
+        the sort of topic where Wikipedia typically does quite well]}\\[-0.3cm]
 	
-	We added some references (Paul, Kurt?) but also kept the Wikipedia
-	references because they are quite helpful as overviews.
+	We have included pointers to Kaiser and Boynton (1996) and Knoblauch (2002)
+	at the beginning of Section~3, and also included some further references
+	to the computer graphics literature in other sections. We have kept the
+	Wikipedia references because we agree with the referee that they are
+	helpful (especially as a first overview).
 \end{itemize}
 
 
@@ -32,19 +71,18 @@
 \begin{itemize}
   \item \textit{p.7 line 9fb. There is confusion here. ``Warm colors
         (from the blue/green part of the spectrum...) and cold colors
-	(from the yellow/red ....)''}
+	(from the yellow/red ....)''}\\[-0.3cm]
 	
 	fixed
 	
   \item \textit{p.13 Harezlak reference. In all other articles, key words in the article
         title are capitalized, except in this reference. I personally would prefer
-        if only the lead word in the article title were capitalized.}
+        if only the lead word in the article title were capitalized.}\\[-0.3cm]
 	
-	fixed (capitalized in the underlying {\sc Bib}{\TeX} file, the rest
-	will be handled by Elsevier's style files)
+	fixed
 	
   \item \textit{p.14 Murrell reference. ``Chapmann" should be ``Chapman". I guess a little
-        germaninzation is not too bad :-)}
+        germaninzation is not too bad :-)}\\[-0.3cm]
 	
 	Maybe Tschappmann? :-) More seriously: fixed, and thanks for spotting this.
 \end{itemize}
@@ -58,13 +96,17 @@
         scatterplot, barchart or mosaic plot, to introduce and establish the
         credentials of the color choices. Cindy Brewer's work covers maps very
         nicely. But the big problem in using these methods for statistical
-        graphics is that we don't have large swatches of adjoining colour.}
+        graphics is that we don't have large swatches of adjoining colour.}\\[-0.3cm]
 	
-	New section: Illustrations.
+	We have added a new Section~5 ``Illustrations'' that complements
+	the displays from Section~2 (heatmaps, maps) by presenting further
+	applications of the suggested color palettes (pie charts,
+	highlighted mosaic displays, scatter plots, and mosaic displays
+	with residual-based shading).
 	
   \item \textit{Its clear that the HCL is the better approach, as described in Ihaka's
         work. I have a difficult time determining how this paper expands on
-        Ihaka's work to make substantial new contributions.}
+        Ihaka's work to make substantial new contributions.}\\[-0.3cm]
 	
 	Ihaka's work just covered qualitative palettes (as referenced in Section~4.1),
 	the other color selection strategies are novel.
@@ -76,17 +118,20 @@
         plots. But its not clear that it would be easy to use the vcd
         functions, or that all new packages should depend on vcd. Wouldn't it
         be more accessible to R users if there was a separate color package,
-        or part of colorspace, that would make these color scales available?}
+        or part of colorspace, that would make these color scales available?}\\[-0.3cm]
 	
-	This is a good point! All functions have been moved from vcd to colorspace.
+	This is a good point! All functions have been moved from vcd to colorspace,
+	as of vcd~1.2-0 and colorspace~0.97.
 
   \item \textit{The color defaults in ggplot2 (http://had.co.nz/ggplot2/) are based on
         some similar ideas as described in this paper. I'm not sure what the
         overlap or connection is, but ggplot2 provides an excellent example of
-        great default color schemes, for all sorts of statistical graphics.}
+        great default color schemes, for all sorts of statistical graphics.}\\[-0.3cm]
 	
-	I think Hadley copied some code (in order not to depend on vcd), following
-	my suggestion to do so. We could also cite ggplot2.
+	ggplot2 also employs HCL color palettes by default, based on similar ideas.
+        ggplot2 has its own code for this---my understanding is that this is 
+	in part to avoid depending on vcd. We have included a pointer to ggplot2
+	in Section~6.
 
 \end{itemize}
 

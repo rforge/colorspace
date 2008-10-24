@@ -1,4 +1,5 @@
 \documentclass[nojss]{jss}
+
 %% need no \usepackage{Sweave}
 \SweaveOpts{engine=R, eps=FALSE, echo=FALSE, results=hide, keep.source = TRUE}
 
@@ -6,7 +7,7 @@
 \Plaintitle{HCL-Based Color Palettes in R}
 \author{Achim Zeileis\\Wirtschaftsuniversit\"at Wien
    \And Kurt Hornik\\Wirtschaftsuniversit\"at Wien
-   \And Paul Murrell\\University of Auckland}
+   \And Paul Murrell\\The University of Auckland}
 \Plainauthor{Achim Zeileis, Kurt Hornik, Paul Murrell}
 \Keywords{HCL colors, qualitative palette, sequential palette, diverging palette}
 
@@ -33,8 +34,7 @@
   Department of Statistics\\
   The University of Auckland\\
   Private Bag 92019\\
-  Auckland\\
-  New Zealand\\
+  Auckland, New Zealand\\
   E-mail: \email{paul@stat.auckland.ac.nz}\\
   URL: \url{http://www.stat.auckland.ac.nz/~paul/}
 }
@@ -47,6 +47,7 @@
 %\VignettePackage{colorspace}
 
 <<preliminaries>>=
+options(prompt = "R> ", continue = "+  ")
 library("colorspace")
 library("vcd")
 library("mvtnorm")
@@ -171,7 +172,7 @@ pal(sequential_hcl(12, c = 0, power = 2.2))
 pal(sequential_hcl(12, power = 2.2))
 pal(heat_hcl(12, c = c(80, 30), l = c(30, 90), power = c(1/5, 2)))
 pal(terrain_hcl(12, c = c(65, 0), l = c(45, 90), power = c(1/2, 1.5)))
-pal(rev(heat_hcl(12, h = c(0, -100), l = c(75, 40), c = c(40, 80),
+pal(rev(heat_hcl(12, h = c(0, -100), c = c(40, 80), l = c(75, 40),
   power = 1)))
 @
 
