@@ -1,4 +1,4 @@
-Changes in Version 0.96
+Changes in Version 0.97
 
   o moved color palettes from vcd to colorspace,
     including vignette("hcl-colors")
