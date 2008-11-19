@@ -1,4 +1,4 @@
-\documentclass[shortnames]{Z}
+\documentclass[shortnames,noheadings]{Z}
 
 \usepackage{amsfonts}
 \usepackage{rotating}
@@ -18,10 +18,27 @@
   coding information contained in some variable. When this involves
   the shading of areas (and not only points or lines)---e.g., as in bar plots, pie charts,
   mosaic displays or heatmaps---it is important that the colors are perceptually based
-  and do not introduce optical illusions or systematic bias. This article discusses
-  how the perceptually-based Hue-Chroma-Luminance (HCL) color space can be used for deriving suitable
-  color palettes for coding categorical data (qualitative palettes) and numerical
+  and do not introduce optical illusions or systematic bias.
+  Based on the perceptually-based Hue-Chroma-Luminance (HCL) color space  
+  suitable color palettes are derived for coding categorical data (qualitative palettes) and numerical
   variables (sequential and diverging palettes).
+}
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy}
+\thispagestyle{plain}
+\fancyhf{}
+\fancyhead[RO,LE]{\thepage} 
+\fancyhead[CO]{\textit{\normalsize Achim Zeileis, Kurt Hornik, Paul Murrell}} 
+\fancyhead[CE]{\textit{\normalsize Escaping RGBland: Selecting Colors for Statistical Graphics}} 
+\fancyfoot[LO,LE]{\small Copyright {\copyright} 2008 Elsevier B.V.}
+\fancypagestyle{plain}{
+\fancyhf{}
+\fancyfoot[LO,LE]{\small This is a preprint of an article accepted for publication in
+\textit{Computational Statistics \& Data Analysis}.\\
+ Copyright {\copyright} 2008 Elsevier B.V.} 
 }
 
 \begin{document}
@@ -964,12 +981,12 @@ The \proglang{R} system for statistical computing \citep{color:R:2008} provides
 an open-source implementation of HCL (and other color spaces) in the package
 \pkg{colorspace}, originally written by Ross Ihaka. The coordinate transformations mentioned
 above are contained in \proglang{C}~code within \pkg{colorspace} that are easy to
-port to other statistical software systems. Starting from version~0.97, %% FIXME
+port to other statistical software systems. Version~1.0-0 of
 \pkg{colorspace} \citep{color:Ihaka+Murrell+Hornik+Zeileis:2008} also includes
 an implementation of all palettes discussed above. 
 \citep[Originally, the code for the palettes was in the \pkg{vcd} package,]%
 [but it was recently moved to \pkg{colorspace} to be more easily acessible.]%
-{color:Meyer+Zeileis+Hornik:2008} Qualitative palettes are provided by
+{color:Meyer+Zeileis+Hornik:2006} Qualitative palettes are provided by
 \code{rainbow_hcl()} (named after the HSV-based function \code{rainbow()} in base
 \proglang{R}). Sequential palettes based on a single hue are implemented in the function
 \code{sequential_hcl()} while \code{heat_hcl()} offers sequential palettes based on
