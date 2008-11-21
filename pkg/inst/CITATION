@@ -33,7 +33,7 @@ citEntry(entry = "Article",
 	 note         = "Forthcoming",
          
          textVersion = 
-         paste("Achim Zeileis, Kurt Hornik, Paul Murrell (2007).", 
+         paste("Achim Zeileis, Kurt Hornik, Paul Murrell (2008).", 
                "Escaping RGBland: Selecting Colors for Statistical Graphics.",
 	       "Computational Statistics & Data Analysis, Forthcoming."),
 	 header = "If you use HCL-based color palettes, please cite:"
