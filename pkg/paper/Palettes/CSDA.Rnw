@@ -1,10 +1,7 @@
 \documentclass[shortnames,noheadings]{Z}
-
-\usepackage{amsfonts}
-\usepackage{rotating}
+\usepackage{amsfonts,thumbpdf}
 %% need no \usepackage{Sweave}
 \SweaveOpts{engine=R, eps=FALSE, echo=FALSE, results=hide}
-
 
 \title{Escaping RGBland: Selecting Colors for Statistical Graphics}
 \author{Achim Zeileis\\Wirtschaftsuniversit\"at Wien
@@ -23,6 +20,7 @@
   suitable color palettes are derived for coding categorical data (qualitative palettes) and numerical
   variables (sequential and diverging palettes).
 }
+
 
 \usepackage{fancyhdr}
 \setlength{\headheight}{15pt}
@@ -222,7 +220,7 @@ if(generate_png) {
     invisible(x)
   }
 
-  png(file = "bkde.png", height = 800, width = 830)
+  png(file = "bkde.png", height = 1560, width = 1640, res = 144)
   par(mfrow = c(2, 2), mar = c(4.5, 3.5, 1, 1))
   plot_bkde2D(dens, col = hsv(h = seq(from = 2/3, to = 0, length = 33), v = 0.9, s = 0.9))
   plot_bkde2D(dens, col = rev(heat_hcl(33, h = c(0, 90), c = 0,         l = c(30, 90), power = c(1/5, 1.3))))
@@ -235,8 +233,8 @@ if(generate_png) {
 \setkeys{Gin}{width=.47\textwidth}
 <<bkde-pal>>=
 if(generate_png) {
-  png(file = "bkde-pal.png", height = 160, width = 400)
-  par(mfrow = c(4, 1), mar = c(0.5, 0, 0, 0), oma = c(2, 1.7, 0, 1.9))
+  png(file = "bkde-pal.png", height = 320, width = 800, res = 144)
+  par(mfrow = c(4, 1), mar = c(0.5, 0, 0, 0), oma = c(2, 1.9, 0, 1.9))
   plot(0, 0, type="n", xlim = c(0, 0.03), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
   abline(v = seq(from = 0, to = 0.03, length.out = 99), lwd = 6, col = 
@@ -264,7 +262,7 @@ if(generate_png) {
 \includegraphics{bkde-pal}
 \caption{\label{fig:bkde} Bivariate density estimation of duration (x-axis) and
 waiting time (y-axis) for Old Faithful geyser eruptions. The palettes employed
-are (counterclockwise) an HSV-based rainbow, HSV-based heat colors, HCL-based heat colors
+are (counterclockwise from top left) an HSV-based rainbow, HSV-based heat colors, HCL-based heat colors
 and grayscales.}
 \end{center}
 \end{figure}
@@ -326,7 +324,7 @@ if(generate_png) {
   fit <- read.table("Nigeria/reml_purespatial_f_district_spatial.res", header = TRUE)
   fit <- fit[order(fit$district),]
 
-  png(file = "nigeria.png", height = 1050, width = 840)
+  png(file = "nigeria.png", height = 2100, width = 1680, res = 144)
   par(mfrow = c(3, 2), mar = c(1.22, 0.82, 1.02, 0.82))
   plot(m, z = fit$pmode, fill =           rev(rainbow(99, start = 0, end = 1/3)),
     zlim = c(-0.65, 0.65), legend = FALSE)
@@ -347,8 +345,8 @@ if(generate_png) {
 \setkeys{Gin}{width=.47\textwidth}
 <<nigeria-pal>>=
 if(generate_png) {
-  png(file = "nigeria-pal.png", height = 120, width = 396)
-  par(mfrow = c(3, 1), mar = c(0.5, 0, 0, 0), oma = c(2, 0.2, 0, 0.2))
+  png(file = "nigeria-pal.png", height = 240, width = 800, res = 144)
+  par(mfrow = c(3, 1), mar = c(0.5, 0, 0, 0), oma = c(2, 1.9, 0, 1.9))
   plot(0, 0, type="n", xlim = c(-0.65, 0.65), ylim = c(0, 1),
     xaxs = "i", yaxs = "i", axes = FALSE, xlab = "", ylab="")
   abline(v = seq(from = -0.65, to = 0.65, length.out = 99), lwd = 6, col = 
@@ -370,8 +368,9 @@ if(generate_png) {
 @
 \includegraphics{nigeria-pal}
 \caption{\label{fig:nigeria} Posterior mode estimates for childhood mortality in Nigeria.
-The color palettes employed are an HSV-based rainbow and two HCL-based diverging palettes.
-In the right panels red-green contrasts are collapsed to emulate protanopic vision.}
+The color palettes employed are (from top to bottom) an HSV-based rainbow and two
+HCL-based diverging palettes. In the right panels red-green contrasts are collapsed to
+emulate protanopic vision.}
 \end{center}
 \end{figure}
 
@@ -444,13 +443,14 @@ are also called perceptually-based color spaces.
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[b!]
 \begin{center}
-<<wheel, fig=TRUE, height=3.6, width=10>>=
+<<wheel>>=
+png(file = "wheel.png", height = 500, width = 1400, res = 144)
 par(mar = rep(0.8, 4), mfrow = c(1, 2))
-par(mfrow = c(1, 2), mar = c(1, 1, 1, 1), oma = c(0, 0, 0, 0))
+par(mfrow = c(1, 2), mar = c(1.1, 1, 1.1, 1), oma = c(0, 0, 0, 0))
 par(lwd = 3)
 pie(rep(1,6), radius = 1, col = rainbow(6), labels = 360 * 0:5/6, init.angle = -30)
 par(lwd = 0.5, new = TRUE)
-pie(rep(1, 90), radius = 1, col = rainbow(90), border = NA, labels = NA, init.angle = -2)
+pie(rep(1, 180), radius = 1, col = rainbow(180), border = NA, labels = NA, init.angle = -1)
 par(lwd = 3, new = TRUE)
 pie(1, radius = 0.55, labels = NA)
 par(lwd = 0.5, new = TRUE)
@@ -458,12 +458,14 @@ pie(1, radius = 0.55, border = NA, labels = NA)
 par(lwd = 3)
 pie(rep(1,6), radius = 1, col = rainbow_hcl(6, c = 50, l = 70), labels = 360 * 0:5/6, init.angle = -30)
 par(lwd=0.5, new=TRUE)
-pie(rep(1, 90), radius = 1, col = rainbow_hcl(90, c = 50, l = 70), border = NA, labels = NA, init.angle = -2)
+pie(rep(1, 180), radius = 1, col = rainbow_hcl(180, c = 50, l = 70), border = NA, labels = NA, init.angle = -1)
 par(lwd = 3, new = TRUE)
 pie(1, radius = 0.55, labels = NA)
 par(lwd = 0.5, new = TRUE)
 pie(1, radius = 0.55, border = NA, labels = NA)
+dev.off()
 @
+\includegraphics{wheel}
 \caption{\label{fig:wheel} HSV-based and HCL-based color wheel.}
 \end{center}
 \end{figure}
@@ -526,12 +528,13 @@ which will be addressed in the following sections.
 
 \subsection{Qualitative palettes} \label{sec:qualitative}
 
-\setkeys{Gin}{width=0.8\textwidth}
-\begin{figure}[p]
+\setkeys{Gin}{width=0.55\textwidth}
+\begin{figure}[t!]
 \begin{center}
 <<pal-q-construct>>=
 if(generate_png) {
-  png(file = "pal-q-construct.png", height = 480, width = 480)
+  png(file = "pal-q-construct.png", height = 960, width = 960, res = 144)
+  par(mar = c(0, 0, 0, 0))
   hcl.wheel(luminance = 70, do.label = FALSE, inner.circle = TRUE)
   rect(0.45, -0.05, 0.55, 0.05, col = hcl2hex(0, 50, 70))
   rect(-cos(pi/3)/2-0.05, sin(pi/3)/2-0.05, -cos(pi/3)/2+0.05, sin(pi/3)/2+0.05, col = hcl2hex(120, 50, 70))
@@ -540,25 +543,22 @@ if(generate_png) {
 }
 @
 \includegraphics{pal-q-construct}
-\vspace*{-2cm}
-\caption{\label{fig:pal-q-construct} Constructing qualitative palettes. In the hue/chroma
-plane for $L = 70$, the dashed circle correponds to a radius $C = 50$ with chosen angles
-$H = 0, 120, 240$.}
-\end{center}
-\end{figure}
 
-\setkeys{Gin}{width=0.8\textwidth}
-\begin{figure}[p]
-\begin{center}
-<<pal-q-examples, fig=TRUE, height=4, width=6>>=
-par(mfrow = c(2, 2), mar = c(0, 0, 3, 2))
+\vspace*{1cm}
+
+\setkeys{Gin}{width=0.75\textwidth}
+<<pal-q-examples, fig=TRUE, height=3, width=6>>=
+par(mfrow = c(2, 2), mar = c(1, 0, 3, 2))
 pal(rainbow_hcl(4, start =  30, end = 300, c = 50, l = 70), main = "dynamic [30, 300]")
 pal(rainbow_hcl(4, start =  60, end = 240, c = 50, l = 70), main = "harmonic [60, 240]")
 pal(rainbow_hcl(4, start = 270, end = 150, c = 50, l = 70), main = "cold [270, 150]")
 pal(rainbow_hcl(4, start =  90, end = -30, c = 50, l = 70), main = "warm [90, -30]")
 @
-\caption{\label{fig:pal-q-examples} Examples for qualitative palettes. Hue is varied
-in different intervals for given $C = 50$ and $L = 70$.}
+\caption{\label{fig:pal-q} Qualitative palettes: construction and examples.
+Top: Construction in the hue/chroma
+plane for $L = 70$, the dashed circle correponds to a radius $C = 50$ with chosen angles
+$H = 0, 120, 240$. Bottom: Examples by varying hue in different intervals for
+given $C = 50$ and $L = 70$.}
 \end{center}
 \end{figure}
 
@@ -576,16 +576,15 @@ in Figure~\ref{fig:wheel} which shows a color wheel obtained by varying the hue 
 HSV coordinates $(H, 100, 100)$ and HCL coordinates $(H, 50, 70)$. Clearly, not only the
 hue but also the amount of chroma and luminance varies for the HSV wheel.
 
-Figure~\ref{fig:pal-q-construct} depicts how the HCL-based color wheel is constructed.
+Figure~\ref{fig:pal-q} (top panel) depicts how the HCL-based color wheel is constructed.
 It shows the hue/chroma plane of HCL space given a luminance of $L = 70$. Not all
 combinations of hue and chroma are admissible, however for a chroma of $C = 50$ a full
 color wheel can be obtained.
 For choosing the hues in a certain palette, various strategies are conceivable.
 A simple and intuitive one is to use colors as metaphors for categories (e.g., for political parties),
-%% (e.g., for political parties as in Figures~\ref{fig:seats} and \ref{fig:votes}),
 another approach would be to use segments from
 the color wheel corresponding to nearby or distant colors. The latter is shown
-in Figure~\ref{fig:pal-q-examples} which depicts
+in Figure~\ref{fig:pal-q} (bottom panel) which depicts
 examples for generating qualitative sets of colors $(H, 50, 70)$.
 In the upper left panel colors from the full spectrum are used ($H = 30, 120, 210, 300$)
 creating a `dynamic' set of colors. The upper right panel shows a `harmonic'
@@ -593,6 +592,7 @@ set with $H = 60, 120, 180, 240$. Cold colors (from the blue/green part of the s
 $H = 270, 230, 190, 150$) and warm colors (from the yellow/red part of the spectrum:
 $H = 90, 50, 10, 330$) are shown in the lower left and right panel, respectively.
 
+\newpage
 
 \subsection{Sequential palettes} \label{sec:sequential}
 
@@ -615,25 +615,12 @@ controls whether luminance is increased quickly with intensity or not. We found 
 to be a convenient transformation where the power $p$ can be varied to achieve
 different degrees of non-linearity.
 
-Furthermore, the intensity $i$ could additionally be coded by colorfulness (chroma), e.g.,
-  \[ (H, 0 + i' \cdot C_{\max}, L_{\max} - i' \cdot (L_{\max} - L_{\min})). \]
-This strategy is depicted in the left panel of Figure~\ref{fig:pal-s-construct} for a blue
-hue $H = 260$ with $L_{\max} = 90$
-and different combinations of maximal chroma ($C_{\max} = 0$, $80$ and $100$,
-respecitvely) and minimal luminance ($L_{\min} = 30$, $30$ and $50$, respectively).
-The first two combinations are also shown in the first two rows of Figure~\ref{fig:pal-s-examples}.
-The right panel of Figure~\ref{fig:pal-s-construct} shows that the exact same strategy
-is not possible  for the green hue $H = 120$. While the gray colors without chroma can be chosen in 
-the same way, there is a stronger trade-off between using dark colors (with low luminance)
-and colorful colors (with high chroma). Hence, the second path from light gray to 
-full green ends at a much lighter color with $L_{\min} = 75$. 
-
 \setkeys{Gin}{width=\textwidth}
-\begin{figure}[p]
+\begin{figure}[t!]
 \begin{center}
 <<pal-s-construct>>=
 if(generate_png) {
-  png(file = "pal-s-construct.png", height = 420, width = 840)
+  png(file = "pal-s-construct.png", height = 840, width = 1680, res = 144)
   par(mfrow = c(1, 2))
   hue.slice(260, grid.n = 301)
   lines(c(0, 100), c(90, 50), lty = 2)
@@ -658,16 +645,11 @@ if(generate_png) {
 }
 @
 \includegraphics{pal-s-construct}
-\caption{\label{fig:pal-s-construct} Constructing sequential palettes. The chroma/luminance
-plane is shown for two hues $H = 260$ (left) and $H = 120$ (right). Colors are chosen by varying
-either only luminance or both luminance and chroma.}
-\end{center}
-\end{figure}
 
-\setkeys{Gin}{width=.8\textwidth}
-\begin{figure}[p]
-\begin{center}
-<<pal-s-examples, fig=TRUE, height=5, width=6>>=
+\vspace*{1cm}
+
+\setkeys{Gin}{width=.75\textwidth}
+<<pal-s-examples, fig=TRUE, height=4, width=6>>=
 par(mfrow = c(5, 1), mar = c(0.25, 0, 0.25, 0))
 pal(sequential_hcl(12, h = 260,        c = 0,         l = c(30, 90), power = 2.2))
 pal(sequential_hcl(12, h = 260,        c = c(80, 0),  l = c(30, 90), power = 2.2))
@@ -675,11 +657,28 @@ pal(      heat_hcl(12, h = c(0, 90),   c = c(80, 30), l = c(30, 90), power = c(1
 pal(rev(  heat_hcl(12, h = c(0, -100), c = c(40, 80), l = c(75, 40), power = 1)))
 pal(   terrain_hcl(12, h = c(130, 0),  c = c(65, 0),  l = c(45, 90), power = c(1/2, 1.5)))
 @
-\caption{\label{fig:pal-s-examples} Examples for sequential palettes, varying
-only luminance (first panel), chroma and luminance (second panel), and hue,
-chroma and luminance (remaining panels).}
+
+\caption{\label{fig:pal-s} Sequential palettes: construction and examples.
+Top: Construction is shown in the chroma/luminance
+plane for two hues $H = 260$ (left) and $H = 120$ (right). Colors are chosen by varying
+either only luminance or both luminance and chroma. Bottom: Examples by varying
+only luminance (first row), chroma and luminance (second row), and hue,
+chroma and luminance (remaining rows).}
 \end{center}
 \end{figure}
+
+Furthermore, the intensity $i$ could additionally be coded by colorfulness (chroma), e.g.,
+  \[ (H, 0 + i' \cdot C_{\max}, L_{\max} - i' \cdot (L_{\max} - L_{\min})). \]
+This strategy is depicted in the top left panel of Figure~\ref{fig:pal-s} for a blue
+hue $H = 260$ with $L_{\max} = 90$
+and different combinations of maximal chroma ($C_{\max} = 0$, $80$ and $100$,
+respecitvely) and minimal luminance ($L_{\min} = 30$, $30$ and $50$, respectively).
+The first two combinations are also shown in the first two rows of the bottom panel in Figure~\ref{fig:pal-s}.
+The top right panel of Figure~\ref{fig:pal-s} shows that the exact same strategy
+is not possible  for the green hue $H = 120$. While the gray colors without chroma can be chosen in 
+the same way, there is a stronger trade-off between using dark colors (with low luminance)
+and colorful colors (with high chroma). Hence, the second path from light gray to 
+full green ends at a much lighter color with $L_{\min} = 75$. 
 
 To increase the contrast between the colors in the palette even further, the ideas from
 the previous sequential palettes can also be combined with qualitative palettes by
@@ -691,8 +690,8 @@ One application is an HCL-based version of ``heat colors'' that increase from a 
 visible, the chroma needs to increase rather quickly for low values of $i$ and then only
 slowly for higher values of $i$. This can be achieved by choosing an appropriate transformation
 $i'$ for chroma and a different transformation $i''$ for the luminance.
-Such a strategy is adopted for the palettes shown in the lower three rows in
-Figure~\ref{fig:pal-s-examples} using different pairs of hues as well as different
+Such a strategy is adopted for the palettes shown in the last three rows in
+Figure~\ref{fig:pal-s} using different pairs of hues as well as different
 chroma and luminance contrasts.
 
 
@@ -709,11 +708,11 @@ section, we suppose that we want to visualize an intensity or interestingness $i
 from the interval $[-1, 1]$ (without loss of generality).
 
 \setkeys{Gin}{width=.8\textwidth}
-\begin{figure}[p]
+\begin{figure}[t!]
 \begin{center}
 <<pal-d-construct>>=
 if(generate_png) {
-  png(file = "pal-d-construct.png", height = 480, width = 534)
+  png(file = "pal-d-construct.png", height = 960, width = 1068, res = 144)
   hue260 <- hue.slice(260, grid.n = 301, plot = FALSE)
   hue360 <- hue.slice(360, grid.n = 301, plot = FALSE)
   mychroma <- as.numeric(colnames(hue260))
@@ -752,38 +751,35 @@ if(generate_png) {
 }
 @
 \includegraphics{pal-d-construct}
-\caption{\label{fig:pal-d-construct} Constructing diverging palettes. The chroma/luminance
-plane is shown back to back hues $H = 0$ and $H = 260$. Colors are chosen by simultaneously 
-varying luminance and chroma.}
-\end{center}
-\end{figure}
 
+\vspace*{0.25cm}
 
-\setkeys{Gin}{width=.8\textwidth}
-\begin{figure}[p]
-\begin{center}
-<<pal-d-examples, fig=TRUE, height=4, width=6>>=
+\setkeys{Gin}{width=.65\textwidth}
+<<pal-d-examples, fig=TRUE, height=3.3, width=6>>=
 par(mfrow = c(4, 1), mar = c(0.25, 0, 0.25, 0))
 pal(diverge_hcl(7, h = c(260, 0),   c =  80, l = c(30, 90), power = 1.5))
 pal(diverge_hcl(7, h = c(260, 0),   c = 100, l = c(50, 90), power = 1))
 pal(diverge_hcl(7, h = c(130, 43),  c = 100, l = c(70, 90), power = 1.5))
 pal(diverge_hcl(7, h = c(180, 330), c =  59, l = c(75, 95), power = 1.5))
 @
-\caption{\label{fig:pal-d-examples} Examples for diverging palettes with different
+\caption{\label{fig:pal-d} Diverging palettes: construction and examples.
+Top: Construction is shown in the chroma/luminance
+plane for hues $H = 0$ and $H = 260$ (back to back). Colors are chosen by simultaneously 
+varying luminance and chroma. Bottom: Examples with different
 pairs of hues and decreasing luminance contrasts.}
 \end{center}
 \end{figure}
 
 Given useful sequential palettes, deriving diverging palettes is easy: two different hues are
 chosen for adding color to the same amount of `gray' at a given intensity $|i|$.
-Figure~\ref{fig:pal-d-construct} shows the chroma/luminance plane back to back for the
+Figure~\ref{fig:pal-d} (top panel) shows the chroma/luminance plane back to back for the
 hues $H = 0$ and 260 with two different paths---giving slightly different emphasis on
 luminance or chroma contrasts---from a full red over a neutral gray to a full blue.
-As Figure~\ref{fig:pal-s-construct} illustrates, the pair of hues should be chosen carefully
+As the top panels of Figure~\ref{fig:pal-s} illustrates, the pair of hues should be chosen carefully
 because the admissible values in the chrome/luminance plane differ across hues.
 Clearly, for deriving symmetric palettes, only colors from the intersection of the
 admissible chroma/luminance planes can be used. The particular hues $H = 0$ and $260$
-used in Figure~\ref{fig:pal-d-construct} were chosen because they correspond to similar
+used in Figure~\ref{fig:pal-d} (top panel) were chosen because they correspond to similar
 geometric shapes in the chroma/luminance plane, allowing for both large chroma and
 luminance contrasts. 
 If potential viewers of the resulting graphic might be color-blind,
@@ -791,10 +787,11 @@ the pair of hues should be taken from the yellow/blue axis of the color wheel
 rather than the green/red axis as contrasts on the latter axis are more difficult to 
 distinguish for color-blind people \citep{color:Lumley:2006}.
 
-Figure~\ref{fig:pal-d-examples} shows various examples of conceivable combinations of
+Figure~\ref{fig:pal-d} (bottom panel) shows various examples of conceivable combinations of
 hue, chroma and luminance. The first palette uses a broader range on the luminance axis
 whereas the others mostly rely on chroma contrasts.
 
+\clearpage
 
 \section{Illustrations} \label{sec:illustrations}
 
@@ -808,7 +805,7 @@ extract information from the plots more easily and more accurately.
 \begin{figure}[b!]
 \begin{center}
 <<seats, fig=TRUE, height=4, width=11>>=
-par(mar = rep(0.8, 4), mfrow = c(1, 2))
+par(mar = c(0.8, 1.6, 0, 0), mfrow = c(1, 2))
 seats <- structure(c(226, 61, 54, 51, 222),
   .Names = c("CDU/CSU", "FDP",  "Linke", "Gruene", "SPD"))
 parties_hcl <- rainbow_hcl(6, c = 60, l = 75)[c(5, 2, 6, 3, 1)]
@@ -816,17 +813,11 @@ parties_hsv <- hsv(c(0, 60, 300, 120, 0)/360, v = c(0, 1, 1, 1, 1))
 names(parties_hcl) <- names(parties_hsv) <- names(seats)
 names(seats)[4] <- "Grüne"
 Encoding(names(seats)) <- "latin1"
-pie(seats, clockwise = TRUE, col = parties_hsv, radius = 1)
-pie(seats, clockwise = TRUE, col = parties_hcl, radius = 1)
+pie(seats, clockwise = TRUE, col = parties_hsv, radius = 0.85)
+pie(seats, clockwise = TRUE, col = parties_hcl, radius = 0.85)
 @
-\caption{\label{fig:seats} Seats in the German parliament.}
-\end{center}
-\end{figure}
 
-\setkeys{Gin}{width=\textwidth}
-\begin{sidewaysfigure}[p]
-\begin{center}
-<<votes, fig=TRUE, height=6, width=14>>=
+<<votes, fig=TRUE, height=5.5, width=13>>=
 data("Bundestag2005", package = "vcd")
 votes <- Bundestag2005[c(1, 3:5, 9, 11, 13:16, 2, 6:8, 10, 12),
                        c("CDU/CSU", "FDP", "SPD", "Gruene", "Linke")]
@@ -843,7 +834,7 @@ mosaic(votes, gp = gpar(fill = parties_hsv),
   spacing = spacing_highlighting, labeling = labeling_left,
   labeling_args = list(rot_labels = c(0, 90, 0, 0), pos_labels = "center",
   just_labels = c("center","center","center","right"), varnames = FALSE),
-  margins = unit(c(2.5, 1, 1, 12), "lines"),
+  margins = unit(c(2.5, 0.5, 1, 11), "lines"),
   keep_aspect_ratio = FALSE, newpage = FALSE)
 popViewport()
 pushViewport(viewport(layout.pos.col=2, layout.pos.row=1))
@@ -851,17 +842,19 @@ mosaic(votes, gp = gpar(fill = parties_hcl),
   spacing = spacing_highlighting, labeling = labeling_left,
   labeling_args = list(rot_labels = c(0, 90, 0, 0), pos_labels = "center",
   just_labels = c("center","center","center","right"), varnames = FALSE),
-  margins = unit(c(2.5, 1, 1, 12), "lines"),
+  margins = unit(c(2.5, 0.5, 1, 11), "lines"),
   keep_aspect_ratio = FALSE, newpage = FALSE)
 popViewport(2)
 @
-\caption{\label{fig:votes} Votes in the German election 2005 (by province).}
+\caption{\label{fig:election} German election 2005 with HSV-based (left) and HCL-based (right)
+qualitative palette. Top: Pie chart for seats in the parliament.
+Bottom: Mosaic display for votes by province.}
 \end{center}
-\end{sidewaysfigure}
+\end{figure}
 
 Although problematic for many tasks, pie charts can be useful for visualizing
 whether a set of pie segments constitutes a majority. A typical application is shown
-in Figure~\ref{fig:seats}, visualizing the distribution of seats in the German parliament
+in the top row of Figure~\ref{fig:election}, visualizing the distribution of seats in the German parliament
 ``Bundestag'' following the 2005 election. In this election, five parties were able to
 obtain enough votes to enter the Bundestag---however, neither the governing
 coalition of SPD and Gr\"une nor the opposition of CDU/CSU and FDP could assemble a majority.
@@ -878,24 +871,13 @@ amount of color, resulting in a perceptually balanced palette that does not intr
 graphical distractions. While it could be argued that this pie chart is such a simple
 display that a well-balanced palette is not so important and that flashy colors are to
 be preferred, the balancing properties of the HCL-based palette are very important in more
-complex displays such as the mosaic display in Figure~\ref{fig:votes}. This re-uses the same
-colors and shows the distribution of votes in the 2005 election
+complex displays such as the mosaic display in the bottom row of Figure~\ref{fig:election}.
+This re-uses the same colors and shows the distribution of votes in the 2005 election
 stratified by province (Bundesland). The order of provinces is from 
 north to south, first for the 10 western provinces (the former Federal Republic of Germany, FRG),
 then for the 6 eastern provinces (the former German Democratic Republic, GDR). 
 Clearly, the SPD performed better in the north and the CDU/CSU better in the south; furthermore,
 Die Linke performed particularly well in the eastern provinces and in Saarland.
-
-Color choice is usually much more important in graphical displays with
-shaded areas compared to displays with only points or lines. However, color choice
-becomes much more relevant also in scatter plots when there are many points. As an
-example, Figure~\ref{fig:scatter} depicts a scatter plot with three clusters similar to 
-the one shown in \citet[Figure~3]{color:Celeux+Hurn+Robert:2000}. To indicate cluster
-membership, three different colors (green, yellow, red) are employed. The HSV colors in
-the left panel are again very flashy and differ strongly with respect to luminance: the
-yellow is much lighter and hardly visible. In contrast, the HCL colors in the right
-panel use the same hues, but are balanced with respect to chroma and luminance, i.e.,
-the amount of color and gray.
 
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[t!]
@@ -910,8 +892,8 @@ if(generate_png) {
                rmvnorm(1000, c(3.8, 3.5), vc(0.02, 0.15, -0.8)))
   dat <- data.frame(y = dat[,2], x = dat[,1], id = rep(1:3, rep(1000, 3)))
 
-  png(file = "scatter.png", height = 350, width = 840)
-  par(mfrow = c(1, 2), mar = rep(0.5, 4))
+  png(file = "scatter.png", height = 700, width = 1680, res = 144)
+  par(mfrow = c(1, 2), oma = c(0, 0.1, 0, 0.1), mar = c(1.2, 3, 1.2, 3.3))
   plot(y ~ x, data = dat, axes = FALSE, xlab = "", ylab = "", pch = c(3, 22, 1)[id],
     col = hsv(c(1/3, 1/6, 0))[id])
   box()
@@ -922,14 +904,9 @@ if(generate_png) {
 }
 @
 \includegraphics{scatter}
-\caption{\label{fig:scatter} Scatter plot with three clusters.}
-\end{center}
-\end{figure}
 
+\vspace*{1cm}
 
-\setkeys{Gin}{width=\textwidth}
-\begin{figure}[t!]
-\begin{center}
 <<haireye, fig=TRUE, height=5.5, width=12>>=
 he <- margin.table(HairEyeColor, 1:2)
 grid.newpage()
@@ -941,18 +918,32 @@ pushViewport(viewport(layout.pos.col=2, layout.pos.row=1))
 mosaic(he, gp = shading_hcl, split_vertical = TRUE, newpage = FALSE, legend = FALSE)
 popViewport(2)
 @
-\caption{\label{fig:haireye} Extended mosaic display for hair and eye color data.}
+\caption{\label{fig:further} Further examples for HSV-based (left) and HCL-based (right)
+palettes. Top: Scatter plot with three clusters and qualitative palette.
+Bottom: Extended mosaic display for hair and eye color data with diverging palette.}
 \end{center}
 \end{figure}
 
-As our final example, Figure~\ref{fig:haireye} \citep[taken from][Figure~11, left/middle]{color:Friendly:2002}
+Color choice is usually much more important in graphical displays with
+shaded areas compared to displays with only points or lines. However, color choice
+becomes much more relevant also in scatter plots when there are many points. As an
+example, the top row in Figure~\ref{fig:further} depicts a scatter plot with three clusters similar to 
+the one shown in \citet[Figure~3]{color:Celeux+Hurn+Robert:2000}. To indicate cluster
+membership, three different colors (green, yellow, red) are employed. The HSV colors in
+the left panel are again very flashy and differ strongly with respect to luminance: the
+yellow is much lighter and hardly visible. In contrast, the HCL colors in the right
+panel use the same hues, but are balanced with respect to chroma and luminance, i.e.,
+the amount of color and gray.
+
+As our final example, the bottom row in Figure~\ref{fig:further}
+\citep[taken from][Figure~11, left/middle]{color:Friendly:2002}
 visualizes the cross-tabulation of hair end eye color of 592 students in a mosaic display.
 Clearly, hair and eye color are not independent and the pattern of association is highlighted
 by means of residual-based shading. Cells associated with Pearson residuals whose absolute value exceeds
 (2 or) 4 are shaded (light) blue/red. This shows that there are significantly more students
 with black hair and brown eyes, blond hair and blue eyes, red hair and green eyes than expected
 under independence. Conversely, fewer students than expected have blond hair and brown/hazel eyes
-or black hair and blue eyes. Comparing the HSV and HCL colors in Figure~\ref{fig:haireye},
+or black hair and blue eyes. Comparing the HSV and HCL colors in the bottom row of Figure~\ref{fig:further},
 it is shown again that the HCL colors are better balanced (between the red and blue colors)
 and less flashy. Even the cells associated with small residuals (below 2) are somewhat easier
 to read when shaded in a light grey rather than white. More details and extensions to residual-based
@@ -993,7 +984,7 @@ an implementation of all palettes discussed above.
 a range of hues. Diverging palettes can be obtained by \code{diverge_hcl()}.
 Technical documentation along with a large collection of example palettes is available via
 \verb/help("rainbow_hcl", package = "colorspace")/. Furthermore, \proglang{R}~code for reproducing
-Figures~\ref{fig:pal-q-examples}, \ref{fig:pal-s-examples} and \ref{fig:pal-d-examples}
+the example palettes in Figures~\ref{fig:pal-q}, \ref{fig:pal-s} and \ref{fig:pal-d}
 (and some illustrations) can be accessed via \code{vignette("hcl-colors", package = "colorspace")}.
 
 The default color palettes in the \pkg{ggplot2} package 
