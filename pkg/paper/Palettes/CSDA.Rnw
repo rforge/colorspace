@@ -31,12 +31,12 @@
 \fancyhead[RO,LE]{\thepage} 
 \fancyhead[CO]{\textit{\normalsize Achim Zeileis, Kurt Hornik, Paul Murrell}} 
 \fancyhead[CE]{\textit{\normalsize Escaping RGBland: Selecting Colors for Statistical Graphics}} 
-\fancyfoot[LO,LE]{\small Copyright {\copyright} 2008 Elsevier B.V.}
+\fancyfoot[LO,LE]{\small Copyright {\copyright} 2009 Elsevier B.V.}
 \fancypagestyle{plain}{
 \fancyhf{}
-\fancyfoot[LO,LE]{\small This is a preprint of an article accepted for publication in
-\textit{Computational Statistics \& Data Analysis}.\\
- Copyright {\copyright} 2008 Elsevier B.V.} 
+\fancyfoot[LO,LE]{\small This is a preprint of an article published in
+\textit{Computational Statistics \& Data Analysis}, \textbf{53}, 3259--3270.
+ Copyright {\copyright} 2009 Elsevier B.V. \doi{10.1016/j.csda.2008.11.033}}
 }
 
 \begin{document}
