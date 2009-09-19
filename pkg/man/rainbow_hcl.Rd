@@ -57,7 +57,7 @@ diverge_hsv(n, h = c(240, 0), s = 1, v = 1, power = 1,
   HCL(\code{h}, \code{c[2]}, \code{l[2]}) by interpolation.
   
   \code{diverge_hcl} and \code{diverge_hsv}, compute 
-  a set of colors diverging from a neutral center (grey or white, without
+  a set of colors diverging from a neutral center (gray or white, without
   color) to two different extreme colors (blue and red by default). This
   is similar to \code{\link{cm.colors}}. For the diverging HSV colors,
   two hues \code{h} are needed, a maximal saturation \code{s} and a

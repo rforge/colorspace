@@ -3,24 +3,24 @@
 \title{Convert Hexadecimal Color Specifications To RGB Objects}
 \description{
   This function takes a vector of strings of the form
-  \code{"#RRGGBB"} (hexdecimal color descriptions) into
+  \code{"#RRGGBB"} (hexadecimal color descriptions) into
   RGB objects.
 }
 \usage{
 hex2RGB(x, gamma = 2.2)
 }
 \arguments{
-  \item{x}{a vector of hexdecimal color descriptions.}
+  \item{x}{a vector of hexadecimal color descriptions.}
   \item{gamma}{the display gamma value.  Passing a value
     of \code{NA} results in no gamma correction being
     applied.}
 }
 \details{
   This function converts device dependent color descriptions of the
-  form \code{"#RRGGBB"} into device independent sRGB colour descriptions.
+  form \code{"#RRGGBB"} into device independent sRGB color descriptions.
 }
 \value{
-  An RGB object describing the colours.
+  An RGB object describing the colors.
 }
 %\references{ ~put references to the literature/web site here ~ }
 \author{Ross Ihaka}
