@@ -7,17 +7,16 @@
   RGB objects.
 }
 \usage{
-hex2RGB(x, gamma = 2.2)
+hex2RGB(x, gamma = FALSE)
 }
 \arguments{
   \item{x}{a vector of hexadecimal color descriptions.}
-  \item{gamma}{the display gamma value.  Passing a value
-    of \code{NA} results in no gamma correction being
-    applied.}
+  \item{gamma}{Whether to apply gamma-correction.}
 }
 \details{
   This function converts device dependent color descriptions of the
-  form \code{"#RRGGBB"} into device independent sRGB color descriptions.
+  form \code{"#RRGGBB"} into sRGB color descriptions
+  (linearized if \code{gamma} is \code{TRUE}).
 }
 \value{
   An RGB object describing the colors.
@@ -28,6 +27,7 @@ hex2RGB(x, gamma = 2.2)
 \seealso{
   \code{\link{hex}},
   \code{\link{RGB}},
+  \code{\link{sRGB}},
   \code{\link{HSV}},
   \code{\link{XYZ}},
   \code{\link{polarLAB}},
