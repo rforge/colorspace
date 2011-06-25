@@ -6,6 +6,12 @@ pal <- function(col, border = "light gray", ...)
   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
 }
 
+desaturate <- function(col) {
+  col <- as(hex2RGB(col), "polarLUV")
+  col@coords[,2] <- 0
+  hex(col)
+}
+
 hsv.wheel <-
     function(value = c(0:2, 4:6, 8:10)/10, saturation = 0:100/100, hues = 0:300/300, asp = 1,
              p.cex = 0.6, do.label = FALSE, cone = TRUE, cex = 1.5)
