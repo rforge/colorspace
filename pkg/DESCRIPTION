@@ -1,5 +1,5 @@
 Package: colorspace
-Version: 1.1-0
+Version: 1.1-1
 Date: 2011-05-14
 Title: Color Space Manipulation
 Author: Ross Ihaka, Paul Murrell, Kurt Hornik, Achim Zeileis
@@ -11,4 +11,3 @@ Description: Carries out mapping between assorted color spaces including
 Depends: R (>= 2.0.0), methods
 Suggests: KernSmooth, MASS, kernlab, mvtnorm, vcd
 License: BSD
-LazyLoad: yes
