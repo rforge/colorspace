@@ -109,14 +109,6 @@ pal <- function(col, border = "light gray")
   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
 }
 
-## desaturate colors (remove chroma in HCL space)
-desaturate <- function(col) {
-  col <- substr(col, 1, 7)
-  col <- as(hex2RGB(col), "polarLUV")
-  col@coords[,2] <- 0
-  hex(col)
-}
-
 ## qualitative palette
 wheel(rainbow_hcl(12))
 
