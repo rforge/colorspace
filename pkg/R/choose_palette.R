@@ -94,7 +94,7 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
   # Entry change
 
   EntryChange <- function(v, x.lim, x.ent.var, x.scl.var) {
-    x <- suppressWarnings(as.integer(tclvalue(x.ent.var)))
+    x <- suppressWarnings(as.numeric(tclvalue(x.ent.var)))
     if (is.na(x))
       return()
     if (x < x.lim[1]) {
@@ -149,8 +149,12 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
     tcl(frame5.cvs, "delete", "pal")
     pal.cols <- pal(n)
     pal.cols[is.na(pal.cols)] <- "#FFFFFF"
-    if (as.logical(as.integer(tclvalue(rm.chroma.var))))
+    if (as.logical(as.integer(tclvalue(desaturation.var))))
       pal.cols <- desaturate(pal.cols)
+    if (as.logical(as.integer(tclvalue(colorblind.var)))) {
+      type <- as.character(tclvalue(colorblind.type.var))
+      pal.cols <- dichromat(pal.cols, type=type)
+    }
     dx <- (cvs.width - 1) / n
     x2 <- 1
     y1 <- 1
@@ -316,11 +320,11 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
 
   ShowExample <- function() {
     if (!dev.example %in% dev.list()) {
-      windows(width=7, height=7, pointsize=10)
+      x11() ## FIXME: or new.dev()??
       dev.example <<- dev.cur()
     }
     par(mfrow=c(2, 2), oma=c(0.1, 0.1, 0.1, 0.1), mar=c(1, 1, 1, 1))
-    DrawPalette()
+    DrawPalette(is.n=TRUE)
   }
 
   # Regenerate example plot
@@ -339,7 +343,7 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
     p <- plot(point.data, type="n", xaxt="n", yaxt="n", xlab="", ylab="",
               main="", frame.plot=FALSE)
     pnt.cols <- sample(pal.cols, size=500, replace=TRUE)
-    points(point.data, pch=21, bg=pnt.cols, cex=1.5)
+    points(point.data, pch=21, bg=pnt.cols, cex=1.2)
 
     # Histogram plot
     h <- hist(volcano, breaks=hist.breaks, plot=FALSE)
@@ -370,28 +374,51 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
 
   # Set default and initial palettes
 
-  vars <- c("h1", "h2", "c1", "c2", "l1", "l2", "p1", "p2")
   h1 <- h2 <- c1 <- c2 <- l1 <- l2 <- p1 <- p2 <- 0
+  vars <- c("h1", "h2", "c1", "c2", "l1", "l2", "p1", "p2")
 
   qual.pals <- list()
-  qual.pals[[1]] <- c( 30,  300,  50, NA, 70, NA,  NA,  NA)
-  qual.pals[[2]] <- c( 60,  240,  50, NA, 70, NA,  NA,  NA)
-  qual.pals[[3]] <- c(270,  150,  50, NA, 70, NA,  NA,  NA)
-  qual.pals[[4]] <- c( 90,  -30,  50, NA, 70, NA,  NA,  NA)
+  qual.pals[[1]]  <- c(  0,  288,  35, NA, 85, NA,  NA,  NA) # Pastel1
+  qual.pals[[2]]  <- c( 10,  320,  50, NA, 80, NA,  NA,  NA) # Set3
+  qual.pals[[3]]  <- c(  0,  288,  60, NA, 70, NA,  NA,  NA) # Set2
+  qual.pals[[4]]  <- c(  0,  288,  50, NA, 60, NA,  NA,  NA) # Dark2
+  qual.pals[[5]]  <- c( 90,  -30,  50, NA, 70, NA,  NA,  NA)
+  qual.pals[[6]]  <- c(270,  150,  50, NA, 70, NA,  NA,  NA)
+  qual.pals[[7]]  <- c( 60,  240,  50, NA, 70, NA,  NA,  NA)
+  qual.pals[[8]]  <- c( 30,  300,  50, NA, 70, NA,  NA,  NA)
+
   seqs.pals <- list()
-  seqs.pals[[1]] <- c(260,   NA,  80,  0, 30, 90, 1.5,  NA)
-  seqs.pals[[2]] <- c(260,   NA,   0,  0, 30, 90, 1.5,  NA)
+  seqs.pals[[1]]  <- c(  0,   NA,   0,  0, 15, 95, 1.3,  NA) # Greys
+  seqs.pals[[2]]  <- c(280,  260,  60,  5, 20, 95, 0.7, 1.3) # Purples
+  seqs.pals[[3]]  <- c(260,  230,  80, 10, 30, 95, 0.7, 1.3) # Blues
+  seqs.pals[[4]]  <- c(135,  120,  50, 10, 40, 95, 0.4, 1.3) # Greens
+  seqs.pals[[5]]  <- c( 20,   45,  80,  5, 35, 95, 0.6, 1.3) # Oranges
+  seqs.pals[[6]]  <- c( 10,   40,  80, 10, 30, 95, 0.7, 1.3) # Greys
+  seqs.pals[[7]]  <- c(260,   NA,   0,  0, 30, 90, 1.5,  NA)
+  seqs.pals[[8]]  <- c(260,   NA,  80,  0, 30, 90, 1.5,  NA)
+
   seqm.pals <- list()
-  seqm.pals[[1]] <- c(  0,   90, 100, 30, 50, 90, 0.2, 1.0)
-  seqm.pals[[2]] <- c(  0,   90,  80, 30, 30, 90, 0.2, 2.0)
-  seqm.pals[[3]] <- c(130,   30,  80,  0, 60, 95, 0.1, 1.0)
-  seqm.pals[[4]] <- c(130,   30,  65,  0, 45, 90, 0.5, 1.5)
-  seqm.pals[[5]] <- c(  0, -100,  40, 80, 75, 40, 1.0, 0.0)
+  seqm.pals[[1]]  <- c(300,  200,  60,  0, 25, 95, 0.7, 1.3) # BuPu
+  seqm.pals[[2]]  <- c(370,  280,  80,  5, 25, 95, 0.7, 1.3) # PuRd
+  seqm.pals[[3]]  <- c(140,   80,  40, 10, 35, 95, 0.7, 1.7) # YlGn
+  seqm.pals[[4]]  <- c(265,   80,  60, 10, 25, 95, 0.7, 2.0) # YlGnBu
+  seqm.pals[[5]]  <- c( 10,   85,  80, 10, 25, 95, 0.4, 1.3) # YlOrRd
+  seqm.pals[[6]]  <- c(  0,   90,  80, 30, 30, 90, 0.2, 2.0)
+  seqm.pals[[7]]  <- c(  0,   90, 100, 30, 50, 90, 0.2, 1.0)
+  seqm.pals[[8]]  <- c(130,   30,  65,  0, 45, 90, 0.5, 1.5)
+  seqm.pals[[9]]  <- c(130,   30,  80,  0, 60, 95, 0.0, 1.0)
+  seqm.pals[[10]] <- c(  0, -100,  40, 80, 75, 40, 1.0, 0.0)
+
   dive.pals <- list()
-  dive.pals[[1]] <- c(260,    0,  80, NA, 30, 90, 1.5,  NA)
-  dive.pals[[2]] <- c(260,    0, 100, NA, 50, 90, 1.0,  NA)
-  dive.pals[[3]] <- c(130,   43, 100, NA, 70, 90, 1.0,  NA)
-  dive.pals[[4]] <- c(180,  330,  59, NA, 75, 95, 1.5,  NA)
+  dive.pals[[1]]  <- c(340,  128,  45, NA, 35, 95, 0.7, 1.3) # PiYG
+  dive.pals[[2]]  <- c(300,  128,  45, NA, 30, 95, 0.7, 1.3) # PRGn
+  dive.pals[[3]]  <- c( 55,  160,  30, NA, 35, 95, 0.7, 1.3) # BrBG
+  dive.pals[[4]]  <- c( 40,  270,  45, NA, 30, 95, 0.7, 1.3) # PuOr
+  dive.pals[[5]]  <- c( 12,  265,  80, NA, 25, 95, 0.7, 1.3) # RdBu
+  dive.pals[[6]]  <- c(260,    0,  80, NA, 30, 90, 1.5,  NA)
+  dive.pals[[7]]  <- c(260,    0, 100, NA, 50, 90, 1.0,  NA)
+  dive.pals[[8]]  <- c(130,   43, 100, NA, 70, 90, 1.0,  NA)
+  dive.pals[[9]]  <- c(180,  330,  59, NA, 75, 95, 1.5,  NA)
 
   # Set limits for palette attributes
 
@@ -403,7 +430,7 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
 
   # Set dimensions on palette canvas
 
-  cvs.width <- 350
+  cvs.width <- 30 * 10 + 10 + 18
   cvs.height <- 25
 
   # Assign additional variables linked to Tk widgets
@@ -430,7 +457,9 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
   p2.scl.var <- tclVar()
   p2.ent.var <- tclVar()
 
-  rm.chroma.var <- tclVar(FALSE)
+  desaturation.var <- tclVar(FALSE)
+  colorblind.var <- tclVar(FALSE)
+  colorblind.type.var <- tclVar("deutan")
 
   tt.done.var <- tclVar(0)
 
@@ -486,9 +515,7 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
                               pal.rtn <<- NULL
                               tclvalue(tt.done.var) <- 1
                             })
-
   tkgrid(frame0.but.1, "x", frame0.but.3, frame0.but.4, pady=c(10, 10))
-
   tkgrid.configure(frame0.but.1, sticky="w", padx=c(10, 0))
   tkgrid.configure(frame0.but.3, sticky="e")
   tkgrid.configure(frame0.but.4, sticky="w", padx=c(4, 10))
@@ -505,7 +532,7 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
                                        "Sequential (multiple hues)",
                                        "Diverging"))
 
-  tkgrid(frame1.lab.1, frame1.box.2, pady=10)
+  tkgrid(frame1.lab.1, frame1.box.2, pady=c(10, 0))
   tkgrid.configure(frame1.lab.1, padx=c(10, 2))
   tkgrid.configure(frame1.box.2, padx=c(0, 10), sticky="we")
 
@@ -517,12 +544,12 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
 
   frame2 <- ttklabelframe(tt, relief="flat", borderwidth=5, padding=5,
                           text="Default color schemes")
-  frame2.cvs <- tkcanvas(frame2, relief="flat", width=50, height=70,
+  frame2.cvs <- tkcanvas(frame2, relief="flat", width=30 * 10 + 10, height=70,
                          background="white", confine=TRUE, closeenough=0,
                          borderwidth=0, highlightthickness=0)
   tkgrid(frame2.cvs, sticky="we")
   tkgrid.columnconfigure(frame2, 0, weight=1)
-  tkpack(frame2, fill="x", padx=10)
+  tkpack(frame2, fill="x", padx=10, pady=10)
 
   # Frame 3, color description
 
@@ -612,7 +639,7 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
 
   tkgrid.columnconfigure(frame3, 1, weight=1)
 
-  tkpack(frame3, fill="x", padx=10, pady=10)
+  tkpack(frame3, fill="x", padx=10, pady=0)
 
   # Frame 4, number of colors in palette
 
@@ -632,21 +659,45 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
   tkgrid.configure(frame4.scl.2, sticky="we", padx=c(4, 10))
   tkgrid.columnconfigure(frame4, 1, weight=1)
 
-  tkpack(frame4, fill="x", padx=10)
+  tkpack(frame4, fill="x", padx=10, pady=10)
 
- # Frame 5, color palette and desaturation
+ # Frame 5, color palette and robustness checks
 
   frame5 <- ttkframe(tt, relief="flat")
   frame5.cvs <- tkcanvas(frame5, relief="flat",
                          width=cvs.width + 1, height=cvs.height + 1,
                          background="black", confine=TRUE, closeenough=0,
                          borderwidth=0, highlightthickness=0)
-  txt <- "View palette with chroma removed"
-  frame5.chk <- ttkcheckbutton(frame5, text=txt, variable=rm.chroma.var,
-                               command=function() DrawPalette())
-  tkgrid(frame5.cvs, padx=10, pady=c(10, 0))
-  tkgrid(frame5.chk, padx=10, pady=c(2, 0), sticky="w")
-  tkpack(frame5)
+  tkgrid(frame5.cvs, padx=10, pady=0)
+
+  frame5.chk.1 <- ttkcheckbutton(frame5, text="Desaturation",
+                                 variable=desaturation.var,
+                                 command=function() DrawPalette(is.n=TRUE))
+
+  is.pkg <- "dichromat" %in% .packages(all.available=TRUE) &&
+            require(dichromat, quietly=FALSE)
+  if (is.pkg) {
+    frame5.chk.2 <- ttkcheckbutton(frame5, text="Color blindness:",
+                                   variable=colorblind.var,
+                                   command=function() DrawPalette(is.n=TRUE))
+    frame5.rb.3 <- ttkradiobutton(frame5, variable=colorblind.type.var,
+                                  value="deutan", text="deutan",
+                                  command=function() DrawPalette(is.n=TRUE))
+    frame5.rb.4 <- ttkradiobutton(frame5, variable=colorblind.type.var,
+                                  value="protan", text="protan",
+                                  command=function() DrawPalette(is.n=TRUE))
+    tkgrid(frame5.chk.1, frame5.chk.2, frame5.rb.3, frame5.rb.4, "x",
+           pady=c(2, 0), sticky="w")
+    tkgrid.configure(frame5.chk.2, padx=c(7, 0))
+    tkgrid.configure(frame5.cvs, columnspan=5)
+    tkgrid.columnconfigure(frame5, 4, weight=1)
+  } else {
+    tkgrid(frame5.chk.1, "x", pady=c(2, 0), sticky="w")
+    tkgrid.configure(frame5.cvs, columnspan=2)
+    tkgrid.columnconfigure(frame5, 1, weight=1)
+  }
+  tkgrid.configure(frame5.chk.1, padx=c(10, 0))
+  tkpack(frame5, fill="x")
 
   # Initial commands
 
