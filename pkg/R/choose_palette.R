@@ -1,7 +1,5 @@
-choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
+choose_palette <- function(pal=diverge_hcl, n=7L, parent=NULL) {
 # A GUI for selecting a color palette.
-
-  stopifnot(require("tcltk"))
 
   # Additional functions (subroutines)
 
@@ -320,10 +318,10 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
 
   ShowExample <- function() {
     if (!dev.example %in% dev.list()) {
-      x11() ## FIXME: or new.dev()??
+      x11(width=8, height=4)
       dev.example <<- dev.cur()
     }
-    par(mfrow=c(2, 2), oma=c(0.1, 0.1, 0.1, 0.1), mar=c(1, 1, 1, 1))
+    par(mfrow=c(1, 2), oma=c(0, 0, 0, 0), mar=c(0, 0, 0, 0))
     DrawPalette(is.n=TRUE)
   }
 
@@ -336,22 +334,12 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
       return()
     n <- length(pal.cols)
 
-    # Pie chart
-    pie(rep(1, n), col=pal.cols, labels=NA, border=NA, radius=1)
+    # Mosaic
+    image(msc.matrix[[n]], col=pal.cols, xaxt="n", yaxt="n")
+    box()
 
-    # Point plot
-    p <- plot(point.data, type="n", xaxt="n", yaxt="n", xlab="", ylab="",
-              main="", frame.plot=FALSE)
-    pnt.cols <- sample(pal.cols, size=500, replace=TRUE)
-    points(point.data, pch=21, bg=pnt.cols, cex=1.2)
-
-    # Histogram plot
-    h <- hist(volcano, breaks=hist.breaks, plot=FALSE)
-    bar.cols <- c(pal.cols, sample(pal.cols, size=50 - n, replace=TRUE))
-    plot(h, col=bar.cols, xaxt="n", yaxt="n", xlab="", ylab="", main="")
-
-    # Filled-contour plot
-    image(volcano, col=pal.cols, xaxt="n", yaxt="n", useRaster=TRUE)
+    # Filled-contour
+    image(volcano, col=rev(pal.cols), xaxt="n", yaxt="n")
     box()
   }
 
@@ -366,11 +354,17 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
 
   default.pals <- NULL
 
-  # Initialize graphics device and objects for example plots
+  # Flag graphics device
 
   dev.example <- 1
-  hist.breaks <- seq(min(volcano), max(volcano), length.out=50)
-  point.data <- cbind(rnorm(500), rnorm(500))
+
+  # Initialize example plot
+
+  msc.matrix <- list()
+  for (i in 1:50) {
+    msc.matrix[[i]] <- matrix(runif(i * 10, min=-1, max=1),
+                              nrow=10, ncol=i)
+  }
 
   # Set default and initial palettes
 
@@ -386,6 +380,7 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
   qual.pals[[6]]  <- c(270,  150,  50, NA, 70, NA,  NA,  NA)
   qual.pals[[7]]  <- c( 60,  240,  50, NA, 70, NA,  NA,  NA)
   qual.pals[[8]]  <- c( 30,  300,  50, NA, 70, NA,  NA,  NA)
+  qual.pals[[9]]  <- c(  0,  300,  80, NA, 60, NA,  NA,  NA)
 
   seqs.pals <- list()
   seqs.pals[[1]]  <- c(  0,   NA,   0,  0, 15, 95, 1.3,  NA) # Greys
@@ -406,7 +401,7 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
   seqm.pals[[6]]  <- c(  0,   90,  80, 30, 30, 90, 0.2, 2.0)
   seqm.pals[[7]]  <- c(  0,   90, 100, 30, 50, 90, 0.2, 1.0)
   seqm.pals[[8]]  <- c(130,   30,  65,  0, 45, 90, 0.5, 1.5)
-  seqm.pals[[9]]  <- c(130,   30,  80,  0, 60, 95, 0.0, 1.0)
+  seqm.pals[[9]]  <- c(130,   30,  80,  0, 60, 95, 0.1, 1.0)
   seqm.pals[[10]] <- c(  0, -100,  40, 80, 75, 40, 1.0, 0.0)
 
   dive.pals <- list()
@@ -430,7 +425,7 @@ choose_palette <- function(pal=terrain_hcl, n=7L, parent=NULL) {
 
   # Set dimensions on palette canvas
 
-  cvs.width <- 30 * 10 + 10 + 18
+  cvs.width <- 328 # 30 * 10 + 10 + 18
   cvs.height <- 25
 
   # Assign additional variables linked to Tk widgets
