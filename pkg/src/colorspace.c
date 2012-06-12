@@ -1154,7 +1154,7 @@ SEXP as_LAB(SEXP color, SEXP space, SEXP white)
 	break;
     case POLARLAB:
 	for(i = 0; i < n; i++) {
-	    LAB_to_polarLAB(REAL(color)[i], REAL(color)[i+n], REAL(color)[i+2*n],
+	    polarLAB_to_LAB(REAL(color)[i], REAL(color)[i+n], REAL(color)[i+2*n],
 			    &REAL(ans)[i], &REAL(ans)[i+n], &REAL(ans)[i+2*n]);
 	}
 	break;

@@ -1,5 +1,5 @@
 Package: colorspace
-Version: 1.2-0
+Version: 1.2-1
 Date: 2012-01-13
 Title: Color Space Manipulation
 Authors@R: c(person(given = "Ross", family = "Ihaka", role = c("aut", "cre"), email = "ihaka@stat.auckland.ac.nz"),
