@@ -183,39 +183,39 @@ polarLUV =
   }
 
 setAs("color", "RGB", function(from)
-      RGB(.Call("as_RGB", from@coords, class(from), .WhitePoint),
+      RGB(.Call("as_RGB", from@coords, class(from), .WhitePoint, PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "sRGB", function(from)
-      sRGB(.Call("as_sRGB", from@coords, class(from), .WhitePoint),
+      sRGB(.Call("as_sRGB", from@coords, class(from), .WhitePoint, PACKAGE = "colorspace"),
            names = dimnames(from@coords)[[1]]))
 
 setAs("color", "XYZ", function(from)
-      XYZ(.Call("as_XYZ", from@coords, class(from), .WhitePoint),
+      XYZ(.Call("as_XYZ", from@coords, class(from), .WhitePoint, PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "LAB", function(from)
-      LAB(.Call("as_LAB", from@coords, class(from), .WhitePoint),
+      LAB(.Call("as_LAB", from@coords, class(from), .WhitePoint, PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "polarLAB", function(from)
-      polarLAB(.Call("as_polarLAB", from@coords, class(from), .WhitePoint),
+      polarLAB(.Call("as_polarLAB", from@coords, class(from), .WhitePoint, PACKAGE = "colorspace"),
                names = dimnames(from@coords)[[1]]))
 
 setAs("color", "HSV", function(from)
-      HSV(.Call("as_HSV", from@coords, class(from), .WhitePoint),
+      HSV(.Call("as_HSV", from@coords, class(from), .WhitePoint, PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "HLS", function(from)
-      HLS(.Call("as_HLS", from@coords, class(from), .WhitePoint),
+      HLS(.Call("as_HLS", from@coords, class(from), .WhitePoint, PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "LUV", function(from)
-      LUV(.Call("as_LUV", from@coords, class(from), .WhitePoint),
+      LUV(.Call("as_LUV", from@coords, class(from), .WhitePoint, PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "polarLUV", function(from)
-      polarLUV(.Call("as_polarLUV", from@coords, class(from), .WhitePoint),
+      polarLUV(.Call("as_polarLUV", from@coords, class(from), .WhitePoint, PACKAGE = "colorspace"),
                names = dimnames(from@coords)[[1]]))
 
 hex =
@@ -223,15 +223,15 @@ hex =
   {
       if (!is.null(gamma))
           warning("'gamma' is deprecated and has no effect")
-      .Call("sRGB_to_RColor", as(from, "sRGB")@coords, fixup)
+      .Call("sRGB_to_RColor", as(from, "sRGB")@coords, fixup, PACKAGE = "colorspace")
   }
 
 hex2RGB =
   function(x, gamma = FALSE) {
       if (gamma)
-          RGB(.Call("hex_to_RGB", x, gamma))
+          RGB(.Call("hex_to_RGB", x, gamma, PACKAGE = "colorspace"))
       else
-          sRGB(.Call("hex_to_RGB", x, gamma))
+          sRGB(.Call("hex_to_RGB", x, gamma, PACKAGE = "colorspace"))
   }
   
 

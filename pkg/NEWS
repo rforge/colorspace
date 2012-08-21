@@ -2,6 +2,10 @@ Changes in Version 1.1-2
 
   o Bug fix in polarLAB_to_LAB conversion.
 
+  o All .Call() calls now with PACKAGE = "colorspace".
+  
+  o Added some simple tests/ based on the examples and vignette.
+
 
 Changes in Version 1.1-1
 
