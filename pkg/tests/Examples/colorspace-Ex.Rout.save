@@ -1,0 +1,471 @@
+
+R version 2.15.1 (2012-06-22) -- "Roasted Marshmallows"
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "colorspace"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('colorspace')
+> 
+> assign(".oldSearch", search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("HLS")
+> ### * HLS
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: HLS
+> ### Title: Create HLS Colors
+> ### Aliases: HLS
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> # A rainbow of full-intensity hues
+> hls = HLS(seq(0, 360, length=13)[-13], 0.5, 1)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("HSV")
+> ### * HSV
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: HSV
+> ### Title: Create HSV Colors
+> ### Aliases: HSV
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> # A rainbow of full-intensity hues
+> hsv = HSV(seq(0, 360, length=13)[-13], 1, 1)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("LAB")
+> ### * LAB
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: LAB
+> ### Title: Create LAB Colors
+> ### Aliases: LAB
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> ## Show the LAB space
+> x = RGB(runif(1000), runif(1000), runif(1000))
+> plot(as(x,"LAB"))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("LUV")
+> ### * LUV
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: LUV
+> ### Title: Create LUV Colors
+> ### Aliases: LUV
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> ## Show the LUV space
+> x = RGB(runif(1000), runif(1000), runif(1000))
+> plot(as(x,"LUV"))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("RGB")
+> ### * RGB
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: RGB
+> ### Title: Create RGB Colors
+> ### Aliases: RGB
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> # Create a random set of colors
+> rgb = RGB(R = runif(20), G = runif(20), B = runif(20))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("XYZ")
+> ### * XYZ
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: XYZ
+> ### Title: Create XYZ Colors
+> ### Aliases: XYZ
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> ## Generate white in XYZ space
+> white = XYZ(95.047, 100.000, 108.883)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("color-class")
+> ### * color-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: color-class
+> ### Title: Class "color"
+> ### Aliases: color-class RGB-class sRGB-class XYZ-class HSV-class HLS-class
+> ###   LAB-class LUV-class polarLAB-class polarLUV-class [,color-method
+> ###   coerce,color,RGB-method coerce,color,sRGB-method
+> ###   coerce,color,XYZ-method coerce,color,LAB-method
+> ###   coerce,color,polarLAB-method coerce,color,HSV-method
+> ###   coerce,color,HLS-method coerce,color,LUV-method
+> ###   coerce,color,polarLUV-method coords,color-method plot,color-method
+> ###   show,color-method
+> ### Keywords: classes
+> 
+> ### ** Examples
+> 
+> x = RGB(runif(1000),runif(1000),runif(1000))
+> plot(as(x, "LUV"))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("coords")
+> ### * coords
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coords
+> ### Title: Extract the numerical coordinates of a color
+> ### Aliases: coords
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> x = RGB(1, 0, 0)
+> coords(as(x, "HSV"))
+       H S V
+[1,] 360 1 1
+> 
+> 
+> 
+> cleanEx()
+> nameEx("desaturate")
+> ### * desaturate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: desaturate
+> ### Title: Desaturate Colors by Chroma Removal in HCL Space
+> ### Aliases: desaturate
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> ## convenience demo function
+> wheel <- function(col, radius = 1, ...)
++   pie(rep(1, length(col)), col = col, radius = radius, ...) 
+> 
+> ## compare base and colorspace palettes
+> ## (in color and desaturated)
+> par(mar = rep(0, 4), mfrow = c(2, 2))
+> ## rainbow color wheel
+> wheel(rainbow_hcl(12))
+> wheel(rainbow(12))
+> wheel(desaturate(rainbow_hcl(12)))
+> wheel(desaturate(rainbow(12)))
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("hex")
+> ### * hex
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hex
+> ### Title: Convert Colors To Hexadecimal Strings
+> ### Aliases: hex
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> hsv = HSV(seq(0,360,length=7)[-7], 1, 1)
+> barplot(rep(1,6), col=hex(hsv))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("hex2RGB")
+> ### * hex2RGB
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hex2RGB
+> ### Title: Convert Hexadecimal Color Specifications To RGB Objects
+> ### Aliases: hex2RGB
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> rgb = hex2RGB(c("#FF0000","#00FF00", "#0000FF"))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mixcolor")
+> ### * mixcolor
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mixcolor
+> ### Title: Compute the convex combination of two colors
+> ### Aliases: mixcolor
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> mixcolor(0.5, RGB(1, 0, 0), RGB(0, 1, 0))
+       R   G B
+[1,] 0.5 0.5 0
+> 
+> 
+> 
+> cleanEx()
+> nameEx("polarLAB")
+> ### * polarLAB
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: polarLAB
+> ### Title: Create polarLAB Colors
+> ### Aliases: polarLAB
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> ## Show the polarLAB space
+> x = RGB(runif(1000), runif(1000), runif(1000))
+> plot(as(x,"polarLAB"))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("polarLUV")
+> ### * polarLUV
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: polarLUV
+> ### Title: Create polarLUV Colors
+> ### Aliases: polarLUV
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> ## Show the polarLUV space
+> x = RGB(runif(1000), runif(1000), runif(1000))
+> plot(as(x,"polarLUV"))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rainbow_hcl")
+> ### * rainbow_hcl
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rainbow_hcl
+> ### Title: HCL and HSV Color Palettes
+> ### Aliases: rainbow_hcl diverge_hcl diverge_hsv heat_hcl sequential_hcl
+> ###   terrain_hcl
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> ## convenience demo functions
+> wheel <- function(col, radius = 1, ...)
++   pie(rep(1, length(col)), col = col, radius = radius, ...) 
+> 
+> pal <- function(col, border = "light gray")
++ {
++   n <- length(col)
++   plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), axes = FALSE, xlab = "", ylab = "")
++   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
++ }
+> 
+> ## qualitative palette
+> wheel(rainbow_hcl(12))
+> 
+> ## a few useful diverging HCL palettes
+> par(mar = rep(0, 4), mfrow = c(4, 1))
+> pal(diverge_hcl(7))
+> pal(diverge_hcl(7, h = c(246, 40), c = 96, l = c(65, 90)))
+> pal(diverge_hcl(7, h = c(130, 43), c = 100, l = c(70, 90)))
+> pal(diverge_hcl(7, h = c(180, 70), c = 70, l = c(90, 95)))
+> pal(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
+> pal(diverge_hcl(7, h = c(128, 330), c = 98, l = c(65, 90)))
+> pal(diverge_hcl(7, h = c(255, 330), l = c(40, 90)))
+> pal(diverge_hcl(7, c = 100, l = c(50, 90), power = 1))
+> 
+> ## sequential palettes
+> pal(sequential_hcl(12))
+> pal(heat_hcl(12, h = c(0, -100), l = c(75, 40), c = c(40, 80), power = 1))
+> pal(terrain_hcl(12, c = c(65, 0), l = c(45, 95), power = c(1/3, 1.5)))
+> pal(heat_hcl(12, c = c(80, 30), l = c(30, 90), power = c(1/5, 1.5)))
+> 
+> ## compare base and colorspace palettes
+> ## (in color and desaturated)
+> par(mar = rep(0, 4), mfrow = c(2, 2))
+> ## rainbow color wheel
+> wheel(rainbow_hcl(12))
+> wheel(rainbow(12))
+> wheel(desaturate(rainbow_hcl(12)))
+> wheel(desaturate(rainbow(12)))
+> 
+> ## diverging red-blue colors
+> pal(diverge_hsv(7))
+> pal(diverge_hcl(7, c = 100, l = c(50, 90)))
+> pal(desaturate(diverge_hsv(7)))
+> pal(desaturate(diverge_hcl(7, c = 100, l = c(50, 90))))
+> 
+> ## diverging cyan-magenta colors
+> pal(cm.colors(7))
+> pal(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
+> pal(desaturate(cm.colors(7)))
+> pal(desaturate(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))))
+> 
+> ## heat colors
+> pal(heat.colors(12))
+> pal(heat_hcl(12))
+> pal(desaturate(heat.colors(12)))
+> pal(desaturate(heat_hcl(12)))
+> 
+> ## terrain colors
+> pal(terrain.colors(12))
+> pal(terrain_hcl(12))
+> pal(desaturate(terrain.colors(12)))
+> pal(desaturate(terrain_hcl(12)))
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("readRGB")
+> ### * readRGB
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: readRGB
+> ### Title: Read RGB Color Descriptions
+> ### Aliases: readRGB
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D rgb = readRGB("pastel.rgb")
+> ##D hsv = readRGB("pastel.rgb", "HSV")
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("readhex")
+> ### * readhex
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: readhex
+> ### Title: Read Hexadecimal Color Descriptions
+> ### Aliases: readhex
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D rgb = readhex("pastel.txt")
+> ##D hsv = readhex("pastel.txt", "HSV")
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("sRGB")
+> ### * sRGB
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sRGB
+> ### Title: Create sRGB Colors
+> ### Aliases: sRGB
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> # Create a random set of colors
+> rgb = sRGB(R = runif(20), G = runif(20), B = runif(20))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("writehex")
+> ### * writehex
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: writehex
+> ### Title: Write Hexadecimal Color Descriptions
+> ### Aliases: writehex
+> ### Keywords: color
+> 
+> ### ** Examples
+> 
+> x = RGB(runif(10), runif(10), runif(10))
+> writehex(x, "random.txt")
+[1] "random.txt"
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  1.16 0.02 1.183 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
