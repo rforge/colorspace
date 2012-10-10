@@ -88,8 +88,6 @@ CDU/CSU     FDP   Linke  Gruene     SPD
 > dens <- bkde2D(geyser[, 2:1], bandwidth = c(0.2, 3), 
 +     gridsize = c(201, 201))
 
-> png(file = "bkde.png", height = 420, width = 840)
-
 > par(mfrow = c(1, 2))
 
 > image(dens$x1, dens$x2, dens$fhat, xlab = "duration", 
@@ -104,18 +102,12 @@ CDU/CSU     FDP   Linke  Gruene     SPD
 
 > box()
 
-> dev.off()
-pdf 
-  2 
-
 > library("KernSmooth")
 
 > geyser2 <- cbind(geyser$duration[-299], geyser$waiting[-1])
 
 > dens2 <- bkde2D(geyser2, bandwidth = c(0.2, 3), gridsize = c(201, 
 +     201))
-
-> png(file = "bkde2.png", height = 420, width = 840)
 
 > par(mfrow = c(1, 2))
 
@@ -130,10 +122,6 @@ pdf
 +         l = c(30, 90 .... [TRUNCATED] 
 
 > box()
-
-> dev.off()
-pdf 
-  2 
 
 > art <- xtabs(~Treatment + Improved, data = Arthritis, 
 +     subset = Sex == "Female")
@@ -162,15 +150,9 @@ pdf
 > fm <- ksvm(class ~ ., data = ex1, C = 0.5)
 Using automatic sigma estimation (sigest) for RBF or laplace kernel 
 
-> png(file = "class.png", height = 480, width = 640)
-
 > plot(fm, data = ex1)
-
-> dev.off()
-pdf 
-  2 
 
  *** Run successfully completed ***
 > proc.time()
    user  system elapsed 
-  4.340   0.084   4.423 
+  4.772   0.144   4.922 

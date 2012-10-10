@@ -230,7 +230,7 @@ Type 'q()' to quit R.
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: choose_palette
-> ### Title: Choose color palette
+> ### Title: Graphical User Interface for Choosing HCL Color Palettes
 > ### Aliases: choose_palette
 > ### Keywords: misc
 > 
@@ -627,7 +627,7 @@ Type 'q()' to quit R.
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.224 0.028 1.255 0 0 
+Time elapsed:  1.24 0.052 1.295 0 0 
 > grDevices::dev.off()
 null device 
           1 
