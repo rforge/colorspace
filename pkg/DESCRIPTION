@@ -14,3 +14,4 @@ Description: Carries out mapping between assorted color spaces including
 Depends: R (>= 2.10.0), methods
 Suggests: KernSmooth, MASS, kernlab, mvtnorm, vcd, tcltk, dichromat
 License: BSD
+LazyData: yes

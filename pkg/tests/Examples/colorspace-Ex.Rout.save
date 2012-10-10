@@ -179,6 +179,31 @@ Type 'q()' to quit R.
 > 
 > 
 > cleanEx()
+> nameEx("USSouthPolygon")
+> ### * USSouthPolygon
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: USSouthPolygon
+> ### Title: Polygon for County Map of US South States: Alabama, Georgia, and
+> ###   South Carolina
+> ### Aliases: USSouthPolygon
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> ## generate color palette
+> pal <- diverge_hcl(9)
+> n <- length(pal)
+> 
+> ## draw shaded polygons
+> plot(0, 0, type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n", bty = "n",
++   xlim = c(-88.5, -78.6), ylim = c(30.2, 35.2), asp = 1)
+> polygon(USSouthPolygon, col = pal[cut(na.omit(USSouthPolygon$z), breaks = 0:n/n)])
+> 
+> 
+> 
+> cleanEx()
 > nameEx("XYZ")
 > ### * XYZ
 > 
@@ -195,6 +220,22 @@ Type 'q()' to quit R.
 > XYZ(95.047, 100.000, 108.883)
           X   Y       Z
 [1,] 95.047 100 108.883
+> 
+> 
+> 
+> cleanEx()
+> nameEx("choose_palette")
+> ### * choose_palette
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: choose_palette
+> ### Title: Choose color palette
+> ### Aliases: choose_palette
+> ### Keywords: misc
+> 
+> ### ** Examples
+> 
 > 
 > 
 > 
@@ -586,7 +627,7 @@ Type 'q()' to quit R.
 > ### * <FOOTER>
 > ###
 > cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.188 0.028 1.217 0 0 
+Time elapsed:  1.224 0.028 1.255 0 0 
 > grDevices::dev.off()
 null device 
           1 
