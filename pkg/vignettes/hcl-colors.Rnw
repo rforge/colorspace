@@ -1,13 +1,13 @@
 \documentclass[nojss]{jss}
 
 %% need no \usepackage{Sweave}
-\SweaveOpts{engine=R, eps=FALSE, echo=FALSE, results=hide, keep.source = TRUE}
+\SweaveOpts{engine=R, eps=FALSE, echo=FALSE, results=hide, keep.source = TRUE, pdf = TRUE, png = FALSE, resolution = 100}
 
 \title{HCL-Based Color Palettes in \proglang{R}}
 \Plaintitle{HCL-Based Color Palettes in R}
-\author{Achim Zeileis\\Wirtschaftsuniversit\"at Wien
-   \And Kurt Hornik\\Wirtschaftsuniversit\"at Wien
-   \And Paul Murrell\\The University of Auckland}
+\author{Achim Zeileis\\Universit\"at Innsbruck
+   \And Kurt Hornik\\WU Wirtschafts-\\universit\"at Wien
+   \And Paul Murrell\\The University\\of Auckland}
 \Plainauthor{Achim Zeileis, Kurt Hornik, Paul Murrell}
 \Keywords{HCL colors, qualitative palette, sequential palette, diverging palette}
 
@@ -21,14 +21,23 @@
 }
 
 \Address{
-  Achim Zeileis, Kurt Hornik\\
-  Department of Statistics and Mathematics\\
-  Wirtschaftsuniversit\"at Wien\\
+  Achim Zeileis\\
+  Department of Statistics\\
+  Faculty of Economics and Statistics\\
+  Universit\"at Innsbruck\\
+  Universit\"atsstra{\ss}e~15\\
+  6020 Innsbruck, Austria\\
+  E-mail: \email{Achim.Zeileis@R-project.org}\\
+  URL: \url{http://eeecon.uibk.ac.at/~zeileis/}\\
+  
+  Kurt Hornik\\
+  Institute for Statistics and Mathematics\\
+  Department of Finance, Accounting and Statistics\\
+  WU Wirtschaftsuniversit\"at Wien\\
   Augasse 2--6\\
-  A-1090 Wien, Austria\\
-  E-mail: \email{Achim.Zeileis@R-project.org}, \email{Kurt.Hornik@R-project.org}\\
-  URL: \url{http://statmath.wu.ac.at/~zeileis/},\\
-  \phantom{URL:} \url{http://statmath.wu.ac.at/~hornik/}
+  1090 Wien, Austria\\
+  E-mail: \email{Kurt.Hornik@R-project.org}\\
+  URL: \url{http://statmath.wu.ac.at/~hornik/}\\
 
   Paul Murrell\\
   Department of Statistics\\
@@ -61,7 +70,11 @@ This is a companion vignette to \cite{color:Zeileis+Hornik+Murrell:2009}
 providing further technical details on the construction of the palettes as well as
 \proglang{R} code illustrating the use of varying palettes in practice.
 The palettes as well as some graphical functions demonstrated are contained
-in the package \pkg{colorspace}.
+in the package \pkg{colorspace}.\footnote{In addition to the discussion here,
+a graphical user interface for choosing colors based on the ideas of
+\cite{color:Zeileis+Hornik+Murrell:2009} is provided in the package as 
+\code{choose\_palette()}.}
+
 As a simple convenience function we will use the function
 <<pal, echo=TRUE>>=
 pal <- function(col, border = "light gray", ...)
@@ -78,6 +91,7 @@ In the remainder of this vignette, we first outline how different types of palet
 can be constructed and generated using the tools from \pkg{colorspace}. Subsequently,
 we present a collection of examples illustrating the tools in practice.
 
+\pagebreak
 
 \section{Color palettes} \label{sec:palettes}
 
@@ -226,6 +240,8 @@ pairs of hues and decreasing luminance contrasts.}
 \end{center}
 \end{figure}
 
+\pagebreak
+
 \section{Illustrations} \label{sec:illustrations}
 
 \subsection{Qualitative palettes: Seats and votes in the German Bundestag}
@@ -351,16 +367,13 @@ or short eruption (around 4 minutes).
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[t!]
 \begin{center}
-<<bkde3, height=6, width=12>>=
-png(file = "bkde.png", height = 420, width = 840)
+<<bkde3, fig=TRUE, height=6, width=12, png=TRUE, pdf=FALSE>>=
 par(mfrow = c(1, 2))
 <<bkde1>>
 box()
 <<bkde2>>
 box()
-dev.off()
 @
-\includegraphics{bkde}
 \caption{\label{fig:bkde} Bivariate density estimation for duration and waiting time for an eruption.}
 \end{center}
 \end{figure}
@@ -391,16 +404,13 @@ waiting times follow long and short eruption durations, resepectively.
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[t!]
 \begin{center}
-<<bkde6, height=6, width=12>>=
-png(file = "bkde2.png", height = 420, width = 840)
+<<bkde6, fig=TRUE, height=6, width=12, png=TRUE, pdf=FALSE>>=
 par(mfrow = c(1, 2))
 <<bkde4>>
 box()
 <<bkde5>>
 box()
-dev.off()
 @
-\includegraphics{bkde2}
 \caption{\label{fig:bkde2} Bivariate density estimation for previous duration and following waiting time for
 an eruption.}
 \end{center}
@@ -481,12 +491,9 @@ cannot be easily modified---however, the colors employed are equivalent to
 \setkeys{Gin}{width=.7\textwidth}
 \begin{figure}[p]
 \begin{center}
-<<svm1, height=6, width=8>>=
-png(file = "class.png", height = 480, width = 640)
+<<svm1, fig=TRUE, height=6, width=8, png=TRUE, pdf=FALSE>>=
 <<svm>>
-dev.off()
 @
-\includegraphics{class}
 \caption{\label{fig:class} SVM classification plot.}
 \end{center}
 \end{figure}
