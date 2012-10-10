@@ -36,7 +36,7 @@ export(
   "terrain_hcl",
 
   ## palette utilities
-#  "choose_palette",
+  "choose_palette",
   "desaturate"
 )
 
