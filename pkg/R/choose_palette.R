@@ -542,15 +542,14 @@ choose_palette <- function(pal=diverge_hcl, n=7L, parent=NULL) {
 
   seqs.pals <- list()
   seqs.pals[[1]]  <- c(  0,   NA,   0,  0, 15, 95, 1.3,  NA, 1) # ColorBrewer.org: Greys
-  seqs.pals[[2]]  <- c(280,  260,  60,  5, 20, 95, 0.7, 1.3, 1) # ColorBrewer.org: Purples
-  seqs.pals[[3]]  <- c(260,  230,  80, 10, 30, 95, 0.7, 1.3, 1) # ColorBrewer.org: Blues
-  seqs.pals[[4]]  <- c(135,  120,  50, 10, 40, 95, 0.4, 1.3, 1) # ColorBrewer.org: Greens
-  seqs.pals[[5]]  <- c( 20,   45,  80,  5, 35, 95, 0.6, 1.3, 1) # ColorBrewer.org: Oranges
+  seqs.pals[[2]]  <- c(280,   NA,  60,  5, 20, 95, 0.7, 1.3, 1) # ColorBrewer.org: Purples
+  seqs.pals[[3]]  <- c(260,   NA,  80, 10, 30, 95, 0.7, 1.3, 1) # ColorBrewer.org: Blues
+  seqs.pals[[4]]  <- c(135,   NA,  50, 10, 40, 95, 0.4, 1.3, 1) # ColorBrewer.org: Greens
+  seqs.pals[[5]]  <- c( 20,   NA,  80,  5, 35, 95, 0.6, 1.3, 1) # ColorBrewer.org: Oranges
   seqs.pals[[6]]  <- c( 10,   NA,  80, 10, 30, 95, 0.7, 1.3, 1) # JCF/Z: Reds
   seqs.pals[[7]]  <- c(260,   NA,  80,  0, 30, 90, 1.5,  NA, 1) # Z+KH+PM-09, Fig.5: Blues
   seqs.pals[[8]]  <- c(260,   NA,   0,  0, 30, 90, 1.5,  NA, 1) # Z+KH+PM-09, Fig.5: Light Grays
   
-
   seqm.pals <- list()
   seqm.pals[[1]]  <- c(300,  200,  60,  0, 25, 95, 0.7, 1.3, 1) # ColorBrewer.org: BuPu
   seqm.pals[[2]]  <- c(370,  280,  80,  5, 25, 95, 0.7, 1.3, 1) # ColorBrewer.org: PuRd
@@ -560,8 +559,8 @@ choose_palette <- function(pal=diverge_hcl, n=7L, parent=NULL) {
   seqm.pals[[6]]  <- c(  0,   90,  80, 30, 30, 90, 0.2, 2.0, 1) # JCF/Z: alternative to heat_hcl
   seqm.pals[[7]]  <- c(  0,   90, 100, 30, 50, 90, 0.2, 1.0, 1) # Z+KH+PM-09, Fig.5: heat_hcl
   seqm.pals[[8]]  <- c(130,   30,  65,  0, 45, 90, 0.5, 1.5, 1) # JCF/Z: alternative to terrain_hcl
-  seqm.pals[[9]]  <- c(130,   30,  80,  0, 60, 95, 0.1, 1.0, 1) # Z+KH+PM-09, Fig.5: terrain_hcl
-  seqm.pals[[10]] <- c(  0, -100,  40, 80, 75, 40, 1.0, 0.0, 1) # Z+KH+PM-09, Fig.5: Red-Blue
+  seqm.pals[[9]]  <- c(130,    0,  80,  0, 60, 95, 0.1, 1.0, 1) # Z+KH+PM-09, Fig.5: terrain_hcl
+  seqm.pals[[10]] <- c(  0, -100,  80, 40, 40, 75, 1.0, 1.0, 1) # Z+KH+PM-09, Fig.5: Red-Blue
 
   dive.pals <- list()
   dive.pals[[1]]  <- c(340,  128,  45, NA, 35, 95, 0.7, 1.3, 1) # ColorBrewer.org: PiYG
