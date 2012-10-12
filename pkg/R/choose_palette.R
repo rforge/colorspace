@@ -578,7 +578,7 @@ choose_palette <- function(pal=diverge_hcl, n=7L, parent=NULL) {
   h.lim <- c(-360, 360)
   c.lim <- c(   0, 100)
   l.lim <- c(   0, 100)
-  p.lim <- c(   0,   2)
+  p.lim <- c(   0,   3)
 
   # Set dimensions on palette canvas
   cvs.width <- 328 # 30 * 10 + 10 + 18
