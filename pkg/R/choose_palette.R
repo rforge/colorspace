@@ -534,11 +534,11 @@ choose_palette <- function(pal=diverge_hcl, n=7L, parent=NULL) {
   qual.pals[[2]]  <- c( 10,  320,  50, NA, 80, NA,  NA,  NA, 1) # ColorBrewer.org: Set3
   qual.pals[[3]]  <- c(  0,  288,  60, NA, 70, NA,  NA,  NA, 1) # ColorBrewer.org: Set2
   qual.pals[[4]]  <- c(  0,  288,  50, NA, 60, NA,  NA,  NA, 1) # ColorBrewer.org: Dark2
-  qual.pals[[5]]  <- c( 90,  -30,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Warm (based on Ihaka-03)
-  qual.pals[[6]]  <- c(270,  150,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Cold (based on Ihaka-03)
-  qual.pals[[7]]  <- c( 60,  240,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Harmonic (based on Ihaka-03)
-  qual.pals[[8]]  <- c( 30,  300,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Dynamic (based on Ihaka-03)
-  qual.pals[[9]]  <- c(  0,  300,  80, NA, 60, NA,  NA,  NA, 1) # JCF/Z: Even Darker
+  qual.pals[[5]]  <- c(  0,  300,  80, NA, 60, NA,  NA,  NA, 1) # JCF/Z: Even Darker
+  qual.pals[[6]]  <- c( 90,  -30,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Warm (based on Ihaka-03)
+  qual.pals[[7]]  <- c(270,  150,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Cold (based on Ihaka-03)
+  qual.pals[[8]]  <- c( 60,  240,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Harmonic (based on Ihaka-03)
+  qual.pals[[9]]  <- c( 30,  300,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Dynamic (based on Ihaka-03)
 
   seqs.pals <- list()
   seqs.pals[[1]]  <- c(  0,   NA,   0,  0, 15, 95, 1.3,  NA, 1) # ColorBrewer.org: Greys
