@@ -2,6 +2,8 @@ Changes in Version 1.2-3
 
   o Alpha channel is preserved in desaturate for named colors (especially
     "transparent" and NA). (Reported by Simon Potter.)
+
+  o Added alpha argument for all palette functions (see ?rainbow_hcl).
     
   o Small fixups for R CMD check.
 
