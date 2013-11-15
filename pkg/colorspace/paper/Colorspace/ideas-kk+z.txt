@@ -1,0 +1,57 @@
+What a statistician might want to know about human color vision
+but was afraid to ask!
+
+
+1 Physical and psychological basics/background
+
+1.1 Trichromacy
+
+1.2 Coding vs. perception
+
+
+2 Color generation and control
+
+2.1 Hardware
+- screen, projector, paper
+- additive vs. subtractive color
+- "completeness" vs. "uniqueness": instead of generating all real colors,
+  focus on a (large) set of colors that can be uniquely generated
+-> mix three (or four) primaries
+
+2.2 Color spaces/models
+- (s)RGB, HSV - CIE, LAB/LUV
+- add physical spaces? (LMS?)
+- discuss which model can be used to answer which question
+- distance, appearance, context
+
+2.3 Software
+
+
+3 Application/illustrations/case studies
+
+3.1 Scatterplots
+
+- visualization of groups/clusters:
+emphasize one (or a few) group(s) -> salience/pop-out
+show where they are -> segmentation/segregation
+
+- coupling of colors with symbol forms and sizes?
+
+- use borders around solid symbols or not?
+
+- choice of background color
+might reduce luminance contrasts
+potentially compensate by increasing other contrasts (e.g., chroma)
+
+3.2 Heatmaps
+
+- why not the rainbow palette?
+because the qualitative changes in the color would be used to
+depict (smooth) quantitative changes in the data
+
+- contrasts/pop-out?
+separate small interesting areas vs. showing overall surfaces
+
+- discrimination of small vs. large differences
+
+- contextual effects?
