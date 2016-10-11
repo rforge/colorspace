@@ -1,6 +1,6 @@
 Package: colorspace
-Version: 1.2-6
-Date: 2015-03-05
+Version: 1.2-7
+Date: 2016-10-11
 Title: Color Space Manipulation
 Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "ihaka@stat.auckland.ac.nz"),
              person(given = "Paul", family = "Murrell", role = "aut", email = "paul@stat.auckland.ac.nz"),
@@ -12,7 +12,7 @@ Description: Carries out mapping between assorted color spaces including
 	     CIELAB and polar CIELAB. Qualitative, sequential, and
 	     diverging color palettes based on HCL colors are provided.
 Depends: R (>= 2.13.0), methods
-Imports: graphics
-Suggests: KernSmooth, MASS, kernlab, mvtnorm, vcd, dichromat, tcltk
+Imports: graphics, grDevices
+Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd, dichromat, tcltk
 License: BSD_3_clause + file LICENSE
 LazyData: yes
