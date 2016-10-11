@@ -388,7 +388,7 @@ choose_palette <- function(pal = diverge_hcl, n = 7L, parent = NULL) {
         y=c(y0 + yr[1], y0 + yr[2], y0 + yr[3], y0 + yr[4], y0 + yr[5], 
             y0 + yr[6], y0 + yr[7])
       )
-      attr(dat, "hclust") <- hclust(dist(dat), method="ward")
+      attr(dat, "hclust") <- hclust(dist(dat), method = "ward.D")
       dat$xerror <- rnorm(nrow(dat), sd=runif(nrow(dat), 0.05, 0.45))
       dat$yerror <- rnorm(nrow(dat), sd=runif(nrow(dat), 0.05, 0.45))
       xyhclust <<- dat
@@ -558,6 +558,8 @@ choose_palette <- function(pal = diverge_hcl, n = 7L, parent = NULL) {
   seqm.pals[[8]]  <- c(130,   30,  65,  0, 45, 90, 0.5, 1.5, 1) # JCF/Z: alternative to terrain_hcl
   seqm.pals[[9]]  <- c(130,    0,  80,  0, 60, 95, 0.1, 1.0, 1) # Z+KH+PM-09, Fig.5: terrain_hcl
   seqm.pals[[10]] <- c(  0, -100,  80, 40, 40, 75, 1.0, 1.0, 1) # Z+KH+PM-09, Fig.5: Red-Blue
+  seqm.pals[[11]] <- c(300,   75,  35, 95, 15, 90, 0.8, 1.2, 1) # viridis::viridis
+  seqm.pals[[12]] <-c(-100,  100,  60,100, 15, 95, 2.0, 0.9, 1) # viridis::plasma
 
   dive.pals <- list()
   dive.pals[[1]]  <- c(340,  128,  45, NA, 35, 95, 0.7, 1.3, 1) # ColorBrewer.org: PiYG
