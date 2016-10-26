@@ -384,7 +384,6 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
       dev.set(which=dev.example)
     else
       return()
-    ####PlotExample <- get(paste("colorspace:::Plot", tcltk::tclvalue(example.var), sep=""))
     PlotExample <- eval(parse(text=sprintf("colorspace:::Plot%s",tcltk::tclvalue(example.var))))
     if (as.logical(as.integer(tcltk::tclvalue(reverse.var))))
       pal.cols <- rev(pal.cols)
