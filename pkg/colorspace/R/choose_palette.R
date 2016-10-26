@@ -44,8 +44,7 @@ hclwizard <- function(n = 7L, gui = "shiny", shiny.trace = FALSE) {
 # hclwizard shiny GUI for selecting color palette
 choose_palette_shiny <- function(pal, shiny.trace = FALSE, n = 7L, ...) {
    # Requirements for shiny application
-   require("shiny")
-   require("shinyjs")
+   stopifnot(requireNamespace("shiny"), requireNamespace("shinyjs"))   
    appDir <- system.file("hclwizard", package = "colorspace")
    if (appDir == "")
       stop("Could not find hclwizard app directory. Try re-installing `colorspace`.", call. = FALSE)
