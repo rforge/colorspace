@@ -143,10 +143,9 @@ bpy <- function(n) {
   g <- -0.84 + 2 * i
   b <- 1 + as.numeric(i > 0.3) + as.numeric(i > 0.92)
   b <- c(0, 1.84, -11.5)[b] + c(4, -2, 12.5)[b] * i
-  rgb(
+  hex(sRGB(
     pmax(0, pmin(1, r)),
     pmax(0, pmin(1, g)),
-    pmax(0, pmin(1, b)),
-    alpha = 1
-  )
+    pmax(0, pmin(1, b))
+  ))
 }
