@@ -1,11 +1,12 @@
 Package: colorspace
-Version: 1.2-7
-Date: 2016-10-11
+Version: 1.2-8
+Date: 2016-10-24
 Title: Color Space Manipulation
 Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "ihaka@stat.auckland.ac.nz"),
              person(given = "Paul", family = "Murrell", role = "aut", email = "paul@stat.auckland.ac.nz"),
              person(given = "Kurt", family = "Hornik", role = "aut", email = "Kurt.Hornik@R-project.org"),
              person(given = c("Jason", "C."), family = "Fisher", role = "aut", email = "jfisher@usgs.gov"),
+             person(given = "Reto", family = "Stauffer", role = "aut", email = "Reto.Stauffer@uibk.ac.at"),
              person(given = "Achim", family = "Zeileis", role = c("aut", "cre"), email = "Achim.Zeileis@R-project.org"))
 Description: Carries out mapping between assorted color spaces including
              RGB, HSV, HLS, CIEXYZ, CIELUV, HCL (polar CIELUV),
@@ -13,6 +14,6 @@ Description: Carries out mapping between assorted color spaces including
 	     diverging color palettes based on HCL colors are provided.
 Depends: R (>= 2.13.0), methods
 Imports: graphics, grDevices
-Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd, dichromat, tcltk
+Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd, dichromat, tcltk, shiny, shinyjs
 License: BSD_3_clause + file LICENSE
 LazyData: yes

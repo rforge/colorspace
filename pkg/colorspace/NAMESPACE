@@ -40,7 +40,8 @@ export(
 
   ## palette utilities
   "choose_palette",
-  "desaturate"
+  "desaturate",
+  "hclwizard"
 )
 
 exportMethods("[", "coerce", "coords", "plot", "show")

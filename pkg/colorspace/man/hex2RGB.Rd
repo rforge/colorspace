@@ -17,6 +17,7 @@ hex2RGB(x, gamma = FALSE)
   This function converts device dependent color descriptions of the
   form \code{"#RRGGBB"} into sRGB color descriptions
   (linearized if \code{gamma} is \code{TRUE}).
+  The alpha channel will be ignored if given (\code{"#RRGGBBAA"}).
 }
 \value{
   An RGB object describing the colors.
@@ -36,6 +37,6 @@ hex2RGB(x, gamma = FALSE)
 }
 
 \examples{
-hex2RGB(c("#FF0000","#00FF00", "#0000FF"))
+hex2RGB(c("#FF0000","#00FF00", "#0000FF50"))
 }
 \keyword{color}
