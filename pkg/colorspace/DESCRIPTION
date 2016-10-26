@@ -1,5 +1,5 @@
 Package: colorspace
-Version: 1.2-8
+Version: 1.3-0
 Date: 2016-10-24
 Title: Color Space Manipulation
 Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "ihaka@stat.auckland.ac.nz"),
@@ -11,7 +11,9 @@ Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "iha
 Description: Carries out mapping between assorted color spaces including
              RGB, HSV, HLS, CIEXYZ, CIELUV, HCL (polar CIELUV),
 	     CIELAB and polar CIELAB. Qualitative, sequential, and
-	     diverging color palettes based on HCL colors are provided.
+	     diverging color palettes based on HCL colors are provided
+	     along with an interactive palette picker (with either a Tcl/Tk
+	     or a shiny GUI).
 Depends: R (>= 2.13.0), methods
 Imports: graphics, grDevices
 Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd, dichromat, tcltk, shiny, shinyjs
