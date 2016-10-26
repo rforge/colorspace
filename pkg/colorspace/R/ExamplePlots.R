@@ -14,10 +14,12 @@ PlotHeatmap <- function(pal.cols) {
 }
   
 # Plot scatter example
+.example_env <- new.env()
+.example_env$xyhclust <- NULL
 PlotScatter <- function(pal.cols) {
   
    # Generate artificial data 
-   if (is.null(xyhclust)) {
+   if (is.null(.example_env$xyhclust)) {
       set.seed(1071)
       x0 <- sin(pi * 1:60 / 30) / 5
       y0 <- cos(pi * 1:60 / 30) / 5
@@ -32,10 +34,13 @@ PlotScatter <- function(pal.cols) {
       attr(dat, "hclust") <- stats::hclust(stats::dist(dat), method = "ward.D")
       dat$xerror <- stats::rnorm(nrow(dat), sd=stats::runif(nrow(dat), 0.05, 0.45))
       dat$yerror <- stats::rnorm(nrow(dat), sd=stats::runif(nrow(dat), 0.05, 0.45))
-      xyhclust <<- dat
+      .example_env$xyhclust <- dat
    }
-   plot(xyhclust$x + xyhclust$xerror, xyhclust$y + xyhclust$yerror,
-        col="black", bg=pal.cols[stats::cutree(attr(xyhclust, "hclust"), length(pal.cols))],
+   plot(.example_env$xyhclust$x +
+        .example_env$xyhclust$xerror,
+	.example_env$xyhclust$y +
+	.example_env$xyhclust$yerror,
+        col="black", bg=pal.cols[stats::cutree(attr(.example_env$xyhclust, "hclust"), length(pal.cols))],
         xlab="", ylab="", axes=FALSE, pch=21, cex=1.3)
 }
   
@@ -107,16 +112,17 @@ PlotPerspective <- function(pal.cols) {
 }
   
 # Plot mosaic example
+.example_env$msc.matrix <- NULL
 PlotMosaic <- function(pal.cols) {
-   if (is.null(msc.matrix)) {
+   if (is.null(.example_env$msc.matrix)) {
       set.seed(1071)
       mat <- list()
       for (i in 1:50) {
          mat[[i]] <- matrix(stats::runif(i * 10, min=-1, max=1), nrow=10, ncol=i)
       }
-      msc.matrix <<- mat
+      .example_env$msc.matrix <- mat
    }
-   image(msc.matrix[[n]], col=pal.cols, xaxt="n", yaxt="n")
+   image(.example_env$msc.matrix[[length(pal.cols)]], col=pal.cols, xaxt="n", yaxt="n")
 }
   
 # Plot lines example
