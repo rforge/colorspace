@@ -30,17 +30,19 @@ GetPalette <- function(type, h1, h2, c1, c2, l1, l2, p1, p2, fixup) {
 }
 
 # GUI wrapper methods. 
-choose_palette <- function(pal = diverge_hcl, n = 7L, parent = NULL, gui = "tcltk" ) {
-   args <- list("pal"=pal,"n"=n,"parent"=parent)
-   do.call(sprintf("choose_palette.%s",gui),args)
+choose_palette <- function(pal = diverge_hcl, n = 7L, parent = NULL, gui = "tcltk") {
+   args <- list("pal" = pal, "n" = n, "parent" = parent)
+   gui <- match.arg(gui, c("tcltk", "shiny"))
+   do.call(sprintf("choose_palette_%s", gui), args)
 }
-hclwizard <- function(n = 7L, gui = "shiny", shiny.trace=FALSE ) {
-   args <- list("n"=n,"shiny.trace"=shiny.trace)
-   do.call(sprintf("choose_palette.%s",gui),args)
+hclwizard <- function(n = 7L, gui = "shiny", shiny.trace = FALSE) {
+   args <- list("n" = n, "shiny.trace" = shiny.trace)
+   gui <- match.arg(gui, c("tcltk", "shiny"))
+   do.call(sprintf("choose_palette_%s", gui), args)
 }
 
 # hclwizard shiny GUI for selecting color palette
-choose_palette.shiny <- function( pal, shiny.trace=FALSE, n=7L, ...) {
+choose_palette_shiny <- function(pal, shiny.trace = FALSE, n = 7L, ...) {
    # Requirements for shiny application
    require("shiny")
    require("shinyjs")
@@ -56,10 +58,8 @@ choose_palette.shiny <- function( pal, shiny.trace=FALSE, n=7L, ...) {
 }
 
 # tcltk GUI for selecting a color palette
-choose_palette.tcltk <- function( pal = diverge_hcl, n=7L, parent=NULL, ... ) {
+choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) {
 
-  # Additional functions (subroutines)
-  
   # Choose a file interactively
   ChooseFile <- function(cmd, win.title, initialfile=NULL, 
                          defaultextension=NULL) {
