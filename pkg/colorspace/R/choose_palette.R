@@ -384,7 +384,7 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
       dev.set(which=dev.example)
     else
       return()
-    PlotExample <- eval(parse(text=sprintf("colorspace:::Plot%s",tcltk::tclvalue(example.var))))
+    PlotExample <- eval(parse(text=sprintf("Plot%s",tcltk::tclvalue(example.var))))
     if (as.logical(as.integer(tcltk::tclvalue(reverse.var))))
       pal.cols <- rev(pal.cols)
     PlotExample(pal.cols)
@@ -416,11 +416,11 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
   #vars <- c("h1", "h2", "c1", "c2", "l1", "l2", "p1", "p2", "fixup")
 
   # Load/Define palettes
-  vars      <- colorspace:::vars.pal
-  qual.pals <- colorspace:::qual.pals
-  seqs.pals <- colorspace:::seqs.pals
-  seqm.pals <- colorspace:::seqm.pals
-  dive.pals <- colorspace:::dive.pals
+  vars      <- vars.pal
+  qual.pals <- qual.pals
+  seqs.pals <- seqs.pals
+  seqm.pals <- seqm.pals
+  dive.pals <- dive.pals
 
   # Set limits for palette attributes
   n.lim <- c(   1,  50)
@@ -669,9 +669,7 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
   frame6.lab.1 <- tcltk::ttklabel(frame6, text="Plot type")
   frame6.box.2 <- tcltk::ttkcombobox(frame6, state="readonly", 
                               textvariable=example.var,
-                              values=colorspace:::example.plots) #c("Map", "Heatmap", "Scatter", "Spine", 
-                                       #"Bar", "Pie", "Perspective", "Mosaic", 
-                                       #"Lines"))
+                              values=example.plots)
   frame6.chk.3 <- tcltk::ttkcheckbutton(frame6, text="Reverse colors", 
                                  variable=reverse.var, command=ShowExample)
   tcltk::tkgrid(frame6.lab.1, frame6.box.2, frame6.chk.3)

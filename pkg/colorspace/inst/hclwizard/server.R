@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-10-31 13:30 on thinkreto
+# - L@ST MODIFIED: 2016-10-31 18:27 on thinkreto
 # -------------------------------------------------------------------
 
 library(shiny)
@@ -16,11 +16,7 @@ library(dichromat)
 
 #options( shiny.trace = TRUE )
 
-# Make some hidden functions available for hclwizard shiny
-GetPaletteConfig <- eval(parse(text="colorspace:::GetPaletteConfig"))
-GetPalette       <- eval(parse(text="colorspace:::GetPalette"))
-example.plots    <- eval(parse(text="colorspace:::example.plots"))
-bpy              <- eval(parse(text="colorspace:::bpy"))
+bpy <- eval(parse(text="colorspace:::bpy"))
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -269,7 +265,7 @@ shinyServer(function(input, output, session) {
    # Plotting example
    # ----------------------------------------------------------------
    plotExample <- function(colors) {
-      cmd <- sprintf("output$plot <- renderPlot({colorspace:::Plot%s(colors)},width=800,height=600)",input$EXAMPLE)
+      cmd <- sprintf("output$plot <- renderPlot({Plot%s(colors)},width=800,height=600)",input$EXAMPLE)
       eval(parse(text=cmd))
    }
 

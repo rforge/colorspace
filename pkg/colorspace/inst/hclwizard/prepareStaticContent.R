@@ -7,11 +7,17 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2016-10-23, RS: Created file on pc24-c707.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-10-31 13:32 on thinkreto
+# - L@ST MODIFIED: 2016-10-31 18:26 on thinkreto
 # -------------------------------------------------------------------
 
    library(colorspace)
    library(dichromat)
+
+
+# -------------------------------------------------------------------
+# Make bpy accessible
+# -------------------------------------------------------------------
+   bpy <- colorspace:::bpy
 
 
 # -------------------------------------------------------------------
@@ -91,12 +97,10 @@
       # Helper function to extract the different sections
       extract <- function(html,sec) {
          r <- regmatches(html,regexpr(sprintf("<h3>%s</h3>.*?(?=<h3>)",sec),html,perl=TRUE))
-         #r <- regmatches(html,regexpr(sprintf("<h3>%s</h3>([\\w\\s]+)<h[0-9]>",sec),html))
-         r <- gsub("#LB#","\n",r) ######substr(r,0,nchar(r)-4)
+         r <- gsub("#LB#","\n",r)
          r
       }
       title <- function(html) {
-         #gsub("</?h2>","",regmatches(html,regexpr("<h2>.*</h2>",html)))
          r <- regmatches(html,regexpr("<h2>.*</h2>",html))
          r <- gsub("#LB#","\n",r)
          r
