@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2016-10-23, RS: Created file on pc24-c707.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-10-26 13:25 on thinkreto
+# - L@ST MODIFIED: 2016-10-31 13:32 on thinkreto
 # -------------------------------------------------------------------
 
    library(colorspace)
@@ -17,6 +17,9 @@
 # -------------------------------------------------------------------
 # Create color maps
 # -------------------------------------------------------------------
+
+   # Make hidden function available
+   bpy <- eval(parse(text="colorspace:::bpy"))
 
    # Remove existing palettes
    imgdir <- "www/images"
@@ -41,9 +44,7 @@
       cat(sprintf(" * Drawing: %s\n",img))
 
       if ( args$type == "base" ) {
-         pal <- `if`(tolower(palettes$name[i])=="bpy",
-                     colorspace:::bpy,
-                     eval(parse(text=tolower(palettes$name[i]))))
+         pal <- eval(parse(text=tolower(palettes$name[i])))
       } else {
          pal <- do.call("GetPalette",args)
       }

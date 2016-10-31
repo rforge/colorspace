@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-10-26 13:34 on thinkreto
+# - L@ST MODIFIED: 2016-10-31 13:30 on thinkreto
 # -------------------------------------------------------------------
 
 library(shiny)
@@ -15,6 +15,12 @@ library(colorspace)
 library(dichromat)
 
 #options( shiny.trace = TRUE )
+
+# Make some hidden functions available for hclwizard shiny
+GetPaletteConfig <- eval(parse(text="colorspace:::GetPaletteConfig"))
+GetPalette       <- eval(parse(text="colorspace:::GetPalette"))
+example.plots    <- eval(parse(text="colorspace:::example.plots"))
+bpy              <- eval(parse(text="colorspace:::bpy"))
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -33,8 +39,8 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    # Loading PAL palette information and examples
    # ----------------------------------------------------------------
-   palettes <- colorspace:::GetPaletteConfig()
-   updateSelectInput(session,"EXAMPLE",choices=colorspace:::example.plots)
+   palettes <- GetPaletteConfig()
+   updateSelectInput(session,"EXAMPLE",choices=example.plots)
 
    # ----------------------------------------------------------------
    # Initialization of the first color map is triggering the plot
@@ -166,10 +172,10 @@ shinyServer(function(input, output, session) {
       fixup  <- input$fixup
       # Getting palette function
       if ( input$typ == "base" ) {
-         pal <- `if`(tolower(input$PAL)=="bpy",colorspace:::bpy,eval(parse(text=tolower(input$PAL))))
+         pal <- eval(parse(text=tolower(input$PAL)))
       } else {
-         pal <- colorspace:::GetPalette(curtyp,curPAL$H1,curPAL$H2,curPAL$C1,curPAL$C2,
-                                               curPAL$L1,curPAL$L2,curPAL$P1,curPAL$P2,input$fixup)
+         pal <- GetPalette(curtyp,curPAL$H1,curPAL$H2,curPAL$C1,curPAL$C2,
+                                  curPAL$L1,curPAL$L2,curPAL$P1,curPAL$P2,input$fixup)
       }
       # If fun is set to false: return values
       if ( ! fun ) {
@@ -204,7 +210,7 @@ shinyServer(function(input, output, session) {
       output$colormap <- renderPlot({
          par(mar=rep(0,4),xaxt="n",yaxt="n",oma=rep(0,4),bty="n")
          image(matrix(1:length(colors),ncol=1),col=colors)
-      },width=500,height=2)
+      },width=500,height=5)
 
       # Update the export tabs
       if ( input$maintabs == "export" ) {
