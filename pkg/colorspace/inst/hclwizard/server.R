@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-10-31 18:27 on thinkreto
+# - L@ST MODIFIED: 2016-10-31 18:30 on thinkreto
 # -------------------------------------------------------------------
 
 library(shiny)
@@ -35,8 +35,8 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    # Loading PAL palette information and examples
    # ----------------------------------------------------------------
-   palettes <- GetPaletteConfig()
-   updateSelectInput(session,"EXAMPLE",choices=example.plots)
+   palettes <- colorspace:::GetPaletteConfig()
+   updateSelectInput(session,"EXAMPLE",choices=colorspace:::example.plots)
 
    # ----------------------------------------------------------------
    # Initialization of the first color map is triggering the plot
@@ -170,8 +170,8 @@ shinyServer(function(input, output, session) {
       if ( input$typ == "base" ) {
          pal <- eval(parse(text=tolower(input$PAL)))
       } else {
-         pal <- GetPalette(curtyp,curPAL$H1,curPAL$H2,curPAL$C1,curPAL$C2,
-                                  curPAL$L1,curPAL$L2,curPAL$P1,curPAL$P2,input$fixup)
+         pal <- colorspace:::GetPalette(curtyp,curPAL$H1,curPAL$H2,curPAL$C1,curPAL$C2,
+                                        curPAL$L1,curPAL$L2,curPAL$P1,curPAL$P2,input$fixup)
       }
       # If fun is set to false: return values
       if ( ! fun ) {
@@ -265,7 +265,7 @@ shinyServer(function(input, output, session) {
    # Plotting example
    # ----------------------------------------------------------------
    plotExample <- function(colors) {
-      cmd <- sprintf("output$plot <- renderPlot({Plot%s(colors)},width=800,height=600)",input$EXAMPLE)
+      cmd <- sprintf("output$plot <- renderPlot({colorspace:::Plot%s(colors)},width=800,height=600)",input$EXAMPLE)
       eval(parse(text=cmd))
    }
 
