@@ -7,12 +7,12 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-10-26 13:34 on thinkreto
+# - L@ST MODIFIED: 2016-11-01 12:01 on pc24-c707
 # -------------------------------------------------------------------
 
 
-library(shiny)
-library(shinyjs)
+library("shiny")
+library("shinyjs")
 
 # - Configuration
 ticks <- FALSE # to show ticks or not to show ticks
@@ -50,7 +50,7 @@ shinyUI(fluidPage(
       # -------------------------------------------------------------
       # Copy the line below to make a select box 
       # -------------------------------------------------------------
-      h3("Chose Basetyp"),
+      h3("Choose Basetyp"),
       withTags(div(class="hcl-selectoptions",id="hcl-typ",
          selectInput("typ", label = h3("Nature of your data"), 
            choices = list(
@@ -96,9 +96,9 @@ shinyUI(fluidPage(
       checkboxInput("reverse", "Reverse", value=FALSE, width=NULL),
       checkboxInput("fixup", "Correct colors", value=TRUE, width=NULL),
       checkboxInput("desaturate", "Desaturated", value=FALSE, width=NULL),
-      radioButtons("constraint", "Constraints", 
-               choices = c("Normal Vision","Deutan","Protan","Tritan"),
-               selected="Normal Vision"),
+      radioButtons("constraint", "Vision", 
+               choices = c("Normal","Deutan","Protan","Tritan"),
+               selected="Normal"),
 
       width = 2
    ),
@@ -258,9 +258,8 @@ shinyUI(fluidPage(
       # Main panel which shows the plot.
       # -------------------------------------------------------------
       tabsetPanel(id="maintabs",
-         tabPanel("Choose Colors",value="choosecolors",
+         tabPanel("Plot Example",value="plotexample",
             withTags(div(class="hcl-main",id="hcl-main-plot",
-               tag('h1','Color Plot Example'),
                plotOutput("plot")
             ))
          ),
@@ -269,7 +268,6 @@ shinyUI(fluidPage(
       # -------------------------------------------------------------
          tabPanel("Export",value="export",
             withTags(div(class="hcl-main",id="hcl-main-export",
-               tag("h1","Export Color Map"),
                tabsetPanel(
                   # RAW output (rgb,RGB,hex)
                   tabPanel("RAW",
@@ -312,7 +310,6 @@ shinyUI(fluidPage(
       # -------------------------------------------------------------
          tabPanel("Spectrum",value="spectrum",
             withTags(div(class="hcl-main",id="hcl-main-spectrum",
-               tag('h1','Spectrum'),
                plotOutput("spectrum")
             ))
          ),

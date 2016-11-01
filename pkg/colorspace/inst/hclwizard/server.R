@@ -7,12 +7,12 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-10-31 18:30 on thinkreto
+# - L@ST MODIFIED: 2016-11-01 12:28 on pc24-c707
 # -------------------------------------------------------------------
 
-library(shiny)
-library(colorspace)
-library(dichromat)
+library("shiny")
+library("colorspace")
+library("dichromat")
 
 #options( shiny.trace = TRUE )
 
@@ -193,7 +193,7 @@ shinyServer(function(input, output, session) {
    # Show color map
    # Note that showColorMap also controls the output in the main
    # panel. Depending on the user view (if the user is on the 
-   # export or choosecolors tab) we have to update the export
+   # export or plotexample tab) we have to update the export
    # tab or the image. Not both.
    # ----------------------------------------------------------------
    showColorMap <- function() {
@@ -212,7 +212,7 @@ shinyServer(function(input, output, session) {
       if ( input$maintabs == "export" ) {
          generateExport() 
       # Show image (plot)
-      } else if ( input$maintabs == "choosecolors" & nchar(input$PAL) > 0 ) {
+      } else if ( input$maintabs == "plotexample" & nchar(input$PAL) > 0 ) {
          plotExample(colors) #showColorMap()
       # Show spectrum
       } else if ( input$maintabs == "spectrum" ) {
@@ -228,30 +228,44 @@ shinyServer(function(input, output, session) {
    # Display spectrum
    # ----------------------------------------------------------------
    plotSpectrum <- function(colors) {
+         # Replace NA colors with white, required for hex2RGB.
+         # Store indizes of NA colors to colors.na for further
+         # processing.
+         colors.na <- which(is.na(colors))
+         if ( length(colors.na) > 0 ) colors[colors.na] <- "#ffffff"
          RGB <- hex2RGB(colors)
          HCL <- as(RGB, "polarLUV")
+         # Replace coordinates of NA colors with NA
+         RGB <- coords(RGB)
+         HCL <- coords(HCL)
+         if ( length(colors.na) > 0 ) {
+            for ( i in 1:3 ) HCL[colors.na,i] <- NA
+            for ( i in 1:3 ) RGB[colors.na,i] <- NA
+         }
+         
+         # Start plotting
          par(xaxt="n",yaxs="i",xaxs="i",mfrow=c(2,1),
-             mar=c(2,0,0,0), oma=c(2,3,2,3))
+             mar=c(2,0,0,0), oma=c(2,3,2,3),cex=1.4)
          # RGB
          plot(0,type="n",ylim=c(0,1),xlim=c(1,length(colors)))
-            lines(coords(RGB)[,"R"],lwd=2,col=2)
-            lines(coords(RGB)[,"G"],lwd=2,col=3)
-            lines(coords(RGB)[,"B"],lwd=2,col=4)
+            lines(RGB[,"R"],lwd=2,col=2)
+            lines(RGB[,"G"],lwd=2,col=3)
+            lines(RGB[,"B"],lwd=2,col=4)
             legend("topleft",ncol=3,bty="n",fill=2:4,legend=c("red","green","blue"))
          mtext(side=3,"RGB Spectrum",cex=1.5,line=0.2)
-         mtext(side=2,"all coordinates",line=2)
+         mtext(side=2,"all coordinates",line=2,cex=1.4)
          # HCL
          plot(0,type="n",ylim=c(0,100),xlim=c(1,length(colors)))
             cols <- rainbow_hcl(3)
-            lines((coords(HCL)[,"H"]+360)/7.2,lwd=2,col=cols[1L])
-            lines(coords(HCL)[,"C"],lwd=2,col=cols[2L])
-            lines(coords(HCL)[,"L"],lwd=2,col=cols[3L])
+            lines((HCL[,"H"]+360)/7.2,lwd=2,col=cols[1L])
+            lines( HCL[,"C"],lwd=2,col=cols[2L])
+            lines( HCL[,"L"],lwd=2,col=cols[3L])
             labels <- seq(-360,360,length.out=9)
             axis(side=4,at=(labels+360)/7.2,labels=labels)
             legend("bottomleft",ncol=3,bty="n",fill=cols,legend=c("hue","chroma","luminance"))
          mtext(side=3,"HCL Spectrum",cex=1.5,line=0.2)
-         mtext(side=2,"chroma and luminance",line=2)
-         mtext(side=4,"hue",line=2)
+         mtext(side=2,"chroma and luminance",cex=1.4,line=2)
+         mtext(side=4,"hue",line=2,cex=1.4)
       }
    showSpectrum <- function() {
       colors <- getColors(100)
@@ -288,7 +302,12 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    generateExport <- function() {
 
-      colors <- getColors()
+      # Setting "NA" colors if fixup=FALSE to white and
+      # store the indizes on colors.na. Replacement required
+      # to be able to convert hex->RGB, index required to
+      # create proper output (where NA values should be displayed).
+      colors   <- getColors()
+      colors.na <- which(is.na(colors))
       colors[is.na(colors)] <- "#ffffff"
 
       # --------------------------
@@ -305,20 +324,26 @@ shinyServer(function(input, output, session) {
       raw1 <- append(raw1,"<span class=\"output-raw\">")
       raw1 <- append(raw1,"RGB values [0-1]")
       for ( i in 1:nrow(RGB) )
-         raw1 <- append(raw1,sprintf("<code>%5.3f %5.3f %5.3f</code>",RGB[i,1],RGB[i,2],RGB[i,3]))
+         raw1 <- append(raw1,ifelse(i %in% colors.na,
+                        gsub(" ","&nbsp;",sprintf("<code>%5s %5s %5s</code>","NA","NA","NA")),
+                        sprintf("<code>%5.3f %5.3f %5.3f</code>",RGB[i,1],RGB[i,2],RGB[i,3])))
       raw1 <- append(raw1,"</span>")
       # RGB 0-255
       raw2 <- append(raw2,"<span class=\"output-raw\">")
       raw2 <- append(raw2,"RGB values [0-255]")
       RGB <- round(RGB*255)
       for ( i in 1:nrow(RGB) )
-         raw2 <- append(raw2,gsub(" ","&nbsp;",sprintf("<code>%4d %4d %4d</code>",RGB[i,1],RGB[i,2],RGB[i,3])))
+         raw2 <- append(raw2,ifelse(i %in% colors.na,
+                        gsub(" ","&nbsp;",sprintf("<code>%4s %4s %4s</code>","NA","NA","NA")),
+                        gsub(" ","&nbsp;",sprintf("<code>%4d %4d %4d</code>",RGB[i,1],RGB[i,2],RGB[i,3]))))
       raw2 <- append(raw2,"</span>")
       # HEX colors
       raw3 <- append(raw3,"<span class=\"output-raw\">")
       raw3 <- append(raw3,"HEX colors, no alpha")
-      for ( col in colors )
-         raw3 <- append(raw3,sprintf("<code>%s</code>",col))
+      for ( i in seq_along(colors) )
+         raw3 <- append(raw3,ifelse(i %in% colors.na,
+                        gsub(" ","&nbsp;",sprintf("<code>%7s</code>","NA")),
+                        sprintf("<code>%s</code>",colors[i])))
       raw3 <- append(raw3,"</span>")
       # Color boxes (visual bar) 
       raw4 <- append(raw4,"<span class=\"output-raw\">")
@@ -340,9 +365,14 @@ shinyServer(function(input, output, session) {
       gastr <- c()
       gastr <- append(gastr,"<div class=\"output-grads\">")
       gastr <- append(gastr,"<comment>** Define colors palette</comment>") 
+      if ( length(colors.na) > 0 )
+         gastr <- append(gastr,"<comment>** WARNING undefined colors in color map!</comment>") 
       for ( i in 1:nrow(RGB) ) {
-         gastr <- append(gastr,gsub(" ","&nbsp;",sprintf("<code>'set rgb %02d %4d %4d %4d'</code>",
-                                             i+19,RGB[i,1],RGB[i,2],RGB[i,3])))
+         gastr <- append(gastr,ifelse(i %in% colors.na,
+                         gsub(" ","&nbsp;",sprintf("<code>'set rgb %02d %4s %4s %4s'</code>",
+                                             i+19,"NA","NA","NA")),
+                         gsub(" ","&nbsp;",sprintf("<code>'set rgb %02d %4d %4d %4d'</code>",
+                                             i+19,RGB[i,1],RGB[i,2],RGB[i,3]))))
       }
       gastr <- append(gastr,sprintf("<code>'set ccols %s'</code>",paste(1:nrow(RGB)+19,collapse=" ")))
       gastr <- append(gastr,sprintf("<code>'set clevs %s'</code>",paste(round(seq(0,100,length=nrow(RGB)-1),1),collapse=" ")))
@@ -357,8 +387,11 @@ shinyServer(function(input, output, session) {
       pystr <- c()
       pystr <- append(pystr,"<div class=\"output-python\">")
       pystr <- append(pystr,"<comment>## Define choosen color palette first</comment>") 
+      pystr <- append(pystr,"<comment>## WARNING undefined colors in color map!</comment>") 
+      pycolors <- sprintf("\"%s\"",colors)
+      if ( length(colors.na) > 0 ) pycolors[colors.na] <- "None"
       pystr <- append(pystr,sprintf("<code>colors = (%s)</code>",
-                      paste(sprintf("\"%s\"",colors),collapse=",")))
+                      paste(sprintf("%s",pycolors),collapse=",")))
       pystr <- append(pystr,"</div>")
 
       output$exportPython <- renderText(paste(pystr,collapse="\n"))
@@ -370,17 +403,19 @@ shinyServer(function(input, output, session) {
       mstr <- c()
       mstr <- append(mstr,"<div class=\"output-matlab\">")
       mstr <- append(mstr,"<comment>%% Define rgb matrix first (matrix size ncolors x 3)</comment>")
+      if ( length(colors.na) > 0 )
+         mstr <- append(mstr,"<comment>%% WARNING undefined colors in color map!</comment>")
       vardef <- "colors = ["
       for ( i in 1:nrow(RGB) ) {
-         if ( i == 1 ) {
-            tmp <- sprintf("<code>%s%5.3f,%5.3f,%5.3f;</code>",
-                           vardef,RGB[i,1],RGB[i,2],RGB[i,2])
-         } else if ( i < nrow(RGB) ) {
-            tmp <- sprintf("<code>%s%5.3f,%5.3f,%5.3f;</code>",
-                           paste(rep(" ",nchar(vardef)),collapse=""),RGB[i,1],RGB[i,2],RGB[i,2])
+         if ( i == 1 )             { pre <- vardef; post <- ";" }
+         else if ( i < nrow(RGB) ) { pre <- paste(rep(" ",nchar(vardef)),collapse=""); post <- ";" }
+         else                      { pre <- paste(rep(" ",nchar(vardef)),collapse=""); post <- "]" }
+         if ( i %in% colors.na ) {
+            tmp <- sprintf("<code>%s%5s,%5s,%5s%s</code>",
+                           pre,"NaN","NaN","NaN",post)
          } else {
-            tmp <- sprintf("<code>%s%5.3f,%5.3f,%5.3f]</code>",
-                           paste(rep(" ",nchar(vardef)),collapse=""),RGB[i,1],RGB[i,2],RGB[i,2])
+            tmp <- sprintf("<code>%s%5.3f,%5.3f,%5.3f%s</code>",
+                           pre,RGB[i,1],RGB[i,2],RGB[i,2],post)
          }
          mstr <- append(mstr,gsub(" ","&nbsp;",tmp))
       }
@@ -398,7 +433,7 @@ shinyServer(function(input, output, session) {
       if ( input$maintabs == "export" ) {
          generateExport() 
       # Show image (plot)
-      } else if ( input$maintabs == "choosecolors" & nchar(input$PAL) > 0 ) {
+      } else if ( input$maintabs == "plotexample" & nchar(input$PAL) > 0 ) {
          plotExample(colormap)
       # Spectrum plot
       } else if ( input$maintabs == "spectrum" ) { 

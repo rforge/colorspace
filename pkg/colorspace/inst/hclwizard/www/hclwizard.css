@@ -35,6 +35,7 @@ div#colormap-wrapper div { height: 40px; }
 div#colormap {
    width: 100%;
    height: 40px;
+   border: 1px solid #a9a9a9;
 }
 div#colormap img {
    width: 100%;

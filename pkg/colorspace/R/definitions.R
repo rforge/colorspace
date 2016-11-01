@@ -10,7 +10,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2016-10-24, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-10-25 11:48 on thinkreto
+# - L@ST MODIFIED: 2016-11-01 11:56 on pc24-c707
 # -------------------------------------------------------------------
 
 
@@ -88,8 +88,8 @@ GetPaletteConfig <- function() {
    for ( i in 1:length(palettes) ) {
       tmp <- data.frame(matrix(unlist(palettes[[i]]),ncol=9,byrow=T))
       names(tmp) <- toupper(vars.pal)
-      tmp$name <- toupper(names(palettes[[i]]))
-      tmp$typ  <- names(palettes)[i]
+      tmp$name   <- names(palettes[[i]])
+      tmp$typ    <- names(palettes)[i]
       res        <- rbind(tmp,res)
    }
    res

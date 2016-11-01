@@ -7,25 +7,24 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2016-10-23, RS: Created file on pc24-c707.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-10-31 18:26 on thinkreto
+# - L@ST MODIFIED: 2016-11-01 11:35 on pc24-c707
 # -------------------------------------------------------------------
 
-   library(colorspace)
-   library(dichromat)
+   library("colorspace")
+   library("dichromat")
 
 
 # -------------------------------------------------------------------
 # Make bpy accessible
 # -------------------------------------------------------------------
-   bpy <- colorspace:::bpy
 
+   # Make hidden function available
+   bpy <- colorspace:::bpy
 
 # -------------------------------------------------------------------
 # Create color maps
 # -------------------------------------------------------------------
 
-   # Make hidden function available
-   bpy <- eval(parse(text="colorspace:::bpy"))
 
    # Remove existing palettes
    imgdir <- "www/images"
@@ -37,11 +36,11 @@
    # Loading defined color palettes from colorspace package
    palettes <- colorspace:::GetPaletteConfig()
    names(palettes) <- tolower(names(palettes))
-   # Sorry, need this for GetPalette
    names(palettes)[names(palettes)=='typ'] <- "type"
-
-   N <- 7
+   # Required for do.call
    GetPalette <- colorspace:::GetPalette
+
+   N <- 7 # Default number of colors for the palettes
    idx <- which(! names(palettes) %in% c('name'))
    for ( i in 1:nrow(palettes) ) {
       args <- as.list(palettes[i,idx])
