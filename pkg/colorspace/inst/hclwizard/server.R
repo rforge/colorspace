@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-01 12:28 on pc24-c707
+# - L@ST MODIFIED: 2016-11-01 14:02 on pc24-c707
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -248,20 +248,20 @@ shinyServer(function(input, output, session) {
              mar=c(2,0,0,0), oma=c(2,3,2,3),cex=1.4)
          # RGB
          plot(0,type="n",ylim=c(0,1),xlim=c(1,length(colors)))
-            lines(RGB[,"R"],lwd=2,col=2)
-            lines(RGB[,"G"],lwd=2,col=3)
-            lines(RGB[,"B"],lwd=2,col=4)
+            lines(RGB[,"R"],lwd=3,col=2)
+            lines(RGB[,"G"],lwd=3,col=3)
+            lines(RGB[,"B"],lwd=3,col=4)
             legend("topleft",ncol=3,bty="n",fill=2:4,legend=c("red","green","blue"))
          mtext(side=3,"RGB Spectrum",cex=1.5,line=0.2)
          mtext(side=2,"all coordinates",line=2,cex=1.4)
          # HCL
          plot(0,type="n",ylim=c(0,100),xlim=c(1,length(colors)))
             cols <- rainbow_hcl(3)
-            lines((HCL[,"H"]+360)/7.2,lwd=2,col=cols[1L])
-            lines( HCL[,"C"],lwd=2,col=cols[2L])
-            lines( HCL[,"L"],lwd=2,col=cols[3L])
-            labels <- seq(-360,360,length.out=9)
-            axis(side=4,at=(labels+360)/7.2,labels=labels)
+            lines(HCL[,"H"]/3.6,lwd=3,col=cols[1L])
+            lines(HCL[,"C"],    lwd=3,col=cols[2L])
+            lines(HCL[,"L"],    lwd=3,col=cols[3L])
+            labels <- seq(0,360,length.out=5)
+            axis(side=4,at=labels/3.6,labels=labels)
             legend("bottomleft",ncol=3,bty="n",fill=cols,legend=c("hue","chroma","luminance"))
          mtext(side=3,"HCL Spectrum",cex=1.5,line=0.2)
          mtext(side=2,"chroma and luminance",cex=1.4,line=2)

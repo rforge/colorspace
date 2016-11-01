@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-01 12:01 on pc24-c707
+# - L@ST MODIFIED: 2016-11-01 13:31 on pc24-c707
 # -------------------------------------------------------------------
 
 
@@ -50,7 +50,7 @@ shinyUI(fluidPage(
       # -------------------------------------------------------------
       # Copy the line below to make a select box 
       # -------------------------------------------------------------
-      h3("Choose Basetyp"),
+      h3("Base Options"),
       withTags(div(class="hcl-selectoptions",id="hcl-typ",
          selectInput("typ", label = h3("Nature of your data"), 
            choices = list(
@@ -258,7 +258,7 @@ shinyUI(fluidPage(
       # Main panel which shows the plot.
       # -------------------------------------------------------------
       tabsetPanel(id="maintabs",
-         tabPanel("Plot Example",value="plotexample",
+         tabPanel("Example Plot",value="plotexample",
             withTags(div(class="hcl-main",id="hcl-main-plot",
                plotOutput("plot")
             ))

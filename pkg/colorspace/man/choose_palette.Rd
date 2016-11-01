@@ -15,9 +15,11 @@ hclwizard(n = 7L, gui = "shiny", shiny.trace = FALSE)
 }
 
 \arguments{
-  \item{pal}{function; the initial palette, see \sQuote{Value} below.}
+  \item{pal}{function; the initial palette, see \sQuote{Value} below.
+         Only used if \code{gui="tcltk"}.}
   \item{n}{integer; the initial number of colors in the palette.}
-  \item{parent}{tkwin; the GUI parent window.}
+  \item{parent}{tkwin; the GUI parent window.
+         Only used if \code{gui="tcltk"}.}
   \item{gui}{character; GUI to use. Available options are
       \code{tcltk} and \code{shiny}, see \sQuote{Details} below.}
   \item{shiny.trace}{boolean, default \code{FALSE}. Used
@@ -87,9 +89,11 @@ of the specified hue/chroma/luminance/power values.
 \examples{
 if(interactive()) {
 ## Using tcltk GUI
+## Analog to: hclwizard(gui="tcltk")
 pal <- choose_palette()
 ## Using shiny GUI
-pal <- choose_palette(gui = "shiny")
+## Analog to: choose_palette(gui = "shiny")
+pal <- hclwizard()
 
 ## use resulting palette function
 filled.contour(volcano, color.palette = pal, asp = 1)
