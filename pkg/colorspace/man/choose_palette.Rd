@@ -65,7 +65,7 @@ number of HCL colors by traversing HCL space through interpolation
 of the specified hue/chroma/luminance/power values.
 }
 
-\author{Jason C. Fisher, Achim Zeileis, and Reto Stauffer}
+\author{Jason C. Fisher, Reto Stauffer, Achim Zeileis}
 
 \references{
   Zeileis A, Hornik K, Murrell P (2009).
@@ -88,10 +88,10 @@ of the specified hue/chroma/luminance/power values.
 if(interactive()) {
 ## Using tcltk GUI
 pal <- choose_palette()
-filled.contour(volcano, color.palette = pal, asp = 1)
-
 ## Using shiny GUI
-pal <- choose_palette(gui="shiny")
+pal <- choose_palette(gui = "shiny")
+
+## use resulting palette function
 filled.contour(volcano, color.palette = pal, asp = 1)
 }
 }
