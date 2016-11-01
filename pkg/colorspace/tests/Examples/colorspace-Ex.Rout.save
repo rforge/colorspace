@@ -1,6 +1,6 @@
 
-R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
+Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -230,13 +230,18 @@ Type 'q()' to quit R.
 > 
 > ### Name: choose_palette
 > ### Title: Graphical User Interface for Choosing HCL Color Palettes
-> ### Aliases: choose_palette
+> ### Aliases: choose_palette hclwizard
 > ### Keywords: misc
 > 
 > ### ** Examples
 > 
 > if(interactive()) {
++ ## Using tcltk GUI
 + pal <- choose_palette()
++ ## Using shiny GUI
++ pal <- choose_palette(gui = "shiny")
++ 
++ ## use resulting palette function
 + filled.contour(volcano, color.palette = pal, asp = 1)
 + }
 > 
@@ -365,7 +370,7 @@ Type 'q()' to quit R.
 > 
 > ### ** Examples
 > 
-> hex2RGB(c("#FF0000","#00FF00", "#0000FF"))
+> hex2RGB(c("#FF0000","#00FF00", "#0000FF50"))
      R G B
 [1,] 1 0 0
 [2,] 0 1 0
@@ -631,7 +636,7 @@ Type 'q()' to quit R.
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.456 0.068 1.559 0 0 
+Time elapsed:  0.384 0.024 0.409 0 0 
 > grDevices::dev.off()
 null device 
           1 
