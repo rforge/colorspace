@@ -37,12 +37,12 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
     if (length(idx) > 0L) {
       ## pre-smooth hue
       n <- nrow(HCL)
-      HCL[, "H"] <- 1/5 * (
-        HCL[c(rep.int(1L, 4L), 1L:(n - 4L)), "H"] +
-        HCL[c(rep.int(1L, 3L), 1L:(n - 3L)), "H"] +
-        HCL[c(rep.int(1L, 2L), 1L:(n - 2L)), "H"] +
-        HCL[c(rep.int(1L, 1L), 1L:(n - 1L)), "H"] +
-        HCL[                   1L:n,         "H"])
+      if(n >= 49L) {
+        HCL[, "H"] <- 1/5 * (
+          HCL[c(rep.int(1L, 2L), 1L:(n - 2L)), "H"] +
+          HCL[c(rep.int(1L, 1L), 1L:(n - 1L)), "H"] +
+          HCL[                   1L:n,         "H"])
+	}
       idxs <- split(idx, cumsum(c(1, diff(idx)) > 1))
       s <- 1L
       while(length(idxs) > 0L) {
