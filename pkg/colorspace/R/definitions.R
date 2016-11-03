@@ -10,7 +10,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2016-10-24, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-01 11:56 on pc24-c707
+# - L@ST MODIFIED: 2016-11-02 08:46 on thinkreto
 # -------------------------------------------------------------------
 
 
@@ -19,7 +19,7 @@
 # the function Plot<Name> will be called.
 # -------------------------------------------------------------------
 example.plots <- c("Map","Heatmap","Scatter","Spine","Bar",
-                   "Pie","Perspective","Mosaic","Lines")
+                   "Pie","Perspective","Mosaic","Lines","Spectrum")
 
 vars.pal <- c("h1", "h2", "c1", "c2", "l1", "l2", "p1", "p2", "fixup")
 

@@ -188,13 +188,10 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
     DrawPalette(v == "n")
   }
 
-  # Draw palette
-  DrawPalette <- function(is.n=FALSE) {
-    type <- as.character(tcltk::tclvalue(nature.var))
-    pal <- GetPalette(type, h1, h2, c1, c2, l1, l2, p1, p2, fixup)
-    if (!is.n)
-      tcltk::tcl(frame2.cvs, "delete", "browse")
-    tcltk::tcl(frame7.cvs, "delete", "pal")
+  # Reto, Nov. 2016: helper function to create the hex palettes.
+  # Generates "n" colors from palette "pal" and manipulates them
+  # if desaturation or dichromat options are required.
+  get_hex_colors <- function(pal,n) {
     pal.cols <- pal(n)
     pal.cols[is.na(pal.cols)] <- "#FFFFFF"
     if (as.logical(as.integer(tcltk::tclvalue(desaturation.var))))
@@ -203,6 +200,18 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
       type <- as.character(tcltk::tclvalue(colorblind.type.var))
       pal.cols <- dichromat::dichromat(pal.cols, type=type)
     }
+    pal.cols
+  }
+
+  # Draw palette
+  DrawPalette <- function(is.n=FALSE) {
+    type <- as.character(tcltk::tclvalue(nature.var))
+    pal <- GetPalette(type, h1, h2, c1, c2, l1, l2, p1, p2, fixup)
+    if (!is.n)
+      tcltk::tcl(frame2.cvs, "delete", "browse")
+    tcltk::tcl(frame7.cvs, "delete", "pal")
+    # Reto, Nov 2016: outsourced
+    pal.cols <- get_hex_colors(pal,n)
     dx <- (cvs.width - 1) / n
     x2 <- 1
     y1 <- 1
@@ -213,7 +222,7 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
       pts <- tcltk::.Tcl.args(c(x1, y1, x2, y1, x2, y2, x1, y2))
       tcltk::tkcreate(frame7.cvs, "polygon", pts, fill=i, tag="pal")
     }
-    RegenExample(pal.cols)
+    RegenExample(pal,n,type)
   }
 
   # Update data type
@@ -379,15 +388,19 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
   }
 
   # Regenerate example plot
-  RegenExample <- function(pal.cols) {
+  RegenExample <- function(pal,n,typ) {
     if (dev.example %in% dev.list())
       dev.set(which=dev.example)
     else
       return()
     PlotExample <- eval(parse(text=sprintf("Plot%s",tcltk::tclvalue(example.var))))
+    # Reto, Nov 2016: Picking colors. For 'Example Spectrum' 100 colors
+    # will be choosen (overruling input "n").
+    if ( tcltk::tclvalue(example.var) == "Spectrum" ) n <- 100
+    pal.cols <- get_hex_colors(pal,n)
     if (as.logical(as.integer(tcltk::tclvalue(reverse.var))))
       pal.cols <- rev(pal.cols)
-    PlotExample(pal.cols)
+    PlotExample(pal.cols,typ)
   }
   
   # Main program

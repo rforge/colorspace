@@ -1,5 +1,50 @@
+# Plot RGB/HCL spectrum
+PlotSpectrum <- function(pal.cols,type=NULL,cex=1.0) {
+   # Replace NA pal.cols with white, required for hex2RGB.
+   # Store indizes of NA pal.cols to pal.cols.na for further
+   # processing.
+   pal.cols.na <- which(is.na(pal.cols))
+   if ( length(pal.cols.na) > 0 ) pal.cols[pal.cols.na] <- "#ffffff"
+   RGB <- hex2RGB(pal.cols)
+   HCL <- as(RGB, "polarLUV")
+
+   # Replace coordinates of NA pal.cols with NA
+   RGB <- coords(RGB)
+   HCL <- coords(HCL)
+   if ( length(pal.cols.na) > 0 ) {
+      for ( i in 1:3 ) HCL[pal.cols.na,i] <- NA
+      for ( i in 1:3 ) RGB[pal.cols.na,i] <- NA
+   }
+
+   # Start plotting
+   par(xaxt="n",yaxs="i",xaxs="i",mfrow=c(2,1),
+       mar=c(1.5,0,0,0), oma=c(0,3,2,3),cex=cex)
+   # RGB
+   plot(0,type="n",ylim=c(0,1),xlim=c(1,length(pal.cols)))
+      lines(RGB[,"R"],     lwd=2*cex,  col=2)
+      lines(RGB[,"G"],     lwd=2*cex,  col=3)
+      lines(RGB[,"B"],     lwd=2*cex,  col=4)
+      legend("topleft",ncol=3,bty="n",fill=2:4,legend=c("red","green","blue"))
+   mtext(side=3,type,    adj=0, cex=cex, line=0.2)
+   mtext(side=3,"RGB Spectrum",    cex=cex, line=0.2)
+   mtext(side=2,"all coordinates", cex=cex, line=2.0)
+   # HCL
+   plot(0,type="n",ylim=c(0,100),xlim=c(1,length(pal.cols)))
+      cols <- rainbow_hcl(3)
+      lines(HCL[,"H"]/3.6, lwd=2*cex, col=cols[1L])
+      lines(HCL[,"C"],     lwd=2*cex, col=cols[2L])
+      lines(HCL[,"L"],     lwd=2*cex, col=cols[3L])
+      labels <- seq(0,360,length.out=5)
+      axis(side=4,at=labels/3.6,labels=labels)
+      legend("bottomleft",ncol=3,bty="n",fill=cols,legend=c("hue","chroma","luminance"))
+   mtext(side=3,"HCL Spectrum",         cex=cex, line=0.2)
+   mtext(side=2,"chroma and luminance", cex=cex, line=2.0)
+   mtext(side=4,"hue",                  cex=cex, line=2.0)
+}
+
+
 # Plot map example 
-PlotMap <- function(pal.cols) {
+PlotMap <- function(pal.cols,...) {
    n <- length(pal.cols)
    plot(0, 0, type="n", xlab="", ylab="", xaxt="n", yaxt="n", bty="n",
         xlim=c(-88.5, -78.6), ylim=c(30.2, 35.2), asp=1)
@@ -9,14 +54,14 @@ PlotMap <- function(pal.cols) {
 }
   
 # Plot heatmap example
-PlotHeatmap <- function(pal.cols) {
+PlotHeatmap <- function(pal.cols,...) {
    image(datasets::volcano, col=rev(pal.cols), xaxt="n", yaxt="n", useRaster=TRUE)
 }
   
 # Plot scatter example
 .example_env <- new.env()
 .example_env$xyhclust <- NULL
-PlotScatter <- function(pal.cols) {
+PlotScatter <- function(pal.cols,...) {
   
    # Generate artificial data 
    if (is.null(.example_env$xyhclust)) {
@@ -45,7 +90,7 @@ PlotScatter <- function(pal.cols) {
 }
   
 # Plot spine example
-PlotSpine <- function(pal.cols) {
+PlotSpine <- function(pal.cols,...) {
    n <- length(pal.cols)
    
    # Rectangle dimensions
@@ -74,7 +119,7 @@ PlotSpine <- function(pal.cols) {
 }
   
 # Plot bar example
-PlotBar <- function(pal.cols) {
+PlotBar <- function(pal.cols,...) {
    barplot(cbind(1.1 + abs(sin(0.5 + seq_along(pal.cols))) / 3,
            1.9 + abs(cos(1.1 + seq_along(pal.cols))) / 3,
            0.7 + abs(sin(1.5 + seq_along(pal.cols))) / 3,
@@ -83,12 +128,12 @@ PlotBar <- function(pal.cols) {
 }
 
 # Plot pie example
-PlotPie <- function(pal.cols) {
+PlotPie <- function(pal.cols,...) {
    pie(0.01 + abs(sin(0.5 + seq_along(pal.cols))), labels="", col=pal.cols, radius=1)
 }
   
 # Plot perspective example
-PlotPerspective <- function(pal.cols) {
+PlotPerspective <- function(pal.cols,...) {
    # Mixture of bivariate normals
    n <- 31
    x1 <- x2 <- seq(-3, 3, length=n)
@@ -113,7 +158,7 @@ PlotPerspective <- function(pal.cols) {
   
 # Plot mosaic example
 .example_env$msc.matrix <- NULL
-PlotMosaic <- function(pal.cols) {
+PlotMosaic <- function(pal.cols,...) {
    if (is.null(.example_env$msc.matrix)) {
       set.seed(1071)
       mat <- list()
@@ -126,7 +171,7 @@ PlotMosaic <- function(pal.cols) {
 }
   
 # Plot lines example
-PlotLines <- function(pal.cols) {
+PlotLines <- function(pal.cols,...) {
    n <- length(pal.cols)
    plot(NULL, xlab="", ylab="", xaxt="n", yaxt="n", type="n", 
         xlim=c(0, 6), ylim=c(1.5, n + 1.5))
