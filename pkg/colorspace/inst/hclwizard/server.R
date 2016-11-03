@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-03 15:21 on pc24-c707
+# - L@ST MODIFIED: 2016-11-03 15:39 on pc24-c707
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -17,7 +17,7 @@ library("dichromat")
 #options( shiny.trace = TRUE )
 
 bpy <- eval(parse(text="colorspace:::bpy"))
-PlotSpectrum <- eval(parse(text="colorspace:::PlotSpectrum"))
+#PlotSpectrum <- eval(parse(text="colorspace:::PlotSpectrum"))
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -226,69 +226,13 @@ shinyServer(function(input, output, session) {
       colormap <<- colors
    }
 
-PlotSpectrum <- function(pal.cols,type=NULL,cex=1.0) {
-   # Replace NA pal.cols with white, required for hex2RGB.
-   # Store indizes of NA pal.cols to pal.cols.na for further
-   # processing.
-   pal.cols.na <- which(is.na(pal.cols))
-   if ( length(pal.cols.na) > 0 ) pal.cols[pal.cols.na] <- "#ffffff"
-   RGB <- hex2RGB(pal.cols)
-   HCL <- as(RGB, "polarLUV")
-
-   # Replace coordinates of NA pal.cols with NA
-   RGB <- coords(RGB)
-   HCL <- coords(HCL)
-   if ( length(pal.cols.na) > 0 ) {
-      for ( i in 1:3 ) HCL[pal.cols.na,i] <- NA
-      for ( i in 1:3 ) RGB[pal.cols.na,i] <- NA
-   }
-
-   # Start plotting
-   par(xaxt="n",yaxs="i",xaxs="i",mfrow=c(2,1),
-       mar=c(1.5,0,0,0), oma=c(0,3,2,3),cex=cex)
-   # RGB
-   plot(0,type="n",ylim=c(0,1),xlim=c(1,length(pal.cols)))
-      lines(RGB[,"R"],     lwd=2*cex,  col=2)
-      lines(RGB[,"G"],     lwd=2*cex,  col=3)
-      lines(RGB[,"B"],     lwd=2*cex,  col=4)
-      legend("topleft",ncol=3,bty="n",fill=2:4,legend=c("red","green","blue"))
-   mtext(side=3,type,    adj=0, cex=cex, line=0.2)
-   mtext(side=3,"RGB Spectrum",    cex=cex, line=0.2)
-   mtext(side=2,"all coordinates", cex=cex, line=2.0)
-
-   # Fixing H-paths
-   for ( i in 2:nrow(HCL) ) {
-      d <- HCL[i,"H"]-HCL[i-1,"H"]
-      if ( d > 320 ) { HCL[i,"H"] <- HCL[i,"H"] - 360 } else if ( d < -320 ) { HCL[i,"H"] <- HCL[i,"H"] + 360 }
-      if ( HCL[i,"H"] >  360 ) HCL[1:i,"H"] <- HCL[1:i,"H"]-360
-      if ( HCL[i,"H"] < -360 ) HCL[1:i,"H"] <- HCL[1:i,"H"]+360
-   }
-   # blending Hue values where Chroma is very low
-   idx <- which(HCL[,"C"] < 8)
-   if ( length(idx) > 0 ) { HCL[idx,"H"] <- 0 }
-   # HCL
-   plot(0,type="n",ylim=c(0,100),xlim=c(1,length(pal.cols)))
-      cols <- rainbow_hcl(3)
-      ## For testing only
-      lines((HCL[,"H"]+360)/7.2, lwd=2*cex, col=cols[1L])
-      lines(HCL[,"C"],           lwd=2*cex, col=cols[2L])
-      lines(HCL[,"L"],           lwd=2*cex, col=cols[3L])
-      labels <- seq(-360,360,length.out=5)
-      axis(side=4,at=labels/7.2+50,labels=labels)
-      legend("bottomleft",ncol=3,bty="n",fill=cols,legend=c("hue","chroma","luminance"))
-   mtext(side=3,"HCL Spectrum",         cex=cex, line=0.2)
-   mtext(side=2,"chroma and luminance", cex=cex, line=2.0)
-   mtext(side=4,"hue",                  cex=cex, line=2.0)
-}
-
-
    # ----------------------------------------------------------------
    # Display spectrum
    # ----------------------------------------------------------------
    showSpectrum <- function() {
       colors <- getColors(100)
       output$spectrum <- renderPlot(
-         PlotSpectrum(colors,type=input$typ,cex=1.4),
+         colorspace:::PlotSpectrum(colors,type=input$typ,cex=1.4),
          width=800, height=800
       )
    }
