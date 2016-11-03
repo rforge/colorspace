@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-03 15:39 on pc24-c707
+# - L@ST MODIFIED: 2016-11-03 16:35 on thinkreto
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -17,7 +17,6 @@ library("dichromat")
 #options( shiny.trace = TRUE )
 
 bpy <- eval(parse(text="colorspace:::bpy"))
-#PlotSpectrum <- eval(parse(text="colorspace:::PlotSpectrum"))
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -232,7 +231,7 @@ shinyServer(function(input, output, session) {
    showSpectrum <- function() {
       colors <- getColors(100)
       output$spectrum <- renderPlot(
-         colorspace:::PlotSpectrum(colors,type=input$typ,cex=1.4),
+         specplot(colors,cex=1.4,plot=TRUE),
          width=800, height=800
       )
    }

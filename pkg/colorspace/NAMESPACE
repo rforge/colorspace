@@ -30,6 +30,8 @@ export(
   "readhex",
   "writehex",
 
+  "specplot",
+
   ## palettes
   "rainbow_hcl",
   "diverge_hcl",

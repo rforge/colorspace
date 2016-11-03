@@ -222,7 +222,7 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
       pts <- tcltk::.Tcl.args(c(x1, y1, x2, y1, x2, y2, x1, y2))
       tcltk::tkcreate(frame7.cvs, "polygon", pts, fill=i, tag="pal")
     }
-    RegenExample(pal,n,type)
+    RegenExample(pal,n)
   }
 
   # Update data type
@@ -388,7 +388,7 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
   }
 
   # Regenerate example plot
-  RegenExample <- function(pal,n,typ) {
+  RegenExample <- function(pal,n) {
     if (dev.example %in% dev.list())
       dev.set(which=dev.example)
     else
@@ -400,7 +400,7 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
     pal.cols <- get_hex_colors(pal,n)
     if (as.logical(as.integer(tcltk::tclvalue(reverse.var))))
       pal.cols <- rev(pal.cols)
-    PlotExample(pal.cols,typ)
+    PlotExample(pal.cols)
   }
   
   # Main program

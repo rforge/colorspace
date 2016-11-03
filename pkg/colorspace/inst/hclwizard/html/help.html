@@ -112,6 +112,38 @@ The lighter colors are not strictly HCL colors, though.
 
 
 
+<h2>Color Dimension Spectrum Plot</h2>
+<h3>Description</h3>
+
+<p>Decomposition of hexadecimal (HEX) color palettes
+plotting the spectrum of the corresponding RGB and HCL
+dimensions. Returns decomposed dimensions.
+</p>
+
+
+
+<h3>Details</h3>
+
+<p>Decomposes a vector of hexadecimal colors (HEX) into the corresponding
+red-green-blue (RGB) and hue-chroma-luminance (HCL) dimensions. If
+<code>plot=TRUE</code> a spectral plot will be drawn.
+This function allows to examine a certain HEX color map in both
+color spaces (RGB and HCL).
+</p>
+
+
+
+<h3>Value</h3>
+
+<p>Returns a list containing two matrices (<code>HCL</code>, <code>RGB</code>) and
+a vector containing the initial HEX color map (<code>hex</code>).
+</p>
+<p>The matrices contain the three dimensions hue-chroma-luminance (HCL)
+and red-green-blue (RGB) respectively.
+</p>
+
+
+
 <h3>References</h3>
 
 <p>Zeileis A, Hornik K, Murrell P (2009).
