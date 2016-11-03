@@ -1,4 +1,6 @@
-# Plot RGB/HCL spectrum
+
+
+# Plotting spectrum
 PlotSpectrum <- function(pal.cols,type=NULL,cex=1.0) {
    # Replace NA pal.cols with white, required for hex2RGB.
    # Store indizes of NA pal.cols to pal.cols.na for further
@@ -28,14 +30,26 @@ PlotSpectrum <- function(pal.cols,type=NULL,cex=1.0) {
    mtext(side=3,type,    adj=0, cex=cex, line=0.2)
    mtext(side=3,"RGB Spectrum",    cex=cex, line=0.2)
    mtext(side=2,"all coordinates", cex=cex, line=2.0)
+
+   # Fixing H-paths
+   for ( i in 2:nrow(HCL) ) {
+      d <- HCL[i,"H"]-HCL[i-1,"H"]
+      if ( d > 320 ) { HCL[i,"H"] <- HCL[i,"H"] - 360 } else if ( d < -320 ) { HCL[i,"H"] <- HCL[i,"H"] + 360 }
+      if ( HCL[i,"H"] >  360 ) HCL[1:i,"H"] <- HCL[1:i,"H"]-360
+      if ( HCL[i,"H"] < -360 ) HCL[1:i,"H"] <- HCL[1:i,"H"]+360
+   }
+   # blending Hue values where Chroma is very low
+   idx <- which(HCL[,"C"] < 8)
+   if ( length(idx) > 0 ) { HCL[idx,"H"] <- 0 }
    # HCL
    plot(0,type="n",ylim=c(0,100),xlim=c(1,length(pal.cols)))
       cols <- rainbow_hcl(3)
-      lines(HCL[,"H"]/3.6, lwd=2*cex, col=cols[1L])
-      lines(HCL[,"C"],     lwd=2*cex, col=cols[2L])
-      lines(HCL[,"L"],     lwd=2*cex, col=cols[3L])
-      labels <- seq(0,360,length.out=5)
-      axis(side=4,at=labels/3.6,labels=labels)
+      ## For testing only
+      lines((HCL[,"H"]+360)/7.2, lwd=2*cex, col=cols[1L])
+      lines(HCL[,"C"],           lwd=2*cex, col=cols[2L])
+      lines(HCL[,"L"],           lwd=2*cex, col=cols[3L])
+      labels <- seq(-360,360,length.out=5)
+      axis(side=4,at=labels/7.2+50,labels=labels)
       legend("bottomleft",ncol=3,bty="n",fill=cols,legend=c("hue","chroma","luminance"))
    mtext(side=3,"HCL Spectrum",         cex=cex, line=0.2)
    mtext(side=2,"chroma and luminance", cex=cex, line=2.0)
