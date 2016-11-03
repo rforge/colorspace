@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-01 14:02 on pc24-c707
+# - L@ST MODIFIED: 2016-11-03 13:14 on thinkreto
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -36,7 +36,8 @@ shinyServer(function(input, output, session) {
    # Loading PAL palette information and examples
    # ----------------------------------------------------------------
    palettes <- colorspace:::GetPaletteConfig()
-   updateSelectInput(session,"EXAMPLE",choices=colorspace:::example.plots)
+   updateSelectInput(session,"EXAMPLE",
+      choices=colorspace:::example.plots[!colorspace:::example.plots=="Spectrum"])
 
    # ----------------------------------------------------------------
    # Initialization of the first color map is triggering the plot
@@ -227,50 +228,10 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    # Display spectrum
    # ----------------------------------------------------------------
-   plotSpectrum <- function(colors) {
-         # Replace NA colors with white, required for hex2RGB.
-         # Store indizes of NA colors to colors.na for further
-         # processing.
-         colors.na <- which(is.na(colors))
-         if ( length(colors.na) > 0 ) colors[colors.na] <- "#ffffff"
-         RGB <- hex2RGB(colors)
-         HCL <- as(RGB, "polarLUV")
-         # Replace coordinates of NA colors with NA
-         RGB <- coords(RGB)
-         HCL <- coords(HCL)
-         if ( length(colors.na) > 0 ) {
-            for ( i in 1:3 ) HCL[colors.na,i] <- NA
-            for ( i in 1:3 ) RGB[colors.na,i] <- NA
-         }
-         
-         # Start plotting
-         par(xaxt="n",yaxs="i",xaxs="i",mfrow=c(2,1),
-             mar=c(2,0,0,0), oma=c(2,3,2,3),cex=1.4)
-         # RGB
-         plot(0,type="n",ylim=c(0,1),xlim=c(1,length(colors)))
-            lines(RGB[,"R"],lwd=3,col=2)
-            lines(RGB[,"G"],lwd=3,col=3)
-            lines(RGB[,"B"],lwd=3,col=4)
-            legend("topleft",ncol=3,bty="n",fill=2:4,legend=c("red","green","blue"))
-         mtext(side=3,"RGB Spectrum",cex=1.5,line=0.2)
-         mtext(side=2,"all coordinates",line=2,cex=1.4)
-         # HCL
-         plot(0,type="n",ylim=c(0,100),xlim=c(1,length(colors)))
-            cols <- rainbow_hcl(3)
-            lines(HCL[,"H"]/3.6,lwd=3,col=cols[1L])
-            lines(HCL[,"C"],    lwd=3,col=cols[2L])
-            lines(HCL[,"L"],    lwd=3,col=cols[3L])
-            labels <- seq(0,360,length.out=5)
-            axis(side=4,at=labels/3.6,labels=labels)
-            legend("bottomleft",ncol=3,bty="n",fill=cols,legend=c("hue","chroma","luminance"))
-         mtext(side=3,"HCL Spectrum",cex=1.5,line=0.2)
-         mtext(side=2,"chroma and luminance",cex=1.4,line=2)
-         mtext(side=4,"hue",line=2,cex=1.4)
-      }
    showSpectrum <- function() {
       colors <- getColors(100)
       output$spectrum <- renderPlot(
-         plotSpectrum(colors),
+         colorspace:::PlotSpectrum(colors,type=input$typ,cex=1.4),
          width=800, height=800
       )
    }
@@ -415,7 +376,7 @@ shinyServer(function(input, output, session) {
                            pre,"NaN","NaN","NaN",post)
          } else {
             tmp <- sprintf("<code>%s%5.3f,%5.3f,%5.3f%s</code>",
-                           pre,RGB[i,1],RGB[i,2],RGB[i,2],post)
+                           pre,RGB[i,1],RGB[i,2],RGB[i,3],post)
          }
          mstr <- append(mstr,gsub(" ","&nbsp;",tmp))
       }
