@@ -5,7 +5,7 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
 {
   # Currently ignore fixing if there are NA
   # values in the initial hex palette
-  if ( any(NA %in% x) ) fix <- FALSE
+  if (any(is.na(x))) fix <- FALSE
 
   # Replace NA x with white, required for hex2RGB.
   # Store indizes of NA x to x.na for further
@@ -18,7 +18,7 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
   # Replace coordinates of NA x with NA
   RGB <- coords(RGB)
   HCL <- coords(HCL)[, c("H", "C", "L")]
-  HCL[which(is.na(HCL),arr.ind=TRUE)] <- 0
+  HCL[which(is.na(HCL), arr.ind = TRUE)] <- 0
   if (length(x.na) > 0L) {
      for (i in 1:3) {
        HCL[x.na, i] <- NA
@@ -60,9 +60,9 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
                if(n %in% idxs[[1L]]) n else round(mean(range(idxs[[1L]])))
         }
         io <- split(s:e, s:e %in% idx)
-        if ( length(io) == 2 ) {
-        HCL[io[["TRUE"]], "H"] <- stats::spline(io[["FALSE"]], HCL[io[["FALSE"]], "H"],
-          xout = io[["TRUE"]], method = "natural")$y
+        if (length(io) == 2L) {
+          HCL[io[["TRUE"]], "H"] <- stats::spline(io[["FALSE"]], HCL[io[["FALSE"]], "H"],
+            xout = io[["TRUE"]], method = "natural")$y
         }
         idxs[[1L]] <- NULL
         s <- e + 1L
