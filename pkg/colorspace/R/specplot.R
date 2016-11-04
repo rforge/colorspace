@@ -3,6 +3,10 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
   type = "l", lwd = 2 * cex, lty = 1, pch = NULL,
   legend = TRUE, palette = TRUE, plot = TRUE)
 {
+  # Currently ignore fixing if there are NA
+  # values in the initial hex palette
+  if ( any(NA %in% x) ) fix <- FALSE
+
   # Replace NA x with white, required for hex2RGB.
   # Store indizes of NA x to x.na for further
   # processing.
@@ -14,6 +18,7 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
   # Replace coordinates of NA x with NA
   RGB <- coords(RGB)
   HCL <- coords(HCL)[, c("H", "C", "L")]
+  HCL[which(is.na(HCL),arr.ind=TRUE)] <- 0
   if (length(x.na) > 0L) {
      for (i in 1:3) {
        HCL[x.na, i] <- NA
@@ -27,6 +32,7 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
   # c(260-360,0,100) - the iterative approach corrects this.
   if(fix & nrow(HCL) > 1L) {
     for(i in 2L:nrow(HCL)) {
+      if ( any(is.na(HCL[(i-1L):i,])) ) next
       d <- HCL[i, "H"] - HCL[i - 1L, "H"]
       if (abs(d) > 320) HCL[i, "H"] <- HCL[i, "H"] - sign(d) * 360
       if (abs(HCL[i, "H"]) >  360) HCL[1L:i, "H"] <- HCL[1L:i, "H"] - sign(HCL[i, "H"]) * 360
@@ -34,7 +40,9 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
 
     # (2) Smoothing hue values in batches where chroma is very low
     idx <- which(HCL[, "C"] < 8)
-    if (length(idx) > 0L) {
+    if (length(idx) == nrow(HCL)) {
+      HCL[,"H"] <- mean(HCL[,"H"])
+    } else if (length(idx) > 0L) {
       ## pre-smooth hue
       n <- nrow(HCL)
       if(n >= 49L) {
@@ -42,20 +50,22 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
           HCL[c(rep.int(1L, 2L), 1L:(n - 2L)), "H"] +
           HCL[c(rep.int(1L, 1L), 1L:(n - 1L)), "H"] +
           HCL[                   1L:n,         "H"])
-	}
+      }
       idxs <- split(idx, cumsum(c(1, diff(idx)) > 1))
       s <- 1L
       while(length(idxs) > 0L) {
         e <- if(s %in% idxs[[1L]]) {
-	  if(length(idxs) > 1L) idxs[[2L]] - 1L else n
-	} else {
-          if(n %in% idxs[[1L]]) n else round(mean(range(idxs[[1L]])))
-	}
-	io <- split(s:e, s:e %in% idx)
-	HCL[io[["TRUE"]], "H"] <- stats::spline(io[["FALSE"]], HCL[io[["FALSE"]], "H"],
-	  xout = io[["TRUE"]], method = "natural")$y
-	idxs[[1L]] <- NULL
-	s <- e + 1L
+          if(length(idxs) > 1L) idxs[[2L]] - 1L else n
+        } else {
+               if(n %in% idxs[[1L]]) n else round(mean(range(idxs[[1L]])))
+        }
+        io <- split(s:e, s:e %in% idx)
+        if ( length(io) == 2 ) {
+        HCL[io[["TRUE"]], "H"] <- stats::spline(io[["FALSE"]], HCL[io[["FALSE"]], "H"],
+          xout = io[["TRUE"]], method = "natural")$y
+        }
+        idxs[[1L]] <- NULL
+        s <- e + 1L
       }
     }
   }
@@ -110,13 +120,13 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
       labels <- seq(-360, 360, length.out = 5)
       axis(side = 4, at = labels/7.2 + 50, labels = labels)
       lines((HCL[, "H"] + 360)/7.2, lwd = lwd[1L], lty = lty[1L], col = hcl[1L], type = type[1L], pch = pch[1L])
-      lines( HCL[, "C"],	    lwd = lwd[2L], lty = lty[2L], col = hcl[2L], type = type[1L], pch = pch[1L])
+      lines( HCL[, "C"],       lwd = lwd[2L], lty = lty[2L], col = hcl[2L], type = type[1L], pch = pch[1L])
       lines( HCL[, "L"],            lwd = lwd[3L], lty = lty[3L], col = hcl[3L], type = type[1L], pch = pch[1L])
       legend("bottomleft", legend = c("Hue", "Chroma", "Luminance"),
         ncol = 3L, bty = "n", lwd = lwd, lty = lty, col = hcl, pch = pch)
-      mtext(side = 1, "HCL Spectrum",	  cex = cex, line = 0.2)
+      mtext(side = 1, "HCL Spectrum",    cex = cex, line = 0.2)
       mtext(side = 2, "Chroma / Luminance", cex = cex, line = 2.0)
-      mtext(side = 4, "Hue", 		  cex = cex, line = 2.0)
+      mtext(side = 4, "Hue",       cex = cex, line = 2.0)
     }
   }
 
