@@ -112,35 +112,49 @@ The lighter colors are not strictly HCL colors, though.
 
 
 
-<h2>Color Dimension Spectrum Plot</h2>
+<h2>Color Spectrum Plot</h2>
 <h3>Description</h3>
 
-<p>Decomposition of hexadecimal (HEX) color palettes
-plotting the spectrum of the corresponding RGB and HCL
-dimensions. Returns decomposed dimensions.
+<p>Visualization of color palettes (given as hex codes) in
+RGB and/or HCL coordinates.
 </p>
 
 
 
 <h3>Details</h3>
 
-<p>Decomposes a vector of hexadecimal colors (HEX) into the corresponding
-red-green-blue (RGB) and hue-chroma-luminance (HCL) dimensions. If
-<code>plot=TRUE</code> a spectral plot will be drawn.
-This function allows to examine a certain HEX color map in both
-color spaces (RGB and HCL).
+<p>The function <code>specplot</code> transforms a given color palette in hex
+codes into their RGB (<code>sRGB</code>) or
+HCL (<code>polarLUV</code>) coordinates. As the hues for
+low-chroma colors are not (or poorly) identified, by default a smoothing
+is applied to the hues (<code>fix = TRUE</code>). Also, to avoid jumps from
+0 to 360 or vice versa, the hue coordinates are shifted suitably.
+</p>
+<p>By default (<code>plot = TRUE</code>) the resulting RGB and HCL coordinates
+are visualized by simple line plots along with the color palette <code>x</code>
+itself.
 </p>
 
 
 
 <h3>Value</h3>
 
-<p>Returns a list containing two matrices (<code>HCL</code>, <code>RGB</code>) and
-a vector containing the initial HEX color map (<code>hex</code>).
+<p><code>specplot</code> invisibly returns a list with components
 </p>
-<p>The matrices contain the three dimensions hue-chroma-luminance (HCL)
-and red-green-blue (RGB) respectively.
-</p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>RGB</code></td>
+<td>
+<p>a matrix of sRGB coordinates,</p>
+</td></tr>
+<tr valign="top"><td><code>HCL</code></td>
+<td>
+<p>a matrix of HCL coordinates,</p>
+</td></tr>
+<tr valign="top"><td><code>hex</code></td>
+<td>
+<p>original color palette <code>x</code>.</p>
+</td></tr>
+</table>
 
 
 
