@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-01 13:31 on pc24-c707
+# - L@ST MODIFIED: 2016-11-09 09:34 on thinkreto
 # -------------------------------------------------------------------
 
 
@@ -22,15 +22,15 @@ ticks <- FALSE # to show ticks or not to show ticks
 # functionality will be the same, however, the color
 # map will be drawn a few times whlie the script sets
 # the new Sliders.
-default = list("N"  = 7,
-               "H1" = 260,
-               "H2" =   0,
-               "C1" = 80,
-               "C2" = 80,
-               "L1" = 30,
-               "L2" = 90,
-               "P1" = 1.5,
-               "P2" = 1.0,
+default = list("N"  =   0,
+               "H1" = 340,
+               "H2" = 128,
+               "C1" =  45,
+               "C2" =  90,
+               "L1" =  35,
+               "L2" =  95,
+               "P1" = 0.7,
+               "P2" = 1.3,
                "LEV" = 3)
 # Take default argument if set
 if ( nchar(Sys.getenv("hclwizard_Ninit")) > 0 &
@@ -54,12 +54,12 @@ shinyUI(fluidPage(
       withTags(div(class="hcl-selectoptions",id="hcl-typ",
          selectInput("typ", label = h3("Nature of your data"), 
            choices = list(
-               "Diverging"             = "dive",
-               "Qualitative"           = "qual",
-               "Sequential single hue" = "seqs",
-               "Sequential multi hue"  = "seqm",
+               "Diverging"                  = "dive",
+               "Qualitative"                = "qual",
+               "Sequential (single hue)"    = "seqs",
+               "Sequential (multiple hues)" = "seqm",
                #"Multi hue alert"       = "alrt",
-               "R default schemes"     = "base"), 
+               "R default schemes"          = "base"), 
            selected = 1)
       )),
       # Copy the line below to make a select box 

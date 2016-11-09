@@ -10,7 +10,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2016-10-24, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-02 08:46 on thinkreto
+# - L@ST MODIFIED: 2016-11-09 09:39 on thinkreto
 # -------------------------------------------------------------------
 
 
@@ -36,11 +36,11 @@ qual.pals[["Dynamic"]]     <- c( 30,  300,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+
 
 seqs.pals <- list()
 seqs.pals[["Greys"]]       <- c(  0,   NA,   0,  0, 15, 95, 1.3,  NA, 1) # ColorBrewer.org: Greys
-seqs.pals[["Purples"]]     <- c(280,   NA,  60,  5, 20, 95, 0.7, 1.3, 1) # ColorBrewer.org: Purples
-seqs.pals[["Blues"]]       <- c(260,   NA,  80, 10, 30, 95, 0.7, 1.3, 1) # ColorBrewer.org: Blues
-seqs.pals[["Greens"]]      <- c(135,   NA,  50, 10, 40, 95, 0.4, 1.3, 1) # ColorBrewer.org: Greens
-seqs.pals[["Oranges"]]     <- c( 20,   NA,  80,  5, 35, 95, 0.6, 1.3, 1) # ColorBrewer.org: Oranges
-seqs.pals[["Reds"]]        <- c( 10,   NA,  80, 10, 30, 95, 0.7, 1.3, 1) # JCF/Z: Reds
+seqs.pals[["Purples"]]     <- c(280,   NA,  60,  5, 20, 95, 0.7,  NA, 1) # ColorBrewer.org: Purples
+seqs.pals[["Blues"]]       <- c(260,   NA,  80, 10, 30, 95, 0.7,  NA, 1) # ColorBrewer.org: Blues
+seqs.pals[["Greens"]]      <- c(135,   NA,  50, 10, 40, 95, 0.4,  NA, 1) # ColorBrewer.org: Greens
+seqs.pals[["Oranges"]]     <- c( 20,   NA,  80,  5, 35, 95, 0.6,  NA, 1) # ColorBrewer.org: Oranges
+seqs.pals[["Reds"]]        <- c( 10,   NA,  80, 10, 30, 95, 0.7,  NA, 1) # JCF/Z: Reds
 seqs.pals[["Blues 2"]]     <- c(260,   NA,  80,  0, 30, 90, 1.5,  NA, 1) # Z+KH+PM-09, Fig.5: Blues
 seqs.pals[["Light Grays"]] <- c(260,   NA,   0,  0, 30, 90, 1.5,  NA, 1) # Z+KH+PM-09, Fig.5: Light Grays
 
@@ -59,11 +59,11 @@ seqm.pals[["Viridis"]]     <- c(300,   75,  35, 95, 15, 90, 0.8, 1.2, 1) # virid
 seqm.pals[["Plasma"]]      <-c(-100,  100,  60,100, 15, 95, 2.0, 0.9, 1) # viridis::plasma
 
 dive.pals <- list()
-dive.pals[["PiYg"]]        <- c(340,  128,  45, NA, 35, 95, 0.7, 1.3, 1) # ColorBrewer.org: PiYG
-dive.pals[["PRGn"]]        <- c(300,  128,  45, NA, 30, 95, 0.7, 1.3, 1) # ColorBrewer.org: PRGn
-dive.pals[["BrBG"]]        <- c( 55,  160,  30, NA, 35, 95, 0.7, 1.3, 1) # ColorBrewer.org: BrBG
-dive.pals[["PuOr"]]        <- c( 40,  270,  45, NA, 30, 95, 0.7, 1.3, 1) # ColorBrewer.org: PuOr
-dive.pals[["RdBu"]]        <- c( 12,  265,  80, NA, 25, 95, 0.7, 1.3, 1) # ColorBrewer.org: RdBu
+dive.pals[["PiYg"]]        <- c(340,  128,  45, NA, 35, 95, 0.7,  NA, 1) # ColorBrewer.org: PiYG
+dive.pals[["PRGn"]]        <- c(300,  128,  45, NA, 30, 95, 0.7,  NA, 1) # ColorBrewer.org: PRGn
+dive.pals[["BrBG"]]        <- c( 55,  160,  30, NA, 35, 95, 0.7,  NA, 1) # ColorBrewer.org: BrBG
+dive.pals[["PuOr"]]        <- c( 40,  270,  45, NA, 30, 95, 0.7,  NA, 1) # ColorBrewer.org: PuOr
+dive.pals[["RdBu"]]        <- c( 12,  265,  80, NA, 25, 95, 0.7,  NA, 1) # ColorBrewer.org: RdBu
 dive.pals[["Blue-Red"]]    <- c(260,    0,  80, NA, 30, 90, 1.5,  NA, 1) # Z+KH+PM-09, Fig.6: Blue-Red (high luminance contrast)
 dive.pals[["Blue-Red 2"]]  <- c(260,    0, 100, NA, 50, 90, 1.0,  NA, 1) # Z+KH+PM-09, Fig.6: Blue-Red (medium luminance contrast)
 dive.pals[["Green-Orange"]]<- c(130,   43, 100, NA, 70, 90, 1.0,  NA, 1) # Z+KH+PM-09, Fig.6: Green-Orange (low luminance contrast)

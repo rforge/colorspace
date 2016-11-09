@@ -18,4 +18,5 @@ Depends: R (>= 2.13.0), methods
 Imports: graphics, grDevices
 Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd, dichromat, tcltk, shiny, shinyjs
 License: BSD_3_clause + file LICENSE
+URL: https://hclwizard.org
 LazyData: yes

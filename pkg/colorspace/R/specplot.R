@@ -3,9 +3,6 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
   type = "l", lwd = 2 * cex, lty = 1, pch = NULL,
   legend = TRUE, palette = TRUE, plot = TRUE)
 {
-  # Currently ignore fixing if there are NA
-  # values in the initial hex palette
-  if (any(is.na(x))) fix <- FALSE
 
   # Replace NA x with white, required for hex2RGB.
   # Store indizes of NA x to x.na for further
@@ -30,6 +27,7 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
   # (1) as(RGB, "polarLUV") returns hue's in the
   # range of 0-360. A palette from -100 to +100 results in
   # c(260-360,0,100) - the iterative approach corrects this.
+
   if(fix & nrow(HCL) > 1L) {
     for(i in 2L:nrow(HCL)) {
       if ( any(is.na(HCL[(i-1L):i,])) ) next
@@ -46,7 +44,7 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
       ## pre-smooth hue
       n <- nrow(HCL)
       if(n >= 49L) {
-        HCL[, "H"] <- 1/5 * (
+        HCL[, "H"] <- 1/3 * (
           HCL[c(rep.int(1L, 2L), 1L:(n - 2L)), "H"] +
           HCL[c(rep.int(1L, 1L), 1L:(n - 1L)), "H"] +
           HCL[                   1L:n,         "H"])
@@ -60,7 +58,7 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
                if(n %in% idxs[[1L]]) n else round(mean(range(idxs[[1L]])))
         }
         io <- split(s:e, s:e %in% idx)
-        if (length(io) == 2L) {
+        if (length(io) == 2L & sum(!is.na(HCL[io[["FALSE"]],"H"])) > 0) {
           HCL[io[["TRUE"]], "H"] <- stats::spline(io[["FALSE"]], HCL[io[["FALSE"]], "H"],
             xout = io[["TRUE"]], method = "natural")$y
         }
@@ -76,8 +74,14 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
   show_rgb <- !identical(rgb, FALSE)
   show_hcl <- !identical(hcl, FALSE)
 
-  if(plot & (show_rgb | show_hcl))
-  {
+  if(plot & (show_rgb | show_hcl) & (length(x.na) == length(x))) {
+    opar <- par(no.readonly = TRUE)
+    on.exit(par(opar))
+
+    par(xaxt='n',yaxt='n',bty='n',mar=rep(0,4))
+    plot(0,type='n',xlim=c(-1,1),ylim=c(-1,1))
+    text(0,0,"All colors NA\nCannot draw spectrum",col=2)
+  } else if(plot & (show_rgb | show_hcl)) {
     ## set up plot layout
     opar <- par(no.readonly = TRUE)
     on.exit(par(opar))
@@ -117,9 +121,15 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
     # HCL spectrum
     if(show_hcl) {
       plot(0, type = "n", ylim = c(0, 100), xlim = c(1, length(x)))
-      labels <- seq(-360, 360, length.out = 5)
-      axis(side = 4, at = labels/7.2 + 50, labels = labels)
-      lines((HCL[, "H"] + 360)/7.2, lwd = lwd[1L], lty = lty[1L], col = hcl[1L], type = type[1L], pch = pch[1L])
+      if ( min(HCL[,"H"],na.rm=TRUE) >= 0 ) {
+         labels <- seq(   0, 360, length.out = 5)
+         axis(side = 4, at = labels/3.6, labels = labels)
+         lines((HCL[, "H"])/3.6, lwd = lwd[1L], lty = lty[1L], col = hcl[1L], type = type[1L], pch = pch[1L])
+      } else {
+         labels <- seq(-360, 360, length.out = 5)
+         axis(side = 4, at = labels/7.2 + 50, labels = labels)
+         lines((HCL[, "H"] + 360)/7.2, lwd = lwd[1L], lty = lty[1L], col = hcl[1L], type = type[1L], pch = pch[1L])
+      }
       lines( HCL[, "C"],       lwd = lwd[2L], lty = lty[2L], col = hcl[2L], type = type[1L], pch = pch[1L])
       lines( HCL[, "L"],            lwd = lwd[3L], lty = lty[3L], col = hcl[3L], type = type[1L], pch = pch[1L])
       legend("bottomleft", legend = c("Hue", "Chroma", "Luminance"),
@@ -131,6 +141,7 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
   }
 
   # Return
+  if ( length(x.na) > 0 ) x[x.na] <- NA
   invisible(list(
     RGB = RGB,
     HCL = HCL,

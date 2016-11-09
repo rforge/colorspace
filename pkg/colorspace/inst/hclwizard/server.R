@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-03 16:35 on thinkreto
+# - L@ST MODIFIED: 2016-11-09 09:29 on thinkreto
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -38,15 +38,6 @@ shinyServer(function(input, output, session) {
    palettes <- colorspace:::GetPaletteConfig()
    updateSelectInput(session,"EXAMPLE",
       choices=colorspace:::example.plots[!colorspace:::example.plots=="Spectrum"])
-
-   # ----------------------------------------------------------------
-   # Initialization of the first color map is triggering the plot
-   # function 15 times which only creates workload on the server.
-   # The deadcounter counts how often showColorMap has been triggered
-   # and only plots the color Map on the X'th time. Note that the
-   # x'th time is hardcoded in showColorMap()!!
-   # ----------------------------------------------------------------
-   deadcounter <- 0
 
    # ----------------------------------------------------------------
    # Helper function. Input: character vectors to show/hide.
@@ -198,9 +189,6 @@ shinyServer(function(input, output, session) {
    # tab or the image. Not both.
    # ----------------------------------------------------------------
    showColorMap <- function() {
-
-      deadcounter <<- deadcounter + 1
-      if ( deadcounter <= 16 ) return(FALSE)
 
       colors <- getColors()
 
