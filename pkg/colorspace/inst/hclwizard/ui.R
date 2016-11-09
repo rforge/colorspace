@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-09 09:34 on thinkreto
+# - L@ST MODIFIED: 2016-11-09 09:55 on thinkreto
 # -------------------------------------------------------------------
 
 
@@ -22,7 +22,7 @@ ticks <- FALSE # to show ticks or not to show ticks
 # functionality will be the same, however, the color
 # map will be drawn a few times whlie the script sets
 # the new Sliders.
-default = list("N"  =   0,
+default = list("N"  =   7,
                "H1" = 340,
                "H2" = 128,
                "C1" =  45,
