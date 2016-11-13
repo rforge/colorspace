@@ -101,7 +101,7 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    sliderChanged <- function(elem) {
       # Else getting inputs and show color map
-      if ( nchar(Sys.getenv("hclwizard_lock")) > 0 ) return
+      if ( nchar(Sys.getenv("hclwizard_lock")) > 0 ) return()
       pal <- getCurrentPalette()
       # Show new color map
       showColorMap()
