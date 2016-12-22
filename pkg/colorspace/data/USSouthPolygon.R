@@ -1,3 +1,5 @@
+if(FALSE) {
+
 library("maps")
 USSouthPolygon <- USSouthPolygon0 <- map("county", c("alabama", "georgia", "south carolina"), fill = TRUE, col = "lightgray")
 
@@ -24,3 +26,5 @@ for(i in seq_along(USSouthPolygon)) {
 }
 USSouthPolygon <- do.call("rbind", USSouthPolygon)
 save(USSouthPolygon, file = "USSouthPolygon.rda")
+
+}
