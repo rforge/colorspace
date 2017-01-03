@@ -21,6 +21,9 @@ desaturate <- function(col) {
   
   ## convert to HCL and fix-up extreme luminance cases
   col <- as(col, "polarLUV")
+  col@coords[,2L] <- 0
+
+  ## fix-up extreme luminance cases
   col@coords[col@coords[, 1L] <= 0 | col@coords[, 1L] >= 100, 2L:3L] <- 0
   
   ## convert back to hex and add alpha again (if any)
