@@ -173,3 +173,72 @@ pal(lightdark(cl, -0.30))
 pal(lightdark(cl, -0.30, space = "HCL"))
 
 }
+
+if ( FALSE ) {
+
+   # ----------------------------------------------------------------
+   # Development function to get multi-hue diverging color maps
+   # ----------------------------------------------------------------
+   multiverge_hcl <- function(n,h=c(10,100,230,290),l=60,lmax=90,fixup=FALSE) {
+
+      C <- seq(0,min(max_chroma(h,l)),length=n)
+      L <- seq(lmax,l,length=n)
+      cols <- matrix("NA",ncol=length(h),nrow=n)
+      for ( i in 1:ncol(cols) ) {
+         cols[,i] <- hex(polarLUV(H=h[i],C=C,L=L),fixup)
+      }
+      attr(cols,"H") <- h
+      attr(cols,"C") <- C
+      attr(cols,"L") <- L
+
+      cols
+   }
+
+   # ----------------------------------------------------------------
+   # Development function to show the color map properties
+   # ----------------------------------------------------------------
+   showcols <- function(cols) {
+      opar <- par(no.readonly=TRUE); on.exit(par(opar))
+      par(ask=TRUE)
+      par(mfrow=c(ncol(cols),1),mar=c(0,3,0,0),oma=rep(0,4),xaxt='n',yaxt='n')
+      for ( i in 1:ncol(cols) ) {
+         image(matrix(1:nrow(cols)),col=cols[,i])
+         mtext(side=2,attr(cols,"H")[i])
+      }
+
+      # Show space
+      h <- attr(cols,"H")
+      res <- matrix(NA,ncol=length(h),nrow=101)
+      for ( i in seq_along(h) ) {
+         names   <- sprintf("%d-%d",round(h[i]),0:100)
+         res[,i] <- as.numeric(tab[names(tab) %in% names])
+      }
+      par(mar=c(4,4,2,1),xaxt='s',yaxt='s',mfrow=c(1,1),xaxs='i',yaxs='i')
+      plot(0,xlim=c(0,max(res)),ylim=c(0,100),type="n",main="Space Check",
+            xlab="Chroma", ylab="Luminance")
+      for ( i in 1:length(h) ) {
+         lines(res[,i],0:100,col=cols[nrow(cols),i])
+      }
+      points(attr(cols,'C'),attr(cols,'L'))
+   }
+
+   # ----------------------------------------------------------------
+   # A working set
+   # ----------------------------------------------------------------
+   h <- c(10,100,230,290)
+   l <- 50
+   lmax <- 90
+   cols <- multiverge_hcl(10,h=h,l=l,lmax=lmax)
+   showcols(cols)
+
+   # ----------------------------------------------------------------
+   # Fixup=FALSE, wherefore we have missing colors here (non-working
+   # example, even if a fixup would lead to quite good results) 
+   # ----------------------------------------------------------------
+   h <- c(10,290)
+   l <- 70
+   lmax <- 99
+   cols <- multiverge_hcl(10,h=h,l=l,lmax=lmax)
+   showcols(cols)
+
+}
