@@ -4,6 +4,8 @@ Changes in Version 1.3-3
     the maximum chroma possible for a given hue and luminance
     combination in HCL space.
 
+  o Registration of C routines.
+
 
 Changes in Version 1.3-2
 
