@@ -1364,7 +1364,7 @@ static void decodeHexStr(const char * const x, double *r, double *g, double *b)
   d4 = decodeHexDigit(x[4]);
   d5 = decodeHexDigit(x[5]);
   d6 = decodeHexDigit(x[6]);
-  if (d1 >= 0 && d1 >= 0 &&
+  if (d1 >= 0 && d2 >= 0 &&
       d3 >= 0 && d4 >= 0 &&
       d5 >= 0 && d6 >= 0) {
       *r = (16 *d1 + d2)/255.;
