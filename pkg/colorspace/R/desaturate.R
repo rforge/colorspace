@@ -8,7 +8,7 @@ desaturate <- function(col) {
     alpha <- substr(col, 8L, 9L)
     ## retain only RGB in hex
     col <- substr(col, 1L, 7L)
-    ## convert to colorspace::RGB
+    ## convert to colorspace::sRGB
     col <- hex2RGB(col)
   } else {
     col <- col2rgb(col, alpha = TRUE)
@@ -16,7 +16,7 @@ desaturate <- function(col) {
     alpha <- format(as.hexmode(col[4L, ]), width = 2L, upper.case = TRUE)
     alpha[alpha == "FF"] <- ""
     ## retain only RGB
-    col <- RGB(t(col[1L:3L, ])/255)
+    col <- sRGB(t(col[1L:3L, ])/255)
   }
   
   ## convert to HCL and fix-up extreme luminance cases

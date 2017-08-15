@@ -5,6 +5,10 @@ Changes in Version 1.3-3
     combination in HCL space.
 
   o Registration of C routines.
+  
+  o Fixed a bug in desaturate() for named colors (such as "gray92")
+    where erroneously the RGB() rather than sRGB() model was used
+    internally. (Reported by Claus O. Wilke.)
 
 
 Changes in Version 1.3-2
