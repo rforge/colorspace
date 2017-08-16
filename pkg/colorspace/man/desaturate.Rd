@@ -8,13 +8,16 @@
   with chroma removed (collapsed to zero) in HCL space.
 }
 \usage{
-desaturate(col)
+desaturate(col, amount = 1)
 }
 \arguments{
   \item{col}{vector of any of the three kind of R colors, i.e., either a
     color name (an element of \code{\link[grDevices]{colors}}), a hexadecimal string
     of the form \code{"#rrggbb"} or \code{"#rrggbbaa"} (see \code{\link[grDevices]{rgb}}),
     or an integer \code{i} meaning \code{palette()[i]}.}
+  \item{amount}{numeric specifying the amount of desaturation where \code{1} corresponds
+    to complete desaturation, \code{0} to no desaturation, and values in between to
+    partial desaturation.}
 }
 \details{
   Given colors are first transformed to RGB (either using \code{\link[colorspace]{hex2RGB}}

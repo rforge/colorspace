@@ -1,5 +1,5 @@
 ## desaturate colors (remove chroma in HCL space)
-desaturate <- function(col) {
+desaturate <- function(col, amount = 1) {
   ## col has to be hex code, otherwise col2rgb is used
   if(is.character(col) &&
     (all(substr(col, 1L, 1L) == "#") & all(nchar(col) %in% c(7L, 9L))))
@@ -21,7 +21,7 @@ desaturate <- function(col) {
   
   ## convert to HCL and fix-up extreme luminance cases
   col <- as(col, "polarLUV")
-  col@coords[,2L] <- 0
+  col@coords[, 2L] <- (1 - amount) * col@coords[, 2L]
 
   ## fix-up extreme luminance cases
   col@coords[col@coords[, 1L] <= 0 | col@coords[, 1L] >= 100, 2L:3L] <- 0

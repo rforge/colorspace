@@ -10,6 +10,9 @@ Changes in Version 1.3-3
     where erroneously the RGB() rather than sRGB() model was used
     internally. (Reported by Claus O. Wilke.)
 
+  o Added argument desaturate(..., amount = 1) for optional partial
+    desaturation. (Suggested by Claus O. Wilke.)
+
 
 Changes in Version 1.3-2
 
