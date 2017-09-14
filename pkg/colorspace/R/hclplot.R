@@ -46,6 +46,7 @@ hclplot <- function(pal, collapse = NULL, ...) {
   if(is.null(collapse)) collapse <- if(abs(diff(range(HCL[, 3L], na.rm = TRUE))) < 5) "luminance" else "hue"
   collapse <- match.arg(collapse, c("hue", "luminance"))
 
+  ## FIXME: strange palettes need other interpolation or smoothing
   switch(collapse,
     "hue" = {
       m <- lm(H ~ C + L, data = as.data.frame(HCL))
@@ -58,6 +59,7 @@ hclplot <- function(pal, collapse = NULL, ...) {
     "luminance" = {
       ## FIXME: back from polar coord
       m <- lm(L ~ C + H, data = as.data.frame(HCL))
+      print(summary(m)$sigma)
       nd <- expand.grid(H = -360:360, C = 0:180)
       nd$L <- predict(m, nd)
       nd$L <- pmin(100, pmax(0, nd$L))
