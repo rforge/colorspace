@@ -1,4 +1,4 @@
-hclplot <- function(pal, collapse = NULL, ...) {
+hclplot <- function(pal, collapse = NULL, maxchroma = NULL, xlab = NULL, ylab = NULL, main = NULL, ...) {
   
   HCL <- coords(as(hex2RGB(pal), "polarLUV"))[, c("H", "C", "L")]
 
@@ -45,28 +45,78 @@ hclplot <- function(pal, collapse = NULL, ...) {
 
   if(is.null(collapse)) collapse <- if(abs(diff(range(HCL[, 3L], na.rm = TRUE))) < 5) "luminance" else "hue"
   collapse <- match.arg(collapse, c("hue", "luminance"))
+  if(is.null(maxchroma)) maxchroma <- pmax(100, pmin(180, ceiling(max(HCL[, "C"], na.rm = TRUE)/20) * 20))
 
-  ## FIXME: strange palettes need other interpolation or smoothing
+  ## FIXME: strange palettes need other interpolation/smoothing or better warning
   switch(collapse,
     "hue" = {
-      m <- lm(H ~ C + L, data = as.data.frame(HCL))
-      nd <- expand.grid(C = 0:180, L = 0:100)
-      nd$H <- predict(m, nd)
-      plot(0, 0, type = "n", xlim = c(0, 180), ylim = c(0, 100), xaxs = "i", yaxs = "i", xlab = "Chroma", ylab = "Luminance")
-      points(nd$C, nd$L, col = hcl(nd$H, nd$C, nd$L, fixup = FALSE), pch = 19, cex = 3)
+      nd <- expand.grid(C = 0:maxchroma, L = 0:100)
+      if(diff(range(HCL[, "H"], na.rm = TRUE)) < 5) {
+        nd$H <- mean(HCL[, "H"], na.rm = TRUE)
+	if(is.null(main)) main <- paste("Hue =", round(nd$H[1L]))
+      } else {
+        m <- lm(H ~ C + L, data = as.data.frame(HCL))
+	if(summary(m)$sigma > 7.5) warning("cannot approximate H well as a linear function of C and L")
+        nd$H <- predict(m, nd)
+	if(is.null(main)) main <- paste("Hue = [", round(min(nd$H, na.rm = TRUE)), ", ", round(max(nd$H, na.rm = TRUE)), "]", sep = "")
+      }
+      HCL2 <- hex(polarLUV(H = nd$H, C = nd$C, L = nd$L), fixup = FALSE)
+      HCL2[nd$L < 1 & nd$C > 0] <- NA
+      if(is.null(xlab)) xlab <- "Chroma"
+      if(is.null(ylab)) ylab <- "Luminance"
+      plot(0, 0, type = "n", xlim = c(0, maxchroma), ylim = c(0, 100), xaxs = "i", yaxs = "i",
+        xlab = xlab, ylab = ylab, main = main)
+      points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)
       points(HCL[, 2:3], pch = 21, bg = pal, cex = 2, type = "o")
     },
     "luminance" = {
-      ## FIXME: back from polar coord
-      m <- lm(L ~ C + H, data = as.data.frame(HCL))
-      print(summary(m)$sigma)
-      nd <- expand.grid(H = -360:360, C = 0:180)
-      nd$L <- predict(m, nd)
-      nd$L <- pmin(100, pmax(0, nd$L))
-      plot(0, 0, type = "n", xlim = c(0, 180), ylim = c(-360, 360), xaxs = "i", yaxs = "i", xlab = "Chroma", ylab = "Hue")
-      points(nd$C, nd$H, col = hcl(nd$H, nd$C, nd$L, fixup = FALSE), pch = 19, cex = 3)
-      points(HCL[, 2:1], pch = 21, bg = pal, cex = 2, type = "o")
+      nd <- expand.grid(H = 0:180 * 2, C = 0:maxchroma)
+      if(diff(range(HCL[, "L"], na.rm = TRUE)) < 5) {
+        nd$L <- mean(HCL[, "L"], na.rm = TRUE)
+	if(is.null(main)) main <- paste("Luminance =", round(nd$L[1L]))
+      } else {
+        m <- lm(L ~ C + H, data = as.data.frame(HCL))
+	if(summary(m)$sigma > 7.5) warning("cannot approximate L well as a linear function of H and C")
+        nd$L <- predict(m, nd)
+        nd$L <- pmin(100, pmax(0, nd$L))
+	if(is.null(main)) main <- paste("Luminance = [", round(min(nd$L, na.rm = TRUE)), ", ", round(max(nd$L, na.rm = TRUE)), "]", sep = "")
+      }
+      HCL2 <- hex(polarLUV(H = nd$H, C = nd$C, L = nd$L), fixup = FALSE)
+      HCL2[nd$L < 1 & nd$C > 0] <- NA
+
+      plot(0, 0, type = "n", axes = FALSE, xlab = "",ylab = "", main = main,
+        xlim = c(-maxchroma, maxchroma), ylim = c(-maxchroma, maxchroma), asp = 1)
+      xpos <- function(h, c) cos(h * pi/180) * c
+      ypos <- function(h, c) sin(h * pi/180) * c
+      points(xpos(nd$H, nd$C), ypos(nd$H, nd$C), col = HCL2, pch = 19, cex = 3)
+      lines(xpos(0:360, maxchroma), ypos(0:360, maxchroma))
+      
+      axes <- TRUE ## FIXME: export as argument?
+      if(axes) {
+	if(is.null(xlab)) xlab <- "Chroma"
+        if(is.null(ylab)) ylab <- "Hue"
+        at.c <- if(maxchroma >= 150) 0:3 * 50 else 0:3 * 25
+        at.h <- 0:6 * 60
+        lines(c(0, maxchroma), c(0, 0))
+        text(at.c, rep(-7, length(at.c)), at.c)
+        text(50, -14, xlab)
+        rect(at.c, 0, at.c, -3)
+        if(0 %in% at.h | 360 %in% at.h) {
+          lines(xpos(0, maxchroma + c(0, 3)), ypos(0, maxchroma + c(0, 3)))
+          text(xpos(0, maxchroma + 7), ypos(0, maxchroma + 7), 0, pos = 3)
+          text(xpos(0, maxchroma + 7), ypos(0, maxchroma + 7), 360, pos = 1)
+          text(xpos(0, maxchroma + 16), ypos(0, maxchroma + 16), ylab)
+        }
+        at.h <- at.h[at.h > 0 & at.h < 360]
+        for(hue in at.h) {
+          text(xpos(hue, maxchroma + 7), ypos(hue, maxchroma + 7), hue)
+          lines(xpos(hue, maxchroma + c(0, 3)), ypos(hue, maxchroma + c(0, 3)))
+        }
+      }
+      points(xpos(HCL[, "H"], HCL[, "C"]), ypos(HCL[, "H"], HCL[, "C"]),
+        pch = 21, bg = pal, cex = 2, type = "o")
     }
   )
-  ## FIXME: luminance = 0
+
+  invisible(HCL)
 }
