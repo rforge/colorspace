@@ -25,9 +25,7 @@ XYZ(X, Y, Z, names)
 \value{
   An object of class ``XYZ'' which inherits from class ``color.''
 }
-%\references{\url{}}
 \author{Ross Ihaka}
-%\note{ ~~further notes~~ }
 \seealso{
   \code{\link{RGB}},
   \code{\link{HSV}},

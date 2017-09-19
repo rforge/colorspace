@@ -21,9 +21,7 @@ readhex(file = "", class = "RGB")
   An color object of the specified class containing the color
   descriptions.
 }
-%\references{ ~put references to the literature/web site here ~ }
 \author{Ross Ihaka.}
-%\note{ ~~further notes~~ }
 \seealso{
   \code{\link{writehex}},
   \code{\link{readRGB}},

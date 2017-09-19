@@ -16,9 +16,7 @@ coords(color)
 \value{
   A numeric matrix giving the coordinates of the color.
 }
-%\references{ ~put references to the literature/web site here ~ }
 \author{Ross Ihaka.}
-%\note{ ~~further notes~~ }
 
 \seealso{
   \code{\link{RGB}},

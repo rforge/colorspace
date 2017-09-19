@@ -24,9 +24,7 @@ RGB(R, G, B, names)
 \value{
   An object of class ``RGB'' which inherits from class ``color.''
 }
-\references{\url{www.srgb.com}}
 \author{Ross Ihaka}
-%\note{ ~~further notes~~ }
 
 \seealso{
   \code{\link{sRGB}},

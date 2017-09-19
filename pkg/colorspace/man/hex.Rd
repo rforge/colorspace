@@ -27,9 +27,7 @@ hex(from, gamma = NULL, fixup = FALSE)
 \value{
   A vector of character strings.
 }
-%\references{ ~put references to the literature/web site here ~ }
 \author{Ross Ihaka}
-%\note{ ~~further notes~~ }
 \seealso{
   \code{\link{hex2RGB}},
   \code{\link{RGB}},

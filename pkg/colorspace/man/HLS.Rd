@@ -26,9 +26,7 @@ HLS(H, L, S, names)
 \value{
   An object of class ``HLS'' which inherits from class ``color.''
 }
-\references{\url{www.srgb.com}}
 \author{Ross Ihaka}
-%\note{ ~~further notes~~ }
 
 \seealso{
   \code{\link{RGB}},

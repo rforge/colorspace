@@ -29,9 +29,7 @@ LUV(L, U, V, names)
 \value{
   An object of class ``LUV'' which inherits from class ``color.''
 }
-%\references{ ~put references to the literature/web site here ~ }
 \author{Ross Ihaka}
-%\note{ ~~further notes~~ }
 
 \seealso{
   \code{\link{RGB}},

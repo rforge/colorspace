@@ -21,9 +21,7 @@ writehex(x, file = "")
 \value{
   The name of the file is returned as the value of the function.
 }
-%\references{ ~put references to the literature/web site here ~ }
 \author{Ross Ihaka}
-%\note{ ~~further notes~~ }
 \seealso{
   \code{\link{readhex}},
   \code{\link{readRGB}},
