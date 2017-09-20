@@ -13,7 +13,7 @@ Brownrigg, and Minka (2012). Version 2.2-6.
 \url{https://CRAN.R-project.org/package=maps}
 }
 \usage{
-data("USSouthPolygon", package = "colorspace")
+data("USSouthPolygon")
 }
 \description{
 County polygons for Alabama, Georgia, and South Carolina plus an artifical

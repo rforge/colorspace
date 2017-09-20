@@ -6,7 +6,7 @@
 #' 
 #' 
 #' @name USSouthPolygon
-#' @usage data("USSouthPolygon", package = "colorspace")
+#' @usage data("USSouthPolygon")
 #' @format A data frame with coordinates of the vertices of the county polygons
 #' (\code{x}, \code{y}) and an artificial variable \code{z} constructed for
 #' illustrating colored maps.
