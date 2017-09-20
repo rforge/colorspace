@@ -20,3 +20,4 @@ Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd, dichr
 License: BSD_3_clause + file LICENSE
 URL: https://hclwizard.org/
 LazyData: yes
+RoxygenNote: 6.0.1
