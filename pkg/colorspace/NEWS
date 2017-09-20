@@ -1,8 +1,11 @@
 Changes in Version 1.4-0
 
-  o Claus O. Wilke joined the "colorspace" team, adding and enhancing
-    various features: New shiny apps, color vision deficiency emulation,
-    ggplot2 palettes, etc. (see below for details).
+  o Claus O. Wilke and Claire D. McWhite joined the "colorspace" team,
+    adding and enhancing various features: New shiny apps, color
+    vision deficiency emulation, ggplot2 palettes, etc. (see below for details).
+    
+  o New function simulate_cvd() for simulating color vision deficiencies
+    with convenience interfaces deutan(), protan(), and tritan().
 
   o Added a new function max_chroma() that (approximately) computes
     the maximum chroma possible for a given hue and luminance

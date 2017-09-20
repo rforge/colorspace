@@ -8,13 +8,16 @@ Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "iha
              person(given = c("Jason", "C."), family = "Fisher", role = "aut", email = "jfisher@usgs.gov"),
              person(given = "Reto", family = "Stauffer", role = "aut", email = "Reto.Stauffer@uibk.ac.at"),
              person(given = c("Claus", "O."), family = "Wilke", role = "aut", email = "wilke@austin.utexas.edu"),
+             person(given = c("Claire", "D."), family = "McWhite", role = "aut", email = "claire.d.mcwhite@gmail.com"),
              person(given = "Achim", family = "Zeileis", role = c("aut", "cre"), email = "Achim.Zeileis@R-project.org"))
 Description: Carries out mapping between assorted color spaces including
              RGB, HSV, HLS, CIEXYZ, CIELUV, HCL (polar CIELUV),
 	     CIELAB and polar CIELAB. Qualitative, sequential, and
 	     diverging color palettes based on HCL colors are provided
 	     along with an interactive palette picker (with either a Tcl/Tk
-	     or a shiny GUI).
+	     or a shiny GUI). Various transformations are provided: desaturation,
+	     lightening/darkening, and simulation of color vision deficiencies
+	     (deutanomaly, protanomaly, tritanomaly).
 Depends: R (>= 2.13.0), methods
 Imports: graphics, grDevices
 Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd, dichromat, tcltk, shiny, shinyjs
