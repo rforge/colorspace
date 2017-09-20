@@ -1,21 +1,39 @@
-#' Simulate color vision deficiency given a cvd transform matrix
+#' Simulate Color Vision Deficiency
 #'
-#' This function takes valid R colors and transforms them according to a cvd transform matrix.
-#' @param col A color or vector of colors e.g., "#FFA801" or "blue"
-#' @param cvd_transform A 3x3 matrix specifying the color vision deficiency transform matrix
-#' @keywords colors, cvd, colorblind
+#' Transformation of R colors by simulating color vision deficiencies,
+#' based on a CVD transform matrix.
+#'
+#' Using the physiologically-based model for simulating color vision deficiency (CVD)
+#' of Machado et al. (2009), deutanope, protanope, and tritanope vision can be emulated.
+#' The workhorse function to do so is \code{simulate_cvd} which can take any vector
+#' of valid R colors and transform them according to a certain CVD transformation
+#' matrix (see \code{\link{cvd}}) and transformation equation.
+#'
+#' The functions \code{deutan}, \code{protan}, and \code{tritan} are the high-level functions for
+#' simulating the corresponding kind of colorblindness with a given severity.
+#' Internally, they all call \code{simulate_cvd} along with a (possibly interpolated)
+#' version of the matrices from \code{\link{cvd}}.
+
+#' @param col character. A color or vector of colors, e.g., \code{"#FFA801"} or \code{"blue"}.
+#' @param cvd_transform numeric 3x3 matrix, specifying the color vision deficiency transform matrix.
+#' @param severity numeric. Severity of the color vision defect, a number between 0 and 1.
+
+#' @references Machado GM, Oliveira MM, Fernandes LAF (2009).
+#'   A Physiologically-Based Model for Simulation of Color Vision Deficiency.
+#'   \emph{IEEE Transactions on Visualization and Computer Graphics}. \bold{15}(6), 1291--1298.
+#'   \doi{10.1109/TVCG.2009.113}
+#'   Online version with supplements at
+#'   \url{http://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html}.
+#' @keywords colors cvd colorblind
 #' @export
 #' @examples
-#'
-#'  simulate_cvd(c("#005000","blue","#00BB00"),
-#'  tritanomaly_cvd['6'][[1]])
-#'
+#' simulate_cvd(c("#005000", "blue", "#00BB00"), tritanomaly_cvd["6"][[1]])
 #' @importFrom grDevices col2rgb
-#' @author Claire D. McWhite claire.d.mcwhite@gmail.com
+#' @author Claire D. McWhite, Claus O. Wilke
 simulate_cvd <- function(col, cvd_transform) {
-  #Adapted from desaturate
+  # Adapted from desaturate
 
-  #If all hex
+  # If all hex
   if (is.character(col) && (all(substr(col, 1L, 1L) == "#") &
                             all(nchar(col) %in% c(7L, 9L)))) {
     #Save transparency value for later
@@ -23,7 +41,7 @@ simulate_cvd <- function(col, cvd_transform) {
     col <- substr(col, 1L, 7L)
     col <- grDevices::col2rgb(col)
   }
-  #If contains built in color..,
+  # If contains built in color..,
   else {
     col <- grDevices::col2rgb(col, alpha = TRUE)
     ## extract alpha values (if non-FF)
@@ -31,15 +49,14 @@ simulate_cvd <- function(col, cvd_transform) {
     alpha[alpha == "FF"] <- ""
     ## retain only RGB
     col <- col[1L:3L,]
-
   }
 
   # Transform color
   RGB <- cvd_transform %*% col
 
   # Bound RGB values
-  RGB[RGB<0]=0
-  RGB[RGB>255]=255
+  RGB[RGB<0] <- 0
+  RGB[RGB>255] <- 255
 
   # Convert back to hex
   rgb2hex <- function(RGB) grDevices::rgb(RGB[1,], RGB[2,], RGB[3,], maxColorValue = 255)
@@ -48,109 +65,38 @@ simulate_cvd <- function(col, cvd_transform) {
   return(final_hex)
 }
 
-#' Generate color transformation matrices using the deutan model of colorblindness
-#'
-#' @param sev Severity of the color vision defect, a number between 0 and 1
+#' @rdname simulate_cvd
 #' @export
-#' @author Claire D. McWhite claire.d.mcwhite@gmail.com
-#' @author Claus O. Wilke wilke@austin.utexas.edu
-deutan_transform <- function(sev = 1) {
-  if (sev <= 0) {
-    deutanomaly_cvd[[1]]
-  } else if (sev >= 1) {
-    deutanomaly_cvd[[11]]
+deutan <- function(col, severity = 1) {
+  simulate_cvd(col, cvd_transform = interpolate_cvd_transform(deutanomaly_cvd, severity))
+}
+
+#' @rdname simulate_cvd
+#' @export
+protan <- function(col, severity = 1) {
+  simulate_cvd(col, cvd_transform = interpolate_cvd_transform(protanomaly_cvd, severity))
+}
+
+#' @rdname simulate_cvd
+#' @export
+tritan <- function(col, severity = 1){
+  simulate_cvd(col, cvd_transform = interpolate_cvd_transform(tritanomaly_cvd, severity))
+}
+
+interpolate_cvd_transform <- function(cvd, severity = 1) {
+  if (severity <= 0) {
+    cvd[[1]]
+  } else if (severity >= 1) {
+    cvd[[11]]
   } else {
-    s <- 10*sev
+    s <- 10*severity
     i1 <- floor(s)
     i2 <- ceiling(s)
     if (i1 == i2) {
-      deutanomaly_cvd[[i1]]
+      cvd[[i1]]
     }
     else {
-      (i2-s)*deutanomaly_cvd[[i1+1]] + (s-i1)*deutanomaly_cvd[[i2+1]]
+      (i2-s)*cvd[[i1+1]] + (s-i1)*cvd[[i2+1]]
     }
   }
 }
-
-#' Convert colors using the deutan model of colorblindness
-#'
-#' @param colors Vector of colors to convert
-#' @param sev Severity of the color vision defect, a number between 0 and 1
-#' @export
-#' @author Claire D. McWhite claire.d.mcwhite@gmail.com
-#' @author Claus O. Wilke wilke@austin.utexas.edu
-deutan <- function(colors, sev = 1) {
-  simulate_cvd(colors, cvd_transform=deutan_transform(sev))
-}
-
-#' Generate color transformation matrices using the protan model of colorblindness
-#'
-#' @param sev Severity of the color vision defect, a number between 0 and 1
-#' @export
-#' @author Claire D. McWhite claire.d.mcwhite@gmail.com
-#' @author Claus O. Wilke wilke@austin.utexas.edu
-protan_transform <- function(sev = 1) {
-  if (sev <= 0) {
-    protanomaly_cvd[[1]]
-  } else if (sev >= 1) {
-    protanomaly_cvd[[11]]
-  } else {
-    s <- 10*sev
-    i1 <- floor(s)
-    i2 <- ceiling(s)
-    if (i1 == i2) {
-      protanomaly_cvd[[i1]]
-    }
-    else {
-      (i2-s)*protanomaly_cvd[[i1+1]] + (s-i1)*protanomaly_cvd[[i2+1]]
-    }
-  }
-}
-
-#' Convert colors using the protan model of colorblindness
-#'
-#' @param colors Vector of colors to convert
-#' @param sev Severity of the color vision defect, a number between 0 and 1
-#' @export
-#' @author Claire D. McWhite claire.d.mcwhite@gmail.com
-#' @author Claus O. Wilke wilke@austin.utexas.edu
-protan <- function(colors, sev = 1) {
-  simulate_cvd(colors, cvd_transform = protan_transform(sev))
-}
-
-#' Generate color transformation matrices using the tritan model of colorblindness
-#'
-#' @param sev Severity of the color vision defect, a number between 0 and 1
-#' @export
-#' @author Claire D. McWhite claire.d.mcwhite@gmail.com
-#' @author Claus O. Wilke wilke@austin.utexas.edu
-tritan_transform <- function(sev = 1) {
-  if (sev <= 0) {
-    tritanomaly_cvd[[1]]
-  } else if (sev >= 1) {
-    tritanomaly_cvd[[11]]
-  } else {
-    s <- 10*sev
-    i1 <- floor(s)
-    i2 <- ceiling(s)
-    if (i1 == i2) {
-      tritanomaly_cvd[[i1]]
-    }
-    else {
-      (i2-s)*tritanomaly_cvd[[i1+1]] + (s-i1)*tritanomaly_cvd[[i2+1]]
-    }
-  }
-}
-
-#' Convert colors using the tritan model of colorblindness
-#'
-#' @param colors Vector of colors to convert
-#' @param sev Severity of the color vision defect, a number between 0 and 1
-#' @export
-#' @author Claire D. McWhite claire.d.mcwhite@gmail.com
-#' @author Claus O. Wilke wilke@austin.utexas.edu
-tritan <- function(colors, sev = 1){
-  simulate_cvd(colors, cvd_transform=tritan_transform(sev))
-}
-
-

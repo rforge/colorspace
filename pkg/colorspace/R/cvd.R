@@ -1,7 +1,3 @@
-#Machado 2009 http://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html
-#Adapted from https://github.com/njsmith/colorspacious/blob/master/colorspacious/cvd.py
-
-
 #' Color Vision Deficiency (CVD) Conversion Tables
 #' 
 #' Conversion tables for simulating different types of color vision deficiency (CVD):
@@ -20,11 +16,13 @@
 #' @author Claire D. McWhite
 #' @seealso \code{\link{simulate_cvd}}
 #' @references Machado GM, Oliveira MM, Fernandes LAF (2009).
-#'   A Physiologically-based Model for Simulation of Color Vision Deficiency.
+#'   A Physiologically-Based Model for Simulation of Color Vision Deficiency.
 #'   \emph{IEEE Transactions on Visualization and Computer Graphics}. \bold{15}(6), 1291--1298.
 #'   \doi{10.1109/TVCG.2009.113}
 #'   Online version with supplements at
 #'   \url{http://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html}.
+
+#Adapted from https://github.com/njsmith/colorspacious/blob/master/colorspacious/cvd.py
 protanomaly_cvd <- list(
   "0" = matrix(c(
     1.000000,  0.000000, -0.000000,

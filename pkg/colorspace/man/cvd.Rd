@@ -19,7 +19,7 @@ CVD. See \code{\link{simulate_cvd}} for the corresponding simulation functions.
 }
 \references{
 Machado GM, Oliveira MM, Fernandes LAF (2009).
-  A Physiologically-based Model for Simulation of Color Vision Deficiency.
+  A Physiologically-Based Model for Simulation of Color Vision Deficiency.
   \emph{IEEE Transactions on Visualization and Computer Graphics}. \bold{15}(6), 1291--1298.
   \doi{10.1109/TVCG.2009.113}
   Online version with supplements at
