@@ -227,7 +227,7 @@ shinyServer(function(input, output, session) {
    # Plotting example
    # ----------------------------------------------------------------
    plotExample <- function(colors) {
-      cmd <- sprintf("output$plot <- renderPlot({colorspace:::Plot%s(colors)},width=800,height=600)",input$EXAMPLE)
+      cmd <- sprintf("output$plot <- renderPlot({colorspace:::plot_%s(colors)},width=800,height=600)", tolower(input$EXAMPLE))
       eval(parse(text=cmd))
    }
 

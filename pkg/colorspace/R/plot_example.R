@@ -1,11 +1,12 @@
+#' @importFrom graphics barplot image persp pie plot polygon rect segments
 
 # Wrapper around specplot. Used by the tcltk interface.
-PlotSpectrum <- function(pal.cols, cex=1.0, plot=TRUE)
+plot_spectrum <- function(pal.cols, cex=1.0, plot=TRUE)
    specplot(pal.cols,cex=cex,plot=plot)
 
 
 # Plot map example 
-PlotMap <- function(pal.cols,...) {
+plot_map <- function(pal.cols,...) {
    n <- length(pal.cols)
    plot(0, 0, type="n", xlab="", ylab="", xaxt="n", yaxt="n", bty="n",
         xlim=c(-88.5, -78.6), ylim=c(30.2, 35.2), asp=1)
@@ -15,14 +16,14 @@ PlotMap <- function(pal.cols,...) {
 }
   
 # Plot heatmap example
-PlotHeatmap <- function(pal.cols,...) {
+plot_heatmap <- function(pal.cols,...) {
    image(datasets::volcano, col=rev(pal.cols), xaxt="n", yaxt="n", useRaster=TRUE)
 }
   
 # Plot scatter example
 .example_env <- new.env()
 .example_env$xyhclust <- NULL
-PlotScatter <- function(pal.cols,...) {
+plot_scatter <- function(pal.cols,...) {
   
    # Generate artificial data 
    if (is.null(.example_env$xyhclust)) {
@@ -51,7 +52,7 @@ PlotScatter <- function(pal.cols,...) {
 }
   
 # Plot spine example
-PlotSpine <- function(pal.cols,...) {
+plot_spine <- function(pal.cols,...) {
    n <- length(pal.cols)
    
    # Rectangle dimensions
@@ -80,7 +81,7 @@ PlotSpine <- function(pal.cols,...) {
 }
   
 # Plot bar example
-PlotBar <- function(pal.cols,...) {
+plot_bar <- function(pal.cols,...) {
    barplot(cbind(1.1 + abs(sin(0.5 + seq_along(pal.cols))) / 3,
            1.9 + abs(cos(1.1 + seq_along(pal.cols))) / 3,
            0.7 + abs(sin(1.5 + seq_along(pal.cols))) / 3,
@@ -89,12 +90,12 @@ PlotBar <- function(pal.cols,...) {
 }
 
 # Plot pie example
-PlotPie <- function(pal.cols,...) {
+plot_pie <- function(pal.cols,...) {
    pie(0.01 + abs(sin(0.5 + seq_along(pal.cols))), labels="", col=pal.cols, radius=1)
 }
   
 # Plot perspective example
-PlotPerspective <- function(pal.cols,...) {
+plot_perspective <- function(pal.cols,...) {
    # Mixture of bivariate normals
    n <- 31
    x1 <- x2 <- seq(-3, 3, length=n)
@@ -119,7 +120,7 @@ PlotPerspective <- function(pal.cols,...) {
   
 # Plot mosaic example
 .example_env$msc.matrix <- NULL
-PlotMosaic <- function(pal.cols,...) {
+plot_mosaic <- function(pal.cols,...) {
    if (is.null(.example_env$msc.matrix)) {
       set.seed(1071)
       mat <- list()
@@ -132,7 +133,7 @@ PlotMosaic <- function(pal.cols,...) {
 }
   
 # Plot lines example
-PlotLines <- function(pal.cols,...) {
+plot_lines <- function(pal.cols,...) {
    n <- length(pal.cols)
    plot(NULL, xlab="", ylab="", xaxt="n", yaxt="n", type="n", 
         xlim=c(0, 6), ylim=c(1.5, n + 1.5))

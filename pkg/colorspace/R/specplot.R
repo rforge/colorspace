@@ -59,6 +59,7 @@
 #' res <- specplot(rainbow(10), plot = FALSE)
 #' print(res)
 #' @export specplot
+#' @importFrom graphics axis image layout legend lines mtext text par plot
 specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
   type = "l", lwd = 2 * cex, lty = 1, pch = NULL,
   legend = TRUE, palette = TRUE, plot = TRUE)

@@ -73,7 +73,9 @@
 #' ## use resulting palette function
 #' filled.contour(volcano, color.palette = pal, asp = 1)
 #' }
-#' @export choose_palette
+#' @importFrom grDevices dev.cur dev.list dev.new dev.off dev.set
+
+#' @export
 choose_palette <- function(pal = diverge_hcl, n = 7L, parent = NULL, gui = "tcltk") {
    args <- list("pal" = pal, "n" = n, "parent" = parent)
    gui <- match.arg(gui, c("tcltk", "shiny"))
@@ -81,6 +83,7 @@ choose_palette <- function(pal = diverge_hcl, n = 7L, parent = NULL, gui = "tclt
 }
 
 #' @rdname choose_palette
+#' @export
 hclwizard <- function(n = 7L, gui = "shiny", shiny.trace = FALSE) {
    args <- list("n" = n, "shiny.trace" = shiny.trace)
    gui <- match.arg(gui, c("tcltk", "shiny"))
@@ -439,14 +442,14 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
       dev.set(which=dev.example)
     else
       return()
-    PlotExample <- eval(parse(text=sprintf("Plot%s",tcltk::tclvalue(example.var))))
+    plot_example <- eval(parse(text=sprintf("plot_%s", tolower(tcltk::tclvalue(example.var)))))
     # Reto, Nov 2016: Picking colors. For 'Example Spectrum' 100 colors
     # will be choosen (overruling input "n").
     if ( tcltk::tclvalue(example.var) == "Spectrum" ) n <- 100
     pal.cols <- get_hex_colors(pal,n)
     if (as.logical(as.integer(tcltk::tclvalue(reverse.var))))
       pal.cols <- rev(pal.cols)
-    PlotExample(pal.cols)
+    plot_example(pal.cols)
   }
   
   # Main program

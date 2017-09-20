@@ -38,6 +38,7 @@
 #' wheel(desaturate(rainbow_hcl(12)))
 #' wheel(desaturate(rainbow(12)))
 #' @export desaturate
+#' @importFrom grDevices col2rgb
 
 desaturate <- function(col, amount = 1) {
   ## col has to be hex code, otherwise col2rgb is used

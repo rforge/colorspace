@@ -131,9 +131,9 @@
 #' pal(terrain_hcl(12))
 #' pal(desaturate(terrain.colors(12)))
 #' pal(desaturate(terrain_hcl(12)))
-#' @export rainbow_hcl
-
 #' @rdname rainbow_hcl
+
+#' @export
 rainbow_hcl <- function(n, c = 50, l = 70, start = 0, end = 360 * (n - 1)/n,
                         gamma = NULL, fixup = TRUE, alpha = 1, ...)
 {
@@ -154,6 +154,7 @@ rainbow_hcl <- function(n, c = 50, l = 70, start = 0, end = 360 * (n - 1)/n,
 }
 
 #' @rdname rainbow_hcl
+#' @export
 diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
                         gamma = NULL, fixup = TRUE, alpha = 1, ...)
 {
@@ -181,6 +182,7 @@ diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
 }
 
 #' @rdname rainbow_hcl
+#' @export
 diverge_hsv <- function(n, h = c(240, 0), s = 1, v = 1, power = 1,
                         gamma = NULL, fixup = TRUE, alpha = 1, ...)
 {
@@ -207,6 +209,7 @@ diverge_hsv <- function(n, h = c(240, 0), s = 1, v = 1, power = 1,
 }
 
 #' @rdname rainbow_hcl
+#' @export
 sequential_hcl <- function(n, h = 260, c. = c(80, 0), l = c(30, 90),
                            power = 1.5, gamma = NULL, fixup = TRUE, alpha = 1, ...)
 {
@@ -233,6 +236,7 @@ sequential_hcl <- function(n, h = 260, c. = c(80, 0), l = c(30, 90),
 }
 
 #' @rdname rainbow_hcl
+#' @export
 heat_hcl <- function(n, h = c(0, 90), c. = c(100, 30), l = c(50, 90),
                      power = c(1/5, 1), gamma = NULL, fixup = TRUE, alpha = 1, ...)
 {
@@ -260,6 +264,7 @@ heat_hcl <- function(n, h = c(0, 90), c. = c(100, 30), l = c(50, 90),
 }
 
 #' @rdname rainbow_hcl
+#' @export
 terrain_hcl <- function(n, h = c(130, 0), c. = c(80, 0), l = c(60, 95),
                         power = c(1/10, 1), gamma = NULL, fixup = TRUE, alpha = 1, ...)
 {

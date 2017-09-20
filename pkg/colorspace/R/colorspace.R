@@ -107,20 +107,38 @@
 #' @examples
 #' x = RGB(runif(1000),runif(1000),runif(1000))
 #' plot(as(x, "LUV"))
+#' @useDynLib colorspace, .registration = TRUE 
+#' @import methods
 
+#' @export
 setClass("color", representation = list(coords = "matrix"))
 
-## Subclasses corresponding to various color spaces
+#' @export
+setClass("RGB", contains = "color")
 
-setClass("RGB", contains="color")
-setClass("sRGB", contains="color")
-setClass("XYZ", contains="color")
-setClass("LAB", contains="color")
-setClass("polarLAB", contains="color")
-setClass("HSV", contains="color")
-setClass("HLS", contains="color")
-setClass("LUV", contains="color")
-setClass("polarLUV", contains="color")
+#' @export
+setClass("sRGB", contains = "color")
+
+#' @export
+setClass("XYZ", contains = "color")
+
+#' @export
+setClass("LAB", contains = "color")
+
+#' @export
+setClass("polarLAB", contains = "color")
+
+#' @export
+setClass("HSV", contains = "color")
+
+#' @export
+setClass("HLS", contains = "color")
+
+#' @export
+setClass("LUV", contains = "color")
+
+#' @export
+setClass("polarLUV", contains = "color")
 
 
 ##  ----------------------------------------------------------------------------
@@ -142,16 +160,22 @@ setClass("polarLUV", contains="color")
 #' x <- RGB(1, 0, 0)
 #' coords(as(x, "HSV"))
 #' @export coords
+#' @importFrom graphics pairs
 setGeneric("coords", function(color) standardGeneric("coords"))
 
+#' @export
 setMethod("coords", "color", function(color) {color@coords})
+
+#' @export
 setMethod("show", "color", function(object) show(coords(object)))
 
+#' @export
 setMethod("[", "color",
           function(x, i, j, drop=FALSE) {
             do.call(class(x), list(coords(x)[i,,drop=FALSE]))
           })
 
+#' @export
 setMethod("plot", signature("color"),
           function(x, y, pch=20, cex=3)
           pairs(coords(x), col=hex(x,fixup=TRUE), pch=pch, cex=cex))
