@@ -37,6 +37,6 @@ hsv <- readRGB("pastel.rgb", "HSV")
 \code{\link{LUV}}, \code{\link{polarLUV}}.
 }
 \author{
-Ross Ihaka.
+Ross Ihaka
 }
 \keyword{color}

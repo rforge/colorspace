@@ -36,6 +36,6 @@ hsv <- readhex("pastel.txt", "HSV")
 \code{\link{LUV}}, \code{\link{polarLUV}},
 }
 \author{
-Ross Ihaka.
+Ross Ihaka
 }
 \keyword{color}

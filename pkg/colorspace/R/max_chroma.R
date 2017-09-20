@@ -1,3 +1,29 @@
+#' Compute Maximum Chroma for Given Hue and Luminance in HCL
+#' 
+#' Compute approximately the maximum chroma possible for a given hue and
+#' luminance combination in the HCL color space.
+#' 
+#' As the possible combinations of chroma and luminance depend on hue, it is
+#' not obvious which maximum chroma can be used for a given combination of hue
+#' and luminance prior to calling \code{\link{polarLUV}}. To avoid having to
+#' \code{fixup} the color upon conversion to RGB \code{\link{hex}} codes, the
+#' \code{max_chroma} function computes (approximately) the maximum chroma
+#' possible. As the computation are based on interpolations of pre-computed
+#' maxima, the result may sometimes still be very slightly larger than the
+#' actual maximum.
+#' 
+#' @aliases max_chroma max_chroma_table
+#' @param h hue value in the HCL color description, has to be in [0, 360].
+#' @param l luminance value in the HCL color description, has to be in [0, 100].
+#' @param floor logical. Should the chroma value be rounded down to the next
+#' lower integer?
+#' @return A numeric vector with the maximum chroma coordinates.
+#' @seealso \code{\link[colorspace]{polarLUV}}, \code{\link[colorspace]{hex}}
+#' @keywords color
+#' @examples
+#' max_chroma(0:36 * 10, 50)
+#' max_chroma(120, 0:10 * 10)
+#' @export max_chroma
 max_chroma <- function(h, l, floor = FALSE) {
   ## align h and l
   n <- max(c(length(h), length(l)))

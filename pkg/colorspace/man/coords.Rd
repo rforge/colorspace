@@ -26,6 +26,6 @@ coords(as(x, "HSV"))
 \code{\link{mixcolor}}.
 }
 \author{
-Ross Ihaka.
+Ross Ihaka
 }
 \keyword{color}
