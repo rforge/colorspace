@@ -2,6 +2,7 @@
 % Please edit documentation in R/palettes.R
 \name{rainbow_hcl}
 \alias{rainbow_hcl}
+\alias{qualitative_hcl}
 \alias{diverge_hcl}
 \alias{diverge_hsv}
 \alias{sequential_hcl}
@@ -11,6 +12,9 @@
 \usage{
 rainbow_hcl(n, c = 50, l = 70, start = 0, end = 360 * (n - 1)/n,
   gamma = NULL, fixup = TRUE, alpha = 1, ...)
+
+qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c. = 50, l = 70,
+  fixup = TRUE, alpha = 1, palette = NULL, ..., h1, h2)
 
 diverge_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
   gamma = NULL, fixup = TRUE, alpha = 1, ...)
@@ -48,8 +52,8 @@ transparency channel (0 means transparent and 1 means opaque).}
 
 \item{\dots}{Other arguments passed to \code{\link{hex}}.}
 
-\item{h}{hue value in the HCL or HSV color description, has to be in [0,
-360] for HCL and in [0, 1] for HSV colors.}
+\item{h}{hue value in the HCL or HSV color description, has to be in [0, 360]
+for HCL and in [0, 1] for HSV colors.}
 
 \item{power}{control parameter determining how chroma and luminance should
 be increased (1 = linear, 2 = quadratic, etc.).}

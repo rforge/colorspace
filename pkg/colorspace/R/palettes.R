@@ -39,8 +39,8 @@
 #' @param l luminance value in the HCL color description.
 #' @param start the hue at which the rainbow begins.
 #' @param end the hue at which the rainbow ends.
-#' @param h hue value in the HCL or HSV color description, has to be in [0,
-#' 360] for HCL and in [0, 1] for HSV colors.
+#' @param h hue value in the HCL or HSV color description, has to be in [0, 360]
+#' for HCL and in [0, 1] for HSV colors.
 #' @param s saturation value in the HSV color description.
 #' @param v value value in the HSV color description.
 #' @param power control parameter determining how chroma and luminance should
@@ -140,7 +140,40 @@ rainbow_hcl <- function(n, c = 50, l = 70, start = 0, end = 360 * (n - 1)/n,
     if (!is.null(gamma))
         warning("'gamma' is deprecated and has no effect")
     if(n < 1L) return(character(0L))
-    rval <- hex(polarLUV(L = l, C = c, H = seq(start, end, length = n)),
+    qualitative_hcl(n, h = c(start, end), c = c, l = l, fixup = fixup, alpha = alpha, ...)
+}
+
+#' @rdname rainbow_hcl
+#' @export
+qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c. = 50, l = 70,
+  fixup = TRUE, alpha = 1, palette = NULL, ..., h1, h2)
+{
+    ## if nothing is requested
+    if(n < 1L) return(character(0L))
+    
+    ## process HCL coordinates: (1) palette, (2) h/c/l, (3) h1/h2
+    if(is.character(h)) palette <- h
+    if(!is.null(palette)) {
+      palette <- gsub(" ", "", tolower(palette), fixed = TRUE)
+      pals <- qual.pals
+      names(pals) <- gsub(" ", "", tolower(names(pals)), fixed = TRUE)
+      pals <- pals[[match.arg(palette, names(pals))]]
+      names(pals) <- vars.pal
+    } else {
+      pals <- structure(c(h, c., NA, l, NA, NA, NA, NA), .Names = vars.pal)
+    }
+    
+    if(!missing(h) && !is.character(h)) {
+      h <- rep_len(h, 2L)
+      pals["h1"] <- h[1L]
+      pals["h2"] <- h[2L]
+    }
+    if(!missing(c.)) pals["c1"] <- c.
+    if(!missing(l)) pals["l1"] <- l
+    if(!missing(h1)) pals["h1"] <- h1
+    if(!missing(h2)) pals["h2"] <- h2
+    
+    rval <- hex(polarLUV(L = pals["l1"], C = pals["c1"], H = seq(pals["h1"], pals["h2"], length = n)),
                 fixup = fixup, ...)
 
     if(!missing(alpha)) {
