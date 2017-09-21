@@ -4,10 +4,7 @@
 \name{cvd}
 \alias{cvd}
 \alias{protanomaly_cvd}
-\alias{protanomaly_cvd}
 \alias{deutanomaly_cvd}
-\alias{deutanomaly_cvd}
-\alias{tritanomaly_cvd}
 \alias{tritanomaly_cvd}
 \title{Color Vision Deficiency (CVD) Conversion Tables}
 \format{Lists of 3x3 RGB-color transformation matrices for the various types of CVD. Each list contains 11 transformation matrices 

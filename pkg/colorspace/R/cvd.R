@@ -26,11 +26,7 @@ NULL
 
 #' @rdname cvd
 #' @format NULL
-"protanomaly_cvd"
-
-#' @rdname cvd
-#' @format NULL
-#' @usage NULL
+#' @usage protanomaly_cvd
 #' @export
 protanomaly_cvd <- list(
   "0" = matrix(c(
@@ -91,14 +87,9 @@ protanomaly_cvd <- list(
 
 )
 
-
 #' @rdname cvd
 #' @format NULL
-"deutanomaly_cvd"
-
-#' @rdname cvd
-#' @format NULL
-#' @usage NULL
+#' @usage deutanomaly_cvd
 #' @export
 deutanomaly_cvd <- list(
   "0" = matrix(c(
@@ -158,14 +149,9 @@ deutanomaly_cvd <- list(
   ),3,3,byrow=TRUE)
 )
 
-
 #' @rdname cvd
 #' @format NULL
-"tritanomaly_cvd"
-
-#' @rdname cvd
-#' @format NULL
-#' @usage NULL
+#' @usage tritanomaly_cvd
 #' @export
 tritanomaly_cvd <- list(
   "0" = matrix(c(
