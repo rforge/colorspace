@@ -12,11 +12,13 @@
 #' The functions \code{deutan}, \code{protan}, and \code{tritan} are the high-level functions for
 #' simulating the corresponding kind of colorblindness with a given severity.
 #' Internally, they all call \code{simulate_cvd} along with a (possibly interpolated)
-#' version of the matrices from \code{\link{cvd}}.
+#' version of the matrices from \code{\link{cvd}}. Matrix interpolation can be carried out with
+#' the function \code{interpolate_cvd_transform} (see Examples).
 
 #' @param col character. A color or vector of colors, e.g., \code{"#FFA801"} or \code{"blue"}.
-#' @param cvd_transform numeric 3x3 matrix, specifying the color vision deficiency transform matrix.
 #' @param severity numeric. Severity of the color vision defect, a number between 0 and 1.
+#' @param cvd_transform numeric 3x3 matrix, specifying the color vision deficiency transform matrix.
+#' @param cvd list of cvd transformation matrices. See \code{\link{cvd}} for available options.
 
 #' @references Machado GM, Oliveira MM, Fernandes LAF (2009).
 #'   A Physiologically-Based Model for Simulation of Color Vision Deficiency.
@@ -25,11 +27,20 @@
 #'   Online version with supplements at
 #'   \url{http://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html}.
 #' @keywords colors cvd colorblind
+#' @seealso \code{\link{cvd}}
 #' @export
 #' @examples
+#' # simulate color-vision deficiency by calling `simulate_cvd` with specified matrix
 #' simulate_cvd(c("#005000", "blue", "#00BB00"), tritanomaly_cvd["6"][[1]])
+#' 
+#' # simulate color-vision deficiency by calling the shortcut high-level function
+#' tritan(c("#005000", "blue", "#00BB00"), severity = 0.6)
+#' 
+#' # simulate color-vision deficiency by calling `simulate_cvd` with interpolated cvd matrix
+#' simulate_cvd(c("#005000", "blue", "#00BB00"),
+#'              interpolate_cvd_transform(tritanomaly_cvd, severity = 0.6))
+#' 
 #' @importFrom grDevices col2rgb
-#' @author Claire D. McWhite, Claus O. Wilke
 simulate_cvd <- function(col, cvd_transform) {
   # Adapted from desaturate
 
@@ -83,6 +94,8 @@ tritan <- function(col, severity = 1){
   simulate_cvd(col, cvd_transform = interpolate_cvd_transform(tritanomaly_cvd, severity))
 }
 
+#' @rdname simulate_cvd
+#' @export
 interpolate_cvd_transform <- function(cvd, severity = 1) {
   if (severity <= 0) {
     cvd[[1]]
@@ -93,7 +106,7 @@ interpolate_cvd_transform <- function(cvd, severity = 1) {
     i1 <- floor(s)
     i2 <- ceiling(s)
     if (i1 == i2) {
-      cvd[[i1]]
+      cvd[[i1+1]]
     }
     else {
       (i2-s)*cvd[[i1+1]] + (s-i1)*cvd[[i2+1]]

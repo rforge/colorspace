@@ -12,8 +12,6 @@
 #' }
 #' @export
 #' @importFrom methods as
-#' @author Claus O. Wilke wilke@austin.utexas.edu
-#' @author Douglas C. Wu @wckdouglas (color-palette feature)
 hcl_color_picker <- function() {
   app <- shiny::shinyApp(ui = color_picker_UI(), server = color_picker_Server())
   shiny::runApp(app)

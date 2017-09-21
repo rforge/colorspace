@@ -1,3 +1,5 @@
+# All matrices in this file are adapted from https://github.com/njsmith/colorspacious/blob/master/colorspacious/cvd.py
+
 #' Color Vision Deficiency (CVD) Conversion Tables
 #' 
 #' Conversion tables for simulating different types of color vision deficiency (CVD):
@@ -10,10 +12,9 @@
 #' 
 #' @name cvd
 #' @rdname cvd
-#' @format NULL
+#' @format Lists of 3x3 RGB-color transformation matrices for the various types of CVD. Each list contains 11 transformation matrices 
+#'   representing increasingly severe color vision deficiency.
 #' @usage NULL
-#' @export
-#' @author Claire D. McWhite
 #' @seealso \code{\link{simulate_cvd}}
 #' @references Machado GM, Oliveira MM, Fernandes LAF (2009).
 #'   A Physiologically-Based Model for Simulation of Color Vision Deficiency.
@@ -21,8 +22,16 @@
 #'   \doi{10.1109/TVCG.2009.113}
 #'   Online version with supplements at
 #'   \url{http://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html}.
+NULL
 
-#Adapted from https://github.com/njsmith/colorspacious/blob/master/colorspacious/cvd.py
+#' @rdname cvd
+#' @format NULL
+"protanomaly_cvd"
+
+#' @rdname cvd
+#' @format NULL
+#' @usage NULL
+#' @export
 protanomaly_cvd <- list(
   "0" = matrix(c(
     1.000000,  0.000000, -0.000000,
@@ -83,6 +92,9 @@ protanomaly_cvd <- list(
 )
 
 
+#' @rdname cvd
+#' @format NULL
+"deutanomaly_cvd"
 
 #' @rdname cvd
 #' @format NULL
@@ -145,6 +157,11 @@ deutanomaly_cvd <- list(
     -0.011820,  0.042940,  0.968881
   ),3,3,byrow=TRUE)
 )
+
+
+#' @rdname cvd
+#' @format NULL
+"tritanomaly_cvd"
 
 #' @rdname cvd
 #' @format NULL

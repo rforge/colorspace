@@ -4,9 +4,21 @@
 \name{cvd}
 \alias{cvd}
 \alias{protanomaly_cvd}
+\alias{protanomaly_cvd}
+\alias{deutanomaly_cvd}
 \alias{deutanomaly_cvd}
 \alias{tritanomaly_cvd}
+\alias{tritanomaly_cvd}
 \title{Color Vision Deficiency (CVD) Conversion Tables}
+\format{Lists of 3x3 RGB-color transformation matrices for the various types of CVD. Each list contains 11 transformation matrices 
+  representing increasingly severe color vision deficiency.}
+\usage{
+protanomaly_cvd
+
+deutanomaly_cvd
+
+tritanomaly_cvd
+}
 \description{
 Conversion tables for simulating different types of color vision deficiency (CVD):
 Protanomaly, deutanomaly, tritanomaly.
@@ -27,8 +39,5 @@ Machado GM, Oliveira MM, Fernandes LAF (2009).
 }
 \seealso{
 \code{\link{simulate_cvd}}
-}
-\author{
-Claire D. McWhite
 }
 \keyword{datasets}
