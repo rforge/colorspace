@@ -8,11 +8,12 @@
 #' and luminance prior to calling \code{\link{polarLUV}}. To avoid having to
 #' \code{fixup} the color upon conversion to RGB \code{\link{hex}} codes, the
 #' \code{max_chroma} function computes (approximately) the maximum chroma
-#' possible. As the computation are based on interpolations of pre-computed
-#' maxima, the result may sometimes still be very slightly larger than the
-#' actual maximum.
+#' possible. The computations are based on interpolations of pre-computed
+#' maxima in \code{max_chroma_table}, containing the maximum chroma for a given
+#' hue-luminance combination (both in integers). Hence, the result may sometimes
+#' still be very slightly larger than the actual maximum which can be avoided
+#' by taking the \code{floor} of the approximate value.
 #' 
-#' @aliases max_chroma max_chroma_table
 #' @param h hue value in the HCL color description, has to be in [0, 360].
 #' @param l luminance value in the HCL color description, has to be in [0, 100].
 #' @param floor logical. Should the chroma value be rounded down to the next
@@ -23,7 +24,7 @@
 #' @examples
 #' max_chroma(0:36 * 10, 50)
 #' max_chroma(120, 0:10 * 10)
-#' @export max_chroma
+#' @export
 max_chroma <- function(h, l, floor = FALSE) {
   ## align h and l
   n <- max(c(length(h), length(l)))
@@ -58,3 +59,7 @@ max_chroma <- function(h, l, floor = FALSE) {
   
   return(c)
 }
+
+#' @rdname max_chroma
+#' @format NULL
+"max_chroma_table"

@@ -5,7 +5,6 @@
 #' variable used for coloring.
 #' 
 #' 
-#' @name USSouthPolygon
 #' @usage data("USSouthPolygon")
 #' @format A data frame with coordinates of the vertices of the county polygons
 #' (\code{x}, \code{y}) and an artificial variable \code{z} constructed for
@@ -23,4 +22,4 @@
 #' plot(0, 0, type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n", bty = "n",
 #'   xlim = c(-88.5, -78.6), ylim = c(30.2, 35.2), asp = 1)
 #' polygon(USSouthPolygon, col = pal[cut(na.omit(USSouthPolygon$z), breaks = 0:n/n)])
-NULL
+"USSouthPolygon"
