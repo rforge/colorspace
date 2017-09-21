@@ -7,6 +7,11 @@ Changes in Version 1.4-0
   o New function simulate_cvd() for simulating color vision deficiencies
     with convenience interfaces deutan(), protan(), and tritan().
 
+  o New interactive shiny app hcl_color_picker() for exploring HCL colors,
+    and manually assembling individual colors or palettes. Douglas C. Wu
+    (@wckdouglas) provided the original implementation for the
+    color palette feature.
+
   o Added a new function max_chroma() that (approximately) computes
     the maximum chroma possible for a given hue and luminance
     combination in HCL space.
