@@ -92,6 +92,7 @@ hcl_palettes <- function(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
 }
 
 #' @rdname hcl_palettes
+#' @method print hcl_palettes
 #' @export
 print.hcl_palettes <- function(x, ...) {
   if(nrow(x) > 1L) {
@@ -113,6 +114,7 @@ print.hcl_palettes <- function(x, ...) {
 }
 
 #' @rdname hcl_palettes
+#' @method summary hcl_palettes
 #' @export
 summary.hcl_palettes <- function(object, ...) {
   type <- unique(as.character(object$type))
@@ -126,6 +128,7 @@ summary.hcl_palettes <- function(object, ...) {
 }
 
 #' @rdname hcl_palettes
+#' @method plot hcl_palettes
 #' @export
 plot.hcl_palettes <- function(x, n = 5L, fixup = TRUE, ...)
 {
