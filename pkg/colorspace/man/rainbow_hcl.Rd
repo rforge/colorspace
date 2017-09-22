@@ -2,7 +2,6 @@
 % Please edit documentation in R/palettes.R
 \name{rainbow_hcl}
 \alias{rainbow_hcl}
-\alias{qualitative_hcl}
 \alias{diverge_hcl}
 \alias{diverge_hsv}
 \alias{sequential_hcl}
@@ -12,9 +11,6 @@
 \usage{
 rainbow_hcl(n, c = 50, l = 70, start = 0, end = 360 * (n - 1)/n,
   gamma = NULL, fixup = TRUE, alpha = 1, ...)
-
-qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c. = 50, l = 70,
-  fixup = TRUE, alpha = 1, palette = NULL, ..., h1, h2)
 
 diverge_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
   gamma = NULL, fixup = TRUE, alpha = 1, ...)

@@ -145,49 +145,6 @@ rainbow_hcl <- function(n, c = 50, l = 70, start = 0, end = 360 * (n - 1)/n,
 
 #' @rdname rainbow_hcl
 #' @export
-qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c. = 50, l = 70,
-  fixup = TRUE, alpha = 1, palette = NULL, ..., h1, h2)
-{
-    ## if nothing is requested
-    if(n < 1L) return(character(0L))
-    
-    ## process HCL coordinates: (1) palette, (2) h/c/l, (3) h1/h2
-    if(is.character(h)) palette <- h
-    if(!is.null(palette)) {
-      palette <- gsub(" ", "", tolower(palette), fixed = TRUE)
-      pals <- qual.pals
-      names(pals) <- gsub(" ", "", tolower(names(pals)), fixed = TRUE)
-      pals <- pals[[match.arg(palette, names(pals))]]
-      names(pals) <- vars.pal
-    } else {
-      pals <- structure(c(h, c., NA, l, NA, NA, NA, NA), .Names = vars.pal)
-    }
-    
-    if(!missing(h) && !is.character(h)) {
-      h <- rep_len(h, 2L)
-      pals["h1"] <- h[1L]
-      pals["h2"] <- h[2L]
-    }
-    if(!missing(c.)) pals["c1"] <- c.
-    if(!missing(l)) pals["l1"] <- l
-    if(!missing(h1)) pals["h1"] <- h1
-    if(!missing(h2)) pals["h2"] <- h2
-    
-    rval <- hex(polarLUV(L = pals["l1"], C = pals["c1"], H = seq(pals["h1"], pals["h2"], length = n)),
-                fixup = fixup, ...)
-
-    if(!missing(alpha)) {
-        alpha <- pmax(pmin(alpha, 1), 0)
-	alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)),
-	                width = 2L, upper.case = TRUE)
-        rval <- paste(rval, alpha, sep = "")
-    }
-
-    return(rval)
-}
-
-#' @rdname rainbow_hcl
-#' @export
 diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
                         gamma = NULL, fixup = TRUE, alpha = 1, ...)
 {

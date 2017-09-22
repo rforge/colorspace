@@ -7,6 +7,15 @@ Changes in Version 1.4-0
   o New function simulate_cvd() for simulating color vision deficiencies
     with convenience interfaces deutan(), protan(), and tritan().
 
+  o New function hcl_palettes() to query pre-defined HCL-based palettes:
+    qualitative, sequential (single-hue), sequential (multi-hue),
+    diverging. The corresponding print(), plot(), and summary() methods
+    can help to explore the palettes.
+    
+  o New and more flexible qualitative_hcl() palette function. This is
+    similar to the old rainbow_hcl() but allows to used the pre-defined
+    palettes and change the parameters more easily.
+
   o New interactive shiny app hcl_color_picker() for exploring HCL colors,
     and manually assembling individual colors or palettes. Douglas C. Wu
     (@wckdouglas) provided the original implementation for the
