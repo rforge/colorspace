@@ -11,8 +11,7 @@
 #' @param h1	The hue at which the rainbow begins.
 #' @param h2 The hue at which the rainbow ends.
 #' @param alpha Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).
-#' @param palette The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options. If a valid palette name is 
-#'   provided then the values of the \code{c1}, \code{l1}, \code{h1}, and \code{h2} arguments are ignored.
+#' @param palette The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options.
 #' @param nmax Maximum number of different colors the palette should contain. If not provided, is calculated automatically
 #'  from the data.
 #' @param order Numeric vector listing the order in which the colors should be used. Default is \code{1:nmax}.
