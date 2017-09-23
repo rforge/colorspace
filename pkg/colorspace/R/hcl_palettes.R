@@ -28,36 +28,11 @@
 #' @export
 hcl_palettes <- function(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
 {
-  ## collect all palettes by group
-  qpals <- as.data.frame(do.call("rbind", qual.pals))
-  rownames(qpals) <- names(qual.pals)
-  qpals$type <- "Qualitative"
-
-  spals <- as.data.frame(do.call("rbind", seqs.pals))
-  rownames(spals) <- names(seqs.pals)
-  spals$type <- "Sequential (single-hue)"
-
-  mpals <- as.data.frame(do.call("rbind", seqm.pals))
-  rownames(mpals) <- names(seqm.pals)
-  mpals$type <- "Sequential (multi-hue)"
-
-  dpals <- as.data.frame(do.call("rbind", dive.pals))
-  rownames(dpals) <- names(dive.pals)
-  dpals$type <- "Diverging"
+  ## obtain copy of all palette definitions
+  pals <- hcl.pals
   
-  ## combine and rearrange
-  pals <- rbind(qpals, spals, mpals, dpals)
-  names(pals) <- c(vars.pal, "type")
-  pals$type <- factor(pals$type, levels = c("Qualitative",
-    "Sequential (single-hue)", "Sequential (multi-hue)", "Diverging"))
-  pals$fixup <- as.logical(pals$fixup)
-  pals <- pals[, c(10L, 1L:9L)]
-
   ## subset by type and name (by flexible matching)
-  fx <- function(n) {
-    for(char in c(" ", "-", ".", "(", ")", "_")) n <- gsub(char, "", n, fixed = TRUE)
-    tolower(n)
-  }
+  fx <- function(n) tolower(gsub("[-, _, \\,, (, ), \\ , \\.]", "", n))
   if(!is.null(type)) {
     tytab <- c("sequential", fx(levels(pals$type)))
     type <- lapply(type, function(ty) {
@@ -91,8 +66,8 @@ hcl_palettes <- function(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
   }
 }
 
+
 #' @rdname hcl_palettes
-#' @method print hcl_palettes
 #' @export
 print.hcl_palettes <- function(x, ...) {
   if(nrow(x) > 1L) {
@@ -114,7 +89,6 @@ print.hcl_palettes <- function(x, ...) {
 }
 
 #' @rdname hcl_palettes
-#' @method summary hcl_palettes
 #' @export
 summary.hcl_palettes <- function(object, ...) {
   type <- unique(as.character(object$type))
@@ -196,7 +170,7 @@ plot.hcl_palettes <- function(x, n = 5L, fixup = TRUE, ...)
 #' @rdname hcl_palettes
 #' @export
 qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c. = 50, l = 70,
-  fixup = TRUE, alpha = 1, palette = NULL, ..., h1, h2)
+  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1, h2, c1, l1)
 {
     ## if nothing is requested
     if(n < 1L) return(character(0L))
@@ -215,9 +189,12 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c. = 50, l = 70,
       pals["h2"] <- h[2L]
     }
     if(!missing(c.)) pals["c1"] <- c.
-    if(!missing(l)) pals["l1"] <- l
+    if(!missing(l))  pals["l1"] <- l
     if(!missing(h1)) pals["h1"] <- h1
     if(!missing(h2)) pals["h2"] <- h2
+    if(!missing(c1)) pals["c1"] <- c1
+    if(!missing(l1)) pals["l1"] <- l1
+    if(is.na(pals["h2"])) pals["h2"] <- pals["h1"] + 360 * (n - 1)/n
     
     rval <- hex(polarLUV(L = pals["l1"], C = pals["c1"], H = seq(pals["h1"], pals["h2"], length = n)),
                 fixup = fixup, ...)
@@ -229,6 +206,7 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c. = 50, l = 70,
         rval <- paste(rval, alpha, sep = "")
     }
 
+    if(rev) rval <- rev(rval)
     return(rval)
 }
 
@@ -292,6 +270,36 @@ base.pals[["topo.colors"]]    <- c(NA, NA, NA, NA, NA, NA, NA, NA, 1)    # Defau
 base.pals[["terrain.colors"]] <- c(NA, NA, NA, NA, NA, NA, NA, NA, 1)    # Default terrain colors
 base.pals[["cm.colors"]]      <- c(NA, NA, NA, NA, NA, NA, NA, NA, 1)    # Default cyan magenta colors
 base.pals[["bpy"]]            <- c(NA, NA, NA, NA, NA, NA, NA, NA, 1)    # Analogous to sp::bpy.colors
+
+## collect all hcl palettes
+make_hcl_pals <- function() {
+  ## collect all palettes by group
+  qpals <- as.data.frame(do.call("rbind", qual.pals))
+  rownames(qpals) <- names(qual.pals)
+  qpals$type <- "Qualitative"
+
+  spals <- as.data.frame(do.call("rbind", seqs.pals))
+  rownames(spals) <- names(seqs.pals)
+  spals$type <- "Sequential (single-hue)"
+
+  mpals <- as.data.frame(do.call("rbind", seqm.pals))
+  rownames(mpals) <- names(seqm.pals)
+  mpals$type <- "Sequential (multi-hue)"
+
+  dpals <- as.data.frame(do.call("rbind", dive.pals))
+  rownames(dpals) <- names(dive.pals)
+  dpals$type <- "Diverging"
+  
+  ## combine and rearrange
+  pals <- rbind(qpals, spals, mpals, dpals)
+  names(pals) <- c(vars.pal, "type")
+  pals$type <- factor(pals$type, levels = c("Qualitative",
+    "Sequential (single-hue)", "Sequential (multi-hue)", "Diverging"))
+  pals$fixup <- as.logical(pals$fixup)
+  pals <- pals[, c(10L, 1L:9L)]
+  return(pals)
+}
+hcl.pals <- make_hcl_pals()
 
 
 # -------------------------------------------------------------------
