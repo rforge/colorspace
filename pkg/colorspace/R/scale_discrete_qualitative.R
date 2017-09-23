@@ -17,7 +17,7 @@
 #'  from the data.
 #' @param order Numeric vector listing the order in which the colors should be used. Default is \code{1:nmax}.
 #' @param ... common discrete scale parameters: \code{name}, \code{breaks}, \code{labels}, \code{na.value}, \code{limits} and \code{guide}. See
-#'  \code{\link{discrete_scale}} for more details.
+#'  \code{\link[ggplot2]{discrete_scale}} for more details.
 #' @examples
 #' library(ggplot2)
 #' 
@@ -28,6 +28,7 @@
 #' # color scale "Harmonic"
 #' ggplot(iris, aes(Sepal.Length, fill = Species)) +
 #'   geom_density(alpha = 0.7) + scale_fill_discrete_qualitative(palette = "Harmonic")
+#' @importFrom stats na.omit
 #' @export
 scale_colour_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NULL, h1 = NULL, h2 = NULL,
                                    alpha = 1, rev = FALSE, nmax = NULL, order = NULL, ...)
@@ -77,7 +78,7 @@ scale_fill_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NULL
     if (is.null(order)) order <- 1:n
     
     if (n > nmax) {
-      warning("Insufficient values in scale_colour_discrete_qualitative. ", n, " needed but only ",
+      warning("Insufficient values in scale_fill_discrete_qualitative. ", n, " needed but only ",
               nmax, " provided.", call. = FALSE)
     }
     # set the remaining arguments and call qualitative_hcl
