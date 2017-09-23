@@ -6,29 +6,32 @@
 \alias{scale_fill_discrete_qualitative}
 \title{HCL-based discrete qualitative color scales for ggplot2}
 \usage{
-scale_colour_discrete_qualitative(palette = "Harmonic", c. = NULL,
-  l = NULL, h1 = NULL, h2 = NULL, alpha = 1, nmax = NULL,
+scale_colour_discrete_qualitative(palette = NULL, c1 = NULL, l1 = NULL,
+  h1 = NULL, h2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
   order = NULL, ...)
 
-scale_color_discrete_qualitative(palette = "Harmonic", c. = NULL,
-  l = NULL, h1 = NULL, h2 = NULL, alpha = 1, nmax = NULL,
+scale_color_discrete_qualitative(palette = NULL, c1 = NULL, l1 = NULL,
+  h1 = NULL, h2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
   order = NULL, ...)
 
-scale_fill_discrete_qualitative(palette = "Harmonic", c. = NULL, l = NULL,
-  h1 = NULL, h2 = NULL, alpha = 1, nmax = NULL, order = NULL, ...)
+scale_fill_discrete_qualitative(palette = NULL, c1 = NULL, l1 = NULL,
+  h1 = NULL, h2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
+  order = NULL, ...)
 }
 \arguments{
 \item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options.}
 
-\item{c.}{Chroma value in the HCL color description.}
+\item{c1}{Chroma value in the HCL color description.}
 
-\item{l}{Luminance value in the HCL color description.}
+\item{l1}{Luminance value in the HCL color description.}
 
 \item{h1}{The hue at which the rainbow begins.}
 
 \item{h2}{The hue at which the rainbow ends.}
 
 \item{alpha}{Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).}
+
+\item{rev}{If \code{TRUE}, reverses the order of the colors in the color scale.}
 
 \item{nmax}{Maximum number of different colors the palette should contain. If not provided, is calculated automatically
 from the data.}

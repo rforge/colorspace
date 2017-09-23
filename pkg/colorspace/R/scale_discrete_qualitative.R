@@ -6,11 +6,12 @@
 #' If both a valid palette name and palette parameters are provided then the provided palette parameters overwrite the parameters in the
 #' named palette. This enables easy customization of named palettes.
 #' 
-#' @param c. Chroma value in the HCL color description.
-#' @param l Luminance value in the HCL color description.
+#' @param c1 Chroma value in the HCL color description.
+#' @param l1 Luminance value in the HCL color description.
 #' @param h1	The hue at which the rainbow begins.
 #' @param h2 The hue at which the rainbow ends.
 #' @param alpha Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).
+#' @param rev If \code{TRUE}, reverses the order of the colors in the color scale.
 #' @param palette The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options.
 #' @param nmax Maximum number of different colors the palette should contain. If not provided, is calculated automatically
 #'  from the data.
@@ -28,10 +29,11 @@
 #' ggplot(iris, aes(Sepal.Length, fill = Species)) +
 #'   geom_density(alpha = 0.7) + scale_fill_discrete_qualitative(palette = "Harmonic")
 #' @export
-scale_colour_discrete_qualitative <- function(palette = "Harmonic", c. = NULL, l = NULL, h1 = NULL, h2 = NULL,
-                                   alpha = 1, nmax = NULL, order = NULL, ...)
+scale_colour_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NULL, h1 = NULL, h2 = NULL,
+                                   alpha = 1, rev = FALSE, nmax = NULL, order = NULL, ...)
 {
-  hcl_args <- c("c.", "l", "h1", "h2", "palette", alpha) # arguments we want to hand off to function qualitative_hcl
+  # arguments we want to hand off to function qualitative_hcl only if explicitly provided
+  hcl_args <- c("palette", "c1", "l1", "h1", "h2")
   
   # match hcl_args to args provided
   args <- as.list(match.call())
@@ -46,8 +48,8 @@ scale_colour_discrete_qualitative <- function(palette = "Harmonic", c. = NULL, l
       warning("Insufficient values in scale_colour_discrete_qualitative. ", n, " needed but only ",
               nmax, " provided.", call. = FALSE)
     }
-    # set the n argument and call qualitative_hcl
-    args <- c(args, list(n = nmax))
+    # set the remaining arguments and call qualitative_hcl
+    args <- c(args, list(n = nmax, alpha = alpha, rev = rev))
     do.call(qualitative_hcl, args)[order]
   }
   ggplot2::discrete_scale("colour", "manual", pal, ...)
@@ -59,10 +61,11 @@ scale_color_discrete_qualitative <- scale_colour_discrete_qualitative
 
 #' @rdname scale_colour_discrete_qualitative
 #' @export
-scale_fill_discrete_qualitative <- function(palette = "Harmonic", c. = NULL, l = NULL, h1 = NULL, h2 = NULL,
-                                            alpha = 1, nmax = NULL, order = NULL, ...)
+scale_fill_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NULL, h1 = NULL, h2 = NULL,
+                                            alpha = 1, rev = FALSE, nmax = NULL, order = NULL, ...)
 {
-  hcl_args <- c("c.", "l", "h1", "h2", "palette", alpha) # arguments we want to hand off to function qualitative_hcl
+  # arguments we want to hand off to function qualitative_hcl only if explicitly provided
+  hcl_args <- c("palette", "c1", "l1", "h1", "h2")
   
   # match hcl_args to args provided
   args <- as.list(match.call())
@@ -74,11 +77,11 @@ scale_fill_discrete_qualitative <- function(palette = "Harmonic", c. = NULL, l =
     if (is.null(order)) order <- 1:n
     
     if (n > nmax) {
-      warning("Insufficient values in scale_fill_discrete_qualitative. ", n, " needed but only ",
+      warning("Insufficient values in scale_colour_discrete_qualitative. ", n, " needed but only ",
               nmax, " provided.", call. = FALSE)
     }
-    # set the n argument and call qualitative_hcl
-    args <- c(args, list(n = nmax))
+    # set the remaining arguments and call qualitative_hcl
+    args <- c(args, list(n = nmax, alpha = alpha, rev = rev))
     do.call(qualitative_hcl, args)[order]
   }
   ggplot2::discrete_scale("fill", "manual", pal, ...)
