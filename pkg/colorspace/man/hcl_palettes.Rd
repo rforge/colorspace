@@ -17,7 +17,8 @@ hcl_palettes(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
 \method{plot}{hcl_palettes}(x, n = 5L, fixup = TRUE, ...)
 
 qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c. = 50, l = 70,
-  fixup = TRUE, alpha = 1, palette = NULL, ..., h1, h2)
+  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1, h2, c1,
+  l1)
 }
 \description{
 Qualitative, sequential (single-hue and multi-hue), and diverged

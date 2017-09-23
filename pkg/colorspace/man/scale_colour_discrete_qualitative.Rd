@@ -18,8 +18,7 @@ scale_fill_discrete_qualitative(palette = "Harmonic", c. = NULL, l = NULL,
   h1 = NULL, h2 = NULL, alpha = 1, nmax = NULL, order = NULL, ...)
 }
 \arguments{
-\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options. If a valid palette name is 
-provided then the values of the \code{c1}, \code{l1}, \code{h1}, and \code{h2} arguments are ignored.}
+\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options.}
 
 \item{c.}{Chroma value in the HCL color description.}
 
