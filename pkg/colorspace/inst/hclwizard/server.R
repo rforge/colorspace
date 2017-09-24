@@ -7,12 +7,11 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2016-11-16 10:04 on thinkreto
+# - L@ST MODIFIED: 2017-09-24 12:28 on thinkreto
 # -------------------------------------------------------------------
 
 library("shiny")
 library("colorspace")
-library("dichromat")
 
 #options( shiny.trace = TRUE )
 
@@ -171,7 +170,7 @@ shinyServer(function(input, output, session) {
          # Add desaturation or constraints
          if ( input$desaturate ) colors <- desaturate(colors)
          if ( any(tolower(input$constraint) %in% c("protan","deutan","tritan")) )
-            colors <- dichromat(colors,tolower(input$constraint))
+            colors <- do.call(tolower(input$constraint),list("col"=colors))
          # Reverse if required
          if ( input$reverse ) colors <- rev(colors)
          return(colors)
@@ -262,7 +261,9 @@ shinyServer(function(input, output, session) {
       # RAW
       # --------------------------
       # Generate RGB coordinates
-      RGB <- attr(hex2RGB(colors),"coords")
+      sRGB <- hex2RGB(colors)
+      RGB <- attr( sRGB, "coords" )
+      HCL <- round(attr( as( sRGB, "polarLUV" ), "coords" ))
 
       # Generate output string
       append <- function(x,new) c(x,new)
@@ -270,11 +271,11 @@ shinyServer(function(input, output, session) {
       # RGB 0-1
       raw1 <- append(raw1,"<div style=\"clear: both;\">")
       raw1 <- append(raw1,"<span class=\"output-raw\">")
-      raw1 <- append(raw1,"RGB values [0-1]")
-      for ( i in 1:nrow(RGB) )
+      raw1 <- append(raw1,"HCL values")
+      for ( i in 1:nrow(HCL) )
          raw1 <- append(raw1,ifelse(i %in% colors.na,
                         gsub(" ","&nbsp;",sprintf("<code>%5s %5s %5s</code>","NA","NA","NA")),
-                        sprintf("<code>%5.3f %5.3f %5.3f</code>",RGB[i,1],RGB[i,2],RGB[i,3])))
+                        gsub(" ","&nbsp;",sprintf("<code>%4d %4d %4d</code>",HCL[i,"H"],HCL[i,"C"],HCL[i,"L"]))))
       raw1 <- append(raw1,"</span>")
       # RGB 0-255
       raw2 <- append(raw2,"<span class=\"output-raw\">")

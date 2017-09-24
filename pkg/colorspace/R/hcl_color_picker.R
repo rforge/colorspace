@@ -6,6 +6,8 @@
 #' hue-chroma or luminance-chroma plane. It is also possible to select individual colors and add them
 #' to a palette for comparison and future reference. 
 #'
+#' @return \code{hcl_color_picker} invisibly returns a vector of colors choosen.
+#'    If no colors have been selected \code{NULL} will be returned.
 #' @examples
 #' \dontrun{
 #' hcl_color_picker()
@@ -34,6 +36,7 @@ color_picker_UI <- function() {
 }
 
 color_picker_sidebarPanel <- function() {
+
   # sidebar with controls to select the color
   shiny::sidebarPanel(
     shiny::sliderInput("H", "Hue",
@@ -53,7 +56,12 @@ color_picker_sidebarPanel <- function() {
     shiny::htmlOutput("colorbox"),
     shiny::actionButton("color_picker", "Pick"),
     shiny::actionButton("color_unpicker", "Unpick"),
-    shiny::actionButton("clear_color_picker", "Clear palette")
+    shiny::actionButton("clear_color_picker", "Clear palette"),
+    # Disable "Return to R" button if running on webserver
+    if ( Sys.getenv('SHINY_PORT') == "" ) {
+      shiny::actionButton("closeapp","Return to R")
+    }
+
   )
 }
 
@@ -161,7 +169,7 @@ color_picker_Server <- function() {
       hexcolor <- hex(polarLUV(as.numeric(input$L), as.numeric(input$C), as.numeric(input$H)))
 
       # only add color if it's not already in the list
-      if (! hexcolor %in% picked_color_list$cl) {
+      if ( ! is.na(hexcolor) && ! hexcolor %in% picked_color_list$cl) {
         picked_color_list$cl <- c(picked_color_list$cl, hexcolor)
       }
     })
@@ -244,6 +252,11 @@ color_picker_Server <- function() {
         'Color list: N/A'
       }
     })
+
+    # Return data to R-console
+    shiny::observeEvent(input$closeapp,
+        shiny::stopApp(invisible( picked_color_list$cl ))
+    );
   })
 }
 
