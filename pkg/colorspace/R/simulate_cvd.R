@@ -53,8 +53,8 @@
 #' 
 #' @importFrom grDevices col2rgb
 simulate_cvd <- function(col, cvd_transform) {
+  matrix_input <- is.matrix(col)
   # Adapted from desaturate
-
   # If all hex
   if (is.character(col) && (all(substr(col, 1L, 1L) == "#") &
                             all(nchar(col) %in% c(7L, 9L)))) {
@@ -64,7 +64,7 @@ simulate_cvd <- function(col, cvd_transform) {
     col <- grDevices::col2rgb(col)
   # Colors are a wide matrix with three columns containing
   # R, G, B (0-255). Rownames have to be set!
-  } else if ( is.matrix(col) ) {
+  } else if ( matrix_input ) { 
     stopifnot( all(toupper(rownames(col)) == c("R","G","B")) )
   # If contains built in color..,
   } else {
@@ -85,7 +85,7 @@ simulate_cvd <- function(col, cvd_transform) {
   RGB[RGB>255] <- 255
 
   # If input 'col' was RGB matrix: return RGB matrix with simulated colors
-  if ( is.matrix(col) ) return(round(RGB))
+  if ( matrix_input ) return(round(RGB))
 
   # Convert back to hex
   rgb2hex <- function(RGB) grDevices::rgb(RGB[1,], RGB[2,], RGB[3,], maxColorValue = 255)

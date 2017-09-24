@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2017-09-16, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2017-09-24 13:50 on thinkreto
+# - L@ST MODIFIED: 2017-09-24 15:30 on thinkreto
 # -------------------------------------------------------------------
 
 
@@ -40,40 +40,6 @@ resizeImage = function(im, w.out=600, h.out) {
    return(out)
 }
 
-#### The convert function used
-###convert <- function(img, type, target) {
-###
-###   # - Fast if bw
-###   if ( type == 'desaturate' ) {
-###      bw <- (img[,,1]*0.2126+img[,,2]*0.7152+img[,,3]*0.0722)
-###      writePNG(bw,target=target)
-###      return(TRUE)
-###   }
-###   # - Save original colors
-###   if ( type == 'original' ) {
-###      writePNG(img,target=target)
-###     return(TRUE)
-###   }
-###   # - Loading RGB values of the original image
-###   R <- as.vector(img[,,1])
-###   G <- as.vector(img[,,2])
-###   B <- as.vector(img[,,3])
-###   # - Convert to hex colors 
-###   hcols <- hex(sRGB(R=R,G=G,B=B))
-###   # - Convert to color blindness  
-###   hex <- do.call(type,list("col"=hcols))
-###   RGB <- hex2RGB(hex)
-### 
-###   RGB <- attr(RGB,'coords')
-###   img2 <- img
-###   img2[,,1] <- matrix( RGB[,'R'] ,dim(img)[1],dim(img)[2])
-###   img2[,,2] <- matrix( RGB[,'G'] ,dim(img)[1],dim(img)[2])
-###   img2[,,3] <- matrix( RGB[,'B'] ,dim(img)[1],dim(img)[2])
-### 
-###   # Save image to disc
-###   writePNG(img2,target=target)
-###   return(TRUE)
-###}
 
 # Function which converts the image and displays it in the shiny app
 show <- function(img,type,output) {
@@ -85,7 +51,7 @@ show <- function(img,type,output) {
       # Create temporary file name
       tmp <- tempfile(sprintf("hclconvert_%s",type),fileext=".png")
       # Convert image
-      convert_image(img, type, tmp)
+      colorspace:::convert_image(img, type, tmp)
       rm <- TRUE
    }
 
@@ -131,7 +97,7 @@ shinyServer(function(input, output, session) {
       ## Identify file type (postfix)
       file     <- input$file$datapath[1]
       filename <- input$file$name[1]
-      is_img   <- check_image_type( filename )
+      is_img   <- colorspace:::check_image_type( filename )
 
       # If is either png or jpeg: go ahead
       if ( is_img$png | is_img$jpg ) { 
@@ -161,7 +127,7 @@ shinyServer(function(input, output, session) {
 
          # Delete uploaded file
          file.remove( file )
-         rm(list=c("img","ispng","file","filename","postfix"))
+         rm(list=c("img","is_img","file","filename"))
          output$status <- renderText({"Image successfully converted."})
 
          return(TRUE)

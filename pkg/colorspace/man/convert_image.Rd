@@ -7,15 +7,15 @@
 convert_image(img, type, target)
 }
 \arguments{
-\item{img.}{\code{array} as returned by \code{readPNG} and \code{readJPEG}
+\item{img}{\code{array} as returned by \code{readPNG} and \code{readJPEG}
 of size \code{height x width x depth}. The depth coordinate contains
 R/G/B and alpha if given (png).}
 
-\item{type.}{\code{string} name of the function which will be used to
+\item{type}{\code{string} name of the function which will be used to
 convert the colors (\code{deutan}, \code{protan}, \code{tritan}, \code{desaturate}).
 If set to \code{original} the image will be written as is.}
 
-\item{target.}{\code{string} with (full) path to resulting image. Has to
+\item{target}{\code{string} with (full) path to resulting image. Has to
 be a png image name!}
 }
 \description{

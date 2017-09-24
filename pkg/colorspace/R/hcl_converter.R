@@ -6,8 +6,13 @@
 #' Allows a rapid check whether the colors used in the image show some
 #' constraints with respect to color deficiency or color blindness.
 #'
-#' @param shiny.trace, \code{logical}. Can be set to \code{TRUE} for more verbose
-#'    output (development). 
+#' @param x If not set an interactive GUI will be started. If \code{x} is of type
+#'    \code{character} it has to be the full path to an image of type png or jpg/jpeg.
+#'    The image will be converted and stored on disc, no GUI.
+#' @param overwrite \code{logical}. Only used if \code{x} is provided. Allow the
+#'    function to overwrite files on disc if they exist.
+#' @param shiny.trace \code{logical}. Can be set to \code{TRUE} for more verbose
+#'    output when the GUI is started (development flag). 
 #' @rdname hcl_converter
 #' @export
 hcl_converter <- function( x, overwrite = FALSE, shiny.trace = FALSE) {
@@ -76,13 +81,13 @@ check_image_type <- function( x ) {
 #' the colors using deutan/protan/tritan/desaturate functions. Image
 #' will be written to disc as a png image.
 #'
-#' @param img. \code{array} as returned by \code{readPNG} and \code{readJPEG}
+#' @param img \code{array} as returned by \code{readPNG} and \code{readJPEG}
 #'    of size \code{height x width x depth}. The depth coordinate contains
 #'    R/G/B and alpha if given (png).
-#' @param type. \code{string} name of the function which will be used to
+#' @param type \code{string} name of the function which will be used to
 #'    convert the colors (\code{deutan}, \code{protan}, \code{tritan}, \code{desaturate}).
 #'    If set to \code{original} the image will be written as is.
-#' @param target. \code{string} with (full) path to resulting image. Has to
+#' @param target \code{string} with (full) path to resulting image. Has to
 #'    be a png image name!
 convert_image <- function(img, type, target) {
 
@@ -94,9 +99,7 @@ convert_image <- function(img, type, target) {
    # Picking data
    RGB       <- matrix(as.numeric(img[,,1:3])*255,nrow=3,byrow=TRUE,
                        dimnames=list(c("R","G","B"),NULL))
-print(type)
    RGB       <- do.call(type,list("col"=RGB))
-print(RGB[,1:10])
    img[,,1]  <- matrix( RGB["R",]/255, dim(img)[1], dim(img)[2])
    img[,,2]  <- matrix( RGB["G",]/255, dim(img)[1], dim(img)[2])
    img[,,3]  <- matrix( RGB["B",]/255, dim(img)[1], dim(img)[2])

@@ -62,10 +62,9 @@ Optionally, active palette can be illustrated by using a range of examples
 such as a map, heatmap, scatter plot, perspective 3D surface etc.
 
 To demonstrate different types of deficiencies, the active palette may be
-desaturated (emulating printing on a grayscale printer) and, if the
-\code{\link[dichromat]{dichromat}} package is available, collapsed to
+desaturated (emulating printing on a grayscale printer) and collapsed to
 emulate different types of color-blindness (without red-green or green-blue
-contrasts).
+contrasts) using the \code{\link{simulate_cvd}} functions.
 }
 \examples{
 if(interactive()) {
@@ -96,7 +95,7 @@ Visualizations.  \emph{Bulletin of the American Meteorological Society},
 \doi{10.1175/BAMS-D-13-00155.1}
 }
 \seealso{
-\code{\link{rainbow_hcl}}
+\code{\link{simulate_cvd}}, \code{\link{desaturate}}, \code{\link{rainbow_hcl}}.
 }
 \author{
 Jason C. Fisher, Reto Stauffer, Achim Zeileis

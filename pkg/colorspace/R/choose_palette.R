@@ -27,10 +27,9 @@
 #' such as a map, heatmap, scatter plot, perspective 3D surface etc.
 #' 
 #' To demonstrate different types of deficiencies, the active palette may be
-#' desaturated (emulating printing on a grayscale printer) and, if the
-#' \code{\link[dichromat]{dichromat}} package is available, collapsed to
+#' desaturated (emulating printing on a grayscale printer) and collapsed to
 #' emulate different types of color-blindness (without red-green or green-blue
-#' contrasts).
+#' contrasts) using the \code{\link{simulate_cvd}} functions.
 #' 
 #' @param pal function; the initial palette, see \sQuote{Value} below.  Only
 #' used if \code{gui = "tcltk"}.
@@ -46,7 +45,7 @@
 #' corresponding number of HCL colors by traversing HCL space through
 #' interpolation of the specified hue/chroma/luminance/power values.
 #' @author Jason C. Fisher, Reto Stauffer, Achim Zeileis
-#' @seealso \code{\link{rainbow_hcl}}
+#' @seealso \code{\link{simulate_cvd}}, \code{\link{desaturate}}, \code{\link{rainbow_hcl}}.
 #' @references Zeileis A, Hornik K, Murrell P (2009).  Escaping RGBland:
 #' Selecting Colors for Statistical Graphics.  \emph{Computational Statistics &
 #' Data Analysis}, \bold{53}, 3259--3270.
@@ -242,9 +241,9 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
     DrawPalette(v == "n")
   }
 
-  # Reto, Nov. 2016: helper function to create the hex palettes.
+  # Helper function to create the hex palettes.
   # Generates "n" colors from palette "pal" and manipulates them
-  # if desaturation or dichromat options are required.
+  # if desaturation or CVD simulation is required. 
   get_hex_colors <- function(pal,n) {
     pal.cols <- pal(n)
     pal.cols[is.na(pal.cols)] <- "#FFFFFF"
@@ -252,7 +251,7 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
       pal.cols <- desaturate(pal.cols)
     if (as.logical(as.integer(tcltk::tclvalue(colorblind.var)))) {
       type <- as.character(tcltk::tclvalue(colorblind.type.var))
-      pal.cols <- dichromat::dichromat(pal.cols, type=type)
+      pal.cols <- do.call(type,list("col"=pal.cols))
     }
     pal.cols
   }
@@ -524,13 +523,13 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
   p2.scl.var <- tcltk::tclVar()
   p2.ent.var <- tcltk::tclVar()
   
-  fixup.var <- tcltk::tclVar(fixup)
-  reverse.var <- tcltk::tclVar(FALSE)
-  desaturation.var <- tcltk::tclVar(FALSE)
-  colorblind.var <- tcltk::tclVar(FALSE)
+  fixup.var           <- tcltk::tclVar(fixup)
+  reverse.var         <- tcltk::tclVar(FALSE)
+  desaturation.var    <- tcltk::tclVar(FALSE)
+  colorblind.var      <- tcltk::tclVar(FALSE)
   colorblind.type.var <- tcltk::tclVar("deutan")
 
-  tt.done.var <- tcltk::tclVar(0)
+  tt.done.var         <- tcltk::tclVar(0)
 
   # Open GUI
   tcltk::tclServiceMode(FALSE)
@@ -756,36 +755,25 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
                                  variable=desaturation.var,
                                  command=function() DrawPalette(is.n=TRUE))
 
-  is.pkg <- requireNamespace("dichromat", quietly=FALSE)
-  if (is.pkg) {
-    frame7.chk.2 <- tcltk::ttkcheckbutton(frame7, text="Color blindness:",
-                                   variable=colorblind.var,
-                                   command=function() DrawPalette(is.n=TRUE))
-    frame7.rb.3 <- tcltk::ttkradiobutton(frame7, variable=colorblind.type.var,
-                                  value="deutan", text="deutan",
-                                  command=function() DrawPalette(is.n=TRUE))
-    frame7.rb.4 <- tcltk::ttkradiobutton(frame7, variable=colorblind.type.var,
-                                  value="protan", text="protan",
-                                  command=function() DrawPalette(is.n=TRUE))
-    frame7.rb.5 <- tcltk::ttkradiobutton(frame7, variable=colorblind.type.var,
-                                  value="tritan", text="tritan",
-                                  command=function() DrawPalette(is.n=TRUE))
-    ## tritan support in dichromat starting from > 1.2-4
-    if(utils::compareVersion(getNamespaceVersion("dichromat"), "1.2-4") > 0) {
-      tcltk::tkgrid(frame7.chk.1, frame7.chk.2, frame7.rb.3, frame7.rb.4, frame7.rb.5, "x",
-           pady=c(2, 0), sticky="w")    
-    } else {
-      tcltk::tkgrid(frame7.chk.1, frame7.chk.2, frame7.rb.3, frame7.rb.4, "x",
-           pady=c(2, 0), sticky="w")
-    }
-    tcltk::tkgrid.configure(frame7.chk.2, padx=c(7, 0))
-    tcltk::tkgrid.configure(frame7.cvs, columnspan=5)
-    tcltk::tkgrid.columnconfigure(frame7, 4, weight=1)
-  } else {
-    tcltk::tkgrid(frame7.chk.1, "x", pady=c(2, 0), sticky="w")
-    tcltk::tkgrid.configure(frame7.cvs, columnspan=2)
-    tcltk::tkgrid.columnconfigure(frame7, 1, weight=1)
-  }
+
+  frame7.chk.2 <- tcltk::ttkcheckbutton(frame7, text="Color blindness:",
+                                 variable=colorblind.var,
+                                 command=function() DrawPalette(is.n=TRUE))
+  frame7.rb.3 <- tcltk::ttkradiobutton(frame7, variable=colorblind.type.var,
+                                value="deutan", text="deutan",
+                                command=function() DrawPalette(is.n=TRUE))
+  frame7.rb.4 <- tcltk::ttkradiobutton(frame7, variable=colorblind.type.var,
+                                value="protan", text="protan",
+                                command=function() DrawPalette(is.n=TRUE))
+  frame7.rb.5 <- tcltk::ttkradiobutton(frame7, variable=colorblind.type.var,
+                                value="tritan", text="tritan",
+                                command=function() DrawPalette(is.n=TRUE))
+
+  tcltk::tkgrid(frame7.chk.1, frame7.chk.2, frame7.rb.3, frame7.rb.4, frame7.rb.5, "x",
+                pady=c(2, 0), sticky="w")    
+  tcltk::tkgrid.configure(frame7.chk.2, padx=c(7, 0))
+  tcltk::tkgrid.configure(frame7.cvs, columnspan=5)
+  tcltk::tkgrid.columnconfigure(frame7, 4, weight=1)
   tcltk::tkgrid.configure(frame7.chk.1, padx=c(10, 0))
   tcltk::tkpack(frame7, fill="x")
   
