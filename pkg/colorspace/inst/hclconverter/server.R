@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2017-09-16, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2017-09-24 12:47 on thinkreto
+# - L@ST MODIFIED: 2017-09-24 13:50 on thinkreto
 # -------------------------------------------------------------------
 
 
@@ -40,40 +40,40 @@ resizeImage = function(im, w.out=600, h.out) {
    return(out)
 }
 
-# The convert function used
-convert <- function(img, type, target) {
-
-   # - Fast if bw
-   if ( type == 'desaturate' ) {
-      bw <- (img[,,1]*0.2126+img[,,2]*0.7152+img[,,3]*0.0722)
-      writePNG(bw,target=target)
-      return(TRUE)
-   }
-   # - Save original colors
-   if ( type == 'original' ) {
-      writePNG(img,target=target)
-     return(TRUE)
-   }
-   # - Loading RGB values of the original image
-   R <- as.vector(img[,,1])
-   G <- as.vector(img[,,2])
-   B <- as.vector(img[,,3])
-   # - Convert to hex colors 
-   hcols <- hex(sRGB(R=R,G=G,B=B))
-   # - Convert to color blindness  
-   hex <- do.call(type,list("col"=hcols))
-   RGB <- hex2RGB(hex)
- 
-   RGB <- attr(RGB,'coords')
-   img2 <- img
-   img2[,,1] <- matrix( RGB[,'R'] ,dim(img)[1],dim(img)[2])
-   img2[,,2] <- matrix( RGB[,'G'] ,dim(img)[1],dim(img)[2])
-   img2[,,3] <- matrix( RGB[,'B'] ,dim(img)[1],dim(img)[2])
- 
-   # Save image to disc
-   writePNG(img2,target=target)
-   return(TRUE)
-}
+#### The convert function used
+###convert <- function(img, type, target) {
+###
+###   # - Fast if bw
+###   if ( type == 'desaturate' ) {
+###      bw <- (img[,,1]*0.2126+img[,,2]*0.7152+img[,,3]*0.0722)
+###      writePNG(bw,target=target)
+###      return(TRUE)
+###   }
+###   # - Save original colors
+###   if ( type == 'original' ) {
+###      writePNG(img,target=target)
+###     return(TRUE)
+###   }
+###   # - Loading RGB values of the original image
+###   R <- as.vector(img[,,1])
+###   G <- as.vector(img[,,2])
+###   B <- as.vector(img[,,3])
+###   # - Convert to hex colors 
+###   hcols <- hex(sRGB(R=R,G=G,B=B))
+###   # - Convert to color blindness  
+###   hex <- do.call(type,list("col"=hcols))
+###   RGB <- hex2RGB(hex)
+### 
+###   RGB <- attr(RGB,'coords')
+###   img2 <- img
+###   img2[,,1] <- matrix( RGB[,'R'] ,dim(img)[1],dim(img)[2])
+###   img2[,,2] <- matrix( RGB[,'G'] ,dim(img)[1],dim(img)[2])
+###   img2[,,3] <- matrix( RGB[,'B'] ,dim(img)[1],dim(img)[2])
+### 
+###   # Save image to disc
+###   writePNG(img2,target=target)
+###   return(TRUE)
+###}
 
 # Function which converts the image and displays it in the shiny app
 show <- function(img,type,output) {
@@ -85,7 +85,7 @@ show <- function(img,type,output) {
       # Create temporary file name
       tmp <- tempfile(sprintf("hclconvert_%s",type),fileext=".png")
       # Convert image
-      convert(img, type, tmp)
+      convert_image(img, type, tmp)
       rm <- TRUE
    }
 
@@ -99,6 +99,7 @@ show <- function(img,type,output) {
    if ( rm ) file.remove(tmp)
 }
 
+# Show images when loading the app (included in www/images)
 showInit <- function( type, output ) {
    output[[sprintf("image%s",type)]] <- renderUI({img(src=sprintf("images/rainbow_%s.png",type))})
 }
@@ -130,19 +131,11 @@ shinyServer(function(input, output, session) {
       ## Identify file type (postfix)
       file     <- input$file$datapath[1]
       filename <- input$file$name[1]
-      postfix  <- tolower(tail(strsplit(basename(filename),"\\.")[[1]],1))
-      #showNotification( sprintf("%s: %s",postfix,file) )
+      is_img   <- check_image_type( filename )
 
-      ispng <- NULL
-      if ( postfix == "png" ) {
-         ispng <- TRUE
-      } else if ( postfix %in% c("jpeg","jpg") ) {
-         ispng <- FALSE
-      }
-      
       # If is either png or jpeg: go ahead
-      if ( is.logical(ispng) ) {
-         if ( ispng ) {
+      if ( is_img$png | is_img$jpg ) { 
+         if ( is_img$png ) {
             img <- try( readPNG( file ) )
          } else {
             img <- try( readJPEG( file ) )

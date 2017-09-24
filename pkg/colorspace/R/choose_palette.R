@@ -90,6 +90,11 @@ hclwizard <- function(n = 7L, gui = "shiny", shiny.trace = FALSE) {
    do.call(sprintf("choose_palette_%s", gui), args)
 }
 
+#' @rdname choose_palette
+#' @export
+hcl_wizard <- function(n = 7L, gui = "shiny", shiny.trace = FALSE)
+   hclwizard(n=n,gui=gui,shiny.trace=FALSE)
+
 # hclwizard shiny GUI for selecting color palette
 choose_palette_shiny <- function(pal, shiny.trace = FALSE, n = 7L, ...) {
    # Requirements for shiny application

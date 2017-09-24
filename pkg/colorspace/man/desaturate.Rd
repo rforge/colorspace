@@ -11,25 +11,36 @@ desaturate(col, amount = 1)
 name (an element of \code{\link[grDevices]{colors}}), a hexadecimal string
 of the form \code{"#rrggbb"} or \code{"#rrggbbaa"} (see
 \code{\link[grDevices]{rgb}}), or an integer \code{i} meaning
-\code{palette()[i]}.}
+\code{palette()[i]}. Input \code{col} can also be a matrix with three
+rows containing R/G/B (0-255) values, see details.}
 
 \item{amount}{numeric specifying the amount of desaturation where \code{1}
 corresponds to complete desaturation, \code{0} to no desaturation, and
 values in between to partial desaturation.}
 }
 \value{
-A character vector with (s)RGB codings of the colors in the palette.
+A character vector with (s)RGB codings of the colors in the palette
+if input \code{col} is a vector. If input \code{col} is a matrix with R/G/B
+values a matrix of the same form and size will be returned.
 }
 \description{
 Transform a vector of given colors to the corresponding colors with chroma
 removed (collapsed to zero) in HCL space.
 }
 \details{
-Given colors are first transformed to RGB (either using
-\code{\link[colorspace]{hex2RGB}} or \code{\link[grDevices]{col2rgb}}) and
-then to HCL (\code{\link[colorspace]{polarLUV}}).  In HCL, chroma is removed
-(i.e., collapsed to zero) and then the color is transformed back to a
-hexadecimal string.
+If input \code{col} is a vector given colors are first transformed to RGB
+(either using \code{\link[colorspace]{hex2RGB}} or
+\code{\link[grDevices]{col2rgb}}) and then to HCL
+(\code{\link[colorspace]{polarLUV}}).  In HCL, chroma is removed (i.e.,
+collapsed to zero) and then the color is transformed back to a hexadecimal
+string.
+
+If input \code{col} is a matrix with three rows named \code{R}, \code{G}, and
+\code{B} (top down) they are interpreted as Red-Green-Blue values within the
+range \code{[0-255]}. The desaturation takes place in the HCL space as well.
+Instead of an (s)RGB color vector a matrix of the same size as the input
+\code{col} with desaturated Red-Green-Blue values will be returned.
+This can be handy to avoid too many conversions.
 }
 \examples{
 ## rainbow of colors and their desaturated counterparts
@@ -48,6 +59,10 @@ wheel(rainbow_hcl(12))
 wheel(rainbow(12))
 wheel(desaturate(rainbow_hcl(12)))
 wheel(desaturate(rainbow(12)))
+
+## apply desaturation directly on RGB values
+RGB <- t(hex2RGB(rainbow(3))@coords*255)
+desaturate(RGB)
 }
 \seealso{
 \code{\link[colorspace]{polarLUV}}, \code{\link[colorspace]{hex}}

@@ -3,11 +3,14 @@
 \name{choose_palette}
 \alias{choose_palette}
 \alias{hclwizard}
+\alias{hcl_wizard}
 \title{Graphical User Interface for Choosing HCL Color Palettes}
 \usage{
 choose_palette(pal = diverge_hcl, n = 7L, parent = NULL, gui = "tcltk")
 
 hclwizard(n = 7L, gui = "shiny", shiny.trace = FALSE)
+
+hcl_wizard(n = 7L, gui = "shiny", shiny.trace = FALSE)
 }
 \arguments{
 \item{pal}{function; the initial palette, see \sQuote{Value} below.  Only

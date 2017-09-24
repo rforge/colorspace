@@ -6,6 +6,10 @@
 \usage{
 hcl_color_picker()
 }
+\value{
+\code{hcl_color_picker} invisibly returns a vector of colors choosen.
+   If no colors have been selected \code{NULL} will be returned.
+}
 \description{
 The app visualizes colors either along the hue-chroma plane for a given luminance value or along the
 luminance-chroma plane for a given hue. Colors can be entered by specifying the hue (H), chroma (C),

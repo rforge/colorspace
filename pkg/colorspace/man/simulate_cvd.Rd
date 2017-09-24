@@ -19,7 +19,8 @@ tritan(col, severity = 1)
 interpolate_cvd_transform(cvd, severity = 1)
 }
 \arguments{
-\item{col}{character. A color or vector of colors, e.g., \code{"#FFA801"} or \code{"blue"}.}
+\item{col}{character. A color or vector of colors, e.g., \code{"#FFA801"} or \code{"blue"}.
+Input \code{col} can also be a matrix with three rows containing R/G/B (0-255) values, see details.}
 
 \item{cvd_transform}{numeric 3x3 matrix, specifying the color vision deficiency transform matrix.}
 
@@ -43,6 +44,12 @@ simulating the corresponding kind of colorblindness with a given severity.
 Internally, they all call \code{simulate_cvd} along with a (possibly interpolated)
 version of the matrices from \code{\link{cvd}}. Matrix interpolation can be carried out with
 the function \code{interpolate_cvd_transform} (see Examples).
+
+If input \code{col} is a matrix with three rows named \code{R}, \code{G}, and
+\code{B} (top down) they are interpreted as Red-Green-Blue values within the
+range \code{[0-255]}. Instead of an (s)RGB color vector a matrix of the same size as the
+input \code{col} with the corresponding simulated Red-Green-Blue values will be returned.
+This can be handy to avoid too many conversions.
 }
 \examples{
 # simulate color-vision deficiency by calling `simulate_cvd` with specified matrix
@@ -54,6 +61,10 @@ tritan(c("#005000", "blue", "#00BB00"), severity = 0.6)
 # simulate color-vision deficiency by calling `simulate_cvd` with interpolated cvd matrix
 simulate_cvd(c("#005000", "blue", "#00BB00"),
              interpolate_cvd_transform(tritanomaly_cvd, severity = 0.6))
+
+# apply CVD directly on RGB matrix
+RGB <- t(hex2RGB(rainbow(3))@coords*255)
+deutan(RGB)
 
 }
 \references{
