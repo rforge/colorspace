@@ -1,0 +1,32 @@
+
+
+## App Information
+
+### Terms and Conditions
+
+Why this app ..
+
+### Terms of Use
+
+It is mutually assumed and understood that uploading and converting images with
+this app is done at your own risk.  The creator/maintainer of the
+``colorspace`` package and/or the [hclwizard.org](http://hclwizard.org) website
+assume no responsibility for the content of the uploaded images and a possible
+misuse of the uploaded images.
+
+Uploaded images are stored in the computers temporary directory for the
+conversion process only and will be deleted immediately after the results are
+shown on the front-end.  Neither the uploaded image files or any of the results
+will be kept or stored longer than needed.  However, in case of a script or
+server fault or if the process is getting killed by the user, uploaded images
+and results might not be deleted as intended and therefore stored in the
+temporary folder of the corresponding server for a certain amount of time.
+
+
+```{r,fig=FALSE,echo=TRUE}
+library("colorspace")
+print( rnorm(3) )
+```
+
+
+

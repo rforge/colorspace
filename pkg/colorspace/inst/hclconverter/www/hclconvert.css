@@ -1,0 +1,34 @@
+
+
+img#descimage {
+   text-align: center;
+   width: 50%;
+   min-width: 200px;
+}
+
+div.outputgrid {
+   width: 25%;
+   margin: 0; padding: 0;
+   float: left;
+}
+div.outputgrid > div.shiny-html-output > img {
+   width: 100%;
+   border: 1px solid #CCCCCC;
+}
+div.outputgrid > div.shiny-html-output > img:hover {
+   border-color: black;
+}
+div.tab-pane[data-value="Images"] {
+   clear: both;
+}
+div.tab-pane[data-value="Images"] h3 {
+   margin: 0; padding: 1em 0 .25em .25em;
+   font-size: 1em;
+}
+
+@media screen and (max-width: 800px) {
+   div.outputgrid {
+      float: none;
+      width: 100%;
+   }
+}
