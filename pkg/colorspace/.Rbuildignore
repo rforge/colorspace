@@ -1,6 +1,6 @@
 R/hclplot.R
 paper
-data/USSouthPolygon.R$
-data/max_chroma_table.R$
+data/USSouthPolygon_script.R$
+data/max_chroma_table_script.R$
 ^.*\.Rproj$
 ^\.Rproj\.user$
