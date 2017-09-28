@@ -140,7 +140,7 @@ rainbow_hcl <- function(n, c = 50, l = 70, start = 0, end = 360 * (n - 1)/n,
     if (!is.null(gamma))
         warning("'gamma' is deprecated and has no effect")
     if(n < 1L) return(character(0L))
-    qualitative_hcl(n, h = c(start, end), c = c, l = l, fixup = fixup, alpha = alpha, ...)
+    substr(qualitative_hcl(n, h = c(start, end), c = c, l = l, fixup = fixup, alpha = alpha, ...),0,7)
 }
 
 #' @rdname rainbow_hcl
