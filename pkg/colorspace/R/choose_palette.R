@@ -840,6 +840,7 @@ GetPalette <- function(type, h1, h2, c1, c2, l1, l2, p1, p2, fixup) {
       formals(f) <- eval(substitute(alist(n=, c=d1, l=d2, start=d3, end=d4,
                                           fixup=d5, gamma=NULL, alpha=1, ...=),
                                     list(d1=c1, d2=l1, d3=h1, d4=h2, d5=fixup)))
+print(f)
    } else if (type %in% c("seqs","Sequential (single hue)")) {
       f <- sequential_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c.=d2, l=d3, power=d4,
