@@ -3,13 +3,19 @@ Version: 1.4-0
 Date: 2017-09-20
 Title: Color Space Manipulation
 Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "ihaka@stat.auckland.ac.nz"),
-             person(given = "Paul", family = "Murrell", role = "aut", email = "paul@stat.auckland.ac.nz"),
+             person(given = "Paul", family = "Murrell", role = "aut", email = "paul@stat.auckland.ac.nz",
+                    comment = c(ORCID = "0000-0002-3224-8858")),
              person(given = "Kurt", family = "Hornik", role = "aut", email = "Kurt.Hornik@R-project.org"),
-             person(given = c("Jason", "C."), family = "Fisher", role = "aut", email = "jfisher@usgs.gov"),
-             person(given = "Reto", family = "Stauffer", role = "aut", email = "Reto.Stauffer@uibk.ac.at"),
-             person(given = c("Claus", "O."), family = "Wilke", role = "aut", email = "wilke@austin.utexas.edu"),
-             person(given = c("Claire", "D."), family = "McWhite", role = "aut", email = "claire.d.mcwhite@gmail.com"),
-             person(given = "Achim", family = "Zeileis", role = c("aut", "cre"), email = "Achim.Zeileis@R-project.org"))
+             person(given = c("Jason", "C."), family = "Fisher", role = "aut", email = "jfisher@usgs.gov",
+                    comment = c(ORCID = "0000-0001-9032-8912")),
+             person(given = "Reto", family = "Stauffer", role = "aut", email = "Reto.Stauffer@uibk.ac.at",
+                    comment = c(ORCID = "0000-0002-3798-5507")),
+             person(given = c("Claus", "O."), family = "Wilke", role = "aut", email = "wilke@austin.utexas.edu",
+                    comment = c(ORCID = "0000-0002-7470-9261")),
+             person(given = c("Claire", "D."), family = "McWhite", role = "aut", email = "claire.d.mcwhite@gmail.com",
+                    comment = c(ORCID = "0000-0001-7346-3047")),
+             person(given = "Achim", family = "Zeileis", role = c("aut", "cre"), email = "Achim.Zeileis@R-project.org",
+                    comment = c(ORCID = "0000-0003-0918-3766")))
 Description: Carries out mapping between assorted color spaces including
              RGB, HSV, HLS, CIEXYZ, CIELUV, HCL (polar CIELUV),
 	     CIELAB and polar CIELAB. Qualitative, sequential, and
