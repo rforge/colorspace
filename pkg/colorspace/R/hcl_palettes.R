@@ -282,6 +282,8 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     if(!missing(p1)) pals["p1"] <- p1
     if(!missing(p2)) pals["p2"] <- p2
     if(is.na(pals["h2"])) pals["h2"] <- pals["h1"]
+    if(is.na(pals["c2"])) pals["c2"] <- 0
+    if(is.na(pals["p2"])) pals["p2"] <- pals["p1"]
 
     ## HCL trajectory
     rval <- seq(1, 0, length = n)
@@ -343,6 +345,7 @@ diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     if(!missing(l2)) pals["l2"] <- l2
     if(!missing(p1)) pals["p1"] <- p1
     if(!missing(p2)) pals["p2"] <- p2
+    if(is.na(pals["p2"])) pals["p2"] <- pals["p1"]
 
     ## HCL trajectory
     rval <- seq(1, -1, length = n)
