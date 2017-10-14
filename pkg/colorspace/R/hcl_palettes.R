@@ -5,6 +5,24 @@
 #' 
 #' Details are still tbd...
 #' 
+#' @param n the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.
+#' @param h,h1,h2 hue value in the HCL color description, has to be in [0, 360].
+#' @param c,c.,c1,c2 chroma value in the HCL color description.
+#' @param l,l1,l2 luminance value in the HCL color description.
+#' @param power,p1,p2 control parameter determining how chroma and luminance should
+#' be increased (1 = linear, 2 = quadratic, etc.).
+#' @param gamma Deprecated.
+#' @param fixup logical. Should the color be corrected to a valid RGB value
+#' before correction?
+#' @param alpha numeric vector of values in the range \code{[0, 1]} for alpha
+#' transparency channel (0 means transparent and 1 means opaque).
+#' @param name,palette character. Name of HCL color palette.
+#' @param rev logical. Should the color palette vector be returned in reverse order?
+#' @param \dots Other arguments passed to \code{\link{hex}}.
+#' @param type character indicating type of HCL palette.
+#' @param plot logical. Should the selected HCL color palettes be visualized?
+#' @param x,object A \code{hcl_palettes} object.
+#'
 #' @keywords color
 #' @examples
 #' ## overview of all _named_ HCL palettes
@@ -28,23 +46,22 @@
 #' @export
 hcl_palettes <- function(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
 {
-  ## obtain copy of all palette definitions
-  pals <- hcl.pals
-  
   ## subset by type and name (by flexible matching)
   fx <- function(n) tolower(gsub("[-, _, \\,, (, ), \\ , \\.]", "", n))
   if(!is.null(type)) {
-    tytab <- c("sequential", fx(levels(pals$type)))
+    tytab <- c("sequential", fx(levels(hcl.pals$type)))
     type <- lapply(type, function(ty) {
       ty <- startsWith(tytab, fx(ty))
-      if(all(!ty)) stop("Palette 'type' should be one of: ", paste(levels(pals$type), collapse = ", "))
+      if(all(!ty)) stop("Palette 'type' should be one of: ", paste(levels(hcl.pals$type), collapse = ", "))
       ty <- tytab[which(ty)[1L]]
       if(ty == "sequential") ty <- c("sequentialsinglehue", "sequentialmultihue")
       return(ty)
     })
     type <- unlist(type)
-    type <- levels(pals$type)[tytab[-1L] %in% type]
-    pals <- pals[as.character(pals$type) %in% type, , drop = FALSE]
+    type <- levels(hcl.pals$type)[tytab[-1L] %in% type]
+    pals <- hcl.pals[as.character(hcl.pals$type) %in% type, , drop = FALSE]
+  } else {
+    pals <- hcl.pals
   }
   if(!is.null(name)) {
     namtab <- fx(rownames(pals))
@@ -111,28 +128,28 @@ plot.hcl_palettes <- function(x, n = 5L, fixup = TRUE, ...)
   xx <- as.matrix(x[, 2L:9L])
   
   qcol <- sapply(which(x$type == typ[1L]), function(i) {
-    qualitative_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c = xx[i, "c1"], l = xx[i, "l1"], fixup = fixup)
+    qualitative_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c1 = xx[i, "c1"], l1 = xx[i, "l1"], fixup = fixup)
   })
   qcol <- if(length(qcol) < 1L) NULL else matrix(as.vector(rbind("transparent", t(qcol))), ncol = n,
     dimnames = list(c(typ[1L], rownames(x)[x$type == typ[1L]]), paste("Color", 1L:n)))
 
   scol <- sapply(which(x$type == typ[2L]), function(i) {
-    sequential_hcl(n = n, h = xx[i, "h1"], c. = xx[i, c("c1", "c2")], l = xx[i, c("l1", "l2")],
-      power = na.omit(xx[i, c("p1", "p2")]), fixup = fixup)
+    sequential_hcl(n = n, h1 = xx[i, "h1"], c1 = xx[i, "c1"], c2 = xx[i, "c2"], l1 = xx[i, "l1"], l2 = xx[i, "l2"],
+      p1 = xx[i, "p1"], p2 = xx[i, "p2"], fixup = fixup)
   })
   scol <- if(length(scol) < 1L) NULL else matrix(as.vector(rbind("transparent", t(scol))), ncol = n,
     dimnames = list(c(typ[2L], rownames(x)[x$type == typ[2L]]), paste("Color", 1L:n)))
 
   mcol <- sapply(which(x$type == typ[3L]), function(i) {
-    heat_hcl(n = n, h = xx[i, c("h1", "h2")], c. = xx[i, c("c1", "c2")], l = xx[i, c("l1", "l2")],
-      power = na.omit(xx[i, c("p1", "p2")]), fixup = fixup)
+    sequential_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c1 = xx[i, "c1"], c2 = xx[i, "c2"], l1 = xx[i, "l1"], l2 = xx[i, "l2"],
+      p1 = xx[i, "p1"], p2 = xx[i, "p2"], fixup = fixup)
   })
   mcol <- if(length(mcol) < 1L) NULL else matrix(as.vector(rbind("transparent", t(mcol))), ncol = n,
     dimnames = list(c(typ[3L], rownames(x)[x$type == typ[3L]]), paste("Color", 1L:n)))
 
   dcol <- sapply(which(x$type == typ[4L]), function(i) {
-    diverge_hcl(n = n, h = xx[i, c("h1", "h2")], c = xx[i, c("c1", "c2")], l = xx[i, c("l1", "l2")],
-      power = na.omit(xx[i, c("p1", "p2")]), fixup = fixup)
+    diverge_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c1 = xx[i, "c1"], l1 = xx[i, "l1"], l2 = xx[i, "l2"],
+      p1 = xx[i, "p1"], p2 = xx[i, "p2"], fixup = fixup)
   })
   dcol <- if(length(dcol) < 1L) NULL else matrix(as.vector(rbind("transparent", t(dcol))), ncol = n,
     dimnames = list(c(typ[4L], rownames(x)[x$type == typ[4L]]), paste("Color", 1L:n)))
@@ -169,43 +186,180 @@ plot.hcl_palettes <- function(x, n = 5L, fixup = TRUE, ...)
 
 #' @rdname hcl_palettes
 #' @export
-qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c. = 50, l = 70,
+qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 50, l = 70,
   fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1, h2, c1, l1)
 {
-    ## if nothing is requested
+    ## edge cases
     if(n < 1L) return(character(0L))
     
-    ## process HCL coordinates: (1) palette, (2) h/c/l, (3) h1/h2
+    ## process HCL coordinates: (1) palette, (2) h/c/l, (3) h1/h2/...
+    ## (1) palette
     if(is.character(h)) palette <- h
     pals <- if(!is.null(palette)) {
-      as.matrix(hcl_palettes(name = palette)[, 2L:9L])[1L, ]
+        as.matrix(hcl_palettes(name = palette)[, 2L:9L])[1L, ]
     } else {
-      pals <- structure(c(h, c., NA, l, NA, NA, NA, NA), .Names = vars.pal)
+        pals <- structure(c(h, c, NA, l, NA, NA, NA, 1), .Names = vars.pal)
     }
-    
+    ## (2) h/c/l
     if(!missing(h) && !is.character(h)) {
-      h <- rep_len(h, 2L)
-      pals["h1"] <- h[1L]
-      pals["h2"] <- h[2L]
+        h <- rep_len(h, 2L)
+        pals["h1"] <- h[1L]
+        pals["h2"] <- h[2L]
     }
-    if(!missing(c.)) pals["c1"] <- c.
+    if(!missing(c)) pals["c1"] <- c
     if(!missing(l))  pals["l1"] <- l
+    if(!missing(fixup)) pals["fixup"] <- as.numeric(fixup)
+    ## (3) h1/h2/...
     if(!missing(h1)) pals["h1"] <- h1
     if(!missing(h2)) pals["h2"] <- h2
     if(!missing(c1)) pals["c1"] <- c1
     if(!missing(l1)) pals["l1"] <- l1
     if(is.na(pals["h2"])) pals["h2"] <- pals["h1"] + 360 * (n - 1)/n
     
-    rval <- hex(polarLUV(L = pals["l1"], C = pals["c1"], H = seq(pals["h1"], pals["h2"], length = n)),
-                fixup = fixup, ...)
+    ## HCL trajectory
+    rval <- hex(polarLUV(
+        L = pals["l1"],
+        C = pals["c1"],
+        H = seq(pals["h1"], pals["h2"], length = n)),
+        fixup = as.logical(pals["fixup"]), ...)
 
+    ## alpha transparency
     if(!missing(alpha)) {
         alpha <- pmax(pmin(alpha, 1), 0)
-	alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)),
-	                width = 2L, upper.case = TRUE)
+	alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
         rval <- paste(rval, alpha, sep = "")
     }
 
+    ## return value
+    if(rev) rval <- rev(rval)
+    return(rval)
+}
+
+#' @rdname hcl_palettes
+#' @export
+sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ...,
+  h1, h2, c1, c2, l1, l2, p1, p2, c.)
+{
+    ## edge cases
+    if (!is.null(gamma)) warning("'gamma' is deprecated and has no effect")
+    if(n < 1L) return(character(0L))
+    if(!missing(c.)) c <- c.
+    if(length(c) < 2L) c <- c(c, 0)
+
+    ## process HCL coordinates: (1) palette, (2) h/c/l, (3) h1/h2/...
+    ## (1) palette
+    if(is.character(h)) palette <- h
+    pals <- if(!is.null(palette)) {
+        as.matrix(hcl_palettes(name = palette)[, 2L:9L])[1L, ]
+    } else {
+        pals <- structure(c(rep_len(h, 2L), rep_len(c, 2L), rep_len(l, 2L), rep_len(power, 2L), 1), .Names = vars.pal)
+    }
+    ## (2) h/c/l
+    if(!missing(h) && !is.character(h)) {
+        if(length(h) < 2L) h <- c(h, NA)
+        h <- rep_len(h, 2L)
+        pals["h1"] <- h[1L]
+        pals["h2"] <- h[2L]
+    }
+    if(!missing(c) || !missing(c.)) {
+        pals["c1"] <- c[1L]
+        pals["c2"] <- c[2L]
+    }
+    if(!missing(l)) {
+        l <- rep_len(l, 2L)
+        pals["l1"] <- l[1L]
+        pals["l2"] <- l[2L]
+    }
+    if(!missing(fixup)) pals["fixup"] <- as.numeric(fixup)
+    ## (3) h1/h2/...
+    if(!missing(h1)) pals["h1"] <- h1
+    if(!missing(h2)) pals["h2"] <- h2
+    if(!missing(c1)) pals["c1"] <- c1
+    if(!missing(c2)) pals["c2"] <- c2
+    if(!missing(l1)) pals["l1"] <- l1
+    if(!missing(l2)) pals["l2"] <- l2
+    if(!missing(p1)) pals["p1"] <- p1
+    if(!missing(p2)) pals["p2"] <- p2
+    if(is.na(pals["h2"])) pals["h2"] <- pals["h1"]
+
+    ## HCL trajectory
+    rval <- seq(1, 0, length = n)
+    rval <- hex(polarLUV(
+        L = pals["l2"] - (pals["l2"] - pals["l1"]) * rval^pals["p2"],
+        C = pals["c2"] - (pals["c2"] - pals["c1"]) * rval^pals["p1"],
+        H = pals["h2"] - (pals["h2"] - pals["h1"]) * rval),
+        fixup = as.logical(pals["fixup"]), ...)
+
+    ## alpha transparency
+    if(!missing(alpha)) {
+        alpha <- pmax(pmin(alpha, 1), 0)
+	alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
+        rval <- paste(rval, alpha, sep = "")
+    }
+
+    ## return value
+    if(rev) rval <- rev(rval)
+    return(rval)
+}
+
+#' @rdname hcl_palettes
+#' @export
+diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ...,
+  h1, h2, c1, l1, l2, p1, p2)
+{
+    ## edge cases
+    if (!is.null(gamma)) warning("'gamma' is deprecated and has no effect")
+    if(n < 1L) return(character(0L))
+    
+    ## process HCL coordinates: (1) palette, (2) h/c/l, (3) h1/h2/...
+    ## (1) palette
+    if(is.character(h)) palette <- h
+    pals <- if(!is.null(palette)) {
+        as.matrix(hcl_palettes(name = palette)[, 2L:9L])[1L, ]
+    } else {
+        if(!missing(c)) c <- c(c[1L], NA)
+        pals <- structure(c(rep_len(h, 2L), rep_len(c, 2L), rep_len(l, 2L), rep_len(power, 2L), 1), .Names = vars.pal)
+    }
+    ## (2) h/c/l
+    if(!missing(h) && !is.character(h)) {
+        h <- rep_len(h, 2L)
+        pals["h1"] <- h[1L]
+        pals["h2"] <- h[2L]
+    }
+    if(!missing(c)) pals["c1"] <- c[1L]
+    if(!missing(l)) {
+        l <- rep_len(l, 2L)
+        pals["l1"] <- l[1L]
+        pals["l2"] <- l[2L]
+    }
+    if(!missing(fixup)) pals["fixup"] <- as.numeric(fixup)
+    ## (3) h1/h2/...
+    if(!missing(h1)) pals["h1"] <- h1
+    if(!missing(h2)) pals["h2"] <- h2
+    if(!missing(c1)) pals["c1"] <- c1
+    if(!missing(l1)) pals["l1"] <- l1
+    if(!missing(l2)) pals["l2"] <- l2
+    if(!missing(p1)) pals["p1"] <- p1
+    if(!missing(p2)) pals["p2"] <- p2
+
+    ## HCL trajectory
+    rval <- seq(1, -1, length = n)
+    rval <- hex(polarLUV(
+        L = pals["l2"] - (pals["l2"] - pals["l1"]) * abs(rval)^pals["p2"],
+        C = pals["c1"] * abs(rval)^pals["p1"],
+        H = ifelse(rval > 0, pals["h1"], pals["h2"])),
+        fixup = as.logical(pals["fixup"]), ...)
+
+    ## alpha transparency
+    if(!missing(alpha)) {
+        alpha <- pmax(pmin(alpha, 1), 0)
+	alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
+        rval <- paste(rval, alpha, sep = "")
+    }
+
+    ## return value
     if(rev) rval <- rev(rval)
     return(rval)
 }
