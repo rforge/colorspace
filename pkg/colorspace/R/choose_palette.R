@@ -5,7 +5,7 @@
 #' 
 #' Computes palettes based on the HCL (hue-chroma-luminance) color model (as
 #' implemented by \code{\link{polarLUV}}). The GUIs interface the palette
-#' functions \code{\link{rainbow_hcl}} for qualitative palettes,
+#' functions \code{\link{qualitative_hcl}} for qualitative palettes,
 #' \code{\link{sequential_hcl}} for sequential palettes with a single hue,
 #' \code{\link{heat_hcl}} for sequential palettes with multiple hues, and
 #' \code{\link{diverge_hcl}} for diverging palettes (composed from two
@@ -19,7 +19,7 @@
 #' (brightness, amount of gray), and a power transformations that control how
 #' quickly/slowly chroma and/or luminance are changed through the palette.
 #' Subsets of the parameters may not be applicable depending on the type of
-#' palette chosen. See \code{\link{rainbow_hcl}} and Zeileis et al. (2009) for
+#' palette chosen. See \code{\link{qualitative_hcl}} and Zeileis et al. (2009) for
 #' a more detailed explanation of the different arguments. Stauffer et al.
 #' (2015) provide more examples and guidance.
 #' 
@@ -45,7 +45,7 @@
 #' corresponding number of HCL colors by traversing HCL space through
 #' interpolation of the specified hue/chroma/luminance/power values.
 #' @author Jason C. Fisher, Reto Stauffer, Achim Zeileis
-#' @seealso \code{\link{simulate_cvd}}, \code{\link{desaturate}}, \code{\link{rainbow_hcl}}.
+#' @seealso \code{\link{simulate_cvd}}, \code{\link{desaturate}}, \code{\link{qualitative_hcl}}.
 #' @references Zeileis A, Hornik K, Murrell P (2009).  Escaping RGBland:
 #' Selecting Colors for Statistical Graphics.  \emph{Computational Statistics &
 #' Data Analysis}, \bold{53}, 3259--3270.
@@ -836,11 +836,10 @@ GetPalette <- function(type, h1, h2, c1, c2, l1, l2, p1, p2, fixup) {
    fixup <- as.logical(fixup)
    #type <- as.character(tcltk::tclvalue(nature.var))
    if (type %in% c("Qualitative","qual")) {
-      f <- rainbow_hcl
+      f <- qualitative_hcl
       formals(f) <- eval(substitute(alist(n=, c=d1, l=d2, start=d3, end=d4,
                                           fixup=d5, gamma=NULL, alpha=1, ...=),
                                     list(d1=c1, d2=l1, d3=h1, d4=h2, d5=fixup)))
-print(f)
    } else if (type %in% c("seqs","Sequential (single hue)")) {
       f <- sequential_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c.=d2, l=d3, power=d4,
