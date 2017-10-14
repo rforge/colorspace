@@ -6,6 +6,8 @@
 \alias{summary.hcl_palettes}
 \alias{plot.hcl_palettes}
 \alias{qualitative_hcl}
+\alias{sequential_hcl}
+\alias{diverge_hcl}
 \title{HCL Color Palettes}
 \usage{
 hcl_palettes(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
@@ -16,9 +18,49 @@ hcl_palettes(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
 
 \method{plot}{hcl_palettes}(x, n = 5L, fixup = TRUE, ...)
 
-qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c. = 50, l = 70,
+qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c = 50, l = 70,
   fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1, h2, c1,
   l1)
+
+sequential_hcl(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE,
+  ..., h1, h2, c1, c2, l1, l2, p1, p2, c.)
+
+diverge_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE,
+  ..., h1, h2, c1, l1, l2, p1, p2)
+}
+\arguments{
+\item{type}{character indicating type of HCL palette.}
+
+\item{name, palette}{character. Name of HCL color palette.}
+
+\item{plot}{logical. Should the selected HCL color palettes be visualized?}
+
+\item{n}{the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.}
+
+\item{\dots}{Other arguments passed to \code{\link{hex}}.}
+
+\item{x, object}{A \code{hcl_palettes} object.}
+
+\item{fixup}{logical. Should the color be corrected to a valid RGB value
+before correction?}
+
+\item{h, h1, h2}{hue value in the HCL color description, has to be in [0, 360].}
+
+\item{c, c., c1, c2}{chroma value in the HCL color description.}
+
+\item{l, l1, l2}{luminance value in the HCL color description.}
+
+\item{alpha}{numeric vector of values in the range \code{[0, 1]} for alpha
+transparency channel (0 means transparent and 1 means opaque).}
+
+\item{rev}{logical. Should the color palette vector be returned in reverse order?}
+
+\item{power, p1, p2}{control parameter determining how chroma and luminance should
+be increased (1 = linear, 2 = quadratic, etc.).}
+
+\item{gamma}{Deprecated.}
 }
 \description{
 Qualitative, sequential (single-hue and multi-hue), and diverged

@@ -40,7 +40,7 @@ color palettes.
 \details{
 Computes palettes based on the HCL (hue-chroma-luminance) color model (as
 implemented by \code{\link{polarLUV}}). The GUIs interface the palette
-functions \code{\link{rainbow_hcl}} for qualitative palettes,
+functions \code{\link{qualitative_hcl}} for qualitative palettes,
 \code{\link{sequential_hcl}} for sequential palettes with a single hue,
 \code{\link{heat_hcl}} for sequential palettes with multiple hues, and
 \code{\link{diverge_hcl}} for diverging palettes (composed from two
@@ -54,7 +54,7 @@ color), minimal/maximal chroma (colorfulness), minimal maximal luminance
 (brightness, amount of gray), and a power transformations that control how
 quickly/slowly chroma and/or luminance are changed through the palette.
 Subsets of the parameters may not be applicable depending on the type of
-palette chosen. See \code{\link{rainbow_hcl}} and Zeileis et al. (2009) for
+palette chosen. See \code{\link{qualitative_hcl}} and Zeileis et al. (2009) for
 a more detailed explanation of the different arguments. Stauffer et al.
 (2015) provide more examples and guidance.
 
@@ -95,7 +95,7 @@ Visualizations.  \emph{Bulletin of the American Meteorological Society},
 \doi{10.1175/BAMS-D-13-00155.1}
 }
 \seealso{
-\code{\link{simulate_cvd}}, \code{\link{desaturate}}, \code{\link{rainbow_hcl}}.
+\code{\link{simulate_cvd}}, \code{\link{desaturate}}, \code{\link{qualitative_hcl}}.
 }
 \author{
 Jason C. Fisher, Reto Stauffer, Achim Zeileis
