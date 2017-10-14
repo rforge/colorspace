@@ -69,7 +69,8 @@ hcl_converter <- function( x, overwrite = FALSE, shiny.trace = FALSE) {
 #'    If non of both, both will be \code{FALSE}. Method is not case sensitive.
 check_image_type <- function( x ) {
    ## Identify file type (postfix)
-   postfix  <- tolower(tail(strsplit(basename(x),"\\.")[[1]],1))
+   tail1 <- function(x) x[length(x)]
+   postfix  <- tolower(tail1(strsplit(basename(x),"\\.")[[1]]))
    list("png" = postfix == "png",
         "jpg" = postfix %in% c("jpeg","jpg"))
 }
