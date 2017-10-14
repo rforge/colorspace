@@ -21,13 +21,13 @@ scale_fill_discrete_qualitative(palette = NULL, c1 = NULL, l1 = NULL,
 \arguments{
 \item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options.}
 
-\item{c1}{Chroma value in the HCL color description.}
+\item{c1}{Chroma value, used for all colors in the scale.}
 
-\item{l1}{Luminance value in the HCL color description.}
+\item{l1}{Luminance value, used for all colors in the scale.}
 
-\item{h1}{The hue at which the rainbow begins.}
+\item{h1}{Beginning hue value.}
 
-\item{h2}{The hue at which the rainbow ends.}
+\item{h2}{Ending hue value.}
 
 \item{alpha}{Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).}
 

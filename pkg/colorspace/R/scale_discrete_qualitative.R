@@ -6,10 +6,10 @@
 #' If both a valid palette name and palette parameters are provided then the provided palette parameters overwrite the parameters in the
 #' named palette. This enables easy customization of named palettes.
 #' 
-#' @param c1 Chroma value in the HCL color description.
-#' @param l1 Luminance value in the HCL color description.
-#' @param h1	The hue at which the rainbow begins.
-#' @param h2 The hue at which the rainbow ends.
+#' @param c1 Chroma value, used for all colors in the scale.
+#' @param l1 Luminance value, used for all colors in the scale.
+#' @param h1 Beginning hue value.
+#' @param h2 Ending hue value.
 #' @param alpha Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).
 #' @param rev If \code{TRUE}, reverses the order of the colors in the color scale.
 #' @param palette The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options.
