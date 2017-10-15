@@ -65,6 +65,20 @@ named palette. This enables easy customization of named palettes.
 \examples{
 library(ggplot2)
 
+# base plot
+gg <- ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + 
+  geom_jitter(width = 0.3) + theme_minimal()
+
+# default settings
+gg + scale_color_continuous_sequential()
+
+# switch palette and overwrite some default values
+gg + scale_color_continuous_sequential(palette = "Reds", l1 = 20, c2 = 70, p1 = 1)
+
+# select a range out of the entire palette
+gg + scale_color_continuous_sequential(palette = "Heat", begin = .2, end = .8)
+
+# volcano plot
 nx = 87
 ny = 61
 df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))

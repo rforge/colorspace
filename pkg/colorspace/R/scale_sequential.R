@@ -107,16 +107,7 @@ scale_fill_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL,
 #' If both a valid palette name and palette parameters are provided then the provided palette parameters overwrite the parameters in the
 #' named palette. This enables easy customization of named palettes.
 #' 
-#' @param c1 Beginning chroma value.
-#' @param c2 Ending chroma value.
-#' @param l1 Beginning luminance value.
-#' @param l2 Ending luminance value.
-#' @param h1 Beginning hue value.
-#' @param h2 Ending hue value. If set to \code{NA}, generates a single-hue scale.
-#' @param p1 Control parameter determining how chroma should vary (1 = linear, 2 = quadratic, etc.).
-#' @param p2 Control parameter determining how luminance should vary (1 = linear, 2 = quadratic, etc.).
-#' @param rev If \code{TRUE}, reverses the order of the colors in the color scale.
-#' @param palette The name of the palette to be used. Run \code{hcl_palettes(type = "seq")} for available options.
+#' @inheritParams scale_colour_discrete_sequential
 #' @param begin Number in the range of \code{[0, 1]} indicating to which point in the color scale the smallest data value should be mapped.
 #' @param end Number in the range of \code{[0, 1]} indicating to which point in the color scale the largest data value should be mapped.
 #' @param na.value Color to be used for missing data points.
@@ -127,6 +118,20 @@ scale_fill_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL,
 #' @examples
 #' library(ggplot2)
 #' 
+#' # base plot
+#' gg <- ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + 
+#'   geom_jitter(width = 0.3) + theme_minimal()
+#' 
+#' # default settings
+#' gg + scale_color_continuous_sequential()
+#' 
+#' # switch palette and overwrite some default values
+#' gg + scale_color_continuous_sequential(palette = "Reds", l1 = 20, c2 = 70, p1 = 1)
+#' 
+#' # select a range out of the entire palette
+#' gg + scale_color_continuous_sequential(palette = "Heat", begin = .2, end = .8)
+#' 
+#' # volcano plot
 #' nx = 87
 #' ny = 61
 #' df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
