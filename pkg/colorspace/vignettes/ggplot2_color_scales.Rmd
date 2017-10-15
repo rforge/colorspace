@@ -24,8 +24,8 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.7) 
 
 To give a second example, a continuous sequential heat scale applied to a color aesthetic corresponds to the function `scale_color_continuous_sequential()`:
 ```{r fig.width = 6.5, fig.asp = 0.7, fig.align = 'center'}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2)
-# scale_color_continuous_sequential() not yet implemented
+ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
+  scale_color_continuous_sequential(palette = "Heat")
 ```
 
 ## Customizing the scales
@@ -54,25 +54,22 @@ gg + scale_color_brewer(palette = "Blues")
 
 Similar problems can arise with the HCL palettes, but there we have the option of creating additional colors that we then don't use:
 ```{r fig.width = 6.5, fig.asp = 0.7, fig.align = 'center'}
-# scale_color_continuous_sequential() not yet implemented
-# gg + scale_color_discrete_sequential(palette = "Blues", nmax = 9, order = 8:1)
+gg + scale_color_discrete_sequential(palette = "Blues", nmax = 9, rev = TRUE)
 ```
-(We need to use the `order` option here because the color-brewer scale runs in the opposite direction of the HCL scale.)
+(We need to set `rev = TRUE` because the color-brewer scale runs in the opposite direction of the HCL scale.)
 
 All scales are defined via sets of hue (H), chroma (C), and luminance (L) values. For example, the qualitative scales vary hue from a start value to an end value while keeping chroma and luminance fixed. Similarly, single-hue sequential scales vary chroma and luminance while keeping the hue fixed. We can override these settings by specifying the corresponding H, C, or L values in addition to the palette name. As an example, consider the following plot:
 
 ```{r fig.width = 6.5, fig.asp = 0.7, fig.align = 'center'}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2)
-#  scale_color_continuous_sequential(palette = "Terrain HCL")
-# scale_color_continuous_sequential() not yet implemented
+ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
+  scale_color_continuous_sequential(palette = "Terrain")
 ```
 
 Now assume we generally like the color scale but find it a bit too pink at the end. We can fix this issue by specifying an alternative final hue value (`H2=80`):
 
 ```{r fig.width = 6.5, fig.asp = 0.7, fig.align = 'center'}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2)
-#  scale_color_continuous_sequential(palette = "Terrain HCL", H2 = 80)
-# scale_color_continuous_sequential() not yet implemented
+ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
+  scale_color_continuous_sequential(palette = "Terrain", h2 = 80)
 ```
 
 The next example uses a diverging scale. Let's first consider the plot with the unmodified "Blue-Red 3" palette:
@@ -100,20 +97,20 @@ See the reference manual for the exact set of customization parameters that are 
 
 The continuous scales also provide the option to limit the scale range to which data are mapped, via the parameters `begin` and `end`. As an example, assume we're using the HCLheat implementation of the viridis scale:
 ```{r fig.width = 6.5, fig.asp = 0.7, fig.align = 'center'}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2)
-#  scale_color_continuous_sequential(palette = "Viridis")
+ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
+  scale_color_continuous_sequential(palette = "Viridis")
 ```
 
 If we want to remove some of the darkest blues and some of the brightest yellows from this scale, we can write:
 ```{r fig.width = 6.5, fig.asp = 0.7, fig.align = 'center'}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2)
-#  scale_color_continuous_sequential(palette = "Viridis", begin = 0.15, end = 0.9) 
+ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
+  scale_color_continuous_sequential(palette = "Viridis", begin = 0.15, end = 0.9) 
 ```
 
 Finally, the sequential and diverging scales allow easy switching of their direction, via the `direction` argument:
 ```{r fig.width = 6.5, fig.asp = 0.7, fig.align = 'center'}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2)
-#  scale_color_continuous_sequential(palette = "Viridis", direction = -1)
+ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
+  scale_color_continuous_sequential(palette = "Viridis", rev = TRUE)
 ```
 
 In the following, I'm visualizing all scales currently available via pre-defined names.

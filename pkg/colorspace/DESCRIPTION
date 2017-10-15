@@ -26,7 +26,7 @@ Description: Carries out mapping between assorted color spaces including
 	     (deutanomaly, protanomaly, tritanomaly).
 Depends: R (>= 2.13.0), methods
 Imports: graphics, grDevices
-Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd, tcltk, shiny, shinyjs, ggplot2, grid, png, jpeg, knitr
+Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd, tcltk, shiny, shinyjs, ggplot2, scales, grid, png, jpeg, knitr
 VignetteBuilder: knitr
 License: BSD_3_clause + file LICENSE
 URL: https://hclwizard.org/
