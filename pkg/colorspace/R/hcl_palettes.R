@@ -245,7 +245,6 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     if (!is.null(gamma)) warning("'gamma' is deprecated and has no effect")
     if(n < 1L) return(character(0L))
     if(!missing(c.)) c <- c.
-    if(length(c) < 2L) c <- c(c, 0)
 
     ## process HCL coordinates: (1) palette, (2) h/c/l, (3) h1/h2/...
     ## (1) palette
@@ -253,12 +252,15 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     pals <- if(!is.null(palette)) {
         as.matrix(hcl_palettes(name = palette)[, 2L:9L])[1L, ]
     } else {
-        pals <- structure(c(rep_len(h, 2L), rep_len(c, 2L), rep_len(l, 2L), rep_len(power, 2L), 1), .Names = vars.pal)
+        pals <- structure(c(
+	    if(length(h) < 2L) c(h, NA) else rep_len(h, 2L),
+	    if(length(c) < 2L) c(c, 0) else rep_len(c, 2L),
+	    rep_len(l, 2L),
+	    rep_len(power, 2L),
+	    1), .Names = vars.pal)
     }
     ## (2) h/c/l
     if(!missing(h) && !is.character(h)) {
-        if(length(h) < 2L) h <- c(h, NA)
-        h <- rep_len(h, 2L)
         pals["h1"] <- h[1L]
         pals["h2"] <- h[2L]
     }
