@@ -36,3 +36,9 @@ heat_hcl(12)
 desaturate(heat_hcl(12))
 terrain_hcl(12)
 desaturate(terrain_hcl(12))
+
+## different interfaces
+identical(sequential_hcl(7, "Grays"), sequential_hcl(7, palette = "Grays"))
+identical(sequential_hcl(7, "Grays"), sequential_hcl(7, h = 0, c = 0, l = c(15, 95), power = 1.3))
+identical(sequential_hcl(7, "Grays"), sequential_hcl(7, h = 0, c. = 0, l = c(15, 95), power = 1.3))
+identical(sequential_hcl(7, "Grays"), sequential_hcl(7, c1 = 0, c2 = 0, l1 = 15, l2 = 95, p1 = 1.3))

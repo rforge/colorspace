@@ -256,7 +256,7 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
 	    if(length(h) < 2L) c(h, NA) else rep_len(h, 2L),
 	    if(length(c) < 2L) c(c, 0) else rep_len(c, 2L),
 	    rep_len(l, 2L),
-	    rep_len(power, 2L),
+	    if(length(power) < 2L) c(power, NA) else rep_len(power, 2L),
 	    1), .Names = vars.pal)
     }
     ## (2) h/c/l
