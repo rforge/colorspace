@@ -198,11 +198,11 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 50, l = 70,
     pals <- if(!is.null(palette)) {
         as.matrix(hcl_palettes(name = palette)[, 2L:9L])[1L, ]
     } else {
-        pals <- structure(c(h, c, NA, l, NA, NA, NA, 1), .Names = vars.pal)
+        pals <- structure(c(if(length(h) < 2L) c(h, NA) else rep_len(h, 2L), c[1L], NA, l[1L], NA, NA, NA, 1), .Names = vars.pal)
     }
     ## (2) h/c/l
     if(!missing(h) && !is.character(h)) {
-        h <- rep_len(h, 2L)
+        h <- if(length(h) < 2L) c(h, NA) else rep_len(h, 2L)
         pals["h1"] <- h[1L]
         pals["h2"] <- h[2L]
     }
@@ -261,10 +261,12 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     }
     ## (2) h/c/l
     if(!missing(h) && !is.character(h)) {
+        h <- if(length(h) < 2L) c(h, NA) else rep_len(h, 2L)
         pals["h1"] <- h[1L]
         pals["h2"] <- h[2L]
     }
     if(!missing(c) || !missing(c.)) {
+        c <- if(length(c) < 2L) c(c, 0) else rep_len(c, 2L)
         pals["c1"] <- c[1L]
         pals["c2"] <- c[2L]
     }
@@ -272,6 +274,11 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
         l <- rep_len(l, 2L)
         pals["l1"] <- l[1L]
         pals["l2"] <- l[2L]
+    }
+    if(!missing(power)) {
+        power <- if(length(power) < 2L) c(power, NA) else rep_len(power, 2L)
+        pals["p1"] <- power[1L]
+        pals["p2"] <- power[2L]
     }
     if(!missing(fixup)) pals["fixup"] <- as.numeric(fixup)
     ## (3) h1/h2/...
@@ -323,8 +330,7 @@ diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     pals <- if(!is.null(palette)) {
         as.matrix(hcl_palettes(name = palette)[, 2L:9L])[1L, ]
     } else {
-        if(!missing(c)) c <- c(c[1L], NA)
-        pals <- structure(c(rep_len(h, 2L), rep_len(c, 2L), rep_len(l, 2L), rep_len(power, 2L), 1), .Names = vars.pal)
+        structure(c(rep_len(h, 2L), c(c[1L], NA), rep_len(l, 2L), if(length(power) < 2L) c(power, NA) else rep_len(power, 2L), 1), .Names = vars.pal)
     }
     ## (2) h/c/l
     if(!missing(h) && !is.character(h)) {
@@ -338,6 +344,11 @@ diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
         pals["l1"] <- l[1L]
         pals["l2"] <- l[2L]
     }
+    if(!missing(power)) {
+        power <- if(length(power) < 2L) c(power, NA) else rep_len(power, 2L)
+        pals["p1"] <- power[1L]
+        pals["p2"] <- power[2L]
+    }
     if(!missing(fixup)) pals["fixup"] <- as.numeric(fixup)
     ## (3) h1/h2/...
     if(!missing(h1)) pals["h1"] <- h1
@@ -347,6 +358,7 @@ diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     if(!missing(l2)) pals["l2"] <- l2
     if(!missing(p1)) pals["p1"] <- p1
     if(!missing(p2)) pals["p2"] <- p2
+    pals["c2"] <- NA
     if(is.na(pals["p2"])) pals["p2"] <- pals["p1"]
 
     ## HCL trajectory
@@ -377,15 +389,15 @@ diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
 vars.pal <- c("h1", "h2", "c1", "c2", "l1", "l2", "p1", "p2", "fixup")
                                                                          # Inspired by:
 qual.pals <- list()
-qual.pals[["Pastel 1"]]    <- c(  0,  288,  35, NA, 85, NA,  NA,  NA, 1) # ColorBrewer.org: Pastel1
-qual.pals[["Dark 2"]]      <- c(  0,  288,  50, NA, 60, NA,  NA,  NA, 1) # ColorBrewer.org: Dark2
-qual.pals[["Dark 3"]]      <- c(  0,  300,  80, NA, 60, NA,  NA,  NA, 1) # JCF/Z: ~Dark2 with more chroma
-qual.pals[["Set 2"]]       <- c(  0,  288,  60, NA, 70, NA,  NA,  NA, 1) # ColorBrewer.org: Set2
-qual.pals[["Set 3"]]       <- c( 10,  320,  50, NA, 80, NA,  NA,  NA, 1) # ColorBrewer.org: Set3
+qual.pals[["Pastel 1"]]    <- c(  0,   NA,  35, NA, 85, NA,  NA,  NA, 1) # ColorBrewer.org: Pastel1
+qual.pals[["Dark 2"]]      <- c(  0,   NA,  50, NA, 60, NA,  NA,  NA, 1) # ColorBrewer.org: Dark2
+qual.pals[["Dark 3"]]      <- c(  0,   NA,  80, NA, 60, NA,  NA,  NA, 1) # JCF/Z: ~Dark2 with more chroma
+qual.pals[["Set 2"]]       <- c(  0,   NA,  60, NA, 70, NA,  NA,  NA, 1) # ColorBrewer.org: Set2
+qual.pals[["Set 3"]]       <- c( 10,   NA,  50, NA, 80, NA,  NA,  NA, 1) # ColorBrewer.org: Set3
 qual.pals[["Warm"]]        <- c( 90,  -30,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Warm (based on Ihaka-03)
 qual.pals[["Cold"]]        <- c(270,  150,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Cold (based on Ihaka-03)
 qual.pals[["Harmonic"]]    <- c( 60,  240,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Harmonic (based on Ihaka-03)
-qual.pals[["Dynamic"]]     <- c( 30,  300,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Dynamic (based on Ihaka-03)
+qual.pals[["Dynamic"]]     <- c( 30,   NA,  50, NA, 70, NA,  NA,  NA, 1) # Z+KH+PM-09, Fig.4: Dynamic (based on Ihaka-03)
 
 seqs.pals <- list()
 seqs.pals[["Grays"]]       <- c(  0,   NA,   0,  0, 15, 95, 1.3,  NA, 1) # ColorBrewer.org: Greys
