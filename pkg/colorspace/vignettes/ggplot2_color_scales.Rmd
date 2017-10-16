@@ -42,7 +42,7 @@ ggplot(df, aes(x, y, fill=height)) +
 ```
 
 A continuous diverging scale applied to a fill aesthetic corresponds to the function `scale_fill_continuous_diverging()`:
-```{r}
+```{r fig.width = 6.5, fig.asp = 0.7, fig.align = 'center'}
 cm <- cor(mtcars)
 df_wide <- as.data.frame(cm)
 df_long <- stack(df_wide)
@@ -53,7 +53,7 @@ ggplot(df_long, aes(var1, var2, fill=cor)) +
   coord_fixed() +
   ylab("variable") +
   scale_x_discrete(position = "top", name = "variable") +
-  scale_fill_continuous_diverging("Purple-Brown")
+  scale_fill_continuous_diverging("Blue-Red 3")
 ```
 
 ## Customizing the scales
@@ -100,23 +100,26 @@ ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jit
   scale_color_continuous_sequential(palette = "Terrain", h2 = 80)
 ```
 
-The next example uses a diverging scale. Let's first consider the plot with the unmodified "Blue-Red 3" palette:
+The next example uses a diverging scale. Let's first consider the plot with the unmodified "Blue-Yellow" palette:
 
-```{r fig.width = 6.5, fig.asp = 1., fig.align = 'center'}
-set.seed(100)
-df <- data.frame(country = LETTERS, V = runif(26, -40, 40))
-df$country = factor(LETTERS, LETTERS[order(df$V)]) # reorder factors
-gg <- ggplot(df, aes(x = country, y = V, fill = V)) +
-  geom_bar(stat = "identity") +
-  labs(y = "Under/over valuation in %", x = "Country") +
-  coord_flip()
+```{r fig.width = 6.5, fig.asp = .7, fig.align = 'center'}
+cm <- cor(mtcars)
+df_wide <- as.data.frame(cm)
+df_long <- stack(df_wide)
+names(df_long) <- c("cor", "var1")
+df_long <- cbind(df_long, var2 = rep(rownames(cm), length(rownames(cm))))
+gg <- ggplot(df_long, aes(var1, var2, fill=cor)) + 
+  geom_tile() + 
+  coord_fixed() +
+  ylab("variable") +
+  scale_x_discrete(position = "top", name = "variable")
 
-gg + scale_fill_continuous_diverging(palette = "Blue-Red 3")
+gg + scale_fill_continuous_diverging(palette = "Blue-Yellow")
 ```
 
-And now the same plot with some palette customizations. We adjust the luminance at the end (`l1`) and in the middle (`l2`), as well as the curve describing how quickly the colors change (`p1`).
-```{r fig.width = 6.5, fig.asp = 1., fig.align = 'center'}
-gg + scale_fill_continuous_diverging(palette = "Blue-Red 3", l1 = 20, l2 = 100, p1 = 1)
+And now the same plot with some palette customizations:
+```{r fig.width = 6.5, fig.asp = .7, fig.align = 'center'}
+gg + scale_fill_continuous_diverging(palette = "Blue-Yellow", l1 = 60, c1 = 90)
 ```
 
 See the reference manual for the exact set of customization parameters that are available for each scale.
