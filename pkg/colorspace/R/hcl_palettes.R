@@ -196,7 +196,7 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 50, l = 70,
     ## (1) palette
     if(is.character(h)) palette <- h
     pals <- if(!is.null(palette)) {
-        as.matrix(hcl_palettes(name = palette)[, 2L:9L])[1L, ]
+        as.matrix(hcl_palettes(type = "Qualitative", name = palette)[, 2L:9L])[1L, ]
     } else {
         pals <- structure(c(if(length(h) < 2L) c(h, NA) else rep_len(h, 2L), c[1L], NA, l[1L], NA, NA, NA, 1), .Names = vars.pal)
     }
@@ -250,7 +250,7 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     ## (1) palette
     if(is.character(h)) palette <- h
     pals <- if(!is.null(palette)) {
-        as.matrix(hcl_palettes(name = palette)[, 2L:9L])[1L, ]
+        as.matrix(hcl_palettes(type = "Sequential", name = palette)[, 2L:9L])[1L, ]
     } else {
         pals <- structure(c(
 	    if(length(h) < 2L) c(h, NA) else rep_len(h, 2L),
@@ -328,7 +328,7 @@ diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     ## (1) palette
     if(is.character(h)) palette <- h
     pals <- if(!is.null(palette)) {
-        as.matrix(hcl_palettes(name = palette)[, 2L:9L])[1L, ]
+        as.matrix(hcl_palettes(type = "Diverging", name = palette)[, 2L:9L])[1L, ]
     } else {
         structure(c(rep_len(h, 2L), c(c[1L], NA), rep_len(l, 2L), if(length(power) < 2L) c(power, NA) else rep_len(power, 2L), 1), .Names = vars.pal)
     }

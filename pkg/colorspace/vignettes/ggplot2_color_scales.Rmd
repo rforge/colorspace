@@ -114,12 +114,12 @@ gg <- ggplot(df_long, aes(var1, var2, fill=cor)) +
   ylab("variable") +
   scale_x_discrete(position = "top", name = "variable")
 
-gg + scale_fill_continuous_diverging(palette = "Blue-Yellow")
+gg + scale_fill_continuous_diverging(palette = "Purple-Green")
 ```
 
 And now the same plot with some palette customizations:
 ```{r fig.width = 6.5, fig.asp = .7, fig.align = 'center'}
-gg + scale_fill_continuous_diverging(palette = "Blue-Yellow", l1 = 60, c1 = 90)
+gg + scale_fill_continuous_diverging(palette = "Purple-Green", p1 = 3)
 ```
 
 See the reference manual for the exact set of customization parameters that are available for each scale.
