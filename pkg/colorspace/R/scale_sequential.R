@@ -44,7 +44,7 @@ scale_colour_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NUL
                                              nmax = NULL, order = NULL, ...)
 {
   # arguments we want to hand off to function sequential_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
+  hcl_args <- c("palette", "c1", "c2", "l1", "l2", "h1", "h2", "p1", "p2")
   
   # match hcl_args to args provided
   args <- as.list(match.call())
@@ -77,7 +77,7 @@ scale_fill_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL,
                                            nmax = NULL, order = NULL, ...)
 {
   # arguments we want to hand off to function sequential_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
+  hcl_args <- c("palette", "c1", "c2", "l1", "l2", "h1", "h2", "p1", "p2")
   
   # match hcl_args to args provided
   args <- as.list(match.call())
@@ -146,7 +146,7 @@ scale_colour_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = N
                                                n_interp = 10, ...)
 {
   # arguments we want to hand off to function sequential_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
+  hcl_args <- c("palette", "c1", "c2", "l1", "l2", "h1", "h2", "p1", "p2")
   
   # match hcl_args to args provided
   args <- as.list(match.call())
@@ -176,7 +176,7 @@ scale_fill_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = NUL
                                                n_interp = 10, ...)
 {
   # arguments we want to hand off to function sequential_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
+  hcl_args <- c("palette", "c1", "c2", "l1", "l2", "h1", "h2", "p1", "p2")
   
   # match hcl_args to args provided
   args <- as.list(match.call())
