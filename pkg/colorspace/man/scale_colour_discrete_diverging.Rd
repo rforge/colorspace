@@ -19,7 +19,7 @@ scale_fill_discrete_diverging(palette = NULL, c1 = NULL, l1 = NULL,
   rev = FALSE, nmax = NULL, order = NULL, ...)
 }
 \arguments{
-\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "seq")} for available options.}
+\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "div")} for available options.}
 
 \item{c1}{Chroma value at the scale endpoints.}
 

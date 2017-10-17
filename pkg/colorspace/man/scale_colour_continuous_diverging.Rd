@@ -22,7 +22,7 @@ scale_fill_continuous_diverging(palette = NULL, c1 = NULL, l1 = NULL,
   n_interp = 10, ...)
 }
 \arguments{
-\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "seq")} for available options.}
+\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "div")} for available options.}
 
 \item{c1}{Chroma value at the scale endpoints.}
 
