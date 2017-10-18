@@ -126,7 +126,7 @@ plot.hcl_palettes <- function(x, n = 5L, fixup = TRUE, ...)
   typ <- levels(x$type)
   x$type <- as.character(x$type)
   xx <- as.matrix(x[, 2L:9L])
-  
+
   qcol <- sapply(which(x$type == typ[1L]), function(i) {
     qualitative_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c1 = xx[i, "c1"], l1 = xx[i, "l1"], fixup = fixup)
   })

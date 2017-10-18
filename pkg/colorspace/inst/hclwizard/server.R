@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2017-09-24 12:28 on thinkreto
+# - L@ST MODIFIED: 2017-10-18 21:48 on thinkreto
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -166,7 +166,7 @@ shinyServer(function(input, output, session) {
       # If fun is set to false: return values
       if ( ! fun ) {
          # Remove alpha (base color maps)
-         colors <- pal(curPAL$N)
+         colors <- substr(pal(curPAL$N),0,7)
          # Add desaturation or constraints
          if ( input$desaturate ) colors <- desaturate(colors)
          if ( any(tolower(input$constraint) %in% c("protan","deutan","tritan")) )

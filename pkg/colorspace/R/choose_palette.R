@@ -6,10 +6,9 @@
 #' Computes palettes based on the HCL (hue-chroma-luminance) color model (as
 #' implemented by \code{\link{polarLUV}}). The GUIs interface the palette
 #' functions \code{\link{qualitative_hcl}} for qualitative palettes,
-#' \code{\link{sequential_hcl}} for sequential palettes with a single hue,
-#' \code{\link{heat_hcl}} for sequential palettes with multiple hues, and
-#' \code{\link{diverge_hcl}} for diverging palettes (composed from two
-#' single-hue sequential palettes).
+#' \code{\link{sequential_hcl}} for sequential palettes with a single or
+#' multiple hues, and \code{\link{diverge_hcl}} for diverging palettes (composed
+#' from two single-hue sequential palettes).
 #' 
 #' Two different GUIs are implemented and can be selected using the function
 #' input argument \code{gui} (\code{"tcltk"} or \code{"shiny"}). Both GUIs
@@ -709,7 +708,7 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
                                  })
   tcltk::tkgrid.configure(frame4.chk.1, padx=c(12, 0), pady=c(2, 0))
   tcltk::tkpack(frame4, fill="x")
-  
+
   # Frame 5, number of colors in palette
   txt <- "Number of colors in palette"
   frame5 <- tcltk::ttklabelframe(tt, relief="flat", borderwidth=5, padding=5, text=txt)
@@ -743,7 +742,7 @@ choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) 
   tcltk::tkgrid.columnconfigure(frame6, 1, weight=1)
   tcltk::tkpack(frame6, fill="x", padx=10, pady=0)
   
- # Frame 7, color palette and robustness checks
+  # Frame 7, color palette and robustness checks
   frame7 <- tcltk::ttkframe(tt, relief="flat")
   frame7.cvs <- tcltk::tkcanvas(frame7, relief="flat",
                          width=cvs.width + 1, height=cvs.height + 1,
@@ -837,25 +836,34 @@ GetPalette <- function(type, h1, h2, c1, c2, l1, l2, p1, p2, fixup) {
    #type <- as.character(tcltk::tclvalue(nature.var))
    if (type %in% c("Qualitative","qual")) {
       f <- qualitative_hcl
-      formals(f) <- eval(substitute(alist(n=, c=d1, l=d2, start=d3, end=d4,
-                                          fixup=d5, gamma=NULL, alpha=1, ...=),
-                                    list(d1=c1, d2=l1, d3=h1, d4=h2, d5=fixup)))
+      formals(f) <- eval(substitute(alist(n=, h=hh, c=d1, l=d2, start=d3, end=d4,
+                                          fixup=d5, gamma=NULL, alpha=1,
+                                          palette=NULL, rev=FALSE, ...=,
+                                          h1=, h2=, c1=, l1=),
+                                    list(hh = c(0,360), 
+                                         d1=c1, d2=l1, d3=h1, d4=h2, d5=fixup)))
    } else if (type %in% c("seqs","Sequential (single hue)")) {
       f <- sequential_hcl
-      formals(f) <- eval(substitute(alist(n=, h=d1, c.=d2, l=d3, power=d4,
-                                          fixup=d5, gamma=NULL, alpha=1, ...=),
-                                    list(d1=h1, d2=c(c1, c2), d3=c(l1, l2),
+      formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
+                                          gamma=NULL, fixup=d5, alpha=1,
+                                          palette=NULL, rev=FALSE, ...=,
+                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, c.=),
+                                    list(d1=h1, d2=c1, d3=c(l1, l2),
                                          d4=p1, d5=fixup)))
    } else if (type %in% c("seqm","Sequential (multiple hues)")) {
-      f <- heat_hcl
-      formals(f) <- eval(substitute(alist(n=, h=d1, c.=d2, l=d3, power=d4,
-                                          fixup=d5, gamma=NULL, alpha=1, ...=),
+      f <- sequential_hcl
+      formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
+                                          gamma=NULL, fixup=d5, alpha=1,
+                                          palette=NULL, rev=FALSE, ...=,
+                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, c.=),
                                     list(d1=c(h1, h2), d2=c(c1, c2),
                                          d3=c(l1, l2), d4=c(p1, p2), d5=fixup)))
    } else if (type %in% c("dive","Diverging")) {
       f <- diverge_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
-                                          fixup=d5, gamma=NULL, alpha=1, ...=),
+                                          gamma=NULL, fixup=d5, alpha=1,
+                                          palette=NULL, rev=FALSE, ...=,
+                                          h1=, h2=, c1=, l1=, l2=, p1=, p2=),
                                     list(d1=c(h1, h2), d2=c1, d3=c(l1, l2),
                                          d4=p1, d5=fixup)))
    }
