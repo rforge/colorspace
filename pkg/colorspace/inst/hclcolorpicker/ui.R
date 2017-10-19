@@ -40,7 +40,9 @@ color_picker_sidebarPanel <- function() {
       cellWidths = c("70%", "30%"),
       cellArgs = list(style = "vertical-align: bottom;")
     ),
+    shiny::p(HTML("<b>Selected color</b>")),
     shiny::htmlOutput("colorbox"),
+    shiny::withTags(p(style="margin-top: 5px; font-weight: bold;","Actions")),
     shiny::actionButton("color_picker", "Pick"),
     shiny::actionButton("color_unpicker", "Unpick"),
     shiny::actionButton("clear_color_picker", "Clear palette"),
@@ -58,21 +60,24 @@ color_picker_mainPanel <- function() {
     shiny::tabsetPanel(type = "tabs",
       shiny::tabPanel("Luminance-Chroma plane",
         shiny::plotOutput("LC_plot", click = "LC_plot_click"),
-        shiny::plotOutput("Hgrad", click = "Hgrad_click", height = 140),
-        shiny::plotOutput("Cgrad", click = "Cgrad_click", height = 140),
-        shiny::plotOutput("Lgrad", click = "Lgrad_click", height = 140)
+        shiny::plotOutput("Hgrad",   click = "Hgrad_click", height = 50),
+        shiny::plotOutput("Cgrad",   click = "Cgrad_click", height = 50),
+        shiny::plotOutput("Lgrad",   click = "Lgrad_click", height = 50)
       ),
       shiny::tabPanel("Hue-Chroma plane",
         shiny::plotOutput("HC_plot", click = "HC_plot_click"),
-        shiny::plotOutput("Hgrad2", click = "Hgrad_click", height = "50px"),
-        shiny::plotOutput("Cgrad2", click = "Cgrad_click", height = "50px"),
-        shiny::plotOutput("Lgrad2", click = "Lgrad_click", height = "50px")
+        shiny::plotOutput("Hgrad2",  click = "Hgrad_click", height = 50),
+        shiny::plotOutput("Cgrad2",  click = "Cgrad_click", height = 50),
+        shiny::plotOutput("Lgrad2",  click = "Lgrad_click", height = 50)
       )
     ),
     shiny::br(),
     shiny::h3("Color palette"),
-    shiny::plotOutput("palette_plot", click = "palette_click", height = "50px"),
-    shiny::textOutput("palette_line")
+    shiny::plotOutput("palette_plot", click = "palette_click", height = 30),
+    #shiny::withTags(p(style="font-weight: bold; margin-top: 5px;","Output")),
+    shiny::h3("Output"),
+    shiny::htmlOutput("palette_line_R"),
+    shiny::htmlOutput("palette_line_matlab")
   )
 }
 
@@ -80,7 +85,7 @@ color_picker_mainPanel <- function() {
 shiny::shinyUI(fluidPage(
 
     # application title
-    shiny::titlePanel("HCL color picker"),
+    ##shiny::titlePanel("HCL color picker"),
 
     shiny::sidebarLayout(
       # sidebar panel, defined below

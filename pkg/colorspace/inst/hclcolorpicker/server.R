@@ -168,14 +168,24 @@ shiny::shinyServer(function(input, output, session) {
     })
 
     # add R color code line
-    output$palette_line <- shiny::renderText({
+    output$palette_line_R <- shiny::renderText({
       if (length(picked_color_list$cl) != 0){
         color_list <- picked_color_list$cl
         color_list <- paste(color_list, collapse = "', '")
-        color_string <- paste("Color list: c('", color_list, "')", sep = '')
-        color_string
+        color_string <- paste("colors <- c('", color_list, "')", sep = '')
+        sprintf( "<b style=\"display:block;margin-top:5px\">R style color vector</b>%s",color_string)
       }else{
-        'Color list: N/A'
+        "Currently no colors picked. Define a color and press <b>pick</b> to add the color to your selection."
+      }
+    })
+    # Add matlab style output
+    output$palette_line_matlab <- shiny::renderText({
+      if (length(picked_color_list$cl) != 0){
+        # Convert colors to RGB for matlab
+        color_string <- sprintf( "colors = [%s]",
+               paste0(base::apply(colorspace::hex2RGB(picked_color_list$cl)@coords,1, function(x)
+               sprintf("%.3f,%.3f,%.3f",x[1L],x[2L],x[3L])),collapse="; ") )
+        sprintf( "<b style=\"display:block;margin-top:5px\">matlab style color vector</b>%s",color_string)
       }
     })
 
@@ -212,6 +222,7 @@ color_picker_hue_chroma_plot <- function(L = 75, C = 20, H = 0, n = 200) {
    grid$hex <- as.vector( t(image) )
    limits   <- lapply( na.omit(grid), function(x)
       if ( ! is.numeric(x) ) { return(NULL) } else { max(abs(x))*c(-1,1) } )
+   par( mar = c(3,3,1,1) )
    with( grid, graphics::plot( V ~ U, type="n", bty = "n", axes = FALSE,
                xaxs = "i", yaxs = "i", asp = 1, xlim=limits$U, ylim=limits$V ) )
    graphics::abline( h = seq(-200,200,by=25), v = seq(-200,200,by=25), col = "gray80" )
@@ -248,6 +259,7 @@ color_picker_luminance_chroma_plot <- function(L = 75, C = 20, H = 0, n = 200) {
    # Non-gg version
    grid$hex <- as.vector( t(image) )
    limits <- with( na.omit(grid), list( L = c(0,100), C = c(0,max(C)) ) )
+   par( mar = c(3,3,1,1) )
    with( grid, graphics::plot( L ~ C, type="n", bty = "n", axes = FALSE,
                                asp = 1, xaxs = "i", yaxs = "i", xlim=limits$C, ylim=limits$L ) )
    graphics::abline( h = seq(-200,200,by=25), v = seq(-200,200,by=25), col = "gray80" )
@@ -260,7 +272,33 @@ color_picker_luminance_chroma_plot <- function(L = 75, C = 20, H = 0, n = 200) {
    graphics::box( col = "gray40" )
 }
 
-
+# Helper function to draw the color bar (gradient's).
+# Input \code{seq} has to be numeric, sequence of values
+# along the color bar dimension. Cols is an object of
+# NA's and hex colors which can be converted to a vector.
+# Typically a matrix. Length of \code{cols} has to be equal to
+# length of \code{seq}.
+plot_color_gradient <- function( seq, cols, sel, ylab = NA, ticks ) {
+      # Change pars
+      #hold.par <- par( no.readonly = TRUE )
+      #on.exit( do.call( "par", hold.par ) )
+      par( mar = c(2,2,.1,1) )
+      # Compute args
+      dx   <- 0.5 * median(diff(seq))
+      seq  <- seq( min(seq), max(seq), length=length(cols) )
+      args <- list( ybottom = rep(0,length(cols)), ytop = rep(1,length(cols)) )
+      args$xleft <- seq - dx;        args$xright <- seq + dx
+      args$col <- as.vector(cols);   args$border <- NA
+      # Create color bar
+      graphics::plot( NA, ylim = c(0,1), xlim = range(seq), xaxs = "i", yaxs = "i",
+            xlab = NA, ylab = NA, bty = "n", axes = FALSE )
+      do.call( "rect", args )
+      if ( ! is.na(ylab) ) graphics::mtext( side = 2, line = 0.5, ylab, las = 2 )
+      if ( missing(ticks)  ) ticks <- base::pretty( seq )
+      graphics::points( sel, 0.5, cex = 2 )
+      graphics::axis( side = 1, at = ticks, col = NA, col.ticks = 1 )
+      graphics::box( col = "gray40" )
+}
 
 color_picker_C_gradient <- function(L = 75, C = 20, H = 0, n = 100) {
   Cmax <- max(C + 5, 150)
@@ -287,20 +325,8 @@ color_picker_C_gradient <- function(L = 75, C = 20, H = 0, n = 100) {
   #gg#                  panel.grid.minor.y = ggplot2::element_blank(),
   #gg#                  plot.margin = ggplot2::margin(3, 20, 3, 0))
 
-   # Helper
-   scale <- function( x, y ) x / diff(range(y)) - min(y)
-   # Non-gg version
-   hold.par <- par( no.readonly = TRUE )
-   on.exit( do.call( "par", hold.par ) )
-   par( mar = c(2,2,1,1) )
-   graphics::image( matrix(1:length(Cseq),ncol=1), col=image, axes = FALSE, xaxs = "i", yaxs = "i",
-                  xlim = c(0,1), ylim = c(0,1) )
-   graphics::mtext( side = 2, line = .5, "C" )
-   ticks    <- pretty(Cseq)
-   graphics::axis( side = 1, at = scale(ticks,Cseq), labels = ticks, col = NA, col.ticks = 1 )
-   graphics::points( scale(df_sel[1,"C"],Cseq), 0.5, pch = 21, bg = sel_col, col = 1, cex = 2 )
-   graphics::box( col = "gray40" )
-   
+   # Craw color gradient/color bar
+   plot_color_gradient( Cseq, image, df_sel$C, "C" )
 }
 
 color_picker_H_gradient <- function(L = 75, C = 20, H = 0, n = 100) {
@@ -327,19 +353,8 @@ color_picker_H_gradient <- function(L = 75, C = 20, H = 0, n = 100) {
   #gg#                  panel.grid.minor.y = ggplot2::element_blank(),
   #gg#                  plot.margin = ggplot2::margin(3, 20, 3, 0))
 
-   # Helper
-   scale <- function( x, y ) x / diff(range(y)) - min(y)
-   # Non-gg version
-   hold.par <- par( no.readonly = TRUE )
-   on.exit( do.call( "par", hold.par ) )
-   par( mar = c(2,2,1,1) )
-   graphics::image( matrix(1:length(Hseq),ncol=1), col=image, axes = FALSE, xaxs = "i", yaxs = "i",
-                  xlim = c(0,1), ylim = c(0,1) )
-   graphics::mtext( side = 2, line = .5, "H" )
-   ticks    <- pretty(Hseq)
-   graphics::axis( side = 1, at = scale(ticks,Hseq), labels = ticks, col = NA, col.ticks = 1 )
-   graphics::box( col = "gray40" )
-   graphics::points( scale(df_sel[1,"H"],Hseq), 0.5, pch = 21, bg = sel_col, col = 1, cex = 2 )
+   # Craw color gradient/color bar
+   plot_color_gradient( Hseq, image, df_sel$H, "H", seq(0,360,by=45) )
 }
 
 color_picker_L_gradient <- function(L = 75, C = 20, H = 0, n = 100) {
@@ -366,19 +381,8 @@ color_picker_L_gradient <- function(L = 75, C = 20, H = 0, n = 100) {
   #gg#                  panel.grid.minor.y = ggplot2::element_blank(),
   #gg#                  plot.margin = ggplot2::margin(3, 20, 3, 0))
 
-   # Helper
-   scale <- function( x, y ) x / diff(range(y)) - min(y)
-   # Non-gg version
-   hold.par <- par( no.readonly = TRUE )
-   on.exit( do.call( "par", hold.par ) )
-   par( mar = c(2,2,1,1) )
-   graphics::image( matrix(1:length(Lseq),ncol=1), col=image, axes = FALSE, xaxs = "i", yaxs = "i",
-                  xlim = c(0,1), ylim = c(0,1) )
-   graphics::mtext( side = 2, line = .5, "L" )
-   ticks    <- pretty(Lseq)
-   graphics::axis( side = 1, at = scale(ticks,Lseq), labels = ticks, col = NA, col.ticks = 1 )
-   graphics::box( col = "gray40" )
-   graphics::points( scale(df_sel[1,"L"],Lseq), 0.5, pch = 21, bg = sel_col, col = 1, cex = 2 )
+   # Craw color gradient/color bar
+   plot_color_gradient( Lseq, image, df_sel$L, "L" )
 }
 
 pal_plot <- function(colors)
