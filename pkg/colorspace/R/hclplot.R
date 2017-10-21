@@ -1,3 +1,6 @@
+
+
+
 hclplot <- function(pal, collapse = NULL, maxchroma = NULL, xlab = NULL, ylab = NULL, main = NULL, ...) {
   
   HCL <- coords(as(hex2RGB(pal), "polarLUV"))[, c("H", "C", "L")]
@@ -43,22 +46,34 @@ hclplot <- function(pal, collapse = NULL, maxchroma = NULL, xlab = NULL, ylab = 
     }
   }
 
-  if(is.null(collapse)) collapse <- if(abs(diff(range(HCL[, 3L], na.rm = TRUE))) < 5) "luminance" else "hue"
-  collapse <- match.arg(collapse, c("hue", "luminance"))
+
+  # Diverge color palette check
+  X <- HCL[HCL[,"C"] > 15,]
+  X <- c( sd(X[1:floor(nrow(X)/2),c("H")]) +
+          sd(X[nrow(X):(1+ceiling(nrow(X)/2)),c("H")]),
+          apply( X[1:floor(nrow(X)/2),c("C","L")] -
+                 X[nrow(X):(1+ceiling(nrow(X)/2)),c("C","L")],2,mean) )
+
+  if(is.null(collapse)) {
+      collapse <- if ( abs(diff(range(HCL[, 3L], na.rm = TRUE))) < 5) { "luminance" }
+                  else if ( mean(X) < 10 ) { "diverging" } else { "hue" }
+  }
+  collapse <- match.arg(collapse, c("hue", "luminance", "diverging" ))
   if(is.null(maxchroma)) maxchroma <- pmax(100, pmin(180, ceiling(max(HCL[, "C"], na.rm = TRUE)/20) * 20))
 
   ## FIXME: strange palettes need other interpolation/smoothing or better warning
+  cat(sprintf(" * Collapsing on \"%s\" pane\n",collapse))
   switch(collapse,
     "hue" = {
       nd <- expand.grid(C = 0:maxchroma, L = 0:100)
       if(diff(range(HCL[, "H"], na.rm = TRUE)) < 5) {
-        nd$H <- mean(HCL[, "H"], na.rm = TRUE)
-	if(is.null(main)) main <- paste("Hue =", round(nd$H[1L]))
+         nd$H <- mean(HCL[, "H"], na.rm = TRUE)
+         if(is.null(main)) main <- paste("Hue =", round(nd$H[1L]))
       } else {
         m <- lm(H ~ C + L, data = as.data.frame(HCL))
-	if(summary(m)$sigma > 7.5) warning("cannot approximate H well as a linear function of C and L")
-        nd$H <- predict(m, nd)
-	if(is.null(main)) main <- paste("Hue = [", round(min(nd$H, na.rm = TRUE)), ", ", round(max(nd$H, na.rm = TRUE)), "]", sep = "")
+	      if(summary(m)$sigma > 7.5) warning("cannot approximate H well as a linear function of C and L")
+         nd$H <- predict(m, nd)
+	      if(is.null(main)) main <- paste("Hue = [", round(min(nd$H, na.rm = TRUE)), ", ", round(max(nd$H, na.rm = TRUE)), "]", sep = "")
       }
       HCL2 <- hex(polarLUV(H = nd$H, C = nd$C, L = nd$L), fixup = FALSE)
       HCL2[nd$L < 1 & nd$C > 0] <- NA
@@ -68,6 +83,32 @@ hclplot <- function(pal, collapse = NULL, maxchroma = NULL, xlab = NULL, ylab = 
         xlab = xlab, ylab = ylab, main = main)
       points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)
       points(HCL[, 2:3], pch = 21, bg = pal, cex = 2, type = "o")
+    },
+    "diverging" = {
+      nd <- expand.grid(C = -maxchroma:maxchroma, L = 0:100)
+
+      left  <- which( HCL[1:floor(nrow(HCL)/2),"C"]               > 15 )
+      right <- nrow(HCL) - left + 1
+
+      H1 <- mean(HCL[left,"H"])
+      H2 <- mean(HCL[right,"H"])
+      #if ( diff(range(HCL[left,"H"], na.rm = TRUE)) < 5 ) {
+      #   H1 <- mean(HCL[left,"H"], na.rm = TRUE)
+      #} else { print(HCL); stop('H1 cannot be estimated') }
+      #if ( diff(range(HCL[right,"H"], na.rm = TRUE)) < 5 ) {
+      #   H2 <- mean(HCL[right,"H"], na.rm = TRUE)
+      #} else { print(HCL); stop('H2 cannot be estimated') }
+
+      nd$H <- ifelse( nd$C < 0, H1, H2 )
+      HCL2 <- hex(polarLUV(H = nd$H, C = abs(nd$C), L = nd$L), fixup = FALSE)
+      HCL2[nd$L < 1 & nd$C > 0] <- NA
+      if(is.null(xlab)) xlab <- "Chroma"
+      if(is.null(ylab)) ylab <- "Luminance"
+      plot(0, 0, type = "n", xlim = c(-1,1)*maxchroma, ylim = c(0, 100), xaxs = "i", yaxs = "i",
+        xlab = xlab, ylab = ylab, main = main)
+      points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)
+      points( HCL[,"C"] * ifelse(1:nrow(HCL) <= floor(mean(nrow(HCL)/2)),-1,1),
+              HCL[,"L"], pch = 21, bg = pal, cex = 2, type = "o")
     },
     "luminance" = {
       nd <- expand.grid(H = 0:180 * 2, C = 0:maxchroma)
