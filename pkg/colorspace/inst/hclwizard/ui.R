@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2017-09-16 13:53 on thinkreto
+# - L@ST MODIFIED: 2017-10-21 09:46 on thinkreto
 # -------------------------------------------------------------------
 
 
@@ -311,6 +311,14 @@ shinyUI(fluidPage(
          tabPanel("Spectrum",value="spectrum",
             withTags(div(class="hcl-main",id="hcl-main-spectrum",
                plotOutput("spectrum")
+            ))
+         ),
+      # -------------------------------------------------------------
+      # Color pane plot
+      # -------------------------------------------------------------
+         tabPanel("Color Pane",value="colorpane",
+            withTags(div(class="hcl-main",id="hcl-main-colorpane",
+               plotOutput("colorpane")
             ))
          ),
       # -------------------------------------------------------------

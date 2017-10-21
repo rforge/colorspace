@@ -10,7 +10,8 @@ div.form-group.shiny-input-container { margin: 0 0 5px 0; }
 
 /* Scale the plot image relative to the main panel */
 div#plot > img,
-div#spectrum > img {
+div#spectrum > img,
+div#colorpane > img {
    width: 100%;
    max-width: 800px;
    height: auto;

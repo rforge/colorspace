@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2017-09-16, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2017-09-24 12:55 on thinkreto
+# - L@ST MODIFIED: 2017-10-19 13:22 on thinkreto
 # -------------------------------------------------------------------
 library("shiny")
 
@@ -16,7 +16,9 @@ desc <- paste("Please select a file from your disc which you want",
               "Maximum allowed file size is 1 Megabyte.")
 
 # Define UI for data upload app ----
-shinyUI(fluidPage(
+shiny::shinyUI(bootstrapPage(
+#shiny::shinyUI(fluidPage(
+
    theme = "hclconvert.css",
 
    # App title ----

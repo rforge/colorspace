@@ -18,7 +18,7 @@ color palettes.
 
 <p>Computes palettes based on the HCL (hue-chroma-luminance) color model (as
 implemented by <code>polarLUV</code>). The GUIs interface the palette
-functions <code>rainbow_hcl</code> for qualitative palettes,
+functions <code>qualitative_hcl</code> for qualitative palettes,
 <code>sequential_hcl</code> for sequential palettes with a single hue,
 <code>heat_hcl</code> for sequential palettes with multiple hues, and
 <code>diverge_hcl</code> for diverging palettes (composed from two
@@ -32,7 +32,7 @@ color), minimal/maximal chroma (colorfulness), minimal maximal luminance
 (brightness, amount of gray), and a power transformations that control how
 quickly/slowly chroma and/or luminance are changed through the palette.
 Subsets of the parameters may not be applicable depending on the type of
-palette chosen. See <code>rainbow_hcl</code> and Zeileis et al. (2009) for
+palette chosen. See <code>qualitative_hcl</code> and Zeileis et al. (2009) for
 a more detailed explanation of the different arguments. Stauffer et al.
 (2015) provide more examples and guidance.
 </p>
@@ -40,10 +40,9 @@ a more detailed explanation of the different arguments. Stauffer et al.
 such as a map, heatmap, scatter plot, perspective 3D surface etc.
 </p>
 <p>To demonstrate different types of deficiencies, the active palette may be
-desaturated (emulating printing on a grayscale printer) and, if the
-<code>dichromat</code> package is available, collapsed to
+desaturated (emulating printing on a grayscale printer) and collapsed to
 emulate different types of color-blindness (without red-green or green-blue
-contrasts).
+contrasts) using the <code>simulate_cvd</code> functions.
 </p>
 
 

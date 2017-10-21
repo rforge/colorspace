@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2017-10-18 21:48 on thinkreto
+# - L@ST MODIFIED: 2017-10-21 09:58 on thinkreto
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -200,10 +200,13 @@ shinyServer(function(input, output, session) {
          generateExport() 
       # Show image (plot)
       } else if ( input$maintabs == "plotexample" & nchar(input$PAL) > 0 ) {
-         plotExample(colors) #showColorMap()
+         plotExample(colors)
       # Show spectrum
       } else if ( input$maintabs == "spectrum" ) {
          showSpectrum()
+      # Show color pane
+      } else if ( input$maintabs == "colorpane" ) {
+         showColorpane()
       }
 
       # Save color set to parent environment as we use it to generate
@@ -218,6 +221,17 @@ shinyServer(function(input, output, session) {
       colors <- getColors(100)
       output$spectrum <- renderPlot(
          specplot(colors,cex=1.4,plot=TRUE),
+         width=800, height=800
+      )
+   }
+
+   # ----------------------------------------------------------------
+   # Display colorpane
+   # ----------------------------------------------------------------
+   showColorpane <- function() {
+      colors <- getColors( input$N ) #11)
+      output$colorpane <- renderPlot(
+         hclplot(colors),
          width=800, height=800
       )
    }
@@ -387,6 +401,9 @@ shinyServer(function(input, output, session) {
       # Spectrum plot
       } else if ( input$maintabs == "spectrum" ) { 
          showSpectrum()
+      # Color pane plot
+      } else if ( input$maintabs == "colorpane" ) { 
+         showColorpane()
       }
    }
    observeEvent(input$maintabs,  updateMainTabContent() );
