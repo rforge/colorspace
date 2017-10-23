@@ -414,9 +414,12 @@ seqm.pals[["Purple-Blue"]] <- c(300,  200,  60,  0, 25, 95, 0.7, 1.3, 1) # Color
 seqm.pals[["Pure Red"]]    <- c(370,  280,  80,  5, 25, 95, 0.7, 1.3, 1) # ColorBrewer.org: PuRd
 seqm.pals[["Green-Yellow"]]<- c(140,   80,  40, 10, 35, 95, 0.7, 1.7, 1) # ColorBrewer.org: YlGn
 seqm.pals[["Blue-Yellow"]] <- c(265,   80,  60, 10, 25, 95, 0.7, 2.0, 1) # ColorBrewer.org: YlGnBu
+seqm.pals[["Dark Mint"]]   <- c(240,  130,  30, 30, 25, 95, 1.0, 1.0, 1) # CARTO: Dark Mint
+seqm.pals[["Teal"]]        <- c(240,  180,  35, 15, 35, 92, 0.5, 1.0, 1) # CARTO: Teal
 seqm.pals[["Red-Yellow"]]  <- c( 10,   85,  80, 10, 25, 95, 0.4, 1.3, 1) # ColorBrewer.org: YlOrRd
 seqm.pals[["Heat"]]        <- c(  0,   90,  80, 30, 30, 90, 0.2, 2.0, 1) # JCF/Z: alternative to heat_hcl
 seqm.pals[["Heat 2"]]      <- c(  0,   90, 100, 30, 50, 90, 0.2, 1.0, 1) # Z+KH+PM-09, Fig.5: heat_hcl
+seqm.pals[["Peach"]]       <- c( 15,   50, 130, 30, 55, 90, 1.0,  NA, 1) # CARTO: Peach
 seqm.pals[["Terrain"]]     <- c(130,    0,  80,  0, 60, 95, 0.1, 1.0, 1) # Z+KH+PM-09, Fig.5: terrain_hcl
 seqm.pals[["Terrain 2"]]   <- c(130,   30,  65,  0, 45, 90, 0.5, 1.5, 1) # JCF/Z: alternative to terrain_hcl
 seqm.pals[["Red-Blue"]]    <- c(  0, -100,  80, 40, 40, 75, 1.0, 1.0, 1) # Z+KH+PM-09, Fig.5: Red-Blue
@@ -430,9 +433,12 @@ dive.pals[["Blue-Red 3"]]  <- c(265,   12,  80, NA, 25, 95, 0.7,  NA, 1) # Color
 dive.pals[["Red-Green"]]   <- c(340,  128,  45, NA, 35, 95, 0.7,  NA, 1) # ColorBrewer.org: PiYG
 dive.pals[["Purple-Green"]]<- c(300,  128,  45, NA, 30, 95, 0.7,  NA, 1) # ColorBrewer.org: PRGn
 dive.pals[["Purple-Brown"]]<- c(270,   40,  45, NA, 30, 95, 0.7,  NA, 1) # ColorBrewer.org: PuOr
+dive.pals[["Blue-Yellow 2"]]<-c(265,   80,  80, NA, 40, 95, 1.2,  NA, 1) # Z+COW
+dive.pals[["Blue-Yellow 3"]]<-c(265,   80,  80, NA, 70, 95, 0.5, 2.0, 1) # Z+COW
 dive.pals[["Green-Brown"]] <- c(160,   55,  30, NA, 35, 95, 0.7,  NA, 1) # ColorBrewer.org: BrBG
 dive.pals[["Green-Orange"]]<- c(130,   43, 100, NA, 70, 90, 1.0,  NA, 1) # Z+KH+PM-09, Fig.6: Green-Orange (low luminance contrast)
 dive.pals[["Cyan-Magenta"]]<- c(180,  330,  59, NA, 75, 95, 1.5,  NA, 1) # Z+KH+PM-09, Fig.6: Blue-Red (low luminance contrast)
+dive.pals[["Tropic"]]      <- c(195,  325,  70, NA, 55, 95, 1.0,  NA, 1) # CARTO: Tropic
 
 base.pals <- list()
 base.pals[["rainbow"]]        <- c(NA, NA, NA, NA, NA, NA, NA, NA, 1)    # Default RGB rainbow
