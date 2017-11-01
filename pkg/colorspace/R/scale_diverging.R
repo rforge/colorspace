@@ -173,7 +173,7 @@ scale_color_continuous_diverging <- scale_colour_continuous_diverging
 scale_fill_continuous_diverging <- function(palette = NULL, c1 = NULL, l1 = NULL, l2 = NULL,
                                                h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = FALSE,
                                                mid = 0, na.value = "grey50", guide = "colourbar",
-                                               n_interp = 10, ...)
+                                               n_interp = 11, ...)
 {
   # arguments we want to hand off to function diverge_hcl only if explicitly provided
   hcl_args <- c("palette", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
