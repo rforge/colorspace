@@ -41,10 +41,9 @@ color palettes.
 Computes palettes based on the HCL (hue-chroma-luminance) color model (as
 implemented by \code{\link{polarLUV}}). The GUIs interface the palette
 functions \code{\link{qualitative_hcl}} for qualitative palettes,
-\code{\link{sequential_hcl}} for sequential palettes with a single hue,
-\code{\link{heat_hcl}} for sequential palettes with multiple hues, and
-\code{\link{diverge_hcl}} for diverging palettes (composed from two
-single-hue sequential palettes).
+\code{\link{sequential_hcl}} for sequential palettes with a single or
+multiple hues, and \code{\link{diverge_hcl}} for diverging palettes (composed
+from two single-hue sequential palettes).
 
 Two different GUIs are implemented and can be selected using the function
 input argument \code{gui} (\code{"tcltk"} or \code{"shiny"}). Both GUIs
