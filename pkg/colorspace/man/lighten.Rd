@@ -3,10 +3,10 @@
 \name{lighten}
 \alias{lighten}
 \alias{darken}
-\title{Lighten or Darken Colors by Modifying Luminance in HCL Space}
+\title{Lighten or Darken Colors by Modifying Luminance or Lightness in HCL or HLS Space}
 \usage{
-lighten(col, amount = 0.1, method = "relative", space = c("HLS", "HCL"),
-  fixup = TRUE)
+lighten(col, amount = 0.1, method = c("relative", "absolute"),
+  space = c("HCL", "HLS"), fixup = TRUE)
 
 darken(col, amount = 0.1, ...)
 }
@@ -22,23 +22,27 @@ multiplicatively or additively to the luminance value, depending on the
 setting of \code{method} (either relative or absolute). Negative numbers
 cause darkening.}
 
+\item{method}{character string specifying the adjustment method. Can be either \code{"relative"} or \code{"absolute"}.}
+
+\item{space}{character string specifying the color space in which adjustment happens. Can be either \code{"HCL"} or \code{"HLS"}.}
+
 \item{...}{Other parameters handed to the function \code{lighten()}.}
 }
 \value{
 A character vector with (s)RGB codings of the colors in the palette.
 }
 \description{
-Transform a vector of given colors to the corresponding colors with luminance increased or 
-decreased in HCL space. When darkening colors, chroma may be decreased as well if needed.
+Transform a vector of given colors to the corresponding colors with luminance or lightness increased or 
+decreased in HCL or HLS space, respectively. When darkening colors, chroma may be decreased as well if needed.
 }
 \details{
 The given colors are first transformed to RGB (either using \code{\link[colorspace]{hex2RGB}} or
-\code{\link[grDevices]{col2rgb}}) and then to HCL (\code{\link[colorspace]{polarLUV}}).
-In HCL, luminance is adjusted and then the color is transformed back to a hexadecimal
+\code{\link[grDevices]{col2rgb}}) and then to HCL (\code{\link[colorspace]{polarLUV}}) or HLS.
+In that space, the L component is adjusted and then the color is transformed back to a hexadecimal
 string.
 
 The function \code{lighten()} ligthens colors by either proportionally or absolutely increasing
-the luminance L. The matehmatical formula used to transform L is \code{(1 + amount) * L} if
+the L component of the color. The mathematical formula used to transform L is \code{(1 + amount) * L} if
 \code{method = "relative"}, and \code{L + amount} if \code{method = "absolute"}. If \code{amount}
 is negative then colors are darkened rather than lightened. The function \code{darken()} is a convenience
 function that multiplies \code{amount} with -1 and then calls \code{lighten()}.
