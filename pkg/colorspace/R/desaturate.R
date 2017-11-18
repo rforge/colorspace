@@ -1,13 +1,13 @@
 #' Desaturate Colors by Chroma Removal in HCL Space
 #' 
 #' Transform a vector of given colors to the corresponding colors with chroma
-#' removed (collapsed to zero) in HCL space.
+#' reduced (by a tunable amount) in HCL space.
 #' 
 #' If input \code{col} is a vector given colors are first transformed to RGB
 #' (either using \code{\link[colorspace]{hex2RGB}} or
 #' \code{\link[grDevices]{col2rgb}}) and then to HCL
-#' (\code{\link[colorspace]{polarLUV}}).  In HCL, chroma is removed (i.e.,
-#' collapsed to zero) and then the color is transformed back to a hexadecimal
+#' (\code{\link[colorspace]{polarLUV}}).  In HCL, chroma is reduced
+#' and then the color is transformed back to a hexadecimal
 #' string.
 #' 
 #' If input \code{col} is a matrix with three rows named \code{R}, \code{G}, and
@@ -29,7 +29,7 @@
 #' @return A character vector with (s)RGB codings of the colors in the palette
 #' if input \code{col} is a vector. If input \code{col} is a matrix with R/G/B
 #' values a matrix of the same form and size will be returned.
-#' @seealso \code{\link[colorspace]{polarLUV}}, \code{\link[colorspace]{hex}}
+#' @seealso \code{\link[colorspace]{polarLUV}}, \code{\link[colorspace]{hex}}, \code{\link[colorspace]{lighten}}
 #' @keywords color
 #' @examples
 #' ## rainbow of colors and their desaturated counterparts
