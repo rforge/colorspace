@@ -20,6 +20,7 @@
 #' @param nmax Maximum number of different colors the palette should contain. If not provided, is calculated automatically
 #'  from the data.
 #' @param order Numeric vector listing the order in which the colors should be used. Default is \code{1:nmax}.
+#' @param aesthetics The ggplot2 aesthetics to which this scale should be applied.
 #' @param ... common discrete scale parameters: \code{name}, \code{breaks}, \code{labels}, \code{na.value}, \code{limits} and \code{guide}. See
 #'  \code{\link[ggplot2]{discrete_scale}} for more details.
 #' @examples
@@ -41,7 +42,7 @@
 #' @export
 scale_colour_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, l1 = NULL, l2 = NULL,
                                              h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE,
-                                             nmax = NULL, order = NULL, ...)
+                                             nmax = NULL, order = NULL, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function sequential_hcl only if explicitly provided
   hcl_args <- c("palette", "c1", "c2", "l1", "l2", "h1", "h2", "p1", "p2")
@@ -63,41 +64,16 @@ scale_colour_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NUL
     args <- c(args, list(n = nmax, alpha = alpha, rev = rev))
     do.call(sequential_hcl, args)[order]
   }
-  ggplot2::discrete_scale("colour", "manual", pal, ...)
+  ggplot2::discrete_scale(aesthetics, "manual", pal, ...)
 }
 
 #' @rdname scale_colour_discrete_sequential
 #' @export
-scale_color_discrete_sequential <- scale_colour_discrete_sequential
+scale_color_discrete_sequential <- function(...) scale_colour_discrete_sequential(...)
 
 #' @rdname scale_colour_discrete_sequential
 #' @export
-scale_fill_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, l1 = NULL, l2 = NULL,
-                                           h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE,
-                                           nmax = NULL, order = NULL, ...)
-{
-  # arguments we want to hand off to function sequential_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "c2", "l1", "l2", "h1", "h2", "p1", "p2")
-  
-  # match hcl_args to args provided
-  args <- as.list(match.call())
-  args[[1]] <- NULL # remove the function call
-  args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
-  
-  pal <- function(n) {
-    if (is.null(nmax)) nmax <- n
-    if (is.null(order)) order <- 1:n
-    
-    if (n > nmax) {
-      warning("Insufficient values in scale_colour_discrete_sequential. ", n, " needed but only ",
-              nmax, " provided.", call. = FALSE)
-    }
-    # set the remaining arguments and call qualitative_hcl
-    args <- c(args, list(n = nmax, alpha = alpha, rev = rev))
-    do.call(sequential_hcl, args)[order]
-  }
-  ggplot2::discrete_scale("fill", "manual", pal, ...)
-}
+scale_fill_discrete_sequential <- function(...) scale_colour_discrete_sequential(..., aesthetics = "fill")
 
 #' HCL-based continuous sequential color scales for ggplot2
 #'
@@ -112,7 +88,7 @@ scale_fill_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL,
 #' @param end Number in the range of \code{[0, 1]} indicating to which point in the color scale the largest data value should be mapped.
 #' @param na.value Color to be used for missing data points.
 #' @param guide Type of legend. Use \code{"colourbar"} for continuous color bar. 
-#' @param n_interp Number of discrete colors that should be used to interpolate the continuous color scale. 10 will work fine in most cases.
+#' @param n_interp Number of discrete colors that should be used to interpolate the continuous color scale. 11 will work fine in most cases.
 #' @param ... common continuous scale parameters: `name`, `breaks`, `labels`, and `limits`. See
 #'  \code{\link[ggplot2]{continuous_scale}} for more details.
 #' @examples
@@ -143,7 +119,7 @@ scale_fill_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL,
 scale_colour_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, l1 = NULL, l2 = NULL,
                                                h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = FALSE,
                                                begin = 0, end = 1, na.value = "grey50", guide = "colourbar",
-                                               n_interp = 10, ...)
+                                               aesthetics = "colour", n_interp = 11, ...)
 {
   # arguments we want to hand off to function sequential_hcl only if explicitly provided
   hcl_args <- c("palette", "c1", "c2", "l1", "l2", "h1", "h2", "p1", "p2")
@@ -158,7 +134,7 @@ scale_colour_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = N
   args <- c(args, list(n = n_interp, rev = rev))
   colors <- do.call(sequential_hcl, args)
 
-  ggplot2::continuous_scale("colour", "continuous_sequential",
+  ggplot2::continuous_scale(aesthetics, "continuous_sequential",
                             scales::gradient_n_pal(colors, values = NULL),
                             na.value = na.value, guide = guide,
                             rescaler = to_rescaler(begin, end), ...)
@@ -166,30 +142,8 @@ scale_colour_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = N
 
 #' @rdname scale_colour_continuous_sequential
 #' @export
-scale_color_continuous_sequential <- scale_colour_continuous_sequential
+scale_color_continuous_sequential <- function(...) scale_colour_continuous_sequential(...)
 
 #' @rdname scale_colour_continuous_sequential
 #' @export
-scale_fill_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, l1 = NULL, l2 = NULL,
-                                               h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = FALSE,
-                                               begin = 0, end = 1, na.value = "grey50", guide = "colourbar",
-                                               n_interp = 10, ...)
-{
-  # arguments we want to hand off to function sequential_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "c2", "l1", "l2", "h1", "h2", "p1", "p2")
-  
-  # match hcl_args to args provided
-  args <- as.list(match.call())
-  args[[1]] <- NULL # remove the function call
-  args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
-  
-  # set the remaining arguments and call qualitative_hcl
-  # alpha argument doesn't seem to work for continuous scale
-  args <- c(args, list(n = n_interp, rev = rev))
-  colors <- do.call(sequential_hcl, args)
-  
-  ggplot2::continuous_scale("fill", "continuous_sequential",
-                            scales::gradient_n_pal(colors, values = NULL),
-                            na.value = na.value, guide = guide,
-                            rescaler = to_rescaler(begin, end), ...)
-}
+scale_fill_continuous_sequential <- function(...) scale_colour_continuous_sequential(..., aesthetics = "fill")

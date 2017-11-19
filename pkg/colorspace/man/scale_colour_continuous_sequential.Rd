@@ -9,17 +9,11 @@
 scale_colour_continuous_sequential(palette = NULL, c1 = NULL, c2 = NULL,
   l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL,
   rev = FALSE, begin = 0, end = 1, na.value = "grey50",
-  guide = "colourbar", n_interp = 10, ...)
+  guide = "colourbar", aesthetics = "colour", n_interp = 11, ...)
 
-scale_color_continuous_sequential(palette = NULL, c1 = NULL, c2 = NULL,
-  l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL,
-  rev = FALSE, begin = 0, end = 1, na.value = "grey50",
-  guide = "colourbar", n_interp = 10, ...)
+scale_color_continuous_sequential(...)
 
-scale_fill_continuous_sequential(palette = NULL, c1 = NULL, c2 = NULL,
-  l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL,
-  rev = FALSE, begin = 0, end = 1, na.value = "grey50",
-  guide = "colourbar", n_interp = 10, ...)
+scale_fill_continuous_sequential(...)
 }
 \arguments{
 \item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "seq")} for available options.}
@@ -50,7 +44,9 @@ scale_fill_continuous_sequential(palette = NULL, c1 = NULL, c2 = NULL,
 
 \item{guide}{Type of legend. Use \code{"colourbar"} for continuous color bar.}
 
-\item{n_interp}{Number of discrete colors that should be used to interpolate the continuous color scale. 10 will work fine in most cases.}
+\item{aesthetics}{The ggplot2 aesthetics to which this scale should be applied.}
+
+\item{n_interp}{Number of discrete colors that should be used to interpolate the continuous color scale. 11 will work fine in most cases.}
 
 \item{...}{common continuous scale parameters: `name`, `breaks`, `labels`, and `limits`. See
 \code{\link[ggplot2]{continuous_scale}} for more details.}
