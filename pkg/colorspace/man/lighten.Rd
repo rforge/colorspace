@@ -3,10 +3,10 @@
 \name{lighten}
 \alias{lighten}
 \alias{darken}
-\title{Lighten or Darken Colors by Modifying Luminance or Lightness in HCL or HLS Space}
+\title{Lighten or Darken Colors by Modifying Luminance or Lightness in HLS or HCL Space}
 \usage{
 lighten(col, amount = 0.1, method = c("relative", "absolute"),
-  space = c("HCL", "HLS"), fixup = TRUE)
+  space = c("HLS", "HCL"), fixup = TRUE)
 
 darken(col, amount = 0.1, ...)
 }
@@ -24,9 +24,9 @@ cause darkening.}
 
 \item{method}{character string specifying the adjustment method. Can be either \code{"relative"} or \code{"absolute"}.}
 
-\item{space}{character string specifying the color space in which adjustment happens. Can be either \code{"HCL"} or \code{"HLS"}.}
+\item{space}{character string specifying the color space in which adjustment happens. Can be either \code{"HLS"} or \code{"HCL"}.}
 
-\item{fixup}{logical if set to \code{TRUE}, colors that fall outside of the RGB color gamut are slightly modified
+\item{fixup}{logical If set to \code{TRUE}, colors that fall outside of the RGB color gamut are slightly modified
 by translating individual primary values so they lie between 0 and 255. If set to \code{FALSE}, out-of-gamut colors
 are replaced by \code{NA}.}
 
@@ -37,11 +37,11 @@ A character vector with (s)RGB codings of the colors in the palette.
 }
 \description{
 Transform a vector of given colors to the corresponding colors with luminance or lightness increased or 
-decreased in HCL or HLS space, respectively. When darkening colors, chroma may be decreased as well if needed.
+decreased in HLS or HCL space, respectively.
 }
 \details{
 The given colors are first transformed to RGB (either using \code{\link[colorspace]{hex2RGB}} or
-\code{\link[grDevices]{col2rgb}}) and then to HCL (\code{\link[colorspace]{polarLUV}}) or HLS.
+\code{\link[grDevices]{col2rgb}}) and then to HLS or HCL (\code{\link[colorspace]{polarLUV}}).
 In that space, the L component is adjusted and then the color is transformed back to a hexadecimal
 string.
 
@@ -50,6 +50,12 @@ the L component of the color. The mathematical formula used to transform L is \c
 \code{method = "relative"}, and \code{L + amount} if \code{method = "absolute"}. If \code{amount}
 is negative then colors are darkened rather than lightened. The function \code{darken()} is a convenience
 function that multiplies \code{amount} with -1 and then calls \code{lighten()}.
+
+Programmatically lightening and darkening colors can yield unexpected results. If you operate in HLS space
+(the default here), it can happen that the overall amount of lightening or darkening appears non-uniform. In
+HCL space, on the other hand, colors can become either too gray or overly colorful (see examples). We recommend
+that if the results you obtain don't look right to you, try the other colorspace and also try both the
+relative and the absolute methods.
 }
 \examples{
 ## rainbow of colors and their desaturated counterparts
@@ -57,18 +63,34 @@ rainbow_hcl(12)
 lighten(rainbow_hcl(12))
 
 ## convenience demo function
-wheel <- function(col, radius = 1, ...)
-  pie(rep(1, length(col)), col = col, radius = radius, ...) 
+pal <- function(col, border = "light gray") {
+  n <- length(col)
+  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), axes = FALSE,
+       xlab = "", ylab = "")
+  rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
+}
 
-## compare original, lightened, and darkened colors
-par(mar = rep(0, 4), mfrow = c(2, 3))
-## rainbow color wheel
-wheel(rainbow_hcl(12))
-wheel(lighten(rainbow_hcl(12), amount = 0.1))
-wheel(lighten(rainbow_hcl(12), amount = 0.3)) 
-wheel(rainbow_hcl(12))
-wheel(darken(rainbow_hcl(12), amount = 0.1))
-wheel(darken(rainbow_hcl(12), amount = 0.3))
+# darken light colors 
+cl <- c("#CDE4F3","#E7F3D3","#F7F0C7","#EFCFE5","#D0D1E7")
+
+par(mfrow = c(3, 2), mar = rep(0, 4), oma = c(0, 0, 2, 0))
+pal(cl); mtext("HLS")
+pal(cl); mtext("HCL")
+pal(darken(cl, 0.15))
+pal(darken(cl, 0.15, space = "HCL"))
+pal(darken(cl, 0.30))
+pal(darken(cl, 0.30, space = "HCL"))
+
+# lighten dark colors
+cd <- c("#61A9D9", "#ADD668", "#E6D152", "#CE6BAF", "#797CBA")
+
+par(mfrow = c(3, 2), mar = rep(0, 4), oma = c(0, 0, 2, 0))
+pal(cd); mtext("HLS")
+pal(cd); mtext("HCL")
+pal(lighten(cd, 0.15))
+pal(lighten(cd, 0.15, space = "HCL"))
+pal(lighten(cd, 0.30))
+pal(lighten(cd, 0.30, space = "HCL"))
 
 }
 \seealso{
