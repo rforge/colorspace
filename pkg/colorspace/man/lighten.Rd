@@ -26,6 +26,10 @@ cause darkening.}
 
 \item{space}{character string specifying the color space in which adjustment happens. Can be either \code{"HCL"} or \code{"HLS"}.}
 
+\item{fixup}{logical if set to \code{TRUE}, colors that fall outside of the RGB color gamut are slightly modified
+by translating individual primary values so they lie between 0 and 255. If set to \code{FALSE}, out-of-gamut colors
+are replaced by \code{NA}.}
+
 \item{...}{Other parameters handed to the function \code{lighten()}.}
 }
 \value{

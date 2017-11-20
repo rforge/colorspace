@@ -25,6 +25,9 @@
 #' cause darkening.
 #' @param method character string specifying the adjustment method. Can be either \code{"relative"} or \code{"absolute"}.
 #' @param space character string specifying the color space in which adjustment happens. Can be either \code{"HCL"} or \code{"HLS"}.
+#' @param fixup logical If set to \code{TRUE}, colors that fall outside of the RGB color gamut are slightly modified
+#'   by translating individual primary values so they lie between 0 and 255. If set to \code{FALSE}, out-of-gamut colors
+#'   are replaced by \code{NA}.
 #' @return A character vector with (s)RGB codings of the colors in the palette.
 #' @seealso \code{\link[colorspace]{polarLUV}}, \code{\link[colorspace]{hex}}, \code{\link[colorspace]{desaturate}}
 #' @keywords color
