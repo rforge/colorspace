@@ -19,6 +19,7 @@
 #' @param nmax Maximum number of different colors the palette should contain. If not provided, is calculated automatically
 #'  from the data.
 #' @param order Numeric vector listing the order in which the colors should be used. Default is \code{1:nmax}.
+#' @param aesthetics The ggplot2 aesthetics to which this scale should be applied.
 #' @param ... common discrete scale parameters: \code{name}, \code{breaks}, \code{labels}, \code{na.value}, \code{limits} and \code{guide}. See
 #'  \code{\link[ggplot2]{discrete_scale}} for more details.
 #' @examples
@@ -42,7 +43,7 @@
 #' @export
 scale_colour_discrete_diverging <- function(palette = NULL, c1 = NULL, l1 = NULL, l2 = NULL,
                                              h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE,
-                                             nmax = NULL, order = NULL, ...)
+                                             nmax = NULL, order = NULL, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function diverge_hcl only if explicitly provided
   hcl_args <- c("palette", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
@@ -64,41 +65,16 @@ scale_colour_discrete_diverging <- function(palette = NULL, c1 = NULL, l1 = NULL
     args <- c(args, list(n = nmax, alpha = alpha, rev = rev))
     do.call(diverge_hcl, args)[order]
   }
-  ggplot2::discrete_scale("colour", "manual", pal, ...)
+  ggplot2::discrete_scale(aesthetics, "manual", pal, ...)
 }
 
 #' @rdname scale_colour_discrete_diverging
 #' @export
-scale_color_discrete_diverging <- scale_colour_discrete_diverging
+scale_color_discrete_diverging <- function(...) scale_colour_discrete_diverging(...)
 
 #' @rdname scale_colour_discrete_diverging
 #' @export
-scale_fill_discrete_diverging <- function(palette = NULL, c1 = NULL, l1 = NULL, l2 = NULL,
-                                           h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE,
-                                           nmax = NULL, order = NULL, ...)
-{
-  # arguments we want to hand off to function diverge_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
-  
-  # match hcl_args to args provided
-  args <- as.list(match.call())
-  args[[1]] <- NULL # remove the function call
-  args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
-  
-  pal <- function(n) {
-    if (is.null(nmax)) nmax <- n
-    if (is.null(order)) order <- 1:n
-    
-    if (n > nmax) {
-      warning("Insufficient values in scale_colour_discrete_diverging. ", n, " needed but only ",
-              nmax, " provided.", call. = FALSE)
-    }
-    # set the remaining arguments and call qualitative_hcl
-    args <- c(args, list(n = nmax, alpha = alpha, rev = rev))
-    do.call(diverge_hcl, args)[order]
-  }
-  ggplot2::discrete_scale("fill", "manual", pal, ...)
-}
+scale_fill_discrete_diverging <- function(...) scale_colour_discrete_diverging(..., aesthetics = "fill")
 
 #' HCL-based continuous diverging color scales for ggplot2
 #'
@@ -143,7 +119,7 @@ scale_fill_discrete_diverging <- function(palette = NULL, c1 = NULL, l1 = NULL, 
 scale_colour_continuous_diverging <- function(palette = NULL, c1 = NULL, l1 = NULL, l2 = NULL,
                                                h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = FALSE,
                                                mid = 0, na.value = "grey50", guide = "colourbar",
-                                               n_interp = 11, ...)
+                                               n_interp = 11, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function diverge_hcl only if explicitly provided
   hcl_args <- c("palette", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
@@ -158,7 +134,7 @@ scale_colour_continuous_diverging <- function(palette = NULL, c1 = NULL, l1 = NU
   args <- c(args, list(n = n_interp, rev = rev))
   colors <- do.call(diverge_hcl, args)
 
-  ggplot2::continuous_scale("colour", "continuous_diverging",
+  ggplot2::continuous_scale(aesthetics, "continuous_diverging",
                             scales::gradient_n_pal(colors, values = NULL),
                             na.value = na.value, guide = guide,
                             rescaler = mid_rescaler(mid), ...)
@@ -166,30 +142,8 @@ scale_colour_continuous_diverging <- function(palette = NULL, c1 = NULL, l1 = NU
 
 #' @rdname scale_colour_continuous_diverging
 #' @export
-scale_color_continuous_diverging <- scale_colour_continuous_diverging
+scale_color_continuous_diverging <- function(...) scale_colour_continuous_diverging(...)
 
 #' @rdname scale_colour_continuous_diverging
 #' @export
-scale_fill_continuous_diverging <- function(palette = NULL, c1 = NULL, l1 = NULL, l2 = NULL,
-                                               h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = FALSE,
-                                               mid = 0, na.value = "grey50", guide = "colourbar",
-                                               n_interp = 11, ...)
-{
-  # arguments we want to hand off to function diverge_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
-  
-  # match hcl_args to args provided
-  args <- as.list(match.call())
-  args[[1]] <- NULL # remove the function call
-  args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
-  
-  # set the remaining arguments and call qualitative_hcl
-  # alpha argument doesn't seem to work for continuous scale
-  args <- c(args, list(n = n_interp, rev = rev))
-  colors <- do.call(diverge_hcl, args)
-  
-  ggplot2::continuous_scale("fill", "continuous_diverging",
-                            scales::gradient_n_pal(colors, values = NULL),
-                            na.value = na.value, guide = guide,
-                            rescaler = mid_rescaler(mid), ...)
-}
+scale_fill_continuous_diverging <- function(...) scale_colour_continuous_diverging(..., aesthetics = "fill")

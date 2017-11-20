@@ -16,6 +16,7 @@
 #' @param nmax Maximum number of different colors the palette should contain. If not provided, is calculated automatically
 #'  from the data.
 #' @param order Numeric vector listing the order in which the colors should be used. Default is \code{1:nmax}.
+#' @param aesthetics The ggplot2 aesthetics to which this scale should be applied.
 #' @param ... common discrete scale parameters: \code{name}, \code{breaks}, \code{labels}, \code{na.value}, \code{limits} and \code{guide}. See
 #'  \code{\link[ggplot2]{discrete_scale}} for more details.
 #' @examples
@@ -23,7 +24,8 @@
 #' 
 #' # default colors
 #' ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
-#'   geom_point() + scale_color_discrete_qualitative()
+#'   geom_point() + theme_minimal() +
+#'   scale_color_discrete_qualitative()
 #'  
 #' # color scale "Harmonic"
 #' ggplot(iris, aes(Sepal.Length, fill = Species)) +
@@ -31,7 +33,8 @@
 #' @importFrom stats na.omit
 #' @export
 scale_colour_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NULL, h1 = NULL, h2 = NULL,
-                                   alpha = 1, rev = FALSE, nmax = NULL, order = NULL, ...)
+                                   alpha = 1, rev = FALSE, nmax = NULL, order = NULL, aesthetics = "colour",
+                                   ...)
 {
   # arguments we want to hand off to function qualitative_hcl only if explicitly provided
   hcl_args <- c("palette", "c1", "l1", "h1", "h2")
@@ -53,41 +56,16 @@ scale_colour_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NU
     args <- c(args, list(n = nmax, alpha = alpha, rev = rev))
     do.call(qualitative_hcl, args)[order]
   }
-  ggplot2::discrete_scale("colour", "manual", pal, ...)
+  ggplot2::discrete_scale(aesthetics, "manual", pal, ...)
 }
 
 #' @rdname scale_colour_discrete_qualitative
 #' @export
-scale_color_discrete_qualitative <- scale_colour_discrete_qualitative
+scale_color_discrete_qualitative <- function(...) scale_colour_discrete_qualitative(...)
 
 #' @rdname scale_colour_discrete_qualitative
 #' @export
-scale_fill_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NULL, h1 = NULL, h2 = NULL,
-                                            alpha = 1, rev = FALSE, nmax = NULL, order = NULL, ...)
-{
-  # arguments we want to hand off to function qualitative_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "l1", "h1", "h2")
-  
-  # match hcl_args to args provided
-  args <- as.list(match.call())
-  args[[1]] <- NULL # remove the function call
-  args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
-  
-  pal <- function(n) {
-    if (is.null(nmax)) nmax <- n
-    if (is.null(order)) order <- 1:n
-    
-    if (n > nmax) {
-      warning("Insufficient values in scale_fill_discrete_qualitative. ", n, " needed but only ",
-              nmax, " provided.", call. = FALSE)
-    }
-    # set the remaining arguments and call qualitative_hcl
-    args <- c(args, list(n = nmax, alpha = alpha, rev = rev))
-    do.call(qualitative_hcl, args)[order]
-  }
-  ggplot2::discrete_scale("fill", "manual", pal, ...)
-}
-
+scale_fill_discrete_qualitative <- function(...) scale_colour_discrete_qualitative(..., aesthetics = "fill")
 
 #' HCL-based continuous qualitative color scales for ggplot2
 #'
@@ -102,7 +80,7 @@ scale_fill_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NULL
 #' @param end Number in the range of \code{[0, 1]} indicating to which point in the color scale the largest data value should be mapped.
 #' @param na.value Color to be used for missing data points.
 #' @param guide Type of legend. Use \code{"colourbar"} for continuous color bar. 
-#' @param n_interp Number of discrete colors that should be used to interpolate the continuous color scale. 10 will work fine in most cases.
+#' @param n_interp Number of discrete colors that should be used to interpolate the continuous color scale. 11 will work fine in most cases.
 #' @param ... common continuous scale parameters: `name`, `breaks`, `labels`, and `limits`. See
 #'  \code{\link[ggplot2]{continuous_scale}} for more details.
 #' @examples
@@ -126,7 +104,7 @@ scale_fill_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NULL
 #' @export
 scale_colour_continuous_qualitative <- function(palette = NULL, c1 = NULL, l1 = NULL, h1 = NULL, h2 = NULL,
                                                 rev = FALSE, begin = 0, end = 1, na.value = "grey50",
-                                                guide = "colourbar", n_interp = 10, ...)
+                                                guide = "colourbar", aesthetics = "colour", n_interp = 11, ...)
 {
   # arguments we want to hand off to function qualitative_hcl only if explicitly provided
   hcl_args <- c("palette", "c1", "l1", "h1", "h2")
@@ -141,7 +119,7 @@ scale_colour_continuous_qualitative <- function(palette = NULL, c1 = NULL, l1 = 
   args <- c(args, list(n = n_interp, rev = rev))
   colors <- do.call(qualitative_hcl, args)
   
-  ggplot2::continuous_scale("colour", "continuous_qualitative",
+  ggplot2::continuous_scale(aesthetics, "continuous_qualitative",
                             scales::gradient_n_pal(colors, values = NULL),
                             na.value = na.value, guide = guide,
                             rescaler = to_rescaler(begin, end), ...)
@@ -149,29 +127,8 @@ scale_colour_continuous_qualitative <- function(palette = NULL, c1 = NULL, l1 = 
 
 #' @rdname scale_colour_continuous_qualitative
 #' @export
-scale_color_continuous_qualitative <- scale_colour_continuous_qualitative
+scale_color_continuous_qualitative <- function(...) scale_colour_continuous_qualitative(...)
 
 #' @rdname scale_colour_continuous_qualitative
 #' @export
-scale_fill_continuous_qualitative <- function(palette = NULL, c1 = NULL, l1 = NULL, h1 = NULL, h2 = NULL,
-                                              rev = FALSE, begin = 0, end = 1, na.value = "grey50",
-                                              guide = "colourbar", n_interp = 10, ...)
-{
-  # arguments we want to hand off to function qualitative_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "l1", "h1", "h2")
-  
-  # match hcl_args to args provided
-  args <- as.list(match.call())
-  args[[1]] <- NULL # remove the function call
-  args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
-  
-  # set the remaining arguments and call qualitative_hcl
-  # alpha argument doesn't seem to work for continuous scale
-  args <- c(args, list(n = n_interp, rev = rev))
-  colors <- do.call(qualitative_hcl, args)
-  
-  ggplot2::continuous_scale("fill", "continuous_qualitative",
-                            scales::gradient_n_pal(colors, values = NULL),
-                            na.value = na.value, guide = guide,
-                            rescaler = to_rescaler(begin, end), ...)
-}
+scale_fill_continuous_qualitative <- function(...) scale_colour_continuous_qualitative(..., aesthetics = "fill")

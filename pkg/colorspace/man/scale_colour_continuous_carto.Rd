@@ -10,19 +10,11 @@ scale_colour_continuous_carto(palette = "DarkMint", c1 = NULL, c2 = NULL,
   c3 = NULL, l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
   h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL,
   rev = FALSE, begin = 0, end = 1, mid = 0, na.value = "grey50",
-  guide = "colourbar", n_interp = 11, ...)
+  guide = "colourbar", n_interp = 11, aesthetics = "colour", ...)
 
-scale_color_continuous_carto(palette = "DarkMint", c1 = NULL, c2 = NULL,
-  c3 = NULL, l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
-  h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL,
-  rev = FALSE, begin = 0, end = 1, mid = 0, na.value = "grey50",
-  guide = "colourbar", n_interp = 11, ...)
+scale_color_continuous_carto(...)
 
-scale_fill_continuous_carto(palette = "DarkMint", c1 = NULL, c2 = NULL,
-  c3 = NULL, l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
-  h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL,
-  rev = FALSE, begin = 0, end = 1, mid = 0, na.value = "grey50",
-  guide = "colourbar", n_interp = 11, ...)
+scale_fill_continuous_carto(...)
 }
 \arguments{
 \item{palette}{The name of the palette to be used.}
@@ -46,6 +38,8 @@ color scale. Ignored for sequential scales.}
 
 \item{n_interp}{Number of discrete colors that should be used to interpolate the continuous color scale.
 For diverging scales, it is important to use an odd number to capture the color at the midpoint.}
+
+\item{aesthetics}{The ggplot2 aesthetics to which this scale should be applied.}
 
 \item{...}{common continuous scale parameters: `name`, `breaks`, `labels`, and `limits`. See
 \code{\link[ggplot2]{continuous_scale}} for more details.}

@@ -8,15 +8,11 @@
 \usage{
 scale_colour_discrete_qualitative(palette = NULL, c1 = NULL, l1 = NULL,
   h1 = NULL, h2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
-  order = NULL, ...)
+  order = NULL, aesthetics = "colour", ...)
 
-scale_color_discrete_qualitative(palette = NULL, c1 = NULL, l1 = NULL,
-  h1 = NULL, h2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
-  order = NULL, ...)
+scale_color_discrete_qualitative(...)
 
-scale_fill_discrete_qualitative(palette = NULL, c1 = NULL, l1 = NULL,
-  h1 = NULL, h2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
-  order = NULL, ...)
+scale_fill_discrete_qualitative(...)
 }
 \arguments{
 \item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options.}
@@ -38,6 +34,8 @@ from the data.}
 
 \item{order}{Numeric vector listing the order in which the colors should be used. Default is \code{1:nmax}.}
 
+\item{aesthetics}{The ggplot2 aesthetics to which this scale should be applied.}
+
 \item{...}{common discrete scale parameters: \code{name}, \code{breaks}, \code{labels}, \code{na.value}, \code{limits} and \code{guide}. See
 \code{\link[ggplot2]{discrete_scale}} for more details.}
 }
@@ -53,7 +51,8 @@ library(ggplot2)
 
 # default colors
 ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
-  geom_point() + scale_color_discrete_qualitative()
+  geom_point() + theme_minimal() +
+  scale_color_discrete_qualitative()
  
 # color scale "Harmonic"
 ggplot(iris, aes(Sepal.Length, fill = Species)) +

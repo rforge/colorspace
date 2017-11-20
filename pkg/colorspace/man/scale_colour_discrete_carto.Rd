@@ -9,17 +9,11 @@
 scale_colour_discrete_carto(palette = "DarkMint", c1 = NULL, c2 = NULL,
   c3 = NULL, l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
   h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL, alpha = 1,
-  rev = FALSE, nmax = NULL, order = NULL, ...)
+  rev = FALSE, nmax = NULL, order = NULL, aesthetics = "colour", ...)
 
-scale_color_discrete_carto(palette = "DarkMint", c1 = NULL, c2 = NULL,
-  c3 = NULL, l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
-  h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL, alpha = 1,
-  rev = FALSE, nmax = NULL, order = NULL, ...)
+scale_color_discrete_carto(...)
 
-scale_fill_discrete_carto(palette = "DarkMint", c1 = NULL, c2 = NULL,
-  c3 = NULL, l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
-  h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL, alpha = 1,
-  rev = FALSE, nmax = NULL, order = NULL, ...)
+scale_fill_discrete_carto(...)
 }
 \arguments{
 \item{palette}{The name of the palette to be used.}
@@ -34,6 +28,8 @@ scale_fill_discrete_carto(palette = "DarkMint", c1 = NULL, c2 = NULL,
 from the data.}
 
 \item{order}{Numeric vector listing the order in which the colors should be used. Default is \code{1:nmax}.}
+
+\item{aesthetics}{The ggplot2 aesthetics to which this scale should be applied.}
 
 \item{...}{common discrete scale parameters: \code{name}, \code{breaks}, \code{labels}, \code{na.value}, \code{limits} and \code{guide}. See
 \code{\link[ggplot2]{discrete_scale}} for more details.}

@@ -17,6 +17,7 @@
 #' @param nmax Maximum number of different colors the palette should contain. If not provided, is calculated automatically
 #'  from the data.
 #' @param order Numeric vector listing the order in which the colors should be used. Default is \code{1:nmax}.
+#' @param aesthetics The ggplot2 aesthetics to which this scale should be applied.
 #' @param ... common discrete scale parameters: \code{name}, \code{breaks}, \code{labels}, \code{na.value}, \code{limits} and \code{guide}. See
 #'  \code{\link[ggplot2]{discrete_scale}} for more details.
 #' @examples
@@ -41,7 +42,8 @@
 scale_colour_discrete_carto <- function(palette = "DarkMint", c1 = NULL, c2 = NULL, c3 = NULL,
                                             l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
                                             h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL,
-                                            alpha = 1, rev = FALSE, nmax = NULL, order = NULL, ...)
+                                            alpha = 1, rev = FALSE, nmax = NULL, order = NULL,
+                                            aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function carto_hcl only if explicitly provided
   hcl_args <- c("c1", "c2", "c3", "l1", "l2", "l3", "h1", "h2", "h3", "p1", "p2",
@@ -64,44 +66,17 @@ scale_colour_discrete_carto <- function(palette = "DarkMint", c1 = NULL, c2 = NU
     args <- c(args, list(palette = palette, n = nmax, alpha = alpha, rev = rev))
     do.call(carto_hcl, args)[order]
   }
-  ggplot2::discrete_scale("colour", "manual", pal, ...)
+  ggplot2::discrete_scale(aesthetics, "manual", pal, ...)
 }
 
 #' @rdname scale_colour_discrete_carto
 #' @export
-scale_color_discrete_carto <- scale_colour_discrete_carto
+scale_color_discrete_carto <- function(...) scale_colour_discrete_carto(...)
 
 #' @rdname scale_colour_discrete_carto
 #' @export
-scale_fill_discrete_carto <- function(palette = "DarkMint", c1 = NULL, c2 = NULL, c3 = NULL,
-                             l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
-                             h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL,
-                             alpha = 1, rev = FALSE, nmax = NULL, order = NULL, ...)
-{
-  # arguments we want to hand off to function diverge_hcl only if explicitly provided
-  hcl_args <- c("c1", "c2", "c3", "l1", "l2", "l3", "h1", "h2", "h3", "p1", "p2",
-                "p3", "p4")
-  
-  # match hcl_args to args provided
-  args <- as.list(match.call())
-  args[[1]] <- NULL # remove the function call
-  args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
-  
-  pal <- function(n) {
-    if (is.null(nmax)) nmax <- n
-    if (is.null(order)) order <- 1:n
-    
-    if (n > nmax) {
-      warning("Insufficient values in scale_colour_discrete_diverging. ", n, " needed but only ",
-              nmax, " provided.", call. = FALSE)
-    }
-    # set the remaining arguments and call qualitative_hcl
-    args <- c(args, list(palette = palette, n = nmax, alpha = alpha, rev = rev))
-    do.call(carto_hcl, args)[order]
-  }
-  ggplot2::discrete_scale("fill", "manual", pal, ...)
-}
-  
+scale_fill_discrete_carto <- function(...) scale_colour_discrete_carto(..., aesthetics = "fill")
+
   
   
 #' Continuous CARTO scales for ggplot2, emulated by HCL palettes
@@ -181,7 +156,7 @@ scale_colour_continuous_carto <- function(palette = "DarkMint", c1 = NULL, c2 = 
                                           l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
                                           h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL,
                                           rev = FALSE, begin = 0, end = 1, mid = 0, na.value = "grey50",
-                                          guide = "colourbar", n_interp = 11, ...)
+                                          guide = "colourbar", n_interp = 11, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function carto_hcl only if explicitly provided
   hcl_args <- c("c1", "c2", "c3", "l1", "l2", "l3", "h1", "h2", "h3", "p1", "p2",
@@ -207,7 +182,7 @@ scale_colour_continuous_carto <- function(palette = "DarkMint", c1 = NULL, c2 = 
     # sequential scale
     rescaler = to_rescaler(begin, end)
   }
-  ggplot2::continuous_scale("colour", "continuous_carto",
+  ggplot2::continuous_scale(aesthetics, "continuous_carto",
                             scales::gradient_n_pal(colors, values = NULL),
                             na.value = na.value, guide = guide,
                             rescaler = rescaler, ...)
@@ -215,42 +190,8 @@ scale_colour_continuous_carto <- function(palette = "DarkMint", c1 = NULL, c2 = 
 
 #' @rdname scale_colour_continuous_carto
 #' @export
-scale_color_continuous_carto <- scale_colour_continuous_carto
+scale_color_continuous_carto <- function(...) scale_colour_continuous_carto(...)
 
 #' @rdname scale_colour_continuous_carto
 #' @export
-scale_fill_continuous_carto <- function(palette = "DarkMint", c1 = NULL, c2 = NULL, c3 = NULL,
-                                        l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
-                                        h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL,
-                                        rev = FALSE, begin = 0, end = 1, mid = 0, na.value = "grey50",
-                                        guide = "colourbar", n_interp = 11, ...)
-{
-  # arguments we want to hand off to function carto_hcl only if explicitly provided
-  hcl_args <- c("c1", "c2", "c3", "l1", "l2", "l3", "h1", "h2", "h3", "p1", "p2",
-                "p3", "p4")
-  
-  # match hcl_args to args provided
-  args <- as.list(match.call())
-  args[[1]] <- NULL # remove the function call
-  args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
-  
-  # set the remaining arguments and call qualitative_hcl
-  # alpha argument doesn't seem to work for continuous scale
-  args <- c(args, list(palette = palette, n = n_interp, rev = rev))
-  colors <- do.call(carto_hcl, args)
-  
-  # determine whether we're dealing with a sequential or continuous scale
-  if (palette %in% c("ArmyRose", "Fall", "Geyser", "Temps", "Tropic", "Earth") || !is.null(h3))
-  {
-    # diverging scale
-    rescaler = mid_rescaler(mid)
-  }
-  else {
-    # sequential scale
-    rescaler = to_rescaler(begin, end)
-  }
-  ggplot2::continuous_scale("fill", "continuous_carto",
-                            scales::gradient_n_pal(colors, values = NULL),
-                            na.value = na.value, guide = guide,
-                            rescaler = rescaler, ...)
-}
+scale_fill_continuous_carto <- function(...) scale_colour_continuous_carto(..., aesthetics = "fill")
