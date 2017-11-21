@@ -295,9 +295,11 @@ lightdark2 <- function(col, amount = 0.1,
     col@coords[, "L"] <- pmin(100, pmax(0, col@coords[, "L"]))
     
     ## transform chroma correspondingly (relative to maximum chroma possible)
-    col@coords[, "C"] <- col@coords[, "C"]/ceiling(max_chroma(col@coords[, "H"], Lold) + 1e-8) *
-      max_chroma(col@coords[, "H"], col@coords[, "L"], floor = TRUE)
-    # check once more that resulting chroma is within appropriate bounds
+    ## With the availability of the combined model, it seems better to not apply this adjustment here.
+    ## Lighened colors look better without it, and darkened colors look better under the combined model.
+    #col@coords[, "C"] <- col@coords[, "C"]/ceiling(max_chroma(col@coords[, "H"], Lold) + 1e-8) *
+    #  max_chroma(col@coords[, "H"], col@coords[, "L"], floor = TRUE)
+    ## check that resulting chroma is within appropriate bounds
     col@coords[, "C"] <- pmin(max_chroma(col@coords[, "H"], col@coords[, "L"], floor = TRUE),
                               pmax(0, col@coords[, "C"]))
   } 
@@ -446,6 +448,20 @@ if(FALSE) {
   pal(lightdark2(cl, -0.4, space = "HCL"))
   pal(lightdark2(cl, -0.4, space = "combined"))
   
+  ## fairly dark colors --> turn lighter
+  cl <- c("#E53B80", "#938102", "#069361", "#018EA1", "#C740EC")
+  
+  ## HLS vs. HCL vs. combined --> HCL works best
+  par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
+  pal(cl); mtext("HLS")
+  pal(cl); mtext("HCL")
+  pal(cl); mtext("combined")
+  pal(lightdark2(cl, 0.2))
+  pal(lightdark2(cl, 0.2, space = "HCL"))
+  pal(lightdark2(cl, 0.2, space = "combined"))
+  pal(lightdark2(cl, 0.4))
+  pal(lightdark2(cl, 0.4, space = "HCL"))
+  pal(lightdark2(cl, 0.4, space = "combined"))
   
   ## fairly light colors --> turn darker
   ## http://stackoverflow.com/questions/30219738/is-there-a-way-to-programmatically-darken-the-color-given-rgb-values
@@ -463,7 +479,7 @@ if(FALSE) {
   pal(lightdark2(cl, -0.4, space = "HCL"))
   pal(lightdark2(cl, -0.4, space = "combined"))
   
-  ## fairly dark colors --> turn lighter
+  ## moderately dark colors --> turn lighter
   ## HLS vs. HCL vs. combined --> HCL works best
   cl <- c("#61A9D9", "#ADD668", "#E6D152", "#CE6BAF", "#797CBA")
   par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
@@ -476,4 +492,18 @@ if(FALSE) {
   pal(lightdark2(cl, 0.4))
   pal(lightdark2(cl, 0.4, space = "HCL"))
   pal(lightdark2(cl, 0.4, space = "combined"))
+  
+  ## moderately dark colors --> turn lighter, test additive model
+  ## HLS vs. HCL vs. combined --> HCL works best
+  cl <- c("#61A9D9", "#ADD668", "#E6D152", "#CE6BAF", "#797CBA")
+  par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
+  pal(cl); mtext("HLS")
+  pal(cl); mtext("HCL")
+  pal(cl); mtext("combined")
+  pal(lightdark2(cl, 0.1, method = "absolute"))
+  pal(lightdark2(cl, 0.1, method = "absolute", space = "HCL"))
+  pal(lightdark2(cl, 0.1, method = "absolute", space = "combined"))
+  pal(lightdark2(cl, 0.2, method = "absolute"))
+  pal(lightdark2(cl, 0.2, method = "absolute", space = "HCL"))
+  pal(lightdark2(cl, 0.2, method = "absolute", space = "combined"))
 }
