@@ -342,8 +342,11 @@ lightdark2 <- function(col, amount = 0.1,
       Lold + amount * 100
     }
     
+    #print(colHCL@coords[, "H"])
+    #print(colHLSHCL@coords[, "H"])
+    
     colHCL@coords[, "L"] <- pmin(100, pmax(0, colHCL@coords[, "L"]))
-    colHCL@coords[, "H"] <- colHLSHCL@coords[, "H"]
+    #colHCL@coords[, "H"] <- colHLSHCL@coords[, "H"]
     colHCL@coords[, "C"] <- colHLSHCL@coords[, "C"]
     
     ## transform chroma correspondingly (relative to maximum chroma possible)

@@ -1,24 +1,31 @@
-#' Lighten or Darken Colors by Modifying Luminance or Lightness in HLS or HCL Space
+#' Algorithmically Lighten or Darken Colors
 #' 
-#' Transform a vector of given colors to the corresponding colors with luminance or lightness increased or 
-#' decreased in HLS or HCL space, respectively.
+#' The functions \code{lighten} and \code{darken} take a vector of R colors and adjust the colors such that
+#' they appear lightened or darkened, respectively.
 #' 
-#' The given colors are first transformed to RGB (either using \code{\link[colorspace]{hex2RGB}} or
-#' \code{\link[grDevices]{col2rgb}}) and then to HLS or HCL (\code{\link[colorspace]{polarLUV}}).
-#' In that space, the L component is adjusted and then the color is transformed back to a hexadecimal
-#' string.
+#' The color adjustment can be calculated in three different color spaces. First, if \code{space = "HCL"},
+#' the colors are transformed to HCL, (\code{\link[colorspace]{polarLUV}}), the luminance component L
+#' is adjusted, and then the colors are transformed back to a hexadecimal RGB string. Second, if 
+#' \code{space = "HLS"}, the colors are transformed to HLS, the lightness component L is adjusted, and
+#' then the color is transformed back to a hexadecimal RGB string. Finally, if \code{space = "combined"},
+#' the colors are first adjusted in both the HCL and HLS spaces. Then, the adjusted HLS colors are converted
+#' into HCL, and then the chroma components of the adjusted HLS colors are copied to the adjusted HCL colors.
+#' Thus, in effect, the combined model adjusts luminance in HCL space but chroma in HLS space. We have found
+#' that, in general, \code{space = "HCL"} performs best for lightening colors and \code{space = "combined"}
+#' performs best for darkening colors, and these are the default settings for \code{lighten} and \code{darken},
+#' respectively.
 #' 
-#' The function \code{lighten()} ligthens colors by either proportionally or absolutely increasing
-#' the L component of the color. The mathematical formula used to transform L is \code{(1 + amount) * L} if
-#' \code{method = "relative"}, and \code{L + amount} if \code{method = "absolute"}. If \code{amount}
-#' is negative then colors are darkened rather than lightened. The function \code{darken()} is a convenience
-#' function that multiplies \code{amount} with -1 and then calls \code{lighten()}.
+#' Regardless of the chosen color space, the adjustment of the L component can occur by two methods, relative
+#' (the default) and absolute. Under the relative method, the adjustment is \code{100 - (100 - L) * (1 - amount)} when
+#' lightening colors and \code{L * (1 - amount)} when darkening colors. Under the absolute method, the adjustment
+#' is \code{L +/- 100 * amount} when lightening/darkening colors.
 #' 
-#' Programmatically lightening and darkening colors can yield unexpected results. If you operate in HLS space
-#' (the default here), it can happen that the overall amount of lightening or darkening appears non-uniform
-#' among a group of colors that are lightened or darkened jointly. In HCL space, on the other hand, colors
-#' can become either too gray or overly colorful (see examples). We recommend that if the results you obtain
-#' don't look right to you, try the other colorspace and also try both the relative and the absolute methods.
+#' Programmatically lightening and darkening colors can yield unexpected results (see examples). In HCL space,
+#' colors can become either too gray or overly colorful. By contrast, in HLS space it can happen that the
+#' overallamount of lightening or darkening appears to be non-uniform among a group of colors that are 
+#' lightened or darkened jointly, and again, colors can become either too gray or overly colorful. We
+#' recommend to try different color spaces if the default space for the chosen function (\code{lighten} 
+#' or \code{darken}) does not look right in a specific application.
 #' 
 #' @param col vector of any of the three kind of R colors, i.e., either a color
 #' name (an element of \code{\link[grDevices]{colors}}), a hexadecimal string
@@ -38,10 +45,6 @@
 #' @seealso \code{\link[colorspace]{polarLUV}}, \code{\link[colorspace]{hex}}, \code{\link[colorspace]{desaturate}}
 #' @keywords color
 #' @examples
-#' ## rainbow of colors and their desaturated counterparts
-#' rainbow_hcl(12)
-#' lighten(rainbow_hcl(12))
-#' 
 #' ## convenience demo function
 #' pal <- function(col, border = "light gray") {
 #'   n <- length(col)
@@ -49,47 +52,74 @@
 #'        xlab = "", ylab = "")
 #'   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
 #' }
-#'
-#' # darken light colors 
-#' cl <- c("#CDE4F3","#E7F3D3","#F7F0C7","#EFCFE5","#D0D1E7")
-#'
-#' par(mfrow = c(3, 2), mar = rep(0, 4), oma = c(0, 0, 2, 0))
-#' pal(cl); mtext("HLS")
+#' 
+#' # lighten dark colors, example 1
+#' cl <- rainbow_hcl(5)
+#' par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
 #' pal(cl); mtext("HCL")
+#' pal(cl); mtext("HLS")
+#' pal(cl); mtext("combined")
+#' pal(lighten(cl, 0.15))
+#' pal(lighten(cl, 0.15, space = "HLS"))
+#' pal(lighten(cl, 0.15, space = "combined"))
+#' pal(lighten(cl, 0.3))
+#' pal(lighten(cl, 0.3, space = "HLS"))
+#' pal(lighten(cl, 0.3, space = "combined"))
+#'
+#' # lighten dark colors, example 2
+#' cl <- c("#61A9D9", "#ADD668", "#E6D152", "#CE6BAF", "#797CBA")
+#' par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
+#' pal(cl); mtext("HCL")
+#' pal(cl); mtext("HLS")
+#' pal(cl); mtext("combined")
+#' pal(lighten(cl, 0.15))
+#' pal(lighten(cl, 0.15, space = "HLS"))
+#' pal(lighten(cl, 0.15, space = "combined"))
+#' pal(lighten(cl, 0.30))
+#' pal(lighten(cl, 0.30, space = "HLS"))
+#' pal(lighten(cl, 0.30, space = "combined"))
+#' 
+#' # darken light colors, example 1
+#' cl <- rainbow_hcl(5, l = 90, c = 35)
+#' par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
+#' pal(cl); mtext("combined")
+#' pal(cl); mtext("HCL")
+#' pal(cl); mtext("HLS")
 #' pal(darken(cl, 0.15))
 #' pal(darken(cl, 0.15, space = "HCL"))
+#' pal(darken(cl, 0.15, space = "HLS"))
 #' pal(darken(cl, 0.30))
 #' pal(darken(cl, 0.30, space = "HCL"))
-#' 
-#' # lighten dark colors
-#' cd <- c("#61A9D9", "#ADD668", "#E6D152", "#CE6BAF", "#797CBA")
-#' 
-#' par(mfrow = c(3, 2), mar = rep(0, 4), oma = c(0, 0, 2, 0))
-#' pal(cd); mtext("HLS")
-#' pal(cd); mtext("HCL")
-#' pal(lighten(cd, 0.15))
-#' pal(lighten(cd, 0.15, space = "HCL"))
-#' pal(lighten(cd, 0.30))
-#' pal(lighten(cd, 0.30, space = "HCL"))
-#' 
+#' pal(darken(cl, 0.30, space = "HLS"))
+#'
+#' # darken light colors, example 2 
+#' cl <- c("#CDE4F3","#E7F3D3","#F7F0C7","#EFCFE5","#D0D1E7")
+#' par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
+#' pal(cl); mtext("combined")
+#' pal(cl); mtext("HCL")
+#' pal(cl); mtext("HLS")
+#' pal(darken(cl, 0.15))
+#' pal(darken(cl, 0.15, space = "HCL"))
+#' pal(darken(cl, 0.15, space = "HLS"))
+#' pal(darken(cl, 0.30))
+#' pal(darken(cl, 0.30, space = "HCL"))
+#' pal(darken(cl, 0.30, space = "HLS"))
 #' @export lighten
 #' @importFrom grDevices col2rgb
 lighten <- function(col, amount = 0.1,
-                    method = c("relative", "absolute"), space = c("HLS", "HCL"), fixup = TRUE)
+                    method = c("relative", "absolute"), space = c("HCL", "HLS", "combined"), fixup = TRUE)
 {
-  ## shortcut to make sure colors are not modified if amount is set to zero
-  if (amount == 0) {
-    return(col)
-  }
-  
   ## method
-  space <- match.arg(space, c("HLS", "HCL"))
+  space <- match.arg(space, c("HCL", "HLS", "combined"))
   method <- match.arg(method, c("relative", "absolute"))
   
   ## number of colors
   n <- max(c(length(col), length(amount)))
   col <- rep_len(col, length.out = n)
   amount <- rep_len(amount, length.out = n)
+  
+  ## save original colors for later, to substitute any cases with amount == 0
+  col_orig <- col
   
   ## col has to be hex code, otherwise col2rgb is used
   if(is.character(col) &&
@@ -103,6 +133,9 @@ lighten <- function(col, amount = 0.1,
     col <- hex2RGB(col)
   } else {
     col <- col2rgb(col, alpha = TRUE)
+    # save original colors in hex format, in case some were specified as 
+    # named colors or as palette entries
+    col_orig <- rgb(t(col), maxColorValue = 255)
     ## extract alpha values (if non-FF)
     alpha <- format(as.hexmode(col[4L, ]), width = 2L, upper.case = TRUE)
     alpha[alpha == "FF"] <- ""
@@ -110,8 +143,61 @@ lighten <- function(col, amount = 0.1,
     col <- RGB(t(col[1L:3L, ])/255)
   }
   
-  if(space == "HCL") {
-    ## convert to HCL and remove chroma
+  if (space == "HCL") {
+    ## *** darkening/lightening in HCL space ***
+    
+    ## convert to HCL
+    col <- as(col, "polarLUV")
+    ## fix-up extreme luminance cases
+    col@coords[, "L"] <- pmin(100, pmax(0, col@coords[, "L"]))
+    
+    ## adjust luminance
+    Lold <- col@coords[, "L"]
+    col@coords[, "L"] <- if(method == "relative") {
+      (amount >= 0) * (100 - (100 - Lold) * (1 - amount)) +
+        (amount < 0) * Lold * (1 + amount)
+    } else {
+      Lold + amount * 100
+    }
+    col@coords[, "L"] <- pmin(100, pmax(0, col@coords[, "L"]))
+    
+    ## transform chroma correspondingly (relative to maximum chroma possible)
+    ## It seems better to not apply this adjustment here. Lighened colors look better without it, 
+    ## and darkened colors look better under the combined model.
+    #col@coords[, "C"] <- col@coords[, "C"]/ceiling(max_chroma(col@coords[, "H"], Lold) + 1e-8) *
+    #  max_chroma(col@coords[, "H"], col@coords[, "L"], floor = TRUE)
+  
+    ## check that resulting chroma is within appropriate bounds
+    col@coords[, "C"] <- pmin(max_chroma(col@coords[, "H"], col@coords[, "L"], floor = TRUE),
+                              pmax(0, col@coords[, "C"]))
+  } 
+  else if (space == "HLS") {
+    ## *** darkening/lightening in HLS space ***
+    
+    col <- as(col, "HLS")
+    col@coords[, "L"] <- if(method == "relative") {
+      (amount >= 0) * (1 - (1 - col@coords[, "L"]) * (1 - amount)) +
+        (amount < 0) * col@coords[, "L"] * (1 + amount)
+    } else {
+      col@coords[, "L"] + amount
+    }
+    col@coords[, "L"] <- pmin(1, pmax(0, col@coords[, "L"]))
+  } else {
+    ## *** darkening/lightening in combined space ***
+    
+    ## first do adjustment in HLS space
+    colHLS <- as(col, "HLS")
+    colHLS@coords[, "L"] <- if(method == "relative") {
+      (amount >= 0) * (1 - (1 - colHLS@coords[, "L"]) * (1 - amount)) +
+        (amount < 0) * colHLS@coords[, "L"] * (1 + amount)
+    } else {
+      colHLS@coords[, "L"] + amount
+    }
+    colHLS@coords[, "L"] <- pmin(1, pmax(0, colHLS@coords[, "L"]))
+    
+    colHLSHCL <- as(as(colHLS, "RGB"), "polarLUV")
+    
+    ## now do adjustment in HCL space
     col <- as(col, "polarLUV")
     ## fix-up extreme luminance cases
     col@coords[, "L"] <- pmin(100, pmax(0, col@coords[, "L"]))
@@ -119,31 +205,28 @@ lighten <- function(col, amount = 0.1,
     ## transform luminance
     Lold <- col@coords[, "L"]
     col@coords[, "L"] <- if(method == "relative") {
-      Lold * (1 + amount)
+      (amount >= 0) * (100 - (100 - Lold) * (1 - amount)) +
+        (amount < 0) * Lold * (1 + amount)
     } else {
       Lold + amount * 100
     }
+    
+    ## fix-up L and copy C over from HLS-converted color
     col@coords[, "L"] <- pmin(100, pmax(0, col@coords[, "L"]))
-
-    ## transform chroma correspondingly (relative to maximum chroma possible)
-    col@coords[, "C"] <- col@coords[, "C"]/ceiling(max_chroma(col@coords[, "H"], Lold) + 1e-8) *
-      max_chroma(col@coords[, "H"], col@coords[, "L"], floor = TRUE)
-    # check once more that resulting chroma is within appropriate bounds
-    col@coords[, "C"] <- pmin(max_chroma(col@coords[, "H"], col@coords[, "L"], floor = TRUE),
-                              pmax(0, col@coords[, "C"]))
-  } else {
-    col <- as(col, "HLS")
-    col@coords[, "L"] <- if(method == "relative") {
-      col@coords[, "L"] * (1 + amount)
-    } else {
-      col@coords[, "L"] + amount
-    }
-    col@coords[, "L"] <- pmin(1, pmax(0, col@coords[, "L"]))
+    #col@coords[, "H"] <- colHLSHCL@coords[, "H"]
+    col@coords[, "C"] <- colHLSHCL@coords[, "C"]
+    
+    ## make sure chroma is in allowed range
+    col@coords[, "C"] <- pmin(max_chroma(col@coords[, "H"], col@coords[, "L"], floor = TRUE), col@coords[, "C"])
   }
   
   ## convert back to hex and add alpha again (if any)
   col <- hex(col, fixup = fixup)
   col[!is.na(col)] <- paste(col[!is.na(col)], alpha[!is.na(col)], sep = "")
+  
+  ## return original colors whenever amount == 0
+  col[amount == 0] <- col_orig[amount == 0]
+  
   return(col)
 }
 
@@ -151,7 +234,7 @@ lighten <- function(col, amount = 0.1,
 #' @rdname lighten
 #' @param ... Other parameters handed to the function \code{lighten()}.
 #' @export
-darken <- function(col, amount = 0.1, ...)
+darken <- function(col, amount = 0.1, space = "combined", ...)
 {
-  lighten(col, -1*amount, ...)
+  lighten(col, amount = -1*amount, space = space, ...)
 }
