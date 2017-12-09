@@ -54,7 +54,7 @@ scale_colour_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NU
     }
     # set the remaining arguments and call qualitative_hcl
     args <- c(args, list(n = nmax, alpha = alpha, rev = rev))
-    do.call(qualitative_hcl, args)[order]
+    do.call(qualitative_hcl, args, envir = parent.frame())[order]
   }
   ggplot2::discrete_scale(aesthetics, "manual", pal, ...)
 }
@@ -117,7 +117,7 @@ scale_colour_continuous_qualitative <- function(palette = NULL, c1 = NULL, l1 = 
   # set the remaining arguments and call qualitative_hcl
   # alpha argument doesn't seem to work for continuous scale
   args <- c(args, list(n = n_interp, rev = rev))
-  colors <- do.call(qualitative_hcl, args)
+  colors <- do.call(qualitative_hcl, args, envir = parent.frame())
   
   ggplot2::continuous_scale(aesthetics, "continuous_qualitative",
                             scales::gradient_n_pal(colors, values = NULL),

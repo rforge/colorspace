@@ -63,7 +63,7 @@ scale_colour_discrete_diverging <- function(palette = NULL, c1 = NULL, l1 = NULL
     }
     # set the remaining arguments and call qualitative_hcl
     args <- c(args, list(n = nmax, alpha = alpha, rev = rev))
-    do.call(diverge_hcl, args)[order]
+    do.call(diverge_hcl, args, envir = parent.frame())[order]
   }
   ggplot2::discrete_scale(aesthetics, "manual", pal, ...)
 }
@@ -132,7 +132,7 @@ scale_colour_continuous_diverging <- function(palette = NULL, c1 = NULL, l1 = NU
   # set the remaining arguments and call qualitative_hcl
   # alpha argument doesn't seem to work for continuous scale
   args <- c(args, list(n = n_interp, rev = rev))
-  colors <- do.call(diverge_hcl, args)
+  colors <- do.call(diverge_hcl, args, envir = parent.frame())
 
   ggplot2::continuous_scale(aesthetics, "continuous_diverging",
                             scales::gradient_n_pal(colors, values = NULL),

@@ -64,7 +64,7 @@ scale_colour_discrete_carto <- function(palette = "DarkMint", c1 = NULL, c2 = NU
     }
     # set the remaining arguments and call qualitative_hcl
     args <- c(args, list(palette = palette, n = nmax, alpha = alpha, rev = rev))
-    do.call(carto_hcl, args)[order]
+    do.call(carto_hcl, args, envir = parent.frame())[order]
   }
   ggplot2::discrete_scale(aesthetics, "manual", pal, ...)
 }
@@ -170,7 +170,7 @@ scale_colour_continuous_carto <- function(palette = "DarkMint", c1 = NULL, c2 = 
   # set the remaining arguments and call qualitative_hcl
   # alpha argument doesn't seem to work for continuous scale
   args <- c(args, list(palette = palette, n = n_interp, rev = rev))
-  colors <- do.call(carto_hcl, args)
+  colors <- do.call(carto_hcl, args, envir = parent.frame())
   
   # determine whether we're dealing with a sequential or continuous scale
   if (palette %in% c("ArmyRose", "Fall", "Geyser", "Temps", "Tropic", "Earth") || !is.null(h3))
