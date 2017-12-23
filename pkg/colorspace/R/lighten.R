@@ -150,6 +150,9 @@ lighten <- function(col, amount = 0.1,
     col <- as(col, "polarLUV")
     ## fix-up extreme luminance cases
     col@coords[, "L"] <- pmin(100, pmax(0, col@coords[, "L"]))
+    ## replace missing chroma or hue with 0
+    col@coords[, "C"] <- ifelse(is.nan(col@coords[, "C"]), 0, col@coords[, "C"])
+    col@coords[, "H"] <- ifelse(is.nan(col@coords[, "H"]), 0, col@coords[, "H"])
     
     ## adjust luminance
     Lold <- col@coords[, "L"]
@@ -201,6 +204,9 @@ lighten <- function(col, amount = 0.1,
     col <- as(col, "polarLUV")
     ## fix-up extreme luminance cases
     col@coords[, "L"] <- pmin(100, pmax(0, col@coords[, "L"]))
+    ## replace missing chroma or hue with 0
+    col@coords[, "C"] <- ifelse(is.nan(col@coords[, "C"]), 0, col@coords[, "C"])
+    col@coords[, "H"] <- ifelse(is.nan(col@coords[, "H"]), 0, col@coords[, "H"])
     
     ## transform luminance
     Lold <- col@coords[, "L"]
