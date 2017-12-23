@@ -438,8 +438,13 @@ static void XYZ_to_uv(double X, double Y, double Z, double *u, double *v)
 {
     double t, x, y;
     t = X + Y + Z;
-    x = X / t;
-    y = Y / t;
+    if(t == 0) {
+        x = 0;
+        y = 0;
+    } else {
+        x = X / t;
+        y = Y / t;
+    }
     *u = 2 * x / (6 * y - x + 1.5);
     *v = 4.5 * y / (6 * y - x + 1.5);
 }
