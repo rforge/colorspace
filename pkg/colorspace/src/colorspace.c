@@ -154,6 +154,13 @@ static double g(double t)
 }
 */
 
+/* Often approximated as 903.3 */
+static const double kappa = 24389.0/27.0;
+/* Often approximated as 0.08856 */
+static const double epsilon = 216.0/24389.0;
+/* Also, instead of the oft-used approximation 7.787, below uses 
+   (kappa / 116) */
+
 static void LAB_to_XYZ(double L, double A, double B,
 		      double XN, double YN, double ZN,
 		      double *X, double *Y, double *Z)
@@ -163,34 +170,33 @@ static void LAB_to_XYZ(double L, double A, double B,
     if (L <= 0)
 	*Y = 0.0;
     else if (L <= 8.0)
-	*Y = L * YN / 903.3;
+	*Y = L * YN / kappa;
     else if (L <= 100) 
 	*Y = YN * pow((L + 16) / 116, 3);
     else
 	*Y = YN;
     
-    /* CHECKME - IS 0.00856 CORRECT???!!! */
-    if (*Y <= 0.00856 * YN)
-	fy = 7.787 * *Y / YN + 16.0 / 116.0;
+    if (*Y <= epsilon * YN)
+	fy = (kappa / 116.0) * *Y / YN + 16.0 / 116.0;
     else
 	fy = pow(*Y / YN, 1.0/3.0);
     
     fx = fy + (A / 500.0);
-    if (pow(fx, 3) <= 0.008856)
-	*X = XN * (fx - 16.0 / 116.0) / 7.787;
+    if (pow(fx, 3) <= epsilon)
+	*X = XN * (fx - 16.0 / 116.0) / (kappa / 116.0);
     else
 	*X = XN * pow(fx, 3);
     
     fz = fy - (B / 200.0);
-    if (pow(fz, 3) <= 0.008856)
-	*Z = ZN * (fz - 16.0 / 116.0) / 7.787;
+    if (pow(fz, 3) <= epsilon)
+	*Z = ZN * (fz - 16.0 / 116.0) / (kappa / 116.0);
     else
 	*Z = ZN * pow(fz, 3);
 }
 
 static double f(double t)
 {
-    return (t > 0.008856) ? pow(t, 1.0/3.0) : 7.787 * t + 16.0/116.0;
+    return (t > epsilon) ? pow(t, 1.0/3.0) : (kappa / 116.0) * t + 16.0/116.0;
 } 
 
 static void XYZ_to_LAB(double X, double Y, double Z,
@@ -201,10 +207,10 @@ static void XYZ_to_LAB(double X, double Y, double Z,
     xr = X / XN;
     yr = Y / YN;
     zr = Z / ZN;
-    if (yr > 0.008856)
+    if (yr > epsilon)
 	*L = 116.0 * pow(yr, 1.0/3.0) - 16.0;
     else
-	*L = 903.3 * yr;
+	*L = kappa * yr;
     xt = f(xr);
     yt = f(yr);
     zt = f(zr);
@@ -457,7 +463,7 @@ static void XYZ_to_LUV(double X, double Y, double Z,
     XYZ_to_uv(X, Y, Z, &u, &v);
     XYZ_to_uv(XN, YN, ZN, &uN, &vN);
     y = Y / YN;
-    *L = (y > 0.008856) ? 116 * pow(y, 1.0/3.0) - 16 : 903.3 * y;
+    *L = (y > epsilon) ? 116 * pow(y, 1.0/3.0) - 16 : kappa * y;
     *U = 13 * *L * (u - uN);
     *V = 13 * *L * (v - vN);
 }
@@ -471,7 +477,7 @@ static void LUV_to_XYZ(double L, double U, double V,
 	*X = 0; *Y = 0; *Z = 0;
     }
     else {
-	*Y = YN * ((L > 7.999592) ? pow((L + 16)/116, 3) : L / 903.3);
+	*Y = YN * ((L > 7.999592) ? pow((L + 16)/116, 3) : L / kappa);
 	XYZ_to_uv(XN, YN, ZN, &uN, &vN);
 	u = U / (13 * L) + uN;
 	v = V / (13 * L) + vN;

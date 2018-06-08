@@ -1,5 +1,13 @@
 Changes in Version 1.4-0
 
+  o In LAB_to_XYZ conversion, replace decimal approximations with exact
+    rational numbers.
+
+    Follows Bruce Lindbloom 
+    http://brucelindbloom.com/index.html?LContinuity.html
+    
+    Thanks to Glenn Davis.
+    
   o Claus O. Wilke and Claire D. McWhite joined the "colorspace" team,
     adding and enhancing various features: New shiny apps, color
     vision deficiency emulation, ggplot2 palettes, etc. (see below for details).
