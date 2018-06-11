@@ -477,7 +477,8 @@ static void LUV_to_XYZ(double L, double U, double V,
 	*X = 0; *Y = 0; *Z = 0;
     }
     else {
-	*Y = YN * ((L > 7.999592) ? pow((L + 16)/116, 3) : L / kappa);
+        /* 8 = kappa*epsilon */
+	*Y = YN * ((L > 8) ? pow((L + 16)/116, 3) : L / kappa);
 	XYZ_to_uv(XN, YN, ZN, &uN, &vN);
 	u = U / (13 * L) + uN;
 	v = V / (13 * L) + vN;
