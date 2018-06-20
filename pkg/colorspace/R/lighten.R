@@ -105,6 +105,7 @@
 #' pal(darken(cl, 0.30, space = "HCL"))
 #' pal(darken(cl, 0.30, space = "HLS"))
 #' @export lighten
+#' @importFrom grDevices rgb
 #' @importFrom grDevices col2rgb
 lighten <- function(col, amount = 0.1,
                     method = c("relative", "absolute"), space = c("HCL", "HLS", "combined"), fixup = TRUE)
