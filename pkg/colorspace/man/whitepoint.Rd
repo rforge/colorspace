@@ -13,7 +13,7 @@ whitepoint(white, ...)
 CIE D65 with XYZ coordinates 95.047, 100.000, 108.883.}
 }
 \value{
-\code{whitepoint} returns the XYZ coordinates of the whitepoint
+\code{whitepoint} returns an XYZ color object for the whitepoint
 (invisibly in case a new whitepoint was set).
 }
 \description{

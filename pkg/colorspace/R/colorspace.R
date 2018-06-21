@@ -813,7 +813,7 @@ writehex <-
 #' \code{NULL} or a specification of the XYZ coordinates of the whitepoint
 #' (to set the whitepoint, see examples). \code{NULL} corresponds to
 #' CIE D65 with XYZ coordinates 95.047, 100.000, 108.883.
-#' @return \code{whitepoint} returns the XYZ coordinates of the whitepoint
+#' @return \code{whitepoint} returns an XYZ color object for the whitepoint
 #' (invisibly in case a new whitepoint was set).
 #' @seealso \code{\link{XYZ}} and \link{color-class}.
 #' @keywords color
@@ -843,10 +843,7 @@ whitepoint <- function(white, ...) {
     ## set whitepoint to default
     if (is.null(white)) {
         white <- cbind(95.047, 100.000, 108.883)
-    } else if (is(white, "XYZ")) {
-        ## XYZ color is good
-        white <- coords(white)
-        ## construct whitepoint XYZ coordinates from numeric input
+    ## construct whitepoint XYZ coordinates from numeric input
     } else if (is.numeric(white)) {
         white <- do.call("cbind", list(white, ...))
         if (all(dim(white) != 3L))
@@ -854,10 +851,12 @@ whitepoint <- function(white, ...) {
         if (ncol(white) != 3L)
             white <- t(white)
     } else {
-        stop("Invalid 'white'")
+        ## coerce to XYZ if necessary
+	if (!is(white, "XYZ")) white <- as(white, "XYZ")
+        white <- coords(white)
     }
     ## force to single row (color)
-    white <- white[1L, , drop=FALSE]
+    white <- white[1L, , drop = FALSE]
     ## set whitepoint and return XYZ color invisibly
     assign("white", white, envir = .whitepoint)
     invisible(XYZ(white))
