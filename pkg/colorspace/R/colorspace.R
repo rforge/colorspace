@@ -585,39 +585,48 @@ polarLUV <-
 ##  ----------------------------------------------------------------------------
 
 setAs("color", "RGB", function(from)
-      RGB(.Call("as_RGB", from@coords, class(from), whitepoint(), PACKAGE = "colorspace"),
+      RGB(.Call("as_RGB", from@coords, class(from), coords(whitepoint()),
+                PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "sRGB", function(from)
-      sRGB(.Call("as_sRGB", from@coords, class(from), whitepoint(), PACKAGE = "colorspace"),
+      sRGB(.Call("as_sRGB", from@coords, class(from), coords(whitepoint()),
+                 PACKAGE = "colorspace"),
            names = dimnames(from@coords)[[1]]))
 
 setAs("color", "XYZ", function(from)
-      XYZ(.Call("as_XYZ", from@coords, class(from), whitepoint(), PACKAGE = "colorspace"),
+      XYZ(.Call("as_XYZ", from@coords, class(from), coords(whitepoint()),
+                PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "LAB", function(from)
-      LAB(.Call("as_LAB", from@coords, class(from), whitepoint(), PACKAGE = "colorspace"),
+      LAB(.Call("as_LAB", from@coords, class(from), coords(whitepoint()),
+                PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "polarLAB", function(from)
-      polarLAB(.Call("as_polarLAB", from@coords, class(from), whitepoint(), PACKAGE = "colorspace"),
+      polarLAB(.Call("as_polarLAB", from@coords, class(from),
+                     coords(whitepoint()), PACKAGE = "colorspace"),
                names = dimnames(from@coords)[[1]]))
 
 setAs("color", "HSV", function(from)
-      HSV(.Call("as_HSV", from@coords, class(from), whitepoint(), PACKAGE = "colorspace"),
+      HSV(.Call("as_HSV", from@coords, class(from), coords(whitepoint()),
+                PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "HLS", function(from)
-      HLS(.Call("as_HLS", from@coords, class(from), whitepoint(), PACKAGE = "colorspace"),
+      HLS(.Call("as_HLS", from@coords, class(from), coords(whitepoint()),
+                PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "LUV", function(from)
-      LUV(.Call("as_LUV", from@coords, class(from), whitepoint(), PACKAGE = "colorspace"),
+      LUV(.Call("as_LUV", from@coords, class(from), coords(whitepoint()),
+                PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "polarLUV", function(from)
-      polarLUV(.Call("as_polarLUV", from@coords, class(from), whitepoint(), PACKAGE = "colorspace"),
+      polarLUV(.Call("as_polarLUV", from@coords, class(from),
+                     coords(whitepoint()), PACKAGE = "colorspace"),
                names = dimnames(from@coords)[[1]]))
 
 
@@ -829,13 +838,11 @@ writehex <-
 #' @rdname whitepoint
 whitepoint <- function(white, ...) {
     ## get whitepoint
-    if(missing(white)) return(coords(.whitepoint$white))
+    if(missing(white)) return(.whitepoint$white)
     
     ## set whitepoint to default
     if(is.null(white)) {
         white <- XYZ(95.047, 100.000, 108.883)
-        assign("white", white, envir = .whitepoint)
-        invisible(coords(white))
     }
     
     ## construct whitepoint XYZ coordinates from numeric input
@@ -852,7 +859,7 @@ whitepoint <- function(white, ...) {
     
     ## set whitepoint and return coordinates invisibly
     assign("white", white, envir = .whitepoint)
-    invisible(coords(white))
+    invisible(white)
 }
 whitepoint(NULL)
 
