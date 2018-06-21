@@ -585,48 +585,48 @@ polarLUV <-
 ##  ----------------------------------------------------------------------------
 
 setAs("color", "RGB", function(from)
-      RGB(.Call("as_RGB", from@coords, class(from), coords(whitepoint()),
+      RGB(.Call("as_RGB", from@coords, class(from), .whitepoint$white,
                 PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "sRGB", function(from)
-      sRGB(.Call("as_sRGB", from@coords, class(from), coords(whitepoint()),
+      sRGB(.Call("as_sRGB", from@coords, class(from), .whitepoint$white,
                  PACKAGE = "colorspace"),
            names = dimnames(from@coords)[[1]]))
 
 setAs("color", "XYZ", function(from)
-      XYZ(.Call("as_XYZ", from@coords, class(from), coords(whitepoint()),
+      XYZ(.Call("as_XYZ", from@coords, class(from), .whitepoint$white,
                 PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "LAB", function(from)
-      LAB(.Call("as_LAB", from@coords, class(from), coords(whitepoint()),
+      LAB(.Call("as_LAB", from@coords, class(from), .whitepoint$white,
                 PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "polarLAB", function(from)
       polarLAB(.Call("as_polarLAB", from@coords, class(from),
-                     coords(whitepoint()), PACKAGE = "colorspace"),
+                     .whitepoint$white, PACKAGE = "colorspace"),
                names = dimnames(from@coords)[[1]]))
 
 setAs("color", "HSV", function(from)
-      HSV(.Call("as_HSV", from@coords, class(from), coords(whitepoint()),
+      HSV(.Call("as_HSV", from@coords, class(from), .whitepoint$white,
                 PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "HLS", function(from)
-      HLS(.Call("as_HLS", from@coords, class(from), coords(whitepoint()),
+      HLS(.Call("as_HLS", from@coords, class(from), .whitepoint$white,
                 PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "LUV", function(from)
-      LUV(.Call("as_LUV", from@coords, class(from), coords(whitepoint()),
+      LUV(.Call("as_LUV", from@coords, class(from), .whitepoint$white,
                 PACKAGE = "colorspace"),
           names = dimnames(from@coords)[[1]]))
 
 setAs("color", "polarLUV", function(from)
       polarLUV(.Call("as_polarLUV", from@coords, class(from),
-                     coords(whitepoint()), PACKAGE = "colorspace"),
+                     .whitepoint$white, PACKAGE = "colorspace"),
                names = dimnames(from@coords)[[1]]))
 
 
@@ -838,28 +838,29 @@ writehex <-
 #' @rdname whitepoint
 whitepoint <- function(white, ...) {
     ## get whitepoint
-    if(missing(white)) return(.whitepoint$white)
+    if (missing(white)) return(XYZ(.whitepoint$white))
     
     ## set whitepoint to default
-    if(is.null(white)) {
-        white <- XYZ(95.047, 100.000, 108.883)
-    }
-    
-    ## construct whitepoint XYZ coordinates from numeric input
-    if(is.numeric(white)) {
+    if (is.null(white)) {
+        white <- cbind(95.047, 100.000, 108.883)
+    } else if (is(white, "XYZ")) {
+        ## XYZ color is good
+        white <- coords(white)
+        ## construct whitepoint XYZ coordinates from numeric input
+    } else if (is.numeric(white)) {
         white <- do.call("cbind", list(white, ...))
-	if(all(dim(white) != 3L)) stop("'white' needs to be a 3-dimensional XYZ specification")
-	if(ncol(white) != 3L) white <- t(white)
-	white <- XYZ(white)
+        if (all(dim(white) != 3L))
+            stop("'white' needs to be a 3-dimensional XYZ specification")
+        if (ncol(white) != 3L)
+            white <- t(white)
+    } else {
+        stop("Invalid 'white'")
     }
-    
-    ## coerce to single XYZ color
-    if(!is(white, "XYZ")) white <- as(white, "XYZ")
-    white <- white[1L]
-    
-    ## set whitepoint and return coordinates invisibly
+    ## force to single row (color)
+    white <- white[1L, , drop=FALSE]
+    ## set whitepoint and return XYZ color invisibly
     assign("white", white, envir = .whitepoint)
-    invisible(white)
+    invisible(XYZ(white))
 }
 whitepoint(NULL)
 
