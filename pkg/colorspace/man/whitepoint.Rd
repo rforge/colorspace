@@ -18,7 +18,8 @@ CIE D65 with XYZ coordinates 95.047, 100.000, 108.883.}
 }
 \description{
 This function can be used to control the single global whitepoint
-that affects all color conversions whithin the package.
+that affects all color conversions within the package (that require
+a whitepoint, i.e., go through XYZ).
 }
 \examples{
 # query current whitepoint (D65 by default)

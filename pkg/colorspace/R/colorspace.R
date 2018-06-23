@@ -806,7 +806,8 @@ writehex <-
 #' Access or Modify the Whitepoint
 #' 
 #' This function can be used to control the single global whitepoint
-#' that affects all color conversions whithin the package.
+#' that affects all color conversions within the package (that require
+#' a whitepoint, i.e., go through XYZ).
 #'
 #' @aliases whitepoint
 #' @param white,... Either missing (to query the whitepoint) or
