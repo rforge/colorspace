@@ -315,7 +315,7 @@ color_picker_C_gradient <- function(L = 75, C = 20, H = 0, n = 100) {
   y <- 0 # dummy assignment to make CRAN check happy
   ggplot2::ggplot(df_sel, ggplot2::aes(C, y)) + ggplot2::annotation_custom(grob) +
     ggplot2::geom_point(size = 5, color = cursor_color(L), fill = sel_col, shape = 21) +
-    ggplot2::scale_y_continuous(expand = c(0, 0)) +
+    ggplot2::scale_y_continuous() +
     ggplot2::scale_x_continuous(limits = c(0, Cmax), expand = c(0, 0)) +
     ggplot2::ylab("C") +
     ggplot2::theme_minimal() +
@@ -340,7 +340,7 @@ color_picker_H_gradient <- function(L = 75, C = 20, H = 0, n = 100) {
   y <- 0 # dummy assignment to make CRAN check happy
   ggplot2::ggplot(df_sel, ggplot2::aes(H, y)) + ggplot2::annotation_custom(grob) +
     ggplot2::geom_point(size = 5, color = cursor_color(L), fill = sel_col, shape = 21) +
-    ggplot2::scale_y_continuous(expand = c(0, 0)) +
+    ggplot2::scale_y_continuous() +
     ggplot2::scale_x_continuous(limits = c(0, 360), expand = c(0, 0)) +
     ggplot2::ylab("H") +
     ggplot2::theme_minimal() +
@@ -365,7 +365,7 @@ color_picker_L_gradient <- function(L = 75, C = 20, H = 0, n = 100) {
   y <- 0 # dummy assignment to make CRAN check happy
   ggplot2::ggplot(df_sel, ggplot2::aes(L, y)) + ggplot2::annotation_custom(grob) +
     ggplot2::geom_point(size = 5, color = cursor_color(L), fill = sel_col, shape = 21) +
-    ggplot2::scale_y_continuous(expand = c(0, 0)) +
+    ggplot2::scale_y_continuous() +
     ggplot2::scale_x_continuous(limits = c(0, 100), expand = c(0, 0)) +
     ggplot2::ylab("L") +
     ggplot2::theme_minimal() +
