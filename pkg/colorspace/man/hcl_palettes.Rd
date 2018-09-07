@@ -16,19 +16,20 @@ hcl_palettes(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
 
 \method{summary}{hcl_palettes}(object, ...)
 
-\method{plot}{hcl_palettes}(x, n = 5L, fixup = TRUE, ...)
+\method{plot}{hcl_palettes}(x, n = 5L, fixup = TRUE, off = NULL,
+  border = NULL, ...)
 
-qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c = 50, l = 70,
-  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1, h2, c1,
-  l1)
+qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
+  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1,
+  h2, c1, l1)
 
 sequential_hcl(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE,
-  ..., h1, h2, c1, c2, l1, l2, p1, p2, c.)
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
+  rev = FALSE, ..., h1, h2, c1, c2, l1, l2, p1, p2, cmax, c.)
 
 diverge_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE,
-  ..., h1, h2, c1, l1, l2, p1, p2)
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
+  rev = FALSE, ..., h1, h2, c1, l1, l2, p1, p2, cmax)
 }
 \arguments{
 \item{type}{character indicating type of HCL palette.}
@@ -43,8 +44,12 @@ diverge_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
 
 \item{x, object}{A \code{hcl_palettes} object.}
 
-\item{fixup}{logical. Should the color be corrected to a valid RGB value
-before correction?}
+\item{fixup}{logical. Should the color be corrected to a valid RGB value?}
+
+\item{off}{numeric. Vector of length 2 indicating horizontal and vertical
+offsets between the color rectangles displayed.}
+
+\item{border}{character. Color of rectangle borders.}
 
 \item{h, h1, h2}{hue value in the HCL color description, has to be in [0, 360].}
 
@@ -61,9 +66,11 @@ transparency channel (0 means transparent and 1 means opaque).}
 be increased (1 = linear, 2 = quadratic, etc.).}
 
 \item{gamma}{Deprecated.}
+
+\item{cmax}{Maximum chroma value in the HCL color description.}
 }
 \description{
-Qualitative, sequential (single-hue and multi-hue), and diverged
+Qualitative, sequential (single-hue and multi-hue), and diverging
 color palettes based on the HCL (hue-chroma-luminance) color model.
 }
 \details{
@@ -75,9 +82,9 @@ hcl_palettes()
 
 ## visualize
 hcl_palettes("qualitative", plot = TRUE)
-hcl_palettes("sequential (single-hue)", plot = TRUE)
-hcl_palettes("sequential (multi-hue)", plot = TRUE)
-hcl_palettes("diverging", plot = TRUE)
+hcl_palettes("sequential (single-hue)", n = 7, plot = TRUE)
+hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
+hcl_palettes("diverging", n = 7, plot = TRUE)
 
 ## inspect a specific palette
 ## (upper-case, spaces, etc. are ignored for matching)
