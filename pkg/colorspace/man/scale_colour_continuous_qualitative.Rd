@@ -6,10 +6,10 @@
 \alias{scale_fill_continuous_qualitative}
 \title{HCL-based continuous qualitative color scales for ggplot2}
 \usage{
-scale_colour_continuous_qualitative(palette = NULL, c1 = NULL, l1 = NULL,
-  h1 = NULL, h2 = NULL, rev = FALSE, begin = 0, end = 1,
-  na.value = "grey50", guide = "colourbar", aesthetics = "colour",
-  n_interp = 11, ...)
+scale_colour_continuous_qualitative(palette = NULL, c1 = NULL,
+  l1 = NULL, h1 = NULL, h2 = NULL, rev = FALSE, begin = 0,
+  end = 1, na.value = "grey50", guide = "colourbar",
+  aesthetics = "colour", n_interp = 11, ...)
 
 scale_color_continuous_qualitative(...)
 

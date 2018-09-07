@@ -6,10 +6,11 @@
 \alias{scale_fill_continuous_sequential}
 \title{HCL-based continuous sequential color scales for ggplot2}
 \usage{
-scale_colour_continuous_sequential(palette = NULL, c1 = NULL, c2 = NULL,
-  l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL,
-  rev = FALSE, begin = 0, end = 1, na.value = "grey50",
-  guide = "colourbar", aesthetics = "colour", n_interp = 11, ...)
+scale_colour_continuous_sequential(palette = NULL, c1 = NULL,
+  c2 = NULL, l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL,
+  p1 = NULL, p2 = NULL, rev = FALSE, begin = 0, end = 1,
+  na.value = "grey50", guide = "colourbar", aesthetics = "colour",
+  n_interp = 11, ...)
 
 scale_color_continuous_sequential(...)
 

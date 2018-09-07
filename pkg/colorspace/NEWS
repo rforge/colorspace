@@ -13,13 +13,13 @@ Changes in Version 1.4-0
     can help to explore the palettes.
     
   o New and more flexible qualitative_hcl() palette function. This is
-    similar to the old rainbow_hcl() but allows to used the pre-defined
+    similar to the old rainbow_hcl() but allows to use the pre-defined
     palettes and change the parameters more easily.
 
   o New interactive shiny app hcl_color_picker() for exploring HCL colors,
     and manually assembling individual colors or palettes. Douglas C. Wu
-    (@wckdouglas) provided the original implementation for the
-    color palette feature.
+    (@wckdouglas) provided the original implementation for the color
+    palette feature.
 
   o Added a new function max_chroma() that (approximately) computes
     the maximum chroma possible for a given hue and luminance

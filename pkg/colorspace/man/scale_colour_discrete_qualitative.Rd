@@ -6,9 +6,9 @@
 \alias{scale_fill_discrete_qualitative}
 \title{HCL-based discrete qualitative color scales for ggplot2}
 \usage{
-scale_colour_discrete_qualitative(palette = NULL, c1 = NULL, l1 = NULL,
-  h1 = NULL, h2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
-  order = NULL, aesthetics = "colour", ...)
+scale_colour_discrete_qualitative(palette = NULL, c1 = NULL,
+  l1 = NULL, h1 = NULL, h2 = NULL, alpha = 1, rev = FALSE,
+  nmax = NULL, order = NULL, aesthetics = "colour", ...)
 
 scale_color_discrete_qualitative(...)
 

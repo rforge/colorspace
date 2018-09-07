@@ -6,7 +6,8 @@
 \alias{hcl_wizard}
 \title{Graphical User Interface for Choosing HCL Color Palettes}
 \usage{
-choose_palette(pal = diverge_hcl, n = 7L, parent = NULL, gui = "tcltk")
+choose_palette(pal = diverge_hcl, n = 7L, parent = NULL,
+  gui = "tcltk")
 
 hclwizard(n = 7L, gui = "shiny", shiny.trace = FALSE)
 
