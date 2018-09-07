@@ -31,7 +31,8 @@ Imports: graphics, grDevices
 Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd,
           tcltk, shiny, shinyjs,
 	  ggplot2, dplyr, scales, grid,
-	  png, jpeg, knitr, rmarkdown
+	  png, jpeg, knitr, rmarkdown,
+	  RColorBrewer, rcartocolor, viridis
 VignetteBuilder: knitr
 License: BSD_3_clause + file LICENSE
 URL: https://hclwizard.org/
