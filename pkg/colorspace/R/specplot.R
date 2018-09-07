@@ -4,17 +4,23 @@
 #' coordinates.
 #' 
 #' The function \code{specplot} transforms a given color palette in hex codes
-#' into their RGB (\code{\link[colorspace]{sRGB}}) or HCL
+#' into their RGB (\code{\link[colorspace]{sRGB}}) and/or HCL
 #' (\code{\link[colorspace]{polarLUV}}) coordinates. As the hues for low-chroma
 #' colors are not (or poorly) identified, by default a smoothing is applied to
 #' the hues (\code{fix = TRUE}). Also, to avoid jumps from 0 to 360 or vice
 #' versa, the hue coordinates are shifted suitably.
 #' 
-#' By default (\code{plot = TRUE}) the resulting RGB and HCL coordinates are
+#' By default, (\code{plot = TRUE}) the resulting RGB and HCL coordinates are
 #' visualized by simple line plots along with the color palette \code{x}
 #' itself.
 #' 
+#' For comparing two palettes, \code{specplot(x, y)} can be used which adds
+#' lines (dashed, by default) corresponding to the \code{y} palette RGB/HCL
+#' coordinates in the display.
+#' 
 #' @param x character vector containing color hex codes.
+#' @param y optional second character vector containing further color hex codes,
+#' to be used for comparing two palettes (\code{x} vs. \code{y}).
 #' @param rgb logical or color specification. Should the RGB spectrum be
 #' visualized? Can also be a vector of three colors for the R/G/B coordinates.
 #' @param hcl logical or color specification. Should the HCL spectrum be
@@ -25,6 +31,7 @@
 #' @param type,lwd,lty,pch plotting parameters passed to
 #' \code{\link[graphics]{lines}} for drawing the RGB and HCL coordinates,
 #' respectively. Can be vectors of length 3.
+#' @param main character. Main title of the plot.
 #' @param legend logical. Should legends for the coordinates be plotted?
 #' @param palette logical. Should the given palette \code{x} be plotted?
 #' @param plot logical. Should the RGB and/or HCL coordinates be plotted?
@@ -60,8 +67,8 @@
 #' print(res)
 #' @export specplot
 #' @importFrom graphics axis image layout legend lines mtext text par plot
-specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
-  type = "l", lwd = 2 * cex, lty = 1, pch = NULL,
+specplot <- function(x, y = NULL, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
+  type = "l", lwd = 2 * cex, lty = 1, pch = NULL, main = NULL,
   legend = TRUE, palette = TRUE, plot = TRUE)
 {
 
@@ -139,18 +146,27 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
     opar <- par(no.readonly = TRUE)
     on.exit(par(opar))
 
-    par(xaxt='n',yaxt='n',bty='n',mar=rep(0,4))
-    plot(0,type='n',xlim=c(-1,1),ylim=c(-1,1))
-    text(0,0,"All colors NA\nCannot draw spectrum",col=2)
+    par(xaxt = "n", yaxt = "n", bty = "n", mar = rep(0, 4))
+    plot(0, type = "n", xlim = c(-1, 1), ylim = c(-1, 1))
+    text(0, 0, "All colors NA\nCannot draw spectrum", col = 2)
   } else if(plot & (show_rgb | show_hcl)) {
+    ## add second palette as a reference?
+    if(!is.null(y)) {
+      yspec <- specplot(y, rgb = rgb, hcl = hcl, fix = fix, plot = FALSE)
+      y <- TRUE
+    } else {
+      yspec <- NULL
+      y <- FALSE
+    }
+  
     ## set up plot layout
     opar <- par(no.readonly = TRUE)
     on.exit(par(opar))
-    nr <- show_rgb + palette + show_hcl
+    nr <- show_rgb + palette + (palette && y) + show_hcl
     layout(matrix(1L:nr, ncol = 1L, nrow = nr),
-      heights = c(if(show_rgb) 10 else NULL, if(palette) 2 else NULL, if(show_hcl) 10 else NULL))
+      heights = c(if(show_rgb) 10 else NULL, if(palette) 2 else NULL, if(palette && y) 2 else NULL, if(show_hcl) 10 else NULL))
     par(xaxt = "n", yaxs = "i", xaxs = "i",
-      mar = c(0.2, 0, 0.2, 0), oma = c(2, 3, 2, 3), cex = cex)
+      mar = c(0.2, 0, 0.2, 0), oma = c(2, 3, 2 + !is.null(main), 3), cex = cex)
 
     ## expand plotting parameters
     rgb <- rep(rgb, length.out = 3L)
@@ -166,10 +182,19 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
       lines(RGB[, "R"], lwd = lwd[1L], lty = lty[1L], col = rgb[1L], type = type[1L], pch = pch[1L])
       lines(RGB[, "G"], lwd = lwd[2L], lty = lty[2L], col = rgb[2L], type = type[1L], pch = pch[1L])
       lines(RGB[, "B"], lwd = lwd[3L], lty = lty[3L], col = rgb[3L], type = type[1L], pch = pch[1L])
+      if(y) {
+        lines(yspec$RGB[, "R"], lwd = lwd[1L], lty = lty[1L] + 1L, col = rgb[1L], type = type[1L], pch = pch[1L])
+        lines(yspec$RGB[, "G"], lwd = lwd[2L], lty = lty[2L] + 1L, col = rgb[2L], type = type[1L], pch = pch[1L])
+        lines(yspec$RGB[, "B"], lwd = lwd[3L], lty = lty[3L] + 1L, col = rgb[3L], type = type[1L], pch = pch[1L])      
+      }
       if(legend) legend("topleft", legend = c("Red", "Green", "Blue"),
         ncol = 3L, bty = "n", lwd = lwd, lty = lty, col = rgb, pch = pch)
       mtext(side = 3, "RGB Spectrum",       cex = cex, line = 0.2)
       mtext(side = 2, "Red / Green / Blue", cex = cex, line = 2.0)
+      if(!is.null(main)) {
+        mtext(side = 3, main, line = 1.5, cex = 1.5 * cex)
+	main <- NULL
+      }
     }
 
     # color palette
@@ -177,28 +202,45 @@ specplot <- function(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
       par(xaxt = "n", yaxt = "n")
       image(matrix(seq_along(x), ncol = 1L), col = x)
       par(yaxt = "s")
+      if(!is.null(main)) {
+        mtext(side = 3, main, line = 1.0, cex = 1.5 * cex)
+	main <- NULL
+      }
+    }
+    if(palette && y) {
+      par(xaxt = "n", yaxt = "n")
+      image(matrix(seq_along(yspec$hex), ncol = 1L), col = yspec$hex)
+      par(yaxt = "s")
     }
 
     # HCL spectrum
     if(show_hcl) {
-      plot(0, type = "n", ylim = c(0, 100), xlim = c(1, length(x)))
-      if ( min(HCL[,"H"],na.rm=TRUE) >= 0 ) {
+      plot(0, type = "n", ylim = c(0, pmax(max(HCL[, "C"]) * 1.005, 100)), xlim = c(1, length(x)))
+      if ( min(HCL[,"H"], na.rm = TRUE) >= 0 ) {
          labels <- seq(   0, 360, length.out = 5)
          axis(side = 4, at = labels/3.6, labels = labels)
          lines((HCL[, "H"])/3.6, lwd = lwd[1L], lty = lty[1L], col = hcl[1L], type = type[1L], pch = pch[1L])
+	 if(y) lines((yspec$HCL[, "H"])/3.6, lwd = lwd[1L], lty = lty[1L] + 1L, col = hcl[1L], type = type[1L], pch = pch[1L])
       } else {
          labels <- seq(-360, 360, length.out = 5)
          axis(side = 4, at = labels/7.2 + 50, labels = labels)
          lines((HCL[, "H"] + 360)/7.2, lwd = lwd[1L], lty = lty[1L], col = hcl[1L], type = type[1L], pch = pch[1L])
+         if(y) lines((yspec$HCL[, "H"] + 360)/7.2, lwd = lwd[1L], lty = lty[1L] + 1L, col = hcl[1L], type = type[1L], pch = pch[1L])
       }
-      lines( HCL[, "C"],       lwd = lwd[2L], lty = lty[2L], col = hcl[2L], type = type[1L], pch = pch[1L])
-      lines( HCL[, "L"],            lwd = lwd[3L], lty = lty[3L], col = hcl[3L], type = type[1L], pch = pch[1L])
+      lines(HCL[, "C"], lwd = lwd[2L], lty = lty[2L], col = hcl[2L], type = type[1L], pch = pch[1L])
+      lines(HCL[, "L"], lwd = lwd[3L], lty = lty[3L], col = hcl[3L], type = type[1L], pch = pch[1L])
+      if(y) {
+        lines(yspec$HCL[, "C"], lwd = lwd[2L], lty = lty[2L] + 1L, col = hcl[2L], type = type[1L], pch = pch[1L])
+        lines(yspec$HCL[, "L"], lwd = lwd[3L], lty = lty[3L] + 1L, col = hcl[3L], type = type[1L], pch = pch[1L])
+      }
       legend("bottomleft", legend = c("Hue", "Chroma", "Luminance"),
         ncol = 3L, bty = "n", lwd = lwd, lty = lty, col = hcl, pch = pch)
       mtext(side = 1, "HCL Spectrum",    cex = cex, line = 0.2)
       mtext(side = 2, "Chroma / Luminance", cex = cex, line = 2.0)
       mtext(side = 4, "Hue",       cex = cex, line = 2.0)
+      if(!is.null(main)) mtext(side = 3, main, line = 1.0, cex = 1.5 * cex)
     }
+
   }
 
   # Return

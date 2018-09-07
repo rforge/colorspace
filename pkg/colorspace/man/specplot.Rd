@@ -4,12 +4,15 @@
 \alias{specplot}
 \title{Color Spectrum Plot}
 \usage{
-specplot(x, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1, type = "l",
-  lwd = 2 * cex, lty = 1, pch = NULL, legend = TRUE, palette = TRUE,
-  plot = TRUE)
+specplot(x, y = NULL, rgb = TRUE, hcl = TRUE, fix = TRUE,
+  cex = 1, type = "l", lwd = 2 * cex, lty = 1, pch = NULL,
+  main = NULL, legend = TRUE, palette = TRUE, plot = TRUE)
 }
 \arguments{
 \item{x}{character vector containing color hex codes.}
+
+\item{y}{optional second character vector containing further color hex codes,
+to be used for comparing two palettes (\code{x} vs. \code{y}).}
 
 \item{rgb}{logical or color specification. Should the RGB spectrum be
 visualized? Can also be a vector of three colors for the R/G/B coordinates.}
@@ -25,6 +28,8 @@ For details see below.}
 \item{type, lwd, lty, pch}{plotting parameters passed to
 \code{\link[graphics]{lines}} for drawing the RGB and HCL coordinates,
 respectively. Can be vectors of length 3.}
+
+\item{main}{character. Main title of the plot.}
 
 \item{legend}{logical. Should legends for the coordinates be plotted?}
 
@@ -43,15 +48,19 @@ coordinates.
 }
 \details{
 The function \code{specplot} transforms a given color palette in hex codes
-into their RGB (\code{\link[colorspace]{sRGB}}) or HCL
+into their RGB (\code{\link[colorspace]{sRGB}}) and/or HCL
 (\code{\link[colorspace]{polarLUV}}) coordinates. As the hues for low-chroma
 colors are not (or poorly) identified, by default a smoothing is applied to
 the hues (\code{fix = TRUE}). Also, to avoid jumps from 0 to 360 or vice
 versa, the hue coordinates are shifted suitably.
 
-By default (\code{plot = TRUE}) the resulting RGB and HCL coordinates are
+By default, (\code{plot = TRUE}) the resulting RGB and HCL coordinates are
 visualized by simple line plots along with the color palette \code{x}
 itself.
+
+For comparing two palettes, \code{specplot(x, y)} can be used which adds
+lines (dashed, by default) corresponding to the \code{y} palette RGB/HCL
+coordinates in the display.
 }
 \examples{
 ## spectrum of the (in)famous RGB rainbow palette
