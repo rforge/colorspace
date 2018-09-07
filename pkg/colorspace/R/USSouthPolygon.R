@@ -15,7 +15,7 @@
 #' @keywords datasets
 #' @examples
 #' ## generate color palette
-#' pal <- diverge_hcl(9)
+#' pal <- diverging_hcl(9)
 #' n <- length(pal)
 #' 
 #' ## draw shaded polygons

@@ -7,6 +7,7 @@
 \alias{plot.hcl_palettes}
 \alias{qualitative_hcl}
 \alias{sequential_hcl}
+\alias{diverging_hcl}
 \alias{diverge_hcl}
 \title{HCL Color Palettes}
 \usage{
@@ -26,6 +27,10 @@ qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
 sequential_hcl(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
   gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
   rev = FALSE, ..., h1, h2, c1, c2, l1, l2, p1, p2, cmax, c.)
+
+diverging_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
+  rev = FALSE, ..., h1, h2, c1, l1, l2, p1, p2, cmax)
 
 diverge_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
   gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,

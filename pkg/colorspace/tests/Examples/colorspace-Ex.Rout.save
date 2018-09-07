@@ -195,7 +195,7 @@ Type 'q()' to quit R.
 > ### ** Examples
 > 
 > ## generate color palette
-> pal <- diverge_hcl(9)
+> pal <- diverging_hcl(9)
 > n <- length(pal)
 > 
 > ## draw shaded polygons
@@ -344,14 +344,14 @@ B 127.1266 219.9352 75.94962
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
-> nameEx("divergex_hcl")
-> ### * divergex_hcl
+> nameEx("divergingx_hcl")
+> ### * divergingx_hcl
 > 
 > flush(stderr()); flush(stdout())
 > 
-> ### Name: divergex_hcl
+> ### Name: divergingx_hcl
 > ### Title: (More) Flexible Diverging HCL Palettes
-> ### Aliases: divergex_hcl
+> ### Aliases: divergingx_hcl divergex_hcl
 > ### Keywords: color
 > 
 > ### ** Examples
@@ -360,7 +360,7 @@ B 127.1266 219.9352 75.94962
 > div_pal <- function(palette, border = "light gray")
 + {
 +   n <- 7
-+   col <- divergex_hcl(n, palette)
++   col <- divergingx_hcl(n, palette)
 +   plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), xaxs = "i", axes = FALSE, xlab = "", ylab = "")
 +   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
 +   axis(2, at = 0.5, tick = FALSE, labels = palette)
@@ -376,9 +376,9 @@ B 127.1266 219.9352 75.94962
 > par(mar = c(0, 5.5, 0, 0.5), mfrow = c(7, 1), las = 1)
 > for(n in carto) div_pal(n)
 > 
-> ## compared to diverge_hcl() the diverging CARTO palettes are typically warmer
+> ## compared to diverging_hcl() the diverging CARTO palettes are typically warmer
 > ## but also less balanced with respect to chroma/luminance, see e.g.,
-> specplot(divergex_hcl(7, "ArmyRose"), rgb = FALSE)
+> specplot(divergingx_hcl(7, "ArmyRose"), rgb = FALSE)
 > 
 > 
 > 
@@ -410,7 +410,8 @@ B 127.1266 219.9352 75.94962
 > ### Name: hcl_palettes
 > ### Title: HCL Color Palettes
 > ### Aliases: hcl_palettes print.hcl_palettes summary.hcl_palettes
-> ###   plot.hcl_palettes qualitative_hcl sequential_hcl diverge_hcl
+> ###   plot.hcl_palettes qualitative_hcl sequential_hcl diverging_hcl
+> ###   diverge_hcl
 > ### Keywords: color
 > 
 > ### ** Examples
@@ -443,9 +444,9 @@ Names: Blue-Red, Blue-Red 2, Blue-Red 3, Red-Green, Purple-Green,
 > 
 > ## visualize
 > hcl_palettes("qualitative", plot = TRUE)
-> hcl_palettes("sequential (single-hue)", plot = TRUE)
-> hcl_palettes("sequential (multi-hue)", plot = TRUE)
-> hcl_palettes("diverging", plot = TRUE)
+> hcl_palettes("sequential (single-hue)", n = 7, plot = TRUE)
+> hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
+> hcl_palettes("diverging", n = 7, plot = TRUE)
 > 
 > ## inspect a specific palette
 > ## (upper-case, spaces, etc. are ignored for matching)
@@ -704,7 +705,7 @@ Parameter ranges:
 > 
 > ### Name: rainbow_hcl
 > ### Title: HCL and HSV Color Palettes
-> ### Aliases: rainbow_hcl heat_hcl terrain_hcl diverge_hsv
+> ### Aliases: rainbow_hcl heat_hcl terrain_hcl diverging_hsv diverge_hsv
 > ### Keywords: color
 > 
 > ### ** Examples
@@ -725,14 +726,14 @@ Parameter ranges:
 > 
 > ## a few useful diverging HCL palettes
 > par(mar = rep(0, 4), mfrow = c(4, 1))
-> pal(diverge_hcl(7))
-> pal(diverge_hcl(7, h = c(246, 40), c = 96, l = c(65, 90)))
-> pal(diverge_hcl(7, h = c(130, 43), c = 100, l = c(70, 90)))
-> pal(diverge_hcl(7, h = c(180, 70), c = 70, l = c(90, 95)))
-> pal(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
-> pal(diverge_hcl(7, h = c(128, 330), c = 98, l = c(65, 90)))
-> pal(diverge_hcl(7, h = c(255, 330), l = c(40, 90)))
-> pal(diverge_hcl(7, c = 100, l = c(50, 90), power = 1))
+> pal(diverging_hcl(7))
+> pal(diverging_hcl(7, h = c(246, 40), c = 96, l = c(65, 90)))
+> pal(diverging_hcl(7, h = c(130, 43), c = 100, l = c(70, 90)))
+> pal(diverging_hcl(7, h = c(180, 70), c = 70, l = c(90, 95)))
+> pal(diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
+> pal(diverging_hcl(7, h = c(128, 330), c = 98, l = c(65, 90)))
+> pal(diverging_hcl(7, h = c(255, 330), l = c(40, 90)))
+> pal(diverging_hcl(7, c = 100, l = c(50, 90), power = 1))
 > 
 > ## sequential palettes
 > pal(sequential_hcl(12))
@@ -750,16 +751,16 @@ Parameter ranges:
 > wheel(desaturate(rainbow(12)))
 > 
 > ## diverging red-blue colors
-> pal(diverge_hsv(7))
-> pal(diverge_hcl(7, c = 100, l = c(50, 90)))
-> pal(desaturate(diverge_hsv(7)))
-> pal(desaturate(diverge_hcl(7, c = 100, l = c(50, 90))))
+> pal(diverging_hsv(7))
+> pal(diverging_hcl(7, c = 100, l = c(50, 90)))
+> pal(desaturate(diverging_hsv(7)))
+> pal(desaturate(diverging_hcl(7, c = 100, l = c(50, 90))))
 > 
 > ## diverging cyan-magenta colors
 > pal(cm.colors(7))
-> pal(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
+> pal(diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
 > pal(desaturate(cm.colors(7)))
-> pal(desaturate(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))))
+> pal(desaturate(diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))))
 > 
 > ## heat colors
 > pal(heat.colors(12))
@@ -857,69 +858,6 @@ Parameter ranges:
 > 
 > 
 > cleanEx()
-> nameEx("scale_colour_continuous_divergex")
-> ### * scale_colour_continuous_divergex
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: scale_colour_continuous_divergex
-> ### Title: Continuous Flexible Diverging Scales for ggplot2
-> ### Aliases: scale_colour_continuous_divergex
-> ###   scale_color_continuous_divergex scale_fill_continuous_divergex
-> 
-> ### ** Examples
-> 
-> # *** Examples for sequential CARTO scales ***
-> 
-> # base plot
-> library(ggplot2)
-> gg <- ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + 
-+   geom_jitter(width = 0.3) + theme_minimal()
-> 
-> # default settings
-> gg + scale_color_continuous_divergex()
-> 
-> # switch palette to ArmyRose
-> gg + scale_color_continuous_divergex(palette = "ArmyRose")
-> 
-> # select a range out of the entire palette
-> gg + scale_color_continuous_divergex(palette = "ArmyRose", begin = .2, end = .8)
-> 
-> # volcano plot
-> nx = 87
-> ny = 61
-> df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
-> ggplot(df, aes(x, y, fill=height)) + 
-+   geom_raster() + scale_fill_continuous_divergex(palette = "Fall", rev = TRUE) +
-+   coord_fixed(expand = FALSE)
-> 
-> 
-> # *** Examples for diverging CARTO scales ***
-> 
-> # adapted from stackoverflow: https://stackoverflow.com/a/20127706/4975218
-> 
-> # generate dataset and base plot
-> library(ggplot2)
-> set.seed(100)
-> df <- data.frame(country = LETTERS, V = runif(26, -40, 40))
-> df$country = factor(LETTERS, LETTERS[order(df$V)]) # reorder factors
-> gg <- ggplot(df, aes(x = country, y = V, fill = V)) +
-+   geom_bar(stat = "identity") +
-+   labs(y = "Under/over valuation in %", x = "Country") +
-+   coord_flip() + theme_minimal()
->   
-> # plot with diverging scale "Geyser"
-> gg + scale_fill_continuous_divergex(palette = "Geyser")
-> 
-> # plot with diverging scale "ArmyRose"
-> gg + scale_fill_continuous_divergex(palette = "ArmyRose")
-> 
-> 
-> 
-> cleanEx()
-
-detaching ‘package:ggplot2’
-
 > nameEx("scale_colour_continuous_diverging")
 > ### * scale_colour_continuous_diverging
 > 
@@ -953,6 +891,69 @@ detaching ‘package:ggplot2’
 > 
 > # plot with modified alternative scale
 > gg + scale_fill_continuous_diverging(palette = "Blue-Red 3", l1 = 30, l2 = 100, p1 = .9, p2 = 1.2)
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
+> nameEx("scale_colour_continuous_divergingx")
+> ### * scale_colour_continuous_divergingx
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scale_colour_continuous_divergingx
+> ### Title: Continuous Flexible Diverging Scales for ggplot2
+> ### Aliases: scale_colour_continuous_divergingx
+> ###   scale_color_continuous_divergingx scale_fill_continuous_divergingx
+> 
+> ### ** Examples
+> 
+> # *** Examples for sequential CARTO scales ***
+> 
+> # base plot
+> library(ggplot2)
+> gg <- ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + 
++   geom_jitter(width = 0.3) + theme_minimal()
+> 
+> # default settings
+> gg + scale_color_continuous_divergingx()
+> 
+> # switch palette to ArmyRose
+> gg + scale_color_continuous_divergingx(palette = "ArmyRose")
+> 
+> # select a range out of the entire palette
+> gg + scale_color_continuous_divergingx(palette = "ArmyRose", begin = .2, end = .8)
+> 
+> # volcano plot
+> nx = 87
+> ny = 61
+> df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
+> ggplot(df, aes(x, y, fill=height)) + 
++   geom_raster() + scale_fill_continuous_divergingx(palette = "Fall", rev = TRUE) +
++   coord_fixed(expand = FALSE)
+> 
+> 
+> # *** Examples for diverging CARTO scales ***
+> 
+> # adapted from stackoverflow: https://stackoverflow.com/a/20127706/4975218
+> 
+> # generate dataset and base plot
+> library(ggplot2)
+> set.seed(100)
+> df <- data.frame(country = LETTERS, V = runif(26, -40, 40))
+> df$country = factor(LETTERS, LETTERS[order(df$V)]) # reorder factors
+> gg <- ggplot(df, aes(x = country, y = V, fill = V)) +
++   geom_bar(stat = "identity") +
++   labs(y = "Under/over valuation in %", x = "Country") +
++   coord_flip() + theme_minimal()
+>   
+> # plot with diverging scale "Geyser"
+> gg + scale_fill_continuous_divergingx(palette = "Geyser")
+> 
+> # plot with diverging scale "ArmyRose"
+> gg + scale_fill_continuous_divergingx(palette = "ArmyRose")
 > 
 > 
 > 
@@ -1036,41 +1037,6 @@ detaching ‘package:ggplot2’
 
 detaching ‘package:ggplot2’
 
-> nameEx("scale_colour_discrete_divergex")
-> ### * scale_colour_discrete_divergex
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: scale_colour_discrete_divergex
-> ### Title: Discrete Flexible Diverging Scales for ggplot2
-> ### Aliases: scale_colour_discrete_divergex scale_color_discrete_divergex
-> ###   scale_fill_discrete_divergex
-> 
-> ### ** Examples
-> 
-> library(ggplot2)
-> 
-> # default color scale
-> ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
-+   geom_point() + theme_minimal() + 
-+   scale_color_discrete_divergex()
-> 
-> # color scale "Tropic"
-> ggplot(iris, aes(Sepal.Length, fill = Species)) +
-+   geom_density(alpha = 0.7) + theme_classic() +
-+     scale_fill_discrete_divergex(palette = "Tropic", rev = TRUE)
->     
-> # use `nmax` and `order` to skip some colors
-> ggplot(iris, aes(Sepal.Length, fill = Species)) +
-+   geom_density(alpha = 0.7) + theme_classic() +
-+     scale_fill_discrete_divergex(palette = "Tropic", nmax = 5, order = c(1, 4, 5))
-> 
-> 
-> 
-> cleanEx()
-
-detaching ‘package:ggplot2’
-
 > nameEx("scale_colour_discrete_diverging")
 > ### * scale_colour_discrete_diverging
 > 
@@ -1099,6 +1065,41 @@ detaching ‘package:ggplot2’
 > ggplot(iris, aes(Sepal.Length, fill = Species)) +
 +   geom_density(alpha = 0.7) + theme_classic() +
 +     scale_fill_discrete_diverging(palette = "Green-Orange", nmax = 5, order = c(1, 4, 5))
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
+> nameEx("scale_colour_discrete_divergingx")
+> ### * scale_colour_discrete_divergingx
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scale_colour_discrete_divergingx
+> ### Title: Discrete Flexible Diverging Scales for ggplot2
+> ### Aliases: scale_colour_discrete_divergingx
+> ###   scale_color_discrete_divergingx scale_fill_discrete_divergingx
+> 
+> ### ** Examples
+> 
+> library(ggplot2)
+> 
+> # default color scale
+> ggplot(iris, aes(Sepal.Length, Sepal.Width, color = Species)) +
++   geom_point() + theme_minimal() + 
++   scale_color_discrete_divergingx()
+> 
+> # color scale "Tropic"
+> ggplot(iris, aes(Sepal.Length, fill = Species)) +
++   geom_density(alpha = 0.7) + theme_classic() +
++     scale_fill_discrete_divergingx(palette = "Tropic", rev = TRUE)
+>     
+> # use `nmax` and `order` to skip some colors
+> ggplot(iris, aes(Sepal.Length, fill = Species)) +
++   geom_density(alpha = 0.7) + theme_classic() +
++     scale_fill_discrete_divergingx(palette = "Tropic", nmax = 5, order = c(1, 4, 5))
 > 
 > 
 > 
@@ -1221,9 +1222,9 @@ B    0   11  247
 > specplot(rainbow(100))
 > 
 > ## spectrum of HCL-based palettes: qualitative/sequential/diverging
-> specplot(rainbow_hcl(100))
+> specplot(qualitative_hcl(100))
 > specplot(sequential_hcl(100))
-> specplot(diverge_hcl(100))
+> specplot(diverging_hcl(100))
 > 
 > ## return computed RGB and HCL coordinates
 > res <- specplot(rainbow(10), plot = FALSE)
@@ -1324,7 +1325,7 @@ $hex
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  6.157 0.044 6.23 0 0 
+Time elapsed:  10.38 0.145 10.557 0 0 
 > grDevices::dev.off()
 null device 
           1 

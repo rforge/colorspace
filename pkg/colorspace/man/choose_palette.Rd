@@ -6,7 +6,7 @@
 \alias{hcl_wizard}
 \title{Graphical User Interface for Choosing HCL Color Palettes}
 \usage{
-choose_palette(pal = diverge_hcl, n = 7L, parent = NULL,
+choose_palette(pal = diverging_hcl, n = 7L, parent = NULL,
   gui = "tcltk")
 
 hclwizard(n = 7L, gui = "shiny", shiny.trace = FALSE)
@@ -43,7 +43,7 @@ Computes palettes based on the HCL (hue-chroma-luminance) color model (as
 implemented by \code{\link{polarLUV}}). The GUIs interface the palette
 functions \code{\link{qualitative_hcl}} for qualitative palettes,
 \code{\link{sequential_hcl}} for sequential palettes with a single or
-multiple hues, and \code{\link{diverge_hcl}} for diverging palettes (composed
+multiple hues, and \code{\link{diverging_hcl}} for diverging palettes (composed
 from two single-hue sequential palettes).
 
 Two different GUIs are implemented and can be selected using the function

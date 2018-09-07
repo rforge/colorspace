@@ -7,7 +7,7 @@
 #' implemented by \code{\link{polarLUV}}). The GUIs interface the palette
 #' functions \code{\link{qualitative_hcl}} for qualitative palettes,
 #' \code{\link{sequential_hcl}} for sequential palettes with a single or
-#' multiple hues, and \code{\link{diverge_hcl}} for diverging palettes (composed
+#' multiple hues, and \code{\link{diverging_hcl}} for diverging palettes (composed
 #' from two single-hue sequential palettes).
 #' 
 #' Two different GUIs are implemented and can be selected using the function
@@ -74,7 +74,7 @@
 #' @importFrom grDevices dev.cur dev.list dev.new dev.off dev.set
 
 #' @export
-choose_palette <- function(pal = diverge_hcl, n = 7L, parent = NULL, gui = "tcltk") {
+choose_palette <- function(pal = diverging_hcl, n = 7L, parent = NULL, gui = "tcltk") {
    args <- list("pal" = pal, "n" = n, "parent" = parent)
    gui <- match.arg(gui, c("tcltk", "shiny"))
    do.call(sprintf("choose_palette_%s", gui), args)
@@ -109,7 +109,7 @@ choose_palette_shiny <- function(pal, shiny.trace = FALSE, n = 7L, ...) {
 }
 
 # tcltk GUI for selecting a color palette
-choose_palette_tcltk <- function( pal = diverge_hcl, n=7L, parent = NULL, ... ) {
+choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... ) {
 
   # Choose a file interactively
   ChooseFile <- function(cmd, win.title, initialfile=NULL, 
@@ -859,7 +859,7 @@ GetPalette <- function(type, h1, h2, c1, c2, l1, l2, p1, p2, fixup) {
                                     list(d1=c(h1, h2), d2=c(c1, c2),
                                          d3=c(l1, l2), d4=c(p1, p2), d5=fixup)))
    } else if (type %in% c("dive","Diverging")) {
-      f <- diverge_hcl
+      f <- diverging_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
                                           gamma=NULL, fixup=d5, alpha=1,
                                           palette=NULL, rev=FALSE, ...=,

@@ -14,7 +14,7 @@
 #' HCL(\code{h}, \code{c[1]}, \code{l[1]}) through to a light color
 #' HCL(\code{h}, \code{c[2]}, \code{l[2]}) by interpolation.
 #' 
-#' \code{diverge_hcl} and \code{diverge_hsv}, compute a set of colors diverging
+#' \code{diverging_hcl} and \code{diverging_hsv}, compute a set of colors diverging
 #' from a neutral center (gray or white, without color) to two different
 #' extreme colors (blue and red by default). This is similar to
 #' \code{\link{cm.colors}}. For the diverging HSV colors, two hues \code{h} are
@@ -84,14 +84,14 @@
 #' 
 #' ## a few useful diverging HCL palettes
 #' par(mar = rep(0, 4), mfrow = c(4, 1))
-#' pal(diverge_hcl(7))
-#' pal(diverge_hcl(7, h = c(246, 40), c = 96, l = c(65, 90)))
-#' pal(diverge_hcl(7, h = c(130, 43), c = 100, l = c(70, 90)))
-#' pal(diverge_hcl(7, h = c(180, 70), c = 70, l = c(90, 95)))
-#' pal(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
-#' pal(diverge_hcl(7, h = c(128, 330), c = 98, l = c(65, 90)))
-#' pal(diverge_hcl(7, h = c(255, 330), l = c(40, 90)))
-#' pal(diverge_hcl(7, c = 100, l = c(50, 90), power = 1))
+#' pal(diverging_hcl(7))
+#' pal(diverging_hcl(7, h = c(246, 40), c = 96, l = c(65, 90)))
+#' pal(diverging_hcl(7, h = c(130, 43), c = 100, l = c(70, 90)))
+#' pal(diverging_hcl(7, h = c(180, 70), c = 70, l = c(90, 95)))
+#' pal(diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
+#' pal(diverging_hcl(7, h = c(128, 330), c = 98, l = c(65, 90)))
+#' pal(diverging_hcl(7, h = c(255, 330), l = c(40, 90)))
+#' pal(diverging_hcl(7, c = 100, l = c(50, 90), power = 1))
 #' 
 #' ## sequential palettes
 #' pal(sequential_hcl(12))
@@ -109,16 +109,16 @@
 #' wheel(desaturate(rainbow(12)))
 #' 
 #' ## diverging red-blue colors
-#' pal(diverge_hsv(7))
-#' pal(diverge_hcl(7, c = 100, l = c(50, 90)))
-#' pal(desaturate(diverge_hsv(7)))
-#' pal(desaturate(diverge_hcl(7, c = 100, l = c(50, 90))))
+#' pal(diverging_hsv(7))
+#' pal(diverging_hcl(7, c = 100, l = c(50, 90)))
+#' pal(desaturate(diverging_hsv(7)))
+#' pal(desaturate(diverging_hcl(7, c = 100, l = c(50, 90))))
 #' 
 #' ## diverging cyan-magenta colors
 #' pal(cm.colors(7))
-#' pal(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
+#' pal(diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
 #' pal(desaturate(cm.colors(7)))
-#' pal(desaturate(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))))
+#' pal(desaturate(diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))))
 #' 
 #' ## heat colors
 #' pal(heat.colors(12))
@@ -167,8 +167,8 @@ terrain_hcl <- function(n, h = c(130, 0), c. = c(80, 0), l = c(60, 95),
 
 #' @rdname rainbow_hcl
 #' @export
-diverge_hsv <- function(n, h = c(240, 0), s = 1, v = 1, power = 1,
-                        gamma = NULL, fixup = TRUE, alpha = 1, ...)
+diverging_hsv <- function(n, h = c(240, 0), s = 1, v = 1, power = 1,
+                          gamma = NULL, fixup = TRUE, alpha = 1, ...)
 {
     if (!is.null(gamma))
         warning("'gamma' is deprecated and has no effect")
@@ -191,6 +191,12 @@ diverge_hsv <- function(n, h = c(240, 0), s = 1, v = 1, power = 1,
 
     return(rval)
 }
+
+#' @rdname rainbow_hcl
+#' @aliases diverge_hsv
+#' @export
+diverge_hsv <- diverging_hsv
+
 
 ## Analogous to sp::bpy.colors
 ## (currently not exported, just for hclwizard)

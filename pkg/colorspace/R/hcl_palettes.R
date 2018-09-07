@@ -152,7 +152,7 @@ plot.hcl_palettes <- function(x, n = 5L, fixup = TRUE, off = NULL, border = NULL
     dimnames = list(c(typ[3L], rownames(x)[x$type == typ[3L]]), paste("Color", 1L:n)))
 
   dcol <- sapply(which(x$type == typ[4L]), function(i) {
-    diverge_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c1 = xx[i, "c1"], l1 = xx[i, "l1"], l2 = xx[i, "l2"],
+    diverging_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c1 = xx[i, "c1"], l1 = xx[i, "l1"], l2 = xx[i, "l2"],
       p1 = xx[i, "p1"], p2 = xx[i, "p2"], fixup = fixup)
   })
   dcol <- if(length(dcol) < 1L) NULL else matrix(as.vector(rbind("transparent", t(dcol))), ncol = n,
@@ -339,7 +339,7 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
 
 #' @rdname hcl_palettes
 #' @export
-diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
+diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
   gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ...,
   h1, h2, c1, l1, l2, p1, p2, cmax)
 {
@@ -422,6 +422,9 @@ diverge_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     return(rval)
 }
 
+#' @rdname hcl_palettes
+#' @export
+diverge_hcl <- diverging_hcl
 
 # -------------------------------------------------------------------
 # Palette specifications

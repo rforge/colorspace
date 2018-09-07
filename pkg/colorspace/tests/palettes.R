@@ -4,14 +4,14 @@ library("colorspace")
 rainbow_hcl(12)
 
 ## a few useful diverging HCL palettes
-diverge_hcl(7)
-diverge_hcl(7, h = c(246, 40), c = 96, l = c(65, 90))
-diverge_hcl(7, h = c(130, 43), c = 100, l = c(70, 90))
-diverge_hcl(7, h = c(180, 70), c = 70, l = c(90, 95))
-diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))
-diverge_hcl(7, h = c(128, 330), c = 98, l = c(65, 90))
-diverge_hcl(7, h = c(255, 330), l = c(40, 90))
-diverge_hcl(7, c = 100, l = c(50, 90), power = 1)
+diverging_hcl(7)
+diverging_hcl(7, h = c(246, 40), c = 96, l = c(65, 90))
+diverging_hcl(7, h = c(130, 43), c = 100, l = c(70, 90))
+diverging_hcl(7, h = c(180, 70), c = 70, l = c(90, 95))
+diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))
+diverging_hcl(7, h = c(128, 330), c = 98, l = c(65, 90))
+diverging_hcl(7, h = c(255, 330), l = c(40, 90))
+diverging_hcl(7, c = 100, l = c(50, 90), power = 1)
 
 ## sequential palettes
 sequential_hcl(12)
@@ -22,14 +22,14 @@ rainbow_hcl(12)
 desaturate(rainbow_hcl(12))
 
 ## diverging red-blue colors
-diverge_hsv(7)
-diverge_hcl(7, c = 100, l = c(50, 90))
-desaturate(diverge_hsv(7))
-desaturate(diverge_hcl(7, c = 100, l = c(50, 90)))
+diverging_hsv(7)
+diverging_hcl(7, c = 100, l = c(50, 90))
+desaturate(diverging_hsv(7))
+desaturate(diverging_hcl(7, c = 100, l = c(50, 90)))
 
 ## diverging cyan-magenta colors
-diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))
-desaturate(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
+diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))
+desaturate(diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
 
 ## heat and terrain colors
 heat_hcl(12)
@@ -53,6 +53,6 @@ identical(sequential_hcl(7, "Red-Yellow"), sequential_hcl(7, palette = "Red-Yell
 identical(sequential_hcl(7, "Red-Yellow"), sequential_hcl(7, h = c(10, 85), c = c(80, 10), l = c(25, 95), power = c(0.4, 1.3)))
 identical(sequential_hcl(7, "Red-Yellow"), sequential_hcl(7, h = c(10, 85), c. = c(80, 10), l = c(25, 95), power = c(0.4, 1.3)))
 identical(sequential_hcl(7, "Red-Yellow"), sequential_hcl(7, h1 = 10, h2 = 85, c1 = 80, c2 = 10, l1 = 25, l2 = 95, p1 = 0.4, p2 = 1.3))
-identical(diverge_hcl(7, "Blue-Red 3"),    diverge_hcl(7, palette = "Blue-Red 3"))
-identical(diverge_hcl(7, "Blue-Red 3"),    diverge_hcl(7, h = c(265, 12), c = 80, l = c(25, 95), power = 0.7))
-identical(diverge_hcl(7, "Blue-Red 3"),    diverge_hcl(7, h1 = 265, h2 = 12, c1 = 80, l1 = 25, l2 = 95, p1 = 0.7))
+identical(diverging_hcl(7, "Blue-Red 3"),  diverging_hcl(7, palette = "Blue-Red 3"))
+identical(diverging_hcl(7, "Blue-Red 3"),  diverging_hcl(7, h = c(265, 12), c = 80, l = c(25, 95), power = 0.7))
+identical(diverging_hcl(7, "Blue-Red 3"),  diverging_hcl(7, h1 = 265, h2 = 12, c1 = 80, l1 = 25, l2 = 95, p1 = 0.7))

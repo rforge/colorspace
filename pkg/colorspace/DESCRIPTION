@@ -1,6 +1,6 @@
 Package: colorspace
 Version: 1.4-0
-Date: 2017-09-20
+Date: 2018-09-07
 Title: Color Space Manipulation
 Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "ihaka@stat.auckland.ac.nz"),
              person(given = "Paul", family = "Murrell", role = "aut", email = "paul@stat.auckland.ac.nz",
@@ -22,14 +22,18 @@ Description: Carries out mapping between assorted color spaces including
 	     CIELAB and polar CIELAB. Qualitative, sequential, and
 	     diverging color palettes based on HCL colors are provided
 	     along with an interactive palette picker (with either a Tcl/Tk
-	     or a shiny GUI). Various transformations are provided: desaturation,
+	     or a shiny GUI). Corresponding color scales for ggplot2.
+	     Various transformations are provided: desaturation,
 	     lightening/darkening, and simulation of color vision deficiencies
 	     (deutanomaly, protanomaly, tritanomaly).
 Depends: R (>= 2.13.0), methods
 Imports: graphics, grDevices
-Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd, tcltk, shiny, shinyjs, ggplot2, dplyr, scales, grid, png, jpeg, knitr, rmarkdown
+Suggests: datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd,
+          tcltk, shiny, shinyjs,
+	  ggplot2, dplyr, scales, grid,
+	  png, jpeg, knitr, rmarkdown
 VignetteBuilder: knitr
 License: BSD_3_clause + file LICENSE
 URL: https://hclwizard.org/
 LazyData: yes
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

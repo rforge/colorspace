@@ -1,6 +1,6 @@
 
-R version 3.4.2 (2017-09-28) -- "Short Summer"
-Copyright (C) 2017 The R Foundation for Statistical Computing
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -23,21 +23,21 @@ Type 'q()' to quit R.
  [8] "#4CB9CC" "#7DB0DD" "#ACA4E2" "#CD99D8" "#E093C3"
 > 
 > ## a few useful diverging HCL palettes
-> diverge_hcl(7)
+> diverging_hcl(7)
 [1] "#023FA5" "#7D87B9" "#BEC1D4" "#E2E2E2" "#D6BCC0" "#BB7784" "#8E063B"
-> diverge_hcl(7, h = c(246, 40), c = 96, l = c(65, 90))
+> diverging_hcl(7, h = c(246, 40), c = 96, l = c(65, 90))
 [1] "#1FA4FF" "#97BFF3" "#CAD6E9" "#E2E2E2" "#E7D1C5" "#E9B18B" "#E28912"
-> diverge_hcl(7, h = c(130, 43), c = 100, l = c(70, 90))
+> diverging_hcl(7, h = c(130, 43), c = 100, l = c(70, 90))
 [1] "#11C638" "#8DD593" "#C6DEC7" "#E2E2E2" "#EAD3C6" "#F0B98D" "#EF9708"
-> diverge_hcl(7, h = c(180, 70), c = 70, l = c(90, 95))
+> diverging_hcl(7, h = c(180, 70), c = 70, l = c(90, 95))
 [1] "#22FDEB" "#A8F8ED" "#DAF3EF" "#F1F1F1" "#F4EEDE" "#F9E8B9" "#FEE17F"
-> diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))
+> diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))
 [1] "#0FCFC0" "#9CDED6" "#D5EAE7" "#F1F1F1" "#F3E1EB" "#F6C4E1" "#F79CD4"
-> diverge_hcl(7, h = c(128, 330), c = 98, l = c(65, 90))
+> diverging_hcl(7, h = c(128, 330), c = 98, l = c(65, 90))
 [1] "#10B717" "#8ACC8A" "#C4DBC4" "#E2E2E2" "#EBCDDE" "#F5A3D6" "#FD63CB"
-> diverge_hcl(7, h = c(255, 330), l = c(40, 90))
+> diverging_hcl(7, h = c(255, 330), l = c(40, 90))
 [1] "#155DB5" "#8597C7" "#C2C7D9" "#E2E2E2" "#D9C1CF" "#C683AC" "#AB1E84"
-> diverge_hcl(7, c = 100, l = c(50, 90), power = 1)
+> diverging_hcl(7, c = 100, l = c(50, 90), power = 1)
 [1] "#4A6FE3" "#8595E1" "#B5BBE3" "#E2E2E2" "#E6AFB9" "#E07B91" "#D33F6A"
 > 
 > ## sequential palettes
@@ -61,19 +61,19 @@ Type 'q()' to quit R.
  [8] "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB"
 > 
 > ## diverging red-blue colors
-> diverge_hsv(7)
+> diverging_hsv(7)
 [1] "#0000FF" "#9C9CFF" "#D5D5FF" "#FFFFFF" "#FFD5D5" "#FF9C9C" "#FF0000"
-> diverge_hcl(7, c = 100, l = c(50, 90))
+> diverging_hcl(7, c = 100, l = c(50, 90))
 [1] "#4A6FE3" "#97A3E2" "#C8CCE3" "#E2E2E2" "#E6C5CA" "#E38EA0" "#D33F6A"
-> desaturate(diverge_hsv(7))
+> desaturate(diverging_hsv(7))
 [1] "#4C4C4C" "#A6A6A6" "#D8D8D8" "#FFFFFF" "#DFDFDF" "#B7B7B7" "#7F7F7F"
-> desaturate(diverge_hcl(7, c = 100, l = c(50, 90)))
+> desaturate(diverging_hcl(7, c = 100, l = c(50, 90)))
 [1] "#777777" "#A6A6A6" "#CDCDCD" "#E2E2E2" "#CDCDCD" "#A6A6A6" "#777777"
 > 
 > ## diverging cyan-magenta colors
-> diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))
+> diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95))
 [1] "#0FCFC0" "#9CDED6" "#D5EAE7" "#F1F1F1" "#F3E1EB" "#F6C4E1" "#F79CD4"
-> desaturate(diverge_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
+> desaturate(diverging_hcl(7, h = c(180, 330), c = 59, l = c(75, 95)))
 [1] "#B9B9B9" "#D2D2D2" "#E6E6E6" "#F1F1F1" "#E6E6E6" "#D2D2D2" "#B9B9B9"
 > 
 > ## heat and terrain colors
@@ -92,42 +92,42 @@ Type 'q()' to quit R.
 > 
 > ## different interfaces
 > identical(qualitative_hcl(6, "Pastel 1"),  qualitative_hcl(6, palette = "Pastel 1"))
- [1] TRUE
+[1] TRUE
 > identical(qualitative_hcl(6, "Pastel 1"),  qualitative_hcl(6, h = 0, c = 35, l = 85))
- [1] TRUE
+[1] TRUE
 > identical(qualitative_hcl(6, "Pastel 1"),  qualitative_hcl(6, h = c(0, 300), c = 35, l = 85))
- [1] TRUE
+[1] TRUE
 > identical(qualitative_hcl(6, "Pastel 1"),  qualitative_hcl(6, h = c(0, NA), c = 35, l = 85))
- [1] TRUE
+[1] TRUE
 > identical(qualitative_hcl(6, "Pastel 1"),  qualitative_hcl(6, h1 = 0, c1 = 35, l1 = 85))
- [1] TRUE
+[1] TRUE
 > identical(qualitative_hcl(6, "Pastel 1"),  qualitative_hcl(6, h1 = 0, h2 = NA, c1 = 35, l1 = 85))
- [1] TRUE
+[1] TRUE
 > identical(qualitative_hcl(6, "Pastel 1"),  qualitative_hcl(6, h1 = 0, h2 = 300, c1 = 35, l1 = 85))
- [1] TRUE
+[1] TRUE
 > identical(sequential_hcl(7, "Grays"),      sequential_hcl(7, palette = "Grays"))
- [1] TRUE
+[1] TRUE
 > identical(sequential_hcl(7, "Grays"),      sequential_hcl(7, h = 0, c = 0, l = c(15, 98), power = 1.3))
- [1] TRUE
+[1] FALSE
 > identical(sequential_hcl(7, "Grays"),      sequential_hcl(7, h = 0, c. = 0, l = c(15, 98), power = 1.3))
- [1] TRUE
+[1] FALSE
 > identical(sequential_hcl(7, "Grays"),      sequential_hcl(7, c1 = 0, c2 = 0, l1 = 15, l2 = 98, p1 = 1.3))
- [1] TRUE
+[1] FALSE
 > identical(sequential_hcl(7, "Red-Yellow"), sequential_hcl(7, palette = "Red-Yellow"))
- [1] TRUE
+[1] TRUE
 > identical(sequential_hcl(7, "Red-Yellow"), sequential_hcl(7, h = c(10, 85), c = c(80, 10), l = c(25, 95), power = c(0.4, 1.3)))
- [1] TRUE
+[1] TRUE
 > identical(sequential_hcl(7, "Red-Yellow"), sequential_hcl(7, h = c(10, 85), c. = c(80, 10), l = c(25, 95), power = c(0.4, 1.3)))
- [1] TRUE
+[1] TRUE
 > identical(sequential_hcl(7, "Red-Yellow"), sequential_hcl(7, h1 = 10, h2 = 85, c1 = 80, c2 = 10, l1 = 25, l2 = 95, p1 = 0.4, p2 = 1.3))
- [1] TRUE
-> identical(diverge_hcl(7, "Blue-Red 3"),    diverge_hcl(7, palette = "Blue-Red 3"))
- [1] TRUE
-> identical(diverge_hcl(7, "Blue-Red 3"),    diverge_hcl(7, h = c(265, 12), c = 80, l = c(25, 95), power = 0.7))
- [1] TRUE
-> identical(diverge_hcl(7, "Blue-Red 3"),    diverge_hcl(7, h1 = 265, h2 = 12, c1 = 80, l1 = 25, l2 = 95, p1 = 0.7))
- [1] TRUE
->
+[1] TRUE
+> identical(diverging_hcl(7, "Blue-Red 3"),  diverging_hcl(7, palette = "Blue-Red 3"))
+[1] TRUE
+> identical(diverging_hcl(7, "Blue-Red 3"),  diverging_hcl(7, h = c(265, 12), c = 80, l = c(25, 95), power = 0.7))
+[1] FALSE
+> identical(diverging_hcl(7, "Blue-Red 3"),  diverging_hcl(7, h1 = 265, h2 = 12, c1 = 80, l1 = 25, l2 = 95, p1 = 0.7))
+[1] FALSE
+> 
 > proc.time()
    user  system elapsed 
-  0.290   0.016   0.292 
+  0.413   0.025   0.418 

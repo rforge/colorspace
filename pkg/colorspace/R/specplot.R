@@ -58,9 +58,9 @@
 #' specplot(rainbow(100))
 #' 
 #' ## spectrum of HCL-based palettes: qualitative/sequential/diverging
-#' specplot(rainbow_hcl(100))
+#' specplot(qualitative_hcl(100))
 #' specplot(sequential_hcl(100))
-#' specplot(diverge_hcl(100))
+#' specplot(diverging_hcl(100))
 #' 
 #' ## return computed RGB and HCL coordinates
 #' res <- specplot(rainbow(10), plot = FALSE)

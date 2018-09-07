@@ -3,13 +3,13 @@
 #' Diverging HCL color palettes generated through combination of two fully
 #' flexible (and possibly unbalanced) multi-hue sequential palettes.
 #'
-#' The \code{divergex_hcl} function simply calls \code{\link{sequential_hcl}}
+#' The \code{divergingx_hcl} function simply calls \code{\link{sequential_hcl}}
 #' twice with a prespecified set of hue/chroma/luminance parameters. This is
-#' similar to \code{\link{diverge_hcl}} but allows for more flexibility:
-#' \code{diverge_hcl} employs two \emph{single-hue} sequential palettes,
+#' similar to \code{\link{diverging_hcl}} but allows for more flexibility:
+#' \code{diverging_hcl} employs two \emph{single-hue} sequential palettes,
 #' always uses zero chroma for the neutral/central color, and restricts the
 #' chroma/luminance path to be the same in both \dQuote{arms} of the palette.
-#' In contrast, \code{divergex_hcl} relaxes this to two full \emph{multi-hue}
+#' In contrast, \code{divergingx_hcl} relaxes this to two full \emph{multi-hue}
 #' palettes that can thus go through a non-gray neutral color (typically light
 #' yellow). Consequently, the chroma/luminance paths can be rather unbalanced
 #' between the two arms.
@@ -19,9 +19,9 @@
 #' can be emulated.
 #'
 #' Available CARTO palettes: ArmyRose, Earth, Fall, Geyser, TealRose, Temps, and
-#' Tropic (with Tropic also available in \code{diverge_hcl}).
+#' Tropic (with Tropic also available in \code{diverging_hcl}).
 #'
-#' Available ColorBrewer.org palettes: Spectral, PuOr, RdYlGn, RdYlBu, RdGy
+#' Available ColorBrewer.org palettes: Spectral, PuOr, RdYlGn, RdYlBu, RdGy,
 #' BrBG, PiYG, PRGn, RdBu.
 #' 
 #' @param n the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.
@@ -51,7 +51,7 @@
 #' div_pal <- function(palette, border = "light gray")
 #' {
 #'   n <- 7
-#'   col <- divergex_hcl(n, palette)
+#'   col <- divergingx_hcl(n, palette)
 #'   plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), xaxs = "i", axes = FALSE, xlab = "", ylab = "")
 #'   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
 #'   axis(2, at = 0.5, tick = FALSE, labels = palette)
@@ -67,13 +67,13 @@
 #' par(mar = c(0, 5.5, 0, 0.5), mfrow = c(7, 1), las = 1)
 #' for(n in carto) div_pal(n)
 #'
-#' ## compared to diverge_hcl() the diverging CARTO palettes are typically warmer
+#' ## compared to diverging_hcl() the diverging CARTO palettes are typically warmer
 #' ## but also less balanced with respect to chroma/luminance, see e.g.,
-#' specplot(divergex_hcl(7, "ArmyRose"), rgb = FALSE)
-#' @rdname divergex_hcl
+#' specplot(divergingx_hcl(7, "ArmyRose"), rgb = FALSE)
+#' @rdname divergingx_hcl
 
 #' @export
-divergex_hcl <- function(n, palette = "Geyser", ..., rev = FALSE,
+divergingx_hcl <- function(n, palette = "Geyser", ..., rev = FALSE,
   h1, h2, h3, c1, c2, c3, l1, l2, l3, p1, p2, p3, p4, cmax1, cmax2)
 {
     ## empty palette
@@ -130,6 +130,11 @@ divergex_hcl <- function(n, palette = "Geyser", ..., rev = FALSE,
     if(rev) rval <- rev(rval)
     return(rval)   
 }
+
+#' @rdname divergingx_hcl
+#' @export
+divergex_hcl <- divergingx_hcl
+
 
 divex_pals <- list()
 

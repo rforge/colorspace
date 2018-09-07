@@ -16,6 +16,27 @@ Changes in Version 1.4-0
     similar to the old rainbow_hcl() but allows to use the pre-defined
     palettes and change the parameters more easily.
 
+  o Palette function sequential_hcl() is now substantially more flexible:
+    encompasses both single-hue and multi-hue palettes; gained a new
+    parameter 'cmax' for non-monotonic chroma paths. Parameters h1, h2,
+    c1, c2, l1, l2, p1, p2, cmax allow to easily modify existing palettes
+    in just a few HCL parameters.
+    
+  o Function diverging_hcl() is introduced as a copy of diverge_hcl()
+    for a more consistent naming of the *_hcl palettes where * is one of
+    the adjectives "qualitative", "sequential", and "diverging". Both
+    diverging_hcl() and diverge_hcl() now also gained a 'cmax' argument
+    just like sequential_hcl(). Individual parameters h1, h2, c1, l1, l2,
+    p1, p2 can also be easily modified.
+
+  o New functions divergingx_hcl()/divergex_hcl() have been added for
+    fully fle_x_ible diverging palettes (as opposed to the more restricted
+    balanced palettes in diverging_hcl/diverge_hcl). These support parameters
+    h1, h2, h3, c1, c2, c3, l1, l2, l3, p1, p2, p3, p4, cmax1, cmax2.
+
+  o Many new predefined palettes that facilitate close approximation of
+    almost all palettes from ColorBrewer.org, CARTO, and Viridis.
+    
   o New interactive shiny app hcl_color_picker() for exploring HCL colors,
     and manually assembling individual colors or palettes. Douglas C. Wu
     (@wckdouglas) provided the original implementation for the color
