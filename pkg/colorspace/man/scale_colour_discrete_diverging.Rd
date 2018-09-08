@@ -4,7 +4,7 @@
 \alias{scale_colour_discrete_diverging}
 \alias{scale_color_discrete_diverging}
 \alias{scale_fill_discrete_diverging}
-\title{HCL-based discrete diverging color scales for ggplot2}
+\title{HCL-Based Discrete Diverging Color Scales for ggplot2}
 \usage{
 scale_colour_discrete_diverging(palette = NULL, c1 = NULL, l1 = NULL,
   l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL,

@@ -1,4 +1,4 @@
-#' Shiny app to pick colors in HCL space
+#' Shiny App to Pick Colors in HCL Space
 #' 
 #' The app visualizes colors either along the hue-chroma plane for a given luminance value or along the
 #' luminance-chroma plane for a given hue. Colors can be entered by specifying the hue (H), chroma (C),

@@ -2,7 +2,7 @@
 % Please edit documentation in R/hcl_converter.R
 \name{check_image_type}
 \alias{check_image_type}
-\title{Check Image Type based on Postfix}
+\title{Check Image Type Based on Postfix}
 \usage{
 check_image_type(x)
 }

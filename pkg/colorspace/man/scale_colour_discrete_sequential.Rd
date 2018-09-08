@@ -4,7 +4,7 @@
 \alias{scale_colour_discrete_sequential}
 \alias{scale_color_discrete_sequential}
 \alias{scale_fill_discrete_sequential}
-\title{HCL-based discrete sequential color scales for ggplot2}
+\title{HCL-Based Discrete Sequential Color Scales for ggplot2}
 \usage{
 scale_colour_discrete_sequential(palette = NULL, c1 = NULL,
   c2 = NULL, l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL,

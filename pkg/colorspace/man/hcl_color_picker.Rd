@@ -2,7 +2,7 @@
 % Please edit documentation in R/hcl_color_picker.R
 \name{hcl_color_picker}
 \alias{hcl_color_picker}
-\title{Shiny app to pick colors in HCL space}
+\title{Shiny App to Pick Colors in HCL Space}
 \usage{
 hcl_color_picker()
 }

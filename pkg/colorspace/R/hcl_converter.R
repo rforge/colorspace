@@ -57,7 +57,7 @@ hcl_converter <- function( x, overwrite = FALSE, shiny.trace = FALSE) {
    }
 }
 
-#' Check Image Type based on Postfix
+#' Check Image Type Based on Postfix
 #'
 #' Checking image file type based on image file name! Used to decide
 #' which package has to be used to read an image from disc (\code{png}/\code{jpeg}).

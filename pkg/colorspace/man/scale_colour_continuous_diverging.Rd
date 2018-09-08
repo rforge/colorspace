@@ -4,7 +4,7 @@
 \alias{scale_colour_continuous_diverging}
 \alias{scale_color_continuous_diverging}
 \alias{scale_fill_continuous_diverging}
-\title{HCL-based continuous diverging color scales for ggplot2}
+\title{HCL-Based Continuous Diverging Color Scales for ggplot2}
 \usage{
 scale_colour_continuous_diverging(palette = NULL, c1 = NULL,
   l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL,

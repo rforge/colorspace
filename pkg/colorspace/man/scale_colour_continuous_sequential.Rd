@@ -4,7 +4,7 @@
 \alias{scale_colour_continuous_sequential}
 \alias{scale_color_continuous_sequential}
 \alias{scale_fill_continuous_sequential}
-\title{HCL-based continuous sequential color scales for ggplot2}
+\title{HCL-Based Continuous Sequential Color Scales for ggplot2}
 \usage{
 scale_colour_continuous_sequential(palette = NULL, c1 = NULL,
   c2 = NULL, l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL,

@@ -4,7 +4,7 @@
 \alias{scale_colour_continuous_qualitative}
 \alias{scale_color_continuous_qualitative}
 \alias{scale_fill_continuous_qualitative}
-\title{HCL-based continuous qualitative color scales for ggplot2}
+\title{HCL-Based Continuous Qualitative Color Scales for ggplot2}
 \usage{
 scale_colour_continuous_qualitative(palette = NULL, c1 = NULL,
   l1 = NULL, h1 = NULL, h2 = NULL, rev = FALSE, begin = 0,
