@@ -132,6 +132,7 @@ divergingx_hcl <- function(n, palette = "Geyser", ..., rev = FALSE,
 }
 
 #' @rdname divergingx_hcl
+#' @usage NULL
 #' @export
 divergex_hcl <- divergingx_hcl
 

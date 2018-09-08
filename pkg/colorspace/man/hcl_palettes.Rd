@@ -31,10 +31,6 @@ sequential_hcl(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
 diverging_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
   gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
   rev = FALSE, ..., h1, h2, c1, l1, l2, p1, p2, cmax)
-
-diverge_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
-  rev = FALSE, ..., h1, h2, c1, l1, l2, p1, p2, cmax)
 }
 \arguments{
 \item{type}{character indicating type of HCL palette.}

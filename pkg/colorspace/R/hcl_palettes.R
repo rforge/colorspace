@@ -423,6 +423,7 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
 }
 
 #' @rdname hcl_palettes
+#' @usage NULL
 #' @export
 diverge_hcl <- diverging_hcl
 
