@@ -184,7 +184,7 @@ diverging_hsv <- function(n, h = c(240, 0), s = 1, v = 1, power = 1,
 }
 
 #' @rdname rainbow_hcl
-#' @aliases diverge_hsv
+#' @usage NULL
 #' @export
 diverge_hsv <- diverging_hsv
 

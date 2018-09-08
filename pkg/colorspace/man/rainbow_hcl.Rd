@@ -19,9 +19,6 @@ terrain_hcl(n, h = c(130, 0), c. = c(80, 0), l = c(60, 95),
 
 diverging_hsv(n, h = c(240, 0), s = 1, v = 1, power = 1,
   gamma = NULL, fixup = TRUE, alpha = 1, ...)
-
-diverge_hsv(n, h = c(240, 0), s = 1, v = 1, power = 1,
-  gamma = NULL, fixup = TRUE, alpha = 1, ...)
 }
 \arguments{
 \item{n}{the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.}
