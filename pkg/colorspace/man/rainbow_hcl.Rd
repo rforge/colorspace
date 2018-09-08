@@ -6,7 +6,7 @@
 \alias{terrain_hcl}
 \alias{diverging_hsv}
 \alias{diverge_hsv}
-\title{HCL and HSV Color Palettes}
+\title{HCL (and HSV) Color Palettes Corresponding to Base R Palettes}
 \usage{
 rainbow_hcl(n, c = 50, l = 70, start = 0, end = 360 * (n - 1)/n,
   gamma = NULL, fixup = TRUE, alpha = 1, ...)
@@ -58,40 +58,31 @@ be increased (1 = linear, 2 = quadratic, etc.).}
 A character vector with (s)RGB codings of the colors in the palette.
 }
 \description{
-Color palettes based on the HCL and HSV color spaces.
+Color palettes based on the HCL (and HSV) color space to replace
+base R palettes.
 }
 \details{
-All functions compute palettes based on either the HCL
-(\code{\link{polarLUV}}) or the HSV (\code{\link{HSV}}) color space.
+Based on the general qualitative, sequential, and diverging \code{\link{hcl_palettes}}
+within the colorspace package, convenience functions are provided as
+alternatives to standard base R palettes (which are highly saturated
+and too flashy).
 
-\code{rainbow_hcl} computes a rainbow of colors (qualitative palette)
+\code{rainbow_hcl} computes a rainbow of colors via \code{\link{qualitative_hcl}}
 defined by different hues given a single value of each chroma and luminance.
 It corresponds to \code{\link{rainbow}} which computes a rainbow in HSV
 space.
 
-\code{sequential_hcl} gives a sequential palette starting at the full color
-HCL(\code{h}, \code{c[1]}, \code{l[1]}) through to a light color
-HCL(\code{h}, \code{c[2]}, \code{l[2]}) by interpolation.
+\code{heat_hcl} is an implementation of \code{\link[grDevices]{heat.colors}} in
+HCL space based on a call to \code{\link{sequential_hcl}}. Similarly,
+\code{terrain_hcl} palette also calls \code{sequential_hcl} with different
+parameters, providing colors similar in spirit to \code{terrain.colors}
+in HCL space.
 
-\code{diverging_hcl} and \code{diverging_hsv}, compute a set of colors diverging
-from a neutral center (gray or white, without color) to two different
-extreme colors (blue and red by default). This is similar to
-\code{\link{cm.colors}}. For the diverging HSV colors, two hues \code{h} are
-needed, a maximal saturation \code{s} and a fixed value \code{v}. The
-saturation is then varied to obtain the diverging colors. For the diverging
-HCL colors, again two hues \code{h} are needed, a maximal chroma \code{c}
-and two luminances \code{l}.  The colors are then created by an
-interpolation between the full color HCL(\code{h[1]}, \code{c},
-\code{l[1]}), a neutral color HCL(\code{h}, 0, \code{l[2]}) and the other
-full color HCL(\code{h[2]}, \code{c}, \code{l[1]}).
-
-The palette \code{heat_hcl} gives an implementation of
-\code{\link{heat.colors}} in HCL space. By default, it goes from a red to a
-yellow hue, while simultaneously going to lighter colors (i.e., increasing
-luminance) and reducing the amount of color (i.e., decreasing chroma).  The
-\code{terrain_hcl} palette simply calls \code{heat_hcl} with different
-parameters, providing colors similar in spirit to \code{terrain.colors}.
-The lighter colors are not strictly HCL colors, though.
+\code{diverging_hsv} (and equivalently its alias \code{diverge_hsv})
+provides an HSV-based version of \code{\link{diverging_hcl}}. Its purpose
+is mainly didactic to show that HSV-based diverging palettes are less
+appealing, more difficult to read and more flashy than HCL-based diverging
+palettes. \code{diverging_hsv} is similar to \code{\link[grDevices]{cm.colors}}.
 }
 \examples{
 ## convenience demo functions
