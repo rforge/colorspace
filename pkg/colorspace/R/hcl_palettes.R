@@ -237,7 +237,7 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
     ## alpha transparency
     if(!missing(alpha)) {
         alpha <- pmax(pmin(alpha, 1), 0)
-	alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
+        alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
         rval <- paste(rval, alpha, sep = "")
     }
 
@@ -265,12 +265,12 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
         as.matrix(hcl_palettes(type = "Sequential", name = palette)[, 2L:11L])[1L, ]
     } else {
         structure(c(
-	    if(length(h) < 2L) c(h, NA) else rep_len(h, 2L),
-	    if(length(c) < 2L) c(c, 0) else rep_len(c, 2L),
-	    rep_len(l, 2L),
-	    if(length(power) < 2L) c(power, NA) else rep_len(power, 2L),
-	    if(length(c) < 3L) NA else c[3L],
-	    1), .Names = vars.pal)
+            if(length(h) < 2L) c(h, NA) else rep_len(h, 2L),
+            if(length(c) < 2L) c(c, 0) else rep_len(c, 2L),
+            rep_len(l, 2L),
+            if(length(power) < 2L) c(power, NA) else rep_len(power, 2L),
+            if(length(c) < 3L) NA else c[3L],
+            1), .Names = vars.pal)
     }
     ## (2) h/c/l
     if(!missing(h) && !is.character(h)) {
@@ -282,7 +282,7 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
         if(length(c) < 2L) c <- c(c, 0)
         pals["c1"] <- c[1L]
         pals["c2"] <- c[2L]
-	if(length(c) == 3L) pals["cmax"] <- c[3L]
+        if(length(c) == 3L) pals["cmax"] <- c[3L]
     }
     if(!missing(l)) {
         l <- rep_len(l, 2L)
@@ -315,21 +315,21 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     rval <- hex(polarLUV(
         L = pals["l2"] - (pals["l2"] - pals["l1"]) * rval^pals["p2"],
         C = if(is.na(cmaxat)) {
-	  pals["c2"] - (pals["c2"] - pals["c1"]) * rval^pals["p1"]
-	} else {
-	  ifelse(rval^pals["p1"] < cmaxat,
-	    pals["c2"] - (pals["c2"] - pals["cmax"]) * (rval^pals["p1"])/cmaxat,
-            pals["cmax"] - (pals["cmax"] - pals["c1"]) * ((rval^pals["p1"] - cmaxat)/(1 - cmaxat))
-	  )
-	},
+              pals["c2"] - (pals["c2"] - pals["c1"]) * rval^pals["p1"]
+            } else {
+              ifelse(rval^pals["p1"] < cmaxat,
+                     pals["c2"] - (pals["c2"] - pals["cmax"]) * (rval^pals["p1"])/cmaxat,
+                     pals["cmax"] - (pals["cmax"] - pals["c1"]) * ((rval^pals["p1"] - cmaxat)/(1 - cmaxat))
+              )
+            },
         H = pals["h2"] - (pals["h2"] - pals["h1"]) * rval),
         fixup = as.logical(pals["fixup"]), ...)
 
     ## alpha transparency
     if(!missing(alpha)) {
         alpha <- pmax(pmin(alpha, 1), 0)
-	alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
-        rval <- paste(rval, alpha, sep = "")
+        alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
+        rval  <- paste(rval, alpha, sep = "")
     }
 
     ## return value
@@ -354,12 +354,12 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
         as.matrix(hcl_palettes(type = "Diverging", name = palette)[, 2L:10L])[1L, ]
     } else {
         structure(c(
-	  rep_len(h, 2L),
-	  c(c[1L], NA),
-	  rep_len(l, 2L),
-	  if(length(power) < 2L) c(power, NA) else rep_len(power, 2L),
-	  if(length(c) > 1L) c[2L] else NA,
-	  1), .Names = vars.pal)
+            rep_len(h, 2L),
+            c(c[1L], NA),
+            rep_len(l, 2L),
+            if(length(power) < 2L) c(power, NA) else rep_len(power, 2L),
+            if(length(c) > 1L) c[2L] else NA,
+            1), .Names = vars.pal)
     }
     ## (2) h/c/l
     if(!missing(h) && !is.character(h)) {
@@ -401,19 +401,19 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
         L = pals["l2"] - (pals["l2"] - pals["l1"]) * abs(rval)^pals["p2"],
         C = if(is.na(cmaxat)) {
               pals["c1"] * abs(rval)^pals["p1"]
-	    } else {
-	      ifelse(abs(rval)^pals["p1"] < cmaxat,
-	        pals["cmax"] * (abs(rval)^pals["p1"])/cmaxat,
-                pals["cmax"] - (pals["cmax"] - pals["c1"]) * ((abs(rval)^pals["p1"] - cmaxat)/(1 - cmaxat))
-	      )
-	    },
+            } else {
+              ifelse(abs(rval)^pals["p1"] < cmaxat,
+                pals["cmax"] * (abs(rval)^pals["p1"])/cmaxat,
+                    pals["cmax"] - (pals["cmax"] - pals["c1"]) * ((abs(rval)^pals["p1"] - cmaxat)/(1 - cmaxat))
+              )
+            },
         H = ifelse(rval > 0, pals["h1"], pals["h2"])),
         fixup = as.logical(pals["fixup"]), ...)
 
     ## alpha transparency
     if(!missing(alpha)) {
         alpha <- pmax(pmin(alpha, 1), 0)
-	alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
+        alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
         rval <- paste(rval, alpha, sep = "")
     }
 
@@ -589,7 +589,7 @@ GetPaletteConfig <- function() {
      base = base.pals
    )
    for ( i in 1:length(palettes) ) {
-      tmp <- data.frame(matrix(unlist(palettes[[i]]), ncol = 9, byrow = TRUE))
+      tmp <- data.frame(matrix(unlist(palettes[[i]]), ncol = 10, byrow = TRUE))
       names(tmp) <- toupper(vars.pal)
       tmp$name   <- names(palettes[[i]])
       tmp$typ    <- names(palettes)[i]

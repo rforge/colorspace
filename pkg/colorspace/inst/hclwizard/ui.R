@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2017-10-21 09:46 on thinkreto
+# - L@ST MODIFIED: 2018-09-08 14:29 on marvin
 # -------------------------------------------------------------------
 
 
@@ -22,16 +22,17 @@ ticks <- FALSE # to show ticks or not to show ticks
 # functionality will be the same, however, the color
 # map will be drawn a few times whlie the script sets
 # the new Sliders.
-default = list("N"  =   7,
-               "H1" = 340,
-               "H2" = 128,
-               "C1" =  45,
-               "C2" =  90,
-               "L1" =  35,
-               "L2" =  95,
-               "P1" = 0.7,
-               "P2" = 1.3,
-               "LEV" = 3)
+default = list("N"    =   7,
+               "H1"   = 340,
+               "H2"   = 128,
+               "C1"   =  45,
+               "CMAX" =  0,
+               "C2"   =  90,
+               "L1"   =  35,
+               "L2"   =  95,
+               "P1"   = 0.7,
+               "P2"   = 1.3,
+               "LEV"  = 3)
 # Take default argument if set
 if ( nchar(Sys.getenv("hclwizard_Ninit")) > 0 &
      is.numeric(as.numeric(Sys.getenv("hclwizard_Ninit"))) )
@@ -60,7 +61,7 @@ shinyUI(fluidPage(
                "Sequential (multiple hues)" = "seqm",
                #"Multi hue alert"       = "alrt",
                "R default schemes"          = "base"), 
-           selected = 1)
+           selected = "seqm")
       )),
       # Copy the line below to make a select box 
       withTags(div(class="hcl-selectoptions",id="hcl-PAL",
@@ -149,6 +150,17 @@ shinyUI(fluidPage(
          withTags(span(class="hcl-slidervalue",
             textInput('C1val', label="CHROMA 1", width = NULL),
             actionButton("C1set","SET")
+         ))
+      )),
+      withTags(div(class="hcl-sliderwrapper", id="CMAX-wrapper",
+         withTags(span(class="hcl-slider",
+            sliderInput('CMAX', label=NULL, 0, 200, default$CMAX, step = NULL,
+                        round = TRUE, ticks = FALSE, animate = FALSE,
+                        width = NULL, sep = ",", pre = NULL, post = NULL)
+         )),
+         withTags(span(class="hcl-slidervalue",
+            textInput('CMAXval', label="MAX CHROMA", width = NULL),
+            actionButton("CMAXset","SET")
          ))
       )),
       withTags(div(class="hcl-sliderwrapper", id="C2-wrapper",

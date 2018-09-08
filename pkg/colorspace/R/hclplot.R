@@ -54,8 +54,11 @@ hclplot <- function(pal, collapse = NULL, maxchroma = NULL, xlab = NULL, ylab = 
           apply( X[1:floor(nrow(X)/2),c("C","L")] -
                  X[nrow(X):(1+ceiling(nrow(X)/2)),c("C","L")],2,mean) )
 
+  # Qualitative scheme -> luminance pane
+  # Single sequential schemes -> hue pane
+  # Diverging schemes -> diverging pane
   if(is.null(collapse)) {
-      collapse <- if ( abs(diff(range(HCL[, 3L], na.rm = TRUE))) < 5) { "luminance" }
+      collapse <- if ( sd(HCL[,1L],na.rm=TRUE) < 5 ) { "luminance" }
                   else if ( mean(X) < 10 ) { "diverging" } else { "hue" }
   }
   collapse <- match.arg(collapse, c("hue", "luminance", "diverging" ))

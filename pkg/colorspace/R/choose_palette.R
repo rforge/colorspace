@@ -831,7 +831,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 }
 
 # Get color palette as function of n
-GetPalette <- function(type, h1, h2, c1, c2, l1, l2, p1, p2, fixup) {
+GetPalette <- function(type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, cmax) {
    fixup <- as.logical(fixup)
    #type <- as.character(tcltk::tclvalue(nature.var))
    if (type %in% c("Qualitative","qual")) {
@@ -839,33 +839,33 @@ GetPalette <- function(type, h1, h2, c1, c2, l1, l2, p1, p2, fixup) {
       formals(f) <- eval(substitute(alist(n=, h=hh, c=d1, l=d2, start=d3, end=d4,
                                           fixup=d5, gamma=NULL, alpha=1,
                                           palette=NULL, rev=FALSE, ...=,
-                                          h1=, h2=, c1=, l1=),
+                                          h1=, h2=, c1=, l1=, cmax=d6),
                                     list(hh = c(0,360), 
-                                         d1=c1, d2=l1, d3=h1, d4=h2, d5=fixup)))
+                                         d1=c1, d2=l1, d3=h1, d4=h2, d5=fixup, d6=cmax)))
    } else if (type %in% c("seqs","Sequential (single hue)")) {
       f <- sequential_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
                                           gamma=NULL, fixup=d5, alpha=1,
                                           palette=NULL, rev=FALSE, ...=,
-                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, c.=),
-                                    list(d1=h1, d2=c1, d3=c(l1, l2),
-                                         d4=p1, d5=fixup)))
+                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, cmax=d6, c.=),
+                                    list(d1=h1, d2=c(c1,cmax,c2), d3=c(l1, l2),
+                                         d4=p1, d5=fixup, d6=cmax)))
    } else if (type %in% c("seqm","Sequential (multiple hues)")) {
       f <- sequential_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
                                           gamma=NULL, fixup=d5, alpha=1,
                                           palette=NULL, rev=FALSE, ...=,
-                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, c.=),
-                                    list(d1=c(h1, h2), d2=c(c1, c2),
-                                         d3=c(l1, l2), d4=c(p1, p2), d5=fixup)))
+                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, cmax=d6, c.=),
+                                    list(d1=c(h1, h2), d2=c(c1, cmax, c2),
+                                         d3=c(l1, l2), d4=c(p1, p2), d5=fixup, d6=cmax)))
    } else if (type %in% c("dive","Diverging")) {
       f <- diverging_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
                                           gamma=NULL, fixup=d5, alpha=1,
                                           palette=NULL, rev=FALSE, ...=,
-                                          h1=, h2=, c1=, l1=, l2=, p1=, p2=),
+                                          h1=, h2=, c1=, l1=, l2=, p1=, p2=, cmax=d6),
                                     list(d1=c(h1, h2), d2=c1, d3=c(l1, l2),
-                                         d4=p1, d5=fixup)))
+                                         d4=p1, d5=fixup, d6=cmax)))
    }
    f
 }

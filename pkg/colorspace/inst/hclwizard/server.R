@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2017-10-21 09:58 on thinkreto
+# - L@ST MODIFIED: 2018-09-08 15:01 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -29,7 +29,7 @@ shinyServer(function(input, output, session) {
    # The different slider elements. Used later to show/hide or
    # set the sliders.
    # ----------------------------------------------------------------
-   sliderElements <- c("H1","H2","C1","C2","L1","L2","P1","P2") #,"LEV")
+   sliderElements <- c("H1","H2","C1","CMAX","C2","L1","L2","P1","P2") #,"LEV")
 
    # ----------------------------------------------------------------
    # Loading PAL palette information and examples
@@ -104,16 +104,17 @@ shinyServer(function(input, output, session) {
       # Show new color map
       showColorMap()
    }
-   observeEvent(input$N,   { sliderChanged("N")   })
-   observeEvent(input$H1,  { sliderChanged("H1")  })
-   observeEvent(input$H2,  { sliderChanged("H2")  })
-   observeEvent(input$C1,  { sliderChanged("C1")  })
-   observeEvent(input$C2,  { sliderChanged("C2")  })
-   observeEvent(input$L1,  { sliderChanged("L1")  })
-   observeEvent(input$L2,  { sliderChanged("L2")  })
-   observeEvent(input$P1,  { sliderChanged("P1")  })
-   observeEvent(input$P2,  { sliderChanged("P2")  })
-   observeEvent(input$LEV, { sliderChanged("LEV") })
+   observeEvent(input$N,      { sliderChanged("N")     })
+   observeEvent(input$H1,     { sliderChanged("H1")    })
+   observeEvent(input$H2,     { sliderChanged("H2")    })
+   observeEvent(input$C1,     { sliderChanged("C1")    })
+   observeEvent(input$CMAX,   { sliderChanged("CMAX")  })
+   observeEvent(input$C2,     { sliderChanged("C2")    })
+   observeEvent(input$L1,     { sliderChanged("L1")    })
+   observeEvent(input$L2,     { sliderChanged("L2")    })
+   observeEvent(input$P1,     { sliderChanged("P1")    })
+   observeEvent(input$P2,     { sliderChanged("P2")    })
+   observeEvent(input$LEV,    { sliderChanged("LEV")   })
    # Do the same whenever the example changes
    observeEvent(input$EXAMPLE,  { sliderChanged("EXAMPLE")  })
 
@@ -136,15 +137,16 @@ shinyServer(function(input, output, session) {
          updateTextInput(session, sprintf("%sval",elem), value="")
       }
    }
-   observeEvent(input$H1set,    { setValueByUser("H1")   })
-   observeEvent(input$H2set,    { setValueByUser("H2")   })
-   observeEvent(input$C1set,    { setValueByUser("C1")   })
-   observeEvent(input$C2set,    { setValueByUser("C2")   })
-   observeEvent(input$L1set,    { setValueByUser("L1")   })
-   observeEvent(input$L2set,    { setValueByUser("L2")   })
-   observeEvent(input$P1set,    { setValueByUser("P1")   })
-   observeEvent(input$P2set,    { setValueByUser("P2")   })
-   observeEvent(input$Nset,     { setValueByUser("N")    })
+   observeEvent(input$H1set,      { setValueByUser("H1")     })
+   observeEvent(input$H2set,      { setValueByUser("H2")     })
+   observeEvent(input$C1set,      { setValueByUser("C1")     })
+   observeEvent(input$CMAXset,    { setValueByUser("CMAX")   })
+   observeEvent(input$C2set,      { setValueByUser("C2")     })
+   observeEvent(input$L1set,      { setValueByUser("L1")     })
+   observeEvent(input$L2set,      { setValueByUser("L2")     })
+   observeEvent(input$P1set,      { setValueByUser("P1")     })
+   observeEvent(input$P2set,      { setValueByUser("P2")     })
+   observeEvent(input$Nset,       { setValueByUser("N")      })
    #observeEvent(input$LEVset,   { setValueByUser("LEV")  })
 
    # ----------------------------------------------------------------
@@ -161,7 +163,8 @@ shinyServer(function(input, output, session) {
          pal <- eval(parse(text=tolower(input$PAL)))
       } else {
          pal <- colorspace:::GetPalette(curtyp,curPAL$H1,curPAL$H2,curPAL$C1,curPAL$C2,
-                                        curPAL$L1,curPAL$L2,curPAL$P1,curPAL$P2,input$fixup)
+                                        curPAL$L1,curPAL$L2,curPAL$P1,curPAL$P2,input$fixup,
+                                        cmax=curPAL$CMAX)
       }
       # If fun is set to false: return values
       if ( ! fun ) {
