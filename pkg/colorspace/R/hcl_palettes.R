@@ -37,6 +37,14 @@
 #' hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
 #' hcl_palettes("diverging", n = 7, plot = TRUE)
 #'
+#' ## HCL palettes vary the perceptual properties via hue/chroma/luminance
+#' swatchplot(
+#'   "Hue"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
+#'   "Chroma"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
+#'   "Luminance" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
+#'   off = 0
+#' )
+#' 
 #' ## inspect a specific palette
 #' ## (upper-case, spaces, etc. are ignored for matching)
 #' hcl_palettes(name = "Dark 2")
@@ -134,64 +142,36 @@ plot.hcl_palettes <- function(x, n = 5L, fixup = TRUE, off = NULL, border = NULL
   qcol <- sapply(which(x$type == typ[1L]), function(i) {
     qualitative_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c1 = xx[i, "c1"], l1 = xx[i, "l1"], fixup = fixup)
   })
-  qcol <- if(length(qcol) < 1L) NULL else matrix(as.vector(rbind("transparent", t(qcol))), ncol = n,
-    dimnames = list(c(typ[1L], rownames(x)[x$type == typ[1L]]), paste("Color", 1L:n)))
+  qcol <- if(length(qcol) < 1L) NULL else matrix(t(qcol), ncol = n,
+    dimnames = list(rownames(x)[x$type == typ[1L]], paste("Color", 1L:n)))
 
   scol <- sapply(which(x$type == typ[2L]), function(i) {
     sequential_hcl(n = n, h1 = xx[i, "h1"], c1 = xx[i, "c1"], c2 = xx[i, "c2"], l1 = xx[i, "l1"], l2 = xx[i, "l2"],
       p1 = xx[i, "p1"], p2 = xx[i, "p2"], cmax = xx[i, "cmax"], fixup = fixup)
   })
-  scol <- if(length(scol) < 1L) NULL else matrix(as.vector(rbind("transparent", t(scol))), ncol = n,
-    dimnames = list(c(typ[2L], rownames(x)[x$type == typ[2L]]), paste("Color", 1L:n)))
+  scol <- if(length(scol) < 1L) NULL else matrix(t(scol), ncol = n,
+    dimnames = list(rownames(x)[x$type == typ[2L]], paste("Color", 1L:n)))
 
   mcol <- sapply(which(x$type == typ[3L]), function(i) {
     sequential_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c1 = xx[i, "c1"], c2 = xx[i, "c2"], l1 = xx[i, "l1"], l2 = xx[i, "l2"],
       p1 = xx[i, "p1"], p2 = xx[i, "p2"], cmax = xx[i, "cmax"], fixup = fixup)
   })
-  mcol <- if(length(mcol) < 1L) NULL else matrix(as.vector(rbind("transparent", t(mcol))), ncol = n,
-    dimnames = list(c(typ[3L], rownames(x)[x$type == typ[3L]]), paste("Color", 1L:n)))
+  mcol <- if(length(mcol) < 1L) NULL else matrix(t(mcol), ncol = n,
+    dimnames = list(rownames(x)[x$type == typ[3L]], paste("Color", 1L:n)))
 
   dcol <- sapply(which(x$type == typ[4L]), function(i) {
     diverging_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c1 = xx[i, "c1"], l1 = xx[i, "l1"], l2 = xx[i, "l2"],
       p1 = xx[i, "p1"], p2 = xx[i, "p2"], fixup = fixup)
   })
-  dcol <- if(length(dcol) < 1L) NULL else matrix(as.vector(rbind("transparent", t(dcol))), ncol = n,
-    dimnames = list(c(typ[4L], rownames(x)[x$type == typ[4L]]), paste("Color", 1L:n)))
+  dcol <- if(length(dcol) < 1L) NULL else matrix(t(dcol), ncol = n,
+    dimnames = list(rownames(x)[x$type == typ[4L]], paste("Color", 1L:n)))
   
   ## collect colors
-  col <- rbind(qcol, scol, mcol, dcol)
-  col[is.na(col)] <- "white"
-  m <- nrow(col)
-  
-  ## border color: light gray for sufficiently "discrete" case
-  if(is.null(border)) {
-    border <- if(n > 15L) "transparent" else "lightgray"
-  }
-  border <- rep.int(border, n * m)
-  border[col == "transparent"] <- "transparent"
-  
-  ## graphical parameters
-  opar <- par(mar = c(0.1, if(m > 15L) 5.5 else 6.5, 0, 0))
-  on.exit(par(opar))
-  if(is.null(off)) {
-    off <- if(n > 15L) c(1, 0.7) else c(0.9, 0.7)
-  } else {
-    off <- c(1, 1) - off
-  }
-  lin <- if(m > 15L) 3.5 else 4.5
-  cex <- if(m > 15L) 0.7 else 1
-  cex <- rep.int(cex, m)
-  cex[col[, 1L] == "transparent"] <- 1
-  font <- rep.int(1, m)
-  font[col[, 1L] == "transparent"] <- 2
-  
-  ## visualization
-  plot(0, 0, type = "n", xlim = c(0, 1), ylim = c(0, 1), axes = FALSE, xlab = "", ylab = "")
-  x1 <- rep(0:(n-1)/n, each = m)
-  y1 <- rep.int((m-1):0/m, n)
-  rect(x1, y1, x1 + off[1L]/n, y1 + off[2L]/m, col = col, border = border)
-  mtext(rownames(col), side = 2, at = y1[1L:m] + 0.5 * off[2L]/m,
-    las = 1, line = lin, adj = 0, cex = cex, font = font)
+  col <- list(qcol, scol, mcol, dcol)
+  names(col) <- typ
+  col <- col[!sapply(col, is.null)]
+
+  swatchplot(col, off = off, border = border, ...)
 }
 
 

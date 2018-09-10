@@ -78,24 +78,13 @@ BrBG, PiYG, PRGn, RdBu.
 }
 \examples{
 ## show emulated CARTO/ColorBrewer.org palettes
-div_pal <- function(palette, border = "light gray")
-{
-  n <- 7
-  col <- divergingx_hcl(n, palette)
-  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), xaxs = "i", axes = FALSE, xlab = "", ylab = "")
-  rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
-  axis(2, at = 0.5, tick = FALSE, labels = palette)
-}
 brewer <- c("Spectral", "RdYlGn", "RdYlBu", "RdGy", "BrBG", "PiYG", "PRGn", "PuOr", "RdBu")
 carto <- c("ArmyRose", "Earth", "Fall", "Geyser", "TealRose", "Temps", "Tropic")
 
-## sequential palettes
-par(mar = c(0, 5.5, 0, 0.5), mfrow = c(5, 2), las = 1)
-for(n in brewer) div_pal(n)
-
-## diverging palettes
-par(mar = c(0, 5.5, 0, 0.5), mfrow = c(7, 1), las = 1)
-for(n in carto) div_pal(n)
+swatchplot(
+  "CARTO" = t(sapply(carto, divergex_hcl, n = 7)),
+  "ColorBrewer.org" = t(sapply(brewer, divergex_hcl, n = 7))
+)
 
 ## compared to diverging_hcl() the diverging CARTO palettes are typically warmer
 ## but also less balanced with respect to chroma/luminance, see e.g.,

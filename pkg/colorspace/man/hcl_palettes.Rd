@@ -87,6 +87,14 @@ hcl_palettes("sequential (single-hue)", n = 7, plot = TRUE)
 hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
 hcl_palettes("diverging", n = 7, plot = TRUE)
 
+## HCL palettes vary the perceptual properties via hue/chroma/luminance
+swatchplot(
+  "Hue"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
+  "Chroma"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
+  "Luminance" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
+  off = 0
+)
+
 ## inspect a specific palette
 ## (upper-case, spaces, etc. are ignored for matching)
 hcl_palettes(name = "Dark 2")
