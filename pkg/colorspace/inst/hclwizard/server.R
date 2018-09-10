@@ -15,7 +15,7 @@ library("colorspace")
 
 #options( shiny.trace = TRUE )
 
-bpy <- eval(parse(text="colorspace:::bpy"))
+bpy <- eval(parse(text = "colorspace:::bpy"))
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -29,23 +29,21 @@ shinyServer(function(input, output, session) {
    # The different slider elements. Used later to show/hide or
    # set the sliders.
    # ----------------------------------------------------------------
-   sliderElements <- c("H1","H2","C1","CMAX","C2","L1","L2","P1","P2") #,"LEV")
+   sliderElements <- c("H1", "H2", "C1", "CMAX", "C2", "L1", "L2", "P1", "P2")
 
    # ----------------------------------------------------------------
    # Loading PAL palette information and examples
    # ----------------------------------------------------------------
    palettes <- colorspace:::GetPaletteConfig()
    updateSelectInput(session,"EXAMPLE",
-      choices=colorspace:::example.plots[!colorspace:::example.plots=="Spectrum"])
+      choices = colorspace:::example.plots[!colorspace:::example.plots == "Spectrum"])
 
    # ----------------------------------------------------------------
    # Helper function. Input: character vectors to show/hide.
    # ----------------------------------------------------------------
    showHideElements <- function(show,hide) {
-      #for ( elem in hide ) hide(elem)
-      #for ( elem in show ) show(elem)
-      for ( elem in hide ) addClass(   elem,"hcl-is-hidden")
-      for ( elem in show ) removeClass(elem,"hcl-is-hidden")
+      for ( elem in hide ) addClass(   elem, "hcl-is-hidden")
+      for ( elem in show ) removeClass(elem, "hcl-is-hidden")
    }
 
    # ----------------------------------------------------------------
@@ -55,7 +53,7 @@ shinyServer(function(input, output, session) {
    getCurrentPalette <- function() {
       pal <- list()
       for ( elem in sliderElements ) {
-         eval(parse(text=sprintf("pal$%s <- as.numeric(input$%s)",elem,elem)))
+         eval(parse(text = sprintf("pal$%s <- as.numeric(input$%s)", elem, elem)))
       }
       pal$N <- input$N
       return(pal)
@@ -68,7 +66,7 @@ shinyServer(function(input, output, session) {
       x <- list()
       for ( i in which(palettes$typ == input$typ) )
          x[[sprintf("%s",palettes$name[i])]] <- palettes$name[i]
-      updateSelectInput(session,"PAL",choices = x)
+      updateSelectInput(session, "PAL", choices = x)
    })
 
    # ----------------------------------------------------------------
@@ -77,16 +75,16 @@ shinyServer(function(input, output, session) {
    observeEvent(input$PAL, {
 
       # Getting settings of the choosen color palette
-      idx <- which(palettes$typ==input$typ & palettes$name==input$PAL)
+      idx <- which(palettes$typ == input$typ & palettes$name == input$PAL)
       if ( length(idx) == 0 ) { return(FALSE); }
       name   <- input$PAL
       curPAL <- as.list(palettes[idx,])
 
       # In this case we have to set the slider values as
       # the user selected a new scheme!
-      for ( elem in sliderElements ) {
-         if ( is.na(palettes[idx,elem]) ) next
-         updateSliderInput(session,elem,value=curPAL[[elem]])
+      for (elem in sliderElements) {
+         if ( is.na(palettes[idx, elem]) ) next
+         updateSliderInput(session, elem, value = curPAL[[elem]])
       }
 
       # Show or hide sliders depending on the palette typ configuration
@@ -114,7 +112,6 @@ shinyServer(function(input, output, session) {
    observeEvent(input$L2,     { sliderChanged("L2")    })
    observeEvent(input$P1,     { sliderChanged("P1")    })
    observeEvent(input$P2,     { sliderChanged("P2")    })
-   observeEvent(input$LEV,    { sliderChanged("LEV")   })
    # Do the same whenever the example changes
    observeEvent(input$EXAMPLE,  { sliderChanged("EXAMPLE")  })
 
@@ -131,10 +128,10 @@ shinyServer(function(input, output, session) {
    # When the user changes one of the values
    # ----------------------------------------------------------------
    setValueByUser <- function(elem) {
-      value = eval(parse(text=sprintf("input$%sval",elem)))
+      value = eval(parse(text = sprintf("input$%sval",elem)))
       if ( nchar(value) > 0 ) {
-         updateSliderInput(session,elem,value=value)
-         updateTextInput(session, sprintf("%sval",elem), value="")
+         updateSliderInput(session,elem,value = value)
+         updateTextInput(session, sprintf("%sval",elem), value = "")
       }
    }
    observeEvent(input$H1set,      { setValueByUser("H1")     })
@@ -147,12 +144,11 @@ shinyServer(function(input, output, session) {
    observeEvent(input$P1set,      { setValueByUser("P1")     })
    observeEvent(input$P2set,      { setValueByUser("P2")     })
    observeEvent(input$Nset,       { setValueByUser("N")      })
-   #observeEvent(input$LEVset,   { setValueByUser("LEV")  })
 
    # ----------------------------------------------------------------
    # Getting currently selected color scheme
    # ----------------------------------------------------------------
-   getColors <- function(N=NULL,fun=FALSE) {
+   getColors <- function(N = NULL, fun = FALSE) {
       # Current palette settings
       curtyp <- input$typ
       curPAL <- getCurrentPalette()
@@ -160,11 +156,11 @@ shinyServer(function(input, output, session) {
       fixup  <- input$fixup
       # Getting palette function
       if ( input$typ == "base" ) {
-         pal <- eval(parse(text=tolower(input$PAL)))
+         pal <- eval(parse(text = tolower(input$PAL)))
       } else {
          pal <- colorspace:::GetPalette(curtyp,curPAL$H1,curPAL$H2,curPAL$C1,curPAL$C2,
                                         curPAL$L1,curPAL$L2,curPAL$P1,curPAL$P2,input$fixup,
-                                        cmax=curPAL$CMAX)
+                                        cmax = curPAL$CMAX)
       }
       # If fun is set to false: return values
       if ( ! fun ) {
@@ -173,7 +169,7 @@ shinyServer(function(input, output, session) {
          # Add desaturation or constraints
          if ( input$desaturate ) colors <- desaturate(colors)
          if ( any(tolower(input$constraint) %in% c("protan","deutan","tritan")) )
-            colors <- do.call(tolower(input$constraint),list("col"=colors))
+            colors <- do.call(tolower(input$constraint),list("col" = colors))
          # Reverse if required
          if ( input$reverse ) colors <- rev(colors)
          return(colors)
@@ -194,9 +190,9 @@ shinyServer(function(input, output, session) {
       colors <- getColors()
 
       output$colormap <- renderPlot({
-         par(mar=rep(0,4),xaxt="n",yaxt="n",oma=rep(0,4),bty="n")
-         image(matrix(1:length(colors),ncol=1),col=colors)
-      },width=500,height=5)
+         par(mar = rep(0,4),xaxt = "n",yaxt = "n",oma = rep(0,4),bty = "n")
+         image(matrix(1:length(colors),ncol = 1),col = colors)
+      }, width = 500, height = 5)
 
       # Update the export tabs
       if ( input$maintabs == "export" ) {
@@ -207,9 +203,9 @@ shinyServer(function(input, output, session) {
       # Show spectrum
       } else if ( input$maintabs == "spectrum" ) {
          showSpectrum()
-      # Show color pane
-      } else if ( input$maintabs == "colorpane" ) {
-         showColorpane()
+      # Show color plane
+      } else if ( input$maintabs == "colorplane" ) {
+         showColorplane()
       }
 
       # Save color set to parent environment as we use it to generate
@@ -223,19 +219,29 @@ shinyServer(function(input, output, session) {
    showSpectrum <- function() {
       colors <- getColors(100)
       output$spectrum <- renderPlot(
-         specplot(colors,cex=1.4,plot=TRUE),
-         width=800, height=800
+         specplot(colors, cex = 1.4, plot = TRUE),
+         width = 800, height = 800
       )
    }
 
    # ----------------------------------------------------------------
-   # Display colorpane
+   # Display colorplane
    # ----------------------------------------------------------------
-   showColorpane <- function() {
+   showColorplane <- function() {
       colors <- getColors( input$N ) #11)
-      output$colorpane <- renderPlot(
-         hclplot(colors),
-         width=800, height=800
+      # dimension to collapse
+      if ( input$typ == "qual" ) {
+          collapse = "luminance"
+      } else if ( input$typ == "dive" ) {
+          collapse = "diverging"
+      } else if ( input$typ %in% c("seqm", "seqs") ) {
+          collapse = "hue"
+      } else {
+          collapse = NULL # Let the plotting function decide
+      }
+      output$colorplane <- renderPlot(
+         hclplot(colors, cex = 1.4, collapse = collapse),
+         width = 800, height = 800
       )
    }
 
@@ -243,8 +249,9 @@ shinyServer(function(input, output, session) {
    # Plotting example
    # ----------------------------------------------------------------
    plotExample <- function(colors) {
-      cmd <- sprintf("output$plot <- renderPlot({colorspace:::plot_%s(colors)},width=800,height=600)", tolower(input$EXAMPLE))
-      eval(parse(text=cmd))
+      cmd <- sprintf("output$plot <- renderPlot({colorspace:::plot_%s(colors)},width=800,height=600)",
+                     tolower(input$EXAMPLE))
+      eval(parse(text = cmd))
    }
 
    # ----------------------------------------------------------------
@@ -252,11 +259,11 @@ shinyServer(function(input, output, session) {
    # corresponding color bar using shiny
    # ----------------------------------------------------------------
    showColorSliders <- function(curtyp) {
-      idx <- which(palettes$typ==curtyp & palettes$name==input$PAL)
+      idx <- which(palettes$typ == curtyp & palettes$name == input$PAL)
       show <- hide <- c()
       for ( elem in sliderElements ) {
-         if ( is.na(palettes[idx,elem]) ) { hide <- c(hide,sprintf("%s-wrapper",elem)) }
-         else                             { show <- c(show,sprintf("%s-wrapper",elem)) }
+         if ( is.na(palettes[idx,elem]) ) { hide <- c(hide, sprintf("%s-wrapper", elem)) }
+         else                             { show <- c(show, sprintf("%s-wrapper", elem)) }
          showHideElements(show,hide)
       }
    }
@@ -270,7 +277,7 @@ shinyServer(function(input, output, session) {
       # store the indizes on colors.na. Replacement required
       # to be able to convert hex->RGB, index required to
       # create proper output (where NA values should be displayed).
-      colors   <- getColors()
+      colors    <- getColors()
       colors.na <- which(is.na(colors))
       colors[is.na(colors)] <- "#ffffff"
 
@@ -279,29 +286,29 @@ shinyServer(function(input, output, session) {
       # --------------------------
       # Generate RGB coordinates
       sRGB <- hex2RGB(colors)
-      RGB <- attr( sRGB, "coords" )
-      HCL <- round(attr( as( sRGB, "polarLUV" ), "coords" ))
+      RGB  <- attr( sRGB, "coords" )
+      HCL  <- round(attr( as( sRGB, "polarLUV" ), "coords" ))
 
       # Generate output string
       append <- function(x,new) c(x,new)
       raw1 <- raw2 <- raw3 <- raw4 <- list()
       # RGB 0-1
-      raw1 <- append(raw1,"<div style=\"clear: both;\">")
-      raw1 <- append(raw1,"<span class=\"output-raw\">")
-      raw1 <- append(raw1,"HCL values")
+      raw1 <- append(raw1, "<div style=\"clear: both;\">")
+      raw1 <- append(raw1, "<span class=\"output-raw\">")
+      raw1 <- append(raw1, "HCL values")
       for ( i in 1:nrow(HCL) )
          raw1 <- append(raw1,ifelse(i %in% colors.na,
-                        gsub(" ","&nbsp;",sprintf("<code>%5s %5s %5s</code>","NA","NA","NA")),
-                        gsub(" ","&nbsp;",sprintf("<code>%4d %4d %4d</code>",HCL[i,"H"],HCL[i,"C"],HCL[i,"L"]))))
-      raw1 <- append(raw1,"</span>")
+                        gsub(" ", "&nbsp;", sprintf("<code>%5s %5s %5s</code>", "NA", "NA", "NA")),
+                        gsub(" ", "&nbsp;", sprintf("<code>%4d %4d %4d</code>", HCL[i,"H"], HCL[i,"C"], HCL[i,"L"]))))
+      raw1 <- append(raw1, "</span>")
       # RGB 0-255
-      raw2 <- append(raw2,"<span class=\"output-raw\">")
-      raw2 <- append(raw2,"RGB values [0-255]")
-      RGB <- round(RGB*255)
+      raw2 <- append(raw2, "<span class=\"output-raw\">")
+      raw2 <- append(raw2, "RGB values [0-255]")
+      RGB  <- round(RGB * 255)
       for ( i in 1:nrow(RGB) )
          raw2 <- append(raw2,ifelse(i %in% colors.na,
-                        gsub(" ","&nbsp;",sprintf("<code>%4s %4s %4s</code>","NA","NA","NA")),
-                        gsub(" ","&nbsp;",sprintf("<code>%4d %4d %4d</code>",RGB[i,1],RGB[i,2],RGB[i,3]))))
+                        gsub(" ", "&nbsp;", sprintf("<code>%4s %4s %4s</code>", "NA", "NA", "NA")),
+                        gsub(" ", "&nbsp;", sprintf("<code>%4d %4d %4d</code>", RGB[i,1], RGB[i,2], RGB[i,3]))))
       raw2 <- append(raw2,"</span>")
       # HEX colors
       raw3 <- append(raw3,"<span class=\"output-raw\">")
@@ -310,84 +317,86 @@ shinyServer(function(input, output, session) {
          raw3 <- append(raw3,ifelse(i %in% colors.na,
                         gsub(" ","&nbsp;",sprintf("<code>%7s</code>","NA")),
                         sprintf("<code>%s</code>",colors[i])))
-      raw3 <- append(raw3,"</span>")
+      raw3 <- append(raw3, "</span>")
       # Color boxes (visual bar) 
-      raw4 <- append(raw4,"<span class=\"output-raw\">")
-      raw4 <- append(raw4,"Color Map")
+      raw4 <- append(raw4, "<span class=\"output-raw\">")
+      raw4 <- append(raw4, "Color Map")
       for ( col in colors )
-         raw4 <- append(raw4,sprintf("<cbox style='background-color: %s'></cbox>",col))
-      raw4 <- append(raw4,"</span>")
-      raw4 <- append(raw4,"</div>")
+         raw4 <- append(raw4, sprintf("<cbox style='background-color: %s'></cbox>", col))
+      raw4 <- append(raw4, "</span>")
+      raw4 <- append(raw4, "</div>")
 
-      output$exportRAW1 <- renderText(paste(raw1,collapse="\n"))
-      output$exportRAW2 <- renderText(paste(raw2,collapse="\n"))
-      output$exportRAW3 <- renderText(paste(raw3,collapse="\n"))
-      output$exportRAW4 <- renderText(paste(raw4,collapse="\n"))
+      output$exportRAW1 <- renderText(paste(raw1, collapse = "\n"))
+      output$exportRAW2 <- renderText(paste(raw2, collapse = "\n"))
+      output$exportRAW3 <- renderText(paste(raw3, collapse = "\n"))
+      output$exportRAW4 <- renderText(paste(raw4, collapse = "\n"))
 
       
       # -----------------------------
       # For GrADS
       # -----------------------------
       gastr <- c()
-      gastr <- append(gastr,"<div class=\"output-grads\">")
-      gastr <- append(gastr,"<comment>** Define colors palette</comment>") 
+      gastr <- append(gastr, "<div class=\"output-grads\">")
+      gastr <- append(gastr, "<comment>** Define colors palette</comment>") 
       if ( length(colors.na) > 0 )
-         gastr <- append(gastr,"<comment>** WARNING undefined colors in color map!</comment>") 
+         gastr <- append(gastr, "<comment>** WARNING undefined colors in color map!</comment>") 
       for ( i in 1:nrow(RGB) ) {
          gastr <- append(gastr,ifelse(i %in% colors.na,
-                         gsub(" ","&nbsp;",sprintf("<code>'set rgb %02d %4s %4s %4s'</code>",
-                                             i+19,"NA","NA","NA")),
-                         gsub(" ","&nbsp;",sprintf("<code>'set rgb %02d %4d %4d %4d'</code>",
-                                             i+19,RGB[i,1],RGB[i,2],RGB[i,3]))))
+                         gsub(" ", "&nbsp;",sprintf("<code>'set rgb %02d %4s %4s %4s'</code>",
+                                              i + 19, "NA", "NA", "NA")),
+                         gsub(" ", "&nbsp;",sprintf("<code>'set rgb %02d %4d %4d %4d'</code>",
+                                              i + 19, RGB[i,1], RGB[i,2], RGB[i,3]))))
       }
-      gastr <- append(gastr,sprintf("<code>'set ccols %s'</code>",paste(1:nrow(RGB)+19,collapse=" ")))
-      gastr <- append(gastr,sprintf("<code>'set clevs %s'</code>",paste(round(seq(0,100,length=nrow(RGB)-1),1),collapse=" ")))
-      gastr <- append(gastr,"<comment>** Open data set via DODS</comment>")
-      gastr <- append(gastr,"<comment>** Open data set via DODS</comment>")
-      gastr <- append(gastr,strftime(Sys.Date()-1,"<code>'sdfopen http://nomads.ncep.noaa.gov:9090/dods/gfs_1p00/gfs%Y%m%d/gfs_1p00_00z_anl'</code>"))
-      output$exportGrADS <- renderText(paste(gastr,collapse="\n"))
+      gastr <- append(gastr, sprintf("<code>'set ccols %s'</code>",
+                                     paste(1:nrow(RGB) + 19, collapse = " ")))
+      gastr <- append(gastr, sprintf("<code>'set clevs %s'</code>",
+                                     paste(round(seq(0, 100, length=nrow(RGB) - 1), 1), collapse=" ")))
+      gastr <- append(gastr, "<comment>** Open data set via DODS</comment>")
+      gastr <- append(gastr, "<comment>** Open data set via DODS</comment>")
+      gastr <- append(gastr, strftime(Sys.Date() - 1, "<code>'sdfopen http://nomads.ncep.noaa.gov:9090/dods/gfs_1p00/gfs%Y%m%d/gfs_1p00_00z_anl'</code>"))
+      output$exportGrADS <- renderText(paste(gastr, collapse = "\n"))
 
       # -----------------------------
       # For Python
       # -----------------------------
       pystr <- c()
-      pystr <- append(pystr,"<div class=\"output-python\">")
-      pystr <- append(pystr,"<comment>## Define choosen color palette first</comment>") 
-      pystr <- append(pystr,"<comment>## WARNING undefined colors in color map!</comment>") 
-      pycolors <- sprintf("\"%s\"",colors)
+      pystr <- append(pystr, "<div class=\"output-python\">")
+      pystr <- append(pystr, "<comment>## Define choosen color palette first</comment>") 
+      pystr <- append(pystr, "<comment>## WARNING undefined colors in color map!</comment>") 
+      pycolors <- sprintf("\"%s\"", colors)
       if ( length(colors.na) > 0 ) pycolors[colors.na] <- "None"
-      pystr <- append(pystr,sprintf("<code>colors = (%s)</code>",
-                      paste(sprintf("%s",pycolors),collapse=",")))
-      pystr <- append(pystr,"</div>")
+      pystr <- append(pystr, sprintf("<code>colors = (%s)</code>",
+                      paste(sprintf("%s", pycolors), collapse = ",")))
+      pystr <- append(pystr, "</div>")
 
-      output$exportPython <- renderText(paste(pystr,collapse="\n"))
+      output$exportPython <- renderText(paste(pystr, collapse = "\n"))
 
       # -----------------------------
       # For Matlab
       # -----------------------------
-      RGB <- attr(hex2RGB(colors),"coords")
+      RGB  <- attr(hex2RGB(colors),"coords")
       mstr <- c()
-      mstr <- append(mstr,"<div class=\"output-matlab\">")
-      mstr <- append(mstr,"<comment>%% Define rgb matrix first (matrix size ncolors x 3)</comment>")
+      mstr <- append(mstr, "<div class=\"output-matlab\">")
+      mstr <- append(mstr, "<comment>%% Define rgb matrix first (matrix size ncolors x 3)</comment>")
       if ( length(colors.na) > 0 )
-         mstr <- append(mstr,"<comment>%% WARNING undefined colors in color map!</comment>")
+         mstr <- append(mstr, "<comment>%% WARNING undefined colors in color map!</comment>")
       vardef <- "colors = ["
       for ( i in 1:nrow(RGB) ) {
          if ( i == 1 )             { pre <- vardef; post <- ";" }
-         else if ( i < nrow(RGB) ) { pre <- paste(rep(" ",nchar(vardef)),collapse=""); post <- ";" }
-         else                      { pre <- paste(rep(" ",nchar(vardef)),collapse=""); post <- "]" }
+         else if ( i < nrow(RGB) ) { pre <- paste(rep(" ", nchar(vardef)), collapse = ""); post <- ";" }
+         else                      { pre <- paste(rep(" ", nchar(vardef)), collapse = ""); post <- "]" }
          if ( i %in% colors.na ) {
             tmp <- sprintf("<code>%s%5s,%5s,%5s%s</code>",
-                           pre,"NaN","NaN","NaN",post)
+                           pre, "NaN", "NaN", "NaN", post)
          } else {
             tmp <- sprintf("<code>%s%5.3f,%5.3f,%5.3f%s</code>",
-                           pre,RGB[i,1],RGB[i,2],RGB[i,3],post)
+                           pre, RGB[i, 1], RGB[i, 2], RGB[i, 3], post)
          }
-         mstr <- append(mstr,gsub(" ","&nbsp;",tmp))
+         mstr <- append(mstr, gsub(" ", "&nbsp;", tmp))
       }
-      mstr <- append(mstr,"</div>")
+      mstr <- append(mstr, "</div>")
 
-      output$exportMatlab <- renderText(paste(mstr,collapse="\n"))
+      output$exportMatlab <- renderText(paste(mstr, collapse="\n"))
 
    }
    
@@ -404,12 +413,12 @@ shinyServer(function(input, output, session) {
       # Spectrum plot
       } else if ( input$maintabs == "spectrum" ) { 
          showSpectrum()
-      # Color pane plot
-      } else if ( input$maintabs == "colorpane" ) { 
-         showColorpane()
+      # Color plane plot
+      } else if ( input$maintabs == "colorplane" ) { 
+         showColorplane()
       }
    }
-   observeEvent(input$maintabs,  updateMainTabContent() );
+   observeEvent(input$maintabs, updateMainTabContent());
 
 
    # downloadHandler() takes two arguments, both functions.
@@ -418,25 +427,25 @@ shinyServer(function(input, output, session) {
    getRGB <- function(int=FALSE) {
       colors <- getColors()
       if ( int ) { scale = 255; digits = 0 } else { scale = 1; digits = 3 }
-      RGB <- round(attr(hex2RGB(colors),"coords")*scale,digits)
+      RGB <- round(attr(hex2RGB(colors), "coords")*scale, digits)
       return(RGB)
    }
    output$downloadRAW1 <- downloadHandler(
       file <- "colormap_rgb.txt",
       content = function(file) {
-         write.table(getRGB(FALSE), file, sep = ",", col.names = TRUE, row.names = FALSE)
+         write.table(getRGB(FALSE),  file,  sep = ",",  col.names = TRUE,  row.names = FALSE)
       }
    )
    output$downloadRAW2 <- downloadHandler(
       file <- "colormap_RGB.txt",
       content = function(file) {
-         write.table(getRGB(TRUE), file, sep = ",", col.names = TRUE, row.names = FALSE)
+         write.table(getRGB(TRUE),  file,  sep = ",",  col.names = TRUE,  row.names = FALSE)
       }
    )
    output$downloadRAW3 <- downloadHandler(
       file <- "colormap_hex.txt",
       content = function(file) {
-         write.table(getColors(), file, sep = ",",
+         write.table(getColors(),  file,  sep = ",", 
             col.names = FALSE, row.names = FALSE)
       }
    )
@@ -446,7 +455,7 @@ shinyServer(function(input, output, session) {
    # Would be nicer to return a function as from choose_palette,
    # but I have not found a way yet.
    # ----------------------------------------------------------------
-   observeEvent(input$closeapp, stopApp(invisible(getColors(fun=TRUE))) );
+   observeEvent(input$closeapp, stopApp(invisible(getColors(fun = TRUE))));
 
    # - Configuration
    ticks <- FALSE # to show ticks or not to show ticks

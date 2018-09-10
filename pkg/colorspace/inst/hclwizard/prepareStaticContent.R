@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2016-10-23, RS: Created file on pc24-c707.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2017-09-24 12:29 on thinkreto
+# - L@ST MODIFIED: 2018-09-10 12:04 on marvin
 # -------------------------------------------------------------------
 
    library("colorspace")
@@ -83,7 +83,7 @@
 
    cat(" * Create static help pages using Rd2HTML\n")
    static_help("colorspace","choose_palette")
-   static_help("colorspace","rainbow_hcl")
+   static_help("colorspace","hcl_palettes")
    static_help("colorspace","specplot")
 
 
@@ -125,7 +125,7 @@ reto <<- html
    # Reading content
    cat(" * Reading html content\n")
    content1 <- getHTMLcontent("tmp_choose_palette.html")
-   content2 <- getHTMLcontent("tmp_rainbow_hcl.html")
+   content2 <- getHTMLcontent("tmp_hcl_palettes.html")
    content3 <- getHTMLcontent("tmp_specplot.html")
 
    # Create output file
@@ -152,7 +152,7 @@ reto <<- html
    # Remove temporary rendered html pages
    cat(" * Remove temporary files\n")
    file.remove("tmp_choose_palette.html")
-   file.remove("tmp_rainbow_hcl.html")
+   file.remove("tmp_hcl_palettes.html")
    file.remove("tmp_specplot.html")
 
 
