@@ -6,10 +6,10 @@
 \alias{scale_fill_discrete_sequential}
 \title{HCL-Based Discrete Sequential Color Scales for ggplot2}
 \usage{
-scale_colour_discrete_sequential(palette = NULL, c1 = NULL,
-  c2 = NULL, l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL,
-  p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
-  order = NULL, aesthetics = "colour", ...)
+scale_colour_discrete_sequential(palette = NULL, c1 = NULL, c2 = NULL,
+  l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL,
+  alpha = 1, rev = FALSE, nmax = NULL, order = NULL,
+  aesthetics = "colour", ...)
 
 scale_color_discrete_sequential(...)
 

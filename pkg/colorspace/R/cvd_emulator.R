@@ -13,17 +13,17 @@
 #'    function to overwrite files on disc if they exist.
 #' @param shiny.trace \code{logical}. Can be set to \code{TRUE} for more verbose
 #'    output when the GUI is started (development flag). 
-#' @rdname hcl_converter
+#' @rdname cvd_emulator
 #' @export
-hcl_converter <- function( x, overwrite = FALSE, shiny.trace = FALSE) {
+cvd_emulator <- function( x, overwrite = FALSE, shiny.trace = FALSE) {
 
    # If input 'x' is missing: start interactive GUI
    if ( missing(x) ) {
       # Requirements for shiny application
       stopifnot(requireNamespace("shiny"))
-      appDir <- system.file("hclconverter", package = "colorspace")
+      appDir <- system.file("cvdemulator", package = "colorspace")
       if (appDir == "")
-         stop("Could not find hclconverter app directory. Try re-installing `colorspace`.", call. = FALSE)
+         stop("Could not find cvdemulator app directory. Try re-installing `colorspace`.", call. = FALSE)
       # Start shiny
       options(shiny.trace=shiny.trace)
       pal <- shiny::runApp(appDir, display.mode = "normal", quiet = TRUE )
@@ -39,7 +39,7 @@ hcl_converter <- function( x, overwrite = FALSE, shiny.trace = FALSE) {
       if ( ! overwrite ) {
          for ( file in files ) {
             if ( file.exists(file) )
-               stop(sprintf("File \"%s\" exists. Remove image first, or use hcl_converter( x, overwrite = TRUE)",file))
+               stop(sprintf("File \"%s\" exists. Remove image first, or use cvd_emulator(x, overwrite = TRUE)",file))
          }
       }
       # Read image
@@ -52,7 +52,7 @@ hcl_converter <- function( x, overwrite = FALSE, shiny.trace = FALSE) {
       for ( type in types ) {
          outfile <- sprintf("%s/%s_%s",dirname(x),type,basename(x))
          cat(sprintf("Convert %-15s -> %s\n",type,outfile))
-         out.img <- convert_image( in.img, type, outfile ) 
+         out.img <- image_cvd_emulate( in.img, type, outfile ) 
       }
    }
 }
@@ -78,7 +78,7 @@ check_image_type <- function( x ) {
 # The convert function used
 #' Convert Colors of an Image
 #'
-#' Used in \code{hcl_converter}. Takes an image object and converts
+#' Used in \code{cvd_emulator}. Takes an image object and converts
 #' the colors using deutan/protan/tritan/desaturate functions. Image
 #' will be written to disc as a png image.
 #'
@@ -90,7 +90,7 @@ check_image_type <- function( x ) {
 #'    If set to \code{original} the image will be written as is.
 #' @param target \code{string} with (full) path to resulting image. Has to
 #'    be a png image name!
-convert_image <- function(img, type, target) {
+image_cvd_emulate <- function(img, type, target, severity = 1) {
 
    # - Save original colors
    if ( type == 'original' ) {
@@ -100,7 +100,7 @@ convert_image <- function(img, type, target) {
    # Picking data
    RGB       <- matrix(as.numeric(img[,,1:3])*255,nrow=3,byrow=TRUE,
                        dimnames=list(c("R","G","B"),NULL))
-   RGB       <- do.call(type,list("col"=RGB))
+   RGB       <- do.call(type,list(col = RGB, severity = severity))
    img[,,1]  <- matrix( RGB["R",]/255, dim(img)[1], dim(img)[2])
    img[,,2]  <- matrix( RGB["G",]/255, dim(img)[1], dim(img)[2])
    img[,,3]  <- matrix( RGB["B",]/255, dim(img)[1], dim(img)[2])

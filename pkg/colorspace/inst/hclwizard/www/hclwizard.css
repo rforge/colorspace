@@ -143,5 +143,19 @@ button#closeapp { width: 100%; text-align: center; margin-top: 10px; }
    span.hcl-slidervalue { width: 35%; }
 }
 
-
-
+/* Package information */
+body { padding-bottom: 10px; }
+div.version-info {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    font-size: .8em;
+    padding: 2px 5px;
+}
+div.version-info a {
+    color: #BFBEBD;
+}
+div.version-info a:hover {
+    text-decoration: underline;
+    color: #BFBEBD;
+}

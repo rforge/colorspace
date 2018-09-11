@@ -4,7 +4,7 @@
 \alias{desaturate}
 \title{Desaturate Colors by Chroma Removal in HCL Space}
 \usage{
-desaturate(col, amount = 1)
+desaturate(col, amount = 1, ...)
 }
 \arguments{
 \item{col}{vector of any of the three kind of R colors, i.e., either a color
@@ -17,6 +17,9 @@ rows containing R/G/B (0-255) values, see details.}
 \item{amount}{numeric specifying the amount of desaturation where \code{1}
 corresponds to complete desaturation, \code{0} to no desaturation, and
 values in between to partial desaturation.}
+
+\item{...}{additional arguments. If \code{severity} is specified it will
+overrule the input argument \code{amount} (for convenience).}
 }
 \value{
 A character vector with (s)RGB codings of the colors in the palette

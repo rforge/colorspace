@@ -2,12 +2,18 @@
 % Please edit documentation in R/hcl_color_picker.R
 \name{hcl_color_picker}
 \alias{hcl_color_picker}
+\alias{hclcolorpicker}
 \title{Shiny App to Pick Colors in HCL Space}
 \usage{
-hcl_color_picker()
+hcl_color_picker(shiny.trace = FALSE)
+
+hclcolorpicker(shiny.trace = FALSE)
+}
+\arguments{
+\item{shiny.trace}{logical: used for debugging the shiny interface.}
 }
 \value{
-\code{hcl_color_picker} invisibly returns a vector of colors choosen.
+\code{hclcolorpicker} invisibly returns a vector of colors choosen.
    If no colors have been selected \code{NULL} will be returned.
 }
 \description{
@@ -22,3 +28,10 @@ to a palette for comparison and future reference.
 hcl_color_picker()
 }
 }
+\seealso{
+\code{\link{choose_palette}}
+}
+\author{
+Claus O. Wilke, Reto Stauffer, Achim Zeileis
+}
+\keyword{misc}

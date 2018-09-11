@@ -26,6 +26,8 @@
 #' @param amount numeric specifying the amount of desaturation where \code{1}
 #' corresponds to complete desaturation, \code{0} to no desaturation, and
 #' values in between to partial desaturation.
+#' @param ... additional arguments. If \code{severity} is specified it will
+#' overrule the input argument \code{amount} (for convenience).
 #' @return A character vector with (s)RGB codings of the colors in the palette
 #' if input \code{col} is a vector. If input \code{col} is a matrix with R/G/B
 #' values a matrix of the same form and size will be returned.
@@ -55,7 +57,13 @@
 #' @export desaturate
 #' @importFrom grDevices col2rgb
 
-desaturate <- function(col, amount = 1) {
+desaturate <- function(col, amount = 1, ...) {
+
+  ## If "severity" is given in the dots argument: use it
+  ## as "amount" (convenience)
+  args = as.list(match.call(expand.dots = TRUE))
+  if ( ! is.null(args$severity) ) amount <- args$severity
+
   ## col has to be hex code, otherwise col2rgb is used
   matrix_input <- is.matrix(col)
   if(is.character(col) &&

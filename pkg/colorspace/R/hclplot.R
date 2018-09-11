@@ -93,7 +93,7 @@ hclplot <- function(pal, collapse = NULL, maxchroma = NULL, xlab = NULL, ylab = 
             # Adding axis labels
             if ( is.null(xlab) ) xlab <- "Chroma"
             if ( is.null(ylab) ) ylab <- "Luminance"
-            mtext(side = 1, line = 2 * cex, ylab, cex = cex)
+            mtext(side = 1, line = 2 * cex, xlab, cex = cex)
             mtext(side = 2, line = 2 * cex, ylab, cex = cex)
             # Adding colors
             points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)
@@ -125,7 +125,7 @@ hclplot <- function(pal, collapse = NULL, maxchroma = NULL, xlab = NULL, ylab = 
             # Axis labels
             if ( is.null(xlab) ) xlab <- "Chroma"
             if ( is.null(ylab) ) ylab <- "Luminance"
-            mtext(side = 1, line = 2 * cex, ylab, cex = cex)
+            mtext(side = 1, line = 2 * cex, xlab, cex = cex)
             mtext(side = 2, line = 2 * cex, ylab, cex = cex)
             # Plotting colors
             points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)

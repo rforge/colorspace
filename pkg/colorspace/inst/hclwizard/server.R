@@ -39,6 +39,13 @@ shinyServer(function(input, output, session) {
       choices = colorspace:::example.plots[!colorspace:::example.plots == "Spectrum"])
 
    # ----------------------------------------------------------------
+   # Package version information
+   # ----------------------------------------------------------------
+   output$version_info <- renderText(sprintf("<a href=\"%s\">R colorspace %s</a>",
+                                     "https://cran.r-project.org/package=colorspace",
+                                     packageVersion("colorspace")))
+
+   # ----------------------------------------------------------------
    # Helper function. Input: character vectors to show/hide.
    # ----------------------------------------------------------------
    showHideElements <- function(show,hide) {
@@ -430,10 +437,14 @@ shinyServer(function(input, output, session) {
       RGB <- round(attr(hex2RGB(colors), "coords")*scale, digits)
       return(RGB)
    }
+   getHCL <- function() {
+       HCL <- coords(as(hex2RGB(getColors()), "polarLUV"))
+       return(round(HCL)[,c("H","C","L")])
+   }
    output$downloadRAW1 <- downloadHandler(
-      file <- "colormap_rgb.txt",
+      file <- "colormap_HCL.txt",
       content = function(file) {
-         write.table(getRGB(FALSE),  file,  sep = ",",  col.names = TRUE,  row.names = FALSE)
+         write.table(getHCL(),  file,  sep = ",",  col.names = TRUE,  row.names = FALSE)
       }
    )
    output$downloadRAW2 <- downloadHandler(

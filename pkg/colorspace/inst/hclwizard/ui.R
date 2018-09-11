@@ -42,6 +42,7 @@ if ( nchar(Sys.getenv("hclwizard_Ninit")) > 0 &
 shinyUI(fluidPage(
    theme = "hclwizard.css",
    useShinyjs(),
+   div(class = "version-info", htmlOutput("version_info")),
 
    # ----------------------------------------------------------------
    # ----------------------------------------------------------------
@@ -263,9 +264,26 @@ shinyUI(fluidPage(
             ))
          ),
       # -------------------------------------------------------------
+      # Show color spectrum
+      # -------------------------------------------------------------
+         tabPanel("Spectrum", value = "spectrum",
+            withTags(div(class = "hcl-main", id = "hcl-main-spectrum",
+               plotOutput("spectrum")
+            ))
+         ),
+      # -------------------------------------------------------------
+      # Color pane plot
+      # -------------------------------------------------------------
+         tabPanel("Color Plane", value = "colorplane",
+            includeHTML("html/colorplane.html"),
+            withTags(div(class = "hcl-main", id = "hcl-main-colorplane",
+               plotOutput("colorplane")
+            ))
+         ),
+      # -------------------------------------------------------------
       # Export panel
       # -------------------------------------------------------------
-         tabPanel("Export", value = "export",
+         tabPanel("Export", value = "export", icon = icon("download", lib = "font-awesome"),
             withTags(div(class = "hcl-main", id = "hcl-main-export",
                tabsetPanel(
                   # RAW output (rgb,RGB,hex)
@@ -305,27 +323,10 @@ shinyUI(fluidPage(
             ))
          ),
       # -------------------------------------------------------------
-      # Show color spectrum
-      # -------------------------------------------------------------
-         tabPanel("Spectrum", value = "spectrum",
-            withTags(div(class = "hcl-main", id = "hcl-main-spectrum",
-               plotOutput("spectrum")
-            ))
-         ),
-      # -------------------------------------------------------------
-      # Color pane plot
-      # -------------------------------------------------------------
-         tabPanel("Color Plane", value = "colorplane",
-            includeHTML("html/colorplane.html"),
-            withTags(div(class = "hcl-main", id = "hcl-main-colorplane",
-               plotOutput("colorplane")
-            ))
-         ),
-      # -------------------------------------------------------------
       # Main panel which shows the help pages. Hidden in the beginning,
       # displayed on request.
       # -------------------------------------------------------------
-         tabPanel("Help Page", value = "help",
+         tabPanel("Help", value = "help", icon = icon("info-circle", lib = "font-awesome"),
             withTags(div(class = "hcl-main", id = "hcl-main-help",
                includeHTML("html/help.html")
             ))

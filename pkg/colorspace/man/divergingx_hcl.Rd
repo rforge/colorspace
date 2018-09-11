@@ -5,8 +5,8 @@
 \alias{divergex_hcl}
 \title{(More) Flexible Diverging HCL Palettes}
 \usage{
-divergingx_hcl(n, palette = "Geyser", ..., rev = FALSE, h1, h2, h3, c1,
-  c2, c3, l1, l2, l3, p1, p2, p3, p4, cmax1, cmax2)
+divergingx_hcl(n, palette = "Geyser", ..., rev = FALSE, h1, h2, h3, c1, c2,
+  c3, l1, l2, l3, p1, p2, p3, p4, cmax1, cmax2)
 }
 \arguments{
 \item{n}{the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.}
