@@ -42,6 +42,9 @@ Changes in Version 1.4-0
     (@wckdouglas) provided the original implementation for the color
     palette feature.
 
+  o New convenience function swatchplot() that facilitates displaying
+    color swatches to display and compare collections of color palettes.
+
   o Added a new function max_chroma() that (approximately) computes
     the maximum chroma possible for a given hue and luminance
     combination in HCL space.
