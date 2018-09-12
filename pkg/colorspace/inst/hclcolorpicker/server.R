@@ -16,6 +16,7 @@
 #' @importFrom methods as
 
 library("shiny")
+library("shinyjs")
 
 #options( shiny.trace = TRUE )
 

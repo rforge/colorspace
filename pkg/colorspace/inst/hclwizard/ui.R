@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-10 12:08 on marvin
+# - L@ST MODIFIED: 2018-09-12 11:54 on marvin
 # -------------------------------------------------------------------
 
 
@@ -326,9 +326,9 @@ shinyUI(fluidPage(
       # Main panel which shows the help pages. Hidden in the beginning,
       # displayed on request.
       # -------------------------------------------------------------
-         tabPanel("Help", value = "help", icon = icon("info-circle", lib = "font-awesome"),
+         tabPanel("Info", value = "info", icon = icon("info-circle", lib = "font-awesome"),
             withTags(div(class = "hcl-main", id = "hcl-main-help",
-               includeHTML("html/help.html")
+               includeHTML("html/info.html")
             ))
          )
       ),

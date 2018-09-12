@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2017-09-16, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-11 14:24 on marvin
+# - L@ST MODIFIED: 2018-09-12 12:02 on marvin
 # -------------------------------------------------------------------
 library("shiny")
 
@@ -39,7 +39,7 @@ shiny::shinyUI(bootstrapPage(
       tabPanel("Upload", icon = icon("cog", lib = "font-awesome"),
 
          # Severity slider
-         column(4,
+         column(4, class = "col-severity",
             withTags(div(class = "fa-large",
                 icon("eye-slash", lib = "font-awesome"))),
                 h2("Severity"),
@@ -52,14 +52,14 @@ shiny::shinyUI(bootstrapPage(
          ),
 
          # Input: file upload
-         column(4,
+         column(4, class = "col-file",
             withTags(div(class = "fa-large", icon("image", lib = "font-awesome"))),
             uiOutput("filebox"),
             htmlOutput("file_info") # Will be filled with the file upload element.
          ),
 
          # Status information
-         column(4,
+         column(4, class = "col-status",
             withTags(div(class = "fa-large", icon("spinner", lib = "font-awesome"))),
             h2("Status"),
             textOutput("status")
@@ -80,7 +80,7 @@ shiny::shinyUI(bootstrapPage(
             uiOutput("imagedesaturate"),
             h4("Reduction in chroma until no color is left (\"total color blindness\").",
                "Full desaturation yields to a pure grayscale image (only differences",
-               "in luminance).")
+               "in luminance left).")
          ))
       ),
       tabPanel("Deuteranope",
@@ -119,6 +119,7 @@ shiny::shinyUI(bootstrapPage(
       ),
       tabPanel("Info", icon = icon("info-circle", lib = "font-awesome"),
          htmlOutput("appInfo"),
+         includeHTML("html/info.html"),
          includeHTML("html/appInfo.html")
       ),
       selected = "Upload"

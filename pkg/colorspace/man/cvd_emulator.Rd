@@ -24,3 +24,6 @@ and a desaturated version (monochromatic vision).
 Allows a rapid check whether the colors used in the image show some
 constraints with respect to color deficiency or color blindness.
 }
+\author{
+Reto Stuaffer, Claus O. Wilke, Achim Zeileis
+}

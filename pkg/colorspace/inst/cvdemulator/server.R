@@ -99,7 +99,7 @@ shinyServer(function(input, output, session) {
          updateTabsetPanel(session, "maintabs", selected = "Original")
          output$filebox <- renderUI({
              fileInput("file", label=h2("Upload Image"),
-                       multiple = FALSE,
+                       multiple = FALSE, width = "100%",
                        accept = c("image/png","image/jpeg"))
          })
       }

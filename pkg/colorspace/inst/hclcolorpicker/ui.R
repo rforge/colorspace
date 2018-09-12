@@ -84,7 +84,7 @@ color_picker_mainPanel <- function() {
         # -----------------------------------------------------------
         # Export tab
         # -----------------------------------------------------------
-            shiny::tabPanel("Export", value = "export",
+            shiny::tabPanel("Export", value = "export", icon = icon("download", lib = "font-awesome"),
                 shiny::withTags(div(class = "hcl", id = "hcl-export",
                     withTags(div(class = "output-raw",
                        htmlOutput("exportRAW1"),
@@ -105,6 +105,14 @@ color_picker_mainPanel <- function() {
                     shiny::h3("Output"),
                     shiny::htmlOutput("palette_line_R"),
                     shiny::htmlOutput("palette_line_matlab")
+                ))
+            ),
+        # -----------------------------------------------------------
+        # Info tab
+        # -----------------------------------------------------------
+            shiny::tabPanel("Info", value = "info", icon = icon("info-circle", lib = "font-awesome"),
+                withTags(div(class = "hcl-main", id = "hcl-main-help",
+                   includeHTML("html/info.html")
                 ))
             )
         ),

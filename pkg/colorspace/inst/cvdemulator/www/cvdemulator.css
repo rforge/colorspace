@@ -23,9 +23,9 @@ body {
 .img-single > .shiny-html-output > img {
    border-color: black;
 }
-.img-single > .shiny-html-output h4 {
-   color: #CCCCCC;
-   font-size: 0.8em;
+.img-single h4 {
+   color: #808080;
+   font-size: 1.1em;
    padding: 0;
    margin: 0.5em;
    height: 15px;
@@ -98,13 +98,22 @@ div.version-info a:hover {
     color: #ddd;
     font-size: 5em;
 }
-div:hover > .fa-large > i.fa {
+.col-severity:hover > .fa-large > i.fa,
+.col-file:hover > .fa-large > i.fa,
+.col-status:hover > .fa-large > i.fa {
     color: #428bca;
 }
 
-div:hover .shiny-input-container .irs-bar,
-div:hover .shiny-input-container .irs-bar-edge {
+.col-severity:hover .shiny-input-container .irs-bar,
+.col-severity:hover .shiny-input-container .irs-bar-edge {
     border-color: #428bca;
     background: #428bca;
+}
+
+.col-file:hover .btn-file {
+    background: #428bca;
+}
+
+
 
 

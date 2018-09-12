@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-08 15:01 on marvin
+# - L@ST MODIFIED: 2018-09-12 11:57 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -238,16 +238,16 @@ shinyServer(function(input, output, session) {
       colors <- getColors( input$N ) #11)
       # dimension to collapse
       if ( input$typ == "qual" ) {
-          collapse = "luminance"
+          plot_type <- "qualitative"
       } else if ( input$typ == "dive" ) {
-          collapse = "diverging"
+          plot_type <- "diverging"
       } else if ( input$typ %in% c("seqm", "seqs") ) {
-          collapse = "hue"
+          plot_type <- "sequential"
       } else {
-          collapse = NULL # Let the plotting function decide
+          plot_type <- NULL # Let the plotting function decide
       }
       output$colorplane <- renderPlot(
-         hclplot(colors, cex = 1.4, collapse = collapse),
+         hclplot(colors, type = plot_type, cex = 1.4),
          width = 800, height = 800
       )
    }

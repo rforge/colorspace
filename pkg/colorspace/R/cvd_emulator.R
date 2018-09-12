@@ -13,6 +13,7 @@
 #'    function to overwrite files on disc if they exist.
 #' @param shiny.trace \code{logical}. Can be set to \code{TRUE} for more verbose
 #'    output when the GUI is started (development flag). 
+#' @author Reto Stuaffer, Claus O. Wilke, Achim Zeileis
 #' @rdname cvd_emulator
 #' @export
 cvd_emulator <- function( x, overwrite = FALSE, shiny.trace = FALSE) {
