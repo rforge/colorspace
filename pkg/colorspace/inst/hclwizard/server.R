@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-12 11:57 on marvin
+# - L@ST MODIFIED: 2018-09-12 15:04 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -163,11 +163,14 @@ shinyServer(function(input, output, session) {
       fixup  <- input$fixup
       # Getting palette function
       if ( input$typ == "base" ) {
-         pal <- eval(parse(text = tolower(input$PAL)))
+         # Avoids running into shiny errors when the palette
+         # switches faster than the type.
+         if ( ! exists(input$PAL) ) return(NULL)
+         pal <- eval(parse(text = input$PAL))
       } else {
          pal <- colorspace:::GetPalette(curtyp,curPAL$H1,curPAL$H2,curPAL$C1,curPAL$C2,
                                         curPAL$L1,curPAL$L2,curPAL$P1,curPAL$P2,input$fixup,
-                                        cmax = curPAL$CMAX)
+                                        rev=input$reverse, cmax = curPAL$CMAX)
       }
       # If fun is set to false: return values
       if ( ! fun ) {
@@ -275,6 +278,70 @@ shinyServer(function(input, output, session) {
       }
    }
 
+
+   # ----------------------------------------------------------------
+   # Returns the R function call of the current palette as specified
+   # by the user.
+   # ----------------------------------------------------------------
+   function_to_string <- function(n) {
+
+      # It is possible that the function cannot be evaluated
+      # at the moment shiny changes the palette typ. In these
+      # cases "getColors" returns NULL. In these cases return
+      # "..."
+      pal <- getColors(fun = TRUE)
+      if ( is.null(pal) ) return("...")
+
+      arglist <- list()
+      for ( arg in names(formals(pal)) ) {
+          if ( arg == "..." ) break;
+          arglist[[arg]] <- formals(pal)[[arg]]
+      }
+      arglist[["n"]] <- sprintf("%d", n)
+
+      # Remove defaults
+      if ( "fixup" %in% names(arglist) )
+          if ( arglist[["fixup"]] == TRUE  ) arglist[["fixup"]] <- NULL
+      if ( "alpha" %in% names(arglist) )
+          if ( arglist[["alpha"]] == 1     ) arglist[["alpha"]] <- NULL
+      if ( "rev" %in% names(arglist) )
+          if ( arglist[["rev"]]   == FALSE ) arglist[["rev"]]   <- NULL
+
+      # Name of the method
+      if ( input$typ %in% c("Qualitative", "qual") ) {
+          fname <- "qualitative_hcl"
+      } else if ( grepl("^seq", tolower(input$typ)) ) {
+          fname <- "sequential_hcl"
+      } else if ( grepl("^div", tolower(input$typ)) ) {
+          fname <- "diverging_hcl"
+      } else {
+          fname <- input$PAL
+      }
+
+      # Create the result
+      argstr <- paste(names(arglist),arglist, sep = " = ", collapse = ", ")
+      result <- sprintf("%s(%s)", fname, argstr)
+
+      # Default palette, reversed?
+      if ( input$typ == "base" & input$reverse )
+          result <- sprintf("rev(%s)", result)
+
+
+      # If visual constraints are selected: add wrapping function
+      if ( input$desaturate )
+          result <- sprintf("desaturate(%s)", result)
+      if ( input$constraint == "Deutan" ) {
+          result <- sprintf("deutan(%s)", result)
+      } else if ( input$constraint == "Protan" ) {
+          result <- sprintf("protan(%s)", result)
+      } else if ( input$constraint == "Tritan" ) {
+          result <- sprintf("tritan(%s)", result)
+      }
+
+      return(result)
+   }
+
+
    # ----------------------------------------------------------------
    # Export colors: generate export content
    # ----------------------------------------------------------------
@@ -337,6 +404,9 @@ shinyServer(function(input, output, session) {
       output$exportRAW2 <- renderText(paste(raw2, collapse = "\n"))
       output$exportRAW3 <- renderText(paste(raw3, collapse = "\n"))
       output$exportRAW4 <- renderText(paste(raw4, collapse = "\n"))
+
+      # The corresponding R call
+      output$exportFun  <- renderText(sprintf("<code>%s</code>",function_to_string(input$N)))
 
       
       # -----------------------------
@@ -462,9 +532,7 @@ shinyServer(function(input, output, session) {
    )
 
    # ----------------------------------------------------------------
-   # Return colors at the moment as soon as the user stops the app.
-   # Would be nicer to return a function as from choose_palette,
-   # but I have not found a way yet.
+   # Returns color function
    # ----------------------------------------------------------------
    observeEvent(input$closeapp, stopApp(invisible(getColors(fun = TRUE))));
 
