@@ -159,7 +159,7 @@ swatchplot <- function(x, ..., nrow = 20, border = NULL, sborder = NULL, off = N
   ## visualization
   for(i in 1L:nc) {
     ## empty plot
-    plot(0, 0, type = "n", xlim = c(0, 1), ylim = c(0, 1), axes = FALSE, xlab = "", ylab = "")
+    plot(0, 0, type = "n", xlim = c(0, 1 - (1 - off[1L])/n), ylim = c(0, 1 - (1 - off[2L])/nr), axes = FALSE, xlab = "", ylab = "")
     ## extract colors for i-th column
     xi <- x[col == i, , drop = FALSE]
     nri <- nrow(xi)
