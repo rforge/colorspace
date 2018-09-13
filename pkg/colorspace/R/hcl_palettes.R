@@ -435,6 +435,7 @@ seqs.pals[["Reds 2"]]      <- c( 10,   NA,  85, NA, 25, 95, 1.3,  NA,  NA, 1) # 
 seqs.pals[["Reds 3"]]      <- c( 10,   NA,  65, NA, 20, 97, 1.1, 1.3, 150, 1) # ColorBrewer.org: Reds
 seqs.pals[["Greens 2"]]    <- c(135,   NA,  45, NA, 35, 95, 1.3,  NA,  NA, 1) # ColorBrewer.org: Greens
 seqs.pals[["Greens 3"]]    <- c(135,   NA,  35, NA, 25, 98, 1.0, 1.5,  70, 1) # ColorBrewer.org: Greens
+seqs.pals[["Oslo"]]        <- c(250,   NA,   0, 10, 95,  5, 1.0,  NA,  75, 1) # scico: oslo
 
 seqm.pals <- list()
 seqm.pals[["Purple-Blue"]] <- c(300,  200,  60,  0, 25, 95, 0.7, 1.3,  NA, 1) # ColorBrewer.org: BuPu
@@ -492,6 +493,8 @@ seqm.pals[["BuGn"]]        <- c(125,  200,  30,  5, 25, 98, 1.4, 1.6,  65, 1) # 
 seqm.pals[["GnBu"]]        <- c(265,   95,  55, 10, 25, 97, 1.3, 1.7,  80, 1) # ColorBrewer.org: GnBu
 seqm.pals[["BuPu"]]        <- c(320,  200,  40,  5, 15, 98, 1.2, 1.3,  65, 1) # ColorBrewer.org: BuPu
 seqm.pals[["Blues"]]       <- c(260,  220,  45,  5, 25, 98, 1.2, 1.3,  70, 1) # ColorBrewer.org: Blues
+seqm.pals[["Lajolla"]]     <- c( 90,  -20,  40, 10, 98, 10, 0.7, 0.9, 100, 1) # scico: lajolla
+seqm.pals[["Turku"]]       <- c( 10,  120,  20,  0, 95,  2, 1.5, 0.8,  55, 1) # scico: turku
 
 dive.pals <- list()
 dive.pals[["Blue-Red"]]    <- c(260,    0,  80, NA, 30, 90, 1.5,  NA,  NA, 1) # Z+KH+PM-09, Fig.6: Blue-Red (high luminance contrast)
@@ -506,6 +509,9 @@ dive.pals[["Blue-Yellow 3"]]<-c(265,   80,  80, NA, 70, 95, 0.5, 2.0,  NA, 1) # 
 dive.pals[["Green-Orange"]]<- c(130,   43, 100, NA, 70, 90, 1.0,  NA,  NA, 1) # Z+KH+PM-09, Fig.6: Green-Orange (low luminance contrast)
 dive.pals[["Cyan-Magenta"]]<- c(180,  330,  59, NA, 75, 95, 1.5,  NA,  NA, 1) # Z+KH+PM-09, Fig.6: Blue-Red (low luminance contrast)
 dive.pals[["Tropic"]]      <- c(195,  325,  70, NA, 55, 95, 1.0,  NA,  NA, 1) # CARTO: Tropic
+dive.pals[["Berlin"]]      <- c(240,   15,  60, NA, 75,  5, 1.2, 1.5,  80, 1) # scico: berlin
+dive.pals[["Lisbon"]]      <- c(240,   85,  30, NA, 98,  8, 1.0,  NA,  45, 1) # scico: lisbon
+dive.pals[["Tofino"]]      <- c(260,  120,  45, NA, 90,  5, 0.8, 1.0,  55, 1) # scico: tofino
 
 
 
