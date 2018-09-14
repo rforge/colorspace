@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-12 15:04 on marvin
+# - L@ST MODIFIED: 2018-09-14 16:00 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -168,6 +168,17 @@ shinyServer(function(input, output, session) {
          if ( ! exists(input$PAL) ) return(NULL)
          pal <- eval(parse(text = input$PAL))
       } else {
+         # Set elements of curPAL to "NA" for those elements which are 
+         # NA in the palettes (palette config). Same is used to hide
+         # the sliders, if a value in palettes is NA the slider should
+         # also be hidden on the UI.
+         cnf <- which(palettes$typ == curtyp & palettes$name == input$PAL)
+         if ( length(cnf) > 0 ) {
+            cnf <- as.list(palettes[cnf,])
+            for ( elem in names(cnf) ) {
+               if ( elem %in% names(curPAL) & is.na(cnf[[elem]]) ) curPAL[[elem]] = NA
+            }
+         }
          pal <- colorspace:::GetPalette(curtyp,curPAL$H1,curPAL$H2,curPAL$C1,curPAL$C2,
                                         curPAL$L1,curPAL$L2,curPAL$P1,curPAL$P2,input$fixup,
                                         rev=input$reverse, cmax = curPAL$CMAX)
@@ -541,3 +552,4 @@ shinyServer(function(input, output, session) {
 
 
 })
+
