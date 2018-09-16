@@ -215,7 +215,7 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
 
     # HCL spectrum
     if(show_hcl) {
-      plot(0, type = "n", ylim = c(0, pmax(max(HCL[, "C"]) * 1.005, 100)), xlim = c(1, length(x)))
+      plot(0, type = "n", ylim = c(0, pmax(max(HCL[, "C"]) * 1.005, 100)), xlim = c(0.5, length(x) + 0.5))
       if ( min(HCL[,"H"], na.rm = TRUE) >= 0 ) {
          labels <- seq(   0, 360, length.out = 5)
          axis(side = 4, at = labels/3.6, labels = labels)

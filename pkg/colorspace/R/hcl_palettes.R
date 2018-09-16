@@ -3,7 +3,69 @@
 #' Qualitative, sequential (single-hue and multi-hue), and diverging
 #' color palettes based on the HCL (hue-chroma-luminance) color model.
 #' 
-#' Details are still tbd...
+#' The HCL (hue-chroma-luminance) color model is a perceptual color model
+#' obtained by using polar coordinates in CIE \code{\link{LUV}} space
+#' (i.e., \code{\link{polarLUV}}), where steps of equal size correspond to
+#' approximately equal perceptual changes in color. By taking polar coordinates
+#' the resulting three dimensions capture the three perceptual axes very well:
+#' hue is the type of color, chroma the colorfulness compared
+#' to the corresponding gray, and luminance the brightness. This makes it relatively
+#' easy to create balanced palettes through trajectories in this HCL space.
+#' In contrast, in the more commonly-used \code{\link{HSV}} (hue-saturation-value)
+#' model (a simple transformation of \code{\link{RGB}}), the three axes are
+#' confounded so that luminance changes along with the hue leading to very
+#' unbalanced palettes (see \code{\link{rainbow_hcl}} for further illustrations).
+#'
+#' Three types of palettes are derived based on the HCL model: \itemize{
+#'   \item Qualitative: Designed for coding categorical information, i.e.,
+#'     where no particular ordering of categories is available and every color
+#'     should receive the same perceptual weights.
+#    \item Sequential: Designed for coding ordered/numeric information, i.e.,
+#'     where colors go from high to low (or vice versa).
+#'   \item Diverging: Designed for coding numeric information around a central
+#'     neutral value, i.e., where colors diverge from neutral to two extremes.
+#' }
+#' The corresponding functions are \code{qualitative_hcl}, \code{sequential_hcl},
+#' and \code{diverging_hcl}. Their construction principles are explained in more detail below.
+#' At the core is the luminance axis (i.e., light-dark contrasts):
+#' These are easily decoded by humans and matched to high-low differences in the underlying
+#' data. Therefore, \code{sequential_hcl} palettes are always based on a \emph{monotonic}
+#' luminance sequence whereas the colors in a \code{qualitative_hcl} palette all have the
+#' \emph{same} luminance. Finally, \code{diverging_hcl} palettes use the same monotonic
+#' luminance sequence in both \dQuote{arms} of the palette, i.e., correspond to
+#' two balanced sequential palettes diverging from the same neutral value.
+#' The other two axes, hue and chroma, are used to enhance the luminance information and/or
+#' to further discriminate the color.
+#'
+#' All three palette functions specify trajectories in HCL space and hence need either
+#' single values or intervals of the coordinates \code{h}, \code{c}, \code{l}. Their
+#' interfaces are always designed such that \code{h}, \code{c}, \code{l} can take vector
+#' arguments (as needed) but alternatively or additionally \code{h1}/\code{h2},
+#' \code{c1}/\code{c2}/\code{cmax}, and \code{l1}/\code{l2} can be specified. If so,
+#' the latter coordinates overwrite the former.
+#'
+#' \code{qualitative_hcl} distinguishes the underlying categories by a sequence of
+#' hues while keeping both chroma and luminance constant to give each color in the
+#' resulting palette the same perceptual weight. Thus, \code{h} should be a pair of
+#' hues (or equivalently \code{h1} and \code{h2} can be used) with the starting and
+#' ending hue of the palette. Then, an equidistant sequence between these hues is
+#' employed, by default spanning the full color wheel (i.e, the full 360 degrees).
+#' Chroma \code{c} (or equivalently \code{c1}) and luminance \code{l} (or equivalently
+#' \code{l1}) are constants.
+#' 
+#' \code{sequential_hcl}
+#' h = 260, 0) (h1, h2)
+#' c = 80, cmax, 0 (c1, cmax, c2) [c. instead of c]
+#' l = c(30, 90) (l1, l2)
+#' power = 1.5, (p1, p2)
+#'
+#' \code{diverging_hcl}
+#' h = c(260, 0) (h1, h2)
+#' c = 80, cmax, 0 (c1, cmax, 0)
+#' l = c(30, 90) (l1, l2)
+#' power = 1.5, (p1, p2)
+#'
+#' \code{hcl_palettes} with \code{print}, \code{summary}, \code{plot}
 #' 
 #' @param n the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.
 #' @param h,h1,h2 hue value in the HCL color description, has to be in [0, 360].
