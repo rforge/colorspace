@@ -22,9 +22,9 @@
 #' @param y optional second character vector containing further color hex codes,
 #' to be used for comparing two palettes (\code{x} vs. \code{y}).
 #' @param rgb logical or color specification. Should the RGB spectrum be
-#' visualized? Can also be a vector of three colors for the R/G/B coordinates.
+#' visualized? Can also be a vector of three colors for the legend of R/G/B coordinates.
 #' @param hcl logical or color specification. Should the HCL spectrum be
-#' visualized? Can also be a vector of three colors for the H/C/L coordinates.
+#' visualized? Can also be a vector of three colors for the legend of H/C/L coordinates.
 #' @param fix logical. Should the hues be fixed to be on a smooth(er) curve?
 #' For details see below.
 #' @param cex numeric. Character extension for figure axes and labels.
@@ -39,7 +39,7 @@
 #' \item{RGB}{a matrix of sRGB coordinates,} \item{HCL}{a matrix of HCL
 #' coordinates,} \item{hex}{original color palette \code{x}.}
 #' @author Reto Stauffer, Achim Zeileis
-#' @seealso \code{\link{rainbow_hcl}}
+#' @seealso \code{\link{hcl_palettes}}
 #' @references Zeileis A, Hornik K, Murrell P (2009).  Escaping RGBland:
 #' Selecting Colors for Statistical Graphics.  \emph{Computational Statistics &
 #' Data Analysis}, \bold{53}, 3259--3270.
@@ -54,8 +54,8 @@
 #' \doi{10.1175/BAMS-D-13-00155.1}
 #' @keywords misc
 #' @examples
-#' ## spectrum of the (in)famous RGB rainbow palette
-#' specplot(rainbow(100))
+#' ## spectrum of the (in)famous RGB rainbow palette (in both RGB and HCL)
+#' specplot(rainbow(100), rgb = TRUE)
 #' 
 #' ## spectrum of HCL-based palettes: qualitative/sequential/diverging
 #' specplot(qualitative_hcl(100))
@@ -67,7 +67,7 @@
 #' print(res)
 #' @export specplot
 #' @importFrom graphics axis image layout legend lines mtext text par plot
-specplot <- function(x, y = NULL, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
+specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
   type = "l", lwd = 2 * cex, lty = 1, pch = NULL, main = NULL,
   legend = TRUE, palette = TRUE, plot = TRUE)
 {

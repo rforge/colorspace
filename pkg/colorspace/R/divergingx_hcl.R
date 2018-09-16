@@ -58,7 +58,7 @@
 #'
 #' ## compared to diverging_hcl() the diverging CARTO palettes are typically warmer
 #' ## but also less balanced with respect to chroma/luminance, see e.g.,
-#' specplot(divergingx_hcl(7, "ArmyRose"), rgb = FALSE)
+#' specplot(divergingx_hcl(7, "ArmyRose"))
 #' @rdname divergingx_hcl
 
 #' @export

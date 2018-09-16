@@ -240,7 +240,7 @@ shinyServer(function(input, output, session) {
    showSpectrum <- function() {
       colors <- getColors(100)
       output$spectrum <- renderPlot(
-         specplot(colors, cex = 1.4, plot = TRUE),
+         specplot(colors, cex = 1.4, plot = TRUE, rgb = TRUE),
          width = 800, height = 800
       )
    }

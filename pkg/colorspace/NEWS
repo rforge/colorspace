@@ -68,6 +68,12 @@ Changes in Version 1.4-0
   o Added argument desaturate(..., amount = 1) for optional partial
     desaturation.
 
+  o specplot() gained an argument y=NULL to optionally display a second
+    palette and compare their trajectories. By default, specplot() now
+    only shows the HCL spectrum but not the RGB spectrum (rgb = FALSE)
+    because it is mainly used for illustrating and comparing properties
+    of HCL-based palettes.
+
 
 Changes in Version 1.3-2
 

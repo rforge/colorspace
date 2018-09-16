@@ -1,29 +1,29 @@
 #' @importFrom graphics barplot image persp pie plot polygon rect segments
 
 # Wrapper around specplot. Used by the tcltk interface.
-plot_spectrum <- function(pal.cols, cex=1.0, plot=TRUE)
-   specplot(pal.cols,cex=cex,plot=plot)
+plot_spectrum <- function(pal.cols, cex = 1.0, plot = TRUE, rgb = TRUE, ...)
+   specplot(pal.cols, cex = cex, plot = plot, rgb = rgb, ...)
 
 
 # Plot map example 
-plot_map <- function(pal.cols,...) {
+plot_map <- function(pal.cols, ...) {
    n <- length(pal.cols)
-   plot(0, 0, type="n", xlab="", ylab="", xaxt="n", yaxt="n", bty="n",
+   plot(0, 0, type = "n", xlab = "", ylab = "", xaxt = "n", yaxt = "n", bty = "n",
         xlim=c(-88.5, -78.6), ylim=c(30.2, 35.2), asp=1)
    polygon(colorspace::USSouthPolygon,
-           col=pal.cols[cut(stats::na.omit(colorspace::USSouthPolygon$z), 
-           breaks=0:n / n)])
+           col = pal.cols[cut(stats::na.omit(colorspace::USSouthPolygon$z), 
+           breaks = 0:n / n)])
 }
   
 # Plot heatmap example
-plot_heatmap <- function(pal.cols,...) {
-   image(datasets::volcano, col=rev(pal.cols), xaxt="n", yaxt="n", useRaster=TRUE)
+plot_heatmap <- function(pal.cols, ...) {
+   image(datasets::volcano, col=rev(pal.cols), xaxt = "n", yaxt = "n", useRaster = TRUE)
 }
   
 # Plot scatter example
 .example_env <- new.env()
 .example_env$xyhclust <- NULL
-plot_scatter <- function(pal.cols,...) {
+plot_scatter <- function(pal.cols, ...) {
   
    # Generate artificial data 
    if (is.null(.example_env$xyhclust)) {
@@ -52,7 +52,7 @@ plot_scatter <- function(pal.cols,...) {
 }
   
 # Plot spine example
-plot_spine <- function(pal.cols,...) {
+plot_spine <- function(pal.cols, ...) {
    n <- length(pal.cols)
    
    # Rectangle dimensions
@@ -81,7 +81,7 @@ plot_spine <- function(pal.cols,...) {
 }
   
 # Plot bar example
-plot_bar <- function(pal.cols,...) {
+plot_bar <- function(pal.cols, ...) {
    barplot(cbind(1.1 + abs(sin(0.5 + seq_along(pal.cols))) / 3,
            1.9 + abs(cos(1.1 + seq_along(pal.cols))) / 3,
            0.7 + abs(sin(1.5 + seq_along(pal.cols))) / 3,
@@ -90,15 +90,15 @@ plot_bar <- function(pal.cols,...) {
 }
 
 # Plot pie example
-plot_pie <- function(pal.cols,...) {
+plot_pie <- function(pal.cols, ...) {
    pie(0.01 + abs(sin(0.5 + seq_along(pal.cols))), labels="", col=pal.cols, radius=1)
 }
   
 # Plot perspective example
-plot_perspective <- function(pal.cols,...) {
+plot_perspective <- function(pal.cols, ...) {
    # Mixture of bivariate normals
    n <- 31
-   x1 <- x2 <- seq(-3, 3, length=n)
+   x1 <- x2 <- seq(-3, 3, length = n)
    y <- outer(x1, x2, 
               function(x, y) {
                 0.5 * stats::dnorm(x, mean=-1, sd=0.80) * stats::dnorm(y, mean=-1, sd=0.80) +
@@ -120,7 +120,7 @@ plot_perspective <- function(pal.cols,...) {
   
 # Plot mosaic example
 .example_env$msc.matrix <- NULL
-plot_mosaic <- function(pal.cols,...) {
+plot_mosaic <- function(pal.cols, ...) {
    if (is.null(.example_env$msc.matrix)) {
       set.seed(1071)
       mat <- list()
@@ -133,7 +133,7 @@ plot_mosaic <- function(pal.cols,...) {
 }
   
 # Plot lines example
-plot_lines <- function(pal.cols,...) {
+plot_lines <- function(pal.cols, ...) {
    n <- length(pal.cols)
    plot(NULL, xlab="", ylab="", xaxt="n", yaxt="n", type="n", 
         xlim=c(0, 6), ylim=c(1.5, n + 1.5))
