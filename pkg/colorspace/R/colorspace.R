@@ -186,7 +186,7 @@ setMethod("plot", signature("color"),
 ## Auxiliary functions
 CheckMatrix <-
   function(x)
-  if (!is.numeric(x) || length(x) < 1
+  if (!is.double(x) || length(x) < 1
       || length(dim(x)) != 2 || dim(x)[2] != 3)
   stop("invalid color matrix")
 
@@ -228,6 +228,7 @@ RGB <-
   {
     if (missing(R)) return(new("RGB"))
     if (missing(names)) names = dimnames(R)[[1]]
+    if (is.integer(R)) R[] <- as.numeric(R)
     coords = cbind(R, if (missing(G)) NULL else G,
                       if (missing(B)) NULL else B)
     CheckMatrix(coords)
@@ -267,6 +268,7 @@ sRGB <-
   {
     if (missing(R)) return(new("sRGB"))
     if (missing(names)) names = dimnames(R)[[1]]
+    if (is.integer(R)) R[] <- as.numeric(R)
     coords = cbind(R, if (missing(G)) NULL else G,
                       if (missing(B)) NULL else B)
     CheckMatrix(coords)
@@ -305,6 +307,7 @@ XYZ <-
   {
     if (missing(X)) return(new("XYZ"))
     if (missing(names)) names = dimnames(X)[[1]]
+    if (is.integer(X)) X[] <- as.numeric(X)
     coords = cbind(X, if (missing(Y)) NULL else Y,
                       if (missing(Z)) NULL else Z)
     CheckMatrix(coords)
@@ -352,6 +355,7 @@ LAB <-
   {
     if (missing(L)) return(new("LAB"))
     if (missing(names)) names = dimnames(L)[[1]]
+    if (is.integer(L)) L[] <- as.numeric(L)
     coords = cbind(L, if (missing(A)) NULL else A,
                       if (missing(B)) NULL else B)
     CheckMatrix(coords)
@@ -399,6 +403,7 @@ polarLAB <-
   {
     if (missing(L)) return(new("polarLAB"))
     if (missing(names)) names = dimnames(L)[[1]]
+    if (is.integer(L)) L[] <- as.numeric(L)
     coords = cbind(L, if (missing(C)) NULL else C,
                       if (missing(H)) NULL else H)
     CheckMatrix(coords)
@@ -440,6 +445,7 @@ HSV <-
   {
     if (missing(H)) return(new("HSV"))
     if (missing(names)) names = dimnames(H)[[1]]
+    if (is.integer(H)) H[] <- as.numeric(H)
     coords = cbind(H, if (missing(S)) NULL else S,
                       if (missing(V)) NULL else V)
     CheckMatrix(coords)
@@ -481,6 +487,7 @@ HLS <-
   {
     if (missing(H)) return(new("HLS"))
     if (missing(names)) names = dimnames(H)[[1]]
+    if (is.integer(H)) H[] <- as.numeric(H)
     coords = cbind(H, if (missing(L)) NULL else L,
                       if (missing(S)) NULL else S)
     CheckMatrix(coords)
@@ -529,6 +536,7 @@ LUV <-
   {
     if (missing(L)) return(new("LUV"))
     if (missing(names)) names = dimnames(L)[[1]]
+    if (is.integer(L)) L[] <- as.numeric(L)
     coords = cbind(L, if (missing(U)) NULL else U,
                       if (missing(V)) NULL else V)
     ## CheckBounds(coords[,1], 0, 100)
@@ -575,6 +583,7 @@ polarLUV <-
   {
     if (missing(L)) return(new("polarLUV"))
     if (missing(names)) names = dimnames(L)[[1]]
+    if (is.integer(L)) L[] <- as.numeric(L)
     coords = cbind(L, if (missing(C)) NULL else C,
                       if (missing(H)) NULL else H)
     dimnames(coords) = list(names, c("L", "C", "H"))

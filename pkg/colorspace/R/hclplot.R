@@ -1,7 +1,72 @@
-hclplot <- function(pal, type = NULL, maxchroma = NULL, xlab = NULL, ylab = NULL, main = NULL, cex = 1.0, ... )
+#' Palette Plot in HCL Space
+#' 
+#' Visualization of color palettes in HCL space projections.
+#' 
+#' The function \code{swatchplot} is a convenience function for displaying
+#' collections of palettes that can be speciefied as lists or matrices of
+#' character color specifications. Essentially, the is just a call to
+#' \code{\link[graphics]{rect}}. The value-added are the heuristics used
+#' for choosing default labels, margins, spacings, borders. These are selected
+#' to work well for \code{\link{hcl_palettes}} and might need further tweaking
+#' in future versions.
+#' 
+#' @param x character vector/matrix (or list of character vectors/matrices)
+#' containing color hex codes.
+#' @param \dots further (possibly named) character vectors/matrices with color
+#' hex codes.
+#' @param nrow integer specifying the maximal number of rows of swatches.
+#' (The actual number might be lower in order to balance the rows used in each column.)
+#' @param border color for border of individual color rectangles. By default
+#' \code{"lightgray"} for up to 9 colors, \code{"transparent"} otherwise.
+#' @param sborder color for border of the entire palette swatch. By default
+#' \code{"lightgray"} if \code{border} is \code{"transparent"} and \code{"lightgray"}
+#' otherwise (if \code{off = 0}).
+#' @param off numeric vector of length 2. Offset in horizontal and vertical direction
+#' (specified as a fraction of the rectangle for one color). By default, the
+#' horizontal offset is \code{0.3} for up to 5 colors and \code{0} otherwise,
+#' and the vertical offset is \code{0.1}.
+#' @param mar numeric vector of length 4, specifying the margins of column
+#' of color swatches.
+#' @param line numeric. Line in which the palette names (if any) are printed
+#' in the margin.
+#' @param cex,font numeric vectors of length 1 or 2. Specifications for the
+#' annotation text for the individual palettes and lists of palettes, respectively.
+#' @return \code{swatchplot} invisibly returns a matrix with colors and annotations.
+#' @keywords misc
+#' @examples
+#' ## for qualitative palettes luminance and chroma are fixed, varying only hue
+#' hclplot(qualitative_hcl(9, c = 50, l = 70))
+#' 
+#' ## simple single-hue sequential palette (h = 260) with linear and power-transformed trajectory
+#' hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1))
+#' hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1.5))
+#' 
+#' ## single-hue sequential palette with triangular chroma trajectory (piecewise linear and power-transformed)
+#' hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = 1))
+#' hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = c(0.8, 1.4)))
+#' 
+#' ## multi-hue sequential palette with small hue range and triangular chroma vs.
+#' ## large hue range and linear chroma trajectory
+#' hclplot(sequential_hcl(7, h = c(260, 220), c = c(50, 75, 0), l = c(30, 95), power = 1))
+#' hclplot(sequential_hcl(7, h = c(260, 60), c = 60, l = c(40, 95), power = 1))
+#' 
+#' ## balanced diverging palette constructed from two simple single-hue sequential
+#' ## palettes (for hues 260/blue and 0/red)
+#' hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
+#' @export hclplot
+#' @importFrom graphics box lines mtext par plot points rect text
+
+hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
+    xlab = NULL, ylab = NULL, main = NULL, cex = 1.0, axes = TRUE, ...)
 {  
     ## convert to HCL coordinates
-    HCL <- coords(as(hex2RGB(pal), "polarLUV"))[, c("H", "C", "L")]
+    if(is.character(x)) {
+      HCL <- hex2RGB(x)
+    } else {
+      HCL <- x
+      x <- hex(x)
+    }
+    HCL <- coords(as(HCL, "polarLUV"))[, c("H", "C", "L")]
     n <- nrow(HCL)
 
     ## determine type of palette based on luminance trajectory
@@ -58,24 +123,33 @@ hclplot <- function(pal, type = NULL, maxchroma = NULL, xlab = NULL, ylab = NULL
         }
     }
 
-    if(is.null(maxchroma)) maxchroma <- pmax(100, pmin(180, ceiling(max(HCL[, "C"], na.rm = TRUE)/20) * 20))
+    maxchroma <- if(!is.null(c)) ceiling(c) else pmax(100, pmin(180, ceiling(max(HCL[, "C"], na.rm = TRUE)/20) * 20))
 
     # Parameters
-    hold <- par(no.readonly = TRUE); on.exit(par(hold))
+    opar <- par(cex = cex, no.readonly = TRUE)
+    on.exit(par(opar))
 
     switch(type,
         "sequential" = {
-            par(cex = cex, mar = c(3, 3, 2, 1) * cex)
+            par(mar = c(3, 3, 2, 1) * cex)
             nd <- expand.grid(C = 0:maxchroma, L = 0:100)
-            if(diff(range(HCL[, "H"], na.rm = TRUE)) < 5) {
-               nd$H <- mean(HCL[, "H"], na.rm = TRUE)
-               if(is.null(main)) main <- paste("Hue =", round(nd$H[1L]))
+	    if(!is.null(h)) {
+	        nd$H <- h
+	    } else if(diff(range(HCL[, "H"], na.rm = TRUE)) < 5) {
+                nd$H <- mean(HCL[, "H"], na.rm = TRUE)
             } else {
-               m <- lm(H ~ C + L, data = as.data.frame(HCL))
-               if(summary(m)$sigma > 7.5) warning("cannot approximate H well as a linear function of C and L")
-               nd$H <- predict(m, nd)
-               if(is.null(main)) main <- paste("Hue = [", round(min(nd$H, na.rm = TRUE)), ", ", round(max(nd$H, na.rm = TRUE)), "]", sep = "")
+                m <- lm(H ~ C + L, data = as.data.frame(HCL))
+                if(summary(m)$sigma > 7.5) warning("cannot approximate H well as a linear function of C and L")
+                nd$H <- predict(m, nd)
             }
+            if(is.null(main)) {
+	        main <- if(length(unique(nd$H)) <= 1L) {
+		    round(nd$H[1L])
+		} else {
+		    paste("[", round(min(nd$H, na.rm = TRUE)), ", ", round(max(nd$H, na.rm = TRUE)), "]", sep = "")
+		}
+	        main <- paste("Hue =", main)
+	    }
             HCL2 <- hex(polarLUV(H = nd$H, C = nd$C, L = nd$L), fixup = FALSE)
             HCL2[nd$L < 1 & nd$C > 0] <- NA
             plot(0, 0, type = "n", xlim = c(0, maxchroma), ylim = c(0, 100), xaxs = "i", yaxs = "i",
@@ -88,11 +162,11 @@ hclplot <- function(pal, type = NULL, maxchroma = NULL, xlab = NULL, ylab = NULL
             # Adding colors
             points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)
             points(HCL[, 2L:3L], pch = 19, cex = 2.2,  type = "p", lwd = 5, col = "white")
-            points(HCL[, 2L:3L], pch = 21, bg = pal, cex = 2, type = "o", lwd = 2)
+            points(HCL[, 2L:3L], pch = 21, bg = x, cex = 2, type = "o", lwd = 2)
             box()
         },
         "diverging" = {
-            par(cex = cex, mar = c(3,3,2,1) * cex)
+            par(mar = c(3, 3, 2, 1) * cex)
             nd <- expand.grid(C = -maxchroma:maxchroma, L = 0:100)
 	    nd$H <- NA
             nd$left <- nd$C < 0
@@ -101,12 +175,18 @@ hclplot <- function(pal, type = NULL, maxchroma = NULL, xlab = NULL, ylab = NULL
             right <- ceiling(n/2):n
 	    right <- right[HCL[right, "C"] > 10]
 	    
-            if(diff(range(HCL[left, "H"]  - min(HCL[ left, "H"], na.rm = TRUE), na.rm = TRUE)) < 5 &
+	    if(!is.null(h)) {
+	        if(length(h) == 2L) {
+                    nd$H[nd$left]  <- h[1L]
+                    nd$H[!nd$left] <- h[2L]
+		} else {
+		  nd$H <- h
+		}
+            } else if(diff(range(HCL[left, "H"]  - min(HCL[ left, "H"], na.rm = TRUE), na.rm = TRUE)) < 5 &
 	       diff(range(HCL[right, "H"] - min(HCL[right, "H"], na.rm = TRUE), na.rm = TRUE)) < 5)
 	    {
                nd$H[nd$left]  <- mean(HCL[ left, "H"] - min(HCL[ left, "H"], na.rm = TRUE), na.rm = TRUE) + min(HCL[ left, "H"], na.rm = TRUE)
                nd$H[!nd$left] <- mean(HCL[right, "H"] - min(HCL[right, "H"], na.rm = TRUE), na.rm = TRUE) + min(HCL[right, "H"], na.rm = TRUE)
-               if(is.null(main)) main <- paste("Hue =", round(nd$H[nd$left][1L]), "/", round(nd$H[!nd$left][1L]))
             } else {
 	       HCLdata <- as.data.frame(HCL)
 	       HCLdata$left <- factor(rep(c(TRUE, FALSE), c(floor(n/2), ceiling(n/2))))
@@ -115,10 +195,17 @@ hclplot <- function(pal, type = NULL, maxchroma = NULL, xlab = NULL, ylab = NULL
                if(summary(m)$sigma > 7.5) warning("cannot approximate H well as a linear function of C and L")
                nd$H <- predict(m, nd)
 	       nd$left <- nd$left == "TRUE"
-               if(is.null(main)) main <- paste("Hue = [",
-	         round(min(nd$H[nd$left], na.rm = TRUE)), ", ", round(max(nd$H[nd$left], na.rm = TRUE)), "] / [",
-	         round(min(nd$H[!nd$left], na.rm = TRUE)), ", ", round(max(nd$H[!nd$left], na.rm = TRUE)), "]", sep = "")
             }
+            if(is.null(main)) {
+	        main <- if(length(unique(nd$H)) <= 2L) {
+		    paste(round(nd$H[nd$left][1L]), "/", round(nd$H[!nd$left][1L]))
+		} else {
+		    paste("[",
+		        round(min(nd$H[nd$left], na.rm = TRUE)), ", ", round(max(nd$H[nd$left], na.rm = TRUE)), "] / [",
+	                round(min(nd$H[!nd$left], na.rm = TRUE)), ", ", round(max(nd$H[!nd$left], na.rm = TRUE)), "]", sep = "")
+		}
+	        main <- paste("Hue =", main)
+	    }
             HCL2 <- hex(polarLUV(H = nd$H, C = abs(nd$C), L = nd$L), fixup = FALSE)
             HCL2[nd$L < 1 & nd$C > 0] <- NA
             plot(0, 0, type = "n", xlim = c(-1,1)*maxchroma, ylim = c(0, 100), xaxs = "i", yaxs = "i",
@@ -133,23 +220,32 @@ hclplot <- function(pal, type = NULL, maxchroma = NULL, xlab = NULL, ylab = NULL
             points( HCL[, "C"] * ifelse(1L:n <= floor(mean(n/2)),-1,1),
                     HCL[, "L"], pch = 19, cex = 2.2,  type = "p", lwd = 5, col = "white")
             points( HCL[, "C"] * ifelse(1L:n <= floor(mean(n/2)),-1,1),
-                    HCL[, "L"], pch = 21, bg = pal, cex = 2, type = "o")
+                    HCL[, "L"], pch = 21, bg = x, cex = 2, type = "o")
             box()
         },
         "qualitative" = {
-            par(cex = cex, mar = c(1,1,2,1) * cex, bty = "n")
+            par(mar = c(1, 1, 2, 1) * cex, bty = "n")
             nd <- expand.grid(H = 0:180 * 2, C = 0:maxchroma)
-            if(diff(range(HCL[, "L"], na.rm = TRUE)) < 5) {
+
+
+	    if(!is.null(l)) {
+                nd$L <- l
+            } else if(diff(range(HCL[, "L"], na.rm = TRUE)) < 5) {
                 nd$L <- mean(HCL[, "L"], na.rm = TRUE)
-                if(is.null(main)) main <- paste("Luminance =", round(nd$L[1L]))
             } else {
                 m <- lm(L ~ C + H, data = as.data.frame(HCL))
                 if(summary(m)$sigma > 7.5) warning("cannot approximate L well as a linear function of H and C")
-                    nd$L <- predict(m, nd)
-                    nd$L <- pmin(100, pmax(0, nd$L))
-                if(is.null(main)) main <- paste("Luminance = [", round(min(nd$L, na.rm = TRUE)),
-                                                ", ", round(max(nd$L, na.rm = TRUE)), "]", sep = "")
+                nd$L <- predict(m, nd)
+                nd$L <- pmin(100, pmax(0, nd$L))
             }
+            if(is.null(main)) {
+	        main <- if(length(unique(nd$L)) <= 1L) {
+		    round(nd$L[1L])
+		} else {
+		    paste("[", round(min(nd$L, na.rm = TRUE)), ", ", round(max(nd$L, na.rm = TRUE)), "]", sep = "")
+		}
+	        main <- paste("Luminance =", main)
+	    }
             HCL2 <- hex(polarLUV(H = nd$H, C = nd$C, L = nd$L), fixup = FALSE)
             HCL2[nd$L < 1 & nd$C > 0] <- NA
 
@@ -162,7 +258,6 @@ hclplot <- function(pal, type = NULL, maxchroma = NULL, xlab = NULL, ylab = NULL
             points(xpos(nd$H, nd$C), ypos(nd$H, nd$C), col = HCL2, pch = 19, cex = 3)
             lines(xpos(0:360, maxchroma), ypos(0:360, maxchroma))
             
-            axes <- TRUE ## FIXME: export as argument?
             if(axes) {
                 if(is.null(xlab)) xlab <- "Chroma"
                 if(is.null(ylab)) ylab <- "Hue"
@@ -187,7 +282,7 @@ hclplot <- function(pal, type = NULL, maxchroma = NULL, xlab = NULL, ylab = NULL
             points(xpos(HCL[, "H"], HCL[, "C"]), ypos(HCL[, "H"], HCL[, "C"]),
                    pch = 19, cex = 2.2,  type = "p", lwd = 5, col = "white")
             points(xpos(HCL[, "H"], HCL[, "C"]), ypos(HCL[, "H"], HCL[, "C"]),
-                   pch = 21, bg = pal, cex = 2, type = "o")
+                   pch = 21, bg = x, cex = 2, type = "o")
             box()
         }
     )

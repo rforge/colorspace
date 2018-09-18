@@ -635,9 +635,9 @@ dive.pals[["Blue-Yellow 3"]]<-c(265,   80,  80, NA, 70, 95, 0.5, 2.0,  NA, 1) # 
 dive.pals[["Green-Orange"]]<- c(130,   43, 100, NA, 70, 90, 1.0,  NA,  NA, 1) # Z+KH+PM-09, Fig.6: Green-Orange (low luminance contrast)
 dive.pals[["Cyan-Magenta"]]<- c(180,  330,  59, NA, 75, 95, 1.5,  NA,  NA, 1) # Z+KH+PM-09, Fig.6: Blue-Red (low luminance contrast)
 dive.pals[["Tropic"]]      <- c(195,  325,  70, NA, 55, 95, 1.0,  NA,  NA, 1) # CARTO: Tropic
-dive.pals[["Broc"]]        <- c(240,   85,  30, NA, 15, 98, 0.9,  NA,  45, 1) # scico: broc
+#dive.pals[["Broc"]]       <- c(240,   85,  30, NA, 15, 98, 0.9,  NA,  45, 1) # scico: broc
 dive.pals[["Cork"]]        <- c(245,  125,  30, NA, 15, 95, 0.9, 1.1,  55, 1) # scico: cork
-dive.pals[["Vik"]]         <- c(240,   55,  45, NA, 15, 95, 0.8, 1.1,  65, 1) # scico: vik
+#dive.pals[["Vik"]]        <- c(240,   55,  45, NA, 15, 95, 0.8, 1.1,  65, 1) # scico: vik
 dive.pals[["Berlin"]]      <- c(240,   15,  60, NA, 75,  5, 1.2, 1.5,  80, 1) # scico: berlin
 dive.pals[["Lisbon"]]      <- c(240,   85,  30, NA, 98,  8, 1.0,  NA,  45, 1) # scico: lisbon
 dive.pals[["Tofino"]]      <- c(260,  120,  45, NA, 90,  5, 0.8, 1.0,  55, 1) # scico: tofino
