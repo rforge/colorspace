@@ -13,10 +13,10 @@
 #'    function to overwrite files on disc if they exist.
 #' @param shiny.trace \code{logical}. Can be set to \code{TRUE} for more verbose
 #'    output when the GUI is started (development flag). 
-#' @author Reto Stuaffer, Claus O. Wilke, Achim Zeileis
+#' @author Reto Stauffer, Claus O. Wilke, Achim Zeileis
 #' @rdname cvd_emulator
 #' @export
-cvd_emulator <- function( x, overwrite = FALSE, shiny.trace = FALSE) {
+cvd_emulator <- function(x, overwrite = FALSE, shiny.trace = FALSE) {
 
    # If input 'x' is missing: start interactive GUI
    if ( missing(x) ) {
@@ -90,7 +90,8 @@ check_image_type <- function( x ) {
 #'    convert the colors (\code{deutan}, \code{protan}, \code{tritan}, \code{desaturate}).
 #'    If set to \code{original} the image will be written as is.
 #' @param target \code{string} with (full) path to resulting image. Has to
-#'    be a png image name!
+#'    be a png image name.
+#' @param severity numeric. Severity of the color vision defect, a number between 0 and 1.
 image_cvd_emulate <- function(img, type, target, severity = 1) {
 
    # - Save original colors
