@@ -2,37 +2,63 @@
 #' 
 #' Visualization of color palettes in HCL space projections.
 #' 
-#' The function \code{swatchplot} is a convenience function for displaying
-#' collections of palettes that can be speciefied as lists or matrices of
-#' character color specifications. Essentially, the is just a call to
-#' \code{\link[graphics]{rect}}. The value-added are the heuristics used
-#' for choosing default labels, margins, spacings, borders. These are selected
-#' to work well for \code{\link{hcl_palettes}} and might need further tweaking
-#' in future versions.
+#' The function \code{hclplot} is an auxiliary function for illustrating
+#' the trajectories of color palettes in two-dimensional HCL space projections.
+#' It collapses over one of the three coordinates (either the hue H or the
+#' luminance L) and displays a heatmap of colors combining the remaining
+#' two dimensions. The coordinates for the given color palette are highlighted
+#' to bring out its trajectory.
 #' 
-#' @param x character vector/matrix (or list of character vectors/matrices)
-#' containing color hex codes.
-#' @param \dots further (possibly named) character vectors/matrices with color
-#' hex codes.
-#' @param nrow integer specifying the maximal number of rows of swatches.
-#' (The actual number might be lower in order to balance the rows used in each column.)
-#' @param border color for border of individual color rectangles. By default
-#' \code{"lightgray"} for up to 9 colors, \code{"transparent"} otherwise.
-#' @param sborder color for border of the entire palette swatch. By default
-#' \code{"lightgray"} if \code{border} is \code{"transparent"} and \code{"lightgray"}
-#' otherwise (if \code{off = 0}).
-#' @param off numeric vector of length 2. Offset in horizontal and vertical direction
-#' (specified as a fraction of the rectangle for one color). By default, the
-#' horizontal offset is \code{0.3} for up to 5 colors and \code{0} otherwise,
-#' and the vertical offset is \code{0.1}.
-#' @param mar numeric vector of length 4, specifying the margins of column
-#' of color swatches.
-#' @param line numeric. Line in which the palette names (if any) are printed
-#' in the margin.
-#' @param cex,font numeric vectors of length 1 or 2. Specifications for the
-#' annotation text for the individual palettes and lists of palettes, respectively.
-#' @return \code{swatchplot} invisibly returns a matrix with colors and annotations.
-#' @keywords misc
+#' The function \code{hclplot} has been designed to work well with the
+#' \code{\link{hcl_palettes}} in this package. While it is possible to apply
+#' it to other color palettes as well, the results might look weird or confusing
+#' if these palettes are constructed very differently (e.g., as in the highly
+#' saturated base R palettes).
+#'
+#' More specifically, the following palettes can be visualized well: \itemize{
+#'   \item Qualitative with (approximately) constant luminance. In this case,
+#'      \code{hclplot} shows a hue-chroma plane (in polar coordinates), keeping
+#'      luminance at a fixed level (by default displayed in the main title of
+#'      the plot). If the luminance is, in fact, not approximately constant,
+#'      the luminance varies along with hue and chroma, using a simple linear
+#'      function (fitted by least squares).
+#    \item Sequential with (approximately) constant hue. In this case,
+#'      \code{hclplot} shows a chroma-luminance plane, keeping hue at a fixed
+#'      level (by default displayed in the main title of the plot). If the hue
+#'      is, in fact, not approximately constant, the hue varies along with
+#'      chroma and luminance, using a simple linear function (fitted by least
+#'      squares.
+#'   \item Diverging with two (approximately) constant hues: This case is
+#'      visualized with two back-to-back sequential displays.
+#' }
+#' To infer the type of display to use, by default, the following heuristic is
+#' used: If luminance is not approximately constant (range > 10) and follows
+#' rougly a triangular pattern, a diverging display is used. If luminance is
+#' not constant and follows roughly a linear pattern, a sequential display is
+#' used. Otherwise a qualitative display is used.
+#' 
+#' @param x character vector containing color hex codes, or a \code{\link{color-class}}
+#' object.
+#' @param type type character specifying which type of palette should be visualized
+#' (\code{"qualitative"}, \code{"sequential"}, or \code{"diverging"}).
+#' For qualitative palettes a hue-chroma plane is used, otherwise a chroma-luminance plane.
+#' By default, the \code{type} is inferred from the luminance trajectory corresponding
+#' to \code{x}.
+#' @param h numeric hue(s) to be used for \code{type = "sequential"} and \code{type = "diverging"}.
+#' By default, these are inferred from the colors in \code{x}.
+#' @param c numeric. Maximal chroma value to be used.
+#' @param l numeric luminance(s) to be used for \code{type = "qualitative"}.
+#' By default, this is inferred from the colors in \code{x}.
+#' @param xlab,ylab,main character strings for annotation, by default generated from
+#' the type of color palette visualized.
+#' @param cex numeric character extension.
+#' @param axes logical. Should axes be drawn?
+#' @param bg,lwd,size graphical control parameters for the color palette trajectory.
+#' @param \dots currently not used.
+#'
+#' @return \code{hclplot} invisibly returns a matrix with the HCL coordinates corresponding to \code{x}.
+#' @seealso \code{\link{specplot}}
+#' @keywords hplot
 #' @examples
 #' ## for qualitative palettes luminance and chroma are fixed, varying only hue
 #' hclplot(qualitative_hcl(9, c = 50, l = 70))
@@ -55,9 +81,10 @@
 #' hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
 #' @export hclplot
 #' @importFrom graphics box lines mtext par plot points rect text
-
+#' @importFrom stats cor lm predict
 hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
-    xlab = NULL, ylab = NULL, main = NULL, cex = 1.0, axes = TRUE, ...)
+    xlab = NULL, ylab = NULL, main = NULL, cex = 1.0, axes = TRUE,
+    bg = "white", lwd = 1, size = 2.5, ...)
 {  
     ## convert to HCL coordinates
     if(is.character(x)) {
@@ -81,6 +108,8 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
       } else {
         "qualitative"
       }
+    } else {
+      type <- match.arg(type, c("diverging", "sequential", "qualitative"))
     }
 
     ## FIXME: put into separate function
@@ -125,13 +154,10 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
 
     maxchroma <- if(!is.null(c)) ceiling(c) else pmax(100, pmin(180, ceiling(max(HCL[, "C"], na.rm = TRUE)/20) * 20))
 
-    # Parameters
-    opar <- par(cex = cex, no.readonly = TRUE)
-    on.exit(par(opar))
-
     switch(type,
         "sequential" = {
-            par(mar = c(3, 3, 2, 1) * cex)
+            opar <- par(cex = cex, mar = c(3, 3, 2, 1) * cex, no.readonly = TRUE)
+            on.exit(par(opar))
             nd <- expand.grid(C = 0:maxchroma, L = 0:100)
 	    if(!is.null(h)) {
 	        nd$H <- h
@@ -153,20 +179,23 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
             HCL2 <- hex(polarLUV(H = nd$H, C = nd$C, L = nd$L), fixup = FALSE)
             HCL2[nd$L < 1 & nd$C > 0] <- NA
             plot(0, 0, type = "n", xlim = c(0, maxchroma), ylim = c(0, 100), xaxs = "i", yaxs = "i",
-                 xlab = NA, ylab = NA, main = main)
+                 xlab = NA, ylab = NA, main = main, axes = axes)
             # Adding axis labels
-            if ( is.null(xlab) ) xlab <- "Chroma"
-            if ( is.null(ylab) ) ylab <- "Luminance"
-            mtext(side = 1, line = 2 * cex, xlab, cex = cex)
-            mtext(side = 2, line = 2 * cex, ylab, cex = cex)
-            # Adding colors
+	    if(axes) {
+                if ( is.null(xlab) ) xlab <- "Chroma"
+                if ( is.null(ylab) ) ylab <- "Luminance"
+                mtext(side = 1, line = 2 * cex, xlab, cex = cex)
+                mtext(side = 2, line = 2 * cex, ylab, cex = cex)
+            }
+	    # Adding colors
             points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)
-            points(HCL[, 2L:3L], pch = 19, cex = 2.2,  type = "p", lwd = 5, col = "white")
-            points(HCL[, 2L:3L], pch = 21, bg = x, cex = 2, type = "o", lwd = 2)
+            points(HCL[, 2L:3L], pch = 19, cex = 1.1 * size * cex,  type = "p", lwd = 5 * lwd, col = bg)
+            points(HCL[, 2L:3L], pch = 21, bg = x, cex = size * cex, type = "o", lwd = lwd)
             box()
         },
         "diverging" = {
-            par(mar = c(3, 3, 2, 1) * cex)
+            opar <- par(cex = cex, mar = c(3, 3, 2, 1) * cex, no.readonly = TRUE)
+            on.exit(par(opar))
             nd <- expand.grid(C = -maxchroma:maxchroma, L = 0:100)
 	    nd$H <- NA
             nd$left <- nd$C < 0
@@ -208,23 +237,29 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
 	    }
             HCL2 <- hex(polarLUV(H = nd$H, C = abs(nd$C), L = nd$L), fixup = FALSE)
             HCL2[nd$L < 1 & nd$C > 0] <- NA
-            plot(0, 0, type = "n", xlim = c(-1,1)*maxchroma, ylim = c(0, 100), xaxs = "i", yaxs = "i",
-                 xlab = NA, ylab = NA, main = main)
+            plot(0, 0, type = "n", xlim = c(-1, 1) * maxchroma, ylim = c(0, 100), xaxs = "i", yaxs = "i",
+                 xlab = NA, ylab = NA, main = main, axes = FALSE)
             # Axis labels
-            if ( is.null(xlab) ) xlab <- "Chroma"
-            if ( is.null(ylab) ) ylab <- "Luminance"
-            mtext(side = 1, line = 2 * cex, xlab, cex = cex)
-            mtext(side = 2, line = 2 * cex, ylab, cex = cex)
+	    if(axes) {
+                if ( is.null(xlab) ) xlab <- "Chroma"
+                if ( is.null(ylab) ) ylab <- "Luminance"
+                mtext(side = 1, line = 2 * cex, xlab, cex = cex)
+                mtext(side = 2, line = 2 * cex, ylab, cex = cex)
+	        at1 <- pretty(c(-1, 1) * maxchroma)
+	        axis(1, at = at1, labels = abs(at1))
+	        axis(2)
+	    }
             # Plotting colors
             points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)
             points( HCL[, "C"] * ifelse(1L:n <= floor(mean(n/2)),-1,1),
-                    HCL[, "L"], pch = 19, cex = 2.2,  type = "p", lwd = 5, col = "white")
+                    HCL[, "L"], pch = 19, cex = 1.1 * size * cex,  type = "p", lwd = 5 * lwd, col = bg)
             points( HCL[, "C"] * ifelse(1L:n <= floor(mean(n/2)),-1,1),
-                    HCL[, "L"], pch = 21, bg = x, cex = 2, type = "o")
+                    HCL[, "L"], pch = 21, bg = x, cex = size * cex, type = "o", lwd = lwd)
             box()
         },
         "qualitative" = {
-            par(mar = c(1, 1, 2, 1) * cex, bty = "n")
+            opar <- par(cex = cex, mar = c(1, 1, 2, 1) * cex, bty = "n", no.readonly = TRUE)
+            on.exit(par(opar))
             nd <- expand.grid(H = 0:180 * 2, C = 0:maxchroma)
 
 
@@ -280,9 +315,9 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
                 }
             }
             points(xpos(HCL[, "H"], HCL[, "C"]), ypos(HCL[, "H"], HCL[, "C"]),
-                   pch = 19, cex = 2.2,  type = "p", lwd = 5, col = "white")
+                   pch = 19, cex = 1.1 * size * cex,  type = "p", lwd = 5 * lwd, col = bg)
             points(xpos(HCL[, "H"], HCL[, "C"]), ypos(HCL[, "H"], HCL[, "C"]),
-                   pch = 21, bg = x, cex = 2, type = "o")
+                   pch = 21, bg = x, cex = size * cex, type = "o", lwd = lwd)
             box()
         }
     )
