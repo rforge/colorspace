@@ -423,7 +423,7 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
         C = if(is.na(cmaxat)) {
               pals["c2"] - (pals["c2"] - pals["c1"]) * rval^pals["p1"]
             } else {
-              ifelse(rval^pals["p1"] < cmaxat,
+              ifelse(rval^pals["p1"] <= cmaxat,
                      pals["c2"] - (pals["c2"] - pals["cmax"]) * (rval^pals["p1"])/cmaxat,
                      pals["cmax"] - (pals["cmax"] - pals["c1"]) * ((rval^pals["p1"] - cmaxat)/(1 - cmaxat))
               )
@@ -508,7 +508,7 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
         C = if(is.na(cmaxat)) {
               pals["c1"] * abs(rval)^pals["p1"]
             } else {
-              ifelse(abs(rval)^pals["p1"] < cmaxat,
+              ifelse(abs(rval)^pals["p1"] <= cmaxat,
                 pals["cmax"] * (abs(rval)^pals["p1"])/cmaxat,
                     pals["cmax"] - (pals["cmax"] - pals["c1"]) * ((abs(rval)^pals["p1"] - cmaxat)/(1 - cmaxat))
               )
