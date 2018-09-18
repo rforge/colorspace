@@ -39,7 +39,7 @@
 #' \item{RGB}{a matrix of sRGB coordinates,} \item{HCL}{a matrix of HCL
 #' coordinates,} \item{hex}{original color palette \code{x}.}
 #' @author Reto Stauffer, Achim Zeileis
-#' @seealso \code{\link{hcl_palettes}}
+#' @seealso \code{\link{hcl_palettes}}, \code{\link{hclplot}}
 #' @references Zeileis A, Hornik K, Murrell P (2009).  Escaping RGBland:
 #' Selecting Colors for Statistical Graphics.  \emph{Computational Statistics &
 #' Data Analysis}, \bold{53}, 3259--3270.
@@ -52,7 +52,7 @@
 #' Visualizations.  \emph{Bulletin of the American Meteorological Society},
 #' \bold{96}(2), 203--216.
 #' \doi{10.1175/BAMS-D-13-00155.1}
-#' @keywords misc
+#' @keywords hplot
 #' @examples
 #' ## spectrum of the (in)famous RGB rainbow palette (in both RGB and HCL)
 #' specplot(rainbow(100), rgb = TRUE)

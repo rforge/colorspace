@@ -32,7 +32,7 @@
 #' @param cex,font numeric vectors of length 1 or 2. Specifications for the
 #' annotation text for the individual palettes and lists of palettes, respectively.
 #' @return \code{swatchplot} invisibly returns a matrix with colors and annotations.
-#' @keywords misc
+#' @keywords hplot
 #' @examples
 #' ## swatches of several palette vectors
 #' swatchplot(
