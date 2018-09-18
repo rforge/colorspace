@@ -16,7 +16,9 @@ convert the colors (\code{deutan}, \code{protan}, \code{tritan}, \code{desaturat
 If set to \code{original} the image will be written as is.}
 
 \item{target}{\code{string} with (full) path to resulting image. Has to
-be a png image name!}
+be a png image name.}
+
+\item{severity}{numeric. Severity of the color vision defect, a number between 0 and 1.}
 }
 \description{
 Used in \code{cvd_emulator}. Takes an image object and converts

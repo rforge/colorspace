@@ -4,9 +4,9 @@
 \alias{specplot}
 \title{Color Spectrum Plot}
 \usage{
-specplot(x, y = NULL, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
-  type = "l", lwd = 2 * cex, lty = 1, pch = NULL, main = NULL,
-  legend = TRUE, palette = TRUE, plot = TRUE)
+specplot(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE,
+  cex = 1, type = "l", lwd = 2 * cex, lty = 1, pch = NULL,
+  main = NULL, legend = TRUE, palette = TRUE, plot = TRUE)
 }
 \arguments{
 \item{x}{character vector containing color hex codes.}
@@ -15,10 +15,10 @@ specplot(x, y = NULL, rgb = TRUE, hcl = TRUE, fix = TRUE, cex = 1,
 to be used for comparing two palettes (\code{x} vs. \code{y}).}
 
 \item{rgb}{logical or color specification. Should the RGB spectrum be
-visualized? Can also be a vector of three colors for the R/G/B coordinates.}
+visualized? Can also be a vector of three colors for the legend of R/G/B coordinates.}
 
 \item{hcl}{logical or color specification. Should the HCL spectrum be
-visualized? Can also be a vector of three colors for the H/C/L coordinates.}
+visualized? Can also be a vector of three colors for the legend of H/C/L coordinates.}
 
 \item{fix}{logical. Should the hues be fixed to be on a smooth(er) curve?
 For details see below.}
@@ -63,8 +63,8 @@ lines (dashed, by default) corresponding to the \code{y} palette RGB/HCL
 coordinates in the display.
 }
 \examples{
-## spectrum of the (in)famous RGB rainbow palette
-specplot(rainbow(100))
+## spectrum of the (in)famous RGB rainbow palette (in both RGB and HCL)
+specplot(rainbow(100), rgb = TRUE)
 
 ## spectrum of HCL-based palettes: qualitative/sequential/diverging
 specplot(qualitative_hcl(100))
@@ -90,9 +90,9 @@ Visualizations.  \emph{Bulletin of the American Meteorological Society},
 \doi{10.1175/BAMS-D-13-00155.1}
 }
 \seealso{
-\code{\link{rainbow_hcl}}
+\code{\link{hcl_palettes}}, \code{\link{hclplot}}
 }
 \author{
 Reto Stauffer, Achim Zeileis
 }
-\keyword{misc}
+\keyword{hplot}
