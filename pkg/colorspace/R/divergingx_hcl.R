@@ -21,11 +21,11 @@
 #' Available CARTO palettes: ArmyRose, Earth, Fall, Geyser, TealRose, Temps, and
 #' Tropic (with Tropic also available in \code{diverging_hcl}).
 #'
-#' Available ColorBrewer.org palettes: Spectral, PuOr, RdYlGn, RdYlBu, RdGy,
-#' BrBG, PiYG, PRGn, RdBu.
+#' Available ColorBrewer.org palettes: PuOr, RdBu, RdGy, PiYG, PRGn, BrBG, RdYlBu,
+#' RdYlGn, Spectral.
 #' 
 #' @param n the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.
-#' @param palette character with the name (see details).
+#' @param palette,name character with the name (see details).
 #' @param \dots arguments passed to \code{\link{sequential_hcl}}.
 #' @param rev logical. Should the palette be reversed?
 #' @param h1 numeric. Starting hue coordinate.
@@ -43,18 +43,14 @@
 #' @param p4 numeric. Power parameter for luminance coordinates in second sequential palette (if \code{NA}, \code{p3} is used).
 #' @param cmax1 numeric. Maximum chroma coordinate in first sequential palette (not used if \code{NA}).
 #' @param cmax2 numeric. Maximum chroma coordinate in second sequential palette (if \code{NA}, \code{cmax1} is used).
+#' @param plot logical. Should the selected HCL color palettes be visualized?
+#'
 #' @return A character vector with (s)RGB codings of the colors in the palette.
-#' @seealso \code{\link[colorspace]{sequential_hcl}}
+#' @seealso \code{\link[colorspace]{sequential_hcl}}, \code{\link[colorspace]{diverging_hcl}}
 #' @keywords color
 #' @examples
 #' ## show emulated CARTO/ColorBrewer.org palettes
-#' brewer <- c("Spectral", "RdYlGn", "RdYlBu", "RdGy", "BrBG", "PiYG", "PRGn", "PuOr", "RdBu")
-#' carto <- c("ArmyRose", "Earth", "Fall", "Geyser", "TealRose", "Temps", "Tropic")
-#'
-#' swatchplot(
-#'   "CARTO" = t(sapply(carto, divergex_hcl, n = 7)),
-#'   "ColorBrewer.org" = t(sapply(brewer, divergex_hcl, n = 7))
-#' )
+#' divergingx_palettes(plot = TRUE)
 #'
 #' ## compared to diverging_hcl() the diverging CARTO palettes are typically warmer
 #' ## but also less balanced with respect to chroma/luminance, see e.g.,
@@ -125,6 +121,40 @@ divergingx_hcl <- function(n, palette = "Geyser", ..., rev = FALSE,
 #' @export
 divergex_hcl <- divergingx_hcl
 
+#' @rdname divergingx_hcl
+#' @export
+divergingx_palettes <- function(name = NULL, plot = FALSE, n = 7L, ...)
+{
+  ## collect all divergingx palettex
+  pals <- as.data.frame(do.call("rbind", divex_pals))
+  rownames(pals) <- names(divex_pals)
+  pals$type <- factor(rep.int("Diverging (flexible)", nrow(pals)))
+  names(pals) <- c("h1", "h2", "h3", "c1", "c2", "c3", "l1", "l2", "l3", "p1", "p2", "p3", "p4", "cmax1", "cmax2", "type")
+  pals$fixup <- TRUE
+  pals <- pals[, c(16L, 1L:15L)]
+
+  ## subset by type and name (by flexible matching)
+  if(!is.null(name)) {
+    fx <- function(n) tolower(gsub("[-, _, \\,, (, ), \\ , \\.]", "", n))
+    namtab <- fx(rownames(pals))
+    name <- sapply(fx(name), function(n) {
+      if(n %in% namtab) return(n)
+      n <- startsWith(namtab, n)
+      if(all(!n)) stop("Palette 'name' should be one of: ", paste(rownames(pals), collapse = ", "))
+      namtab[which(n)[1L]]
+    })
+    pals <- pals[fx(rownames(pals)) %in% name, , drop = FALSE]
+  }
+
+  ## add class and show selection
+  class(pals) <- c("hcl_palettes", "data.frame")
+  if(plot) {
+    plot(pals, n = n, ...)
+    invisible(pals)
+  } else {
+    return(pals)
+  }
+}
 
 divex_pals <- list()
 
@@ -138,12 +168,12 @@ divex_pals[["Temps"]]    <- c(191,  80,  -4,  43,  50,  78,  55,  89,  54, 1.6, 
 divex_pals[["Tropic"]]   <- c(195,  NA, 325,  70,  NA,  NA,  55,  95,  NA, 1.0,  NA,  NA,  NA,  NA, NA)
 
 ## ColorBrewer.org
-divex_pals[["Spectral"]] <- c(  0,  85, 270,  90,  45,  65,  37,  98,  37, 1.0, 1.2, 1.0, 1.2, 120, NA)
 divex_pals[["PuOr"]]     <- c( 40,  NA, 270,  70,   0,  30,  30,  98,  10, 0.6, 1.4, 1.5, 1.3, 100, 65)
-divex_pals[["RdYlGn"]]   <- c( 10,  85, 140, 105,  45,  50,  35,  98,  35, 1.5, 1.2, 0.8, 1.2, 150, 75)
-divex_pals[["RdYlBu"]]   <- c( 10,  85, 260, 105,  45,  70,  35,  98,  35, 1.5, 1.2, 0.6, 1.2, 150, 10)
-divex_pals[["RdGy"]]     <- c(  5,  50,  50,  60,   0,   0,  20,  98,  20, 1.2, 1.2, 1.0, 1.2, 125, NA)
 divex_pals[["RdBu"]]     <- c( 20,  NA, 230,  60,   0,  50,  20,  98,  15, 1.4, 1.2, 1.5, 1.5, 125, 90)
+divex_pals[["RdGy"]]     <- c(  5,  50,  50,  60,   0,   0,  20,  98,  20, 1.2, 1.2, 1.0, 1.2, 125, NA)
 divex_pals[["PiYG"]]     <- c(340,  NA, 115,  75,   0,  50,  30,  98,  35, 1.3, 1.4, 0.8, 1.5, 100, 80)
 divex_pals[["PRGn"]]     <- c(300,  NA, 128,  30,   0,  30,  15,  97,  25, 1.3, 1.2, 0.9, 1.5,  65, 65)
 divex_pals[["BrBG"]]     <- c( 55,  NA, 180,  40,   0,  30,  25,  97,  20, 0.8, 1.4, 0.8, 1.4,  75, 45)
+divex_pals[["RdYlBu"]]   <- c( 10,  85, 260, 105,  45,  70,  35,  98,  35, 1.5, 1.2, 0.6, 1.2, 150, 10)
+divex_pals[["RdYlGn"]]   <- c( 10,  85, 140, 105,  45,  50,  35,  98,  35, 1.5, 1.2, 0.8, 1.2, 150, 75)
+divex_pals[["Spectral"]] <- c(  0,  85, 270,  90,  45,  65,  37,  98,  37, 1.0, 1.2, 1.0, 1.2, 120, NA)

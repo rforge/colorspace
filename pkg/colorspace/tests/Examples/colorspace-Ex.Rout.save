@@ -351,19 +351,13 @@ B 127.1266 219.9352 75.94962
 > 
 > ### Name: divergingx_hcl
 > ### Title: (More) Flexible Diverging HCL Palettes
-> ### Aliases: divergingx_hcl divergex_hcl
+> ### Aliases: divergingx_hcl divergex_hcl divergingx_palettes
 > ### Keywords: color
 > 
 > ### ** Examples
 > 
 > ## show emulated CARTO/ColorBrewer.org palettes
-> brewer <- c("Spectral", "RdYlGn", "RdYlBu", "RdGy", "BrBG", "PiYG", "PRGn", "PuOr", "RdBu")
-> carto <- c("ArmyRose", "Earth", "Fall", "Geyser", "TealRose", "Temps", "Tropic")
-> 
-> swatchplot(
-+   "CARTO" = t(sapply(carto, divergex_hcl, n = 7)),
-+   "ColorBrewer.org" = t(sapply(brewer, divergex_hcl, n = 7))
-+ )
+> divergingx_palettes(plot = TRUE)
 > 
 > ## compared to diverging_hcl() the diverging CARTO palettes are typically warmer
 > ## but also less balanced with respect to chroma/luminance, see e.g.,
@@ -1402,7 +1396,7 @@ $hex
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  6.883 0.048 6.951 0 0 
+Time elapsed:  6.105 0.06 6.169 0 0 
 > grDevices::dev.off()
 null device 
           1 

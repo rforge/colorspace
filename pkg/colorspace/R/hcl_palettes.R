@@ -251,7 +251,7 @@ summary.hcl_palettes <- function(object, ...) {
   for(ty in type) {
     cat("\nType:", ty, "\n")
     cat("Parameter ranges:\n")
-    print.data.frame(object[as.character(object$type) %in% ty, 2L:11L, drop = FALSE], ...)
+    print.data.frame(object[as.character(object$type) %in% ty, -1L, drop = FALSE], ...)
   }
   invisible(object)
 }
@@ -261,9 +261,9 @@ summary.hcl_palettes <- function(object, ...) {
 #' @export
 plot.hcl_palettes <- function(x, n = 5L, fixup = TRUE, off = NULL, border = NULL, ...)
 {
-  typ <- levels(x$type)
+  typ <- c("Qualitative", "Sequential (single-hue)", "Sequential (multi-hue)", "Diverging", "Diverging (flexible)")
   x$type <- as.character(x$type)
-  xx <- as.matrix(x[, 2L:11L])
+  xx <- as.matrix(x[, -1L])
 
   qcol <- sapply(which(x$type == typ[1L]), function(i) {
     qualitative_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], c1 = xx[i, "c1"], l1 = xx[i, "l1"], fixup = fixup)
@@ -292,8 +292,19 @@ plot.hcl_palettes <- function(x, n = 5L, fixup = TRUE, off = NULL, border = NULL
   dcol <- if(length(dcol) < 1L) NULL else matrix(t(dcol), ncol = n,
     dimnames = list(rownames(x)[x$type == typ[4L]], paste("Color", 1L:n)))
   
+  xcol <- sapply(which(x$type == typ[5L]), function(i) {
+    divergingx_hcl(n = n, h1 = xx[i, "h1"], h2 = xx[i, "h2"], h3 = xx[i, "h3"],
+      c1 = xx[i, "c1"], c2 = xx[i, "c2"], c3 = xx[i, "c3"],
+      l1 = xx[i, "l1"], l2 = xx[i, "l2"], l3 = xx[i, "l3"],
+      p1 = xx[i, "p1"], p2 = xx[i, "p2"], p3 = xx[i, "p3"], p4 = xx[i, "p4"],
+      cmax1 = xx[i, "cmax1"], cmax2 = xx[i, "cmax2"],
+      fixup = fixup)
+  })
+  xcol <- if(length(xcol) < 1L) NULL else matrix(t(xcol), ncol = n,
+    dimnames = list(rownames(x)[x$type == typ[5L]], paste("Color", 1L:n)))
+  
   ## collect colors
-  col <- list(qcol, scol, mcol, dcol)
+  col <- list(qcol, scol, mcol, dcol, xcol)
   names(col) <- typ
   col <- col[!sapply(col, is.null)]
 

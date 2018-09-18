@@ -60,7 +60,7 @@ cvd_emulator <- function(x, overwrite = FALSE, shiny.trace = FALSE) {
 
 #' Check Image Type Based on Postfix
 #'
-#' Checking image file type based on image file name! Used to decide
+#' Checking image file type based on image file name. Used to decide
 #' which package has to be used to read an image from disc (\code{png}/\code{jpeg}).
 #'
 #' @param x, \code{string} containing (full) path to image.

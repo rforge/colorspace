@@ -3,15 +3,18 @@
 \name{divergingx_hcl}
 \alias{divergingx_hcl}
 \alias{divergex_hcl}
+\alias{divergingx_palettes}
 \title{(More) Flexible Diverging HCL Palettes}
 \usage{
 divergingx_hcl(n, palette = "Geyser", ..., rev = FALSE, h1, h2, h3, c1,
   c2, c3, l1, l2, l3, p1, p2, p3, p4, cmax1, cmax2)
+
+divergingx_palettes(name = NULL, plot = FALSE, n = 7L, ...)
 }
 \arguments{
 \item{n}{the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.}
 
-\item{palette}{character with the name (see details).}
+\item{palette, name}{character with the name (see details).}
 
 \item{\dots}{arguments passed to \code{\link{sequential_hcl}}.}
 
@@ -46,6 +49,8 @@ divergingx_hcl(n, palette = "Geyser", ..., rev = FALSE, h1, h2, h3, c1,
 \item{cmax1}{numeric. Maximum chroma coordinate in first sequential palette (not used if \code{NA}).}
 
 \item{cmax2}{numeric. Maximum chroma coordinate in second sequential palette (if \code{NA}, \code{cmax1} is used).}
+
+\item{plot}{logical. Should the selected HCL color palettes be visualized?}
 }
 \value{
 A character vector with (s)RGB codings of the colors in the palette.
@@ -73,24 +78,18 @@ can be emulated.
 Available CARTO palettes: ArmyRose, Earth, Fall, Geyser, TealRose, Temps, and
 Tropic (with Tropic also available in \code{diverging_hcl}).
 
-Available ColorBrewer.org palettes: Spectral, PuOr, RdYlGn, RdYlBu, RdGy,
-BrBG, PiYG, PRGn, RdBu.
+Available ColorBrewer.org palettes: PuOr, RdBu, RdGy, PiYG, PRGn, BrBG, RdYlBu,
+RdYlGn, Spectral.
 }
 \examples{
 ## show emulated CARTO/ColorBrewer.org palettes
-brewer <- c("Spectral", "RdYlGn", "RdYlBu", "RdGy", "BrBG", "PiYG", "PRGn", "PuOr", "RdBu")
-carto <- c("ArmyRose", "Earth", "Fall", "Geyser", "TealRose", "Temps", "Tropic")
-
-swatchplot(
-  "CARTO" = t(sapply(carto, divergex_hcl, n = 7)),
-  "ColorBrewer.org" = t(sapply(brewer, divergex_hcl, n = 7))
-)
+divergingx_palettes(plot = TRUE)
 
 ## compared to diverging_hcl() the diverging CARTO palettes are typically warmer
 ## but also less balanced with respect to chroma/luminance, see e.g.,
 specplot(divergingx_hcl(7, "ArmyRose"))
 }
 \seealso{
-\code{\link[colorspace]{sequential_hcl}}
+\code{\link[colorspace]{sequential_hcl}}, \code{\link[colorspace]{diverging_hcl}}
 }
 \keyword{color}
