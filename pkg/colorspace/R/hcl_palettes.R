@@ -53,19 +53,49 @@
 #' Chroma \code{c} (or equivalently \code{c1}) and luminance \code{l} (or equivalently
 #' \code{l1}) are constants.
 #' 
-#' \code{sequential_hcl}
-#' h = 260, 0) (h1, h2)
-#' c = 80, cmax, 0 (c1, cmax, c2) [c. instead of c]
-#' l = c(30, 90) (l1, l2)
-#' power = 1.5, (p1, p2)
+#' \code{sequential_hcl} codes the underlying numeric values by a monotonic sequence
+#' of increasing (or decreasing) luminance. Thus, the \code{l} argument should provide
+#' a vector of length 2 with starting and ending luminance (equivalently, \code{l1} and
+#' \code{l2} can be used). Without chroma (i.e., \code{c = 0}), this simply corresponds
+#' to a palette like \code{\link[grDevices]{gray.colors}}. For adding chroma, a simple
+#' strategy would be to pick a single hue (via \code{h} or \code{h1}) and then decrease
+#' chroma from some value (\code{c} or \code{c1}) to zero (i.e., gray) along with
+#' increasing luminance. For bringing out the extremes (a dark high-chroma color vs.
+#' a light gray) this is already very effective. For distinguishing also colors in the
+#' middle two strategies can be employed: (a) Hue can be varied as well by specifying an
+#' interval of hues in \code{h} (or beginning hue \code{h1} and ending hue \code{h2}).
+#' (b) Instead of a decreasing chroma a triangular chroma trajectory can be employed
+#' from \code{c1} over \code{cmax} to \code{c2} (or equivalently a vector \code{c} of
+#' length 3). This yields high-chroma colors in the middle of the palette that are
+#' more easily distinguished from the dark and light extremes. Finally, instead of
+#' employing linear trajectories, power transformations are supported in chroma and
+#' luminance via a vector \code{power} (or separate \code{p1} and \code{p2}). If
+#' \code{power[2]} (or \code{p2}) for the luminance trajectory is missing, it defaults
+#' to \code{power[1]}/\code{p1} from the chroma trajectory.
 #'
-#' \code{diverging_hcl}
-#' h = c(260, 0) (h1, h2)
-#' c = 80, cmax, 0 (c1, cmax, 0)
-#' l = c(30, 90) (l1, l2)
-#' power = 1.5, (p1, p2)
+#' \code{diverging_hcl} codes the underlying numeric values by a triangular luminance
+#' sequence with different hues in the left and in the right arm of the palette. Thus,
+#' it can be seen as a combination of two sequential palettes with some restrictions:
+#' (a) a single hue for each arm of the palette, (b) chroma and luminance trajectory
+#' are balanced between the two arms, (c) the neutral central value has zero chroma.
+#' To specify such a palette a vector of two hues \code{h} (or equivalently \code{h1}
+#' and \code{h2}), either a single chroma value \code{c} (or \code{c1}) or a vector
+#' of two chroma values \code{c} (or \code{c1} and \code{cmax}), a vector of two
+#' luminances \code{l} (or \code{l1} and \code{l2}), and power parameter(s) \code{power}
+#' (or \code{p1} and \code{p2}) are used. For more flexible diverging palettes without
+#' the restrictrictions above (and consequently more parameters)
+#' \code{\link{divergingx_hcl}} is available. For backward compatibility, \code{diverge_hcl}
+#' is a copy of \code{diverging_hcl}.
 #'
-#' \code{hcl_palettes} with \code{print}, \code{summary}, \code{plot}
+#' To facilitate using HCL-based palettes a wide range of example palettes are
+#' provided in the package and can be specified by a name instead of a set of
+#' parameters/coordinates. The examples have been taken from the literature and many
+#' approximate color palettes from other software packages such as ColorBrewer.org
+#' (\pkg{RColorBrewer}), CARTO colors (\pkg{rcartocolor}), or \pkg{scico}. The function
+#' \code{hcl_palettes} can be used to query the available pre-specified palettes. It
+#' comes with a \code{print} method (listing names and types), a \code{summary} method
+#' (additionally listing the underlying parameters/coordinates), and a \code{plot}
+#' method that creates a \code{\link{swatchplot}} with suitable labels.
 #' 
 #' @param n the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.
 #' @param h,h1,h2 hue value in the HCL color description, has to be in [0, 360].
@@ -88,6 +118,19 @@
 #' @param plot logical. Should the selected HCL color palettes be visualized?
 #' @param x,object A \code{hcl_palettes} object.
 #'
+#' @seealso \code{\link{divergingx_hcl}}
+#' @references Zeileis A, Hornik K, Murrell P (2009).  Escaping RGBland:
+#' Selecting Colors for Statistical Graphics.  \emph{Computational Statistics &
+#' Data Analysis}, \bold{53}, 3259--3270.
+#' \doi{10.1016/j.csda.2008.11.033}
+#' Preprint available from
+#' \url{https://eeecon.uibk.ac.at/~zeileis/papers/Zeileis+Hornik+Murrell-2009.pdf}.
+#' 
+#' Stauffer R, Mayr GJ, Dabernig M, Zeileis A (2015).  Somewhere Over the
+#' Rainbow: How to Make Effective Use of Colors in Meteorological
+#' Visualizations.  \emph{Bulletin of the American Meteorological Society},
+#' \bold{96}(2), 203--216.
+#' \doi{10.1175/BAMS-D-13-00155.1}
 #' @keywords color
 #' @examples
 #' ## overview of all _named_ HCL palettes
@@ -99,14 +142,6 @@
 #' hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
 #' hcl_palettes("diverging", n = 7, plot = TRUE)
 #'
-#' ## HCL palettes vary the perceptual properties via hue/chroma/luminance
-#' swatchplot(
-#'   "Hue"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
-#'   "Chroma"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
-#'   "Luminance" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
-#'   off = 0
-#' )
-#' 
 #' ## inspect a specific palette
 #' ## (upper-case, spaces, etc. are ignored for matching)
 #' hcl_palettes(name = "Dark 2")
@@ -116,6 +151,35 @@
 #' qualitative_hcl(4, h = c(0, 288), c = 50, l = 60) ## by hand
 #' qualitative_hcl(4, palette = "dark2")             ## by name
 #' qualitative_hcl(4, palette = "dark2", c = 80)     ## by name plus modification
+#'
+#' ## how HCL palettes are constructed:
+#' ## by varying the perceptual properties via hue/chroma/luminance
+#' swatchplot(
+#'   "Hue"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
+#'   "Chroma"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
+#'   "Luminance" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
+#'   off = 0
+#' )
+#' 
+#' ## for qualitative palettes luminance and chroma are fixed, varying only hue
+#' hclplot(qualitative_hcl(9, c = 50, l = 70))
+#' 
+#' ## simple single-hue sequential palette (h = 260) with linear and power-transformed trajectory
+#' hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1))
+#' hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1.5))
+#' 
+#' ## single-hue sequential palette with triangular chroma trajectory (piecewise linear and power-transformed)
+#' hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = 1))
+#' hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = c(0.8, 1.4)))
+#' 
+#' ## multi-hue sequential palette with small hue range and triangular chroma vs.
+#' ## large hue range and linear chroma trajectory
+#' hclplot(sequential_hcl(7, h = c(260, 220), c = c(50, 75, 0), l = c(30, 95), power = 1))
+#' hclplot(sequential_hcl(7, h = c(260, 60), c = 60, l = c(40, 95), power = 1))
+#' 
+#' ## balanced diverging palette constructed from two simple single-hue sequential
+#' ## palettes (for hues 260/blue and 0/red)
+#' hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
 #' @export
 hcl_palettes <- function(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
 {
