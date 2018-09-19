@@ -10,8 +10,6 @@ choose_palette(pal = diverging_hcl, n = 7L, parent = NULL,
   gui = "tcltk")
 
 hclwizard(n = 7L, gui = "shiny", shiny.trace = FALSE)
-
-hcl_wizard(n = 7L, gui = "shiny", shiny.trace = FALSE)
 }
 \arguments{
 \item{pal}{function; the initial palette, see \sQuote{Value} below.  Only
@@ -65,6 +63,10 @@ To demonstrate different types of deficiencies, the active palette may be
 desaturated (emulating printing on a grayscale printer) and collapsed to
 emulate different types of color-blindness (without red-green or green-blue
 contrasts) using the \code{\link{simulate_cvd}} functions.
+
+\code{choose_palette} by default starts the Tcl/Tk version of the GUI while
+\code{hclwizard} by default starts the shiny version. \code{hcl_wizard} is
+an alias for \code{hclwizard}.
 }
 \examples{
 if(interactive()) {

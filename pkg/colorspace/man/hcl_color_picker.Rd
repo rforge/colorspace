@@ -2,12 +2,13 @@
 % Please edit documentation in R/hcl_color_picker.R
 \name{hcl_color_picker}
 \alias{hcl_color_picker}
+\alias{choose_color}
 \alias{hclcolorpicker}
 \title{Shiny App to Pick Colors in HCL Space}
 \usage{
 hcl_color_picker(shiny.trace = FALSE)
 
-hclcolorpicker(shiny.trace = FALSE)
+choose_color(shiny.trace = FALSE)
 }
 \arguments{
 \item{shiny.trace}{logical: used for debugging the shiny interface.}
@@ -22,6 +23,10 @@ luminance-chroma plane for a given hue. Colors can be entered by specifying the 
 and luminance (L) values via sliders, by entering an RGB hex code, or by clicking on a color in the
 hue-chroma or luminance-chroma plane. It is also possible to select individual colors and add them
 to a palette for comparison and future reference.
+}
+\details{
+\code{choose_color} is a convenience alias for \code{hcl_color_picker} to
+go along with \code{\link{choose_palette}}. Another alias is \code{hclcolorpicker}.
 }
 \examples{
 \dontrun{

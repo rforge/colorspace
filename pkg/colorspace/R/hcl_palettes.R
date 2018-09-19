@@ -20,7 +20,7 @@
 #'   \item Qualitative: Designed for coding categorical information, i.e.,
 #'     where no particular ordering of categories is available and every color
 #'     should receive the same perceptual weights.
-#    \item Sequential: Designed for coding ordered/numeric information, i.e.,
+#'   \item Sequential: Designed for coding ordered/numeric information, i.e.,
 #'     where colors go from high to low (or vice versa).
 #'   \item Diverging: Designed for coding numeric information around a central
 #'     neutral value, i.e., where colors diverge from neutral to two extremes.
@@ -164,11 +164,12 @@
 #' ## for qualitative palettes luminance and chroma are fixed, varying only hue
 #' hclplot(qualitative_hcl(9, c = 50, l = 70))
 #' 
-#' ## simple single-hue sequential palette (h = 260) with linear and power-transformed trajectory
+#' ## single-hue sequential palette (h = 260) with linear vs. power-transformed trajectory
 #' hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1))
 #' hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1.5))
 #' 
-#' ## single-hue sequential palette with triangular chroma trajectory (piecewise linear and power-transformed)
+#' ## advanced single-hue sequential palette with triangular chroma trajectory
+#' ## (piecewise linear vs. power-transformed)
 #' hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = 1))
 #' hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = c(0.8, 1.4)))
 #' 

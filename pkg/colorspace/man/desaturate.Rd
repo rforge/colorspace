@@ -7,8 +7,8 @@
 desaturate(col, amount = 1, ...)
 }
 \arguments{
-\item{col}{vector of any of the three kind of R colors, i.e., either a color
-name (an element of \code{\link[grDevices]{colors}}), a hexadecimal string
+\item{col}{vector of R colors. Can be any of the three kinds of R colors, i.e.,
+either a color name (an element of \code{\link[grDevices]{colors}}), a hexadecimal string
 of the form \code{"#rrggbb"} or \code{"#rrggbbaa"} (see
 \code{\link[grDevices]{rgb}}), or an integer \code{i} meaning
 \code{palette()[i]}. Input \code{col} can also be a matrix with three
@@ -64,7 +64,7 @@ wheel(desaturate(rainbow_hcl(12)))
 wheel(desaturate(rainbow(12)))
 
 ## apply desaturation directly on RGB values
-RGB <- t(hex2RGB(rainbow(3))@coords*255)
+RGB <- t(hex2RGB(rainbow(3))@coords * 255)
 desaturate(RGB)
 }
 \seealso{

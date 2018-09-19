@@ -6,6 +6,9 @@
 #' hue-chroma or luminance-chroma plane. It is also possible to select individual colors and add them
 #' to a palette for comparison and future reference. 
 #'
+#' \code{choose_color} is a convenience alias for \code{hcl_color_picker} to
+#' go along with \code{\link{choose_palette}}. Another alias is \code{hclcolorpicker}.
+#' 
 #' @param shiny.trace logical: used for debugging the shiny interface.
 #' @author Claus O. Wilke, Reto Stauffer, Achim Zeileis
 #' @seealso \code{\link{choose_palette}}
@@ -33,5 +36,12 @@ hcl_color_picker <- function(shiny.trace = FALSE) {
 
 #' @rdname hcl_color_picker
 #' @export
+choose_color <- function(shiny.trace = FALSE)
+    hcl_color_picker(shiny.trace = shiny.trace)
+
+#' @rdname hcl_color_picker
+#' @usage NULL
+#' @export
 hclcolorpicker <- function(shiny.trace = FALSE)
     hcl_color_picker(shiny.trace = shiny.trace)
+

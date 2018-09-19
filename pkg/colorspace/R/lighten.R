@@ -3,22 +3,25 @@
 #' The functions \code{lighten} and \code{darken} take a vector of R colors and adjust the colors such that
 #' they appear lightened or darkened, respectively.
 #' 
-#' The color adjustment can be calculated in three different color spaces. First, if \code{space = "HCL"},
-#' the colors are transformed to HCL, (\code{\link[colorspace]{polarLUV}}), the luminance component L
-#' is adjusted, and then the colors are transformed back to a hexadecimal RGB string. Second, if 
-#' \code{space = "HLS"}, the colors are transformed to HLS, the lightness component L is adjusted, and
-#' then the color is transformed back to a hexadecimal RGB string. Finally, if \code{space = "combined"},
-#' the colors are first adjusted in both the HCL and HLS spaces. Then, the adjusted HLS colors are converted
-#' into HCL, and then the chroma components of the adjusted HLS colors are copied to the adjusted HCL colors.
-#' Thus, in effect, the combined model adjusts luminance in HCL space but chroma in HLS space. We have found
-#' that, in general, \code{space = "HCL"} performs best for lightening colors and \code{space = "combined"}
+#' The color adjustment can be calculated in three different color spaces. \enumerate{
+#'   \item If \code{space = "HCL"}, the colors are transformed to HCL, (\code{\link[colorspace]{polarLUV}}),
+#'         the luminance component L is adjusted, and then the colors are transformed back to a hexadecimal
+#'         RGB string.
+#'   \item If \code{space = "HLS"}, the colors are transformed to HLS, the lightness component L is adjusted,
+#'         and then the color is transformed back to a hexadecimal RGB string.
+#'   \item If \code{space = "combined"}, the colors are first adjusted in both the HCL and HLS spaces. Then,
+#'         the adjusted HLS colors are converted into HCL, and then the chroma components of the adjusted HLS
+#'         colors are copied to the adjusted HCL colors. Thus, in effect, the combined model adjusts luminance
+#'         in HCL space but chroma in HLS space.
+#' }
+#' We have found that typically \code{space = "HCL"} performs best for lightening colors and \code{space = "combined"}
 #' performs best for darkening colors, and these are the default settings for \code{lighten} and \code{darken},
 #' respectively.
 #' 
 #' Regardless of the chosen color space, the adjustment of the L component can occur by two methods, relative
-#' (the default) and absolute. Under the relative method, the adjustment is \code{100 - (100 - L) * (1 - amount)} when
-#' lightening colors and \code{L * (1 - amount)} when darkening colors. Under the absolute method, the adjustment
-#' is \code{L +/- 100 * amount} when lightening/darkening colors.
+#' (the default) and absolute. Under the absolute method, the adjustment is \code{L +/- 100 * amount} when
+#' lightening/darkening colors. Under the relative method, the adjustment is \code{100 - (100 - L) * (1 - amount)} when
+#' lightening colors and \code{L * (1 - amount)} when darkening colors. 
 #' 
 #' Programmatically lightening and darkening colors can yield unexpected results (see examples). In HCL space,
 #' colors can become either too gray or overly colorful. By contrast, in HLS space it can happen that the
@@ -45,65 +48,41 @@
 #' @seealso \code{\link[colorspace]{polarLUV}}, \code{\link[colorspace]{hex}}, \code{\link[colorspace]{desaturate}}
 #' @keywords color
 #' @examples
-#' ## convenience demo function
-#' pal <- function(col, border = "light gray") {
-#'   n <- length(col)
-#'   plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), axes = FALSE,
-#'        xlab = "", ylab = "")
-#'   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
-#' }
-#' 
 #' # lighten dark colors, example 1
-#' cl <- rainbow_hcl(5)
-#' par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
-#' pal(cl); mtext("HCL")
-#' pal(cl); mtext("HLS")
-#' pal(cl); mtext("combined")
-#' pal(lighten(cl, 0.15))
-#' pal(lighten(cl, 0.15, space = "HLS"))
-#' pal(lighten(cl, 0.15, space = "combined"))
-#' pal(lighten(cl, 0.3))
-#' pal(lighten(cl, 0.3, space = "HLS"))
-#' pal(lighten(cl, 0.3, space = "combined"))
-#'
+#' cl <- qualitative_hcl(5)
+#' swatchplot(list(
+#'   HCL      = rbind("0%" = cl, "15%" = lighten(cl, 0.15),                     "30%" = lighten(cl, 0.3)),
+#'   HLS      = rbind("0%" = cl, "15%" = lighten(cl, 0.15, space = "HLS"),      "30%" = lighten(cl, 0.3, space = "HLS")),
+#'   combined = rbind("0%" = cl, "15%" = lighten(cl, 0.15, space = "combined"), "30%" = lighten(cl, 0.3, space = "combined"))),
+#'   nrow = 4, line = 2.5
+#' )
+#' 
 #' # lighten dark colors, example 2
 #' cl <- c("#61A9D9", "#ADD668", "#E6D152", "#CE6BAF", "#797CBA")
-#' par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
-#' pal(cl); mtext("HCL")
-#' pal(cl); mtext("HLS")
-#' pal(cl); mtext("combined")
-#' pal(lighten(cl, 0.15))
-#' pal(lighten(cl, 0.15, space = "HLS"))
-#' pal(lighten(cl, 0.15, space = "combined"))
-#' pal(lighten(cl, 0.30))
-#' pal(lighten(cl, 0.30, space = "HLS"))
-#' pal(lighten(cl, 0.30, space = "combined"))
+#' swatchplot(list(
+#'   HCL      = rbind("0%" = cl, "15%" = lighten(cl, 0.15),                     "30%" = lighten(cl, 0.3)),
+#'   HLS      = rbind("0%" = cl, "15%" = lighten(cl, 0.15, space = "HLS"),      "30%" = lighten(cl, 0.3, space = "HLS")),
+#'   combined = rbind("0%" = cl, "15%" = lighten(cl, 0.15, space = "combined"), "30%" = lighten(cl, 0.3, space = "combined"))),
+#'   nrow = 4, line = 2.5
+#' )
 #' 
 #' # darken light colors, example 1
-#' cl <- rainbow_hcl(5, l = 90, c = 35)
-#' par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
-#' pal(cl); mtext("combined")
-#' pal(cl); mtext("HCL")
-#' pal(cl); mtext("HLS")
-#' pal(darken(cl, 0.15))
-#' pal(darken(cl, 0.15, space = "HCL"))
-#' pal(darken(cl, 0.15, space = "HLS"))
-#' pal(darken(cl, 0.30))
-#' pal(darken(cl, 0.30, space = "HCL"))
-#' pal(darken(cl, 0.30, space = "HLS"))
+#' cl <- qualitative_hcl(5, "Pastel 1")
+#' swatchplot(list(
+#'   combined = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "combined"), "30%" = darken(cl, 0.3, space = "combined")),
+#'   HCL      = rbind("0%" = cl, "15%" = darken(cl, 0.15),                     "30%" = darken(cl, 0.3)),
+#'   HLS      = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "HLS"),      "30%" = darken(cl, 0.3, space = "HLS"))),
+#'   nrow = 4, line = 2.5
+#' )
 #'
 #' # darken light colors, example 2 
 #' cl <- c("#CDE4F3","#E7F3D3","#F7F0C7","#EFCFE5","#D0D1E7")
-#' par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
-#' pal(cl); mtext("combined")
-#' pal(cl); mtext("HCL")
-#' pal(cl); mtext("HLS")
-#' pal(darken(cl, 0.15))
-#' pal(darken(cl, 0.15, space = "HCL"))
-#' pal(darken(cl, 0.15, space = "HLS"))
-#' pal(darken(cl, 0.30))
-#' pal(darken(cl, 0.30, space = "HCL"))
-#' pal(darken(cl, 0.30, space = "HLS"))
+#' swatchplot(list(
+#'   combined = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "combined"), "30%" = darken(cl, 0.3, space = "combined")),
+#'   HCL      = rbind("0%" = cl, "15%" = darken(cl, 0.15),                     "30%" = darken(cl, 0.3)),
+#'   HLS      = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "HLS"),      "30%" = darken(cl, 0.3, space = "HLS"))),
+#'   nrow = 4, line = 2.5
+#' )
 #' @export lighten
 #' @importFrom grDevices rgb
 #' @importFrom grDevices col2rgb

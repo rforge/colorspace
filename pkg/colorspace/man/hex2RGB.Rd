@@ -12,11 +12,11 @@ hex2RGB(x, gamma = FALSE)
 \item{gamma}{Whether to apply gamma-correction.}
 }
 \value{
-An RGB object describing the colors.
+An sRGB object describing the colors.
 }
 \description{
 This function takes a vector of strings of the form \code{"#RRGGBB"}
-(hexadecimal color descriptions) into sRGB objects.
+(hexadecimal color descriptions) into \code{\link{sRGB}} objects.
 }
 \details{
 This function converts device-dependent color descriptions of the form

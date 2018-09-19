@@ -16,11 +16,11 @@ matrix passed as \code{R}.}
 \code{R} are used).}
 }
 \value{
-An object of class ``sRGB'' which inherits from class ``color.''
+An object of class \code{sRGB} which inherits from class \code{color}.
 }
 \description{
 This function creates colors of class sRGB; a subclass of the virtual
-``color'' class.
+\code{\link{color-class}} class.
 }
 \details{
 This function creates colors in the standard sRGB color space (IEC standard

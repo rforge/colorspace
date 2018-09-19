@@ -45,9 +45,9 @@
 #' ## swatches of named palette matrices
 #' bprg <- c("Blues", "Purples", "Reds", "Greens")
 #' swatchplot(
-#'   "Single-hue (simple)"   = t(sapply(paste(bprg, 2), sequential_hcl, n = 7)),
-#'   "Single-hue (extended)" = t(sapply(paste(bprg, 3), sequential_hcl, n = 7)),
-#'   "Multi-hue (extended)"  = t(sapply(bprg,           sequential_hcl, n = 7)),
+#'   "Single-hue"            = t(sapply(paste(bprg, 2), sequential_hcl, n = 7)),
+#'   "Single-hue (advanced)" = t(sapply(paste(bprg, 3), sequential_hcl, n = 7)),
+#'   "Multi-hue (advanced)"  = t(sapply(bprg,           sequential_hcl, n = 7)),
 #'   nrow = 5
 #' )
 #' @export swatchplot

@@ -105,7 +105,7 @@
 #' \code{\link{LUV}}, \code{\link{polarLUV}}, \code{\link{mixcolor}}.
 #' @keywords classes
 #' @examples
-#' x = RGB(runif(1000),runif(1000),runif(1000))
+#' x <- RGB(runif(1000), runif(1000), runif(1000))
 #' plot(as(x, "LUV"))
 #' @useDynLib colorspace, .registration = TRUE 
 #' @import methods
@@ -201,7 +201,7 @@ CheckBounds <-
 #' Create RGB Colors
 #' 
 #' This function creates colors of class RGB; a subclass of the virtual
-#' ``color'' class.
+#' \code{\link{color-class}} class.
 #' 
 #' This function creates colors in the linearized sRGB color space (IEC
 #' standard 61966).
@@ -212,7 +212,7 @@ CheckBounds <-
 #' matrix passed as \code{R}.
 #' @param names A vector of names for the colors (by default the row names of
 #' \code{R} are used).
-#' @return An object of class ``RGB'' which inherits from class ``color.''
+#' @return An object of class \code{RGB} which inherits from class \code{color}.
 #' @author Ross Ihaka
 #' @seealso \code{\link{sRGB}}, \code{\link{HSV}}, \code{\link{XYZ}},
 #' \code{\link{LAB}}, \code{\link{polarLAB}}, \code{\link{LUV}},
@@ -241,7 +241,7 @@ RGB <-
 #' Create sRGB Colors
 #' 
 #' This function creates colors of class sRGB; a subclass of the virtual
-#' ``color'' class.
+#' \code{\link{color-class}} class.
 #' 
 #' This function creates colors in the standard sRGB color space (IEC standard
 #' 61966).
@@ -252,7 +252,7 @@ RGB <-
 #' matrix passed as \code{R}.
 #' @param names A vector of names for the colors (by default the row names of
 #' \code{R} are used).
-#' @return An object of class ``sRGB'' which inherits from class ``color.''
+#' @return An object of class \code{sRGB} which inherits from class \code{color}.
 #' @author Ross Ihaka
 #' @seealso \code{\link{RGB}}, \code{\link{HSV}}, \code{\link{XYZ}},
 #' \code{\link{LAB}}, \code{\link{polarLAB}}, \code{\link{LUV}},
@@ -281,7 +281,7 @@ sRGB <-
 #' Create XYZ Colors
 #' 
 #' This function creates colors of class XYZ; a subclass of the virtual
-#' ``color'' class.
+#' \code{\link{color-class}} class.
 #' 
 #' The X, Y and Z values are the levels of the CIE primaries.  These are scaled
 #' so that the luminance of the display white-point is 100.  The white-point is
@@ -293,7 +293,7 @@ sRGB <-
 #' vectors or in a three-column matrix passed as \code{X}.
 #' @param names A vector of names for the colors (by default the row names of
 #' \code{X} are used).
-#' @return An object of class ``XYZ'' which inherits from class ``color.''
+#' @return An object of class \code{XYZ} which inherits from class \code{color}.
 #' @author Ross Ihaka
 #' @seealso \code{\link{RGB}}, \code{\link{HSV}}, \code{\link{LAB}},
 #' \code{\link{polarLAB}}, \code{\link{LUV}}, \code{\link{polarLUV}}.
@@ -321,7 +321,7 @@ XYZ <-
 #' Create LAB Colors
 #' 
 #' This function creates colors of class ``LAB''; a subclass of the virtual
-#' ``color'' class.
+#' \code{\link{color-class}} class.
 #' 
 #' The \code{L}, \code{A} and \code{B} values give the coordinates of the
 #' colors in the CIE \eqn{L^*a^*b^*}{L*a*b*} space.  This is a transformation
@@ -335,7 +335,7 @@ XYZ <-
 #' vectors or in a three-column matrix passed as \code{L}.
 #' @param names a vector of names for the colors (by default the row names of
 #' \code{L} are used).
-#' @return An object of class ``LAB'' which inherits from class ``color.''
+#' @return An object of class \code{LAB} which inherits from class \code{color}.
 #' @author Ross Ihaka
 #' @seealso \code{\link{RGB}}, \code{\link{HSV}}, \code{\link{XYZ}},
 #' \code{\link{LAB}}, \code{\link{polarLAB}}, \code{\link{LUV}},
@@ -371,7 +371,7 @@ LAB <-
 #' Create polarLAB Colors
 #' 
 #' This function creates colors of class ``polarLAB''; a subclass of the
-#' virtual ``color'' class.
+#' virtual \code{\link{color-class}} class.
 #' 
 #' The polarLAB space is a transformation of the CIE \eqn{L^*a^*b^*}{L*a*b*}
 #' space so that the \eqn{a} and \eqn{b} values are converted to polar
@@ -383,7 +383,7 @@ LAB <-
 #' vectors or in a three-column matrix passed as \code{L}.
 #' @param names A vector of names for the colors (by default the row names of
 #' \code{L} are used).
-#' @return An object of class ``polarLAB'' which inherits from class ``color.''
+#' @return An object of class \code{polarLAB} which inherits from class \code{color}.
 #' @author Ross Ihaka
 #' @seealso \code{\link{RGB}}, \code{\link{HSV}}, \code{\link{XYZ}},
 #' \code{\link{LAB}}, \code{\link{polarLAB}}, \code{\link{LUV}},
@@ -419,7 +419,7 @@ polarLAB <-
 #' Create HSV Colors
 #' 
 #' This function creates colors of class HSV; a subclass of the virtual
-#' ``color'' class.
+#' \code{\link{color-class}} class.
 #' 
 #' This function creates colors in the HSV color space which corresponds to the
 #' standard sRGB color space (IEC standard 61966).  The hues should lie between
@@ -431,7 +431,7 @@ polarLAB <-
 #' \code{V} vectors or in a three-column matrix passed as \code{H}.
 #' @param names A vector of names for the colors (by default the row names of
 #' \code{H} are used).
-#' @return An object of class ``HSV'' which inherits from class ``color.''
+#' @return An object of class \code{HSV} which inherits from class \code{color}.
 #' @author Ross Ihaka
 #' @seealso \code{\link{RGB}}, \code{\link{XYZ}}, \code{\link{LAB}},
 #' \code{\link{polarLAB}}, \code{\link{LUV}}, \code{\link{polarLUV}}.
@@ -461,7 +461,7 @@ HSV <-
 #' Create HLS Colors
 #' 
 #' This function creates colors of class HLS; a subclass of the virtual
-#' ``color'' class.
+#' \code{\link{color-class}} class.
 #' 
 #' This function creates colors in the HLS color space which corresponds to the
 #' standard sRGB color space (IEC standard 61966).  The hues should lie between
@@ -473,7 +473,7 @@ HSV <-
 #' \code{S} vectors or in a three-column matrix passed as \code{H}.
 #' @param names A vector of names for the colors (by default the row names of
 #' \code{H} are used).
-#' @return An object of class ``HLS'' which inherits from class ``color.''
+#' @return An object of class \code{HLS} which inherits from class \code{color}.
 #' @author Ross Ihaka
 #' @seealso \code{\link{RGB}}, \code{\link{XYZ}}, \code{\link{LAB}},
 #' \code{\link{polarLAB}}, \code{\link{LUV}}, \code{\link{polarLUV}}.
@@ -503,7 +503,7 @@ HLS <-
 #' Create LUV Colors
 #' 
 #' This function creates colors of class ``LUV''; a subclass of the virtual
-#' ``color'' class.
+#' \code{\link{color-class}} class.
 #' 
 #' The \code{L}, \code{U} and \code{V} values give the coordinates of the
 #' colors in the CIE (1976) \eqn{L^*u^*v^*}{L*u*v*} space.  This is a
@@ -517,7 +517,7 @@ HLS <-
 #' vectors or in a three-column matrix passed as \code{L}.
 #' @param names a vector of names for the colors (by default the row names of
 #' \code{L} are used).
-#' @return An object of class ``LUV'' which inherits from class ``color.''
+#' @return An object of class \code{LUV} which inherits from class \code{color}.
 #' @author Ross Ihaka
 #' @seealso \code{\link{RGB}}, \code{\link{HSV}}, \code{\link{XYZ}},
 #' \code{\link{LAB}}, \code{\link{polarLAB}}, \code{\link{polarLUV}}.
@@ -548,22 +548,23 @@ LUV <-
 
 
 
-#' Create polarLUV Colors
+#' Create polarLUV (HCL) Colors
 #' 
 #' This function creates colors of class ``polarLUV''; a subclass of the
-#' virtual ``color'' class.
+#' virtual \code{\link{color-class}} class.
 #' 
 #' The polarLUV space is a transformation of the CIE \eqn{L^*u^*u^*}{L*u*u*}
 #' space so that the \eqn{u} and \eqn{u} values are converted to polar
 #' coordinates.  The radial component \eqn{C} measures chroma and the angular
-#' coordinate \eqn{H} is measures hue.
+#' coordinate \eqn{H} is measures hue. It is also known as the HCL
+#' (hue-chroma-luminance) space.
 #' 
 #' @param L,C,H these arguments give the L, C and H coordinates of the colors.
 #' The values can be provided in separate \code{L}, \code{C} and \code{H}
 #' vectors or in a three-column matrix passed as \code{L}.
 #' @param names A vector of names for the colors (by default the row names of
 #' \code{L} are used).
-#' @return An object of class ``polarLUV'' which inherits from class ``color.''
+#' @return An object of class \code{polarLUV} which inherits from class \code{color}.
 #' @author Ross Ihaka
 #' @seealso \code{\link{RGB}}, \code{\link{HSV}}, \code{\link{XYZ}},
 #' \code{\link{LAB}}, \code{\link{polarLAB}}, \code{\link{LUV}},
@@ -643,7 +644,7 @@ setAs("color", "polarLUV", function(from)
 
 #' Convert Colors to Hexadecimal Strings
 #' 
-#' This functions converts ``color'' objects into hexadecimal strings.
+#' This functions converts \code{\link{color-class}} objects into hexadecimal strings.
 #' 
 #' The color objects are first converted to sRGB color objects.  They are then
 #' multiplied by 255 and rounded to obtain an integer value.  These values are
@@ -685,7 +686,7 @@ hex <-
 #' Convert Hexadecimal Color Specifications to sRGB Objects
 #' 
 #' This function takes a vector of strings of the form \code{"#RRGGBB"}
-#' (hexadecimal color descriptions) into sRGB objects.
+#' (hexadecimal color descriptions) into \code{\link{sRGB}} objects.
 #' 
 #' This function converts device-dependent color descriptions of the form
 #' \code{"#RRGGBB"} into sRGB color descriptions (linearized if \code{gamma} is
@@ -694,7 +695,7 @@ hex <-
 #' 
 #' @param x a vector of hexadecimal color descriptions.
 #' @param gamma Whether to apply gamma-correction.
-#' @return An RGB object describing the colors.
+#' @return An sRGB object describing the colors.
 #' @author Ross Ihaka
 #' @seealso \code{\link{hex}}, \code{\link{RGB}}, \code{\link{sRGB}},
 #' \code{\link{HSV}}, \code{\link{XYZ}}, \code{\link{polarLAB}},

@@ -15,11 +15,11 @@ vectors or in a three-column matrix passed as \code{L}.}
 \code{L} are used).}
 }
 \value{
-An object of class ``polarLAB'' which inherits from class ``color.''
+An object of class \code{polarLAB} which inherits from class \code{color}.
 }
 \description{
 This function creates colors of class ``polarLAB''; a subclass of the
-virtual ``color'' class.
+virtual \code{\link{color-class}} class.
 }
 \details{
 The polarLAB space is a transformation of the CIE \eqn{L^*a^*b^*}{L*a*b*}

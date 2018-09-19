@@ -15,11 +15,11 @@ vectors or in a three-column matrix passed as \code{X}.}
 \code{X} are used).}
 }
 \value{
-An object of class ``XYZ'' which inherits from class ``color.''
+An object of class \code{XYZ} which inherits from class \code{color}.
 }
 \description{
 This function creates colors of class XYZ; a subclass of the virtual
-``color'' class.
+\code{\link{color-class}} class.
 }
 \details{
 The X, Y and Z values are the levels of the CIE primaries.  These are scaled

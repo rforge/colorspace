@@ -15,11 +15,11 @@ vectors or in a three-column matrix passed as \code{L}.}
 \code{L} are used).}
 }
 \value{
-An object of class ``LUV'' which inherits from class ``color.''
+An object of class \code{LUV} which inherits from class \code{color}.
 }
 \description{
 This function creates colors of class ``LUV''; a subclass of the virtual
-``color'' class.
+\code{\link{color-class}} class.
 }
 \details{
 The \code{L}, \code{U} and \code{V} values give the coordinates of the

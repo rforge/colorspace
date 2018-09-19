@@ -15,11 +15,11 @@ colors. The values can be provided in separate \code{H}, \code{L} and
 \code{H} are used).}
 }
 \value{
-An object of class ``HLS'' which inherits from class ``color.''
+An object of class \code{HLS} which inherits from class \code{color}.
 }
 \description{
 This function creates colors of class HLS; a subclass of the virtual
-``color'' class.
+\code{\link{color-class}} class.
 }
 \details{
 This function creates colors in the HLS color space which corresponds to the

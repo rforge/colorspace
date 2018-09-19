@@ -15,11 +15,11 @@ colors. The values can be provided in separate \code{H}, \code{S} and
 \code{H} are used).}
 }
 \value{
-An object of class ``HSV'' which inherits from class ``color.''
+An object of class \code{HSV} which inherits from class \code{color}.
 }
 \description{
 This function creates colors of class HSV; a subclass of the virtual
-``color'' class.
+\code{\link{color-class}} class.
 }
 \details{
 This function creates colors in the HSV color space which corresponds to the

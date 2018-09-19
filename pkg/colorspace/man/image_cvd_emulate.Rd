@@ -22,6 +22,7 @@ be a png image name.}
 }
 \description{
 Used in \code{cvd_emulator}. Takes an image object and converts
-the colors using deutan/protan/tritan/desaturate functions. Image
-will be written to disc as a png image.
+the colors using \code{\link{deutan}}, \code{\link{protan}},
+\code{\link{tritan}}, \code{\link{desaturate}} functions. The image
+will be written to disc as a PNG file.
 }

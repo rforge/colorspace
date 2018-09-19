@@ -16,6 +16,6 @@ Returns a \code{list} with two elements. Each can take
    If non of both, both will be \code{FALSE}. Method is not case sensitive.
 }
 \description{
-Checking image file type based on image file name! Used to decide
+Checking image file type based on image file name. Used to decide
 which package has to be used to read an image from disc (\code{png}/\code{jpeg}).
 }

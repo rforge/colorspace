@@ -80,8 +80,9 @@ check_image_type <- function( x ) {
 #' Convert Colors of an Image
 #'
 #' Used in \code{cvd_emulator}. Takes an image object and converts
-#' the colors using deutan/protan/tritan/desaturate functions. Image
-#' will be written to disc as a png image.
+#' the colors using \code{\link{deutan}}, \code{\link{protan}},
+#' \code{\link{tritan}}, \code{\link{desaturate}} functions. The image
+#' will be written to disc as a PNG file.
 #'
 #' @param img \code{array} as returned by \code{readPNG} and \code{readJPEG}
 #'    of size \code{height x width x depth}. The depth coordinate contains

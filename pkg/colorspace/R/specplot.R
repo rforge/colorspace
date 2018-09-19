@@ -1,21 +1,21 @@
 #' Color Spectrum Plot
 #' 
-#' Visualization of color palettes (given as hex codes) in RGB and/or HCL
+#' Visualization of color palettes (given as hex codes) in HCL and/or RGB
 #' coordinates.
 #' 
 #' The function \code{specplot} transforms a given color palette in hex codes
-#' into their RGB (\code{\link[colorspace]{sRGB}}) and/or HCL
-#' (\code{\link[colorspace]{polarLUV}}) coordinates. As the hues for low-chroma
+#' into their HCL (\code{\link[colorspace]{polarLUV}}) and/or RGB
+#' (\code{\link[colorspace]{sRGB}}) coordinates. As the hues for low-chroma
 #' colors are not (or poorly) identified, by default a smoothing is applied to
 #' the hues (\code{fix = TRUE}). Also, to avoid jumps from 0 to 360 or vice
 #' versa, the hue coordinates are shifted suitably.
 #' 
-#' By default, (\code{plot = TRUE}) the resulting RGB and HCL coordinates are
+#' By default (\code{plot = TRUE}), the resulting HCL and RGB coordinates are
 #' visualized by simple line plots along with the color palette \code{x}
 #' itself.
 #' 
 #' For comparing two palettes, \code{specplot(x, y)} can be used which adds
-#' lines (dashed, by default) corresponding to the \code{y} palette RGB/HCL
+#' lines (dashed, by default) corresponding to the \code{y} palette HCL/RGB
 #' coordinates in the display.
 #' 
 #' @param x character vector containing color hex codes.
@@ -36,8 +36,9 @@
 #' @param palette logical. Should the given palette \code{x} be plotted?
 #' @param plot logical. Should the RGB and/or HCL coordinates be plotted?
 #' @return \code{specplot} invisibly returns a list with components
-#' \item{RGB}{a matrix of sRGB coordinates,} \item{HCL}{a matrix of HCL
-#' coordinates,} \item{hex}{original color palette \code{x}.}
+#' \item{HCL}{a matrix of HCL coordinates,}
+#' \item{RGB}{a matrix of sRGB coordinates,}
+#' \item{hex}{original color palette \code{x}.}
 #' @author Reto Stauffer, Achim Zeileis
 #' @seealso \code{\link{hcl_palettes}}, \code{\link{hclplot}}
 #' @references Zeileis A, Hornik K, Murrell P (2009).  Escaping RGBland:
@@ -246,8 +247,8 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
   # Return
   if ( length(x.na) > 0 ) x[x.na] <- NA
   invisible(list(
-    RGB = RGB,
     HCL = HCL,
+    RGB = RGB,
     hex = x)
   ) 
 }

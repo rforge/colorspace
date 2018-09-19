@@ -30,6 +30,10 @@
 #' emulate different types of color-blindness (without red-green or green-blue
 #' contrasts) using the \code{\link{simulate_cvd}} functions.
 #' 
+#' \code{choose_palette} by default starts the Tcl/Tk version of the GUI while
+#' \code{hclwizard} by default starts the shiny version. \code{hcl_wizard} is
+#' an alias for \code{hclwizard}.
+#' 
 #' @param pal function; the initial palette, see \sQuote{Value} below.  Only
 #' used if \code{gui = "tcltk"}.
 #' @param n integer; the initial number of colors in the palette.
@@ -89,6 +93,7 @@ hclwizard <- function(n = 7L, gui = "shiny", shiny.trace = FALSE) {
 }
 
 #' @rdname choose_palette
+#' @usage NULL
 #' @export
 hcl_wizard <- function(n = 7L, gui = "shiny", shiny.trace = FALSE)
    hclwizard(n=n,gui=gui,shiny.trace=FALSE)

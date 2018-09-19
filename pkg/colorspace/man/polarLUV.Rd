@@ -2,7 +2,7 @@
 % Please edit documentation in R/colorspace.R
 \name{polarLUV}
 \alias{polarLUV}
-\title{Create polarLUV Colors}
+\title{Create polarLUV (HCL) Colors}
 \usage{
 polarLUV(L, C, H, names)
 }
@@ -15,17 +15,18 @@ vectors or in a three-column matrix passed as \code{L}.}
 \code{L} are used).}
 }
 \value{
-An object of class ``polarLUV'' which inherits from class ``color.''
+An object of class \code{polarLUV} which inherits from class \code{color}.
 }
 \description{
 This function creates colors of class ``polarLUV''; a subclass of the
-virtual ``color'' class.
+virtual \code{\link{color-class}} class.
 }
 \details{
 The polarLUV space is a transformation of the CIE \eqn{L^*u^*u^*}{L*u*u*}
 space so that the \eqn{u} and \eqn{u} values are converted to polar
 coordinates.  The radial component \eqn{C} measures chroma and the angular
-coordinate \eqn{H} is measures hue.
+coordinate \eqn{H} is measures hue. It is also known as the HCL
+(hue-chroma-luminance) space.
 }
 \examples{
 ## Show the polarLUV space

@@ -17,16 +17,17 @@ Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "iha
                     comment = c(ORCID = "0000-0001-7346-3047")),
              person(given = "Achim", family = "Zeileis", role = c("aut", "cre"), email = "Achim.Zeileis@R-project.org",
                     comment = c(ORCID = "0000-0003-0918-3766")))
-Description: Carries out mapping between assorted color spaces including
-             RGB, HSV, HLS, CIEXYZ, CIELUV, HCL (polar CIELUV),
-	     CIELAB and polar CIELAB. Qualitative, sequential, and
-	     diverging color palettes based on HCL colors are provided
-	     along with an interactive palette picker (with either a Tcl/Tk
-	     or a shiny GUI). Corresponding color scales for ggplot2.
-	     Various transformations are provided: desaturation,
-	     lightening/darkening, and simulation of color vision deficiencies
-	     (deutanomaly, protanomaly, tritanomaly).
-Depends: R (>= 2.13.0), methods
+Description: Carries out mapping between assorted color spaces including RGB, HSV, HLS,
+             CIEXYZ, CIELUV, HCL (polar CIELUV), CIELAB and polar CIELAB.
+	     Qualitative, sequential, and diverging color palettes based on HCL colors
+	     are provided along with an interactive palette picker (with either a Tcl/Tk
+	     or a shiny GUI). Further GUIs include an HCL color picker and a
+	     color vision deficiency emulator. Plotting functions for displaying
+	     and assessing palettes include color swatches, visualizations of the
+	     HCL space, and trajectories in HCL and/or RGB spectrum. Color manipulation
+	     functions include: desaturation, lightening/darkening, mixing, and
+	     simulation of color vision deficiencies (deutanomaly, protanomaly, tritanomaly).
+Depends: R (>= 3.0.0), methods
 Imports: graphics, grDevices, stats
 Suggests: datasets, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd,
           tcltk, shiny, shinyjs,

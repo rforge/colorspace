@@ -59,16 +59,9 @@
 #' \doi{10.1175/BAMS-D-13-00155.1}
 #' @keywords color
 #' @examples
-#' ## convenience demo functions
+#' ## convenience demo function
 #' wheel <- function(col, radius = 1, ...)
 #'   pie(rep(1, length(col)), col = col, radius = radius, ...) 
-#' 
-#' pal <- function(col, border = "light gray")
-#' {
-#'   n <- length(col)
-#'   plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), axes = FALSE, xlab = "", ylab = "")
-#'   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
-#' }
 #' 
 #' ## compare base and colorspace palettes
 #' ## (in color and desaturated)

@@ -61,7 +61,7 @@ flexible (and possibly unbalanced) multi-hue sequential palettes.
 }
 \details{
 The \code{divergingx_hcl} function simply calls \code{\link{sequential_hcl}}
-twice with a prespecified set of hue/chroma/luminance parameters. This is
+twice with a prespecified set of hue, chroma, and luminance parameters. This is
 similar to \code{\link{diverging_hcl}} but allows for more flexibility:
 \code{diverging_hcl} employs two \emph{single-hue} sequential palettes,
 always uses zero chroma for the neutral/central color, and restricts the

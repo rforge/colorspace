@@ -273,7 +273,7 @@ Type 'q()' to quit R.
 > 
 > ### ** Examples
 > 
-> x = RGB(runif(1000),runif(1000),runif(1000))
+> x <- RGB(runif(1000), runif(1000), runif(1000))
 > plot(as(x, "LUV"))
 > 
 > 
@@ -333,7 +333,7 @@ Type 'q()' to quit R.
 > wheel(desaturate(rainbow(12)))
 > 
 > ## apply desaturation directly on RGB values
-> RGB <- t(hex2RGB(rainbow(3))@coords*255)
+> RGB <- t(hex2RGB(rainbow(3))@coords * 255)
 > desaturate(RGB)
       [,1]     [,2]     [,3]
 R 127.1223 219.9281 75.94690
@@ -373,7 +373,7 @@ B 127.1266 219.9352 75.94962
 > 
 > ### Name: hcl_color_picker
 > ### Title: Shiny App to Pick Colors in HCL Space
-> ### Aliases: hcl_color_picker hclcolorpicker
+> ### Aliases: hcl_color_picker choose_color hclcolorpicker
 > ### Keywords: misc
 > 
 > ### ** Examples
@@ -468,11 +468,12 @@ Parameter ranges:
 > ## for qualitative palettes luminance and chroma are fixed, varying only hue
 > hclplot(qualitative_hcl(9, c = 50, l = 70))
 > 
-> ## simple single-hue sequential palette (h = 260) with linear and power-transformed trajectory
+> ## single-hue sequential palette (h = 260) with linear vs. power-transformed trajectory
 > hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1))
 > hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1.5))
 > 
-> ## single-hue sequential palette with triangular chroma trajectory (piecewise linear and power-transformed)
+> ## advanced single-hue sequential palette with triangular chroma trajectory
+> ## (piecewise linear vs. power-transformed)
 > hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = 1))
 > hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = c(0.8, 1.4)))
 > 
@@ -503,11 +504,12 @@ Parameter ranges:
 > ## for qualitative palettes luminance and chroma are fixed, varying only hue
 > hclplot(qualitative_hcl(9, c = 50, l = 70))
 > 
-> ## simple single-hue sequential palette (h = 260) with linear and power-transformed trajectory
+> ## single-hue sequential palette (h = 260) with linear vs. power-transformed trajectory
 > hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1))
 > hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1.5))
 > 
-> ## single-hue sequential palette with triangular chroma trajectory (piecewise linear and power-transformed)
+> ## advanced single-hue sequential palette with triangular chroma trajectory
+> ## (piecewise linear vs. power-transformed)
 > hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = 1))
 > hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = c(0.8, 1.4)))
 > 
@@ -584,69 +586,44 @@ Parameter ranges:
 > 
 > ### ** Examples
 > 
-> ## convenience demo function
-> pal <- function(col, border = "light gray") {
-+   n <- length(col)
-+   plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), axes = FALSE,
-+        xlab = "", ylab = "")
-+   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
-+ }
-> 
 > # lighten dark colors, example 1
-> cl <- rainbow_hcl(5)
-> par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
-> pal(cl); mtext("HCL")
-> pal(cl); mtext("HLS")
-> pal(cl); mtext("combined")
-> pal(lighten(cl, 0.15))
-> pal(lighten(cl, 0.15, space = "HLS"))
-> pal(lighten(cl, 0.15, space = "combined"))
-> pal(lighten(cl, 0.3))
-> pal(lighten(cl, 0.3, space = "HLS"))
-> pal(lighten(cl, 0.3, space = "combined"))
+> cl <- qualitative_hcl(5)
+> swatchplot(list(
++   HCL      = rbind("0%" = cl, "15%" = lighten(cl, 0.15),                     "30%" = lighten(cl, 0.3)),
++   HLS      = rbind("0%" = cl, "15%" = lighten(cl, 0.15, space = "HLS"),      "30%" = lighten(cl, 0.3, space = "HLS")),
++   combined = rbind("0%" = cl, "15%" = lighten(cl, 0.15, space = "combined"), "30%" = lighten(cl, 0.3, space = "combined"))),
++   nrow = 4, line = 2.5
++ )
 > 
 > # lighten dark colors, example 2
 > cl <- c("#61A9D9", "#ADD668", "#E6D152", "#CE6BAF", "#797CBA")
-> par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
-> pal(cl); mtext("HCL")
-> pal(cl); mtext("HLS")
-> pal(cl); mtext("combined")
-> pal(lighten(cl, 0.15))
-> pal(lighten(cl, 0.15, space = "HLS"))
-> pal(lighten(cl, 0.15, space = "combined"))
-> pal(lighten(cl, 0.30))
-> pal(lighten(cl, 0.30, space = "HLS"))
-> pal(lighten(cl, 0.30, space = "combined"))
+> swatchplot(list(
++   HCL      = rbind("0%" = cl, "15%" = lighten(cl, 0.15),                     "30%" = lighten(cl, 0.3)),
++   HLS      = rbind("0%" = cl, "15%" = lighten(cl, 0.15, space = "HLS"),      "30%" = lighten(cl, 0.3, space = "HLS")),
++   combined = rbind("0%" = cl, "15%" = lighten(cl, 0.15, space = "combined"), "30%" = lighten(cl, 0.3, space = "combined"))),
++   nrow = 4, line = 2.5
++ )
 > 
 > # darken light colors, example 1
-> cl <- rainbow_hcl(5, l = 90, c = 35)
-> par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
-> pal(cl); mtext("combined")
-> pal(cl); mtext("HCL")
-> pal(cl); mtext("HLS")
-> pal(darken(cl, 0.15))
-> pal(darken(cl, 0.15, space = "HCL"))
-> pal(darken(cl, 0.15, space = "HLS"))
-> pal(darken(cl, 0.30))
-> pal(darken(cl, 0.30, space = "HCL"))
-> pal(darken(cl, 0.30, space = "HLS"))
+> cl <- qualitative_hcl(5, "Pastel 1")
+> swatchplot(list(
++   combined = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "combined"), "30%" = darken(cl, 0.3, space = "combined")),
++   HCL      = rbind("0%" = cl, "15%" = darken(cl, 0.15),                     "30%" = darken(cl, 0.3)),
++   HLS      = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "HLS"),      "30%" = darken(cl, 0.3, space = "HLS"))),
++   nrow = 4, line = 2.5
++ )
 > 
 > # darken light colors, example 2 
 > cl <- c("#CDE4F3","#E7F3D3","#F7F0C7","#EFCFE5","#D0D1E7")
-> par(mfrow = c(3, 3), mar = rep(0, 4), oma = c(0, 0, 2, 0))
-> pal(cl); mtext("combined")
-> pal(cl); mtext("HCL")
-> pal(cl); mtext("HLS")
-> pal(darken(cl, 0.15))
-> pal(darken(cl, 0.15, space = "HCL"))
-> pal(darken(cl, 0.15, space = "HLS"))
-> pal(darken(cl, 0.30))
-> pal(darken(cl, 0.30, space = "HCL"))
-> pal(darken(cl, 0.30, space = "HLS"))
+> swatchplot(list(
++   combined = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "combined"), "30%" = darken(cl, 0.3, space = "combined")),
++   HCL      = rbind("0%" = cl, "15%" = darken(cl, 0.15),                     "30%" = darken(cl, 0.3)),
++   HLS      = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "HLS"),      "30%" = darken(cl, 0.3, space = "HLS"))),
++   nrow = 4, line = 2.5
++ )
 > 
 > 
 > 
-> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("max_chroma")
 > ### * max_chroma
@@ -724,7 +701,7 @@ Parameter ranges:
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: polarLUV
-> ### Title: Create polarLUV Colors
+> ### Title: Create polarLUV (HCL) Colors
 > ### Aliases: polarLUV
 > ### Keywords: color
 > 
@@ -757,16 +734,9 @@ Parameter ranges:
 > 
 > ### ** Examples
 > 
-> ## convenience demo functions
+> ## convenience demo function
 > wheel <- function(col, radius = 1, ...)
 +   pie(rep(1, length(col)), col = col, radius = radius, ...) 
-> 
-> pal <- function(col, border = "light gray")
-+ {
-+   n <- length(col)
-+   plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1), axes = FALSE, xlab = "", ylab = "")
-+   rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border)
-+ }
 > 
 > ## compare base and colorspace palettes
 > ## (in color and desaturated)
@@ -1268,19 +1238,6 @@ B    0   11  247
 > ## return computed RGB and HCL coordinates
 > res <- specplot(rainbow(10), plot = FALSE)
 > print(res)
-$RGB
-        R   G   B
- [1,] 1.0 0.0 0.0
- [2,] 1.0 0.6 0.0
- [3,] 0.8 1.0 0.0
- [4,] 0.2 1.0 0.0
- [5,] 0.0 1.0 0.4
- [6,] 0.0 1.0 1.0
- [7,] 0.0 0.4 1.0
- [8,] 0.2 0.0 1.0
- [9,] 0.8 0.0 1.0
-[10,] 1.0 0.0 0.6
-
 $HCL
               H         C        L
  [1,]  12.17395 179.04076 53.24059
@@ -1293,6 +1250,19 @@ $HCL
  [8,] 267.22822 132.04235 33.81769
  [9,] 291.97946 133.06241 51.90335
 [10,] 346.98811 133.87809 55.65064
+
+$RGB
+        R   G   B
+ [1,] 1.0 0.0 0.0
+ [2,] 1.0 0.6 0.0
+ [3,] 0.8 1.0 0.0
+ [4,] 0.2 1.0 0.0
+ [5,] 0.0 1.0 0.4
+ [6,] 0.0 1.0 1.0
+ [7,] 0.0 0.4 1.0
+ [8,] 0.2 0.0 1.0
+ [9,] 0.8 0.0 1.0
+[10,] 1.0 0.0 0.6
 
 $hex
  [1] "#FF0000FF" "#FF9900FF" "#CCFF00FF" "#33FF00FF" "#00FF66FF" "#00FFFFFF"
@@ -1325,9 +1295,9 @@ $hex
 > ## swatches of named palette matrices
 > bprg <- c("Blues", "Purples", "Reds", "Greens")
 > swatchplot(
-+   "Single-hue (simple)"   = t(sapply(paste(bprg, 2), sequential_hcl, n = 7)),
-+   "Single-hue (extended)" = t(sapply(paste(bprg, 3), sequential_hcl, n = 7)),
-+   "Multi-hue (extended)"  = t(sapply(bprg,           sequential_hcl, n = 7)),
++   "Single-hue"            = t(sapply(paste(bprg, 2), sequential_hcl, n = 7)),
++   "Single-hue (advanced)" = t(sapply(paste(bprg, 3), sequential_hcl, n = 7)),
++   "Multi-hue (advanced)"  = t(sapply(bprg,           sequential_hcl, n = 7)),
 +   nrow = 5
 + )
 > 
@@ -1396,7 +1366,7 @@ $hex
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  6.105 0.06 6.169 0 0 
+Time elapsed:  6.319 0.085 6.413 0 0 
 > grDevices::dev.off()
 null device 
           1 

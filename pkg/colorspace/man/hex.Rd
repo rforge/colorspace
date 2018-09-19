@@ -19,7 +19,7 @@ correction.  The default is to convert out-of-gamut colors to the string
 A vector of character strings.
 }
 \description{
-This functions converts ``color'' objects into hexadecimal strings.
+This functions converts \code{\link{color-class}} objects into hexadecimal strings.
 }
 \details{
 The color objects are first converted to sRGB color objects.  They are then
