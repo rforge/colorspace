@@ -299,6 +299,60 @@ Type 'q()' to quit R.
 > 
 > 
 > cleanEx()
+> nameEx("demoplot")
+> ### * demoplot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: demoplot
+> ### Title: Color Palette Demonstration Plot
+> ### Aliases: demoplot
+> ### Keywords: hplot
+> 
+> ### ** Examples
+> 
+> ## all built-in demos with the same sequential heat color palette
+> par(mfrow = c(3, 3))
+> cl <- sequential_hcl(5, "Heat")
+> for (i in c("map", "heatmap", "scatter", "spine", "bar", "pie", "perspective", "mosaic", "lines")) {
++   demoplot(cl, type = i)
++ }
+> 
+> ## qualitative palettes: light pastel colors for shading areas (pie)
+> ## and darker colorful palettes for points or lines
+> demoplot(qualitative_hcl(4, "Pastel 1"), type = "pie")
+> demoplot(qualitative_hcl(4, "Set 2"), type = "scatter")
+> demoplot(qualitative_hcl(4, "Dark 3"), type = "lines")
+> 
+> ## sequential palettes: display almost continuous gradients with
+> ## strong luminance contrasts (heatmap, perspective) and colorful
+> ## sequential palette for spine plot with only a few ordered categories
+> demoplot(sequential_hcl(99, "Purple-Blue"), type = "heatmap")
+> demoplot(sequential_hcl(99, "Reds"), type = "perspective")
+> demoplot(sequential_hcl(4, "Viridis"), type = "spine")
+> 
+> ## diverging palettes: display almost continuous gradient with
+> ## strong luminance contrast bringing out the extremes (map),
+> ## more colorful palette with lower luminance contrasts for displays
+> ## with fewer colors (mosaic, bar)
+> demoplot(diverging_hcl(99, "Tropic", power = 2.5), type = "map")
+> demoplot(diverging_hcl(5, "Green-Orange"), type = "mosaic")
+> demoplot(diverging_hcl(5, "Blue-Red 2"), type = "bar")
+> 
+> ## some palettes that work well on black backgrounds
+> par(mfrow = c(2, 3), bg = "black")
+> demoplot(sequential_hcl(9, "Oslo"), "heatmap")
+> demoplot(sequential_hcl(9, "Turku"), "heatmap")
+> demoplot(sequential_hcl(9, "Inferno", rev = TRUE), "heatmap")
+> demoplot(qualitative_hcl(9, "Set 2"), "lines")
+> demoplot(diverging_hcl(9, "Berlin"), "scatter")
+> demoplot(diverging_hcl(9, "Cyan-Magenta", l2 = 20), "lines")
+> 
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
 > nameEx("desaturate")
 > ### * desaturate
 > 
@@ -1366,7 +1420,7 @@ $hex
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  6.319 0.085 6.413 0 0 
+Time elapsed:  7.521 0.069 7.608 0 0 
 > grDevices::dev.off()
 null device 
           1 
