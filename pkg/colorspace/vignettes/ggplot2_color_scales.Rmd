@@ -9,14 +9,14 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 ```{r echo=FALSE, message=FALSE}
-library(ggplot2)
-library(colorspace)
+library("ggplot2")
+library("colorspace")
 theme_set(theme_minimal())
 ```
 
 ## Using the scales in ggplot2
 
-All scales are called via the scheme `scale_<aesthetic>_<datatype>_<colorscale>()`, where `<aesthetic>` is the name of the aesthetic (`fill`, `color`, `colour`), `<datatype>` is the type of the variable plotted (`discrete` or `continuous`) and `<colorscale>` sets the type of the color scale used (`qualitative`, `sequential`, `diverging`). We now provide a few examples of these scales.
+All scales are called via the scheme `scale_<aesthetic>_<datatype>_<colorscale>()`, where `<aesthetic>` is the name of the aesthetic (`fill`, `color`, `colour`), `<datatype>` is the type of the variable plotted (`discrete` or `continuous`) and `<colorscale>` sets the type of the color scale used (`qualitative`, `sequential`, `diverging`, `divergingx`). We now provide a few examples of these scales.
 
 A discrete qualitative scale applied to a fill aesthetic corresponds to the function `scale_fill_discrete_qualitative()`:
 ```{r fig.width = 6.5, fig.asp = 0.7, fig.align = 'center'}
