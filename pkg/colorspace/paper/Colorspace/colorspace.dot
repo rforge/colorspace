@@ -11,7 +11,6 @@ graph colorspace {
     L2 [label="" color=white]
     LUV [label = "CIELUV" shape=box style=filled]
     LAB [label = "CIELAB" shape=box style=filled]
-    HunterLAB [label = "Hunter LAB" shape=box style=filled]
     R2 [label="" color=white]
 }
 
@@ -39,14 +38,13 @@ LUV -- polarLUV
 LAB -- polarLAB
 XYZ -- LUV
 XYZ -- LAB
-XYZ -- HunterLAB
 
-XYZ -- RGB [label=" white point = D65)"]
+XYZ -- RGB [label=" white point (= D65)"]
 
 RGB -- HSV
 RGB -- HSL
 
-sRGB -- RGB [label=" gamma = 2.4"]
+sRGB -- RGB [label=" gamma (= 2.4)"]
 
 sRGB -- HSV
 sRGB -- HSL
