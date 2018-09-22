@@ -4,9 +4,9 @@
 \alias{hclplot}
 \title{Palette Plot in HCL Space}
 \usage{
-hclplot(x, type = NULL, h = NULL, c = NULL, l = NULL,
-  xlab = NULL, ylab = NULL, main = NULL, cex = 1, axes = TRUE,
-  bg = "white", lwd = 1, size = 2.5, ...)
+hclplot(x, type = NULL, h = NULL, c = NULL, l = NULL, xlab = NULL,
+  ylab = NULL, main = NULL, cex = 1, axes = TRUE, bg = "white",
+  lwd = 1, size = 2.5, ...)
 }
 \arguments{
 \item{x}{character vector containing color hex codes, or a \code{\link{color-class}}

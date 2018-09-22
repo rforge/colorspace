@@ -6,7 +6,7 @@
 #' Allows a rapid check whether the colors used in the image show some
 #' constraints with respect to color deficiency or color blindness.
 #'
-#' @param x If not set an interactive GUI will be started. If \code{x} is of type
+#' @param x If not set, an interactive GUI will be started. If \code{x} is of type
 #'    \code{character} it has to be the full path to an image of type png or jpg/jpeg.
 #'    The image will be converted and stored on disc, no GUI.
 #' @param overwrite \code{logical}. Only used if \code{x} is provided. Allow the
@@ -16,44 +16,47 @@
 #' @author Reto Stauffer, Claus O. Wilke, Achim Zeileis
 #' @rdname cvd_emulator
 #' @export
-cvd_emulator <- function(x, overwrite = FALSE, shiny.trace = FALSE) {
+cvd_emulator <- function(file, overwrite = FALSE, shiny.trace = FALSE) {
 
-   # If input 'x' is missing: start interactive GUI
-   if ( missing(x) ) {
+   # If input 'file' is missing: start interactive GUI
+   if ( missing(file) ) {
       # Requirements for shiny application
       stopifnot(requireNamespace("shiny"))
       appDir <- system.file("cvdemulator", package = "colorspace")
       if (appDir == "")
          stop("Could not find cvdemulator app directory. Try re-installing `colorspace`.", call. = FALSE)
       # Start shiny
-      options(shiny.trace=shiny.trace)
+      options(shiny.trace = shiny.trace)
       pal <- shiny::runApp(appDir, display.mode = "normal", quiet = TRUE )
 
    # Do not start shiny: convert and save images on disc
    } else {
-      is_img <- check_image_type(x)
+      is_img <- check_image_type(file)
       if ( ! is_img$png & ! is_img$jpg )
-         stop(sprintf("Image \"%s\" is neither png nor jpg/jpeg. Stop.",x))
+         stop(sprintf("Image \"%s\" is neither png nor jpg/jpeg. Stop.", file))
       types <- c("deutan","protan","tritan","desaturate")
-      files <- sprintf("%s/%s_%s",dirname(x),types,basename(x))
+      outfiles <- sprintf("%s/%s_%s", dirname(file), types,basename(file))
       # If overwrite is FALSE: check if files exist and stop if.
       if ( ! overwrite ) {
-         for ( file in files ) {
-            if ( file.exists(file) )
-               stop(sprintf("File \"%s\" exists. Remove image first, or use cvd_emulator(x, overwrite = TRUE)",file))
+         for ( ofile in outfiles ) {
+            if ( file.exists(ofile) )
+               stop(sprintf(paste("Output file \"%s\" exists.",
+                            "Please remove the image manually or call",
+                            "cvd_emulator(\"%s\", overwrite = TRUE)"),
+                            ofile, file))
          }
       }
       # Read image
       if ( is_img$png ) {
-         in.img <- png::readPNG( x )
+         in.img <- png::readPNG(file)
       } else {
-         in.img <- jpeg::readJPEG( x )
+         in.img <- jpeg::readJPEG(file)
       }
       # Convert and save image
       for ( type in types ) {
-         outfile <- sprintf("%s/%s_%s",dirname(x),type,basename(x))
+         outfile <- sprintf("%s/%s_%s",dirname(file),type,basename(file))
          cat(sprintf("Convert %-15s -> %s\n",type,outfile))
-         out.img <- image_cvd_emulate( in.img, type, outfile ) 
+         out.img <- cvd_image(in.img, type, outfile) 
       }
    }
 }
@@ -90,14 +93,14 @@ check_image_type <- function( x ) {
 #' @param type \code{string} name of the function which will be used to
 #'    convert the colors (\code{deutan}, \code{protan}, \code{tritan}, \code{desaturate}).
 #'    If set to \code{original} the image will be written as is.
-#' @param target \code{string} with (full) path to resulting image. Has to
+#' @param file \code{string} with (full) path to resulting image. Has to
 #'    be a png image name.
 #' @param severity numeric. Severity of the color vision defect, a number between 0 and 1.
-image_cvd_emulate <- function(img, type, target, severity = 1) {
+cvd_image <- function(img, type, file, severity = 1) {
 
    # - Save original colors
    if ( type == 'original' ) {
-      png::writePNG(img,target=target)
+      png::writePNG(img, target = file)
       return(TRUE)
    }
    # Picking data
@@ -107,7 +110,7 @@ image_cvd_emulate <- function(img, type, target, severity = 1) {
    img[,,1]  <- matrix( RGB["R",]/255, dim(img)[1], dim(img)[2])
    img[,,2]  <- matrix( RGB["G",]/255, dim(img)[1], dim(img)[2])
    img[,,3]  <- matrix( RGB["B",]/255, dim(img)[1], dim(img)[2])
-   png::writePNG(img,target=target)
+   png::writePNG(img, target = file)
    return(TRUE)
 
    # - Loading RGB values of the original image
@@ -126,6 +129,7 @@ image_cvd_emulate <- function(img, type, target, severity = 1) {
    img2[,,3] <- matrix( RGB[,'B'], dim(img)[1], dim(img)[2])
 
    # Save image to disc
-   png::writePNG(img2,target=target)
+   png::writePNG(img2, target = file)
    return(TRUE)
+
 }

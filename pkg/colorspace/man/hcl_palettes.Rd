@@ -21,16 +21,16 @@ hcl_palettes(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
   border = NULL, ...)
 
 qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
-  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1,
-  h2, c1, l1)
+  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1, h2, c1,
+  l1)
 
 sequential_hcl(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
-  rev = FALSE, ..., h1, h2, c1, c2, l1, l2, p1, p2, cmax, c.)
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE,
+  ..., h1, h2, c1, c2, l1, l2, p1, p2, cmax, c.)
 
 diverging_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
-  rev = FALSE, ..., h1, h2, c1, l1, l2, p1, p2, cmax)
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE,
+  ..., h1, h2, c1, l1, l2, p1, p2, cmax)
 }
 \arguments{
 \item{type}{character indicating type of HCL palette.}

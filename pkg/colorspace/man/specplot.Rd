@@ -4,9 +4,9 @@
 \alias{specplot}
 \title{Color Spectrum Plot}
 \usage{
-specplot(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE,
-  cex = 1, type = "l", lwd = 2 * cex, lty = 1, pch = NULL,
-  main = NULL, legend = TRUE, palette = TRUE, plot = TRUE)
+specplot(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
+  type = "l", lwd = 2 * cex, lty = 1, pch = NULL, main = NULL,
+  legend = TRUE, palette = TRUE, plot = TRUE)
 }
 \arguments{
 \item{x}{character vector containing color hex codes.}

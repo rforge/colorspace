@@ -96,6 +96,78 @@ span.hcl-slidervalue > button {
    padding-right: 1px;
 }
 
+#H1-wrapper > .hcl-slider > .shiny-input-container .irs-bar,
+#H1-wrapper > .hcl-slider > .shiny-input-container .irs-bar-edge,
+#H1-wrapper > .hcl-slider > .shiny-input-container .irs-single,
+#H2-wrapper > .hcl-slider > .shiny-input-container .irs-bar,
+#H2-wrapper > .hcl-slider > .shiny-input-container .irs-bar-edge,
+#H2-wrapper > .hcl-slider > .shiny-input-container .irs-single {
+    /*
+    border-color: #E495A5;
+    background: #E495A5;
+    */
+    border-color: #AD6071;
+    background:   #AD6071;
+}
+
+#C1-wrapper > .hcl-slider > .shiny-input-container .irs-bar,
+#C1-wrapper > .hcl-slider > .shiny-input-container .irs-bar-edge,
+#C1-wrapper > .hcl-slider > .shiny-input-container .irs-single,
+#CMAX-wrapper > .hcl-slider > .shiny-input-container .irs-bar,
+#CMAX-wrapper > .hcl-slider > .shiny-input-container .irs-bar-edge,
+#CMAX-wrapper > .hcl-slider > .shiny-input-container .irs-single,
+#C2-wrapper > .hcl-slider > .shiny-input-container .irs-bar,
+#C2-wrapper > .hcl-slider > .shiny-input-container .irs-bar-edge,
+#C2-wrapper > .hcl-slider > .shiny-input-container .irs-single {
+    /*
+    border-color: #86B875;
+    background: #86B875;
+    */
+    border-color: #51833B;
+    background:   #51833B;
+}
+
+#L1-wrapper > .hcl-slider > .shiny-input-container .irs-bar,
+#L1-wrapper > .hcl-slider > .shiny-input-container .irs-bar-edge,
+#L1-wrapper > .hcl-slider > .shiny-input-container .irs-single,
+#L2-wrapper > .hcl-slider > .shiny-input-container .irs-bar,
+#L2-wrapper > .hcl-slider > .shiny-input-container .irs-bar-edge,
+#L2-wrapper > .hcl-slider > .shiny-input-container .irs-single {
+    /*
+    border-color: #7DB0DD;
+    background: #7DB0DD;
+    */
+    border-color: #3F7CA9;
+    background:   #3F7CA9;
+}
+
+#P1-wrapper > .hcl-slider > .shiny-input-container .irs-bar,
+#P1-wrapper > .hcl-slider > .shiny-input-container .irs-bar-edge,
+#P1-wrapper > .hcl-slider > .shiny-input-container .irs-single,
+#P2-wrapper > .hcl-slider > .shiny-input-container .irs-bar,
+#P2-wrapper > .hcl-slider > .shiny-input-container .irs-bar-edge,
+#P2-wrapper > .hcl-slider > .shiny-input-container .irs-single {
+    /*
+    border-color: #ABABAB;
+    background: #ABABAB;
+    */
+    border-color: #777777;
+    background:   #777777;
+}
+
+#N-wrapper > .hcl-slider > .shiny-input-container .irs-bar,
+#N-wrapper > .hcl-slider > .shiny-input-container .irs-bar-edge,
+#N-wrapper > .hcl-slider > .shiny-input-container .irs-single {
+    /*
+    border-color: #777777;
+    background:   #777777;
+    */
+    border-color: #ABABAB;
+    background:   #ABABAB;
+}
+
+/*"#E495A5" "#86B875" "#7DB0DD" "#ABABAB"*/
+
 /* Export tab styling */
 div#hcl-main-export div.output-raw  {
    width: 25%;

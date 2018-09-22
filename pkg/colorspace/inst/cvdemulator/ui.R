@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2017-09-16, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-12 12:02 on marvin
+# - L@ST MODIFIED: 2018-09-19 06:20 on marvin
 # -------------------------------------------------------------------
 library("shiny")
 
@@ -62,7 +62,12 @@ shiny::shinyUI(bootstrapPage(
          column(4, class = "col-status",
             withTags(div(class = "fa-large", icon("spinner", lib = "font-awesome"))),
             h2("Status"),
-            textOutput("status")
+            textOutput("status"),
+            h2("Tip"),
+            p(paste("You can use the keys \"a\", \"s\", \"d\", \"f\", \"g\", \"h\"",
+                    "to navigate trough the different tabs."))
+
+
          )
       ),
 

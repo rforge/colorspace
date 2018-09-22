@@ -6,10 +6,10 @@
 \alias{scale_fill_continuous_diverging}
 \title{HCL-Based Continuous Diverging Color Scales for ggplot2}
 \usage{
-scale_colour_continuous_diverging(palette = NULL, c1 = NULL,
-  l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL,
-  p2 = NULL, rev = FALSE, mid = 0, na.value = "grey50",
-  guide = "colourbar", n_interp = 11, aesthetics = "colour", ...)
+scale_colour_continuous_diverging(palette = NULL, c1 = NULL, l1 = NULL,
+  l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL,
+  rev = FALSE, mid = 0, na.value = "grey50", guide = "colourbar",
+  n_interp = 11, aesthetics = "colour", ...)
 
 scale_color_continuous_diverging(...)
 
