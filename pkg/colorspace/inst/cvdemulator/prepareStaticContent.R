@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2016-10-23, RS: Created file on pc24-c707.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-12 12:13 on marvin
+# - L@ST MODIFIED: 2018-09-22 14:19 on marvin
 # -------------------------------------------------------------------
 
    library("colorspace")
@@ -34,6 +34,7 @@
 
    cat(" * Create static help pages using Rd2HTML\n")
    static_help("colorspace","cvd_emulator")
+   static_help("colorspace","cvd_image")
 
 
 # -------------------------------------------------------------------
@@ -73,6 +74,7 @@
    # Reading content
    cat(" * Reading html content\n")
    content1 <- getHTMLcontent("tmp_cvd_emulator.html")
+   content2 <- getHTMLcontent("tmp_cvd_image.html")
 
    # Create output file
    outfile <- "html/info.html"
@@ -85,11 +87,16 @@
       cat(sprintf("   Appending %s\n",sec))
       write(content1[[sec]], file=outfile, append=TRUE)
    }
+   for ( sec in c("Title","Description","Details","Value") ) {
+      cat(sprintf("   Appending %s\n",sec))
+      write(content2[[sec]], file=outfile, append=TRUE)
+   }
    write(content1[["References"]], file=outfile, append=TRUE)
 
    # Remove temporary rendered html pages
    cat(" * Remove temporary files\n")
    file.remove("tmp_cvd_emulator.html")
+   file.remove("tmp_cvd_image.html")
 
 
 

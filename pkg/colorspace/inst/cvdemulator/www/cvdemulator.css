@@ -114,6 +114,13 @@ div.version-info a:hover {
     background: #428bca;
 }
 
+/* Make the info-tab column smaller to make the
+ * manuals look a bit better as they have relatively little
+ * text */
+.info-tab {
+    width: 100%;
+    max-width: 600px;
+}
 
 
 

@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2016-10-23, RS: Created file on pc24-c707.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-12 12:17 on marvin
+# - L@ST MODIFIED: 2018-09-22 14:16 on marvin
 # -------------------------------------------------------------------
 
    library("colorspace")
@@ -33,7 +33,7 @@
    }
 
    # Loading defined color palettes from colorspace package
-   palettes <- colorspace:::GetPaletteConfig()
+   palettes <- colorspace:::GetPaletteConfig(gui = TRUE)
    names(palettes) <- tolower(names(palettes))
    names(palettes)[names(palettes)=='typ'] <- "type"
    # Required for do.call
@@ -42,21 +42,22 @@
    N <- 7 # Default number of colors for the palettes
    idx <- which(! names(palettes) %in% c('name'))
    for ( i in 1:nrow(palettes) ) {
-      args <- as.list(palettes[i,idx])
-      name <- gsub(" ","_",tolower(palettes$name[i]))
-      img  <- sprintf("%s/pal_%s.png",imgdir,name)
-      cat(sprintf(" * Drawing: %s\n",img))
+      args     <- as.list(palettes[i, idx])
+      args$reverse <- FALSE
+      name     <- gsub(" ","_", tolower(rownames(palettes)[i]))
+      img      <- sprintf("%s/pal_%s.png", imgdir, name)
+      cat(sprintf(" * Drawing: %s\n", img))
 
       if ( args$type == "base" ) {
-         pal <- eval(parse(text=tolower(palettes$name[i])))
+         pal <- eval(parse(text = tolower(rownames(palettes)[i])))
       } else {
-         pal <- do.call("GetPalette",args)
+         pal <- do.call("GetPalette", args)
       }
 
       # Draw color map
-      png(file=img,width=300,height=1)
-      par(bty="n",mar=rep(0,4),oma=rep(0,4))
-      image(matrix(1:7,ncol=1),col=pal(N))
+      png(file = img, width = 300, height = 1)
+      par(bty = "n", mar = rep(0, 4), oma = rep(0, 4))
+      image(matrix(1:7, ncol = 1),col = pal(N))
       dev.off()
    }
 
@@ -85,6 +86,7 @@
    static_help("colorspace","choose_palette")
    static_help("colorspace","hcl_palettes")
    static_help("colorspace","specplot")
+   static_help("colorspace","hclplot")
 
 
 # -------------------------------------------------------------------
@@ -127,6 +129,7 @@
    content1 <- getHTMLcontent("tmp_choose_palette.html")
    content2 <- getHTMLcontent("tmp_hcl_palettes.html")
    content3 <- getHTMLcontent("tmp_specplot.html")
+   content4 <- getHTMLcontent("tmp_hclplot.html")
 
    # Create output file
    outfile <- "html/info.html"
@@ -147,6 +150,10 @@
       cat(sprintf("   Appending %s\n",sec))
       write(content3[[sec]], file=outfile, append=TRUE)
    }
+   for ( sec in c("Title","Description","Details","Value") ) {
+      cat(sprintf("   Appending %s\n",sec))
+      write(content4[[sec]], file=outfile, append=TRUE)
+   }
    write(content1[["References"]], file=outfile, append=TRUE)
 
    # Remove temporary rendered html pages
@@ -154,6 +161,7 @@
    file.remove("tmp_choose_palette.html")
    file.remove("tmp_hcl_palettes.html")
    file.remove("tmp_specplot.html")
+   file.remove("tmp_hclplot.html")
 
 
 

@@ -319,18 +319,25 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     }
     type <- as.character(tcltk::tclvalue(nature.var))
 
+    # Loading default palettes via GetPaletteConfig
+    palettes <- colorspace::GetPaletteConfig(gui = TRUE)
+    names(palettes) <- tolower(names(palettes))
+    palettes$fixup  <- TRUE
+
     if (type == "Qualitative") {
-      default.pals <<- pals_to_dataframe(qual.pals)
+      default.pals <<- subset(palettes, type == "qual", select = -c(type, gui))
 
     } else if ( type == "Sequential (single hue)" ) {
-      tmp           <- pals_to_dataframe(seqs.pals)
-      tmp           <- subset(tmp, is.na(cmax) & is.na(p2))
+      #tmp           <- pals_to_dataframe(seqs.pals)
+      #tmp           <- subset(tmp, is.na(cmax) & is.na(p2))
+      tmp           <- subset(palettes, type == "seqs", select = -c(type, gui))
       default.pals <<- tmp[order(as.numeric(!is.na(tmp$cmax)) * 10 +
                                  as.numeric(!is.na(tmp$p2))),]
 
     } else if ( type == "Sequential (single hue, advanced)" ) {
-      tmp           <- pals_to_dataframe(seqs.pals)
-      tmp           <- subset(tmp, ! is.na(cmax) | ! is.na(p2))
+      #tmp           <- pals_to_dataframe(seqs.pals)
+      #tmp           <- subset(tmp, ! is.na(cmax) | ! is.na(p2))
+      tmp           <- subset(palettes, type == "seqs_advanced", select = -c(type, gui))
       default.pals <<- tmp[order(as.numeric(!is.na(tmp$cmax)) * 10 +
                                  as.numeric(!is.na(tmp$p2))),]
 
@@ -345,14 +352,16 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
       default.pals <<- subset(tmp, ! is.na(cmax))
 
     } else if (type == "Diverging") {
-      tmp           <- pals_to_dataframe(dive.pals)
-      tmp           <- subset(tmp, is.na(cmax))
+      #tmp           <- pals_to_dataframe(dive.pals)
+      #tmp           <- subset(tmp, is.na(cmax))
+      tmp           <- subset(palettes, type == "dive", select = -c(type, gui))
       # Change order conditional on available parameters
       default.pals <<- tmp[order(as.numeric(!is.na(tmp$p2))),]
 
     } else if (type == "Diverging (advanced)") {
-      tmp <- pals_to_dataframe(dive.pals)
-      tmp <- subset(tmp, ! is.na(cmax))
+      #tmp <- pals_to_dataframe(dive.pals)
+      #tmp <- subset(tmp, ! is.na(cmax))
+      tmp           <- subset(palettes, type == "dive_advanced", select = -c(type, gui))
       # Change order conditional on available parameters
       default.pals <<- tmp[order(as.numeric(!is.na(tmp$p2))),]
 
@@ -958,7 +967,6 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
 # Get color palette as function of n
 GetPalette <- function(...) { #type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, reverse, cmax) {
-   if ( verbose ) cat("Calling GetPalette (return to R)\n")
 
    attach(list(...), warn.conflicts = FALSE)
 
@@ -1000,7 +1008,6 @@ GetPalette <- function(...) { #type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, reve
                                     list(d1=c(h1, h2), d2=c1, d3=c(l1, l2),
                                          d4=p1, d5=fixup, d6=reverse, d7=cmax)))
    }
-   if ( verbose ) cat("Returning f ...\n")
    f
 }
 

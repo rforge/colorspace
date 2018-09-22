@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-14 16:00 on marvin
+# - L@ST MODIFIED: 2018-09-22 13:57 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -34,7 +34,7 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    # Loading PAL palette information and examples
    # ----------------------------------------------------------------
-   palettes <- colorspace:::GetPaletteConfig()
+   palettes <- colorspace:::GetPaletteConfig(gui = TRUE)
    updateSelectInput(session,"EXAMPLE",
       choices = colorspace:::example.plots[!colorspace:::example.plots == "Spectrum"])
 
@@ -72,7 +72,7 @@ shinyServer(function(input, output, session) {
    observeEvent(input$typ, {
       x <- list()
       for ( i in which(palettes$typ == input$typ) )
-         x[[sprintf("%s",palettes$name[i])]] <- palettes$name[i]
+         x[[sprintf("%s",rownames(palettes)[i])]] <- rownames(palettes)[i]
       updateSelectInput(session, "PAL", choices = x)
    })
 
@@ -82,7 +82,7 @@ shinyServer(function(input, output, session) {
    observeEvent(input$PAL, {
 
       # Getting settings of the choosen color palette
-      idx <- which(palettes$typ == input$typ & palettes$name == input$PAL)
+      idx <- which(palettes$typ == input$typ & rownames(palettes) == input$PAL)
       if ( length(idx) == 0 ) { return(FALSE); }
       name   <- input$PAL
       curPAL <- as.list(palettes[idx,])
@@ -172,16 +172,20 @@ shinyServer(function(input, output, session) {
          # NA in the palettes (palette config). Same is used to hide
          # the sliders, if a value in palettes is NA the slider should
          # also be hidden on the UI.
-         cnf <- which(palettes$typ == curtyp & palettes$name == input$PAL)
+         cnf <- which(palettes$typ == curtyp & rownames(palettes) == input$PAL)
          if ( length(cnf) > 0 ) {
             cnf <- as.list(palettes[cnf,])
             for ( elem in names(cnf) ) {
                if ( elem %in% names(curPAL) & is.na(cnf[[elem]]) ) curPAL[[elem]] = NA
             }
          }
-         pal <- colorspace:::GetPalette(curtyp,curPAL$H1,curPAL$H2,curPAL$C1,curPAL$C2,
-                                        curPAL$L1,curPAL$L2,curPAL$P1,curPAL$P2,input$fixup,
-                                        rev=input$reverse, cmax = curPAL$CMAX)
+         # Calling GetPalette with args list
+         args <- curPAL
+         names(args)  <- tolower(names(args))
+         args$fixup   <- input$fixup
+         args$type    <- input$typ
+         args$reverse <- input$reverse
+         pal <- do.call(colorspace:::GetPalette, args)
       }
       # If fun is set to false: return values
       if ( ! fun ) {
@@ -192,7 +196,7 @@ shinyServer(function(input, output, session) {
          if ( any(tolower(input$constraint) %in% c("protan","deutan","tritan")) )
             colors <- do.call(tolower(input$constraint),list("col" = colors))
          # Reverse if required
-         if ( input$reverse ) colors <- rev(colors)
+         #if ( input$reverse ) colors <- rev(colors)
          return(colors)
       } else {
          return(pal)
@@ -251,11 +255,11 @@ shinyServer(function(input, output, session) {
    showColorplane <- function() {
       colors <- getColors( input$N ) #11)
       # dimension to collapse
-      if ( input$typ == "qual" ) {
+      if ( grepl("^qual", input$typ) ) {
           plot_type <- "qualitative"
-      } else if ( input$typ == "dive" ) {
+      } else if ( grepl("^dive", input$typ) ) {
           plot_type <- "diverging"
-      } else if ( input$typ %in% c("seqm", "seqs") ) {
+      } else if ( grepl("^(seqm|seqs)", input$typ) ) {
           plot_type <- "sequential"
       } else {
           plot_type <- NULL # Let the plotting function decide
@@ -280,7 +284,7 @@ shinyServer(function(input, output, session) {
    # corresponding color bar using shiny
    # ----------------------------------------------------------------
    showColorSliders <- function(curtyp) {
-      idx <- which(palettes$typ == curtyp & palettes$name == input$PAL)
+      idx <- which(palettes$typ == curtyp & rownames(palettes) == input$PAL)
       show <- hide <- c()
       for ( elem in sliderElements ) {
          if ( is.na(palettes[idx,elem]) ) { hide <- c(hide, sprintf("%s-wrapper", elem)) }

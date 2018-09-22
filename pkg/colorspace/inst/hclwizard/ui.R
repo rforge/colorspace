@@ -55,28 +55,29 @@ shinyUI(fluidPage(
       withTags(div(class = "hcl-selectoptions", id = "hcl-typ", 
          selectInput("typ", label = h3("Nature of your data"), 
            choices = list(
-               "Diverging"                  = "dive",
-               "Qualitative"                = "qual",
-               "Sequential (single hue)"    = "seqs",
-               "Sequential (multiple hues)" = "seqm",
+               "Diverging"                            = "dive",
+               "Diverging (advanced)"                 = "dive_advanced",
+               "Qualitative"                          = "qual",
+               "Sequential (single hue)"              = "seqs",
+               "Sequential (single hue; advanced)"    = "seqs_advanced",
+               "Sequential (multiple hues)"           = "seqm",
+               "Sequential (multiple hues; advanced)" = "seqm_advanced",
                #"Multi hue alert"       = "alrt",
                "R default schemes"          = "base"), 
            selected = "seqm")
       )),
       # Copy the line below to make a select box 
       withTags(div(class = "hcl-selectoptions", id = "hcl-PAL", 
-         #selectInput("PAL", label = h3("Base color scheme"),
          #  choices = list())
          selectizeInput("PAL", label = h3("Base color scheme"),
             choices = list(),
             options = list(create = TRUE,
                render = I('{
                   option: function(item, escape) {
-                    // your own code to generate HTML here for each option item
+                     // custom code to generate HTML before each option
                      var tmp = item.value
                      var imgname = tmp.toLowerCase().split(" ").join("_");
                      imgname = "images/pal_"+imgname+".png";
-                     ////console.log( "<img src=\'"+imgname+"\'>"+imgname+"</img>" )
                      return( "<img class=\'select-pal\' src=\'"+imgname+"\'></img>" )
                   }
                }')

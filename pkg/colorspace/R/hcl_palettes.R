@@ -705,8 +705,10 @@ example.plots <- c("Map", "Heatmap", "Scatter", "Spine", "Bar",
 # -------------------------------------------------------------------
 # Helper function: returns a data.frame containing all
 # palettes specified above. Used for hclwizard
+# @param gui, `NULL` or logical. If ``NULL` all palettes will be
+# returned. If TRUE or FALSE the palettes will be subsetted.
 # -------------------------------------------------------------------
-GetPaletteConfig <- function() {
+GetPaletteConfig <- function(gui = NULL) {
    res <- NULL
    palettes <- list(
      qual = qual.pals,
@@ -723,6 +725,17 @@ GetPaletteConfig <- function() {
               cbind(data.frame("type" = rep(type, nrow(x))), x)
           }, palettes = palettes)
    # Return data.frame
-   do.call(rbind, res)
+   pals <- do.call(rbind, res)
+   pals$type <- as.character(pals$type)
+   if ( inherits(gui, "logical") & "gui" %in% names(pals) )
+       pals <- pals[which(pals$gui == gui),]
+
+   # Extending the types
+   idx <- which(with(pals, (type == "dive" & !is.na(CMAX) |
+                           (type == "seqs" & (!is.na(CMAX) | !is.na(P2))) |
+                           (type == "seqm" & (!is.na(CMAX))))))
+   if ( length(idx) > 0 ) pals$type[idx] <- sprintf("%s_advanced", pals$type[idx])
+
+   return(pals)
 }
 

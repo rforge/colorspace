@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2017-09-16, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-19 06:20 on marvin
+# - L@ST MODIFIED: 2018-09-22 14:21 on marvin
 # -------------------------------------------------------------------
 library("shiny")
 
@@ -122,7 +122,7 @@ shiny::shinyUI(bootstrapPage(
             div(class = "img-container", uiOutput("all_imagetritan"), h4("Tritanope"))
          ))
       ),
-      tabPanel("Info", icon = icon("info-circle", lib = "font-awesome"),
+      tabPanel("Info", class = "info-tab", icon = icon("info-circle", lib = "font-awesome"),
          htmlOutput("appInfo"),
          includeHTML("html/info.html"),
          includeHTML("html/appInfo.html")

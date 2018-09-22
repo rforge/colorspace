@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2017-09-16, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-11 18:59 on marvin
+# - L@ST MODIFIED: 2018-09-22 14:18 on marvin
 # -------------------------------------------------------------------
 
 
@@ -141,7 +141,8 @@ shinyServer(function(input, output, session) {
          # Show uploaded image
          show(file, "orig", output)
          # Convert
-         for ( type in c("desaturate", "deutan", "protan", "tritan") ) show(img, type, output, input$severity/100.)
+         for ( type in c("desaturate", "deutan", "protan", "tritan") )
+             show(img, type, output, input$severity/100.)
 
          # Delete uploaded file
          file.remove( file )
@@ -191,7 +192,7 @@ show <- function(img, type, output, severity = 1.0) {
       # Create temporary file name
       tmp <- tempfile(sprintf("hclconvert_%s",type),fileext=".png")
       # Convert image
-      colorspace:::image_cvd_emulate(img, type, tmp, severity = severity) 
+      colorspace:::cvd_image(img, type, tmp, severity = severity) 
       rm <- TRUE
    }
 
