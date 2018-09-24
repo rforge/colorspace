@@ -61,16 +61,16 @@ cvd_emulator <- function(file, overwrite = FALSE, shiny.trace = FALSE) {
    }
 }
 
-#' Check Image Type Based on Postfix
-#'
-#' Checking image file type based on image file name. Used to decide
-#' which package has to be used to read an image from disc (\code{png}/\code{jpeg}).
-#'
-#' @param x, \code{string} containing (full) path to image.
-#' @return Returns a \code{list} with two elements. Each can take
-#'    \code{TRUE} or \code{FALSE}. If image is of type \code{png}
-#'    \code{png=TRUE}, if image is of type \code{jpg/jpeg} \code{jpg=TRUE}.
-#'    If non of both, both will be \code{FALSE}. Method is not case sensitive.
+# Check Image Type Based on Postfix
+#
+# Checking image file type based on image file name. Used to decide
+# which package has to be used to read an image from disc (\code{png}/\code{jpeg}).
+#
+# @param x, \code{string} containing (full) path to image.
+# @return Returns a \code{list} with two elements. Each can take
+#    \code{TRUE} or \code{FALSE}. If image is of type \code{png}
+#    \code{png=TRUE}, if image is of type \code{jpg/jpeg} \code{jpg=TRUE}.
+#    If non of both, both will be \code{FALSE}. Method is not case sensitive.
 check_image_type <- function( x ) {
    ## Identify file type (postfix)
    tail1 <- function(x) x[length(x)]
