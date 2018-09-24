@@ -140,8 +140,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
       args[["defaultextension"]] <- defaultextension
     
     f <- tcltk::tclvalue(do.call(tcltk::tcl, args))
-    if (!nzchar(f))
-      return()
+    if (!nzchar(f)) return()
     initialdir <<- dirname(f)
     f
   }
@@ -150,25 +149,26 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   OpenPaletteFromFile <- function() {
     if ( verbose) cat(sprintf("Calling OpenPaletteFromFile\n"))
 
-    f <- ChooseFile(cmd="Open", win.title="Open Palette File")
-    if (is.null(f))
-      return()
-    pal <- dget(file=f)
-    ConvertPaletteToAttributes(pal)
-    AssignAttributesToWidgets()
+    f <- ChooseFile(cmd = "Open", win.title = "Open Palette File")
+    if (is.null(f)) return()
+    pal      <- dget(file = f)
+    pal_args <- ConvertPaletteToAttributes(pal)
     UpdateDataType()
+    AssignAttributesToWidgets(pal_args)
+    DrawPalette()
   }
 
   # Save palette to file
   SavePaletteToFile <- function() {
-    if ( verbose) cat(sprintf("Calling SavePaletteFromFile\n"))
+    if ( verbose) cat(sprintf("Calling SavePaletteToFile\n"))
 
-    f <- ChooseFile(cmd="Save As", win.title="Save Palette As",
-                    initialfile="color_palette", defaultextension=".R")
+    f <- ChooseFile(cmd = "Save As", win.title = "Save Palette As",
+                    initialfile = "color_palette", defaultextension = ".R")
     if (is.null(f)) return()
     args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
-    for ( arg in vars.pal[!vars.pal %in% c("name","type","gui")] )
+    for ( arg in vars.pal[!vars.pal %in% "type"] )
         args[[arg]] <- eval(parse(text=arg))
+    args$reverse <- reverse
     pal  <- do.call(GetPalette, args)
     dput(pal, file=f)
   }
@@ -178,8 +178,9 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     if ( verbose) cat(sprintf("Calling SaveColorsToFile\n"))
 
     args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
-    for ( arg in vars.pal[!vars.pal %in% c("name","type","gui")] )
+    for ( arg in vars.pal[!vars.pal %in% "type"] )
         eval(parse(text=arg))
+    args$reverse <- reverse
     pal <- do.call(GetPalette, args)
     
     cols <- try(hex2RGB(pal(n)), silent=TRUE)
@@ -193,8 +194,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     f <- ChooseFile(cmd="Save As", win.title="Save Colors As",
                     initialfile=paste("colors_", type, sep=""),
                     defaultextension=".txt")
-    if (is.null(f))
-      return()
+    if (is.null(f)) return()
     
     if (type == "HEX") {
       writehex(cols, file=f)
@@ -210,13 +210,14 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
         red   <- cols[, "R"]
         green <- cols[, "G"]
         blue  <- cols[, "B"]
-        black <- sapply(1:n, function(i) min(c(1 - red[i], 1 - green[i],
+        black <- sapply(1:n, function(i) min(c(1 - red[i],
+                                               1 - green[i],
                                                1 - blue[i])))
         cyan <- (1 - red - black) / (1 - black)
         magenta <- (1 - green - black) / (1 - black)
         yellow <- (1 - blue - black) / (1 - black)
-        cols <- as.matrix(as.data.frame(list(C=cyan, M=black, Y=yellow,
-                                             K=black)))
+        cols <- as.matrix(as.data.frame(list(C=cyan, M=black,
+                                             Y=yellow, K=black)))
       }
       utils::write.table(cols, file=f, quote=FALSE, row.names=FALSE, sep="\t")
     }
@@ -227,8 +228,9 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     if ( verbose) cat(sprintf("Calling SavePalette\n"))
 
     args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
-    for ( arg in vars.pal[!vars.pal %in% c("name", "type", "gui")] )
+    for ( arg in vars.pal[!vars.pal %in% "type"] )
         args[[arg]] <- eval(parse(text=arg))
+    args$reverse <- reverse
     pal.rtn <<- do.call(GetPalette, args)
     tcltk::tclvalue(tt.done.var) <- 1
   }
@@ -280,16 +282,21 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   # Draw current palette given the slider settings. Fills the
   # canvas object placed horizontally in the lower part of the GUI.
-  DrawPalette <- function(is.n=FALSE) {
+  # is.n is TRUE if the slider for "n" is moved. Else FALSE. IF
+  # FALSE the "selected default color palette" polygon ("browse")
+  # will be removed.
+  DrawPalette <- function(is.n = FALSE) {
     if ( verbose) cat(sprintf("Calling DrawPalette\n"))
 
     args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
-    for ( arg in vars.pal[!vars.pal %in% c("name", "type", "gui")] )
+    for ( arg in vars.pal[!vars.pal %in% "type"] )
         args[[arg]] <- eval(parse(text=arg))
+    args$reverse <- reverse
+
+    if ( ! is.n ) tcltk::tcl(frame2.cvs, "delete", "browse")
     pal <- do.call(GetPalette, args)
-    if (!is.n) tcltk::tcl(frame2.cvs, "delete", "browse")
     tcltk::tcl(frame7.cvs, "delete", "pal")
-    # Reto, Nov 2016: outsourced
+
     pal.cols <- get_hex_colors(pal,n)
     dx <- (cvs.width - 1) / n
     x2 <- 1
@@ -305,65 +312,49 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   }
 
   # Update data type
-  UpdateDataType <- function() {
-    if ( verbose) cat(sprintf("Calling UpdateDataType\n"))
+  # @param ... used when called via callback.
+  # @param init logical. Default is FALSE, if set to TRUE the first default
+  #     palette of the current palette config is used. Only used when initializing
+  #     the GUI.
+  UpdateDataType <- function(..., init = FALSE) {
+    if ( verbose ) cat(sprintf("Calling UpdateDataType\n"))
+    tcltk::tcl(frame2.cvs, "delete", "browse")
 
     # Default palettes to data.frame
     pals_to_dataframe <- function(x) {
         x <- as.data.frame(t(as.matrix(sapply(x, function(x) x), ncol = length(x))))
         names(x)  <- vars.pal
         x$reverse <- FALSE
-        # Drop those where gui is not set to 1
-        if ( "gui" %in% names(x) ) x <- subset(x, gui == 1, select = -c(gui))
         return(x)
     }
     type <- as.character(tcltk::tclvalue(nature.var))
 
     # Loading default palettes via GetPaletteConfig
-    palettes <- colorspace::GetPaletteConfig(gui = TRUE)
-    names(palettes) <- tolower(names(palettes))
-    palettes$fixup  <- TRUE
+    palettes <- GetPaletteConfig(gui = TRUE)
+    names(palettes)  <- tolower(names(palettes))
+    palettes$fixup   <- TRUE
+    palettes$reverse <- FALSE
 
     if (type == "Qualitative") {
-      default.pals <<- subset(palettes, type == "qual", select = -c(type, gui))
+      default.pals <<- subset(palettes, type == "qual")
 
     } else if ( type == "Sequential (single hue)" ) {
-      #tmp           <- pals_to_dataframe(seqs.pals)
-      #tmp           <- subset(tmp, is.na(cmax) & is.na(p2))
-      tmp           <- subset(palettes, type == "seqs", select = -c(type, gui))
-      default.pals <<- tmp[order(as.numeric(!is.na(tmp$cmax)) * 10 +
-                                 as.numeric(!is.na(tmp$p2))),]
+      default.pals <<- subset(palettes, type == "seqs")
 
     } else if ( type == "Sequential (single hue, advanced)" ) {
-      #tmp           <- pals_to_dataframe(seqs.pals)
-      #tmp           <- subset(tmp, ! is.na(cmax) | ! is.na(p2))
-      tmp           <- subset(palettes, type == "seqs_advanced", select = -c(type, gui))
-      default.pals <<- tmp[order(as.numeric(!is.na(tmp$cmax)) * 10 +
-                                 as.numeric(!is.na(tmp$p2))),]
+      default.pals <<- subset(palettes, type == "seqs_advanced")
 
-    } else if (type == "Sequential (multiple hues)") {
-      tmp           <- pals_to_dataframe(seqm.pals)
-      tmp           <- subset(tmp, is.na(cmax))
-      # Change order conditional on available parameters
-      default.pals <<- tmp[order(as.numeric(!is.na(tmp$p2))),]
+    } else if (type == "Sequential (multi hue)") {
+      default.pals <<- subset(palettes, type == "seqm")
 
-    } else if (type == "Sequential (multiple hues, advanced)") {
-      tmp           <- pals_to_dataframe(seqm.pals)
-      default.pals <<- subset(tmp, ! is.na(cmax))
+    } else if (type == "Sequential (multi hue, advanced)") {
+      default.pals <<- subset(palettes, type == "seqm_advanced")
 
     } else if (type == "Diverging") {
-      #tmp           <- pals_to_dataframe(dive.pals)
-      #tmp           <- subset(tmp, is.na(cmax))
-      tmp           <- subset(palettes, type == "dive", select = -c(type, gui))
-      # Change order conditional on available parameters
-      default.pals <<- tmp[order(as.numeric(!is.na(tmp$p2))),]
+      default.pals <<- subset(palettes, type == "dive")
 
     } else if (type == "Diverging (advanced)") {
-      #tmp <- pals_to_dataframe(dive.pals)
-      #tmp <- subset(tmp, ! is.na(cmax))
-      tmp           <- subset(palettes, type == "dive_advanced", select = -c(type, gui))
-      # Change order conditional on available parameters
-      default.pals <<- tmp[order(as.numeric(!is.na(tmp$p2))),]
+      default.pals <<- subset(palettes, type == "dive_advanced")
 
     }
 
@@ -379,7 +370,8 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
       # Create numeric palette parameter list, drop name
       args <- as.list(default.pals[i,])
       args <- args[which(! names(args) %in% c("name", "gui"))]
-      args[['type']] <- as.character(tcltk::tclvalue(nature.var))
+      args$type    <- as.character(tcltk::tclvalue(nature.var))
+      args$reverse <- FALSE
 
       pal      <- do.call(GetPalette, args=args)
       pal.cols <- pal(5)
@@ -394,12 +386,21 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
         pts <- tcltk::.Tcl.args(c(x1, y1, x2, y1, x2, y2, x1, y2))
         tcltk::tkcreate(frame2.cvs, "polygon", pts, fill=j, tag="default")
       }
+
+      if ( i == 1 ) {
+        y1  <- frame2.cvs.paloffset
+        y2  <- y1 + 70 - 2*frame2.cvs.paloffset
+        pts <- tcltk::.Tcl.args(c(x1 - 2, y1 - 2, x2 + 1, y1 - 2, x2 + 1, y2 + 1, x1 - 2, y2 + 1))
+        tcltk::tkcreate(frame2.cvs, "polygon", pts, fill = "", outline = "black", tag = "browse")
+      }
+
+      # Increase x1
       x1 <- x1 + frame2.cvs.palwidth + 2 * frame2.cvs.paloffset
     }
 
     # Use first default palette as default
-    AssignAttributesToWidgets(as.list(default.pals[1,]))
-    DrawPalette()
+    if ( init ) AssignAttributesToWidgets(as.list(default.pals[1,]))
+    DrawPalette(TRUE)
   }
 
   # Select default palette
@@ -437,9 +438,11 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     DrawPalette()
 
     # Assign new palette attributes/settings to the slider elements
-    pts <- tcltk::.Tcl.args(c(x1 + 1, y1, x2 - 1, y1, x2 - 1, y2, x1 + 1, y2))
-    tcltk::tkcreate(frame2.cvs, "polygon", pts, fill="", outline="black", tag="browse")
+    tcltk::tcl(frame2.cvs, "delete", "browse")
+    pts <- tcltk::.Tcl.args(c(x1 + 1, y1 - 2, x2 - 2, y1 - 2, x2 - 2, y2 + 1, x1 + 1, y2 + 1))
+    tcltk::tkcreate(frame2.cvs, "polygon", pts, fill = "", outline = "black", tag = "browse")
   }
+
 
   # Convert palette to attributes
   ConvertPaletteToAttributes <- function(pal) {
@@ -450,7 +453,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     if ( missing(pal) | is.null(pal) ) {
 
         tcltk::tclvalue(nature.var) <- "Sequential (multiple hues)"
-        pal_args <- GetPaletteConfig()  
+        pal_args <- GetPaletteConfig(gui = TRUE)
         pal_args <- as.list(subset(pal_args, type == "seqm")[1,])
         names(pal_args) <- tolower(names(pal_args))
 
@@ -468,9 +471,12 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
             for ( i in seq_along(arg$h) )
                 eval(parse(text = sprintf("pal_args$h%1$d <- arg$h[%1$dL]", i)))
         }
-        if ( length(arg$c) == 3 ) arg$cmax <- arg[["c"]][1L]
-        if ( length(arg$c) > 0 ) {
-            for ( i in seq(1, min(2, length(arg$c))) )
+        if ( length(arg$c) >= 3 ) {
+            pal_args$c1   <- arg[["c"]][1L]
+            pal_args$cmax <- arg[["c"]][2L]
+            pal_args$c2   <- arg[["c"]][3L]
+        } else if ( length(arg$c) > 0 ) {
+            for ( i in seq(1, length(arg$c)) )
                 eval(parse(text = sprintf("pal_args$c%1$d <- arg$c[%1$dL]", i)))
         }
         if ( length(arg$l) > 0 ) {
@@ -481,12 +487,19 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
             for ( i in seq_along(arg$power) )
                 eval(parse(text = sprintf("pal_args$p%1$d <- arg$power[%1$dL]", i)))
         }
+        if ( is.logical(arg$rev) )
+            pal_args[["rev"]] <- arg$rev
         # Fixup
         if (! is.null(arg$fixup) && is.logical(arg$fixup))
             pal_args[["fixup"]] <- as.integer(arg$fixup)
         else
             pal_args[["fixup"]] <- 1
 
+        # Overrule settings with special arguments
+        for ( key in names(arg) ) {
+            if ( grepl("^([clh][12]|cmax)$", key) & ! is.null(arg[[key]]) )
+                if ( ! inherits(arg[[key]], "name") ) pal_args[[key]] <- arg[[key]]
+        }
 
         # If input is rainbow_hcl
         rb.args   <- c("c", "l", "start", "end")  # args for qualitative palettes
@@ -497,42 +510,52 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
         }
         
         # If has no c2, l2, p1, p2, cmax -> qualitative
-        if ( all( ! c("c2", "l2", "p1", "p2", "cmax") %in% names(pal_args) ) ) {
-            tcltk::tclvalue(nature.var) <- "Qualitative"
-        # Else if has no c2 -> diverging
-        } else if ( all( ! c("h2","c2") %in% names(pal_args)) ) {
-            tcltk::tclvalue(nature.var) <- "Sequential (single hue)"
-        # Else if has only one hue
-        } else if ( ! "c2" %in% names(pal_args) ) {
-            tcltk::tclvalue(nature.var) <- "Diverging"
-        # Else if has only one hue
+        arg_names <- names(pal_args)[!is.na(pal_args)]
+        print(as.data.frame(pal_args))
+        # Qualitative palettes:
+        # - Always NA: cmax, c2, l2, p1, p2
+        if ( all( ! c("cmax", "c2", "l2", "p1", "p2") %in% arg_names) ) {
+            pal_type <- "Qualitative"
+        # Sequential single hue
+        # - Always NA: h2, cmax, c2, p2
+        } else if ( all( ! c("h2", "cmax", "c2", "p2") %in% arg_names) ) {
+            pal_type <- "Sequential (single hue)"
+        # Diverging
+        # - Always NA: cmax, c2
+        } else if ( all( ! c("cmax", "c2") %in% arg_names) ) {
+            pal_type <- "Diverging"
+        # Diverging, advanced
+        # - Always NA: c2
+        } else if ( all(! c("c2") %in% arg_names) ) {
+            pal_type <- "Diverging (advanced)"
+        # Sequential single hue, advanced
+        # - Always NA: h2
+        } else if ( all(! c("h2") %in% arg_names) ) {
+            pal_type <- "Sequential (single hue, advanced)"
+        # Sequential multi hue, advanced
+        # - Always NA: cmax
+        } else if ( ! "cmax" %in% arg_names ) {
+            pal_type <- "Sequential (multi hue)"
+        # Else we expect it to be a sequential hulti hue, advanced
         } else {
-            tcltk::tclvalue(nature.var) <- "Sequential (multiple hue)"
+            pal_type <- "Sequential (multi hue, advanced)"
         }
+        tcltk::tclvalue(nature.var) <- pal_type
 
         # Extending the palette args with NA's
         for ( key in slider_elements )
             if ( ! key %in% names(pal_args) ) pal_args[[key]] <- NA
         for ( key in names(pal_args) )
-            if ( ! key %in% slider_elements ) pal_args[[key]] <- NULL # Remove
-
+            if ( ! key %in% c("rev", slider_elements) ) pal_args[[key]] <- NULL # Remove
 
     } else {
         stop("Cannot interpret input palette in choose_palette")
     }
 
-
-    # Assign palette settings to .GlobalEnv where the different
-    # settings are handled.
-    for ( key in names(pal_args) ) {
-        val <- ifelse(is.na(pal_args[[key]]), 0, pal_args[[key]])
-        assign(key, val, inherits = TRUE)
-    }
-
-    # Assign to widget (disables/enables the sliders based on
-    # pal_args)
-    AssignAttributesToWidgets(pal_args)
+    # Return palette settings
+    return(pal_args)
   }
+
 
   # Assign attributes to widgets
   # pal_args can be a named list with the settings of the
@@ -541,6 +564,12 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   # slider will be disabled.
   AssignAttributesToWidgets <- function(pal_args) {
     if ( verbose) cat(sprintf("Calling AssignAttributesToWidgets\n"))
+
+    # Setting rev (reverse colors) if specified
+    if ( is.logical(pal_args$rev) ) {
+        tcltk::tclvalue(reverse.var) <- pal_args$rev
+        reverse <<- pal_args$rev
+    }
 
     # Looping trouch slider elements
     for ( i in seq_along(slider_elements) ) { 
@@ -562,24 +591,29 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
         # Else enable.
         if ( !missing(pal_args) ) {
             state <- ifelse(is.na(pal_args[[key]]), FALSE, TRUE)
-            ##cat(sprintf(" - Setting sliders t/f: %s  %s\n", state, key))
-            cmd <- sprintf("tcltk::tkconfigure(frame3.lab.%d.1, state = \"%s\")",
+            #cat(sprintf(" - Setting sliders t/f: %s  %s", state, key))
+            #cat(sprintf("   %s .... %.1f\n", key, pal_args[[key]]))
+            cmd   <- sprintf("tcltk::tkconfigure(frame3.lab.%d.1, state = \"%s\")",
                            i, ifelse(state, "normal", "disabled"))
             eval(parse(text = cmd))
-            cmd <- sprintf("tcltk::tkconfigure(frame3.ent.%d.3, state = \"%s\")",
+            cmd   <- sprintf("tcltk::tkconfigure(frame3.ent.%d.3, state = \"%s\")",
                            i, ifelse(state, "normal", "disabled"))
             eval(parse(text = cmd))
-            cmd <- sprintf("tcltk::tcl(frame3.scl.%d.2, \"state\", \"%s\")",
+            cmd   <- sprintf("tcltk::tcl(frame3.scl.%d.2, \"state\", \"%s\")",
                            i, ifelse(state, "!disabled", "disabled"))
             eval(parse(text = cmd))
-
         }
 
         # If attribute is NA: set to 0
-        val <- ifelse(is.na(pal_args[[key]]), 0, pal_args[[key]])
+        #val <- ifelse(is.na(pal_args[[key]]), 0, pal_args[[key]])
+        val <- pal_args[[key]]
 
         # Set current value (slider and text output)
-        cmd <- sprintf("tcltk::tclvalue(%1$s.ent.var) <- sprintf(\"%2$s\", %3$.1f)", key, fmt, val)
+        if ( is.na(val) ) {
+            cmd <- sprintf("tcltk::tclvalue(%1$s.ent.var) <- \"NA\"", key)
+        } else {
+            cmd <- sprintf("tcltk::tclvalue(%1$s.ent.var) <- sprintf(\"%2$s\", %3$.1f)", key, fmt, val)
+        }
         eval(parse(text = cmd))
         cmd <- sprintf("tcltk::tclvalue(%1$s.scl.var) <- %2$.1f", key, val)
         eval(parse(text = cmd))
@@ -594,23 +628,40 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
       dev.new(width=7L, height=7L)
       dev.example <<- dev.cur()
     }
-    par(oma=c(0, 0, 0, 0), mar=c(0, 0, 0, 0))
-    DrawPalette(is.n=TRUE)
+    ExampleSetPar()
+    DrawPalette(is.n = TRUE)
+  }
+
+  ExampleSetPar <- function() {
+    if ( ! as.logical(as.numeric(tcltk::tclvalue(nightmode.var))) ) {
+        par(oma=c(0, 0, 0, 0), mar=c(0, 0, 0, 0))
+        par(bg = "white", fg = "black", col.axis = "black")
+    } else {
+        par(mar = rep(1, 4))
+        par(bg = "black", fg = "white", col.axis = "white")
+    }
+  }
+
+  ActivateNightmode <- function() {
+    if (dev.example %in% dev.list()) dev.set(which = dev.example)
+    else                             return()
+    cat("NIGHTMODE ACTIVATION FUNCTION\n")
+    # If night mode has been set off
+    # Draw palette, also regenerates example if open
+    ExampleSetPar()
+    DrawPalette()
   }
 
   # Regenerate example plot
   RegenExample <- function(pal,n) {
-    if (dev.example %in% dev.list())
-      dev.set(which=dev.example)
-    else
-      return()
+    if (dev.example %in% dev.list()) dev.set(which=dev.example)
+    else                             return()
     plot_example <- eval(parse(text=sprintf("plot_%s", tolower(tcltk::tclvalue(example.var)))))
-    # Reto, Nov 2016: Picking colors. For 'Example Spectrum' 100 colors
-    # will be choosen (overruling input "n").
+    # Spectrum plot: take 100 values (hardcoded)
     if ( tcltk::tclvalue(example.var) == "Spectrum" ) n <- 100
     pal.cols <- get_hex_colors(pal,n)
-    if (as.logical(as.integer(tcltk::tclvalue(reverse.var))))
-      pal.cols <- rev(pal.cols)
+    if ( as.logical(as.integer(tcltk::tclvalue(reverse.var))) )
+        pal.cols <- pal.cols
     plot_example(pal.cols)
   }
 
@@ -620,31 +671,31 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   # ----------------------------------------------------------------
 
   # Development verbose mode
-  verbose <<- FALSE
+  verbose     <<- FALSE
   
   # Initialize directory
-  initialdir <- getwd()
+  initialdir   <- getwd()
 
   # Default
-  reverse = FALSE
+  reverse      <- FALSE
   
   # Initialize return palette
-  pal.rtn <- NULL
+  pal.rtn      <- NULL
 
   # Initialize default palettes
   default.pals <- NULL
   
   # Initialize data for scatter plot example
-  xyhclust <- NULL
+  xyhclust     <- NULL
   
   # Initialize data for mosaic plot example
-  msc.matrix <- NULL
+  msc.matrix   <- NULL
   
   # Flag graphics device
-  dev.example <- 1
+  dev.example  <- 1
 
   # Set default and initial palettes
-  for ( key in vars.pal[!vars.pal %in% c("name", "type", "gui")] )
+  for ( key in vars.pal[!vars.pal %in% "type"] )
       eval(parse(text = sprintf("%s <- 0", key)))
   fixup <- 1
 
@@ -679,7 +730,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   n.ent.var <- tcltk::tclVar(n)
 
   # Setting up tcltk variables and scale elements.
-  for ( key in vars.pal[!vars.pal %in% c("name", "type", "gui")] ) {
+  for ( key in vars.pal[!vars.pal %in% "type"] ) {
       eval(parse(text = sprintf("%s.scl.var <- tcltk::tclVar()", key)))
       eval(parse(text = sprintf("%s.ent.var <- tcltk::tclVar()", key)))
   }
@@ -689,6 +740,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   fixup.var           <- tcltk::tclVar(fixup)
   reverse.var         <- tcltk::tclVar(FALSE)
   desaturation.var    <- tcltk::tclVar(FALSE)
+  nightmode.var       <- tcltk::tclVar(FALSE)
   colorblind.var      <- tcltk::tclVar(FALSE)
   colorblind.type.var <- tcltk::tclVar("deutan")
 
@@ -704,7 +756,8 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     tcltk::tkwm.geometry(tt, paste("+", as.integer(geo[2]) + 25,
                             "+", as.integer(geo[3]) + 25, sep=""))
   }
-  tcltk::tkwm.resizable(tt, 0, 0)
+  tcltk::tkwm.resizable(tt, 1, 0)
+  tcltk::tkwm.geometry(tt, "425x745+0+10") 
   tcltk::tktitle(tt) <- "Choose Color Palette"
 
   # Top file menu
@@ -753,10 +806,10 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   frame1.box.2 <- tcltk::ttkcombobox(frame1, state = "readonly", textvariable = nature.var,
                    values=c("Qualitative",
                             "Sequential (single hue, advanced)",
-                            "Sequential (multiple hues, advanced)",
+                            "Sequential (multi hue, advanced)",
                             "Diverging (advanced)",
                             "Sequential (single hue)",
-                            "Sequential (multiple hues)",
+                            "Sequential (multi hue)",
                             "Diverging"))
 
   tcltk::tkgrid(frame1.lab.1, frame1.box.2, pady=c(10, 0))
@@ -796,13 +849,18 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
                          i, toupper(key))
 
     # Command to create the slider
+    # For p1/p2: numeric(...), for all others: round(numeric(...))
+    if ( grepl("^p", key) ) {
+        scl_fun <- "as.numeric(...)"
+    } else {
+        scl_fun <- "round(as.numeric(...))"
+    }
     cmd_slider <- sprintf(paste("frame3.scl.%1$d.2 <- tcltk::tkwidget(frame3,",
-                                "\"ttk::scale\", from = %2$s.lim[1L], to = %2$s.lim[2L],",
-                                "orient = \"horizontal\", value = %2$s, variable = %2$s.scl.var,",
+                                "\"ttk::scale\", from = %3$s.lim[1L], to = %3$s.lim[2L],",
+                                "orient = \"horizontal\", value = %3$s, variable = %3$s.scl.var,",
                                 "command = function(...) {",
-                                "   ScaleChange(x=round(as.numeric(...)), v=\"%2$s\",",
-                                "   x.ent.var = %2$s.ent.var)",
-                                "})"), i, key)
+                                "   ScaleChange(x = %2$s, v=\"%3$s\", x.ent.var = %3$s.ent.var)",
+                                "})"), i, scl_fun, key)
 
     # Command to create the text output
     cmd_text <- sprintf(paste("frame3.ent.%1$d.3 <- tcltk::ttkentry(frame3,",
@@ -823,9 +881,9 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   }
 
   tcltk::tkgrid.configure(frame3.scl.1.2, frame3.scl.2.2, frame3.scl.3.2,
-                   frame3.scl.4.2, frame3.scl.5.2, frame3.scl.6.2,
-                   frame3.scl.7.2, frame3.scl.8.2, frame3.scl.9.2,
-                   sticky="we", padx=c(4, 10))
+                          frame3.scl.4.2, frame3.scl.5.2, frame3.scl.6.2,
+                          frame3.scl.7.2, frame3.scl.8.2, frame3.scl.9.2,
+                          sticky="we", padx=c(4, 10))
 
   tcltk::tkgrid.columnconfigure(frame3, 1, weight=1)
 
@@ -837,7 +895,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   frame4.chk.1 <- tcltk::ttkcheckbutton(frame4, text=txt, variable=fixup.var,
                                  command=function() {
                                    fixup <<- as.integer(tcltk::tclvalue(fixup.var))
-                                   DrawPalette(is.n=TRUE)
+                                   DrawPalette(is.n = TRUE)
                                  })
   tcltk::tkgrid.configure(frame4.chk.1, padx=c(12, 0), pady=c(2, 0))
   tcltk::tkpack(frame4, fill="x")
@@ -856,62 +914,80 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
                            })
 
   tcltk::tkgrid(frame5.lab.1, frame5.scl.2, frame5.ent.3)
-  tcltk::tkgrid.configure(frame5.scl.2, sticky="we", padx=c(4, 10))
-  tcltk::tkgrid.columnconfigure(frame5, 1, weight=1)
+  tcltk::tkgrid.configure(frame5.scl.2, sticky = "we", padx = c(4, 10))
+  tcltk::tkgrid.columnconfigure(frame5, 1, weight = 1)
 
-  tcltk::tkpack(frame5, fill="x", padx=10, pady=10)
+  tcltk::tkpack(frame5, fill = "x", padx = 10, pady = 10)
 
   # Frame 6, example plots and reverse colors
-  frame6 <- tcltk::ttklabelframe(tt, relief="flat", borderwidth=5, padding=5, 
-                          text="Show example")
+  frame6 <- tcltk::ttklabelframe(tt, relief = "flat", borderwidth = 5, padding = 5, 
+                          text = "Show example")
   frame6.lab.1 <- tcltk::ttklabel(frame6, text="Plot type")
   frame6.box.2 <- tcltk::ttkcombobox(frame6, state="readonly", 
-                              textvariable=example.var,
-                              values=example.plots)
-  frame6.chk.3 <- tcltk::ttkcheckbutton(frame6, text="Reverse colors", 
-                                 variable=reverse.var, command=ShowExample)
+                              textvariable = example.var,
+                              values = example.plots)
+  frame6.chk.3 <- tcltk::ttkcheckbutton(frame6, text = "Reverse colors", 
+                                 variable = reverse.var,
+                                 command = function() {
+                                     reverse <<- as.logical(as.integer(tcltk::tclvalue(reverse.var)))
+                                     DrawPalette(is.n = TRUE)
+                                 })
   tcltk::tkgrid(frame6.lab.1, frame6.box.2, frame6.chk.3)
-  tcltk::tkgrid.configure(frame6.box.2, padx=c(2, 10), sticky="we")
-  tcltk::tkgrid.columnconfigure(frame6, 1, weight=1)
-  tcltk::tkpack(frame6, fill="x", padx=10, pady=0)
+  tcltk::tkgrid.configure(frame6.box.2, padx = c(2, 10), sticky = "we")
+  tcltk::tkgrid.columnconfigure(frame6, 1, weight = 1)
+  tcltk::tkpack(frame6, fill = "x", padx = 10, pady = 0)
   
   # Frame 7, color palette and robustness checks
   frame7 <- tcltk::ttkframe(tt, relief="flat")
-  frame7.cvs <- tcltk::tkcanvas(frame7, relief="flat",
-                         width=cvs.width + 1, height=cvs.height + 1,
-                         background="black", confine=TRUE, closeenough=0,
-                         borderwidth=0, highlightthickness=0)
-  tcltk::tkgrid(frame7.cvs, padx=10, pady=c(12,0))
+  frame7.cvs   <- tcltk::tkcanvas(frame7, relief="flat",
+                                 width=cvs.width + 1, height=cvs.height + 1,
+                                 background = "black", confine = TRUE, closeenough = 0,
+                                 borderwidth = 0, highlightthickness = 0)
+  tcltk::tkgrid(frame7.cvs, padx=10, pady=c(12,10))
 
   frame7.chk.1 <- tcltk::ttkcheckbutton(frame7, text="Desaturation",
                                  variable=desaturation.var,
-                                 command=function() DrawPalette(is.n=TRUE))
+                                 command=function() DrawPalette(is.n = TRUE))
+  frame7.chk.2 <- tcltk::ttkcheckbutton(frame7, text="Night mode",
+                                 variable=nightmode.var,
+                                 command=function() ActivateNightmode())
 
-
-  frame7.chk.2 <- tcltk::ttkcheckbutton(frame7, text="Color blindness:",
-                                 variable=colorblind.var,
-                                 command=function() DrawPalette(is.n=TRUE))
-  frame7.rb.3 <- tcltk::ttkradiobutton(frame7, variable=colorblind.type.var,
-                                value="deutan", text="deutan",
-                                command=function() DrawPalette(is.n=TRUE))
-  frame7.rb.4 <- tcltk::ttkradiobutton(frame7, variable=colorblind.type.var,
-                                value="protan", text="protan",
-                                command=function() DrawPalette(is.n=TRUE))
-  frame7.rb.5 <- tcltk::ttkradiobutton(frame7, variable=colorblind.type.var,
-                                value="tritan", text="tritan",
-                                command=function() DrawPalette(is.n=TRUE))
-
-  tcltk::tkgrid(frame7.chk.1, frame7.chk.2, frame7.rb.3, frame7.rb.4, frame7.rb.5, "x",
-                pady=c(2, 0), sticky="w")    
-  tcltk::tkgrid.configure(frame7.chk.2, padx=c(7, 0))
+  tcltk::tkgrid(frame7.chk.1, frame7.chk.2, "x",
+                pady = c(2, 0), sticky = "w")    
+  tcltk::tkgrid.configure(frame7.chk.2, padx = c(7, 0))
   tcltk::tkgrid.configure(frame7.cvs, columnspan=5)
-  tcltk::tkgrid.columnconfigure(frame7, 4, weight=1)
+  tcltk::tkgrid.columnconfigure(frame7, 4, weight = 1)
   tcltk::tkgrid.configure(frame7.chk.1, padx=c(10, 0))
   tcltk::tkpack(frame7, fill="x")
 
+
+  # Frame 8, cvd options
+  frame8 <- tcltk::ttkframe(tt, relief="flat")
+  frame8.chk.1 <- tcltk::ttkcheckbutton(frame8, text = "Color blindness:",
+                                 variable = colorblind.var,
+                                 command = function() DrawPalette(is.n = TRUE))
+  frame8.rb.2  <- tcltk::ttkradiobutton(frame8, variable = colorblind.type.var,
+                                 value = "deutan", text = "deutan",
+                                 command = function() DrawPalette(is.n = TRUE))
+  frame8.rb.3  <- tcltk::ttkradiobutton(frame8, variable = colorblind.type.var,
+                                 value = "protan", text = "protan",
+                                 command = function() DrawPalette(is.n = TRUE))
+  frame8.rb.4  <- tcltk::ttkradiobutton(frame8, variable = colorblind.type.var,
+                                 value = "tritan", text = "tritan",
+                                 command = function() DrawPalette(is.n = TRUE))
+
+  tcltk::tkgrid(frame8.chk.1, frame8.rb.2, frame8.rb.3, frame8.rb.4,
+                pady = c(2, 0), sticky = "w")    
+  tcltk::tkgrid.configure(frame8.rb.2, padx = c(7, 0))
+  tcltk::tkgrid.columnconfigure(frame8, 4, weight = 1)
+  tcltk::tkgrid.configure(frame8.chk.1, padx=c(10, 0))
+  tcltk::tkpack(frame8, fill="x")
+
   # Initial commands
-  ConvertPaletteToAttributes(pal)
-  UpdateDataType()
+  pal_args <- ConvertPaletteToAttributes(pal)
+  # Assign attributes to widget, also enables/disables the sliders
+  AssignAttributesToWidgets(pal_args)
+  UpdateDataType(init = TRUE)
 
   # Bind events
   tcltk::tclServiceMode(TRUE)
@@ -919,29 +995,30 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   tcltk::tkbind(tt, "<Control-o>", OpenPaletteFromFile)
   tcltk::tkbind(tt, "<Shift-Control-S>", SavePaletteToFile)
   
-  tcltk::tkbind(frame1.box.2, "<<ComboboxSelected>>", UpdateDataType)
+  UpdateDataTypeInit <- function() UpdateDataType(init = TRUE)
+  tcltk::tkbind(frame1.box.2, "<<ComboboxSelected>>", UpdateDataTypeInit)
   tcltk::tkbind(frame6.box.2, "<<ComboboxSelected>>", ShowExample)
 
   tcltk::tkbind(frame2.cvs, "<ButtonPress>", function(x, y) SelectDefaultPalette(x, y))
 
   tcltk::tkbind(frame3.ent.1.3, "<KeyRelease>",
-         function() EntryChange("h1", h.lim, h1.ent.var, h1.scl.var))
+         function() EntryChange("h1", h1.lim, h1.ent.var, h1.scl.var))
   tcltk::tkbind(frame3.ent.2.3, "<KeyRelease>",
-         function() EntryChange("h2", h.lim, h2.ent.var, h2.scl.var))
+         function() EntryChange("h2", h2.lim, h2.ent.var, h2.scl.var))
   tcltk::tkbind(frame3.ent.3.3, "<KeyRelease>",
-         function() EntryChange("c1", c.lim, c1.ent.var, c1.scl.var))
+         function() EntryChange("c1", c1.lim, c1.ent.var, c1.scl.var))
   tcltk::tkbind(frame3.ent.4.3, "<KeyRelease>",
          function() EntryChange("cmax", cmax.lim, cmax.ent.var, cmax.scl.var))
   tcltk::tkbind(frame3.ent.5.3, "<KeyRelease>",
-         function() EntryChange("c2", c.lim, c2.ent.var, c2.scl.var))
+         function() EntryChange("c2", c2.lim, c2.ent.var, c2.scl.var))
   tcltk::tkbind(frame3.ent.6.3, "<KeyRelease>",
-         function() EntryChange("l1", l.lim, l1.ent.var, l1.scl.var))
+         function() EntryChange("l1", l1.lim, l1.ent.var, l1.scl.var))
   tcltk::tkbind(frame3.ent.7.3, "<KeyRelease>",
-         function() EntryChange("l2", l.lim, l2.ent.var, l2.scl.var))
+         function() EntryChange("l2", l2.lim, l2.ent.var, l2.scl.var))
   tcltk::tkbind(frame3.ent.8.3, "<KeyRelease>",
-         function() EntryChange("p1", p.lim, p1.ent.var, p1.scl.var))
+         function() EntryChange("p1", p1.lim, p1.ent.var, p1.scl.var))
   tcltk::tkbind(frame3.ent.9.3, "<KeyRelease>",
-         function() EntryChange("p2", p.lim, p2.ent.var, p2.scl.var))
+         function() EntryChange("p2", p2.lim, p2.ent.var, p2.scl.var))
 
   tcltk::tkbind(frame5.ent.3, "<KeyRelease>",
          function() EntryChange("n", n.lim, n.ent.var, n.scl.var))
@@ -959,8 +1036,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   tcltk::tkdestroy(tt)
   tcltk::tclServiceMode(TRUE)
 
-  if (dev.example %in% dev.list())
-    dev.off(which=dev.example)
+  if (dev.example %in% dev.list()) dev.off(which = dev.example)
 
   invisible(pal.rtn)
 }
@@ -977,36 +1053,38 @@ GetPalette <- function(...) { #type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, reve
       formals(f) <- eval(substitute(alist(n=, h=hh, c=d1, l=d2, start=d3, end=d4,
                                           fixup=d5, gamma=NULL, alpha=1,
                                           palette=NULL, rev=d6, ...=,
-                                          h1=, h2=, c1=, l1=, cmax=d7),
+                                          h1=, h2=, c1=, l1=, cmax=),
                                     list(hh = c(0,360), 
-                                         d1=c1, d2=l1, d3=h1, d4=h2, d5=fixup, d6=reverse, d7=cmax)))
+                                         d1=c1, d2=l1, d3=h1, d4=h2, d5=fixup, d6=reverse)))
    #} else if (type %in% c("seqs","Sequential (single hue)")) {
    } else if (grepl("^(seqs|Sequential.*single)", type)) {
       f <- sequential_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
                                           gamma=NULL, fixup=d5, alpha=1,
                                           palette=NULL, rev=d6, ...=,
-                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, cmax=d7, c.=),
+                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, cmax=, c.=),
                                     list(d1=h1, d2=c(c1,cmax,c2), d3=c(l1, l2),
-                                         d4=p1, d5=fixup, d6=reverse, d7=cmax)))
+                                         d4=p1, d5=fixup, d6=reverse)))
    #} else if (type %in% c("seqm","Sequential (multiple hues)")) {
    } else if (grepl("^(seqm|Sequential.*multi)", type)) {
       f <- sequential_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
                                           gamma=NULL, fixup=d5, alpha=1,
                                           palette=NULL, rev=d6, ...=,
-                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, cmax=d7, c.=),
+                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, cmax=, c.=),
                                     list(d1=c(h1, h2), d2=c(c1, cmax, c2),
-                                          d3=c(l1, l2), d4=c(p1, p2), d5=fixup, d6=reverse, d7=cmax)))
+                                          d3=c(l1, l2), d4=c(p1, p2), d5=fixup, d6=reverse)))
    #} else if (type %in% c("dive","Diverging")) {
    } else if (grepl("^(dive|Diverging)", type)) {
       f <- diverging_hcl
+      if ( all(c("p1", "p2") %in% names(list(...))) ) power <- c(p1, p2) else power <- p1
+      if ( all(c("c1", "cmax") %in% names(list(...))) ) chroma <- c(c1, cmax) else chroma <- c1
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
                                           gamma=NULL, fixup=d5, alpha=1,
                                           palette=NULL, rev=d6, ...=,
                                           h1=, h2=, c1=, l1=, l2=, p1=, p2=, cmax=d7),
-                                    list(d1=c(h1, h2), d2=c1, d3=c(l1, l2),
-                                         d4=p1, d5=fixup, d6=reverse, d7=cmax)))
+                                    list(d1=c(h1, h2), d2=chroma, d3=c(l1, l2),
+                                         d4=power, d5=fixup, d6=reverse, d7=cmax)))
    }
    f
 }

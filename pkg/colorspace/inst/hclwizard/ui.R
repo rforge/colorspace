@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-12 15:01 on marvin
+# - L@ST MODIFIED: 2018-09-24 19:44 on marvin
 # -------------------------------------------------------------------
 
 
@@ -40,7 +40,11 @@ if ( nchar(Sys.getenv("hclwizard_Ninit")) > 0 &
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-   theme = "hclwizard.css",
+   ##theme = "hclwizard.css",
+   tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "hclwizard.css"),
+      tags$link(rel = "stylesheet", type = "text/css", href = "hclwizard_nightmode.css")
+   ),
    useShinyjs(),
    div(class = "version-info", htmlOutput("version_info")),
 
@@ -97,6 +101,7 @@ shinyUI(fluidPage(
       h3("Control Options"),
       checkboxInput("reverse", "Reverse", value = FALSE, width = NULL),
       checkboxInput("fixup", "Correct colors", value = TRUE, width = NULL),
+      checkboxInput("nightmode", "Night mode", value = FALSE, width = NULL),
       checkboxInput("desaturate", "Desaturated", value = FALSE, width = NULL),
       radioButtons("constraint", "Vision", 
                choices  =  c("Normal", "Deutan", "Protan", "Tritan"), 

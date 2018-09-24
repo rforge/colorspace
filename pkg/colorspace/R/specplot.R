@@ -70,7 +70,7 @@
 #' @importFrom graphics axis image layout legend lines mtext text par plot
 specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
   type = "l", lwd = 2 * cex, lty = 1, pch = NULL, main = NULL,
-  legend = TRUE, palette = TRUE, plot = TRUE)
+  legend = TRUE, palette = TRUE, plot = TRUE, ...)
 {
 
   # Replace NA x with white, required for hex2RGB.

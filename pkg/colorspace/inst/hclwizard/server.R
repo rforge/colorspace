@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-22 13:57 on marvin
+# - L@ST MODIFIED: 2018-09-24 22:48 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -74,6 +74,22 @@ shinyServer(function(input, output, session) {
       for ( i in which(palettes$typ == input$typ) )
          x[[sprintf("%s",rownames(palettes)[i])]] <- rownames(palettes)[i]
       updateSelectInput(session, "PAL", choices = x)
+   })
+
+   # ----------------------------------------------------------------
+   # Switch between night mode (black background) and normal mode
+   # (white background). Also used for the demo plots.
+   # ----------------------------------------------------------------
+   observeEvent(input$nightmode, {
+      if ( ! input$nightmode ) {
+         shinyjs::removeClass(selector = "body", class = "nightmode")
+      } else {
+         shinyjs::addClass(selector = "body", class = "nightmode")
+      }
+      colors <- getColors()
+      plotExample(colors)
+      showSpectrum()
+      showColorplane(colors)
    })
 
    # ----------------------------------------------------------------
@@ -243,30 +259,32 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    showSpectrum <- function() {
       colors <- getColors(100)
+      fn <- sprintf(paste("fn <- function(colors, ...) {\n",
+                          "   par(bg = \"%1$s\", fg = \"%2$s\", col.axis = \"%2$s\")\n",
+                          "   specplot(colors, cex = 1.4, plot = TRUE, rgb = TRUE, ...)\n",
+                          "}"),
+                          ifelse(input$nightmode, "black", "white"), # background
+                          ifelse(input$nightmode, "white", "black")) # foreground, col.axis
+      fn <- eval(parse(text = fn))
       output$spectrum <- renderPlot(
-         specplot(colors, cex = 1.4, plot = TRUE, rgb = TRUE),
-         width = 800, height = 800
+         fn(colors), width = 800, height = 800
       )
    }
 
    # ----------------------------------------------------------------
    # Display colorplane
    # ----------------------------------------------------------------
-   showColorplane <- function() {
-      colors <- getColors( input$N ) #11)
-      # dimension to collapse
-      if ( grepl("^qual", input$typ) ) {
-          plot_type <- "qualitative"
-      } else if ( grepl("^dive", input$typ) ) {
-          plot_type <- "diverging"
-      } else if ( grepl("^(seqm|seqs)", input$typ) ) {
-          plot_type <- "sequential"
-      } else {
-          plot_type <- NULL # Let the plotting function decide
-      }
+   showColorplane <- function(colors) {
+      if ( missing(colors) ) colors <- getColors( input$N ) #11)
+      fn <- sprintf(paste("fn <- function(colors, ...) {\n",
+                          "   par(bg = \"%1$s\", fg = \"%2$s\", col.axis = \"%2$s\")\n",
+                          "   hclplot(colors, cex = 1.4, ...)\n",
+                          "}"),
+                          ifelse(input$nightmode, "black", "white"), # background
+                          ifelse(input$nightmode, "white", "black")) # foreground, col.axis
+      fn <- eval(parse(text = fn))
       output$colorplane <- renderPlot(
-         hclplot(colors, type = plot_type, cex = 1.4),
-         width = 800, height = 800
+         fn(colors), width = 800, height = 800
       )
    }
 
@@ -274,9 +292,19 @@ shinyServer(function(input, output, session) {
    # Plotting example
    # ----------------------------------------------------------------
    plotExample <- function(colors) {
-      cmd <- sprintf("output$plot <- renderPlot({colorspace:::plot_%s(colors)},width=800,height=600)",
-                     tolower(input$EXAMPLE))
-      eval(parse(text = cmd))
+      if ( nchar(input$EXAMPLE) > 0 ) {
+          fn <- sprintf(paste("fn <- function(x, type, ...) {\n",
+                              "   par(bg = \"%1$s\", fg = \"%2$s\", col.axis = \"%2$s\")\n",
+                              "   demoplot(x, type, ...)\n",
+                              "}"),
+                              ifelse(input$nightmode, "black", "white"), # background
+                              ifelse(input$nightmode, "white", "black")) # foreground, col.axis
+          fn <- eval(parse(text = fn))
+          cmd <- sprintf(paste("output$plot <- renderPlot({fn(colors, \"%s\")},",
+                               "width = 800, height = 600)"),
+                               tolower(input$EXAMPLE))
+          eval(parse(text = cmd))
+      }
    }
 
    # ----------------------------------------------------------------

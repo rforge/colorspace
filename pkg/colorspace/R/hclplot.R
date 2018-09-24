@@ -160,9 +160,9 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
             opar <- par(cex = cex, mar = c(3, 3, 2, 1) * cex, no.readonly = TRUE)
             on.exit(par(opar))
             nd <- expand.grid(C = 0:maxchroma, L = 0:100)
-	    if(!is.null(h)) {
-	        nd$H <- h
-	    } else if(diff(range(HCL[, "H"], na.rm = TRUE)) < 5) {
+            if(!is.null(h)) {
+                nd$H <- h
+            } else if(diff(range(HCL[, "H"], na.rm = TRUE)) < 5) {
                 nd$H <- mean(HCL[, "H"], na.rm = TRUE)
             } else {
                 m <- lm(H ~ C + L, data = as.data.frame(HCL))
@@ -170,25 +170,25 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
                 nd$H <- predict(m, nd)
             }
             if(is.null(main)) {
-	        main <- if(length(unique(nd$H)) <= 1L) {
-		    round(nd$H[1L])
-		} else {
-		    paste("[", round(min(nd$H, na.rm = TRUE)), ", ", round(max(nd$H, na.rm = TRUE)), "]", sep = "")
-		}
-	        main <- paste("Hue =", main)
-	    }
+                main <- if(length(unique(nd$H)) <= 1L) {
+                    round(nd$H[1L])
+                } else {
+                    paste("[", round(min(nd$H, na.rm = TRUE)), ", ", round(max(nd$H, na.rm = TRUE)), "]", sep = "")
+                }
+                main <- paste("Hue =", main)
+            }
             HCL2 <- hex(polarLUV(H = nd$H, C = nd$C, L = nd$L), fixup = FALSE)
             HCL2[nd$L < 1 & nd$C > 0] <- NA
             plot(0, 0, type = "n", xlim = c(0, maxchroma), ylim = c(0, 100), xaxs = "i", yaxs = "i",
                  xlab = NA, ylab = NA, main = main, axes = axes)
             # Adding axis labels
-	    if(axes) {
+            if(axes) {
                 if ( is.null(xlab) ) xlab <- "Chroma"
                 if ( is.null(ylab) ) ylab <- "Luminance"
                 mtext(side = 1, line = 2 * cex, xlab, cex = cex)
                 mtext(side = 2, line = 2 * cex, ylab, cex = cex)
             }
-	    # Adding colors
+            # Adding colors
             points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)
             points(HCL[, 2L:3L], pch = 19, cex = 1.1 * size * cex,  type = "p", lwd = 5 * lwd, col = bg)
             points(HCL[, 2L:3L], pch = 21, bg = x, cex = size * cex, type = "o", lwd = lwd)
@@ -198,58 +198,57 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
             opar <- par(cex = cex, mar = c(3, 3, 2, 1) * cex, no.readonly = TRUE)
             on.exit(par(opar))
             nd <- expand.grid(C = -maxchroma:maxchroma, L = 0:100)
-	    nd$H <- NA
+            nd$H <- NA
             nd$left <- nd$C < 0
             left  <- 1L:floor(n/2)
-	    left  <- left[HCL[left, "C"] > 10]
+            left  <- left[HCL[left, "C"] > 10]
             right <- ceiling(n/2):n
-	    right <- right[HCL[right, "C"] > 10]
-	    
-	    if(!is.null(h)) {
-	        if(length(h) == 2L) {
+            right <- right[HCL[right, "C"] > 10]
+        
+            if(!is.null(h)) {
+                if(length(h) == 2L) {
                     nd$H[nd$left]  <- h[1L]
                     nd$H[!nd$left] <- h[2L]
-		} else {
-		  nd$H <- h
-		}
+                } else {
+                    nd$H <- h
+                }
             } else if(diff(range(HCL[left, "H"]  - min(HCL[ left, "H"], na.rm = TRUE), na.rm = TRUE)) < 5 &
-	       diff(range(HCL[right, "H"] - min(HCL[right, "H"], na.rm = TRUE), na.rm = TRUE)) < 5)
-	    {
-               nd$H[nd$left]  <- mean(HCL[ left, "H"] - min(HCL[ left, "H"], na.rm = TRUE), na.rm = TRUE) + min(HCL[ left, "H"], na.rm = TRUE)
-               nd$H[!nd$left] <- mean(HCL[right, "H"] - min(HCL[right, "H"], na.rm = TRUE), na.rm = TRUE) + min(HCL[right, "H"], na.rm = TRUE)
+                     diff(range(HCL[right, "H"] - min(HCL[right, "H"], na.rm = TRUE), na.rm = TRUE)) < 5) {
+                nd$H[nd$left]  <- mean(HCL[ left, "H"] - min(HCL[ left, "H"], na.rm = TRUE), na.rm = TRUE) + min(HCL[ left, "H"], na.rm = TRUE)
+                nd$H[!nd$left] <- mean(HCL[right, "H"] - min(HCL[right, "H"], na.rm = TRUE), na.rm = TRUE) + min(HCL[right, "H"], na.rm = TRUE)
             } else {
-	       HCLdata <- as.data.frame(HCL)
-	       HCLdata$left <- factor(rep(c(TRUE, FALSE), c(floor(n/2), ceiling(n/2))))
-	       nd$left <- factor(nd$left)
-               m <- lm(H ~ left * (C + L), data = HCLdata)
-               if(summary(m)$sigma > 7.5) warning("cannot approximate H well as a linear function of C and L")
-               nd$H <- predict(m, nd)
-	       nd$left <- nd$left == "TRUE"
+                HCLdata <- as.data.frame(HCL)
+                HCLdata$left <- factor(rep(c(TRUE, FALSE), c(floor(n/2), ceiling(n/2))))
+                nd$left <- factor(nd$left)
+                    m <- lm(H ~ left * (C + L), data = HCLdata)
+                    if(summary(m)$sigma > 7.5) warning("cannot approximate H well as a linear function of C and L")
+                    nd$H <- predict(m, nd)
+                nd$left <- nd$left == "TRUE"
             }
             if(is.null(main)) {
-	        main <- if(length(unique(nd$H)) <= 2L) {
-		    paste(round(nd$H[nd$left][1L]), "/", round(nd$H[!nd$left][1L]))
-		} else {
-		    paste("[",
-		        round(min(nd$H[nd$left], na.rm = TRUE)), ", ", round(max(nd$H[nd$left], na.rm = TRUE)), "] / [",
-	                round(min(nd$H[!nd$left], na.rm = TRUE)), ", ", round(max(nd$H[!nd$left], na.rm = TRUE)), "]", sep = "")
-		}
-	        main <- paste("Hue =", main)
-	    }
+                main <- if(length(unique(nd$H)) <= 2L) {
+                    paste(round(nd$H[nd$left][1L]), "/", round(nd$H[!nd$left][1L]))
+                } else {
+                   paste("[",
+                       round(min(nd$H[nd$left], na.rm = TRUE)), ", ", round(max(nd$H[nd$left], na.rm = TRUE)), "] / [",
+                           round(min(nd$H[!nd$left], na.rm = TRUE)), ", ", round(max(nd$H[!nd$left], na.rm = TRUE)), "]", sep = "")
+                }
+                main <- paste("Hue =", main)
+            }
             HCL2 <- hex(polarLUV(H = nd$H, C = abs(nd$C), L = nd$L), fixup = FALSE)
             HCL2[nd$L < 1 & nd$C > 0] <- NA
             plot(0, 0, type = "n", xlim = c(-1, 1) * maxchroma, ylim = c(0, 100), xaxs = "i", yaxs = "i",
                  xlab = NA, ylab = NA, main = main, axes = FALSE)
             # Axis labels
-	    if(axes) {
-                if ( is.null(xlab) ) xlab <- "Chroma"
-                if ( is.null(ylab) ) ylab <- "Luminance"
-                mtext(side = 1, line = 2 * cex, xlab, cex = cex)
-                mtext(side = 2, line = 2 * cex, ylab, cex = cex)
-	        at1 <- pretty(c(-1, 1) * maxchroma)
-	        axis(1, at = at1, labels = abs(at1))
-	        axis(2)
-	    }
+            if(axes) {
+                    if ( is.null(xlab) ) xlab <- "Chroma"
+                    if ( is.null(ylab) ) ylab <- "Luminance"
+                    mtext(side = 1, line = 2 * cex, xlab, cex = cex)
+                    mtext(side = 2, line = 2 * cex, ylab, cex = cex)
+                at1 <- pretty(c(-1, 1) * maxchroma)
+                axis(1, at = at1, labels = abs(at1))
+                axis(2)
+            }
             # Plotting colors
             points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)
             points( HCL[, "C"] * ifelse(1L:n <= floor(mean(n/2)),-1,1),
@@ -263,8 +262,7 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
             on.exit(par(opar))
             nd <- expand.grid(H = 0:180 * 2, C = 0:maxchroma)
 
-
-	    if(!is.null(l)) {
+            if(!is.null(l)) {
                 nd$L <- l
             } else if(diff(range(HCL[, "L"], na.rm = TRUE)) < 5) {
                 nd$L <- mean(HCL[, "L"], na.rm = TRUE)
@@ -275,13 +273,13 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
                 nd$L <- pmin(100, pmax(0, nd$L))
             }
             if(is.null(main)) {
-	        main <- if(length(unique(nd$L)) <= 1L) {
-		    round(nd$L[1L])
-		} else {
-		    paste("[", round(min(nd$L, na.rm = TRUE)), ", ", round(max(nd$L, na.rm = TRUE)), "]", sep = "")
-		}
-	        main <- paste("Luminance =", main)
-	    }
+               main <- if(length(unique(nd$L)) <= 1L) {
+                  round(nd$L[1L])
+               } else {
+                  paste("[", round(min(nd$L, na.rm = TRUE)), ", ", round(max(nd$L, na.rm = TRUE)), "]", sep = "")
+               }
+               main <- paste("Luminance =", main)
+            }
             HCL2 <- hex(polarLUV(H = nd$H, C = nd$C, L = nd$L), fixup = FALSE)
             HCL2[nd$L < 1 & nd$C > 0] <- NA
 

@@ -78,7 +78,7 @@ plot_map <- function(x, ...) {
   
 # Plot heatmap example
 plot_heatmap <- function(x, ...) {
-   image(datasets::volcano, col = rev(x), xaxt = "n", yaxt = "n", useRaster = TRUE)
+   image(datasets::volcano, col = rev(x), bty = "n", xaxt = "n", yaxt = "n", useRaster = TRUE)
 }
   
 # Plot scatter example
@@ -161,10 +161,11 @@ plot_perspective <- function(x, ...) {
    n <- 31
    x1 <- x2 <- seq(-3, 3, length = n)
    y <- outer(x1, x2, 
-              function(x, y) {
-                0.5 * stats::dnorm(x, mean=-1, sd=0.80) * stats::dnorm(y, mean=-1, sd=0.80) +
-                0.5 * stats::dnorm(x, mean= 1, sd=0.72) * stats::dnorm(y, mean= 1, sd=0.72)
-              })
+            function(x, y) {
+                0.5 * stats::dnorm(x, mean = -1, sd = 0.80) * stats::dnorm(y, mean = -1, sd = 0.80) +
+                0.5 * stats::dnorm(x, mean =  1, sd = 0.72) * stats::dnorm(y, mean =  1, sd = 0.72)
+            }
+        )
 
    # Compute color based on density
    if (length(x) > 1) {
@@ -176,7 +177,7 @@ plot_perspective <- function(x, ...) {
    }
 
    # Perspective plot coding z-axis with color
-   persp(x1, x2, y, col=cols, phi=28, theta=20, r=5, xlab="", ylab="", zlab="")
+   persp(x1, x2, y, col = cols, phi = 28, theta = 20, r = 5, xlab = "", ylab = "", zlab = "")
 }
   
 # Plot mosaic example
@@ -186,18 +187,18 @@ plot_mosaic <- function(x, ...) {
       set.seed(1071)
       mat <- list()
       for (i in 1:50) {
-         mat[[i]] <- matrix(stats::runif(i * 10, min=-1, max=1), nrow=10, ncol=i)
+         mat[[i]] <- matrix(stats::runif(i * 10, min = -1, max = 1), nrow = 10, ncol = i)
       }
       .example_env$msc.matrix <- mat
    }
-   image(.example_env$msc.matrix[[length(x)]], col=x, xaxt="n", yaxt="n")
+   image(.example_env$msc.matrix[[length(x)]], bty = "n", col = x, xaxt = "n", yaxt = "n")
 }
   
 # Plot lines example
 plot_lines <- function(x, ...) {
    n <- length(x)
-   plot(NULL, xlab="", ylab="", xaxt="n", yaxt="n", type="n", 
-        xlim=c(0, 6), ylim=c(1.5, n + 1.5))
+   plot(NULL, xlab = "", ylab = "", xaxt = "n", yaxt = "n", type = "n", 
+        bty = "n", xlim = c(0, 6), ylim = c(1.5, n + 1.5))
    s <- 2:(n + 1)
    rev.s <- rev(s)
    rev.x <- rev(x)
