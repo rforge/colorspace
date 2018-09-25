@@ -7,9 +7,10 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2017-09-16, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-22 14:21 on marvin
+# - L@ST MODIFIED: 2018-09-25 15:26 on marvin
 # -------------------------------------------------------------------
 library("shiny")
+library("shinyjs")
 
 desc <- paste("Please select a file from your disc which you want",
               "to convert. Only PNG/JPG/JPEG files are allowed.",
@@ -17,10 +18,11 @@ desc <- paste("Please select a file from your disc which you want",
 
 # Define UI for data upload app ----
 shiny::shinyUI(bootstrapPage(
-#shiny::shinyUI(fluidPage(
 
-   theme = "cvdemulator.css",
-
+   tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "cvdemulator.css"),
+      tags$link(rel = "stylesheet", type = "text/css", href = "cvdemulator_nightmode.css")
+   ),
    tags$script("
    $(document).ready(function() {
         $(document).on(\"keyup\", function(event) {
@@ -30,6 +32,7 @@ shiny::shinyUI(bootstrapPage(
         });
    });
    "),
+   useShinyjs(),
 
    div(class = "version-info", htmlOutput("version_info")),
 
@@ -65,9 +68,9 @@ shiny::shinyUI(bootstrapPage(
             textOutput("status"),
             h2("Tip"),
             p(paste("You can use the keys \"a\", \"s\", \"d\", \"f\", \"g\", \"h\"",
-                    "to navigate trough the different tabs."))
-
-
+                    "to navigate trough the different tabs.")),
+            h3("Night Mode"),
+            checkboxInput("nightmode", "Activate night mode (check figures on black background).", value = FALSE, width = NULL)
          )
       ),
 

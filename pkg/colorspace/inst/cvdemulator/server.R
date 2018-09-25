@@ -52,6 +52,17 @@ shinyServer(function(input, output, session) {
    })
 
    # ----------------------------------------------------------------
+   # Night mode on/off
+   # ----------------------------------------------------------------
+   observeEvent(input$nightmode, {
+      if ( ! input$nightmode ) {
+         shinyjs::removeClass(selector = "body", class = "nightmode")
+      } else {
+         shinyjs::addClass(selector = "body", class = "nightmode")
+      }
+   })
+
+   # ----------------------------------------------------------------
    # Status observer
    # ----------------------------------------------------------------
    observe({

@@ -1,4 +1,7 @@
 /* Need more space on small screens: remove some paddings */
+body {
+    padding-top: 1em;
+}
 div.col-sm-2 { padding: 0; }
 form.well    {
    padding: 0 10px 20px 10px;
@@ -77,7 +80,7 @@ span.hcl-slidervalue > div > label {
    padding: 0;
    max-width: 100%;
    white-space: nowrap;
-   overflow: hidden;
+   overflow: visible;
 }
 span.hcl-slidervalue > div.form-group.shiny-input-container {
    width: 60%;
@@ -209,6 +212,9 @@ button#closeapp { width: 100%; text-align: center; margin-top: 10px; }
 @media screen and (min-width: 768px) and (max-width: 1100px) {
    span.hcl-slider { width: 100%; }
    span.hcl-slidervalue { display: none; }
+}
+@media screen and (min-width: 1101px) and (max-width: 1300px) {
+   span.hcl-slidervalue > div > label { overflow: hidden; }
 }
 @media screen and (min-width: 1101px) and (max-width: 1500px) {
    span.hcl-slider { width: 65%; }

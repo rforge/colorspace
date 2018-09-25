@@ -26,12 +26,12 @@ body.nightmode {
     color: #F0F0F0;
 }
 
-.nightmode div#hcl-main-export code {
+.nightmode div#hcl-export code {
     background-color: black;
     color: white;
 }
 
-.nightmode div#hcl-main-export comment {
+.nightmode div#hcl-export comment {
     background-color: black;
     color: #88b5dd;
 }
@@ -68,11 +68,6 @@ body.nightmode {
     background: #282828;
     color: #88b5dd;
 }
-.nightmode code {
-    background: #282828;
-    color: #88b5dd;
-    font-weight: bold;
-}
 
 .nightmode .irs-min,
 .nightmode .irs-max {
@@ -88,25 +83,15 @@ body.nightmode {
 .nightmode .irs-line {
     border-color: #505050;
 }
+.nightmode .irs-slider {
+    background-color: black;
+}
 .nightmode .form-control {
     background-color: black;
     color: white;
 }
-.nightmode .irs-slider {
-    background-color: black;
+.nightmode code {
+    background: #282828;
+    color: #88b5dd;
+    font-weight: bold;
 }
-.nightmode .irs-slider:hover {
-    background-color: #505050;
-}
-
-
-
-
-
-
-
-
-
-
-
-

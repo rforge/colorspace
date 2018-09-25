@@ -43,6 +43,10 @@
 #' \code{shiny}, see \sQuote{Details} below.
 #' @param shiny.trace boolean, default \code{FALSE}. Used for debugging if
 #' \code{gui = "shiny"}.
+#' @param ... Forwarded, used for development and demonstration purposes only.
+#' Currently considered: \code{verbose} (logical, default \code{FALSE}) and
+#' \code{autohclplot} (logical, default \code{FALSE}), and \code{shiny.trace}
+#' (logical, default \code{FALSE}).
 #' @return Returns a palette-generating function with the selected arguments.
 #' Thus, the returned function takes an integer argument and returns the
 #' corresponding number of HCL colors by traversing HCL space through
@@ -78,16 +82,16 @@
 #' @importFrom grDevices dev.cur dev.list dev.new dev.off dev.set
 
 #' @export
-choose_palette <- function(pal = diverging_hcl, n = 7L, parent = NULL, gui = "tcltk") {
-   args <- list("pal" = pal, "n" = n, "parent" = parent)
+choose_palette <- function(pal = diverging_hcl, n = 7L, parent = NULL, gui = "tcltk", ...) {
+   args <- list("pal" = pal, "n" = n, "parent" = parent, ...)
    gui <- match.arg(gui, c("tcltk", "shiny"))
    do.call(sprintf("choose_palette_%s", gui), args)
 }
 
 #' @rdname choose_palette
 #' @export
-hclwizard <- function(n = 7L, gui = "shiny", shiny.trace = FALSE) {
-   args <- list("n" = n, "shiny.trace" = shiny.trace)
+hclwizard <- function(n = 7L, gui = "shiny", ...) {
+   args <- list("n" = n, ...)
    gui <- match.arg(gui, c("tcltk", "shiny"))
    do.call(sprintf("choose_palette_%s", gui), args)
 }
@@ -95,26 +99,36 @@ hclwizard <- function(n = 7L, gui = "shiny", shiny.trace = FALSE) {
 #' @rdname choose_palette
 #' @usage NULL
 #' @export
-hcl_wizard <- function(n = 7L, gui = "shiny", shiny.trace = FALSE)
-   hclwizard(n=n,gui=gui,shiny.trace=FALSE)
+hcl_wizard <- function(n = 7L, gui = "shiny", ...)
+   hclwizard(n = n, gui = gui, ...)
 
 # hclwizard shiny GUI for selecting color palette
-choose_palette_shiny <- function(pal, shiny.trace = FALSE, n = 7L, ...) {
+choose_palette_shiny <- function(pal, n = 7L, ...) {
    # Requirements for shiny application
-   stopifnot(requireNamespace("shiny"), requireNamespace("shinyjs"))   
+   stopifnot(requireNamespace("shiny"), requireNamespace("shinyjs"))
    appDir <- system.file("hclwizard", package = "colorspace")
    if (appDir == "")
       stop("Could not find hclwizard app directory. Try re-installing `colorspace`.", call. = FALSE)
    # Start shiny
-   Sys.setenv("hclwizard_Ninit"=n)
-   options(shiny.trace=shiny.trace)
+   Sys.setenv("hclwizard_Ninit" = n)
+   dots         <- list(...)
+   autohclplot <<- ifelse(is.null(dots$autohclplot), FALSE, as.logical(dots$autohclplot))
+   Sys.setenv("hclwizard_autohclplot" = autohclplot)
+   shiny.trace <- ifelse(is.null(list(...)$shiny.trace), FALSE, as.logical(list(...)$shiny.trace))
+   options(shiny.trace = shiny.trace)
    pal <- shiny::runApp(appDir, display.mode = "normal", quiet = TRUE )
    Sys.unsetenv("hclwizard_Ninit")
+   Sys.unsetenv("hclwizard_autohclplot")
    return(pal)
 }
 
 # tcltk GUI for selecting a color palette
 choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... ) {
+
+  # Evaluate dots args
+  dots         <- list(...)
+  verbose     <<- ifelse(is.null(dots$verbose),     FALSE, as.logical(dots$verbose))
+  autohclplot <<- ifelse(is.null(dots$autohclplot), FALSE, as.logical(dots$autohclplot))
 
   # Choose a file interactively
   ChooseFile <- function(cmd, win.title, initialfile=NULL, 
@@ -335,25 +349,25 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     palettes$fixup   <- TRUE
     palettes$reverse <- FALSE
 
-    if (type == "Qualitative") {
+    if (type == "Basic: Qualitative") {
       default.pals <<- subset(palettes, type == "qual")
 
-    } else if ( type == "Sequential (single hue)" ) {
+    } else if ( type == "Basic: Sequential (single-hue)" ) {
       default.pals <<- subset(palettes, type == "seqs")
 
-    } else if ( type == "Sequential (single hue, advanced)" ) {
+    } else if ( type == "Advanced: Sequential (single-hue)" ) {
       default.pals <<- subset(palettes, type == "seqs_advanced")
 
-    } else if (type == "Sequential (multi hue)") {
+    } else if (type == "Basic: Sequential (multi-hue)") {
       default.pals <<- subset(palettes, type == "seqm")
 
-    } else if (type == "Sequential (multi hue, advanced)") {
+    } else if (type == "Advanced: Sequential (multi-hue)") {
       default.pals <<- subset(palettes, type == "seqm_advanced")
 
-    } else if (type == "Diverging") {
+    } else if (type == "Basic: Diverging") {
       default.pals <<- subset(palettes, type == "dive")
 
-    } else if (type == "Diverging (advanced)") {
+    } else if (type == "Advanced: Diverging") {
       default.pals <<- subset(palettes, type == "dive_advanced")
 
     }
@@ -452,7 +466,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     # multi hue palette (the first in the GetPaletteConfig data.frame)
     if ( missing(pal) | is.null(pal) ) {
 
-        tcltk::tclvalue(nature.var) <- "Sequential (multiple hues)"
+        tcltk::tclvalue(nature.var) <- "Basic: Sequential (multi-hue)"
         pal_args <- GetPaletteConfig(gui = TRUE)
         pal_args <- as.list(subset(pal_args, type == "seqm")[1,])
         names(pal_args) <- tolower(names(pal_args))
@@ -471,10 +485,33 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
             for ( i in seq_along(arg$h) )
                 eval(parse(text = sprintf("pal_args$h%1$d <- arg$h[%1$dL]", i)))
         }
+        # For c1/cmax/c2 we need a bit of custom code. For different palette types
+        # the "c" handling is different.
+        # - Qualitative: they only have a single-element "c" (easy)
+        # - Sequential single hue: c can be a c(c1) or c(c1, cmax)
+        # - Sequential multi hue:  c can be a c(c1, c2) or c(c1, c2, cmax)
+        # - Diverging: c can be a c(c1) or c(c1, cmax)
+        # Thus, diverging_hcl "advanced" and sequential multi hue "not advanced"
+        # can look very similar given there default arguments, e.g.,:
+        # - diverging_hcl(n = 7, h = c(0, 100), c = c(50, 70), l = c(40, 90))
+        # - sequential_hcl(n = 7, h = c(0, 100), c = c(50, 70), l = c(40, 90))
+        # When loading a palette we do not get the function name, only the function
+        # arguments (via formals). Do be able to distinguish between these two
+        # types the diverging_hcl "advanced" stores a "cmax" in addition. Thus,
+        # if we have a chroma vector of length 2 PLUS a cmax which maches c[2L]
+        # we assume we have a diverging "advanced" palette and have to split
+        # the arguments in a different way.
+        # 
+        # Sequential multi hue advanced with c(c1, c2, cmax)
         if ( length(arg$c) >= 3 ) {
-            pal_args$c1   <- arg[["c"]][1L]
-            pal_args$cmax <- arg[["c"]][2L]
-            pal_args$c2   <- arg[["c"]][3L]
+            pal_args$c1   <- arg$c[1L]
+            pal_args$cmax <- arg$c[2L]
+            pal_args$c2   <- arg$c[3L]
+        # Diverging advanced with c(c1, cmax) and c[2L] == cmax
+        } else if ( length(arg$c == 2 & arg$c[2L] == arg$cmax) ) {
+            pal_args$c1   <- arg$c[1L]
+            pal_args$cmax <- arg$c[2L]
+        # Else sequential multi hue (not advanced)
         } else if ( length(arg$c) > 0 ) {
             for ( i in seq(1, length(arg$c)) )
                 eval(parse(text = sprintf("pal_args$c%1$d <- arg$c[%1$dL]", i)))
@@ -504,41 +541,40 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
         # If input is rainbow_hcl
         rb.args   <- c("c", "l", "start", "end")  # args for qualitative palettes
         if ( all(sapply(rb.args, function(i) inherits(arg[[i]], c("integer", "numeric")))) ) {
-          tcltk::tclvalue(nature.var) <- "Qualitative"
+          tcltk::tclvalue(nature.var) <- "Basic: Qualitative"
           pal_args$h1 <- arg$start
           pal_args$h2 <- arg$end
         }
         
         # If has no c2, l2, p1, p2, cmax -> qualitative
         arg_names <- names(pal_args)[!is.na(pal_args)]
-        print(as.data.frame(pal_args))
         # Qualitative palettes:
         # - Always NA: cmax, c2, l2, p1, p2
         if ( all( ! c("cmax", "c2", "l2", "p1", "p2") %in% arg_names) ) {
-            pal_type <- "Qualitative"
+            pal_type <- "Basic: Qualitative"
         # Sequential single hue
         # - Always NA: h2, cmax, c2, p2
         } else if ( all( ! c("h2", "cmax", "c2", "p2") %in% arg_names) ) {
-            pal_type <- "Sequential (single hue)"
+            pal_type <- "Basic: Sequential (single-hue)"
         # Diverging
         # - Always NA: cmax, c2
         } else if ( all( ! c("cmax", "c2") %in% arg_names) ) {
-            pal_type <- "Diverging"
+            pal_type <- "Basic: Diverging"
         # Diverging, advanced
-        # - Always NA: c2
-        } else if ( all(! c("c2") %in% arg_names) ) {
-            pal_type <- "Diverging (advanced)"
+        # - Always NA: c2, but have h1 and h2
+        } else if ( all(! c("c2") %in% arg_names) & all(c("h1", "h2") %in% arg_names )) {
+            pal_type <- "Advanced: Diverging"
         # Sequential single hue, advanced
         # - Always NA: h2
         } else if ( all(! c("h2") %in% arg_names) ) {
-            pal_type <- "Sequential (single hue, advanced)"
+            pal_type <- "Advanced: Sequential (single-hue)"
         # Sequential multi hue, advanced
         # - Always NA: cmax
         } else if ( ! "cmax" %in% arg_names ) {
-            pal_type <- "Sequential (multi hue)"
+            pal_type <- "Basic: Sequential (multi-hue)"
         # Else we expect it to be a sequential hulti hue, advanced
         } else {
-            pal_type <- "Sequential (multi hue, advanced)"
+            pal_type <- "Advanced: Sequential (multi-hue)"
         }
         tcltk::tclvalue(nature.var) <- pal_type
 
@@ -656,13 +692,20 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   RegenExample <- function(pal,n) {
     if (dev.example %in% dev.list()) dev.set(which=dev.example)
     else                             return()
-    plot_example <- eval(parse(text=sprintf("plot_%s", tolower(tcltk::tclvalue(example.var)))))
+    plot_example <- eval(parse(text=sprintf("plot_%s",
+                         gsub(" ", "", tolower(tcltk::tclvalue(example.var))))))
     # Spectrum plot: take 100 values (hardcoded)
     if ( tcltk::tclvalue(example.var) == "Spectrum" ) n <- 100
     pal.cols <- get_hex_colors(pal,n)
-    if ( as.logical(as.integer(tcltk::tclvalue(reverse.var))) )
-        pal.cols <- pal.cols
-    plot_example(pal.cols)
+
+    if ( grepl("^HCL\\sPlot$", as.character(tcltk::tclvalue(example.var))) & !autohclplot ) {
+        type <- as.character(tcltk::tclvalue(nature.var))
+        if      ( grepl("[Dd]iverging", type) )   { type <- "diverging" }
+        else if ( grepl("[Ss]equential", type) )  { type <- "sequential" }
+        else if ( grepl("[Qq]ualitative", type) ) { type <- "qualitative" }
+        else                                      { type <- NULL }
+    } else { type = NULL }
+    plot_example(pal.cols, type = type)
   }
 
 
@@ -670,9 +713,6 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   # Main program
   # ----------------------------------------------------------------
 
-  # Development verbose mode
-  verbose     <<- FALSE
-  
   # Initialize directory
   initialdir   <- getwd()
 
@@ -756,7 +796,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     tcltk::tkwm.geometry(tt, paste("+", as.integer(geo[2]) + 25,
                             "+", as.integer(geo[3]) + 25, sep=""))
   }
-  tcltk::tkwm.resizable(tt, 1, 0)
+  tcltk::tkwm.resizable(tt, 0, 0)
   tcltk::tkwm.geometry(tt, "425x745+0+10") 
   tcltk::tktitle(tt) <- "Choose Color Palette"
 
@@ -802,15 +842,15 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   # Frame 1, choose nature of data
   frame1 <- tcltk::ttkframe(tt, relief = "flat")
-  frame1.lab.1 <- tcltk::ttklabel(frame1, text = "The nature of your data")
+  frame1.lab.1 <- tcltk::ttklabel(frame1, text = "Type of palette: ")
   frame1.box.2 <- tcltk::ttkcombobox(frame1, state = "readonly", textvariable = nature.var,
-                   values=c("Qualitative",
-                            "Sequential (single hue, advanced)",
-                            "Sequential (multi hue, advanced)",
-                            "Diverging (advanced)",
-                            "Sequential (single hue)",
-                            "Sequential (multi hue)",
-                            "Diverging"))
+                   values=c("Basic: Qualitative",
+                            "Basic: Sequential (single-hue)",
+                            "Basic: Sequential (multi-hue)",
+                            "Basic: Diverging",
+                            "Advanced: Sequential (single-hue)",
+                            "Advanced: Sequential (multi-hue)",
+                            "Advanced: Diverging"))
 
   tcltk::tkgrid(frame1.lab.1, frame1.box.2, pady=c(10, 0))
   tcltk::tkgrid.configure(frame1.lab.1, padx=c(10, 2))
@@ -1048,16 +1088,16 @@ GetPalette <- function(...) { #type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, reve
 
    fixup <- as.logical(fixup)
    #type <- as.character(tcltk::tclvalue(nature.var))
-   if (type %in% c("Qualitative","qual")) {
+   if (grepl("^(qual|.*[Qq]ualitative)", type)) {
       f <- qualitative_hcl
       formals(f) <- eval(substitute(alist(n=, h=hh, c=d1, l=d2, start=d3, end=d4,
                                           fixup=d5, gamma=NULL, alpha=1,
                                           palette=NULL, rev=d6, ...=,
                                           h1=, h2=, c1=, l1=, cmax=),
-                                    list(hh = c(0,360), 
+                                    list(hh = c(h1, h2), #0,360), 
                                          d1=c1, d2=l1, d3=h1, d4=h2, d5=fixup, d6=reverse)))
    #} else if (type %in% c("seqs","Sequential (single hue)")) {
-   } else if (grepl("^(seqs|Sequential.*single)", type)) {
+   } else if (grepl("^(seqs|.*[Ss]equential.*single)", type)) {
       f <- sequential_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
                                           gamma=NULL, fixup=d5, alpha=1,
@@ -1066,7 +1106,7 @@ GetPalette <- function(...) { #type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, reve
                                     list(d1=h1, d2=c(c1,cmax,c2), d3=c(l1, l2),
                                          d4=p1, d5=fixup, d6=reverse)))
    #} else if (type %in% c("seqm","Sequential (multiple hues)")) {
-   } else if (grepl("^(seqm|Sequential.*multi)", type)) {
+   } else if (grepl("^(seqm|.*[Ss]equential.*multi)", type)) {
       f <- sequential_hcl
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
                                           gamma=NULL, fixup=d5, alpha=1,
@@ -1075,10 +1115,11 @@ GetPalette <- function(...) { #type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, reve
                                     list(d1=c(h1, h2), d2=c(c1, cmax, c2),
                                           d3=c(l1, l2), d4=c(p1, p2), d5=fixup, d6=reverse)))
    #} else if (type %in% c("dive","Diverging")) {
-   } else if (grepl("^(dive|Diverging)", type)) {
+   } else if (grepl("^(dive|.*[Dd]iverging)", type)) {
       f <- diverging_hcl
-      if ( all(c("p1", "p2") %in% names(list(...))) ) power <- c(p1, p2) else power <- p1
-      if ( all(c("c1", "cmax") %in% names(list(...))) ) chroma <- c(c1, cmax) else chroma <- c1
+      arg_names <- names(list(...))[!is.na(list(...))]
+      if ( all(c("p1", "p2")   %in% arg_names) ) power <- c(p1, p2) else power <- p1
+      if ( all(c("c1", "cmax") %in% arg_names) ) chroma <- c(c1, cmax) else chroma <- c1
       formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
                                           gamma=NULL, fixup=d5, alpha=1,
                                           palette=NULL, rev=d6, ...=,

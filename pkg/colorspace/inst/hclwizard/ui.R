@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-24 19:44 on marvin
+# - L@ST MODIFIED: 2018-09-25 13:55 on marvin
 # -------------------------------------------------------------------
 
 
@@ -40,7 +40,6 @@ if ( nchar(Sys.getenv("hclwizard_Ninit")) > 0 &
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-   ##theme = "hclwizard.css",
    tags$head(
       tags$link(rel = "stylesheet", type = "text/css", href = "hclwizard.css"),
       tags$link(rel = "stylesheet", type = "text/css", href = "hclwizard_nightmode.css")
@@ -57,17 +56,16 @@ shinyUI(fluidPage(
       # -------------------------------------------------------------
       h3("Base Options"),
       withTags(div(class = "hcl-selectoptions", id = "hcl-typ", 
-         selectInput("typ", label = h3("Nature of your data"), 
+         selectInput("typ", label = h3("Type of palette"), 
            choices = list(
-               "Diverging"                            = "dive",
-               "Diverging (advanced)"                 = "dive_advanced",
-               "Qualitative"                          = "qual",
-               "Sequential (single hue)"              = "seqs",
-               "Sequential (single hue; advanced)"    = "seqs_advanced",
-               "Sequential (multiple hues)"           = "seqm",
-               "Sequential (multiple hues; advanced)" = "seqm_advanced",
-               #"Multi hue alert"       = "alrt",
-               "R default schemes"          = "base"), 
+               "Basic: Qualitative"                 = "qual",
+               "Basic: Sequential (single-hue)"     = "seqs",
+               "Basic: Sequential (multi-hue)"      = "seqm",
+               "Basic: Diverging"                   = "dive",
+               "Advanced: Sequential (single-hue)"  = "seqs_advanced",
+               "Advanced: Sequential (multi-hue)"   = "seqm_advanced",
+               "Advanced: Diverging"                = "dive_advanced",
+               "R default schemes"                  = "base"), 
            selected = "seqm")
       )),
       # Copy the line below to make a select box 
@@ -264,7 +262,7 @@ shinyUI(fluidPage(
       # Main panel which shows the plot.
       # -------------------------------------------------------------
       tabsetPanel(id = "maintabs",
-         tabPanel("Example Plot",value = "plotexample",
+         tabPanel("Example Plot", value = "plotexample",
             withTags(div(class = "hcl-main", id = "hcl-main-plot",
                plotOutput("plot")
             ))

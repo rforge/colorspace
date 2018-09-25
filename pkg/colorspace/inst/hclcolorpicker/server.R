@@ -18,7 +18,7 @@
 library("shiny")
 library("shinyjs")
 
-#options( shiny.trace = TRUE )
+##options( shiny.trace = TRUE )
 
 shiny::shinyServer(function(input, output, session) {
 
@@ -29,6 +29,22 @@ shiny::shinyServer(function(input, output, session) {
     delay(0, toggleState("closeapp", condition = F))
 
     picked_color_list <- shiny::reactiveValues(cl=c())
+
+    # ----------------------------------------------------------------
+    # Switch between night mode (black background) and normal mode
+    # (white background). Also used for the demo plots.
+    # ----------------------------------------------------------------
+    observeEvent(input$nightmode, {
+       if ( ! input$nightmode ) {
+          shinyjs::removeClass(selector = "body", class = "nightmode")
+       } else {
+          shinyjs::addClass(selector = "body", class = "nightmode")
+       }
+    })
+
+    # ----------------------------------------------------------------
+    # Clicking on HC plot plane
+    # ----------------------------------------------------------------
     shiny::observeEvent({input$HC_plot_click}, {
         # store the old colors
         coords_old_LUV <- coords(as(polarLUV(as.numeric(input$L),
@@ -44,6 +60,9 @@ shiny::shinyServer(function(input, output, session) {
         shiny::updateSliderInput(session, "H", value = round(coords_HCL[3L]))
     })
 
+    # ----------------------------------------------------------------
+    # Clicking on LC plot plane
+    # ----------------------------------------------------------------
     shiny::observeEvent({input$LC_plot_click}, {
         # store the old colors
         Lold <- as.numeric(input$L)
@@ -56,8 +75,10 @@ shiny::shinyServer(function(input, output, session) {
         shiny::updateSliderInput(session, "L", value = round(L))
     })
 
+    # ----------------------------------------------------------------
     # Palette click: event triggered when clicking on the
     # "palette of selected colors".
+    # ----------------------------------------------------------------
     shiny::observeEvent({input$palette_click}, {
         x <- input$palette_click$x
         if ( length(picked_color_list$cl) == 0 ) return()
@@ -70,28 +91,35 @@ shiny::shinyServer(function(input, output, session) {
         shiny::updateSliderInput(session, "H", value = round(coords_HCL[3L]))
     })
 
+    # ----------------------------------------------------------------
+    # Clicking on Hue gradient area
+    # ----------------------------------------------------------------
     shiny::observeEvent({input$Hgrad_click}, {
         H <- input$Hgrad_click$x
         if (!is.null(H))
             shiny::updateSliderInput(session, "H", value = round(H))
     })
 
+    # ----------------------------------------------------------------
+    # Clicking on Luminance gradient area
+    # ----------------------------------------------------------------
     shiny::observeEvent({input$Lgrad_click}, {
         L <- input$Lgrad_click$x
         if (!is.null(L))
             shiny::updateSliderInput(session, "L", value = round(L))
     })
 
-    output$version_info <- renderText(sprintf("<a href=\"%s\">R colorspace %s</a>",
-                                      "https://cran.r-project.org/package=colorspace",
-                                      packageVersion("colorspace")))
-
+    # ----------------------------------------------------------------
+    # Clicking on Chroma gradient area
+    # ----------------------------------------------------------------
     shiny::observeEvent({input$Cgrad_click}, {
         C <- input$Cgrad_click$x
         if (!is.null(C))
           shiny::updateSliderInput(session, "C", value = round(C))
     })
 
+    # ----------------------------------------------------------------
+    # ----------------------------------------------------------------
     shiny::observeEvent({input$set_hexcolor}, {
       # only execute this on complete color hex codes
       if (grepl("^#[0123456789ABCDEFabcdef]{6}$", input$hexcolor)) {
@@ -104,7 +132,9 @@ shiny::shinyServer(function(input, output, session) {
     })
 
 
+    # ----------------------------------------------------------------
     # save color code
+    # ----------------------------------------------------------------
     shiny::observeEvent(input$color_picker, {
         # cannot rely on hex color in text-input field, so recalculate from set H, C, L values
         hexcolor <- hex(polarLUV(as.numeric(input$L), as.numeric(input$C), as.numeric(input$H)))
@@ -118,7 +148,9 @@ shiny::shinyServer(function(input, output, session) {
         generateExport(output, picked_color_list$cl) 
     })
 
+    # ----------------------------------------------------------------
     # undo pick color
+    # ----------------------------------------------------------------
     shiny::observeEvent(input$color_unpicker, {
         if (input$hexcolor %in% picked_color_list$cl)
             picked_color_list$cl <- picked_color_list$cl[picked_color_list$cl != input$hexcolor]
@@ -128,11 +160,15 @@ shiny::shinyServer(function(input, output, session) {
         #}
     })
 
+    # ----------------------------------------------------------------
     # clear saved color code
+    # ----------------------------------------------------------------
     shiny::observeEvent(input$clear_color_picker, {
         picked_color_list$cl <- c()
     })
 
+    # ----------------------------------------------------------------
+    # ----------------------------------------------------------------
     shiny::observe({
         shiny::updateTextInput(session, "hexcolor",
                                value = hex(polarLUV(as.numeric(input$L),
@@ -140,8 +176,11 @@ shiny::shinyServer(function(input, output, session) {
                                                     as.numeric(input$H))))
     })
 
+    # ----------------------------------------------------------------
+    # ----------------------------------------------------------------
     output$colorbox <- shiny::renderUI({
-        shiny::tags$div(style=paste0("width: 100%; height: 40px; border: 1px solid rgba(0, 0, 0, .2); background: ",
+        shiny::tags$div(style=paste0("width: 100%; height: 40px; ",
+                                     "border: 1px solid rgba(0, 0, 0, .2); background: ",
                      hex(polarLUV(as.numeric(input$L),
                                   as.numeric(input$C),
                                   as.numeric(input$H))), ";"))
@@ -149,6 +188,9 @@ shiny::shinyServer(function(input, output, session) {
 
     # generate HC plot with given inputs
     output$HC_plot <- shiny::renderPlot({
+        par(bg       = ifelse(input$nightmode, "black", "white"),
+            fg       = ifelse(input$nightmode, "white", "black"),
+            col.axis = ifelse(input$nightmode, "white", "black"))
         color_picker_hue_chroma_plot(as.numeric(input$L),
                                      as.numeric(input$C),
                                      as.numeric(input$H))
@@ -156,6 +198,9 @@ shiny::shinyServer(function(input, output, session) {
 
     # generate LC plot with given inputs
     output$LC_plot <- shiny::renderPlot({
+        par(bg       = ifelse(input$nightmode, "black", "white"),
+            fg       = ifelse(input$nightmode, "white", "black"),
+            col.axis = ifelse(input$nightmode, "white", "black"))
         color_picker_luminance_chroma_plot(as.numeric(input$L),
                                            as.numeric(input$C),
                                            as.numeric(input$H))
@@ -163,24 +208,36 @@ shiny::shinyServer(function(input, output, session) {
 
 
     output$Hgrad <- shiny::renderPlot({
+        par(bg       = ifelse(input$nightmode, "black", "white"),
+            fg       = ifelse(input$nightmode, "white", "black"),
+            col.axis = ifelse(input$nightmode, "white", "black"))
         color_picker_H_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
     })
 
     output$Hgrad2 <- shiny::renderPlot({
+        par(bg       = ifelse(input$nightmode, "black", "white"),
+            fg       = ifelse(input$nightmode, "white", "black"),
+            col.axis = ifelse(input$nightmode, "white", "black"))
         color_picker_H_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
     })
 
     output$Cgrad <- shiny::renderPlot({
+        par(bg       = ifelse(input$nightmode, "black", "white"),
+            fg       = ifelse(input$nightmode, "white", "black"),
+            col.axis = ifelse(input$nightmode, "white", "black"))
         color_picker_C_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
     })
 
     output$Cgrad2 <- shiny::renderPlot({
+        par(bg       = ifelse(input$nightmode, "black", "white"),
+            fg       = ifelse(input$nightmode, "white", "black"),
+            col.axis = ifelse(input$nightmode, "white", "black"))
         color_picker_C_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
@@ -188,12 +245,18 @@ shiny::shinyServer(function(input, output, session) {
 
 
     output$Lgrad <- shiny::renderPlot({
+        par(bg       = ifelse(input$nightmode, "black", "white"),
+            fg       = ifelse(input$nightmode, "white", "black"),
+            col.axis = ifelse(input$nightmode, "white", "black"))
         color_picker_L_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
     })
 
     output$Lgrad2 <- shiny::renderPlot({
+        par(bg       = ifelse(input$nightmode, "black", "white"),
+            fg       = ifelse(input$nightmode, "white", "black"),
+            col.axis = ifelse(input$nightmode, "white", "black"))
         color_picker_L_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
@@ -201,6 +264,9 @@ shiny::shinyServer(function(input, output, session) {
 
     # generate palette plot with given hex code
     output$palette_plot <- shiny::renderPlot({
+        par(bg       = ifelse(input$nightmode, "black", "white"),
+            fg       = ifelse(input$nightmode, "white", "black"),
+            col.axis = ifelse(input$nightmode, "white", "black"))
         pal_plot(picked_color_list$cl)
     })
 
@@ -228,10 +294,21 @@ shiny::shinyServer(function(input, output, session) {
         }
     })
 
+    # ----------------------------------------------------------------
     # Return data to R-console
+    # ----------------------------------------------------------------
     shiny::observeEvent(input$closeapp,
         shiny::stopApp(invisible(picked_color_list$cl))
     );
+
+    # ----------------------------------------------------------------
+    # Version information lower right corner
+    # ----------------------------------------------------------------
+    output$version_info <- renderText(sprintf("<a href=\"%s\">R colorspace %s</a>",
+                                      "https://cran.r-project.org/package=colorspace",
+                                      packageVersion("colorspace")))
+
+
 
     # downloadHandler() takes two arguments, both functions.
     # The content function is passed a filename as an argument, and

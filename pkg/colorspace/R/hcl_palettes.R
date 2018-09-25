@@ -702,7 +702,7 @@ hcl_pals <- make_hcl_pals()
 # the function plot_<name> will be called.
 # -------------------------------------------------------------------
 example.plots <- c("Map", "Heatmap", "Scatter", "Spine", "Bar",
-                   "Pie", "Perspective", "Mosaic", "Lines", "Spectrum")
+                   "Pie", "Perspective", "Mosaic", "Lines", "Spectrum", "HCL Plot")
 
 # -------------------------------------------------------------------
 # Helper function: returns a data.frame containing all
@@ -758,6 +758,11 @@ GetPaletteConfig <- function(gui = NULL) {
            # Base color maps (for shiny)
            "rainbow", "heat.colors", "topo.colors", "terrain.colors", "cm.colors", "bpy"
        ) # end of variable definition for "take"
+
+       # For qualitative: set h2 if h2 is NA (else the sliders will
+       # be disabled on the graphical user interfaces).
+       idx <- which(pals$type == "qual" & is.na(pals$H2))
+       pals$H2[idx] <- ifelse((pals$H1[idx] + 360) > 360, pals$H1[idx] - 360, pals$H1[idx] + 360)
 
        # Subset
        mtch <- match(take, rownames(pals))

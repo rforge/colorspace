@@ -20,7 +20,7 @@
 #}
 
 library("shiny")
-#library("shinyjs")
+library("shinyjs")
 
 color_picker_sidebarPanel <- function() {
 
@@ -49,7 +49,8 @@ color_picker_sidebarPanel <- function() {
         # Disable "Return to R" button if running on webserver
         if ( Sys.getenv('SHINY_PORT') == "" ) {
           shiny::actionButton("closeapp","Return to R")
-        }
+        },
+        checkboxInput("nightmode", "Night mode", value = FALSE, width = NULL)
   
     )
 }
@@ -62,11 +63,11 @@ color_picker_mainPanel <- function() {
     # ---------------------------------------------------------------
     shiny::mainPanel(
 
-        shiny::tabsetPanel(type = "tabs",
+        shiny::tabsetPanel(type = "tabs", id = "maintabs",
         # -----------------------------------------------------------
         # Shinys Luminance-Chroma plane tab
         # -----------------------------------------------------------
-            shiny::tabPanel("Luminance-Chroma plane",
+            shiny::tabPanel("Luminance-Chroma plane", value = "lcplane",
                 shiny::plotOutput("LC_plot", click = "LC_plot_click"),
                 shiny::plotOutput("Hgrad",   click = "Hgrad_click", height = 50),
                 shiny::plotOutput("Cgrad",   click = "Cgrad_click", height = 50),
@@ -75,7 +76,7 @@ color_picker_mainPanel <- function() {
         # -----------------------------------------------------------
         # Shinys Hue-Chroma plane
         # -----------------------------------------------------------
-            shiny::tabPanel("Hue-Chroma plane",
+            shiny::tabPanel("Hue-Chroma plane", value = "hcplane",
                 shiny::plotOutput("HC_plot", click = "HC_plot_click"),
                 shiny::plotOutput("Hgrad2",  click = "Hgrad_click", height = 50),
                 shiny::plotOutput("Cgrad2",  click = "Cgrad_click", height = 50),
@@ -123,15 +124,22 @@ color_picker_mainPanel <- function() {
 }
 
 
+# -------------------------------------------------------------------
+# Setting up the UI
+# -------------------------------------------------------------------
 shiny::shinyUI(
     fluidPage(
-        theme = "hclcolorpicker.css",
+        tags$head(
+           tags$link(rel = "stylesheet", type = "text/css", href = "hclcolorpicker.css"),
+           tags$link(rel = "stylesheet", type = "text/css", href = "hclcolorpicker_nightmode.css")
+        ),
+        useShinyjs(),
         shiny::div(class = "version-info", shiny::htmlOutput("version_info")),
         shiny::sidebarLayout(
-            # sidebar panel, defined below
+            # sidebar panel, defined above
             color_picker_sidebarPanel(),
 
-            # main panel, defined below
+            # main panel, defined above
             color_picker_mainPanel()
         )
     )

@@ -1,4 +1,7 @@
 /* Export tab styling */
+body {
+    padding-top: 1em;
+}
 div#hcl-export div.output-raw  {
     width: 25%;
     height: 100%;

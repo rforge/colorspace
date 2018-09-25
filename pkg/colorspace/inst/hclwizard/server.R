@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-24 22:48 on marvin
+# - L@ST MODIFIED: 2018-09-25 15:02 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -16,6 +16,8 @@ library("colorspace")
 #options( shiny.trace = TRUE )
 
 bpy <- eval(parse(text = "colorspace:::bpy"))
+
+autohclplot <- as.logical(Sys.getenv("hclwizard_autohclplot"))
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -36,7 +38,7 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    palettes <- colorspace:::GetPaletteConfig(gui = TRUE)
    updateSelectInput(session,"EXAMPLE",
-      choices = colorspace:::example.plots[!colorspace:::example.plots == "Spectrum"])
+      choices = colorspace:::example.plots[!colorspace:::example.plots %in% c("HCL Plot","Spectrum")])
 
    # ----------------------------------------------------------------
    # Package version information
@@ -275,16 +277,28 @@ shinyServer(function(input, output, session) {
    # Display colorplane
    # ----------------------------------------------------------------
    showColorplane <- function(colors) {
-      if ( missing(colors) ) colors <- getColors( input$N ) #11)
-      fn <- sprintf(paste("fn <- function(colors, ...) {\n",
+      if ( missing(colors) ) colors <- getColors( input$N )
+      # dimension to collapse. If autohclplot option has been set to TRUE: take NULL.
+      if ( autohclplot ) {
+          plot_type <- NULL
+      } else if ( grepl("^qual", input$typ) ) {
+          plot_type <- "qualitative"
+      } else if ( grepl("^dive", input$typ) ) {
+          plot_type <- "diverging"
+      } else if ( grepl("^(seqm|seqs)", input$typ) ) {
+          plot_type <- "sequential"
+      } else {
+          plot_type <- NULL # Let the plotting function decide
+      }
+      fn <- sprintf(paste("fn <- function(colors, type, ...) {\n",
                           "   par(bg = \"%1$s\", fg = \"%2$s\", col.axis = \"%2$s\")\n",
-                          "   hclplot(colors, cex = 1.4, ...)\n",
+                          "   hclplot(colors, type = type, cex = 1.4, ...)\n",
                           "}"),
                           ifelse(input$nightmode, "black", "white"), # background
                           ifelse(input$nightmode, "white", "black")) # foreground, col.axis
       fn <- eval(parse(text = fn))
       output$colorplane <- renderPlot(
-         fn(colors), width = 800, height = 800
+         fn(colors, plot_type), width = 800, height = 800
       )
    }
 

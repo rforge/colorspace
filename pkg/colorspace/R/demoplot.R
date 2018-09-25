@@ -217,3 +217,9 @@ plot_lines <- function(x, ...) {
 # Wrapper around specplot. Used by the tcltk interface.
 plot_spectrum <- function(x, cex = 1.0, plot = TRUE, rgb = TRUE, ...)
    specplot(x, cex = cex, plot = plot, rgb = rgb, ...)
+
+# Wrapper around hclplot. Used by the tcltk interface.
+plot_hclplot <- function(x, cex = 1.0, ...)
+   hclplot(x, cex = cex, ...)
+
+
