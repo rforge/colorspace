@@ -474,16 +474,20 @@ static void LUV_to_XYZ(double L, double U, double V,
 {
     double u, v, uN, vN;
     if (L <= 0 && U == 0 && V == 0) {
-	*X = 0; *Y = 0; *Z = 0;
-    }
-    else {
+        *X = 0; *Y = 0; *Z = 0;
+    } else {
         /* 8 = kappa*epsilon */
-	*Y = YN * ((L > 8) ? pow((L + 16)/116, 3) : L / kappa);
-	XYZ_to_uv(XN, YN, ZN, &uN, &vN);
-	u = U / (13 * L) + uN;
-	v = V / (13 * L) + vN;
-	*X =  9.0 * *Y * u / (4 * v);
-	*Z =  - *X / 3 - 5 * *Y + 3 * *Y / v;
+        *Y = YN * ((L > 8) ? pow((L + 16)/116, 3) : L / kappa);
+        XYZ_to_uv(XN, YN, ZN, &uN, &vN);
+        /* Avoid division by zero if L = 0 */
+        if ( L == 0 ) {
+        	u = uN; v = vN;
+        } else {
+        	u = U / (13 * L) + uN;
+        	v = V / (13 * L) + vN;
+        }
+        *X =  9.0 * *Y * u / (4 * v);
+        *Z =  - *X / 3 - 5 * *Y + 3 * *Y / v;
     }
 }
 
