@@ -429,7 +429,7 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
 
     ## HCL trajectory
     cmaxat <- 1/(1 + abs(pals["cmax"] - pals["c1"]) / abs(pals["cmax"] - pals["c2"]))
-    if ( ! is.na(cmaxat) ) { if(cmaxat <= 0 | cmaxat >= 1) cmaxat <- NA }
+    if ( ! is.na(cmaxat) && (cmaxat <= 0 | cmaxat >= 1) ) cmaxat <- NA
     rval <- seq(1, 0, length = n)
     rval <- hex(polarLUV(
         L = pals["l2"] - (pals["l2"] - pals["l1"]) * rval^pals["p2"],
@@ -515,7 +515,7 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
 
     ## HCL trajectory
     cmaxat <- 1/(1 + abs(pals["cmax"] - pals["c1"]) / pals["cmax"])
-    if ( ! is.na(cmaxat) ) { if(cmaxat <= 0 | cmaxat >= 1) cmaxat <- NA }
+    if ( ! is.na(cmaxat) && (cmaxat <= 0 | cmaxat >= 1) ) cmaxat <- NA
     rval <- seq(1, -1, length = n)
     rval <- hex(polarLUV(
         L = pals["l2"] - (pals["l2"] - pals["l1"]) * abs(rval)^pals["p2"],
