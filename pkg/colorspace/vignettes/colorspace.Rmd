@@ -1,0 +1,407 @@
+---
+title: "_colorspace_: A Toolbox for Manipulating and Assessing Colors and Palettes"
+author: "Achim Zeileis, Jason C. Fisher, Kurt Hornik, Ross Ihaka, Claire D. McWhite, Paul Murrell, Reto Stauffer, Claus O. Wilke"
+date: 2018-09-20
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+bibliography: color.bib
+vignette: >
+  %\VignetteIndexEntry{colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{colorspace}
+  %\VignetteKeywords{RGB, sRGB, XYZ, LUV, LAB, HLS, HSV, HCL, qualitative palette, sequential palette, diverging palette, shiny, visualization, color vision deficiency}
+  %\VignettePackage{colorspace}
+---
+```{r echo=FALSE, message=FALSE}
+library("colorspace")
+```
+
+## Color spaces
+
+At the core of the _colorspace_ package there are various utilities for computing with
+color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
+representations of color to each other, see @color:Ihaka:2003. A particularly important
+mapping was the one from the perceptually-based and device-independent color model
+HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
+specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
+in R). For completeness further standard color models were included as well in the package.
+The connections are illustrated in the following graph:
+
+
+```{r fig.width = 9.5, fig.height = 4.5, fig.align = "center", echo = FALSE, dev = "svg"}
+par(mar = rep(0, 4))
+
+d <- data.frame(
+  x = c(1, 1, 2, 2, 3, 4, 5, 5, 5, 6),
+  y = c(1, 3, 1, 3, 2, 2, 1, 3, 2, 2),
+  lab = c("polarLAB", "polarLUV\n(= HCL)", "LAB", "LUV", "XYZ", "RGB", "HLS", "HSV", "sRGB", "hex"),
+  stringsAsFactors = FALSE
+)
+
+plot(0, 0, type = "n", axes = FALSE, xlab = "", ylab = "",
+  xlim = c(0.7, 6.3), ylim = c(0.4, 3.6))
+lines(y ~ x, data = d[-c(1, 3, 7, 8),])
+lines(y ~ x, data = d[c(1, 3, 5),])
+lines(y ~ x, data = d[c(6, 7, 9),])
+lines(y ~ x, data = d[c(6, 8, 9),])
+points(y ~ x, data = d[c(1, 2, 7, 8), ], pch = 21, bg = "lightgray", cex = 12)
+points(y ~ x, data = d[c(3, 4, 5, 6, 9), ], pch = 22, bg = "lightgray", cex = 12)
+points(y ~ x, data = d[10, ], pch = 23, bg = "white", cex = 12)
+
+text(d$x, d$y, d$lab)
+text(3.5, 2, "white point\n= D65", cex = 0.7, pos = 3)
+text(4.56, 2, "gamma\n(= 2.4)", cex = 0.7, pos = 3)
+```
+
+Color models that are (or try to be) perceptually-based are displayed with circles,
+other color models with rectangles. The corresponding classes and eponymous class
+constructors in _colorspace_ are:
+
+* `RGB` for the classic Red-Green-Blue color model that mixes three primary colors
+  with different intensities to obtain a spectrum of colors. The advantage of this
+  color model is (or was) that it corresponded to how computer and TV screens generated
+  colors, hence it was widely adopted and still is the basis for color specifications
+  in many systems. For example, the hex color codes are employed in HTML but also in R.
+  However, the RGB model also has some important drawbacks: It does not take into
+  account the output device properties, it is not perceptually uniform (a unit step
+  within RGB does not produce a constant perceptual change in color), and it is
+  unintuitive for humans to specify colors (say brown or pink) in this space.
+* `sRGB` addresses the issue of device dependency by adopting a so-called gamma
+  correction. Therefore, the gamma-corrected standard RGB (sRGB), as opposed to the
+  linearized RGB above, is a good model for specifying colors in software and for
+  hardware. But it is still unintuitive for humans to work directly with this.
+  Therefore, sRGB is a good place to end up in a color space manipulation but
+  it is not a good place to start.
+* `HSV` is a simple transformation of the (s)RGB space that tries to capture the
+  perceptual axes: _hue_ (dominant wavelength, the type of color), _saturation_
+  (colorfulness), and _value_ (brightness, i.e., light vs. dark). Unfortunately,
+  the three axes in the HSV model are confounded so that, e.g., brightness changes
+  dramaticaly with hue.
+* `HLS` (Hue-Lightness-Saturation) is another transformation of (s)RGB that tries
+  to capture the perceptual axes. It does a somewhat better job but the dimensions
+  are still strongly confounded.
+* `XYZ` was established by the CIE (Commission Internationale de l'Eclairage)
+  based on experiments with human subjects. It provides a unique triplet of
+  XYZ values, coding the standard observer's perception of the color. It is
+  device-independent but it is not perceptually uniform and the XYZ coordinates
+  have no intuitive meaning.
+* `LUV` and `LAB` were therefore proposed by the CIE as perceptually uniform
+  color spaces where the former is typically preferred for emissive technologies
+  (such as screens and monitors) whereas the latter is usually preferred when
+  working with dyes and pigments. However, the three axes of these two spaces
+  still do not correspond to human perceptual axes.
+* `polarLUV` and `polarLAB` therefore take polar coordinates in the UV plane
+  and AB plane, respectively. Specifically, the polar coordinates of the LUV
+  model are known as the HCL (Hue-Chroma-Luminance) model. These capture the
+  human perceptual axes very well without confounding effects as in the HSV or
+  HLS approaches. (More details follow below.)
+
+All the S4 classes listed above inherit from a virtual class `color` which are
+internally always represented by matrices with three columns (corresponding to
+the different three dimensions).
+
+Utilities:
+
+* `as()`
+* `coords()`
+* `hex()`
+* `hex2RGB()`
+* `readRGB()`
+* `readhex()`
+* `writehex()`
+* `whitepoint()`
+
+
+## HCL-based palettes
+
+As motivated in the previous section, the HCL space is particularly useful for
+specifying individual colors and color palettes as its three axes match those
+of the human visual system very well. Therefore, the _colorspace_ package provides
+three types of palettes based on the HCL model:
+
+* _Qualitative:_ Designed for coding categorical information, i.e.,
+  where no particular ordering of categories is available and every color
+  should receive the same perceptual weights.
+* _Sequential:_ Designed for coding ordered/numeric information, i.e.,
+  where colors go from high to low (or vice versa).
+* _Diverging:_ Designed for coding numeric information around a central
+  neutral value, i.e., where colors diverge from neutral to two extremes.
+
+The corresponding functions are `qualitative_hcl()`, `sequential_hcl()`,
+and `diverging_hcl()`. Their construction principles are explained in more detail below.
+
+To facilitate obtaining good sets of colors, HCL parameter combinations that yield
+useful palettes are accessible by name. These can be listed using the function
+`hcl_palettes()`:
+
+```{r}
+hcl_palettes()
+```
+
+To inspect a specific palette simply include the `name` where upper- vs. lower-case, spaces, etc. 
+are ignored for matching the label:
+
+```{r}
+hcl_palettes(name = "Dark 2")
+hcl_palettes(name = "dark2")
+```
+
+To compute the actual color hex codes (representing sRGB coordinates), the functions
+`qualitative_hcl()`, `sequential_hcl()`, and `diverging_hcl()`, respectively, can be used.
+Either all parameters can be specified "by hand", an entire palette can be specified
+"by name", or the name-based specification can be modified by a few parameters:
+
+```{r}
+qualitative_hcl(4, h = c(0, 270), c = 50, l = 60)
+qualitative_hcl(4, palette = "dark2")
+qualitative_hcl(4, palette = "dark2", c = 80)
+```
+
+### Qualitative palettes
+
+
+```{r fig.width = 5.5, fig.height = 5.0, fig.align = "center", dev = "png", dpi = 48, out.width = "60%"}
+hcl_palettes("qualitative", plot = TRUE)
+```
+
+### Sequential palettes (single-hue)
+
+```{r fig.width = 6.5, fig.height = 6.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+hcl_palettes("sequential (single-hue)", n = 7, plot = TRUE)
+```
+
+### Sequential palettes (multi-hue)
+
+```{r fig.width = 8.5, fig.height = 9.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
+```
+
+### Diverging palettes
+
+```{r fig.width = 6.5, fig.height = 7.5, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+hcl_palettes("diverging", n = 7, plot = TRUE)
+```
+
+### Flexible diverging palettes
+
+
+`divergingx_hcl()`
+
+```{r fig.width = 6.5, fig.height = 8.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+divergingx_palettes(n = 7, plot = TRUE)
+```
+
+
+### HCL (and HSV) color palettes corresponding to base R palettes
+
+`rainbow_hcl()`
+`heat_hcl()`
+`terrain_hcl()`
+`diverging_hsv()`
+
+
+## Palette visualization and assessment
+
+
+### Color swatches: `swatchplot()`
+
+swatches of several palette vectors
+
+```{r fig.width = 4, fig.height = 2.2, fig.align = "center", dev = "png"}
+swatchplot(
+  "Hue"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
+  "Chroma"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
+  "Luminance" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
+  off = 0
+)
+```
+
+swatches of named palette matrices
+
+```{r fig.width = 11.5, fig.height = 3.5, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+bprg <- c("Blues", "Purples", "Reds", "Greens")
+swatchplot(
+  "Single-hue"            = t(sapply(paste(bprg, 2), sequential_hcl, n = 7)),
+  "Single-hue (advanced)" = t(sapply(paste(bprg, 3), sequential_hcl, n = 7)),
+  "Multi-hue (advanced)"  = t(sapply(bprg,           sequential_hcl, n = 7)),
+  nrow = 5
+)
+```
+
+### HCL (and RGB) spectrum: `specplot()`
+
+spectrum of HCL-based palettes: qualitative/sequential/diverging
+
+```{r fig.width = 5, fig.height = 5, fig.align = "center", dev = "png"}
+specplot(qualitative_hcl(100, "Set 2"))
+```
+
+```{r fig.width = 5, fig.height = 5, fig.align = "center", dev = "png"}
+specplot(sequential_hcl(100, "Blues 2"))
+```
+
+```{r fig.width = 5, fig.height = 5, fig.align = "center", dev = "png"}
+specplot(diverging_hcl(100, "Blue-Red"))
+```
+
+spectrum of the (in)famous RGB rainbow palette (in both RGB and HCL)
+
+```{r fig.width = 5, fig.height = 7.5, fig.align = "center", dev = "png"}
+specplot(rainbow(100), rgb = TRUE)
+```
+
+
+### Trajectories in HCL space: `hclplot()`
+
+For qualitative palettes luminance and chroma are fixed, varying only hue
+
+```{r fig.width = 4, fig.height = 4, fig.align = "center", dev = "png"}
+hclplot(qualitative_hcl(9, c = 50, l = 70))
+```
+
+Single-hue sequential palette (h = 260) with linear trajectory and
+advanced single-hue sequential palette with triangular chroma trajectory
+(piecewise linear vs. power-transformed).
+
+```{r fig.width = 11.5, fig.height = 4.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+par(mfrow = c(1, 3))
+hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1))
+hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = 1))
+hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = c(0.8, 1.4)))
+```
+
+Multi-hue sequential palette with small hue range and triangular chroma vs.
+large hue range and linear chroma trajectory.
+
+Balanced diverging palette constructed from two simple single-hue sequential
+palettes (for hues 260/blue and 0/red)
+
+```{r fig.width = 11.5, fig.height = 4.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+par(mfrow = c(1, 3))
+hclplot(sequential_hcl(7, h = c(260, 220), c = c(50, 75, 0), l = c(30, 95), power = 1))
+hclplot(sequential_hcl(7, h = c(260, 60), c = 60, l = c(40, 95), power = 1))
+hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
+```
+
+
+### Demonstration of statistical graphics:  `demoplot()`
+
+All built-in demos with the same `sequential_hcl(5, "Heat")` palette
+
+```{r echo = FALSE, fig.width = 8.5, fig.height = 8.5, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+par(mfrow = c(3, 3))
+cl <- sequential_hcl(5, "Heat")
+for (i in c("map", "heatmap", "scatter", "spine", "bar", "pie", "perspective", "mosaic", "lines")) {
+  demoplot(cl, type = i)
+  mtext(side = 3, text = i, line = 1.5)
+}
+```
+
+Qualitative palettes: light pastel colors for shading areas (pie)
+and darker colorful palettes for points or lines
+
+```{r fig.width = 8.5, fig.height = 3.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+par(mfrow = c(1, 3))
+demoplot(qualitative_hcl(4, "Pastel 1"), type = "pie")
+demoplot(qualitative_hcl(4, "Set 2"), type = "scatter")
+demoplot(qualitative_hcl(4, "Dark 3"), type = "lines")
+```
+
+Sequential palettes: display almost continuous gradients with
+strong luminance contrasts (heatmap, perspective) and colorful
+sequential palette for spine plot with only a few ordered categories
+
+```{r fig.width = 8.5, fig.height = 3.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+par(mfrow = c(1, 3))
+demoplot(sequential_hcl(99, "Purple-Blue"), type = "heatmap")
+demoplot(sequential_hcl(99, "Reds"), type = "perspective")
+demoplot(sequential_hcl(4, "Viridis"), type = "spine")
+```
+
+Diverging palettes: display almost continuous gradient with
+strong luminance contrast bringing out the extremes (map),
+more colorful palette with lower luminance contrasts for displays
+with fewer colors (mosaic, bar)
+
+```{r fig.width = 8.5, fig.height = 3.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+par(mfrow = c(1, 3))
+demoplot(diverging_hcl(99, "Tropic", power = 2.5), type = "map")
+demoplot(diverging_hcl(5, "Green-Orange"), type = "mosaic")
+demoplot(diverging_hcl(5, "Blue-Red 2"), type = "bar")
+```
+
+Some palettes that work well on black backgrounds
+
+```{r fig.width = 8.5, fig.height = 6.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+par(mfrow = c(2, 3), bg = "black")
+demoplot(sequential_hcl(9, "Oslo"), "heatmap")
+demoplot(sequential_hcl(9, "Turku"), "heatmap")
+demoplot(sequential_hcl(9, "Inferno", rev = TRUE), "heatmap")
+demoplot(qualitative_hcl(9, "Set 2"), "lines")
+demoplot(diverging_hcl(9, "Berlin"), "scatter")
+demoplot(diverging_hcl(9, "Cyan-Magenta", l2 = 20), "lines")
+```
+
+
+
+## Color vision deficiency emulation
+
+`simulate_cvd()`
+
+* `deutan()`
+* `protan()`
+* `tritan()`
+
+`deutanomaly_cvd`
+`protanomaly_cvd`
+`tritanomaly_cvd`
+
+
+## Color manipulation and utilities
+
+* `desaturate()`
+* `darken()`
+* `lighten()`
+* `max_chroma()`
+* `mixcolor()`
+
+
+## Color apps (shiny and Tcl/Tk)
+
+`choose_palette()`
+`hclwizard()`
+`hcl_wizard()`
+
+`choose_color()`
+`hcl_color_picker()`
+
+`cvd_emulator()`
+`interpolate_cvd_transform()`
+
+
+## HCL-based color scales for ggplot2
+
+All scales are called via the scheme `scale_<aesthetic>_<datatype>_<colorscale>()`,
+where `<aesthetic>` is the name of the aesthetic (`fill`, `color`, `colour`),
+`<datatype>` is the type of the variable plotted (`discrete` or `continuous`) and
+`<colorscale>` sets the type of the color scale used
+(`qualitative`, `sequential`, `diverging`, `divergingx`).
+
+Thus, the discrete scales for fill aesthetics are:
+
+* `scale_fill_discrete_qualitative()`
+* `scale_fill_discrete_sequential()`
+* `scale_fill_discrete_diverging()`
+* `scale_fill_discrete_divergingx()`
+
+And the corresponding continuous scales are:
+
+* `scale_fill_continuous_qualitative()`
+* `scale_fill_continuous_sequential()`
+* `scale_fill_continuous_diverging()`
+* `scale_fill_continuous_divergingx()`
+
+Analogous functions for color aesthetics just replace `fill` with `color` (or equivalently `colour`).
