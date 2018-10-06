@@ -2,7 +2,7 @@ graph colorspace {
 
 { rank = min
     L1 [label="" color=white]
-    polarLUV [label = "HCL (polar CIELUV)" shape=ellipse style=filled]
+    polarLUV [label = "HCL\n(polar CIELUV)" shape=ellipse style=filled]
     polarLAB [label = "polar CIELAB" shape=ellipse style=filled]
     R1 [label="" color=white]
 }
@@ -39,7 +39,7 @@ LAB -- polarLAB
 XYZ -- LUV
 XYZ -- LAB
 
-XYZ -- RGB [label=" white point (= D65)"]
+XYZ -- RGB [label="  white point (= D65)"]
 
 RGB -- HSV
 RGB -- HSL
