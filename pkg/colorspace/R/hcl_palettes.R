@@ -19,7 +19,7 @@
 #' Three types of palettes are derived based on the HCL model: \itemize{
 #'   \item Qualitative: Designed for coding categorical information, i.e.,
 #'     where no particular ordering of categories is available and every color
-#'     should receive the same perceptual weights.
+#'     should receive the same perceptual weight.
 #'   \item Sequential: Designed for coding ordered/numeric information, i.e.,
 #'     where colors go from high to low (or vice versa).
 #'   \item Diverging: Designed for coding numeric information around a central
@@ -57,7 +57,7 @@
 #' of increasing (or decreasing) luminance. Thus, the \code{l} argument should provide
 #' a vector of length 2 with starting and ending luminance (equivalently, \code{l1} and
 #' \code{l2} can be used). Without chroma (i.e., \code{c = 0}), this simply corresponds
-#' to a palette like \code{\link[grDevices]{gray.colors}}. For adding chroma, a simple
+#' to a grayscale palette like \code{\link[grDevices]{gray.colors}}. For adding chroma, a simple
 #' strategy would be to pick a single hue (via \code{h} or \code{h1}) and then decrease
 #' chroma from some value (\code{c} or \code{c1}) to zero (i.e., gray) along with
 #' increasing luminance. For bringing out the extremes (a dark high-chroma color vs.
@@ -76,7 +76,7 @@
 #' \code{diverging_hcl} codes the underlying numeric values by a triangular luminance
 #' sequence with different hues in the left and in the right arm of the palette. Thus,
 #' it can be seen as a combination of two sequential palettes with some restrictions:
-#' (a) a single hue for each arm of the palette, (b) chroma and luminance trajectory
+#' (a) a single hue is used for each arm of the palette, (b) chroma and luminance trajectory
 #' are balanced between the two arms, (c) the neutral central value has zero chroma.
 #' To specify such a palette a vector of two hues \code{h} (or equivalently \code{h1}
 #' and \code{h2}), either a single chroma value \code{c} (or \code{c1}) or a vector
