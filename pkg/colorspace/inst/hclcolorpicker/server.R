@@ -405,6 +405,8 @@ color_picker_luminance_chroma_plot <- function(L = 75, C = 20, H = 0, n = 200) {
     Cseq    <- seq(0, Cmax, length.out = n)
     Lseq    <- seq(100, 0, length.out = n)
     grid    <- expand.grid(C = Cseq, L = Lseq)
+    # Remove points with L == 0 & C > 0
+    grid[which(grid$L == 0 & grid$C > 0),] <- NA
     image   <- matrix(hex(polarLUV(grid$L, grid$C, H)), nrow = n, byrow = TRUE)
     grob    <- grid::rasterGrob(image, width = 1, height = 1)
 
@@ -486,6 +488,7 @@ color_picker_L_gradient <- function(L = 75, C = 20, H = 0, n = 100) {
 
     Lseq = seq(0, 100, length.out = n)
     image <- matrix(hex(polarLUV(Lseq, C, H)), nrow = 1, byrow = TRUE)
+    if ( C > 0 ) image[1,1] <- "#ffffff"
     grob <- grid::rasterGrob(image, width = 1, height = 1)
 
     sel_col <- hex(polarLUV(L, C, H))
