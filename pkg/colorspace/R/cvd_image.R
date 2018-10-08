@@ -61,7 +61,7 @@ cvd_emulator <- function(file, overwrite = FALSE, shiny.trace = FALSE) {
    }
 }
 
-# Check Image Type Based on Postfix
+# Check Image Type Based on suffix
 #
 # Checking image file type based on image file name. Used to decide
 # which package has to be used to read an image from disc (\code{png}/\code{jpeg}).
@@ -72,11 +72,11 @@ cvd_emulator <- function(file, overwrite = FALSE, shiny.trace = FALSE) {
 #    \code{png=TRUE}, if image is of type \code{jpg/jpeg} \code{jpg=TRUE}.
 #    If non of both, both will be \code{FALSE}. Method is not case sensitive.
 check_image_type <- function( x ) {
-   ## Identify file type (postfix)
+   ## Identify file type (suffix)
    tail1 <- function(x) x[length(x)]
-   postfix  <- tolower(tail1(strsplit(basename(x),"\\.")[[1]]))
-   list("png" = postfix == "png",
-        "jpg" = postfix %in% c("jpeg","jpg"))
+   suffix  <- tolower(tail1(strsplit(basename(x),"\\.")[[1]]))
+   list("png" = suffix == "png",
+        "jpg" = suffix %in% c("jpeg","jpg"))
 }
 
 # The convert function used

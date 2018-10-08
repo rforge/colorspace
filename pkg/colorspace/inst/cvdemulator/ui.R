@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2017-09-16, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-25 15:26 on marvin
+# - L@ST MODIFIED: 2018-10-08 18:57 on marvin
 # -------------------------------------------------------------------
 library("shiny")
 library("shinyjs")
@@ -21,7 +21,7 @@ shiny::shinyUI(bootstrapPage(
 
    tags$head(
       tags$link(rel = "stylesheet", type = "text/css", href = "cvdemulator.css"),
-      tags$link(rel = "stylesheet", type = "text/css", href = "cvdemulator_nightmode.css")
+      tags$link(rel = "stylesheet", type = "text/css", href = "cvdemulator_darkmode.css")
    ),
    tags$script("
    $(document).ready(function() {
@@ -69,8 +69,8 @@ shiny::shinyUI(bootstrapPage(
             h2("Tip"),
             p(paste("You can use the keys \"a\", \"s\", \"d\", \"f\", \"g\", \"h\"",
                     "to navigate trough the different tabs.")),
-            h3("Night Mode"),
-            checkboxInput("nightmode", "Activate night mode (check figures on black background).", value = FALSE, width = NULL)
+            h3("Dark Mode"),
+            checkboxInput("darkmode", "Activate dark mode (check figures on black background).", value = FALSE, width = NULL)
          )
       ),
 

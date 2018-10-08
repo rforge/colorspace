@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2017-09-16, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-09-22 14:18 on marvin
+# - L@ST MODIFIED: 2018-10-08 18:59 on marvin
 # -------------------------------------------------------------------
 
 
@@ -52,13 +52,13 @@ shinyServer(function(input, output, session) {
    })
 
    # ----------------------------------------------------------------
-   # Night mode on/off
+   # Dark mode on/off
    # ----------------------------------------------------------------
-   observeEvent(input$nightmode, {
-      if ( ! input$nightmode ) {
-         shinyjs::removeClass(selector = "body", class = "nightmode")
+   observeEvent(input$darkmode, {
+      if ( ! input$darkmode ) {
+         shinyjs::removeClass(selector = "body", class = "darkmode")
       } else {
-         shinyjs::addClass(selector = "body", class = "nightmode")
+         shinyjs::addClass(selector = "body", class = "darkmode")
       }
    })
 
@@ -123,7 +123,7 @@ shinyServer(function(input, output, session) {
       # Columns: name, size, type (mime), datapath (temporary file location)
       req(input$file)
 
-      ## Identify file type (postfix)
+      ## Identify file type (file suffix)
       file     <- input$file$datapath[1]
       filename <- input$file$name[1]
       is_img   <- colorspace:::check_image_type(filename)

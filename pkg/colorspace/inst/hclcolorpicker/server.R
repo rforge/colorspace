@@ -31,14 +31,14 @@ shiny::shinyServer(function(input, output, session) {
     picked_color_list <- shiny::reactiveValues(cl=c())
 
     # ----------------------------------------------------------------
-    # Switch between night mode (black background) and normal mode
+    # Switch between dark mode (black background) and normal mode
     # (white background). Also used for the demo plots.
     # ----------------------------------------------------------------
-    observeEvent(input$nightmode, {
-       if ( ! input$nightmode ) {
-          shinyjs::removeClass(selector = "body", class = "nightmode")
+    observeEvent(input$darkmode, {
+       if ( ! input$darkmode ) {
+          shinyjs::removeClass(selector = "body", class = "darkmode")
        } else {
-          shinyjs::addClass(selector = "body", class = "nightmode")
+          shinyjs::addClass(selector = "body", class = "darkmode")
        }
     })
 
@@ -188,9 +188,9 @@ shiny::shinyServer(function(input, output, session) {
 
     # generate HC plot with given inputs
     output$HC_plot <- shiny::renderPlot({
-        par(bg       = ifelse(input$nightmode, "black", "white"),
-            fg       = ifelse(input$nightmode, "white", "black"),
-            col.axis = ifelse(input$nightmode, "white", "black"))
+        par(bg       = ifelse(input$darkmode, "black", "white"),
+            fg       = ifelse(input$darkmode, "white", "black"),
+            col.axis = ifelse(input$darkmode, "white", "black"))
         color_picker_hue_chroma_plot(as.numeric(input$L),
                                      as.numeric(input$C),
                                      as.numeric(input$H))
@@ -198,9 +198,9 @@ shiny::shinyServer(function(input, output, session) {
 
     # generate LC plot with given inputs
     output$LC_plot <- shiny::renderPlot({
-        par(bg       = ifelse(input$nightmode, "black", "white"),
-            fg       = ifelse(input$nightmode, "white", "black"),
-            col.axis = ifelse(input$nightmode, "white", "black"))
+        par(bg       = ifelse(input$darkmode, "black", "white"),
+            fg       = ifelse(input$darkmode, "white", "black"),
+            col.axis = ifelse(input$darkmode, "white", "black"))
         color_picker_luminance_chroma_plot(as.numeric(input$L),
                                            as.numeric(input$C),
                                            as.numeric(input$H))
@@ -208,36 +208,36 @@ shiny::shinyServer(function(input, output, session) {
 
 
     output$Hgrad <- shiny::renderPlot({
-        par(bg       = ifelse(input$nightmode, "black", "white"),
-            fg       = ifelse(input$nightmode, "white", "black"),
-            col.axis = ifelse(input$nightmode, "white", "black"))
+        par(bg       = ifelse(input$darkmode, "black", "white"),
+            fg       = ifelse(input$darkmode, "white", "black"),
+            col.axis = ifelse(input$darkmode, "white", "black"))
         color_picker_H_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
     })
 
     output$Hgrad2 <- shiny::renderPlot({
-        par(bg       = ifelse(input$nightmode, "black", "white"),
-            fg       = ifelse(input$nightmode, "white", "black"),
-            col.axis = ifelse(input$nightmode, "white", "black"))
+        par(bg       = ifelse(input$darkmode, "black", "white"),
+            fg       = ifelse(input$darkmode, "white", "black"),
+            col.axis = ifelse(input$darkmode, "white", "black"))
         color_picker_H_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
     })
 
     output$Cgrad <- shiny::renderPlot({
-        par(bg       = ifelse(input$nightmode, "black", "white"),
-            fg       = ifelse(input$nightmode, "white", "black"),
-            col.axis = ifelse(input$nightmode, "white", "black"))
+        par(bg       = ifelse(input$darkmode, "black", "white"),
+            fg       = ifelse(input$darkmode, "white", "black"),
+            col.axis = ifelse(input$darkmode, "white", "black"))
         color_picker_C_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
     })
 
     output$Cgrad2 <- shiny::renderPlot({
-        par(bg       = ifelse(input$nightmode, "black", "white"),
-            fg       = ifelse(input$nightmode, "white", "black"),
-            col.axis = ifelse(input$nightmode, "white", "black"))
+        par(bg       = ifelse(input$darkmode, "black", "white"),
+            fg       = ifelse(input$darkmode, "white", "black"),
+            col.axis = ifelse(input$darkmode, "white", "black"))
         color_picker_C_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
@@ -245,18 +245,18 @@ shiny::shinyServer(function(input, output, session) {
 
 
     output$Lgrad <- shiny::renderPlot({
-        par(bg       = ifelse(input$nightmode, "black", "white"),
-            fg       = ifelse(input$nightmode, "white", "black"),
-            col.axis = ifelse(input$nightmode, "white", "black"))
+        par(bg       = ifelse(input$darkmode, "black", "white"),
+            fg       = ifelse(input$darkmode, "white", "black"),
+            col.axis = ifelse(input$darkmode, "white", "black"))
         color_picker_L_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
     })
 
     output$Lgrad2 <- shiny::renderPlot({
-        par(bg       = ifelse(input$nightmode, "black", "white"),
-            fg       = ifelse(input$nightmode, "white", "black"),
-            col.axis = ifelse(input$nightmode, "white", "black"))
+        par(bg       = ifelse(input$darkmode, "black", "white"),
+            fg       = ifelse(input$darkmode, "white", "black"),
+            col.axis = ifelse(input$darkmode, "white", "black"))
         color_picker_L_gradient(as.numeric(input$L),
                                 as.numeric(input$C),
                                 as.numeric(input$H))
@@ -264,9 +264,9 @@ shiny::shinyServer(function(input, output, session) {
 
     # generate palette plot with given hex code
     output$palette_plot <- shiny::renderPlot({
-        par(bg       = ifelse(input$nightmode, "black", "white"),
-            fg       = ifelse(input$nightmode, "white", "black"),
-            col.axis = ifelse(input$nightmode, "white", "black"))
+        par(bg       = ifelse(input$darkmode, "black", "white"),
+            fg       = ifelse(input$darkmode, "white", "black"),
+            col.axis = ifelse(input$darkmode, "white", "black"))
         pal_plot(picked_color_list$cl)
     })
 

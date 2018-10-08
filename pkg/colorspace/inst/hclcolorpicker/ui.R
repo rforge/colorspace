@@ -50,7 +50,7 @@ color_picker_sidebarPanel <- function() {
         if ( Sys.getenv('SHINY_PORT') == "" ) {
           shiny::actionButton("closeapp","Return to R")
         },
-        checkboxInput("nightmode", "Night mode", value = FALSE, width = NULL)
+        checkboxInput("darkmode", "Dark mode", value = FALSE, width = NULL)
   
     )
 }
@@ -131,7 +131,7 @@ shiny::shinyUI(
     fluidPage(
         tags$head(
            tags$link(rel = "stylesheet", type = "text/css", href = "hclcolorpicker.css"),
-           tags$link(rel = "stylesheet", type = "text/css", href = "hclcolorpicker_nightmode.css")
+           tags$link(rel = "stylesheet", type = "text/css", href = "hclcolorpicker_darkmode.css")
         ),
         useShinyjs(),
         shiny::div(class = "version-info", shiny::htmlOutput("version_info")),

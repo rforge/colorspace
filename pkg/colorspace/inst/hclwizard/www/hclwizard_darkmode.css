@@ -1,101 +1,101 @@
 
 
-body.nightmode {
+body.darkmode {
     background-color: black;
     color: white;
 }
 
-.nightmode .well {
+.darkmode .well {
     background-color: #181818;
     color: #D0D0D0;
     border-color: #3277b3;
 }
 
-.nightmode .nav-tabs > li.active > a,
-.nightmode .nav-tabs > li.active > a:focus,
-.nightmode .nav-tabs > li.active > a:hover {
+.darkmode .nav-tabs > li.active > a,
+.darkmode .nav-tabs > li.active > a:focus,
+.darkmode .nav-tabs > li.active > a:hover {
     background: black;
     color: #D0D0D0;
 }
-.nightmode .nav-tabs > li > a:hover {
+.darkmode .nav-tabs > li > a:hover {
     background: black;
     color: #88b5dd;
 }
-.nightmode .nav-tabs > li.active > a:hover {
+.darkmode .nav-tabs > li.active > a:hover {
     background: #181818;
     color: #F0F0F0;
 }
 
-.nightmode div#hcl-main-export code {
+.darkmode div#hcl-main-export code {
     background-color: black;
     color: white;
 }
 
-.nightmode div#hcl-main-export comment {
+.darkmode div#hcl-main-export comment {
     background-color: black;
     color: #88b5dd;
 }
 
-.nightmode .selectize-input.full {
+.darkmode .selectize-input.full {
     /* background: #282828; */
     background: black;
     color: white;
 }
-.nightmode .selectize-input,
-.nightmode .selectize-control.single .selectize-input.input-active {
+.darkmode .selectize-input,
+.darkmode .selectize-control.single .selectize-input.input-active {
     /* background: #282828; */
     background: black;
 }
 
-.nightmode .selectize-dropdown {
+.darkmode .selectize-dropdown {
     color: #808080;
 }
-.nightmode .selectize-dropdown .active {
+.darkmode .selectize-dropdown .active {
     background-color: black;
     color: #88b5dd;
 }
 
-.nightmode .selectize-dropdown,
-.nightmode .selectize-dropdown.form-control {
+.darkmode .selectize-dropdown,
+.darkmode .selectize-dropdown.form-control {
     background: black;
 }
 
-.nightmode .btn-default {
+.darkmode .btn-default {
     background-color: #181818;
     color: #F0F0F0;
 }
-.nightmode .btn-default:hover {
+.darkmode .btn-default:hover {
     background: #282828;
     color: #88b5dd;
 }
-.nightmode code {
+.darkmode code {
     background: #282828;
     color: #88b5dd;
     font-weight: bold;
 }
 
-.nightmode .irs-min,
-.nightmode .irs-max {
+.darkmode .irs-min,
+.darkmode .irs-max {
     background: #282828;
     color: white;
 }
 
-.nightmode .irs-line-left,
-.nightmode .irs-line-mid,
-.nightmode .irs-line-right {
+.darkmode .irs-line-left,
+.darkmode .irs-line-mid,
+.darkmode .irs-line-right {
     background-color: black;
 }
-.nightmode .irs-line {
+.darkmode .irs-line {
     border-color: #505050;
 }
-.nightmode .form-control {
+.darkmode .form-control {
     background-color: black;
     color: white;
 }
-.nightmode .irs-slider {
+.darkmode .irs-slider {
     background-color: black;
 }
-.nightmode .irs-slider:hover {
+.darkmode .irs-slider:hover {
     background-color: #505050;
 }
 

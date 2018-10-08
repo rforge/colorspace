@@ -669,7 +669,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   }
 
   ExampleSetPar <- function() {
-    if ( ! as.logical(as.numeric(tcltk::tclvalue(nightmode.var))) ) {
+    if ( ! as.logical(as.numeric(tcltk::tclvalue(darkmode.var))) ) {
         par(oma=c(0, 0, 0, 0), mar=c(0, 0, 0, 0))
         par(bg = "white", fg = "black", col.axis = "black")
     } else {
@@ -678,11 +678,10 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     }
   }
 
-  ActivateNightmode <- function() {
+  ActivateDarkmode <- function() {
     if (dev.example %in% dev.list()) dev.set(which = dev.example)
     else                             return()
-    cat("NIGHTMODE ACTIVATION FUNCTION\n")
-    # If night mode has been set off
+    # If dark mode has been set off
     # Draw palette, also regenerates example if open
     ExampleSetPar()
     DrawPalette()
@@ -780,7 +779,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   fixup.var           <- tcltk::tclVar(fixup)
   reverse.var         <- tcltk::tclVar(FALSE)
   desaturation.var    <- tcltk::tclVar(FALSE)
-  nightmode.var       <- tcltk::tclVar(FALSE)
+  darkmode.var       <- tcltk::tclVar(FALSE)
   colorblind.var      <- tcltk::tclVar(FALSE)
   colorblind.type.var <- tcltk::tclVar("deutan")
 
@@ -988,9 +987,9 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   frame7.chk.1 <- tcltk::ttkcheckbutton(frame7, text="Desaturation",
                                  variable=desaturation.var,
                                  command=function() DrawPalette(is.n = TRUE))
-  frame7.chk.2 <- tcltk::ttkcheckbutton(frame7, text="Night mode",
-                                 variable=nightmode.var,
-                                 command=function() ActivateNightmode())
+  frame7.chk.2 <- tcltk::ttkcheckbutton(frame7, text="Dark mode",
+                                 variable=darkmode.var,
+                                 command=function() ActivateDarkmode())
 
   tcltk::tkgrid(frame7.chk.1, frame7.chk.2, "x",
                 pady = c(2, 0), sticky = "w")    
