@@ -164,7 +164,7 @@ qualitative_hcl(4, palette = "dark2")
 qualitative_hcl(4, palette = "dark2", c = 80)
 ```
 
-### Qualitative palettes
+#### Qualitative palettes
 
 `qualitative_hcl()` distinguishes the underlying categories by a sequence of
 hues while keeping both chroma and luminance constant to give each color in the
@@ -195,7 +195,7 @@ luminance as in "Dark 2" or "Dark 3" usually works better while on a black/dark
 background the luminance should be higher as in "Set 2" for example.
 
 
-### Sequential palettes (single-hue)
+#### Sequential palettes (single-hue)
 
 `sequential_hcl()` codes the underlying numeric values by a monotonic sequence
 of increasing (or decreasing) luminance. Thus, the `l` argument should provide
@@ -241,7 +241,7 @@ categorical variable with few levels) then a lower luminance contrast may suffic
 
 
 
-### Sequential palettes (multi-hue)
+#### Sequential palettes (multi-hue)
 
 To not only bring out extreme colors in a sequential palette but also better distinguish
 middle colors it is a common strategy to employ a sequence of hues. Thus, the basis
@@ -281,7 +281,7 @@ better if all values along the sequence should receive some more perceptual weig
 
 
 
-### Diverging palettes
+#### Diverging palettes
 
 `diverging_hcl()` codes the underlying numeric values by a triangular luminance
 sequence with different hues in the left and in the right "arm" of the palette. Thus,
@@ -317,7 +317,7 @@ many colors are used while smaller luminance contrasts may suffice for palettes 
 fewer colors etc.
 
 
-### Flexible diverging palettes
+#### Flexible diverging palettes
 
 The `divergingx_hcl()` provides more flexible diverging palettes by
 simply calling `sequential_hcl()` twice with prespecified sets of hue, chroma,
@@ -340,7 +340,7 @@ more balanced. However, by being able to go through light yellow as the neutral
 color warmer diverging palettes are available.
 
 
-### HCL (and HSV) color palettes corresponding to base R palettes
+#### HCL (and HSV) color palettes corresponding to base R palettes
 
 `rainbow_hcl()`
 `heat_hcl()`
@@ -351,7 +351,7 @@ color warmer diverging palettes are available.
 ## Palette visualization and assessment
 
 
-### Color swatches: `swatchplot()`
+#### Color swatches: `swatchplot()`
 
 swatches of several palette vectors
 
@@ -376,7 +376,7 @@ swatchplot(
 )
 ```
 
-### HCL (and RGB) spectrum: `specplot()`
+#### HCL (and RGB) spectrum: `specplot()`
 
 spectrum of HCL-based palettes: qualitative/sequential/diverging
 
@@ -399,7 +399,7 @@ specplot(rainbow(100), rgb = TRUE)
 ```
 
 
-### Trajectories in HCL space: `hclplot()`
+#### Trajectories in HCL space: `hclplot()`
 
 For qualitative palettes luminance and chroma are fixed, varying only hue
 
@@ -432,7 +432,7 @@ hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
 ```
 
 
-### Demonstration of statistical graphics:  `demoplot()`
+#### Demonstration of statistical graphics:  `demoplot()`
 
 All built-in demos with the same `sequential_hcl(5, "Heat")` palette
 
