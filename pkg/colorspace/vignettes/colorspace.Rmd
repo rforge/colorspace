@@ -6,6 +6,7 @@ output:
   html_document:
     toc: true
     toc_float: true
+    number_sections: true
     theme: flatly
 bibliography: color.bib
 vignette: >
@@ -19,7 +20,7 @@ vignette: >
 library("colorspace")
 ```
 
-## Color spaces
+# Color spaces
 
 At the core of the _colorspace_ package there are various utilities for computing with
 color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
@@ -109,7 +110,7 @@ internally always represented by matrices with three columns (corresponding to
 the different three dimensions).
 
 
-### Utilities
+## Utilities
 
 For working with these colorspaces various utilities are available:
 
@@ -128,7 +129,7 @@ For working with these colorspaces various utilities are available:
   from CIE XYZ to RGB. Defaults to D65.
 
 
-### Illustration of basic colorspace functionality
+## Illustration of basic colorspace functionality
 
 As an example a vector of colors `x` can be specified in the HCL (or polar LUV) model:
 
@@ -158,7 +159,7 @@ hex(x)
 ```
 
 
-## HCL-based palettes
+# HCL-based palettes
 
 As motivated in the previous section, the HCL space is particularly useful for
 specifying individual colors and color palettes as its three axes match those
@@ -207,7 +208,7 @@ qualitative_hcl(4, palette = "dark2")
 qualitative_hcl(4, palette = "dark2", c = 80)
 ```
 
-### Qualitative palettes
+## Qualitative palettes
 
 `qualitative_hcl()` distinguishes the underlying categories by a sequence of
 hues while keeping both chroma and luminance constant to give each color in the
@@ -238,7 +239,7 @@ luminance as in "Dark 2" or "Dark 3" usually works better while on a black/dark
 background the luminance should be higher as in "Set 2" for example.
 
 
-### Sequential palettes (single-hue)
+## Sequential palettes (single-hue)
 
 `sequential_hcl()` codes the underlying numeric values by a monotonic sequence
 of increasing (or decreasing) luminance. Thus, the `l` argument should provide
@@ -284,7 +285,7 @@ categorical variable with few levels) then a lower luminance contrast may suffic
 
 
 
-### Sequential palettes (multi-hue)
+## Sequential palettes (multi-hue)
 
 To not only bring out extreme colors in a sequential palette but also better distinguish
 middle colors it is a common strategy to employ a sequence of hues. Thus, the basis
@@ -324,7 +325,7 @@ better if all values along the sequence should receive some more perceptual weig
 
 
 
-### Diverging palettes
+## Diverging palettes
 
 `diverging_hcl()` codes the underlying numeric values by a triangular luminance
 sequence with different hues in the left and in the right "arm" of the palette. Thus,
@@ -360,7 +361,7 @@ many colors are used while smaller luminance contrasts may suffice for palettes 
 fewer colors etc.
 
 
-### Flexible diverging palettes
+## Flexible diverging palettes
 
 The `divergingx_hcl()` provides more flexible diverging palettes by
 simply calling `sequential_hcl()` twice with prespecified sets of hue, chroma,
@@ -383,7 +384,7 @@ more balanced. However, by being able to go through light yellow as the neutral
 color warmer diverging palettes are available.
 
 
-### HCL (and HSV) color palettes corresponding to base R palettes
+## HCL (and HSV) color palettes corresponding to base R palettes
 
 To facilitate switching from base R palette functions to the HCL-based palettes
 above, _colorspace_ provides a few convenience interfaces:
@@ -399,10 +400,10 @@ above, _colorspace_ provides a few convenience interfaces:
   HCL palettes with the more flashy and unbalanced HSV palettes.
 
 
-## Palette visualization and assessment
+# Palette visualization and assessment
 
 
-### Color swatches: `swatchplot()`
+## Color swatches: `swatchplot()`
 
 swatches of several palette vectors
 
@@ -427,7 +428,7 @@ swatchplot(
 )
 ```
 
-### HCL (and RGB) spectrum: `specplot()`
+## HCL (and RGB) spectrum: `specplot()`
 
 spectrum of HCL-based palettes: qualitative/sequential/diverging
 
@@ -450,7 +451,7 @@ specplot(rainbow(100), rgb = TRUE)
 ```
 
 
-### Trajectories in HCL space: `hclplot()`
+## Trajectories in HCL space: `hclplot()`
 
 For qualitative palettes luminance and chroma are fixed, varying only hue
 
@@ -483,7 +484,7 @@ hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
 ```
 
 
-### Demonstration of statistical graphics:  `demoplot()`
+## Demonstration of statistical graphics:  `demoplot()`
 
 All built-in demos with the same `sequential_hcl(5, "Heat")` palette
 
@@ -543,7 +544,7 @@ demoplot(diverging_hcl(9, "Cyan-Magenta", l2 = 20), "lines")
 
 
 
-## Color vision deficiency emulation
+# Color vision deficiency emulation
 
 `simulate_cvd()`
 
@@ -556,7 +557,7 @@ demoplot(diverging_hcl(9, "Cyan-Magenta", l2 = 20), "lines")
 `tritanomaly_cvd`
 
 
-## Color manipulation and utilities
+# Color manipulation and utilities
 
 * `desaturate()`
 * `darken()`
@@ -565,7 +566,7 @@ demoplot(diverging_hcl(9, "Cyan-Magenta", l2 = 20), "lines")
 * `mixcolor()`
 
 
-## Color apps (shiny and Tcl/Tk)
+# Color apps (shiny and Tcl/Tk)
 
 `choose_palette()`
 `hclwizard()`
@@ -578,7 +579,7 @@ demoplot(diverging_hcl(9, "Cyan-Magenta", l2 = 20), "lines")
 `interpolate_cvd_transform()`
 
 
-## HCL-based color scales for ggplot2
+# HCL-based color scales for ggplot2
 
 All scales are called via the scheme `scale_<aesthetic>_<datatype>_<colorscale>()`,
 where `<aesthetic>` is the name of the aesthetic (`fill`, `color`, `colour`),
@@ -603,4 +604,4 @@ And the corresponding continuous scales are:
 Analogous functions for color aesthetics just replace `fill` with `color` (or equivalently `colour`).
 
 
-## References
+# References
