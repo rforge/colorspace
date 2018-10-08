@@ -69,30 +69,35 @@ constructors in _colorspace_ are:
   account the output device properties, it is not perceptually uniform (a unit step
   within RGB does not produce a constant perceptual change in color), and it is
   unintuitive for humans to specify colors (say brown or pink) in this space.
+  [@color:Wiki+RGB:2007]
 * `sRGB` addresses the issue of device dependency by adopting a so-called gamma
   correction. Therefore, the gamma-corrected standard RGB (sRGB), as opposed to the
   linearized RGB above, is a good model for specifying colors in software and for
   hardware. But it is still unintuitive for humans to work directly with this.
   Therefore, sRGB is a good place to end up in a color space manipulation but
-  it is not a good place to start.
+  it is not a good place to start. [@color:Wiki+sRGB:2018]
 * `HSV` is a simple transformation of the (s)RGB space that tries to capture the
   perceptual axes: _hue_ (dominant wavelength, the type of color), _saturation_
   (colorfulness), and _value_ (brightness, i.e., light vs. dark). Unfortunately,
   the three axes in the HSV model are confounded so that, e.g., brightness changes
   dramaticaly with hue.
+  [@color:Wiki+HSV:2007]
 * `HLS` (Hue-Lightness-Saturation) is another transformation of (s)RGB that tries
   to capture the perceptual axes. It does a somewhat better job but the dimensions
   are still strongly confounded.
+  [@color:Wiki+HSV:2007]
 * `XYZ` was established by the CIE (Commission Internationale de l'Eclairage)
   based on experiments with human subjects. It provides a unique triplet of
   XYZ values, coding the standard observer's perception of the color. It is
   device-independent but it is not perceptually uniform and the XYZ coordinates
   have no intuitive meaning.
+  [@color:Wiki+CIEXYZ:2007]
 * `LUV` and `LAB` were therefore proposed by the CIE as perceptually uniform
   color spaces where the former is typically preferred for emissive technologies
   (such as screens and monitors) whereas the latter is usually preferred when
   working with dyes and pigments. However, the three axes of these two spaces
   still do not correspond to human perceptual axes.
+  [@color:Wiki+CIELUV:2007; @color:Wiki+CIELAB:2007]
 * `polarLUV` and `polarLAB` therefore take polar coordinates in the UV plane
   and AB plane, respectively. Specifically, the polar coordinates of the LUV
   model are known as the HCL (Hue-Chroma-Luminance) model. These capture the
@@ -103,16 +108,54 @@ All the S4 classes listed above inherit from a virtual class `color` which are
 internally always represented by matrices with three columns (corresponding to
 the different three dimensions).
 
-Utilities:
 
-* `as()`
-* `coords()`
-* `hex()`
-* `hex2RGB()`
-* `readRGB()`
-* `readhex()`
-* `writehex()`
-* `whitepoint()`
+### Utilities
+
+For working with these colorspaces various utilities are available:
+
+* `as()` method: Conversions of a `color` object to the various colorspaces,
+  e.g., `as(x, "sRGB").
+* `coords()`: Extract the three-dimensional coordinates pertaining to the current
+  color class.
+* `hex()`: Convert a color object to sRGB and code in a hex string that can be
+  used within R plotting functions.
+* `hex2RGB()`: Convert a given hex color string to an sRGB color object which
+  can also be coerced to other color spaces.
+* `readRGB()` and `readhex()` can read text files into color objects, either
+  from RGB coordinates or hex color strings.
+* `writehex()`: Writes hex color strings to a text file.
+* `whitepoint()`: Query and change the white point employed in conversions
+  from CIE XYZ to RGB. Defaults to D65.
+
+
+### Illustration of basic colorspace functionality
+
+As an example a vector of colors `x` can be specified in the HCL (or polar LUV) model:
+
+```{r}
+(x <- polarLUV(L = 70, C = 50, H = c(0, 120, 240)))
+```
+
+These are pastel red (hue = 0), green (hue = 120), and blue (hue = 240) with moderate chroma and luminance.
+For display in other systems an sRGB representation might be needed:
+
+```{r}
+(y <- as(x, "sRGB"))
+```
+
+With `coords(x)` or `coords(y)` the displayed coordinates can also be extracted
+as numeric matrices. And from sRGB we can also coerce to HSV for example:
+
+```{r}
+as(y, "HSV")
+```
+
+For display in many systems (including R itself) hex color codes based on the
+sRGB coordinates can be created:
+
+```{r}
+hex(x)
+```
 
 
 ## HCL-based palettes
@@ -164,7 +207,7 @@ qualitative_hcl(4, palette = "dark2")
 qualitative_hcl(4, palette = "dark2", c = 80)
 ```
 
-#### Qualitative palettes
+### Qualitative palettes
 
 `qualitative_hcl()` distinguishes the underlying categories by a sequence of
 hues while keeping both chroma and luminance constant to give each color in the
@@ -195,7 +238,7 @@ luminance as in "Dark 2" or "Dark 3" usually works better while on a black/dark
 background the luminance should be higher as in "Set 2" for example.
 
 
-#### Sequential palettes (single-hue)
+### Sequential palettes (single-hue)
 
 `sequential_hcl()` codes the underlying numeric values by a monotonic sequence
 of increasing (or decreasing) luminance. Thus, the `l` argument should provide
@@ -241,7 +284,7 @@ categorical variable with few levels) then a lower luminance contrast may suffic
 
 
 
-#### Sequential palettes (multi-hue)
+### Sequential palettes (multi-hue)
 
 To not only bring out extreme colors in a sequential palette but also better distinguish
 middle colors it is a common strategy to employ a sequence of hues. Thus, the basis
@@ -281,7 +324,7 @@ better if all values along the sequence should receive some more perceptual weig
 
 
 
-#### Diverging palettes
+### Diverging palettes
 
 `diverging_hcl()` codes the underlying numeric values by a triangular luminance
 sequence with different hues in the left and in the right "arm" of the palette. Thus,
@@ -317,7 +360,7 @@ many colors are used while smaller luminance contrasts may suffice for palettes 
 fewer colors etc.
 
 
-#### Flexible diverging palettes
+### Flexible diverging palettes
 
 The `divergingx_hcl()` provides more flexible diverging palettes by
 simply calling `sequential_hcl()` twice with prespecified sets of hue, chroma,
@@ -340,18 +383,26 @@ more balanced. However, by being able to go through light yellow as the neutral
 color warmer diverging palettes are available.
 
 
-#### HCL (and HSV) color palettes corresponding to base R palettes
+### HCL (and HSV) color palettes corresponding to base R palettes
 
-`rainbow_hcl()`
-`heat_hcl()`
-`terrain_hcl()`
-`diverging_hsv()`
+To facilitate switching from base R palette functions to the HCL-based palettes
+above, _colorspace_ provides a few convenience interfaces:
+
+* `rainbow_hcl()`: Convenience interface to `qualitative_hcl()` for a HCL-based "rainbow"
+  palette to replace the (in)famous `rainbow()` palette.
+* `heat_hcl()`: Convenience interface to `sequential_hcl()` with default parameters
+  chosen to generate more balanced heat colors than the basic `heat.colors()` function.
+* `terrain_hcl()`: Convenience interface to `sequential_hcl()` with default parameters
+  chosen to generate more balanced terrain colors than the basic `terrain.colors()` function.
+* `diverging_hsv()`: Diverging palettes generated in HSV space rather than HCL space as
+  in `diverging_hcl()`. This is provided for didactic purposes to contrast the more balanced
+  HCL palettes with the more flashy and unbalanced HSV palettes.
 
 
 ## Palette visualization and assessment
 
 
-#### Color swatches: `swatchplot()`
+### Color swatches: `swatchplot()`
 
 swatches of several palette vectors
 
@@ -376,7 +427,7 @@ swatchplot(
 )
 ```
 
-#### HCL (and RGB) spectrum: `specplot()`
+### HCL (and RGB) spectrum: `specplot()`
 
 spectrum of HCL-based palettes: qualitative/sequential/diverging
 
@@ -399,7 +450,7 @@ specplot(rainbow(100), rgb = TRUE)
 ```
 
 
-#### Trajectories in HCL space: `hclplot()`
+### Trajectories in HCL space: `hclplot()`
 
 For qualitative palettes luminance and chroma are fixed, varying only hue
 
@@ -432,7 +483,7 @@ hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
 ```
 
 
-#### Demonstration of statistical graphics:  `demoplot()`
+### Demonstration of statistical graphics:  `demoplot()`
 
 All built-in demos with the same `sequential_hcl(5, "Heat")` palette
 
