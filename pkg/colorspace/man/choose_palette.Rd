@@ -7,9 +7,9 @@
 \title{Graphical User Interface for Choosing HCL Color Palettes}
 \usage{
 choose_palette(pal = diverging_hcl, n = 7L, parent = NULL,
-  gui = "tcltk")
+  gui = "tcltk", ...)
 
-hclwizard(n = 7L, gui = "shiny", shiny.trace = FALSE)
+hclwizard(n = 7L, gui = "shiny", ...)
 }
 \arguments{
 \item{pal}{function; the initial palette, see \sQuote{Value} below.  Only
@@ -22,6 +22,11 @@ used if \code{gui = "tcltk"}.}
 
 \item{gui}{character; GUI to use. Available options are \code{tcltk} and
 \code{shiny}, see \sQuote{Details} below.}
+
+\item{...}{Forwarded, used for development and demonstration purposes only.
+Currently considered: \code{verbose} (logical, default \code{FALSE}) and
+\code{autohclplot} (logical, default \code{FALSE}), and \code{shiny.trace}
+(logical, default \code{FALSE}).}
 
 \item{shiny.trace}{boolean, default \code{FALSE}. Used for debugging if
 \code{gui = "shiny"}.}

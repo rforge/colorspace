@@ -21,16 +21,16 @@ hcl_palettes(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
   border = NULL, ...)
 
 qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
-  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1, h2, c1,
-  l1)
+  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1,
+  h2, c1, l1)
 
 sequential_hcl(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE,
-  ..., h1, h2, c1, c2, l1, l2, p1, p2, cmax, c.)
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
+  rev = FALSE, ..., h1, h2, c1, c2, l1, l2, p1, p2, cmax, c.)
 
 diverging_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE,
-  ..., h1, h2, c1, l1, l2, p1, p2, cmax)
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
+  rev = FALSE, ..., h1, h2, c1, l1, l2, p1, p2, cmax)
 }
 \arguments{
 \item{type}{character indicating type of HCL palette.}
@@ -91,7 +91,7 @@ unbalanced palettes (see \code{\link{rainbow_hcl}} for further illustrations).
 Three types of palettes are derived based on the HCL model: \itemize{
   \item Qualitative: Designed for coding categorical information, i.e.,
     where no particular ordering of categories is available and every color
-    should receive the same perceptual weights.
+    should receive the same perceptual weight.
   \item Sequential: Designed for coding ordered/numeric information, i.e.,
     where colors go from high to low (or vice versa).
   \item Diverging: Designed for coding numeric information around a central
@@ -129,7 +129,7 @@ Chroma \code{c} (or equivalently \code{c1}) and luminance \code{l} (or equivalen
 of increasing (or decreasing) luminance. Thus, the \code{l} argument should provide
 a vector of length 2 with starting and ending luminance (equivalently, \code{l1} and
 \code{l2} can be used). Without chroma (i.e., \code{c = 0}), this simply corresponds
-to a palette like \code{\link[grDevices]{gray.colors}}. For adding chroma, a simple
+to a grayscale palette like \code{\link[grDevices]{gray.colors}}. For adding chroma, a simple
 strategy would be to pick a single hue (via \code{h} or \code{h1}) and then decrease
 chroma from some value (\code{c} or \code{c1}) to zero (i.e., gray) along with
 increasing luminance. For bringing out the extremes (a dark high-chroma color vs.
@@ -148,7 +148,7 @@ to \code{power[1]}/\code{p1} from the chroma trajectory.
 \code{diverging_hcl} codes the underlying numeric values by a triangular luminance
 sequence with different hues in the left and in the right arm of the palette. Thus,
 it can be seen as a combination of two sequential palettes with some restrictions:
-(a) a single hue for each arm of the palette, (b) chroma and luminance trajectory
+(a) a single hue is used for each arm of the palette, (b) chroma and luminance trajectory
 are balanced between the two arms, (c) the neutral central value has zero chroma.
 To specify such a palette a vector of two hues \code{h} (or equivalently \code{h1}
 and \code{h2}), either a single chroma value \code{c} (or \code{c1}) or a vector
