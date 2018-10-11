@@ -1,0 +1,261 @@
+---
+title: "`hcl_palettes`: HCL-Based Color Palettes"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: flatly
+bibliography: color.bib
+vignette: >
+  %\VignetteIndexEntry{hcl_palettes: HCL-Based Color Palettes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{colorspace}
+  %\VignetteKeywords{HCL, qualitative palette, sequential palette, diverging palette}
+  %\VignettePackage{colorspace}
+---
+```{r echo=FALSE, message=FALSE}
+library("colorspace")
+```
+
+# HCL-based palettes
+
+As motivated in the previous section, the HCL space is particularly useful for
+specifying individual colors and color palettes as its three axes match those
+of the human visual system very well. Therefore, the _colorspace_ package provides
+three types of palettes based on the HCL model:
+
+* _Qualitative:_ Designed for coding categorical information, i.e.,
+  where no particular ordering of categories is available and every color
+  should receive the same perceptual weight.
+* _Sequential:_ Designed for coding ordered/numeric information, i.e.,
+  where colors go from high to low (or vice versa).
+* _Diverging:_ Designed for coding numeric information around a central
+  neutral value, i.e., where colors diverge from neutral to two extremes.
+
+The corresponding functions are `qualitative_hcl()`, `sequential_hcl()`,
+and `diverging_hcl()`. Their construction principles are explained in more detail below.
+
+To facilitate obtaining good sets of colors, HCL parameter combinations that yield
+useful palettes are accessible by name. These can be listed using the function
+`hcl_palettes()`:
+
+```{r}
+hcl_palettes()
+```
+
+To inspect the HCL parameter combinations for a specific palette simply include the `name`
+where upper- vs. lower-case, spaces, etc. are ignored for matching the label, i.e.,
+`"dark2"` matches `"Dark 2"`:
+
+```{r}
+hcl_palettes(name = "dark2")
+```
+
+To compute the actual color hex codes (representing sRGB coordinates), the functions
+`qualitative_hcl()`, `sequential_hcl()`, and `diverging_hcl()`, respectively, can be used.
+Either all parameters can be specified "by hand" through the HCL parameters, an entire
+palette can be specified "by name", or the name-based specification can be modified by a
+few HCL parameters. In case of the HCL parameters, either a vector-based specification
+such as `h = c(0, 270)` or individual parameters `h1 = 0` and `h2 = 270`
+can be used.
+
+```{r}
+qualitative_hcl(4, h = c(0, 270), c = 50, l = 60)
+qualitative_hcl(4, h1 = 0, h2 = 270, c1 = 50, l1 = 60)
+qualitative_hcl(4, palette = "dark2")
+qualitative_hcl(4, palette = "dark2", c = 80)
+```
+
+## Qualitative palettes
+
+`qualitative_hcl()` distinguishes the underlying categories by a sequence of
+hues while keeping both chroma and luminance constant to give each color in the
+resulting palette the same perceptual weight. Thus, `h` should be a pair of
+hues (or equivalently `h1` and `h2` can be used) with the starting and
+ending hue of the palette. Then, an equidistant sequence between these hues is
+employed, by default spanning the full color wheel (i.e, the full 360 degrees).
+Chroma `c` (or equivalently `c1`) and luminance `l` (or equivalently
+`l1`) are constants.
+
+In the following graphic the available named palettes are shown. The first five
+palettes are close to the _ColorBrewer.org_ palettes of the same name [@color:Harrower+Brewer:2003].
+They employ different levels of chroma and luminance and, by default, span the full
+hue range. The remaining four palettes are taken from @color:Ihaka:2003. They are
+based on the same chroma (= 50) and luminance (= 70) but the hue is restricted to
+different intervals.
+
+```{r fig.width = 5.5, fig.height = 5.0, fig.align = "center", dev = "png", dpi = 48, out.width = "60%"}
+hcl_palettes("qualitative", plot = TRUE)
+```
+
+When qualtitative palettes are employed for shading areas in statistical displays
+(e.g., in bar plots, pie charts, or regions in maps), then it is typically
+less distracting to use lighter colors (with moderate chroma and high luminance)
+such as "Pastel 1" or "Set 3". When coloring points or lines then more flashy
+colors (with high chroma) are often required: On a white background a moderate
+luminance as in "Dark 2" or "Dark 3" usually works better while on a black/dark
+background the luminance should be higher as in "Set 2" for example.
+
+
+## Sequential palettes (single-hue)
+
+`sequential_hcl()` codes the underlying numeric values by a monotonic sequence
+of increasing (or decreasing) luminance. Thus, the `l` argument should provide
+a vector of length 2 with starting and ending luminance (equivalently, `l1` and
+`l2` can be used). Without chroma (i.e., `c = 0`), this simply corresponds
+to a grayscale palette like `gray.colors()`, see "Grays" and "Light Grays" below.
+
+For adding chroma, a simple strategy would be to pick a single hue (via `h` or `h1`)
+and then decrease chroma from some value (`c` or `c1`) to zero (i.e., gray) along with
+increasing luminance. For bringing out the extremes (a dark high-chroma color vs.
+a light gray) this is already very effective, see "Blues 2", "Purples 2", "Reds 2",
+and "Greens 2".
+
+For distinguishing also colors in the middle two strategies can be employed:
+(a) Hue can be varied as well by specifying an interval of hues in `h` (or beginning
+hue `h1` and ending hue `h2`). More details are provided in the next section.
+(b) Instead of a decreasing chroma a triangular chroma trajectory can be employed
+from `c1` over `cmax` to `c2` (or equivalently a vector `c` of
+length 3). This yields high-chroma colors in the middle of the palette that are
+more easily distinguished from the dark and light extremes. See "Blues 3", "Purples 3",
+"Reds 3", and "Greens 3" below.
+
+Instead of employing linear trajectories in the chroma or luminance coordinates
+some palettes employ a power transformation of the chroma and/or luminance
+trajectory. Either a vector `power` of length 2 or separate `p1` (for chroma)
+and `p2` (for luminance) can be specified. If missing, the latter defaults to the
+former.
+
+```{r fig.width = 6.5, fig.height = 6.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+hcl_palettes("sequential (single-hue)", n = 7, plot = TRUE)
+```
+
+All except the last palette are inspired by the _ColorBrewer.org_ palettes with
+the same base name [@color:Harrower+Brewer:2003] but restricted to a single hue only.
+They are intended for a white/light background. The last palette is taken from
+the scientific color maps of @color:Crameri:2018 and is intended for a black/dark
+background and hence the order is reversed starting from a light blue (not a light gray).
+
+To distinguish many colors in a sequential palette it is important to have a strong
+contrast on the luminance axis, possibly enhanced by an accompanying pronounced
+variation in chroma. When only a few colors are needed (e.g., for coding an ordinal
+categorical variable with few levels) then a lower luminance contrast may suffice.
+
+
+
+## Sequential palettes (multi-hue)
+
+To not only bring out extreme colors in a sequential palette but also better distinguish
+middle colors it is a common strategy to employ a sequence of hues. Thus, the basis
+of such a palette is still a monotonic luminance sequence as above (combined with a
+monotonic or triangular chroma sequence). But, instead of a single hue, an interval
+of hues in `h` (or beginning hue `h1` and ending hue `h2`) is specified.
+
+`sequential_hcl()` allows to combine variations in hue (`h` and `h1`/`h2`, respectively),
+chroma (`c` and `c1`/`c2`/`cmax`, respectively),
+luminance (`l` and `l1`/`l2`, respectively), and
+power transformations for the chroma and luminance trajectories
+(`power` and `p1`/`p2`, respectively). This yields a broad variety of sequential
+palettes, including many that closely match other well-known color palettes.
+The plot below shows all the named multi-hue sequential palettes in _colorspace_:
+
+* "Purple-Blue" to "Terrain 2" are various palettes created during the development
+  of _colorspace_, e.g., by @color:Zeileis+Hornik+Murrell:2009 or @color:Stauffer+Mayr+Dabernig:2015
+  among others.
+* "Viridis" to "Inferno" closely match the palettes that @color:Smith+VanDerWalt:2015
+  developed for _matplotlib_ and that gained popularity recently.
+* "Dark Mint" to "BrwnYl" closely match palettes provided in _CARTO_ [@color:CARTO:2018].
+* "YlOrRd" to "Blues" closely match _ColorBrewer.org_ palettes [@color:Harrower+Brewer:2003].
+* "Lajolla" and "Turku" closely match the scientific color maps of the same name by
+  @color:Crameri:2018 and are intended for a black/dark background.
+
+```{r fig.width = 8.5, fig.height = 9.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
+```
+
+Note that the palettes differ substantially in the amount of chroma and luminance
+contrasts, respectively. For example, many palettes go from a dark high-chroma color
+to a neutral low-chroma color (e.g., "Reds", "Purples", "Greens", "Blues") or even
+light gray (e.g., "Purple-Blue"). But some palettes also employ relatively high chroma
+throughout the palette (e.g., the viridis and many _CARTO_ palettes). To emphasize
+the extremes the former strategy is typically more suitable while the latter works
+better if all values along the sequence should receive some more perceptual weight.
+
+
+
+## Diverging palettes
+
+`diverging_hcl()` codes the underlying numeric values by a triangular luminance
+sequence with different hues in the left and in the right "arm" of the palette. Thus,
+it can be seen as a combination of two sequential palettes with some restrictions:
+(a) a single hue is used for each arm of the palette, (b) chroma and luminance trajectory
+are balanced between the two arms, (c) the neutral central value has zero chroma.
+To specify such a palette a vector of two hues `h` (or equivalently `h1`
+and `h2`), either a single chroma value `c` (or `c1`) or a vector
+of two chroma values `c` (or `c1` and `cmax`), a vector of two
+luminances `l` (or `l1` and `l2`), and power parameter(s) `power`
+(or `p1` and `p2`) are used. For more flexible diverging palettes without
+the restrictrictions above (and consequently more parameters) see the next
+section.
+
+The plot below shows all such diverging palettes that have been named in _colorspace_:
+
+* "Blue-Red" to "Cyan-Magenta" have been developed for _colorspace_ starting from
+  @color:Zeileis+Hornik+Murrell:2009, taking inspiration from various other palettes,
+  including more balanced and simplified versions of several _ColorBrewer.org_
+  palettes [@color:Harrower+Brewer:2003].
+* "Tropic" closely matches the palette of the same name from _CARTO_ [@color:CARTO:2018].
+* "Broc" to "Vik" and "Berlin" to "Tofino" closely match the scientific color maps of the same name by
+  @color:Crameri:2018, where the first three are intended for a white/light background and
+  the other three for a black/dark background.
+
+```{r fig.width = 6.5, fig.height = 7.5, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+hcl_palettes("diverging", n = 7, plot = TRUE)
+```
+
+When choosing a particular palette for a display similar considerations apply as
+for the sequential palettes. Thus, large luminance differences are important when
+many colors are used while smaller luminance contrasts may suffice for palettes with
+fewer colors etc.
+
+
+## Flexible diverging palettes
+
+The `divergingx_hcl()` provides more flexible diverging palettes by
+simply calling `sequential_hcl()` twice with prespecified sets of hue, chroma,
+and luminance parameters. Thus, it does not pose any restrictions that
+the two "arms" of the palette need to be balanced and also allows to go
+through a non-gray neutral color (typically light yellow).
+Consequently, the chroma/luminance paths can be rather unbalanced
+
+The plot below shows all such flexible diverging palettes that have been named in _colorspace_:
+
+* "ArmyRose" to "Tropic" closely match the palettes of the same name from _CARTO_ [@color:CARTO:2018].
+* "PuOr" to "Spectral" closely match the palettes of the same name from _ColorBrewer.org_ [@color:Harrower+Brewer:2003].
+
+```{r fig.width = 6.5, fig.height = 8.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+divergingx_palettes(n = 7, plot = TRUE)
+```
+
+Typically, the more restricted diverging palettes should be preferred because they are
+more balanced. However, by being able to go through light yellow as the neutral
+color warmer diverging palettes are available.
+
+
+## HCL (and HSV) color palettes corresponding to base R palettes
+
+To facilitate switching from base R palette functions to the HCL-based palettes
+above, _colorspace_ provides a few convenience interfaces:
+
+* `rainbow_hcl()`: Convenience interface to `qualitative_hcl()` for a HCL-based "rainbow"
+  palette to replace the (in)famous `rainbow()` palette.
+* `heat_hcl()`: Convenience interface to `sequential_hcl()` with default parameters
+  chosen to generate more balanced heat colors than the basic `heat.colors()` function.
+* `terrain_hcl()`: Convenience interface to `sequential_hcl()` with default parameters
+  chosen to generate more balanced terrain colors than the basic `terrain.colors()` function.
+* `diverging_hsv()`: Diverging palettes generated in HSV space rather than HCL space as
+  in `diverging_hcl()`. This is provided for didactic purposes to contrast the more balanced
+  HCL palettes with the more flashy and unbalanced HSV palettes.
+
+## References

@@ -1,11 +1,17 @@
 ---
-title: "HCL-based color scales for ggplot2"
-author: "Claus O. Wilke"
-date: "`r Sys.Date()`"
+title: "HCL-Based Color Scales for ggplot2"
 output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: flatly
+bibliography: color.bib
 vignette: >
-  %\VignetteIndexEntry{ggplot2 color scales}
+  %\VignetteIndexEntry{HCL-based color scales for ggplot2}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{colorspace}
+  %\VignetteKeywords{ggplot2, scale, qualitative, sequential, diverging}
   %\usepackage[utf8]{inputenc}
 ---
 ```{r echo=FALSE, message=FALSE}
@@ -167,6 +173,4 @@ hcl_palettes("diverging", plot = TRUE)
 ```
 
 The discrete diverging scales are all called via `scale_*_discrete_diverging(palette = "name")`, where `name` is the name of the palette, e.g. `palette = "Greys"`. Continuous approximations to the discrete scales exist and can be called via `scale_*_continuous_diverging(palette = "name")`
-
-
 
