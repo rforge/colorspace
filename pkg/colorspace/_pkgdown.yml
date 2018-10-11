@@ -1,0 +1,115 @@
+template:
+  params:
+    bootswatch: "flatly"
+
+home:
+  links:
+  - text: Download from CRAN
+    href: https://CRAN.R-project.org/package=colorspace
+  - text: HCL wizard app
+    href: http://hclwizard.org/hclwizard/
+
+reference:
+  - title: "Color spaces"
+    desc: "Color spaces"
+    contents: 
+      - polarLUV
+      - polarLAB
+      - LUV
+      - LAB
+      - XYZ
+      - RGB
+      - sRGB
+      - HLS
+      - HSV
+      - color-class
+  - title: "Color space utilities"
+    desc: "Color space utilities"
+    contents: 
+      - coords
+      - hex
+      - hex2RGB
+      - readRGB
+      - readhex
+      - whitepoint
+      - writehex
+  - title: "HCL-based palettes"
+    desc: "HCL-based palettes"
+    contents: 
+      - hcl_palettes
+      - print.hcl_palettes
+      - summary.hcl_palettes
+      - plot.hcl_palettes
+      - divergingx_palettes
+      - qualitative_hcl
+      - sequential_hcl
+      - diverging_hcl
+      - divergingx_hcl
+      - rainbow_hcl
+      - heat_hcl
+      - terrain_hcl
+      - diverging_hsv
+  - title: "Palette visualization and assessment"
+    desc: "Palette visualization and assessment"
+    contents: 
+      - swatchplot
+      - specplot
+      - hclplot
+      - demoplot
+      - USSouthPolygon
+  - title: "Color vision deficiency emulation"
+    desc: "Color vision deficiency emulation"
+    contents: 
+      - simulate_cvd
+      - deutan
+      - protan
+      - tritan
+      - protanomaly_cvd
+      - deutanomaly_cvd
+      - tritanomaly_cvd
+  - title: "Color manipulation and utilities"
+    desc: "Color manipulation and utilities"
+    contents: 
+      - desaturate
+      - lighten
+      - darken
+      - max_chroma
+      - max_chroma_table
+      - mixcolor
+  - title: "Color apps (shiny and Tcl/Tk)"
+    desc: "Color apps (shiny and Tcl/Tk)"
+    contents: 
+      - choose_palette
+      - hclwizard
+      - choose_color
+      - hcl_color_picker
+      - cvd_emulator
+      - cvd_image
+      - interpolate_cvd_transform
+  - title: "HCL-based color scales for ggplot2"
+    desc: "HCL-based color scales for ggplot2"
+    contents: 
+      - scale_colour_continuous_diverging
+      - scale_color_continuous_diverging
+      - scale_fill_continuous_diverging
+      - scale_colour_continuous_divergingx
+      - scale_color_continuous_divergingx
+      - scale_fill_continuous_divergingx
+      - scale_colour_continuous_qualitative
+      - scale_color_continuous_qualitative
+      - scale_fill_continuous_qualitative
+      - scale_colour_continuous_sequential
+      - scale_color_continuous_sequential
+      - scale_fill_continuous_sequential
+      - scale_colour_discrete_diverging
+      - scale_color_discrete_diverging
+      - scale_fill_discrete_diverging
+      - scale_colour_discrete_divergingx
+      - scale_color_discrete_divergingx
+      - scale_fill_discrete_divergingx
+      - scale_colour_discrete_qualitative
+      - scale_color_discrete_qualitative
+      - scale_fill_discrete_qualitative
+      - scale_colour_discrete_sequential
+      - scale_color_discrete_sequential
+      - scale_fill_discrete_sequential

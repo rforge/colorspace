@@ -1,3 +1,5 @@
+^docs$
+^_pkgdown\.yml$
 paper
 data/USSouthPolygon_script.R$
 data/max_chroma_table_script.R$
