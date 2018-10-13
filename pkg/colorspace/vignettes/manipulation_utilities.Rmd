@@ -1,0 +1,30 @@
+---
+title: "Color Manipulation and Utilities"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: flatly
+bibliography: color.bib
+vignette: >
+  %\VignetteIndexEntry{Color Manipulation and Utilities}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{colorspace}
+  %\VignetteKeywords{desaturation, lighten, darken, color mixing}
+  %\VignettePackage{colorspace}
+---
+
+```{r echo=FALSE, message=FALSE}
+library("colorspace")
+```
+
+## Overview
+
+* `desaturate()`
+* `darken()`
+* `lighten()`
+* `max_chroma()`
+* `mixcolor()`
+
+

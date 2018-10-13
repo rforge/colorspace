@@ -1,0 +1,43 @@
+---
+title: "Color Vision Deficiency Emulation"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: flatly
+bibliography: color.bib
+vignette: >
+  %\VignetteIndexEntry{Color Vision Deficiency Emulation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{colorspace}
+  %\VignetteKeywords{RGB, sRGB, XYZ, LUV, LAB, HLS, HSV, HCL}
+  %\VignettePackage{colorspace}
+---
+```{r echo=FALSE, message=FALSE}
+library("colorspace")
+```
+
+## Overview
+
+Based on @color:Machado+Oliveira+Fernandes:2009.
+
+@color:Lumley:2006 also provides a useful discussion of color vision
+deficiencies in relation to statistical graphics (but using earlier
+emulation techniques in R package _dichromat_).
+
+`simulate_cvd()`
+
+* `deutan()`
+* `protan()`
+* `tritan()`
+
+`deutanomaly_cvd`
+`protanomaly_cvd`
+`tritanomaly_cvd`
+
+## Illustrations
+
+
+
+## References

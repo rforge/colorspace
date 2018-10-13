@@ -68,7 +68,7 @@ constructors in _colorspace_ are:
   account the output device properties, it is not perceptually uniform (a unit step
   within RGB does not produce a constant perceptual change in color), and it is
   unintuitive for humans to specify colors (say brown or pink) in this space.
-  [@color:Wiki+RGB:2007]
+  [@color:Wiki+RGB]
 * `sRGB()` addresses the issue of device dependency by adopting a so-called gamma
   correction. Therefore, the gamma-corrected standard RGB (sRGB), as opposed to the
   linearized RGB above, is a good model for specifying colors in software and for
@@ -80,23 +80,23 @@ constructors in _colorspace_ are:
   (colorfulness), and _value_ (brightness, i.e., light vs. dark). Unfortunately,
   the three axes in the HSV model are confounded so that, e.g., brightness changes
   dramaticaly with hue.
-  [@color:Wiki+HSV:2007]
+  [@color:Wiki+HSV]
 * `HLS()` (Hue-Lightness-Saturation) is another transformation of (s)RGB that tries
   to capture the perceptual axes. It does a somewhat better job but the dimensions
   are still strongly confounded.
-  [@color:Wiki+HSV:2007]
+  [@color:Wiki+HSV]
 * `XYZ()` was established by the CIE (Commission Internationale de l'Eclairage)
   based on experiments with human subjects. It provides a unique triplet of
   XYZ values, coding the standard observer's perception of the color. It is
   device-independent but it is not perceptually uniform and the XYZ coordinates
   have no intuitive meaning.
-  [@color:Wiki+CIEXYZ:2007]
+  [@color:Wiki+CIEXYZ]
 * `LUV()` and `LAB()` were therefore proposed by the CIE as perceptually uniform
   color spaces where the former is typically preferred for emissive technologies
   (such as screens and monitors) whereas the latter is usually preferred when
   working with dyes and pigments. However, the three axes of these two spaces
   still do not correspond to human perceptual axes.
-  [@color:Wiki+CIELUV:2007; @color:Wiki+CIELAB:2007]
+  [@color:Wiki+CIELUV; @color:Wiki+CIELAB]
 * `polarLUV()` and `polarLAB()` therefore take polar coordinates in the UV plane
   and AB plane, respectively. Specifically, the polar coordinates of the LUV
   model are known as the HCL (Hue-Chroma-Luminance) model. These capture the

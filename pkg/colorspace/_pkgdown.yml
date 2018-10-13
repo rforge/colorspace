@@ -6,8 +6,8 @@ template:
 
 home:
   links:
-  - text: HCL wizard app
-    href: http://hclwizard.org/hclwizard/
+  - text: "Online color apps"
+    href: http://hclwizard.org/
 
 reference:
   - title: "Color spaces"
@@ -53,32 +53,6 @@ reference:
       - hclplot
       - demoplot
       - USSouthPolygon
-  - title: "Color vision deficiency emulation"
-    contents: 
-      - simulate_cvd
-      - deutan
-      - protan
-      - tritan
-      - protanomaly_cvd
-      - deutanomaly_cvd
-      - tritanomaly_cvd
-  - title: "Color manipulation and utilities"
-    contents: 
-      - desaturate
-      - lighten
-      - darken
-      - max_chroma
-      - max_chroma_table
-      - mixcolor
-  - title: "Color apps (shiny and Tcl/Tk)"
-    contents: 
-      - choose_palette
-      - hclwizard
-      - choose_color
-      - hcl_color_picker
-      - cvd_emulator
-      - cvd_image
-      - interpolate_cvd_transform
   - title: "HCL-based color scales for ggplot2"
     contents: 
       - scale_colour_continuous_diverging
@@ -105,3 +79,29 @@ reference:
       - scale_colour_discrete_sequential
       - scale_color_discrete_sequential
       - scale_fill_discrete_sequential
+  - title: "Color apps (shiny and Tcl/Tk)"
+    contents: 
+      - choose_palette
+      - hclwizard
+      - choose_color
+      - hcl_color_picker
+      - cvd_emulator
+      - cvd_image
+      - interpolate_cvd_transform
+  - title: "Color vision deficiency emulation"
+    contents: 
+      - simulate_cvd
+      - deutan
+      - protan
+      - tritan
+      - protanomaly_cvd
+      - deutanomaly_cvd
+      - tritanomaly_cvd
+  - title: "Color manipulation and utilities"
+    contents: 
+      - desaturate
+      - lighten
+      - darken
+      - max_chroma
+      - max_chroma_table
+      - mixcolor

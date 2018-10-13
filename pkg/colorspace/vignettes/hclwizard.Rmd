@@ -1,0 +1,39 @@
+---
+title: "Apps for Choosing Colors and Palettes Interactively"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: flatly
+bibliography: color.bib
+vignette: >
+  %\VignetteIndexEntry{Apps for Choosing Colors and Palettes Interactively}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{colorspace}
+  %\VignetteKeywords{shiny, tcltk, HCL, palette, color blindness}
+  %\VignettePackage{colorspace}
+---
+```{r echo=FALSE, message=FALSE}
+library("colorspace")
+```
+
+## Overview
+
+Designed to accompany @color:Stauffer+Mayr+Dabernig:2015.
+
+shiny [@color:shiny] and Tcl/Tk via package _tcltk_ shipped with base R [@color:R]
+
+`choose_palette()`
+`hclwizard()`
+`hcl_wizard()`
+
+`choose_color()`
+`hcl_color_picker()`
+
+`cvd_emulator()`
+`interpolate_cvd_transform()`
+
+
+
+## References

@@ -12,6 +12,13 @@
 \Keywords{HCL colors, qualitative palette, sequential palette, diverging palette}
 
 \Abstract{
+  This introduction to HCL-based color palettes in \proglang{R} package \pkg{colorspace}
+  was written to accompany \cite{color:Zeileis+Hornik+Murrell:2009}. Since then the
+  package's capabilities have been substantially extended and an up-to-date overview
+  is available at \url{http://colorspace.R-Forge.R-project.org/} which is recommended
+  as the main reference. For historical completeness this PDF vignette is still
+  preserved, though.
+  
   The package \pkg{colorspace} provides various functions providing perceptually-based
   color palettes for coding categorical data (qualitative palettes) and numerical
   variables (sequential and diverging palettes). We illustrate how these

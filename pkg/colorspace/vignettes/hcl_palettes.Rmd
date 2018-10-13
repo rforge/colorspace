@@ -1,5 +1,5 @@
 ---
-title: "`hcl_palettes`: HCL-Based Color Palettes"
+title: "HCL-Based Color Palettes"
 output:
   html_document:
     toc: true
@@ -8,7 +8,7 @@ output:
     theme: flatly
 bibliography: color.bib
 vignette: >
-  %\VignetteIndexEntry{hcl_palettes: HCL-Based Color Palettes}
+  %\VignetteIndexEntry{HCL-Based Color Palettes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteDepends{colorspace}
   %\VignetteKeywords{HCL, qualitative palette, sequential palette, diverging palette}
@@ -165,7 +165,7 @@ The plot below shows all the named multi-hue sequential palettes in _colorspace_
   among others.
 * "Viridis" to "Inferno" closely match the palettes that @color:Smith+VanDerWalt:2015
   developed for _matplotlib_ and that gained popularity recently.
-* "Dark Mint" to "BrwnYl" closely match palettes provided in _CARTO_ [@color:CARTO:2018].
+* "Dark Mint" to "BrwnYl" closely match palettes provided in _CARTO_ [@color:CARTO].
 * "YlOrRd" to "Blues" closely match _ColorBrewer.org_ palettes [@color:Harrower+Brewer:2003].
 * "Lajolla" and "Turku" closely match the scientific color maps of the same name by
   @color:Crameri:2018 and are intended for a black/dark background.
@@ -205,7 +205,7 @@ The plot below shows all such diverging palettes that have been named in _colors
   @color:Zeileis+Hornik+Murrell:2009, taking inspiration from various other palettes,
   including more balanced and simplified versions of several _ColorBrewer.org_
   palettes [@color:Harrower+Brewer:2003].
-* "Tropic" closely matches the palette of the same name from _CARTO_ [@color:CARTO:2018].
+* "Tropic" closely matches the palette of the same name from _CARTO_ [@color:CARTO].
 * "Broc" to "Vik" and "Berlin" to "Tofino" closely match the scientific color maps of the same name by
   @color:Crameri:2018, where the first three are intended for a white/light background and
   the other three for a black/dark background.
@@ -231,7 +231,7 @@ Consequently, the chroma/luminance paths can be rather unbalanced
 
 The plot below shows all such flexible diverging palettes that have been named in _colorspace_:
 
-* "ArmyRose" to "Tropic" closely match the palettes of the same name from _CARTO_ [@color:CARTO:2018].
+* "ArmyRose" to "Tropic" closely match the palettes of the same name from _CARTO_ [@color:CARTO].
 * "PuOr" to "Spectral" closely match the palettes of the same name from _ColorBrewer.org_ [@color:Harrower+Brewer:2003].
 
 ```{r fig.width = 6.5, fig.height = 8.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
