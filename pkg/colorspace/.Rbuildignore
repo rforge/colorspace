@@ -1,7 +1,8 @@
+^.*\.Rproj$
+^\.Rproj\.user$
 ^docs$
 ^_pkgdown\.yml$
+^index.Rmd$
 paper
 data/USSouthPolygon_script.R$
 data/max_chroma_table_script.R$
-^.*\.Rproj$
-^\.Rproj\.user$

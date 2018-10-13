@@ -1,17 +1,16 @@
+destination: "../../www/"
+
 template:
   params:
     bootswatch: "flatly"
 
 home:
   links:
-  - text: Download from CRAN
-    href: https://CRAN.R-project.org/package=colorspace
   - text: HCL wizard app
     href: http://hclwizard.org/hclwizard/
 
 reference:
   - title: "Color spaces"
-    desc: "Color spaces"
     contents: 
       - polarLUV
       - polarLAB
@@ -24,7 +23,6 @@ reference:
       - HSV
       - color-class
   - title: "Color space utilities"
-    desc: "Color space utilities"
     contents: 
       - coords
       - hex
@@ -34,7 +32,6 @@ reference:
       - whitepoint
       - writehex
   - title: "HCL-based palettes"
-    desc: "HCL-based palettes"
     contents: 
       - hcl_palettes
       - print.hcl_palettes
@@ -50,7 +47,6 @@ reference:
       - terrain_hcl
       - diverging_hsv
   - title: "Palette visualization and assessment"
-    desc: "Palette visualization and assessment"
     contents: 
       - swatchplot
       - specplot
@@ -58,7 +54,6 @@ reference:
       - demoplot
       - USSouthPolygon
   - title: "Color vision deficiency emulation"
-    desc: "Color vision deficiency emulation"
     contents: 
       - simulate_cvd
       - deutan
@@ -68,7 +63,6 @@ reference:
       - deutanomaly_cvd
       - tritanomaly_cvd
   - title: "Color manipulation and utilities"
-    desc: "Color manipulation and utilities"
     contents: 
       - desaturate
       - lighten
@@ -77,7 +71,6 @@ reference:
       - max_chroma_table
       - mixcolor
   - title: "Color apps (shiny and Tcl/Tk)"
-    desc: "Color apps (shiny and Tcl/Tk)"
     contents: 
       - choose_palette
       - hclwizard
@@ -87,7 +80,6 @@ reference:
       - cvd_image
       - interpolate_cvd_transform
   - title: "HCL-based color scales for ggplot2"
-    desc: "HCL-based color scales for ggplot2"
     contents: 
       - scale_colour_continuous_diverging
       - scale_color_continuous_diverging

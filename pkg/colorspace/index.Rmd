@@ -1,0 +1,42 @@
+### A Toolbox for Manipulating and Assessing Colors and Palettes
+
+```{r hcl, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 4.5, fig.align = "center", dev = "png", dpi = 48}
+library("colorspace")
+hclplot(qualitative_hcl(9, c = 50, l = 70))
+```
+
+```{r palettes, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 4.5, fig.align = "center", dev = "png", dpi = 48}
+hcl_palettes(name = c(
+  "Pastel 1", "Dark 3", "Harmonic",
+  "Blues 3", "Greens 3", "Reds 3",
+  "Heat", "Purple-Blue", "Viridis",
+  "Blue-Red", "Green-Brown", "Tropic"
+), plot = TRUE, n = 7)
+```
+
+```{r ggplot2, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 4.5, fig.align = "center", dev = "png", dpi = 48}
+library("ggplot2")
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) + scale_fill_discrete_qualitative()
+```
+
+```{r inferno, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 3.7, fig.align = "center", dev = "png", dpi = 48}
+par(mar = rep(0, 4))
+demoplot(sequential_hcl(99, "Inferno", rev = TRUE), type = "heatmap")
+```
+```{r deutan, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 3.7, fig.align = "center", dev = "png", dpi = 48}
+par(mar = rep(0, 4))
+demoplot(deutan(sequential_hcl(99, "Inferno", rev = TRUE)), type = "heatmap")
+```
+
+```{r desaturate, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 3.7, fig.align = "center", dev = "png", dpi = 48}
+par(mar = rep(0, 4))
+demoplot(desaturate(sequential_hcl(99, "Inferno", rev = TRUE)), type = "heatmap")
+```
+
+| Color spaces                               | HCL-based palettes                          | ggplot2 scales                                |
+|:------------------------------------------:|:-------------------------------------------:|:---------------------------------------------:|
+| ![](index_files/figure-html/hcl-1.png)     | ![](index_files/figure-html/palettes-1.png) | ![](index_files/figure-html/ggplot2-1.png)    |
+
+| Demos                                      | Color vision deficiency                     | Utilities                                     |
+|:------------------------------------------:|:-------------------------------------------:|:---------------------------------------------:|
+| ![](index_files/figure-html/inferno-1.png) | ![](index_files/figure-html/deutan-1.png)   | ![](index_files/figure-html/desaturate-1.png) |
