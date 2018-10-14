@@ -18,6 +18,7 @@ vignette: >
 library("colorspace")
 library("ggplot2")
 theme_set(theme_minimal())
+set.seed(403)
 ```
 
 ## Overview
