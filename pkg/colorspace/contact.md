@@ -11,6 +11,13 @@ For discussions we also try to follow the following channels:
 - [Twitter](https://twitter.com) (see the developers' handles below)
 - [R-help](https://stat.ethz.ch/mailman/listinfo/R-help) mailing list
 
+## Other resources
+
+- <http://hclwizard.org/>  
+  Blog and online shiny apps.
+- <https://github.com/retostauffer/python-colorspace>  
+  Python re-implementation of the R package.
+
 ## Authors
 
 - [Ross Ihaka](https://www.stat.auckland.ac.nz/~ihaka/)

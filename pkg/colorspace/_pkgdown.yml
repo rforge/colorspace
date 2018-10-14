@@ -5,7 +5,29 @@ template:
     bootswatch: "flatly"
 
 navbar:
-  right:
+  left:
+    - text: "Get started"
+      href: articles/colorspace.html
+    - text: "Articles"
+      menu:
+        - text: "Color Spaces: S4 Classes and Utilities"
+          href: articles/color_spaces.html
+        - text: "HCL-Based Color Palettes"
+          href: articles/hcl_palettes.html
+        - text: "HCL-Based Color Scales for ggplot2"
+          href: articles/ggplot2_color_scales.html
+        - text: "Palette Visualization and Assessment"
+          href: articles/palette_visualization.html
+        - text: "Apps for Choosing Colors and Palettes Interactively"
+          href: articles/hclwizard.html
+        - text: "Color Vision Deficiency Emulation"
+          href: articles/color_vision_deficiency.html
+        - text: "Color Manipulation and Utilities"
+          href: articles/manipulation_utilities.html
+    - text: "Reference"
+      href: reference/index.html
+    - text: "Changelog"
+      href: news/index.html
     - text: "Contact"
       href: contact.html
 
