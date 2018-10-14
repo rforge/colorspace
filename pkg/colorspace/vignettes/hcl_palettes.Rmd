@@ -4,7 +4,6 @@ output:
   html_document:
     toc: true
     toc_float: true
-    number_sections: true
     theme: flatly
 bibliography: color.bib
 vignette: >
@@ -14,7 +13,8 @@ vignette: >
   %\VignetteKeywords{HCL, qualitative palette, sequential palette, diverging palette}
   %\VignettePackage{colorspace}
 ---
-```{r echo=FALSE, message=FALSE}
+
+```{r preliminaries, echo=FALSE, message=FALSE}
 library("colorspace")
 ```
 
@@ -40,7 +40,7 @@ To facilitate obtaining good sets of colors, HCL parameter combinations that yie
 useful palettes are accessible by name. These can be listed using the function
 `hcl_palettes()`:
 
-```{r}
+```{r hcl-palettes-print}
 hcl_palettes()
 ```
 
@@ -48,8 +48,8 @@ To inspect the HCL parameter combinations for a specific palette simply include 
 where upper- vs. lower-case, spaces, etc. are ignored for matching the label, i.e.,
 `"dark2"` matches `"Dark 2"`:
 
-```{r}
-hcl_palettes(name = "dark2")
+```{r hcl-palette}
+hcl_palettes(palette = "dark2")
 ```
 
 To compute the actual color hex codes (representing sRGB coordinates), the functions
@@ -60,7 +60,7 @@ few HCL parameters. In case of the HCL parameters, either a vector-based specifi
 such as `h = c(0, 270)` or individual parameters `h1 = 0` and `h2 = 270`
 can be used.
 
-```{r}
+```{r qualitative-hcl}
 qualitative_hcl(4, h = c(0, 270), c = 50, l = 60)
 qualitative_hcl(4, h1 = 0, h2 = 270, c1 = 50, l1 = 60)
 qualitative_hcl(4, palette = "dark2")
@@ -85,7 +85,7 @@ hue range. The remaining four palettes are taken from @color:Ihaka:2003. They ar
 based on the same chroma (= 50) and luminance (= 70) but the hue is restricted to
 different intervals.
 
-```{r fig.width = 5.5, fig.height = 5.0, fig.align = "center", dev = "png", dpi = 48, out.width = "60%"}
+```{r hcl-palettes-qualitative, fig.width = 5.5, fig.height = 5.0, fig.align = "center", dev = "png", dpi = 48, out.width = "60%"}
 hcl_palettes("qualitative", plot = TRUE)
 ```
 
@@ -127,7 +127,7 @@ trajectory. Either a vector `power` of length 2 or separate `p1` (for chroma)
 and `p2` (for luminance) can be specified. If missing, the latter defaults to the
 former.
 
-```{r fig.width = 6.5, fig.height = 6.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+```{r hcl-palettes-sequentials, fig.width = 6.5, fig.height = 6.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
 hcl_palettes("sequential (single-hue)", n = 7, plot = TRUE)
 ```
 
@@ -170,7 +170,7 @@ The plot below shows all the named multi-hue sequential palettes in _colorspace_
 * "Lajolla" and "Turku" closely match the scientific color maps of the same name by
   @color:Crameri:2018 and are intended for a black/dark background.
 
-```{r fig.width = 8.5, fig.height = 9.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+```{r hcl-palettes-sequentialm, fig.width = 8.5, fig.height = 9.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
 ```
 
@@ -210,7 +210,7 @@ The plot below shows all such diverging palettes that have been named in _colors
   @color:Crameri:2018, where the first three are intended for a white/light background and
   the other three for a black/dark background.
 
-```{r fig.width = 6.5, fig.height = 7.5, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+```{r hcl-palettes-diverging, fig.width = 6.5, fig.height = 7.5, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
 hcl_palettes("diverging", n = 7, plot = TRUE)
 ```
 
@@ -234,7 +234,7 @@ The plot below shows all such flexible diverging palettes that have been named i
 * "ArmyRose" to "Tropic" closely match the palettes of the same name from _CARTO_ [@color:CARTO].
 * "PuOr" to "Spectral" closely match the palettes of the same name from _ColorBrewer.org_ [@color:Harrower+Brewer:2003].
 
-```{r fig.width = 6.5, fig.height = 8.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+```{r divergingx-palettes, fig.width = 6.5, fig.height = 8.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
 divergingx_palettes(n = 7, plot = TRUE)
 ```
 

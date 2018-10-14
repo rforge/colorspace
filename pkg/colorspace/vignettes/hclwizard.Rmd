@@ -4,7 +4,6 @@ output:
   html_document:
     toc: true
     toc_float: true
-    number_sections: true
     theme: flatly
 bibliography: color.bib
 vignette: >
@@ -14,7 +13,8 @@ vignette: >
   %\VignetteKeywords{shiny, tcltk, HCL, palette, color blindness}
   %\VignettePackage{colorspace}
 ---
-```{r echo=FALSE, message=FALSE}
+
+```{r preliminaries, echo=FALSE, message=FALSE}
 library("colorspace")
 ```
 

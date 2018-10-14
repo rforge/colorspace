@@ -4,7 +4,6 @@ output:
   html_document:
     toc: true
     toc_float: true
-    number_sections: true
     theme: flatly
 bibliography: color.bib
 vignette: >
@@ -14,7 +13,8 @@ vignette: >
   %\VignetteKeywords{RGB, sRGB, XYZ, LUV, LAB, HLS, HSV, HCL}
   %\VignettePackage{colorspace}
 ---
-```{r echo=FALSE, message=FALSE}
+
+```{r preliminaries, echo=FALSE, message=FALSE}
 library("colorspace")
 ```
 
@@ -30,7 +30,7 @@ in R). For completeness further standard color models were included as well in t
 The connections are illustrated in the following graph:
 
 
-```{r fig.width = 9.5, fig.height = 4.5, fig.align = "center", echo = FALSE, dev = "png"}
+```{r color-spaces, fig.width = 9.5, fig.height = 4.5, fig.align = "center", echo = FALSE, dev = "png"}
 par(mar = rep(0, 4))
 
 d <- data.frame(
@@ -131,28 +131,28 @@ For working with these color spaces various utilities are available:
 
 As an example a vector of colors `x` can be specified in the HCL (or polar LUV) model:
 
-```{r}
+```{r polarLUV}
 (x <- polarLUV(L = 70, C = 50, H = c(0, 120, 240)))
 ```
 
 These are pastel red (hue = 0), green (hue = 120), and blue (hue = 240) with moderate chroma and luminance.
 For display in other systems an sRGB representation might be needed:
 
-```{r}
+```{r sRGB}
 (y <- as(x, "sRGB"))
 ```
 
 With `coords(x)` or `coords(y)` the displayed coordinates can also be extracted
 as numeric matrices. And from sRGB we can also coerce to HSV for example:
 
-```{r}
+```{r HSV}
 as(y, "HSV")
 ```
 
 For display in many systems (including R itself) hex color codes based on the
 sRGB coordinates can be created:
 
-```{r}
+```{r hex}
 hex(x)
 ```
 

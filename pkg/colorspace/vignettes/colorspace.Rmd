@@ -64,7 +64,7 @@ More detailed overviews and examples are provided in the package vignettes:
 * [Palette Visualization and Assessment](palette_visualization.html)
 * [Apps for Choosing Colors and Palettes Interactively](hclwizard.html)
 * [Color Vision Deficiency Emulation](color_vision_deficiency.html)
-* [Color Manipulation and Utilities](manipulation_utilities.Rmd)
+* [Color Manipulation and Utilities](manipulation_utilities.html)
 
 
 ## Installation
