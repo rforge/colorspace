@@ -4,6 +4,11 @@ template:
   params:
     bootswatch: "flatly"
 
+navbar:
+  right:
+    - text: "Contact"
+      href: contact.html
+
 home:
   links:
   - text: "Online color apps"
