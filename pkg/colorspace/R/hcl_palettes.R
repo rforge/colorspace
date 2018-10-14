@@ -111,7 +111,7 @@
 #' @param border character. Color of rectangle borders.
 #' @param alpha numeric vector of values in the range \code{[0, 1]} for alpha
 #' transparency channel (0 means transparent and 1 means opaque).
-#' @param name,palette character. Name of HCL color palette.
+#' @param palette character. Name of HCL color palette.
 #' @param rev logical. Should the color palette vector be returned in reverse order?
 #' @param \dots Other arguments passed to \code{\link{hex}}.
 #' @param type character indicating type of HCL palette.
@@ -144,8 +144,8 @@
 #'
 #' ## inspect a specific palette
 #' ## (upper-case, spaces, etc. are ignored for matching)
-#' hcl_palettes(name = "Dark 2")
-#' hcl_palettes(name = "dark2")
+#' hcl_palettes(palette = "Dark 2")
+#' hcl_palettes(palette = "dark2")
 #' 
 #' ## set up actual colors
 #' qualitative_hcl(4, h = c(0, 288), c = 50, l = 60) ## by hand
@@ -182,7 +182,7 @@
 #' ## palettes (for hues 260/blue and 0/red)
 #' hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
 #' @export
-hcl_palettes <- function(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
+hcl_palettes <- function(type = NULL, palette = NULL, plot = FALSE, n = 5L, ...)
 {
   ## subset by type and name (by flexible matching)
   fx <- function(n) tolower(gsub("[-, _, \\,, (, ), \\ , \\.]", "", n))
@@ -201,15 +201,15 @@ hcl_palettes <- function(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
   } else {
     pals <- hcl_pals
   }
-  if(!is.null(name)) {
+  if(!is.null(palette)) {
     namtab <- fx(rownames(pals))
-    name <- sapply(fx(name), function(n) {
+    palette <- sapply(fx(palette), function(n) {
       if(n %in% namtab) return(n)
       n <- startsWith(namtab, n)
-      if(all(!n)) stop("Palette 'name' should be one of: ", paste(rownames(pals), collapse = ", "))
+      if(all(!n)) stop("Named 'palette' should be one of: ", paste(rownames(pals), collapse = ", "))
       namtab[which(n)[1L]]
     })
-    pals <- pals[fx(rownames(pals)) %in% name, , drop = FALSE]
+    pals <- pals[fx(rownames(pals)) %in% palette, , drop = FALSE]
   }
 
   ## add class and show selection
@@ -325,7 +325,7 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
     ## (1) palette
     if(is.character(h)) palette <- h
     pals <- if(!is.null(palette)) {
-        as.matrix(hcl_palettes(type = "Qualitative", name = palette)[, 2L:11L])[1L, ]
+        as.matrix(hcl_palettes(type = "Qualitative", palette = palette)[, 2L:11L])[1L, ]
     } else {
         structure(c(if(length(h) < 2L) c(h, NA) else rep_len(h, 2L), c[1L], NA, l[1L], NA, NA, NA, NA, 1), .Names = vars.pal[1L:10L])
     }
@@ -380,7 +380,7 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     ## (1) palette
     if(is.character(h)) palette <- h
     pals <- if(!is.null(palette)) {
-        as.matrix(hcl_palettes(type = "Sequential", name = palette)[, 2L:11L])[1L, ]
+        as.matrix(hcl_palettes(type = "Sequential", palette = palette)[, 2L:11L])[1L, ]
     } else {
         structure(c(
             if(length(h) < 2L) c(h, NA) else rep_len(h, 2L),
@@ -470,7 +470,7 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     ## (1) palette
     if(is.character(h)) palette <- h
     pals <- if(!is.null(palette)) {
-        as.matrix(hcl_palettes(type = "Diverging", name = palette)[, 2L:10L])[1L, ]
+        as.matrix(hcl_palettes(type = "Diverging", palette = palette)[, 2L:10L])[1L, ]
     } else {
         structure(c(
             rep_len(h, 2L),

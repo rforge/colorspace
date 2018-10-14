@@ -11,7 +11,8 @@
 \alias{diverge_hcl}
 \title{HCL Color Palettes}
 \usage{
-hcl_palettes(type = NULL, name = NULL, plot = FALSE, n = 5L, ...)
+hcl_palettes(type = NULL, palette = NULL, plot = FALSE, n = 5L,
+  ...)
 
 \method{print}{hcl_palettes}(x, ...)
 
@@ -35,7 +36,7 @@ diverging_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
 \arguments{
 \item{type}{character indicating type of HCL palette.}
 
-\item{name, palette}{character. Name of HCL color palette.}
+\item{palette}{character. Name of HCL color palette.}
 
 \item{plot}{logical. Should the selected HCL color palettes be visualized?}
 
@@ -181,8 +182,8 @@ hcl_palettes("diverging", n = 7, plot = TRUE)
 
 ## inspect a specific palette
 ## (upper-case, spaces, etc. are ignored for matching)
-hcl_palettes(name = "Dark 2")
-hcl_palettes(name = "dark2")
+hcl_palettes(palette = "Dark 2")
+hcl_palettes(palette = "dark2")
 
 ## set up actual colors
 qualitative_hcl(4, h = c(0, 288), c = 50, l = 60) ## by hand

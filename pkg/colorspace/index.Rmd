@@ -6,7 +6,7 @@ hclplot(qualitative_hcl(9, c = 50, l = 70))
 ```
 
 ```{r palettes, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 4.5, fig.align = "center", dev = "png", dpi = 48}
-hcl_palettes(name = c(
+hcl_palettes(palette = c(
   "Pastel 1", "Dark 3", "Harmonic",
   "Blues 3", "Greens 3", "Reds 3",
   "Heat", "Purple-Blue", "Viridis",

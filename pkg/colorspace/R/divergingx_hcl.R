@@ -25,7 +25,7 @@
 #' RdYlGn, Spectral.
 #' 
 #' @param n the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.
-#' @param palette,name character with the name (see details).
+#' @param palette character with the name (see details).
 #' @param \dots arguments passed to \code{\link{sequential_hcl}}.
 #' @param rev logical. Should the palette be reversed?
 #' @param h1 numeric. Starting hue coordinate.
@@ -123,7 +123,7 @@ divergex_hcl <- divergingx_hcl
 
 #' @rdname divergingx_hcl
 #' @export
-divergingx_palettes <- function(name = NULL, plot = FALSE, n = 7L, ...)
+divergingx_palettes <- function(palette = NULL, plot = FALSE, n = 7L, ...)
 {
   ## collect all divergingx palettex
   pals <- as.data.frame(do.call("rbind", divex_pals))
@@ -134,16 +134,16 @@ divergingx_palettes <- function(name = NULL, plot = FALSE, n = 7L, ...)
   pals <- pals[, c(16L, 1L:15L)]
 
   ## subset by type and name (by flexible matching)
-  if(!is.null(name)) {
+  if(!is.null(palette)) {
     fx <- function(n) tolower(gsub("[-, _, \\,, (, ), \\ , \\.]", "", n))
     namtab <- fx(rownames(pals))
-    name <- sapply(fx(name), function(n) {
+    palette <- sapply(fx(palette), function(n) {
       if(n %in% namtab) return(n)
       n <- startsWith(namtab, n)
-      if(all(!n)) stop("Palette 'name' should be one of: ", paste(rownames(pals), collapse = ", "))
+      if(all(!n)) stop("Named 'palette' should be one of: ", paste(rownames(pals), collapse = ", "))
       namtab[which(n)[1L]]
     })
-    pals <- pals[fx(rownames(pals)) %in% name, , drop = FALSE]
+    pals <- pals[fx(rownames(pals)) %in% palette, , drop = FALSE]
   }
 
   ## add class and show selection

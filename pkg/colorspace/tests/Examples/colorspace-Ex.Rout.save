@@ -487,14 +487,14 @@ Names: Blue-Red, Blue-Red 2, Blue-Red 3, Red-Green, Purple-Green,
 > 
 > ## inspect a specific palette
 > ## (upper-case, spaces, etc. are ignored for matching)
-> hcl_palettes(name = "Dark 2")
+> hcl_palettes(palette = "Dark 2")
 HCL palette
 Name: Dark 2
 Type: Qualitative
 Parameter ranges:
  h1 h2 c1 c2 l1 l2 p1 p2 cmax fixup
   0 NA 50 NA 60 NA NA NA   NA  TRUE
-> hcl_palettes(name = "dark2")
+> hcl_palettes(palette = "dark2")
 HCL palette
 Name: Dark 2
 Type: Qualitative
