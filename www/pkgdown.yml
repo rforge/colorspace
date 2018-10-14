@@ -1,0 +1,13 @@
+pandoc: 2.2.1
+pkgdown: 1.1.0.9000
+pkgdown_sha: 16c6506a153dacf99c185f0ef62488458297d301
+articles:
+  color_spaces: color_spaces.html
+  color_vision_deficiency: color_vision_deficiency.html
+  colorspace: colorspace.html
+  ggplot2_color_scales: ggplot2_color_scales.html
+  hcl_palettes: hcl_palettes.html
+  hclwizard: hclwizard.html
+  manipulation_utilities: manipulation_utilities.html
+  palette_visualization: palette_visualization.html
+
