@@ -31,6 +31,9 @@
 #' @param type,lwd,lty,pch plotting parameters passed to
 #' \code{\link[graphics]{lines}} for drawing the RGB and HCL coordinates,
 #' respectively. Can be vectors of length 3.
+#' @param mar,oma numeric or logical. Either numeric vectors of length 4 giving
+#' the (outer) margins or a logical indicating whether \code{mar}/\code{oma}
+#' should be set.
 #' @param main character. Main title of the plot.
 #' @param legend logical. Should legends for the coordinates be plotted?
 #' @param palette logical. Should the given palette \code{x} be plotted?
@@ -69,8 +72,8 @@
 #' @export specplot
 #' @importFrom graphics axis image layout legend lines mtext text par plot
 specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
-  type = "l", lwd = 2 * cex, lty = 1, pch = NULL, main = NULL,
-  legend = TRUE, palette = TRUE, plot = TRUE, ...)
+  type = "l", lwd = 2 * cex, lty = 1, pch = NULL, mar = NULL, oma = NULL,
+  main = NULL, legend = TRUE, palette = TRUE, plot = TRUE, ...)
 {
 
   # Replace NA x with white, required for hex2RGB.
@@ -143,14 +146,14 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
   show_rgb <- !identical(rgb, FALSE)
   show_hcl <- !identical(hcl, FALSE)
 
-  if(plot & (show_rgb | show_hcl) & (length(x.na) == length(x))) {
+  if(plot & (length(x.na) == length(x))) {
     opar <- par(no.readonly = TRUE)
-    on.exit(par(opar))
-
-    par(xaxt = "n", yaxt = "n", bty = "n", mar = rep(0, 4))
+    nam <- names(par(xaxt = "n", yaxt = "n", bty = "n", mar = rep(0, 4)))
+    on.exit(par(opar[nam]))
+    
     plot(0, type = "n", xlim = c(-1, 1), ylim = c(-1, 1))
     text(0, 0, "All colors NA\nCannot draw spectrum", col = 2)
-  } else if(plot & (show_rgb | show_hcl)) {
+  } else if(plot) {
     ## add second palette as a reference?
     if(!is.null(y)) {
       yspec <- specplot(y, rgb = rgb, hcl = hcl, fix = fix, plot = FALSE)
@@ -160,14 +163,26 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
       y <- FALSE
     }
   
-    ## set up plot layout
-    opar <- par(no.readonly = TRUE)
-    on.exit(par(opar))
+    ## set up graphical parameters and plot layout
     nr <- show_rgb + palette + (palette && y) + show_hcl
-    layout(matrix(1L:nr, ncol = 1L, nrow = nr),
-      heights = c(if(show_rgb) 10 else NULL, if(palette) 2 else NULL, if(palette && y) 2 else NULL, if(show_hcl) 10 else NULL))
-    par(xaxt = "n", yaxs = "i", xaxs = "i",
-      mar = c(0.2, 0, 0.2, 0), oma = c(2, 3, 2 + !is.null(main), 3), cex = cex)
+    opar <- par(no.readonly = TRUE)
+    if(identical(mar, FALSE)) opar$mar <- NULL
+    if(identical(oma, FALSE)) opar$oma <- NULL
+    if(nr < 2L) opar$mfrow <- opar$mfcol <- opar$mfg <- NULL
+    on.exit(par(opar))
+    if(nr > 1L) {
+      layout(matrix(1L:nr, ncol = 1L, nrow = nr),
+        heights = c(if(show_rgb) 10 else NULL, if(palette) 2 else NULL, if(palette && y) 2 else NULL, if(show_hcl) 10 else NULL))
+    }
+    par(xaxt = "n", xaxs = "i", yaxs = "i", cex = cex)
+    if(!identical(mar, FALSE)) {
+      if(is.null(mar) || isTRUE(mar)) mar <- c(0.2, 0, 0.2, 0)
+      par(mar = mar)
+    }
+    if(!identical(oma, FALSE)) {
+      if(is.null(oma) || isTRUE(oma)) oma <- c(2, 3, 2 + !is.null(main), 3)
+      par(oma = oma)
+    }
 
     ## expand plotting parameters
     rgb <- rep(rgb, length.out = 3L)

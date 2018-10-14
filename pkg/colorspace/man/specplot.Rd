@@ -6,7 +6,8 @@
 \usage{
 specplot(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE,
   cex = 1, type = "l", lwd = 2 * cex, lty = 1, pch = NULL,
-  main = NULL, legend = TRUE, palette = TRUE, plot = TRUE, ...)
+  mar = NULL, oma = NULL, main = NULL, legend = TRUE,
+  palette = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{x}{character vector containing color hex codes.}
@@ -28,6 +29,10 @@ For details see below.}
 \item{type, lwd, lty, pch}{plotting parameters passed to
 \code{\link[graphics]{lines}} for drawing the RGB and HCL coordinates,
 respectively. Can be vectors of length 3.}
+
+\item{mar, oma}{numeric or logical. Either numeric vectors of length 4 giving
+the (outer) margins or a logical indicating whether \code{mar}/\code{oma}
+should be set.}
 
 \item{main}{character. Main title of the plot.}
 
