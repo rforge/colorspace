@@ -19,6 +19,7 @@ vignette: >
 library("colorspace")
 library("ggplot2")
 theme_set(theme_minimal())
+prefix <- "" ## "http://colorspace.R-Forge.R-project.org/articles/"
 ```
 
 ## Overview
@@ -58,13 +59,14 @@ visualizations of palette properties; accompanying manipulation utilities
 
 More detailed overviews and examples are provided in the package vignettes:
 
-* [Color Spaces: S4 Classes and Utilities](color_spaces.html)
-* [HCL-Based Color Palettes](hcl_palettes.html)
-* [HCL-Based Color Scales for _ggplot2_](ggplot2_color_scales.html)
-* [Palette Visualization and Assessment](palette_visualization.html)
-* [Apps for Choosing Colors and Palettes Interactively](hclwizard.html)
-* [Color Vision Deficiency Emulation](color_vision_deficiency.html)
-* [Color Manipulation and Utilities](manipulation_utilities.html)
+* [Color Spaces: S4 Classes and Utilities](`r prefix`color_spaces.html)
+* [HCL-Based Color Palettes](`r prefix`hcl_palettes.html)
+* [HCL-Based Color Scales for _ggplot2_](`r prefix`ggplot2_color_scales.html)
+* [Palette Visualization and Assessment](`r prefix`palette_visualization.html)
+* [Apps for Choosing Colors and Palettes Interactively](`r prefix`hclwizard.html)
+* [Color Vision Deficiency Emulation](`r prefix`color_vision_deficiency.html)
+* [Color Manipulation and Utilities](`r prefix`manipulation_utilities.html)
+* [Approximating Palettes from Other Packages](`r prefix`approximations.html)
 
 
 ## Installation

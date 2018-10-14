@@ -24,6 +24,8 @@ navbar:
           href: articles/color_vision_deficiency.html
         - text: "Color Manipulation and Utilities"
           href: articles/manipulation_utilities.html
+        - text: "Approximating Palettes from Other Packages"
+          href: articles/approximations.html
     - text: "Reference"
       href: reference/index.html
     - text: "Changelog"

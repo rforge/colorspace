@@ -1,0 +1,69 @@
+---
+title: "Approximating Palettes from Other Packages"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+bibliography: color.bib
+vignette: >
+  %\VignetteIndexEntry{Approximating Palettes from Other Packages}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{colorspace,RColorBrewer,rcartocolor,viridis}
+  %\VignetteKeywords{HCL, palettes, spectrum, ColorBrewer.org, CARTO, viridis}
+  %\VignettePackage{colorspace}
+---
+
+```{r preliminaries, echo=FALSE, message=FALSE}
+library("colorspace")
+library("RColorBrewer")
+library("rcartocolor")
+library("viridis")
+library("scico")
+```
+
+## Overview
+
+The flexible specification of HCL-based color palettes in _colorspace_ allows
+to closely approximate color palettes from various other packages:
+
+- _ColorBrewer.org_ [@color:Harrower+Brewer:2003] as provided by R package _RColorBrewer_ [@color:RColorBrewer].
+- _CARTO_ colors [@color:CARTO] as provided by R package _rcartocolor_ [@color:rcartocolor].
+- The viridis palettes of @color:Smith+VanDerWalt:2015 developed for _matplotlib_,
+  as provided by R package _viridis_ [@color:viridis].
+- The scientific color maps of @color:Crameri:2018 as provided by R package _scico_ [@color:scico].
+
+See the discussion of [HCL-based palettes](hcl_palettes.html) for more details. In the
+following `specplot()` is used to compare the HCL spectrum of the original palettes (top swatch, solid lines)
+and their HCL-based approximations (bottom swatch, dashed lines).
+
+
+## Approximations of ColorBrewer.org palettes
+
+```{r brewer, results = "hide", message = FALSE, warning = FALSE, fig.width = 6, fig.height = 6, dev = "png", dpi = 48}
+demo("brewer", package = "colorspace")
+```
+
+
+## Approximations of CARTO palettes
+
+```{r carto, results = "hide", message = FALSE, warning = FALSE, fig.width = 6, fig.height = 6, dev = "png", dpi = 48}
+demo("carto", package = "colorspace")
+```
+
+
+## Approximations of viridis palettes
+
+```{r viridis, results = "hide", message = FALSE, warning = FALSE, fig.width = 6, fig.height = 6, dev = "png", dpi = 48}
+demo("viridis", package = "colorspace")
+```
+
+
+## Approximations of ColorBrewer.org palettes
+
+```{r scico, results = "hide", message = FALSE, warning = FALSE, fig.width = 6, fig.height = 6, dev = "png", dpi = 48}
+demo("scico", package = "colorspace")
+```
+
+
+## References
