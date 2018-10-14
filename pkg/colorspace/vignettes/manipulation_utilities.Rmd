@@ -20,10 +20,175 @@ library("colorspace")
 
 ## Overview
 
-* `desaturate()`
-* `darken()`
-* `lighten()`
-* `max_chroma()`
-* `mixcolor()`
+The _colorspace_ provides several color manipulation utilities that are
+useful for creating, assessing, or transforming color palettes, namely:
 
+* `desaturate()`: Desaturate colors by chroma removal in HCL space.
+* `darken()` and `lighten()`: Algorithmically lighten or darken colors in HCL and/or HLS space.
+* `max_chroma()`: Compute maximum chroma for given hue and luminance in HCL space.
+* `mixcolor()`: Additive mixing of two colors by computing the convex combination.
+
+
+## Desaturation in HCL space
+
+Desaturation should map a given color to the gray with the same "brightness".
+In principle, any perceptually based color model (HCL, HLS, HSV, ...) could be
+employed for this but HCL works particularly well because its coordinates
+capture the perceptual properties better than most other color models.
+
+Thus, the `desaturate()` function converts any given hex color code or named
+R color to the corresponding HCL coordinates and sets the chroma to zero.
+Thus, only the luminance matters which captures the "brightness" mentioned above.
+Finally, the resulting HCL coordinates are transformed back to hex color codes
+for use in R.
+
+For illustration, a few simple examples are presented below. More examples in the
+context of palettes for statistical graphics are discussed along with the
+[color vision deficiency](color_vision_deficiency.html) vignette.
+
+First, `desaturate()` is used to desaturate a vector of R color names:
+
+```{r desaturate-named}
+desaturate(c("white", "orange", "blue", "black"))
+```
+
+Notice that the hex codes corresponding to three coordinates in sRGB space
+are always the same, indicating gray colors.
+
+Analogously, hex color codes can also be transformed - in this case RGB rainbow
+colors from the base R function `rainbow()`:
+
+```{r desaturate-rainbow}
+rainbow(3)
+desaturate(rainbow(3))
+```
+
+Already this simple example shows that the three RGB rainbow colors have very
+different grayscale levels. This can be brought even more clearly when using 
+a full color wheel (of colors with hues in [0, 360] degrees). While the RGB
+`rainbow()` is very unbalanced the HCL `rainbow_hcl()` (or also `qualitative_hcl()`)
+is (by design) balanced with respect to luminance.
+
+```{r desaturate-wheel, fig.height = 6, fig.width = 6, dev = "png"}
+wheel <- function(col, radius = 1, ...)
+  pie(rep(1, length(col)), col = col, radius = radius, ...) 
+par(mar = rep(0.5, 4), mfrow = c(2, 2))
+wheel(rainbow_hcl(8))
+wheel(rainbow(8))
+wheel(desaturate(rainbow_hcl(8)))
+wheel(desaturate(rainbow(8)))
+```
+
+## Lighten or darken colors
+
+In principle, a similar approach for lightening and darkening colors can be employed as for desaturation
+above. The colors can simply be transformed to HCL space and then the luminance can either be decreased
+(turning the color darker) or increased (turning it lighter) while preserving the hue and chroma coordinates.
+
+This strategy typically works well for lightening colors, although in some situations the result can be
+rather colorful. Conversely, when darkening rather light colors with little chroma, this can result
+in rather gray colors.
+
+In these situations, an alternative might be to apply the analogous strategy in HLS space which is frequently
+used in HTML style sheets. However, this strategy may also yield colors that are either too gray or too
+colorful. A compromise that sometimes works well is to adjust the luminance coordinate in HCL space but
+to take the chroma coordinate corresponding the HLS transformation.
+
+We have found that typically the HCL-based transformation performs best for lightening colors and this is
+hence the default in `lighten()`. For darkening colors, the combined strategy often works best and is hence
+the default in `darken()`. In either case it is recommended to try the other available strategies in case
+the default yields unexpected results.
+
+Regardless of the chosen color space, the adjustment of the `L` component can occur by two methods, relative
+(the default) and absolute. For example for darkening these either use `L - 100 * amount` (absolute) or
+`L * (1 - amount)` (relative). See `lighhten()` and `darken()` for more details.
+
+For illustration a qualitative palette (Okabe-Ito) is transformed by two levels of both lightening and
+darkening, respectively.
+
+```{r lighten-darken, fig.height = 3.5, fig.width = 4.5, dev = "png"}
+oi <- c("#61A9D9", "#ADD668", "#E6D152", "#CE6BAF", "#797CBA")
+swatchplot(
+  "-40%" = lighten(oi, 0.4),
+  "-20%" = lighten(oi, 0.2),
+  "  0%" = oi,
+  " 20%" =  darken(oi, 0.2),
+  " 40%" =  darken(oi, 0.4),
+  off = c(0, 0)
+)
+```
+
+
+## Maximum chroma for given hue and luminance
+
+As the possible combinations of chroma and luminance in HCL space depend on hue,
+it is not obvious which trajectories through HCL space are possible prior to
+trying a specific HCL coordinate by calling `polarLUV()`. To avoid having to
+`fixup` the color upon conversion to RGB `hex` color codes, the
+`max_chroma()` function computes (approximately) the maximum chroma
+possible. 
+
+For illustration we show that for given luminance (here: L = 50) the maximum chroma
+varies substantially with hue:
+
+```{r max-chroma-L50}
+max_chroma(seq(0, 360, by = 60), 50)
+```
+
+Similarly, maximum chroma also varies substantially across luminance values for
+a given hue (here: H = 120, green):
+
+```{r max-chroma-H120}
+max_chroma(120, seq(0, 100, by = 20))
+```
+
+In the plots below more combinations are visualized: In the left panel for maximum
+chroma across hues given luminance and in the right panel with increasing luminance
+given hue.
+
+```{r max-chroma-plot, echo = FALSE, fig.height = 4.5, fig.width = 10, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+H <- seq(0, 360, by = 10)
+L <- seq(30, 90, by = 20)
+C <- outer(H, L, max_chroma)
+
+par(mfrow = c(1, 2), xaxs = "i", yaxs = "i", mar = c(5, 4, 1, 5), las = 1)
+plot(0, 0, type = "n", xlim = c(0, 360), ylim = c(0, 165),
+  xlab = "Hue (H)", ylab = "Maximum chroma (C)")
+axis(4, at = C[37, ], labels = paste("L =", L))
+for(i in seq_along(L)) {
+  lines(H, C[, i])
+  points(H, C[, i], col = hex(polarLUV(L[i], C[, i], H)), pch = 19, cex = 1.5, xpd = TRUE)
+}
+
+L <- seq(0, 100, by = 5)
+H <- c(0, 60, 120, 250, 330)
+C <- outer(H, L, max_chroma)
+
+par(xaxs = "i", yaxs = "i", mar = c(5, 4, 1, 1), las = 1)
+plot(0, 0, type = "n", xlim = c(0, 175), ylim = c(0, 100),
+  xlab = "Maximum chroma (C)", ylab = "Luminance (L)")
+for(i in rev(seq_along(H))) {
+  lines(C[i, ], L)
+  points(C[i, ], L, col = hex(polarLUV(L, C[i, ], H[i])), pch = 19, cex = 1.5, xpd = TRUE)
+  j <- which.max(C[i,])
+  text(C[i, j], L[j], paste("H =", H[i]), pos = 4, col = hex(polarLUV(L[j], C[i, j], H[i])))
+}
+points(0, 100, cex = 1.6, xpd = TRUE)
+```
+
+
+## Additive mixing of two colors
+
+In additive color models like `RGB()` or `XYZ()` it can be useful to combine
+colors by additive mixing. Below a fully saturated red and green are mixed,
+yielding a medium brownish yellow.
+
+```{r mixcolor, fig.height = 1.5, fig.width = 5, dev = "png", dpi = 48}
+R <- RGB(1, 0, 0)
+G <- RGB(0, 1, 0)
+Y <- mixcolor(0.5, R, G)
+Y
+par(mar = rep(0, 4))
+swatchplot(c(hex(R), hex(Y), hex(G)))
+```
 

@@ -25,7 +25,7 @@
 #' 
 #' Programmatically lightening and darkening colors can yield unexpected results (see examples). In HCL space,
 #' colors can become either too gray or overly colorful. By contrast, in HLS space it can happen that the
-#' overallamount of lightening or darkening appears to be non-uniform among a group of colors that are 
+#' overall amount of lightening or darkening appears to be non-uniform among a group of colors that are 
 #' lightened or darkened jointly, and again, colors can become either too gray or overly colorful. We
 #' recommend to try different color spaces if the default space for the chosen function (\code{lighten} 
 #' or \code{darken}) does not look right in a specific application.
