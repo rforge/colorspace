@@ -68,16 +68,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/colorspace.html">Get started</a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -90,34 +81,41 @@
       <a href="../articles/color_spaces.html">Color Spaces: S4 Classes and Utilities</a>
     </li>
     <li>
-      <a href="../articles/color_vision_deficiency.html">Color Vision Deficiency Emulation</a>
+      <a href="../articles/hcl_palettes.html">HCL-Based Color Palettes</a>
     </li>
     <li>
       <a href="../articles/ggplot2_color_scales.html">HCL-Based Color Scales for ggplot2</a>
     </li>
     <li>
-      <a href="../articles/hcl_palettes.html">HCL-Based Color Palettes</a>
+      <a href="../articles/palette_visualization.html">Palette Visualization and Assessment</a>
     </li>
     <li>
       <a href="../articles/hclwizard.html">Apps for Choosing Colors and Palettes Interactively</a>
     </li>
     <li>
+      <a href="../articles/color_vision_deficiency.html">Color Vision Deficiency Emulation</a>
+    </li>
+    <li>
       <a href="../articles/manipulation_utilities.html">Color Manipulation and Utilities</a>
     </li>
     <li>
-      <a href="../articles/palette_visualization.html">Palette Visualization and Assessment</a>
+      <a href="../articles/approximations.html">Approximating Palettes from Other Packages</a>
     </li>
   </ul>
 </li>
 <li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
   <a href="../news/index.html">Changelog</a>
+</li>
+<li>
+  <a href="../contact.html">Contact</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="../contact.html">Contact</a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -139,7 +137,8 @@
 <a href="#colorspace-1-4-0" class="anchor"></a>colorspace 1.4-0<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>Claus O. Wilke and Claire D. McWhite joined the <em>colorspace</em> team, adding and enhancing various features: New shiny apps, color vision deficiency emulation, <em>ggplot2</em> palettes, palette extensions, etc. (see below for details).</p></li>
+<li><p>Major update of the package that enhances many of its capabilities, e.g., more refined palettes, named palettes, ggplot2 color scales, visualizations for assessing palettes, more and enhanced shiny and Tcl/Tk apps, color vision deficiency emulation, and much more. See below for further details. A new web site presenting and documenting the package has been launched at <a href="http://colorspace.R-Forge.R-project.org/" class="uri">http://colorspace.R-Forge.R-project.org/</a></p></li>
+<li><p>Claus O. Wilke and Claire D. McWhite joined the <em>colorspace</em> team, adding and enhancing various features, including (but not limited to) especially the color vision deficiency emulation, the <em>ggplot2</em> palettes, and new shiny apps.</p></li>
 <li><p>New function <code><a href="../reference/simulate_cvd.html">simulate_cvd()</a></code> for simulating color vision deficiencies with convenience interfaces <code><a href="../reference/simulate_cvd.html">deutan()</a></code>, <code><a href="../reference/simulate_cvd.html">protan()</a></code>, and <code><a href="../reference/simulate_cvd.html">tritan()</a></code>.</p></li>
 <li><p>New function <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> to query pre-defined HCL-based palettes: qualitative, sequential (single-hue), sequential (multi-hue), diverging. The corresponding <code>print()</code>, <code>plot()</code>, and <code>summary()</code> methods can help to explore the palettes.</p></li>
 <li><p>New and more flexible <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> palette function. This is similar to the old <code><a href="../reference/rainbow_hcl.html">rainbow_hcl()</a></code> but allows to use the pre-defined palettes and change the parameters more easily.</p></li>

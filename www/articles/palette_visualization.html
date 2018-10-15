@@ -38,16 +38,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/colorspace.html">Get started</a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -60,34 +51,39 @@
       <a href="../articles/color_spaces.html">Color Spaces: S4 Classes and Utilities</a>
     </li>
     <li>
-      <a href="../articles/color_vision_deficiency.html">Color Vision Deficiency Emulation</a>
+      <a href="../articles/hcl_palettes.html">HCL-Based Color Palettes</a>
     </li>
     <li>
       <a href="../articles/ggplot2_color_scales.html">HCL-Based Color Scales for ggplot2</a>
     </li>
     <li>
-      <a href="../articles/hcl_palettes.html">HCL-Based Color Palettes</a>
+      <a href="../articles/palette_visualization.html">Palette Visualization and Assessment</a>
     </li>
     <li>
       <a href="../articles/hclwizard.html">Apps for Choosing Colors and Palettes Interactively</a>
     </li>
     <li>
+      <a href="../articles/color_vision_deficiency.html">Color Vision Deficiency Emulation</a>
+    </li>
+    <li>
       <a href="../articles/manipulation_utilities.html">Color Manipulation and Utilities</a>
     </li>
     <li>
-      <a href="../articles/palette_visualization.html">Palette Visualization and Assessment</a>
+      <a href="../articles/approximations.html">Approximating Palettes from Other Packages</a>
     </li>
   </ul>
 </li>
 <li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../contact.html">Contact</a>
 </li>
       </ul>
+<ul class="nav navbar-nav navbar-right"></ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -109,11 +105,31 @@
 
     
     
-<div id="color-swatches-swatchplot" class="section level2">
+<div id="overview" class="section level2">
 <h2 class="hasAnchor">
-<a href="#color-swatches-swatchplot" class="anchor"></a>Color swatches: <code><a href="../reference/swatchplot.html">swatchplot()</a></code>
-</h2>
-<p>swatches of several palette vectors</p>
+<a href="#overview" class="anchor"></a>Overview</h2>
+<p>The <em>colorspace</em> provides several visualization functions for depicting one or more color palettes and their underlying properties. Color palettes can be visualized by:</p>
+<ul>
+<li>
+<code><a href="../reference/swatchplot.html">swatchplot()</a></code>: Color swatches.</li>
+<li>
+<code><a href="../reference/specplot.html">specplot()</a></code>: Spectrum of HCL and/or RGB coordinates.</li>
+<li>
+<code><a href="../reference/hclplot.html">hclplot()</a></code>: Trajectories in HCL space projections.</li>
+<li>
+<code><a href="../reference/demoplot.html">demoplot()</a></code>: Illustrations of typical (and simplified) statistical graphics.</li>
+</ul>
+</div>
+<div id="color-swatches" class="section level2">
+<h2 class="hasAnchor">
+<a href="#color-swatches" class="anchor"></a>Color swatches</h2>
+<p>The function <code><a href="../reference/swatchplot.html">swatchplot()</a></code> is a convenience function for displaying collections of palettes that can be specified as lists or matrices of hex color codes. Essentially, the is just a call to the base graphics <code>rect()</code> function but with heuristics for choosing default labels, margins, spacings, borders, etc. These are selected to work well for <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> and might need further tweaking in future versions.</p>
+<p>As a first simple example, the properties of the three HCL axes are brought out:</p>
+<ul>
+<li>Hue: Only changing the type of color with hues H = 0, 60, …, 300 but keeping chroma C = 60 and luminance L = 65 fixed.</li>
+<li>Chroma: Only changing chroma from C = 0 (gray) to 100 (colorful) for fixed hue H = 0 (red) and luminance L = 65.</li>
+<li>Luminance: Only changing the luminance from L = 25 (dark) to 90 (light) for fixed hue H = 260 and chroma C = 25.</li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/swatchplot.html">swatchplot</a></span>(</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="st">"Hue"</span>       =<span class="st"> </span><span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">5</span>, <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">300</span>), <span class="dt">c =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">60</span>), <span class="dt">l =</span> <span class="dv">65</span>),</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="st">"Chroma"</span>    =<span class="st"> </span><span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">5</span>, <span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">c =</span> <span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">0</span>), <span class="dt">l =</span> <span class="dv">65</span>, <span class="dt">rev =</span> <span class="ot">TRUE</span>, <span class="dt">power =</span> <span class="dv">1</span>),</a>
@@ -121,7 +137,12 @@
 <a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="dt">off =</span> <span class="dv">0</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">)</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/swatch-hcl-1.png" width="384" style="display: block; margin: auto;"></p>
-<p>swatches of named palette matrices</p>
+<p>As a somewhat more complex example a <code><a href="../reference/swatchplot.html">swatchplot()</a></code> is created with three matrices of sequential color palettes of blues, purples, reds, and greens. For all palettes, luminance increases monotonically to yield a proper sequential palette. However, the hue and chroma handling is somewhat different to emphasize different parts of the palette.</p>
+<ul>
+<li>Single-hue: In each palette the hue is fixed and chroma decreases monotonically (along with increasing luminance). This is typically sufficient to clearly bring out the extreme colors (dark/colorful vs. light gray).</li>
+<li>Single-hue (advanced): The hue is fixed (as above) but the chroma trajectory is triangular. Compared to the basic single-hue palette above this allows to better distinguish the colors in the middle and not only the extremes.</li>
+<li>Multi-hue (advanced): As in the advanced single-hue palette the chroma trajectory is triangular but additionally the hue varies slightly. This can further enhance the distinction of colors in the middle of the palette.</li>
+</ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">bprg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"Blues"</span>, <span class="st">"Purples"</span>, <span class="st">"Reds"</span>, <span class="st">"Greens"</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="../reference/swatchplot.html">swatchplot</a></span>(</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="st">"Single-hue"</span>            =<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(<span class="kw">paste</span>(bprg, <span class="dv">2</span>), sequential_hcl, <span class="dt">n =</span> <span class="dv">7</span>)),</a>
@@ -131,67 +152,82 @@
 <a class="sourceLine" id="cb2-7" data-line-number="7">)</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/swatch-brpg-1.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
-<div id="hcl-and-rgb-spectrum-specplot" class="section level2">
+<div id="hcl-and-rgb-spectrum" class="section level2">
 <h2 class="hasAnchor">
-<a href="#hcl-and-rgb-spectrum-specplot" class="anchor"></a>HCL (and RGB) spectrum: <code><a href="../reference/specplot.html">specplot()</a></code>
-</h2>
-<p>spectrum of HCL-based palettes: qualitative/sequential/diverging</p>
+<a href="#hcl-and-rgb-spectrum" class="anchor"></a>HCL (and RGB) spectrum</h2>
+<p>As the properties of a palette in terms of the perceptual dimensions <em>hue</em>, <em>chroma</em>, and <em>luminance</em> are not always clear from looking just at color swatches or (statistical) graphics based on these palettes, the <code><a href="../reference/specplot.html">specplot()</a></code> function provides an explicit display for the HCL coordinates associated with a palette. This can bring out clearly various aspects, e.g., whether hue is constant, chroma is monotonic or triangular, and whether luminance is approximately constant (as in many qualitative palettes), monotonic (as in sequential palettes), or diverging.</p>
+<p>The function first transforms a given color palette to their HCL (<code><a href="../reference/polarLUV.html">polarLUV()</a></code>) coordinates. As the hues for low-chroma colors are not (or only poorly) identified, by default a smoothing is applied to the hues. Also, to avoid jumps from 0 to 360 or vice versa, the hue coordinates are shifted suitably.</p>
+<p>By default, the resulting HCL spectrum is visualized by a simple line plot:</p>
+<ul>
+<li>Hue is drawn in red and coordinates are indicated on the axis on the right with range [-360, 360].</li>
+<li>Chroma is drawn in green with coordinates on the left axis. The range [0, 100] is used unless the palette necessitates higher chroma values.</li>
+<li>Luminance is drawn in blue with coordinates on the left axis in the range [0, 100].</li>
+</ul>
+<p>Additionally, a color swatch for the palette is included. Optionally, a second spectrum for the corresponding RGB palettes can be included. However, this is usually just of interest for palettes created in RGB space (or simple transformations thereof).</p>
+<p>The illustrations below show how basic qualitative, sequential, and diverging palettes are constructed in HCL space. In the qualitative “Set 2” palette below, the hue traverses the entire color “wheel” (from 0 to 360 degrees) while keeping chroma and luminance (almost) constant (C = 60 and L = 70).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">100</span>, <span class="st">"Set 2"</span>))</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-qualitative-1.png" width="480" style="display: block; margin: auto;"></p>
+<p>Note that due to the restrictions of the HCL color space, some of the green/blue colors have a slightly smaller maximum chroma resulting in a small dip in the chroma curve. This is fixed automatically (by default) and is hardly noticable in visualization, though.</p>
+<p>The sequential “Blues 2” palette below employs a single hue (H = 260) and a monotonically increasing luminance trajectory (from dark to light). Chroma simply decreases monotonically along with increasing luminance.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">100</span>, <span class="st">"Blues 2"</span>))</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-sequential-1.png" width="480" style="display: block; margin: auto;"></p>
+<p>Note that there is a little kink in the hue curve on the right. However, this is a mere artifact from the hue being poorly identified at very low chroma values.</p>
+<p>Finally, the diverging “Blue-Red” palette is depicted below. It simply combines a blue and a red sequential single-hue palette (as “Blues 2” above). Hue is constant in each “arm” of the palette and the chroma/luminance trajectories are balanced between both arms. In the center the palette passes through a light gray (with zero chroma) as the neutral value.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>(<span class="dv">100</span>, <span class="st">"Blue-Red"</span>))</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-diverging-1.png" width="480" style="display: block; margin: auto;"></p>
-<p>spectrum of the (in)famous RGB rainbow palette (in both RGB and HCL)</p>
+<p>To contrast these well-balanced HCL-based palettes with a poorly-balanced palette, the spectrum of the (in)famous RGB rainbow palette is depicted in both RGB and HCL space.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(<span class="kw">rainbow</span>(<span class="dv">100</span>), <span class="dt">rgb =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-rainbow-1.png" width="480" style="display: block; margin: auto;"></p>
+<p>The RGB spectrum shows that the trajectories are quite simple in RGB space but the HCL spectrum shows that the result is very unbalanced with shifts and kinks in both chroma and (more importantly) luminance. This is why this palette is not suitable for encoding underlying data in statistical graphics. See also the related discussion of <a href="color_vision_deficiency.html">color vision deficiency</a>.</p>
 </div>
-<div id="trajectories-in-hcl-space-hclplot" class="section level2">
+<div id="trajectories-in-hcl-space" class="section level2">
 <h2 class="hasAnchor">
-<a href="#trajectories-in-hcl-space-hclplot" class="anchor"></a>Trajectories in HCL space: <code><a href="../reference/hclplot.html">hclplot()</a></code>
-</h2>
-<p>For qualitative palettes luminance and chroma are fixed, varying only hue</p>
+<a href="#trajectories-in-hcl-space" class="anchor"></a>Trajectories in HCL space</h2>
+<p>While the <code><a href="../reference/specplot.html">specplot()</a></code> function above works well for bringing out the HCL coordinates associated with a given palette, it does not bring out how the palette fits into the HCL space. For example, it is not so clear whether high chroma values are close to the maximum possible for a given hue. Thus, it cannot be judged so easily how the parameters of the hue, chroma, and luminance trajectories can be modified to obtain another palette.</p>
+<p>Therefore, the <code><a href="../reference/hclplot.html">hclplot()</a></code> is another visualization of the HCL coordinates associated with a palette. It does so by collapsing over one of the coordinates (either the hue H or the luminance L) and displays a heatmap of colors combining the remaining two dimensions. The coordinates for the given color palette are highlighted to bring out its trajectory. In case the hue is really fixed (as in single-hue sequential palettes) or the luminance is really fixed (as in the qualitative palettes), collapsing is straightforward. However, when the coordinate that is collapsed over is actually not constant in the palette, a simple bivariate linear model is used to capture how the collapsed coordinate varies along with the two displayed coordinates.</p>
+<p>The function <code><a href="../reference/hclplot.html">hclplot()</a></code> has been designed to work well with the <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> in this package. While it is possible to apply it to other color palettes as well, the results might look weird or confusing if these palettes are constructed very differently (e.g., as in the highly saturated base R palettes). To infer what kind of projection it should use <code><a href="../reference/hclplot.html">hclplot()</a></code> checks whether luminance is approximately constant (qualitative), monotonic (sequential) or triangular (diverging).</p>
+<p>Thus, for qualitative palettes - where luminance and chroma are fixed - the varying hue is displayed in a projection onto the hue-chroma plane at a given fixed luminance:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">9</span>, <span class="dt">c =</span> <span class="dv">50</span>, <span class="dt">l =</span> <span class="dv">70</span>))</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/hcl-qualitative-1.png" width="384" style="display: block; margin: auto;"></p>
-<p>Single-hue sequential palette (h = 260) with linear trajectory and advanced single-hue sequential palette with triangular chroma trajectory (piecewise linear vs. power-transformed).</p>
+<p>The display below compares three single-hue sequential palettes by projection to the luminance-chroma plane for the given fixed hue. In the left panel the hue 260 is used with a simple linear chroma trajectory. The other two panels employ a triangular chroma trajectory for hue 245, either with a piecewise-linear (middle) or power-transformed (right) trajectory.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">7</span>, <span class="dt">h =</span> <span class="dv">260</span>, <span class="dt">c =</span> <span class="dv">80</span>, <span class="dt">l =</span> <span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">95</span>), <span class="dt">power =</span> <span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">7</span>, <span class="dt">h =</span> <span class="dv">245</span>, <span class="dt">c =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">75</span>, <span class="dv">0</span>), <span class="dt">l =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">95</span>), <span class="dt">power =</span> <span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">7</span>, <span class="dt">h =</span> <span class="dv">245</span>, <span class="dt">c =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">75</span>, <span class="dv">0</span>), <span class="dt">l =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">95</span>), <span class="dt">power =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">1.4</span>)))</a></code></pre></div>
-<p><img src="palette_visualization_files/figure-html/hcl-sequential-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Multi-hue sequential palette with small hue range and triangular chroma vs. large hue range and linear chroma trajectory.</p>
-<p>Balanced diverging palette constructed from two simple single-hue sequential palettes (for hues 260/blue and 0/red)</p>
+<p><img src="palette_visualization_files/figure-html/hcl-sequential-1.png" width="100%" style="display: block; margin: auto;"> Note that for H = 260 it is possible to go to dark colors (= low luminance) with high chroma while this is not possible to the same extent for H = 245. Hence, chroma has to be decreased when proceeding to the dark low-luminance colors.</p>
+<p>Finally, the display below compares two multi-hue sequential palettes along with a diverging palette.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">7</span>, <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">260</span>, <span class="dv">220</span>), <span class="dt">c =</span> <span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">0</span>), <span class="dt">l =</span> <span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">95</span>), <span class="dt">power =</span> <span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">7</span>, <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">260</span>, <span class="dv">60</span>), <span class="dt">c =</span> <span class="dv">60</span>, <span class="dt">l =</span> <span class="kw">c</span>(<span class="dv">40</span>, <span class="dv">95</span>), <span class="dt">power =</span> <span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">diverge_hcl</a></span>(<span class="dv">7</span>, <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">260</span>, <span class="dv">0</span>), <span class="dt">c =</span> <span class="dv">80</span>, <span class="dt">l =</span> <span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">95</span>), <span class="dt">power =</span> <span class="dv">1</span>))</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/hcl-multi-1.png" width="100%" style="display: block; margin: auto;"></p>
+<p>The multi-hue palette on the left employs a small hue range, resulting in a palette of “blues” just with slightly more distinction of the middle colors in the palette. In contrast, the multi-hue “blue-yellow” palette in the middle panel uses a large hue range, resulting in more color contrasts throughout the palette. Finally, the balanced diverging palette in the right panel is constructed from two simple single-hue sequential palettes (for hues 260/blue and 0/red) that are completely balanced between the two “arms” of the palette.</p>
 </div>
-<div id="demonstration-of-statistical-graphics-demoplot" class="section level2">
+<div id="demonstration-of-statistical-graphics" class="section level2">
 <h2 class="hasAnchor">
-<a href="#demonstration-of-statistical-graphics-demoplot" class="anchor"></a>Demonstration of statistical graphics: <code><a href="../reference/demoplot.html">demoplot()</a></code>
-</h2>
-<p>All built-in demos with the same <code><a href="../reference/hcl_palettes.html">sequential_hcl(5, "Heat")</a></code> palette</p>
+<a href="#demonstration-of-statistical-graphics" class="anchor"></a>Demonstration of statistical graphics</h2>
+<p>To demonstrate how different kinds of color palettes work in different kinds of statistical displays, <code><a href="../reference/demoplot.html">demoplot()</a></code> provides a simple convenience interface to some base graphics with (mostly artificial) data sets. All types of demos can deal with arbitrarily many colors. However, some displays are much more suitable for a low number of colors (e.g., the pie chart) while others work better with more colors (e.g., the heatmap).</p>
+<p>First, all built-in demos are displayed with the same heat colors palette: <code><a href="../reference/hcl_palettes.html">sequential_hcl(5, "Heat")</a></code>.</p>
 <p><img src="palette_visualization_files/figure-html/demoplot-all-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Qualitative palettes: light pastel colors for shading areas (pie) and darker colorful palettes for points or lines</p>
+<p><em>Qualitative palettes:</em> Light pastel colors typically work better for shading areas (pie, left) while darker and more colorful palettes are usually preferred for points (center) or lines (right).</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="st">"Pastel 1"</span>), <span class="dt">type =</span> <span class="st">"pie"</span>)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="st">"Set 2"</span>), <span class="dt">type =</span> <span class="st">"scatter"</span>)</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="st">"Dark 3"</span>), <span class="dt">type =</span> <span class="st">"lines"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="st">"Set 2"</span>),    <span class="dt">type =</span> <span class="st">"scatter"</span>)</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="st">"Dark 3"</span>),   <span class="dt">type =</span> <span class="st">"lines"</span>)</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/demoplot-qualitative-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Sequential palettes: display almost continuous gradients with strong luminance contrasts (heatmap, perspective) and colorful sequential palette for spine plot with only a few ordered categories</p>
+<p><em>Sequential palettes:</em> Heatmaps (left) or perspective plots (right) often employ almost continuous gradients with strong luminance contrasts. In contrast, when only a few ordered categories are to be displayed (e.g., in a spine plot, right) more colorful sequential palettes like the viridis palette can be useful.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">99</span>, <span class="st">"Purple-Blue"</span>), <span class="dt">type =</span> <span class="st">"heatmap"</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">99</span>, <span class="st">"Reds"</span>), <span class="dt">type =</span> <span class="st">"perspective"</span>)</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">4</span>, <span class="st">"Viridis"</span>), <span class="dt">type =</span> <span class="st">"spine"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">99</span>, <span class="st">"Reds"</span>),        <span class="dt">type =</span> <span class="st">"perspective"</span>)</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>( <span class="dv">4</span>, <span class="st">"Viridis"</span>),      <span class="dt">type =</span> <span class="st">"spine"</span>)</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/demoplot-sequential-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Diverging palettes: display almost continuous gradient with strong luminance contrast bringing out the extremes (map), more colorful palette with lower luminance contrasts for displays with fewer colors (mosaic, bar)</p>
+<p><em>Diverging palettes:</em> In some displays (such as the map, left), it is useful to employ an almost continuous gradient with strong luminance contrast to bring out the extremes. Here, this contrast is amplified by a larger power transformation emphasizing the extremes even further. In contrast, when fewer colors are needed more colorful palettes with lower luminance contrasts can be desired. This is exemplified by a mosaic (middle) and bar plot (right).</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>(<span class="dv">99</span>, <span class="st">"Tropic"</span>, <span class="dt">power =</span> <span class="fl">2.5</span>), <span class="dt">type =</span> <span class="st">"map"</span>)</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>(<span class="dv">5</span>, <span class="st">"Green-Orange"</span>), <span class="dt">type =</span> <span class="st">"mosaic"</span>)</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>(<span class="dv">5</span>, <span class="st">"Blue-Red 2"</span>), <span class="dt">type =</span> <span class="st">"bar"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>( <span class="dv">5</span>, <span class="st">"Green-Orange"</span>),        <span class="dt">type =</span> <span class="st">"mosaic"</span>)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>( <span class="dv">5</span>, <span class="st">"Blue-Red 2"</span>),          <span class="dt">type =</span> <span class="st">"bar"</span>)</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/demoplot-diverging-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Some palettes that work well on black backgrounds</p>
+<p>All displays above focused on palettes designed for light/white backgrounds. Therefore, to conclude, some palettes are highlighted that work well on dark/black backgrounds.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="dt">bg =</span> <span class="st">"black"</span>)</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">9</span>, <span class="st">"Oslo"</span>), <span class="st">"heatmap"</span>)</a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">9</span>, <span class="st">"Turku"</span>), <span class="st">"heatmap"</span>)</a>
@@ -208,10 +244,11 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#color-swatches-swatchplot">Color swatches: <code><a href="--/reference/swatchplot-html">swatchplot()</a></code></a></li>
-      <li><a href="#hcl-and-rgb-spectrum-specplot">HCL (and RGB) spectrum: <code><a href="--/reference/specplot-html">specplot()</a></code></a></li>
-      <li><a href="#trajectories-in-hcl-space-hclplot">Trajectories in HCL space: <code><a href="--/reference/hclplot-html">hclplot()</a></code></a></li>
-      <li><a href="#demonstration-of-statistical-graphics-demoplot">Demonstration of statistical graphics: <code><a href="--/reference/demoplot-html">demoplot()</a></code></a></li>
+<li><a href="#overview">Overview</a></li>
+      <li><a href="#color-swatches">Color swatches</a></li>
+      <li><a href="#hcl-and-rgb-spectrum">HCL (and RGB) spectrum</a></li>
+      <li><a href="#trajectories-in-hcl-space">Trajectories in HCL space</a></li>
+      <li><a href="#demonstration-of-statistical-graphics">Demonstration of statistical graphics</a></li>
       </ul>
 </div>
       </div>

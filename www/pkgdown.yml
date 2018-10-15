@@ -2,6 +2,7 @@ pandoc: 2.2.1
 pkgdown: 1.1.0.9000
 pkgdown_sha: 16c6506a153dacf99c185f0ef62488458297d301
 articles:
+  approximations: approximations.html
   color_spaces: color_spaces.html
   color_vision_deficiency: color_vision_deficiency.html
   colorspace: colorspace.html

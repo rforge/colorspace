@@ -71,16 +71,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../articles/colorspace.html">Get started</a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -93,34 +84,41 @@
       <a href="../articles/color_spaces.html">Color Spaces: S4 Classes and Utilities</a>
     </li>
     <li>
-      <a href="../articles/color_vision_deficiency.html">Color Vision Deficiency Emulation</a>
+      <a href="../articles/hcl_palettes.html">HCL-Based Color Palettes</a>
     </li>
     <li>
       <a href="../articles/ggplot2_color_scales.html">HCL-Based Color Scales for ggplot2</a>
     </li>
     <li>
-      <a href="../articles/hcl_palettes.html">HCL-Based Color Palettes</a>
+      <a href="../articles/palette_visualization.html">Palette Visualization and Assessment</a>
     </li>
     <li>
       <a href="../articles/hclwizard.html">Apps for Choosing Colors and Palettes Interactively</a>
     </li>
     <li>
+      <a href="../articles/color_vision_deficiency.html">Color Vision Deficiency Emulation</a>
+    </li>
+    <li>
       <a href="../articles/manipulation_utilities.html">Color Manipulation and Utilities</a>
     </li>
     <li>
-      <a href="../articles/palette_visualization.html">Palette Visualization and Assessment</a>
+      <a href="../articles/approximations.html">Approximating Palettes from Other Packages</a>
     </li>
   </ul>
 </li>
 <li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li>
   <a href="../news/index.html">Changelog</a>
+</li>
+<li>
+  <a href="../contact.html">Contact</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="../contact.html">Contact</a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -207,9 +205,9 @@ annotation text for the individual palettes and lists of palettes, respectively.
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function <code>swatchplot</code> is a convenience function for displaying
-collections of palettes that can be speciefied as lists or matrices of
-character color specifications. Essentially, the is just a call to
-<code><a href='http://www.rdocumentation.org/packages/graphics/topics/rect'>rect</a></code>. The value-added are the heuristics used
+collections of palettes that can be specified as lists or matrices of
+character color specifications. Essentially, the function just calls
+<code><a href='http://www.rdocumentation.org/packages/graphics/topics/rect'>rect</a></code> but the value-added are the heuristics used
 for choosing default labels, margins, spacings, borders. These are selected
 to work well for <code><a href='hcl_palettes.html'>hcl_palettes</a></code> and might need further tweaking
 in future versions.</p>

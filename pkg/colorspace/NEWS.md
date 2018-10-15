@@ -1,9 +1,16 @@
 # colorspace 1.4-0
 
+* Major update of the package that enhances many of its capabilities,
+  e.g., more refined palettes, named palettes, ggplot2 color scales,
+  visualizations for assessing palettes, more and enhanced shiny and
+  Tcl/Tk apps, color vision deficiency emulation, and much more. See
+  below for further details. A new web site presenting and documenting
+  the package has been launched at http://colorspace.R-Forge.R-project.org/
+
 * Claus O. Wilke and Claire D. McWhite joined the _colorspace_ team,
-  adding and enhancing various features: New shiny apps, color
-  vision deficiency emulation, _ggplot2_ palettes, palette extensions,
-  etc. (see below for details).
+  adding and enhancing various features, including (but not limited to)
+  especially the color vision deficiency emulation, the _ggplot2_ palettes,
+  and new shiny apps.
   
 * New function `simulate_cvd()` for simulating color vision deficiencies
   with convenience interfaces `deutan()`, `protan()`, and `tritan()`.
