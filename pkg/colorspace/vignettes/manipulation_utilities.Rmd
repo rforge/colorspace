@@ -73,10 +73,10 @@ is (by design) balanced with respect to luminance.
 wheel <- function(col, radius = 1, ...)
   pie(rep(1, length(col)), col = col, radius = radius, ...) 
 par(mar = rep(0.5, 4), mfrow = c(2, 2))
-wheel(rainbow_hcl(8))
 wheel(rainbow(8))
-wheel(desaturate(rainbow_hcl(8)))
 wheel(desaturate(rainbow(8)))
+wheel(rainbow_hcl(8))
+wheel(desaturate(rainbow_hcl(8)))
 ```
 
 ## Lighten or darken colors
