@@ -18,7 +18,7 @@ vignette: >
 library("colorspace")
 ```
 
-# HCL-based palettes
+## Overview
 
 As motivated in the previous section, the HCL space is particularly useful for
 specifying individual colors and color palettes as its three axes match those
