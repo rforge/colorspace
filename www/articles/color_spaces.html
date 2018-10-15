@@ -105,9 +105,9 @@
 
     
     
-<div id="color-spaces" class="section level1">
-<h1 class="hasAnchor">
-<a href="#color-spaces" class="anchor"></a>Color spaces</h1>
+<div id="overview" class="section level2">
+<h2 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h2>
 <p>At the core of the <em>colorspace</em> package there are various utilities for computing with color spaces (as the name conveys). Thus, the package helps to map various three-dimensional representations of color to each other, see <span class="citation">Ihaka (2003)</span>. A particularly important mapping was the one from the perceptually-based and device-independent color model HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color specifications in many systems based on the corresponding hex codes (e.g., in HTML but also in R). For completeness further standard color models were included as well in the package. The connections are illustrated in the following graph:</p>
 <p><img src="color_spaces_files/figure-html/color-spaces-1.png" width="912" style="display: block; margin: auto;"></p>
 <p>Color models that are (or try to be) perceptually-based are displayed with circles, other color models with rectangles. The corresponding classes and eponymous class constructors in <em>colorspace</em> are:</p>
@@ -134,6 +134,7 @@
 <code><a href="../reference/polarLUV.html">polarLUV()</a></code> and <code><a href="../reference/polarLAB.html">polarLAB()</a></code> therefore take polar coordinates in the UV plane and AB plane, respectively. Specifically, the polar coordinates of the LUV model are known as the HCL (Hue-Chroma-Luminance) model. These capture the human perceptual axes very well without confounding effects as in the HSV or HLS approaches. (More details follow below.)</li>
 </ul>
 <p>All the S4 classes listed above inherit from a virtual class <code>color</code> which are internally always represented by matrices with three columns (corresponding to the different three dimensions).</p>
+</div>
 <div id="utilities" class="section level2">
 <h2 class="hasAnchor">
 <a href="#utilities" class="anchor"></a>Utilities</h2>
@@ -207,7 +208,6 @@
 </div>
 </div>
 </div>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -215,13 +215,10 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#color-spaces">Color spaces</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#utilities">Utilities</a></li>
+<li><a href="#overview">Overview</a></li>
+      <li><a href="#utilities">Utilities</a></li>
       <li><a href="#illustration-of-basic-colorspace-functionality">Illustration of basic colorspace functionality</a></li>
       <li><a href="#references">References</a></li>
-      </ul>
-</li>
       </ul>
 </div>
       </div>
