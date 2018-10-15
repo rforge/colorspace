@@ -30,7 +30,7 @@ by @color:Machado+Oliveira+Fernandes:2009 and are provided in objects `protanoma
 
 The convenience interfaces `deutan()`, `protan()`, and `tritan()` are the high-level functions for
 simulating the corresponding kind of color blindness with a given severity (calling
-\code{simulate_cvd()} internally).
+`simulate_cvd()` internally).
 
 For further guidance on color blindness in relation to statistical graphics
 see @color:Lumley:2006 which accompanies the R package _dichromat_ based on
