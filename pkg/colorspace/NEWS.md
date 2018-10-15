@@ -53,6 +53,9 @@
   individual colors or palettes. Douglas C. Wu (@wckdouglas) provided the
   original implementation for the color palette feature.
 
+* New functions `lighten()` and `darken()` for programatically lightening
+  and darkening colors.
+
 * New convenience function `swatchplot()` that facilitates displaying
   color swatches to display and compare collections of color palettes.
 
