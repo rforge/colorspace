@@ -59,7 +59,7 @@ demo("viridis", package = "colorspace")
 ```
 
 
-## Approximations of Scico palettes
+## Approximations of Crameri's scientific color (scico) palettes
 
 ```{r scico, results = "hide", message = FALSE, warning = FALSE, fig.width = 6, fig.height = 6, dev = "png", dpi = 48}
 demo("scico", package = "colorspace")
