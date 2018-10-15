@@ -18,7 +18,7 @@ vignette: >
 library("colorspace")
 ```
 
-# Color spaces
+## Overview
 
 At the core of the _colorspace_ package there are various utilities for computing with
 color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
