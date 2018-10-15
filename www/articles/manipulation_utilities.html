@@ -139,10 +139,10 @@
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">wheel &lt;-<span class="st"> </span><span class="cf">function</span>(col, <span class="dt">radius =</span> <span class="dv">1</span>, ...)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw">pie</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(col)), <span class="dt">col =</span> col, <span class="dt">radius =</span> radius, ...) </a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>), <span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">wheel</span>(<span class="kw"><a href="../reference/rainbow_hcl.html">rainbow_hcl</a></span>(<span class="dv">8</span>))</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">wheel</span>(<span class="kw">rainbow</span>(<span class="dv">8</span>))</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="kw">wheel</span>(<span class="kw"><a href="../reference/desaturate.html">desaturate</a></span>(<span class="kw"><a href="../reference/rainbow_hcl.html">rainbow_hcl</a></span>(<span class="dv">8</span>)))</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="kw">wheel</span>(<span class="kw"><a href="../reference/desaturate.html">desaturate</a></span>(<span class="kw">rainbow</span>(<span class="dv">8</span>)))</a></code></pre></div>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">wheel</span>(<span class="kw">rainbow</span>(<span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">wheel</span>(<span class="kw"><a href="../reference/desaturate.html">desaturate</a></span>(<span class="kw">rainbow</span>(<span class="dv">8</span>)))</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="kw">wheel</span>(<span class="kw"><a href="../reference/rainbow_hcl.html">rainbow_hcl</a></span>(<span class="dv">8</span>))</a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="kw">wheel</span>(<span class="kw"><a href="../reference/desaturate.html">desaturate</a></span>(<span class="kw"><a href="../reference/rainbow_hcl.html">rainbow_hcl</a></span>(<span class="dv">8</span>)))</a></code></pre></div>
 <p><img src="manipulation_utilities_files/figure-html/desaturate-wheel-1.png" width="576"></p>
 </div>
 <div id="lighten-or-darken-colors" class="section level2">
