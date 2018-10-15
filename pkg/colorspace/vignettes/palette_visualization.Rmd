@@ -18,9 +18,35 @@ vignette: >
 library("colorspace")
 ```
 
-## Color swatches: `swatchplot()`
+## Overview
 
-swatches of several palette vectors
+The _colorspace_ provides several visualization functions for depicting
+one or more color palettes and their underlying properties. Color palettes
+can be visualized by:
+
+* `swatchplot()`: Color swatches.
+* `specplot()`: Spectrum of HCL and/or RGB coordinates.
+* `hclplot()`: Trajectories in HCL space projections.
+* `demoplot()`: Illustrations of typical (and simplified) statistical graphics.
+
+
+## Color swatches
+
+The function `swatchplot()` is a convenience function for displaying
+collections of palettes that can be specified as lists or matrices of
+hex color codes. Essentially, the is just a call to the base graphics
+`rect()` function but with heuristics for choosing default labels, margins,
+spacings, borders, etc. These are selected to work well for `hcl_palettes()`
+and might need further tweaking in future versions.
+
+As a first simple example, the properties of the three HCL axes are brought out:
+
+- Hue: Only changing the type of color with hues H = 0, 60, ..., 300 but
+  keeping chroma C = 60 and luminance L = 65 fixed.
+- Chroma: Only changing chroma from C = 0 (gray) to 100 (colorful) for fixed hue
+  H = 0 (red) and luminance L = 65.
+- Luminance: Only changing the luminance from L = 25 (dark) to 90 (light) for
+  fixed hue H = 260 and chroma C = 25.
 
 ```{r swatch-hcl, fig.width = 4, fig.height = 2.2, fig.align = "center", dev = "png"}
 swatchplot(
@@ -31,7 +57,21 @@ swatchplot(
 )
 ```
 
-swatches of named palette matrices
+As a somewhat more complex example a `swatchplot()` is created with three matrices
+of sequential color palettes of blues, purples, reds, and greens. For all palettes,
+luminance increases monotonically to yield a proper sequential palette. However,
+the hue and chroma handling is somewhat different to emphasize different parts of the
+palette.
+
+- Single-hue: In each palette the hue is fixed and chroma decreases monotonically
+  (along with increasing luminance). This is typically sufficient to clearly bring
+  out the extreme colors (dark/colorful vs. light gray).
+- Single-hue (advanced): The hue is fixed (as above) but the chroma trajectory is
+  triangular. Compared to the basic single-hue palette above this allows to better
+  distinguish the colors in the middle and not only the extremes.
+- Multi-hue (advanced): As in the advanced single-hue palette the chroma trajectory
+  is triangular but additionally the hue varies slightly. This can further enhance
+  the distinction of colors in the middle of the palette.
 
 ```{r swatch-brpg, fig.width = 11.5, fig.height = 3.5, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 bprg <- c("Blues", "Purples", "Reds", "Greens")
@@ -43,40 +83,125 @@ swatchplot(
 )
 ```
 
-## HCL (and RGB) spectrum: `specplot()`
+## HCL (and RGB) spectrum
 
-spectrum of HCL-based palettes: qualitative/sequential/diverging
+As the properties of a palette in terms of the perceptual dimensions _hue_,
+_chroma_, and _luminance_ are not always clear from looking just at color
+swatches or (statistical) graphics based on these palettes, the `specplot()`
+function provides an explicit display for the HCL coordinates associated
+with a palette. This can bring out clearly various aspects, e.g.,
+whether hue is constant, chroma is monotonic or triangular, and whether
+luminance is approximately constant (as in many qualitative palettes),
+monotonic (as in sequential palettes), or diverging.
+
+The function first transforms a given color palette to their HCL (`polarLUV()`)
+coordinates. As the hues for low-chroma colors are not (or only poorly) identified,
+by default a smoothing is applied to the hues. Also, to avoid jumps from 0 to 360 or vice
+versa, the hue coordinates are shifted suitably.
+
+
+By default, the resulting HCL spectrum is visualized by a simple line plot:
+
+- Hue is drawn in red and coordinates are indicated on the axis on the right
+  with range [-360, 360].
+- Chroma is drawn in green with coordinates on the left axis. The range [0, 100]
+  is used unless the palette necessitates higher chroma values.
+- Luminance is drawn in blue with coordinates on the left axis in the range [0, 100].
+
+Additionally, a color swatch for the palette is included. Optionally, a
+second spectrum for the corresponding RGB palettes can be included. However,
+this is usually just of interest for palettes created in RGB space (or simple
+transformations thereof).
+
+The illustrations below show how basic qualitative, sequential, and diverging
+palettes are constructed in HCL space. In the qualitative "Set 2" palette below, the
+hue traverses the entire color "wheel" (from 0 to 360 degrees) while keeping
+chroma and luminance (almost) constant (C = 60 and L = 70).
 
 ```{r spec-qualitative, fig.width = 5, fig.height = 5, fig.align = "center", dev = "png"}
 specplot(qualitative_hcl(100, "Set 2"))
 ```
 
+Note that due to the restrictions of the HCL color space, some of the green/blue
+colors have a slightly smaller maximum chroma resulting in a small dip in the chroma
+curve. This is fixed automatically (by default) and is hardly noticable in visualization,
+though.
+
+The sequential "Blues 2" palette below employs a single hue (H = 260) and a monotonically
+increasing luminance trajectory (from dark to light). Chroma simply decreases monotonically
+along with increasing luminance.
+
 ```{r spec-sequential, fig.width = 5, fig.height = 5, fig.align = "center", dev = "png"}
 specplot(sequential_hcl(100, "Blues 2"))
 ```
+
+Note that there is a little kink in the hue curve on the right. However, this is a mere
+artifact from the hue being poorly identified at very low chroma values.
+
+Finally, the diverging "Blue-Red" palette is depicted below. It simply combines a blue
+and a red sequential single-hue palette (as "Blues 2" above). Hue is constant in each "arm"
+of the palette and the chroma/luminance trajectories are balanced between both arms.
+In the center the palette passes through a light gray (with zero chroma) as the neutral
+value.
 
 ```{r spec-diverging, fig.width = 5, fig.height = 5, fig.align = "center", dev = "png"}
 specplot(diverging_hcl(100, "Blue-Red"))
 ```
 
-spectrum of the (in)famous RGB rainbow palette (in both RGB and HCL)
+To contrast these well-balanced HCL-based palettes with a poorly-balanced palette, the
+spectrum of the (in)famous RGB rainbow palette is depicted in both RGB and HCL space.
 
 ```{r spec-rainbow, fig.width = 5, fig.height = 7.5, fig.align = "center", dev = "png"}
 specplot(rainbow(100), rgb = TRUE)
 ```
 
+The RGB spectrum shows that the trajectories are quite simple in RGB space but the
+HCL spectrum shows that the result is very unbalanced with shifts and kinks in both
+chroma and (more importantly) luminance. This is why this palette is not suitable
+for encoding underlying data in statistical graphics. See also the related discussion
+of [color vision deficiency](color_vision_deficiency.html).
 
-## Trajectories in HCL space: `hclplot()`
 
-For qualitative palettes luminance and chroma are fixed, varying only hue
+## Trajectories in HCL space
+
+While the `specplot()` function above works well for bringing out the HCL coordinates
+associated with a given palette, it does not bring out how the palette fits into
+the HCL space. For example, it is not so clear whether high chroma values are
+close to the maximum possible for a given hue. Thus, it cannot be judged so easily
+how the parameters of the hue, chroma, and luminance trajectories can be
+modified to obtain another palette.
+
+Therefore, the `hclplot()` is another visualization of the HCL coordinates associated
+with a palette. It does so by collapsing over one of the coordinates (either the hue H
+or the luminance L) and displays a heatmap of colors combining the remaining
+two dimensions. The coordinates for the given color palette are highlighted
+to bring out its trajectory. In case the hue is really fixed (as in single-hue
+sequential palettes) or the luminance is really fixed (as in the qualitative
+palettes), collapsing is straightforward. However, when the coordinate that is
+collapsed over is actually not constant in the palette, a simple bivariate linear
+model is used to capture how the collapsed coordinate varies along with the
+two displayed coordinates.
+
+The function `hclplot()` has been designed to work well with the
+`hcl_palettes()` in this package. While it is possible to apply
+it to other color palettes as well, the results might look weird or confusing
+if these palettes are constructed very differently (e.g., as in the highly
+saturated base R palettes). To infer what kind of projection it should use
+`hclplot()` checks whether luminance is approximately constant (qualitative),
+monotonic (sequential) or triangular (diverging).
+
+Thus, for qualitative palettes - where luminance and chroma are fixed - the varying
+hue is displayed in a projection onto the hue-chroma plane at a given fixed luminance:
 
 ```{r hcl-qualitative, fig.width = 4, fig.height = 4, fig.align = "center", dev = "png"}
 hclplot(qualitative_hcl(9, c = 50, l = 70))
 ```
 
-Single-hue sequential palette (h = 260) with linear trajectory and
-advanced single-hue sequential palette with triangular chroma trajectory
-(piecewise linear vs. power-transformed).
+The display below compares three single-hue sequential palettes by projection
+to the luminance-chroma plane for the given fixed hue. In the left panel
+the hue 260 is used with a simple linear chroma trajectory. The other two
+panels employ a triangular chroma trajectory for hue 245, either with
+a piecewise-linear (middle) or power-transformed (right) trajectory.
 
 ```{r hcl-sequential, fig.width = 11.5, fig.height = 4.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 par(mfrow = c(1, 3))
@@ -84,12 +209,12 @@ hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1))
 hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = 1))
 hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = c(0.8, 1.4)))
 ```
+Note that for H = 260 it is possible to go to dark colors (= low luminance) with
+high chroma while this is not possible to the same extent for H = 245. Hence,
+chroma has to be decreased when proceeding to the dark low-luminance colors.
 
-Multi-hue sequential palette with small hue range and triangular chroma vs.
-large hue range and linear chroma trajectory.
-
-Balanced diverging palette constructed from two simple single-hue sequential
-palettes (for hues 260/blue and 0/red)
+Finally, the display below compares two multi-hue sequential palettes along
+with a diverging palette.
 
 ```{r hcl-multi, fig.width = 11.5, fig.height = 4.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 par(mfrow = c(1, 3))
@@ -98,10 +223,27 @@ hclplot(sequential_hcl(7, h = c(260, 60), c = 60, l = c(40, 95), power = 1))
 hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
 ```
 
+The multi-hue palette on the left employs a small
+hue range, resulting in a palette of "blues" just with slightly more distinction
+of the middle colors in the palette. In contrast, the multi-hue "blue-yellow"
+palette in the middle panel uses a large hue range, resulting in more color
+contrasts throughout the palette. Finally, the balanced diverging palette
+in the right panel is constructed from two simple single-hue sequential
+palettes (for hues 260/blue and 0/red) that are completely balanced between
+the two "arms" of the palette.
 
-## Demonstration of statistical graphics:  `demoplot()`
+## Demonstration of statistical graphics
 
-All built-in demos with the same `sequential_hcl(5, "Heat")` palette
+
+To demonstrate how different kinds of color palettes work in different
+kinds of statistical displays, `demoplot()` provides a simple convenience
+interface to some base graphics with (mostly artificial) data sets.
+All types of demos can deal with arbitrarily many colors. However, some
+displays are much more suitable for a low number of colors (e.g., the pie
+chart) while others work better with more colors (e.g., the heatmap).
+
+First, all built-in demos are displayed with the same heat colors palette:
+`sequential_hcl(5, "Heat")`.
 
 ```{r demoplot-all, echo = FALSE, fig.width = 8.5, fig.height = 8.5, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 par(mfrow = c(3, 3))
@@ -112,40 +254,48 @@ for (i in c("map", "heatmap", "scatter", "spine", "bar", "pie", "perspective", "
 }
 ```
 
-Qualitative palettes: light pastel colors for shading areas (pie)
-and darker colorful palettes for points or lines
+_Qualitative palettes:_ Light pastel colors typically work better for
+shading areas (pie, left) while darker and more colorful palettes are usually
+preferred for points (center) or lines (right).
 
 ```{r demoplot-qualitative, fig.width = 8.5, fig.height = 3.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 par(mfrow = c(1, 3))
 demoplot(qualitative_hcl(4, "Pastel 1"), type = "pie")
-demoplot(qualitative_hcl(4, "Set 2"), type = "scatter")
-demoplot(qualitative_hcl(4, "Dark 3"), type = "lines")
+demoplot(qualitative_hcl(4, "Set 2"),    type = "scatter")
+demoplot(qualitative_hcl(4, "Dark 3"),   type = "lines")
 ```
 
-Sequential palettes: display almost continuous gradients with
-strong luminance contrasts (heatmap, perspective) and colorful
-sequential palette for spine plot with only a few ordered categories
+_Sequential palettes:_ Heatmaps (left) or perspective plots (right)
+often employ almost continuous gradients with strong luminance contrasts.
+In contrast, when only a few ordered categories are to be displayed
+(e.g., in a spine plot, right) more colorful sequential palettes 
+like the viridis palette can be useful.
 
 ```{r demoplot-sequential, fig.width = 8.5, fig.height = 3.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 par(mfrow = c(1, 3))
 demoplot(sequential_hcl(99, "Purple-Blue"), type = "heatmap")
-demoplot(sequential_hcl(99, "Reds"), type = "perspective")
-demoplot(sequential_hcl(4, "Viridis"), type = "spine")
+demoplot(sequential_hcl(99, "Reds"),        type = "perspective")
+demoplot(sequential_hcl( 4, "Viridis"),      type = "spine")
 ```
 
-Diverging palettes: display almost continuous gradient with
-strong luminance contrast bringing out the extremes (map),
-more colorful palette with lower luminance contrasts for displays
-with fewer colors (mosaic, bar)
+_Diverging palettes:_ In some displays (such as the map, left),
+it is useful to employ an almost continuous gradient with
+strong luminance contrast to bring out the extremes. Here, this
+contrast is amplified by a larger power transformation emphasizing
+the extremes even further. In contrast, when fewer colors are needed
+more colorful palettes with lower luminance contrasts can be desired.
+This is exemplified by a mosaic (middle) and bar plot (right).
 
 ```{r demoplot-diverging, fig.width = 8.5, fig.height = 3.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 par(mfrow = c(1, 3))
 demoplot(diverging_hcl(99, "Tropic", power = 2.5), type = "map")
-demoplot(diverging_hcl(5, "Green-Orange"), type = "mosaic")
-demoplot(diverging_hcl(5, "Blue-Red 2"), type = "bar")
+demoplot(diverging_hcl( 5, "Green-Orange"),        type = "mosaic")
+demoplot(diverging_hcl( 5, "Blue-Red 2"),          type = "bar")
 ```
 
-Some palettes that work well on black backgrounds
+All displays above focused on palettes designed for light/white backgrounds.
+Therefore, to conclude, some palettes are highlighted that work well on
+dark/black backgrounds.
 
 ```{r demoplot-dark, fig.width = 8.5, fig.height = 6.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 par(mfrow = c(2, 3), bg = "black")

@@ -3,9 +3,9 @@
 #' Visualization of color palettes in columns of color swatches.
 #' 
 #' The function \code{swatchplot} is a convenience function for displaying
-#' collections of palettes that can be speciefied as lists or matrices of
-#' character color specifications. Essentially, the is just a call to
-#' \code{\link[graphics]{rect}}. The value-added are the heuristics used
+#' collections of palettes that can be specified as lists or matrices of
+#' character color specifications. Essentially, the function just calls
+#' \code{\link[graphics]{rect}} but the value-added are the heuristics used
 #' for choosing default labels, margins, spacings, borders. These are selected
 #' to work well for \code{\link{hcl_palettes}} and might need further tweaking
 #' in future versions.

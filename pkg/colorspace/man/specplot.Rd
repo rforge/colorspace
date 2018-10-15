@@ -60,7 +60,7 @@ colors are not (or poorly) identified, by default a smoothing is applied to
 the hues (\code{fix = TRUE}). Also, to avoid jumps from 0 to 360 or vice
 versa, the hue coordinates are shifted suitably.
 
-By default (\code{plot = TRUE}), the resulting HCL and RGB coordinates are
+By default (\code{plot = TRUE}), the resulting HCL and optionally RGB coordinates are
 visualized by simple line plots along with the color palette \code{x}
 itself.
 
