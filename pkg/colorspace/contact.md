@@ -24,7 +24,6 @@ For discussions we also try to follow the following channels:
 - [Paul Murrell](https://www.stat.auckland.ac.nz/~paul/)
   <a href="https://orcid.org/0000-0002-3224-8858" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a>
   <a href="https://github.com/pmur002"><span class="fa fa-github"></span></a>
-  <a href=""><span class="fa fa-twitter-square"></span></a>
 - [Kurt Hornik](http://statmath.wu.ac.at/~hornik/)
   <a href="https://orcid.org/0000-0003-4198-9911" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a>
 - Jason C. Fisher
@@ -32,8 +31,8 @@ For discussions we also try to follow the following channels:
   <a href="https://github.com/jfisher-usgs"><span class="fa fa-github"></span></a>
 - [Reto Stauffer](http://retostauffer.org/)
   <a href="https://orcid.org/0000-0002-3798-5507" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a>
-  <a href=""><span class="fa fa-github"></span></a>
-  <a href=""><span class="fa fa-twitter-square"></span></a>
+  <a href="https://github.com/retostauffer/"><span class="fa fa-github"></span></a>
+  <a href="https://twitter.com/RetoStauffer2"><span class="fa fa-twitter-square"></span></a>
 - [Claus O. Wilke](https://serialmentor.com/)
   <a href="https://orcid.org/0000-0002-7470-9261" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a>
   <a href="https://github.com/clauswilke"><span class="fa fa-github"></span></a>
