@@ -113,6 +113,12 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
     if (length(idx) == nrow(HCL)) {
       HCL[,"H"] <- mean(HCL[,"H"])
     } else if (length(idx) > 0L) {
+      # Pre-fixing hues where luminance is < 2 | > 98
+      ix <- split(1:nrow(HCL), HCL[,"L"] < 2 | HCL[,"L"] > 98)
+      if ( length(ix) == 2L ) {
+        fun_fix_H <- function(HCL, ix, i) HCL[which.min(abs(ix["FALSE"][[1L]] - i)), "H"]
+        HCL[ix["TRUE"][[1L]]] <- sapply(ix["TRUE"][[1L]], fun_fix_H, HCL = HCL, ix = ix)
+      }; rm(ix)
       ## pre-smooth hue
       n <- nrow(HCL)
       if(n >= 49L) {
@@ -122,14 +128,15 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
           HCL[                   1L:n,         "H"])
       }
       idxs <- split(idx, cumsum(c(1, diff(idx)) > 1))
+
       s <- 1L
       while(length(idxs) > 0L) {
-        e <- if(s %in% idxs[[1L]]) {
+        e <- if(any(s %in% idxs[[1L]])) {
           if(length(idxs) > 1L) idxs[[2L]] - 1L else n
         } else {
-               if(n %in% idxs[[1L]]) n else round(mean(range(idxs[[1L]])))
+          if(n %in% idxs[[1L]]) n else round(mean(range(idxs[[1L]])))
         }
-        io <- split(s:e, s:e %in% idx)
+        io <- split(min(s):max(e), min(s):max(e) %in% idx)
         if (length(io) == 2L & sum(!is.na(HCL[io[["FALSE"]],"H"])) > 0) {
           HCL[io[["TRUE"]], "H"] <- stats::spline(io[["FALSE"]], HCL[io[["FALSE"]], "H"],
             xout = io[["TRUE"]], method = "natural")$y
