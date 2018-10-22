@@ -34,7 +34,18 @@ three types of palettes based on the HCL model:
   neutral value, i.e., where colors diverge from neutral to two extremes.
 
 The corresponding functions are `qualitative_hcl()`, `sequential_hcl()`,
-and `diverging_hcl()`. Their construction principles are explained in more detail below.
+and `diverging_hcl()`. Their construction principles areexemplified in the
+following color swatches and explained in more detail below. The desaturated
+palettes bring out clearly that luminance differences (= light-dark contrasts),
+or the lack thereof, are crucial for coding the different kinds of palettes.
+
+```{r hcl-palettes-principles, echo = FALSE, fig.width = 12, fig.height = 1.6, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+swatchplot(
+  "Qualitative (Set 2)"     = rbind("Color" = qualitative_hcl(5, "Set 2"),     "Desaturated" = desaturate(qualitative_hcl(5, "Set 2"))),
+  "Sequential (Blues 3)"    = rbind("Color" = sequential_hcl(7, "Blues 3"),    "Desaturated" = desaturate(sequential_hcl(7, "Blues 3"))),
+  "Diverging (Green-Brown)" = rbind("Color" = diverging_hcl(7, "Green-Brown"), "Desaturated" = desaturate(diverging_hcl(7, "Green-Brown"))),
+  nrow = 3, line = 7)
+```
 
 To facilitate obtaining good sets of colors, HCL parameter combinations that yield
 useful palettes are accessible by name. These can be listed using the function
