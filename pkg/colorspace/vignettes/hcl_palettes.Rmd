@@ -34,7 +34,7 @@ three types of palettes based on the HCL model:
   neutral value, i.e., where colors diverge from neutral to two extremes.
 
 The corresponding functions are `qualitative_hcl()`, `sequential_hcl()`,
-and `diverging_hcl()`. Their construction principles areexemplified in the
+and `diverging_hcl()`. Their construction principles are exemplified in the
 following color swatches and explained in more detail below. The desaturated
 palettes bring out clearly that luminance differences (= light-dark contrasts),
 or the lack thereof, are crucial for coding the different kinds of palettes.
@@ -57,10 +57,10 @@ hcl_palettes()
 
 To inspect the HCL parameter combinations for a specific palette simply include the `name`
 where upper- vs. lower-case, spaces, etc. are ignored for matching the label, i.e.,
-`"dark2"` matches `"Dark 2"`:
+`"set2"` matches `"Set 2"`:
 
 ```{r hcl-palette}
-hcl_palettes(palette = "dark2")
+hcl_palettes(palette = "set2")
 ```
 
 To compute the actual color hex codes (representing sRGB coordinates), the functions
@@ -72,10 +72,10 @@ such as `h = c(0, 270)` or individual parameters `h1 = 0` and `h2 = 270`
 can be used.
 
 ```{r qualitative-hcl}
-qualitative_hcl(4, h = c(0, 270), c = 50, l = 60)
-qualitative_hcl(4, h1 = 0, h2 = 270, c1 = 50, l1 = 60)
-qualitative_hcl(4, palette = "dark2")
-qualitative_hcl(4, palette = "dark2", c = 80)
+qualitative_hcl(4, h = c(0, 270), c = 60, l = 70)
+qualitative_hcl(4, h1 = 0, h2 = 270, c1 = 60, l1 = 70)
+qualitative_hcl(4, palette = "set2")
+qualitative_hcl(4, palette = "set2", l = 80)
 ```
 
 ## Qualitative palettes
