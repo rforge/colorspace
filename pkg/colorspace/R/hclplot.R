@@ -162,11 +162,12 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
             nd <- expand.grid(C = 0:maxchroma, L = 0:100)
             if(!is.null(h)) {
                 nd$H <- h
-            } else if(diff(range(HCL[, "H"], na.rm = TRUE)) < 5) {
-                nd$H <- mean(HCL[, "H"], na.rm = TRUE)
+            } else if(n < 3L || diff(range(HCL[, "H"], na.rm = TRUE)) < 12) {
+                nd$H <- median(HCL[, "H"], na.rm = TRUE)
             } else {
                 m <- lm(H ~ C + L, data = as.data.frame(HCL))
-                if(summary(m)$sigma > 7.5) warning("cannot approximate H well as a linear function of C and L")
+		sig <- summary(m)$sigma
+                if(is.na(sig) || sig > 7.5) warning("cannot approximate H well as a linear function of C and L")
                 nd$H <- predict(m, nd)
             }
             if(is.null(main)) {
@@ -212,17 +213,18 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
                 } else {
                     nd$H <- h
                 }
-            } else if(diff(range(HCL[left, "H"]  - min(HCL[ left, "H"], na.rm = TRUE), na.rm = TRUE)) < 5 &
-                     diff(range(HCL[right, "H"] - min(HCL[right, "H"], na.rm = TRUE), na.rm = TRUE)) < 5) {
-                nd$H[nd$left]  <- mean(HCL[ left, "H"] - min(HCL[ left, "H"], na.rm = TRUE), na.rm = TRUE) + min(HCL[ left, "H"], na.rm = TRUE)
-                nd$H[!nd$left] <- mean(HCL[right, "H"] - min(HCL[right, "H"], na.rm = TRUE), na.rm = TRUE) + min(HCL[right, "H"], na.rm = TRUE)
+            } else if(n < 6L || (diff(range(HCL[left, "H"]  - min(HCL[ left, "H"], na.rm = TRUE), na.rm = TRUE)) < 12 &
+                                 diff(range(HCL[right, "H"] - min(HCL[right, "H"], na.rm = TRUE), na.rm = TRUE)) < 12)) {
+                nd$H[nd$left]  <- median(HCL[ left, "H"] - min(HCL[ left, "H"], na.rm = TRUE), na.rm = TRUE) + min(HCL[ left, "H"], na.rm = TRUE)
+                nd$H[!nd$left] <- median(HCL[right, "H"] - min(HCL[right, "H"], na.rm = TRUE), na.rm = TRUE) + min(HCL[right, "H"], na.rm = TRUE)
             } else {
                 HCLdata <- as.data.frame(HCL)
                 HCLdata$left <- factor(rep(c(TRUE, FALSE), c(floor(n/2), ceiling(n/2))))
                 nd$left <- factor(nd$left)
-                    m <- lm(H ~ left * (C + L), data = HCLdata)
-                    if(summary(m)$sigma > 7.5) warning("cannot approximate H well as a linear function of C and L")
-                    nd$H <- predict(m, nd)
+                m <- lm(H ~ left * (C + L), data = HCLdata)
+		sig <- summary(m)$sigma
+                if(is.na(sig) || sig > 7.5) warning("cannot approximate H well as a linear function of C and L")
+                nd$H <- predict(m, nd)
                 nd$left <- nd$left == "TRUE"
             }
             if(is.null(main)) {
@@ -236,22 +238,22 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
                 main <- paste("Hue =", main)
             }
             HCL2 <- hex(polarLUV(H = nd$H, C = abs(nd$C), L = nd$L), fixup = FALSE)
-            HCL2[nd$L < 1 & nd$C > 0] <- NA
+            HCL2[nd$L < 1 & abs(nd$C) > 0] <- NA
             plot(0, 0, type = "n", xlim = c(-1, 1) * maxchroma, ylim = c(0, 100), xaxs = "i", yaxs = "i",
                  xlab = NA, ylab = NA, main = main, axes = FALSE)
             # Axis labels
             if(axes) {
-                    if ( is.null(xlab) ) xlab <- "Chroma"
-                    if ( is.null(ylab) ) ylab <- "Luminance"
-                    mtext(side = 1, line = 2 * cex, xlab, cex = cex)
-                    mtext(side = 2, line = 2 * cex, ylab, cex = cex)
+                if ( is.null(xlab) ) xlab <- "Chroma"
+                if ( is.null(ylab) ) ylab <- "Luminance"
+                mtext(side = 1, line = 2 * cex, xlab, cex = cex)
+                mtext(side = 2, line = 2 * cex, ylab, cex = cex)
                 at1 <- pretty(c(-1, 1) * maxchroma)
                 axis(1, at = at1, labels = abs(at1))
                 axis(2)
             }
             # Plotting colors
             points(nd$C, nd$L, col = HCL2, pch = 19, cex = 3)
-            points( HCL[, "C"] * ifelse(1L:n <= floor(mean(n/2)),-1,1),
+            points( HCL[, "C"] * ifelse(1L:n <= floor(mean(n/2)), -1, 1),
                     HCL[, "L"], pch = 19, cex = 1.1 * size * cex,  type = "p", lwd = 5 * lwd, col = bg)
             points( HCL[, "C"] * ifelse(1L:n <= floor(mean(n/2)),-1,1),
                     HCL[, "L"], pch = 21, bg = x, cex = size * cex, type = "o", lwd = lwd)
@@ -264,11 +266,12 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
 
             if(!is.null(l)) {
                 nd$L <- l
-            } else if(diff(range(HCL[, "L"], na.rm = TRUE)) < 5) {
-                nd$L <- mean(HCL[, "L"], na.rm = TRUE)
+            } else if(n < 3L || diff(range(HCL[, "L"], na.rm = TRUE)) < 10) {
+                nd$L <- median(HCL[, "L"], na.rm = TRUE)
             } else {
                 m <- lm(L ~ C + H, data = as.data.frame(HCL))
-                if(summary(m)$sigma > 7.5) warning("cannot approximate L well as a linear function of H and C")
+		sig <- summary(m)$sigma
+                if(is.na(sig) || sig > 7.5) warning("cannot approximate L well as a linear function of H and C")
                 nd$L <- predict(m, nd)
                 nd$L <- pmin(100, pmax(0, nd$L))
             }
