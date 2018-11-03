@@ -220,7 +220,7 @@ with a diverging palette.
 par(mfrow = c(1, 3))
 hclplot(sequential_hcl(7, h = c(260, 220), c = c(50, 75, 0), l = c(30, 95), power = 1))
 hclplot(sequential_hcl(7, h = c(260, 60), c = 60, l = c(40, 95), power = 1))
-hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
+hclplot(diverging_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
 ```
 
 The multi-hue palette on the left employs a small
