@@ -28,12 +28,20 @@ shiny [@color:shiny] and Tcl/Tk via package _tcltk_ shipped with base R [@color:
 `hclwizard()`
 `hcl_wizard()`
 
+![choose_palette/hclwizard shiny interface](screenshots/choose_palette_1.png)
+![choose_palette/hclwizard shiny interface, dark mode](screenshots/choose_palette_2.png)
+
+![choose_palette/hclwizard Tcl/Tk interface](screenshots/choose_palette_3.png)
+
 `choose_color()`
 `hcl_color_picker()`
 
-`cvd_emulator()`
-`interpolate_cvd_transform()`
+![choose_color/hcl_color_picker](screenshots/choose_color.png)
 
+`cvd_emulator()`
+
+![cvd_emulator](screenshots/cvd_emulator_1.png){width=49%}
+![cvd_emulator](screenshots/cvd_emulator_2.png){width=49%}
 
 
 ## References
