@@ -188,7 +188,7 @@ from the data.</p></td>
     <tr>
       <th>...</th>
       <td><p>common discrete scale parameters: <code>name</code>, <code>breaks</code>, <code>labels</code>, <code>na.value</code>, <code>limits</code> and <code>guide</code>. See
-<code><a href='http://www.rdocumentation.org/packages/ggplot2/topics/discrete_scale'>discrete_scale</a></code> for more details.</p></td>
+<code><a href='ggplot2.tidyverse.org/reference/discrete_scale.html'>discrete_scale</a></code> for more details.</p></td>
     </tr>
     </table>
     
@@ -205,16 +205,16 @@ named palette. This enables easy customization of named palettes.</p>
     <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>ggplot2</span>)
 
 <span class='co'># default color scale</span>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>iris</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='no'>Sepal.Length</span>, <span class='no'>Sepal.Width</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>() + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme'>theme_minimal</a></span>() +
+<span class='fu'><a href='ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>iris</span>, <span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>Sepal.Length</span>, <span class='no'>Sepal.Width</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
+  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span>() +
   <span class='fu'>scale_color_discrete_divergingx</span>()</div><div class='img'><img src='scale_colour_discrete_divergingx-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># color scale "Tropic"</span>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>iris</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='no'>Sepal.Length</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_density'>geom_density</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>) + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme'>theme_classic</a></span>() +
+<span class='fu'><a href='ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>iris</span>, <span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>Sepal.Length</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
+  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>) + <span class='fu'><a href='ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span>() +
     <span class='fu'>scale_fill_discrete_divergingx</span>(<span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Tropic"</span>, <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='scale_colour_discrete_divergingx-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># use `nmax` and `order` to skip some colors</span>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>iris</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='no'>Sepal.Length</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_density'>geom_density</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>) + <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggtheme'>theme_classic</a></span>() +
+<span class='fu'><a href='ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>iris</span>, <span class='fu'><a href='ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>Sepal.Length</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Species</span>)) +
+  <span class='fu'><a href='ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.7</span>) + <span class='fu'><a href='ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span>() +
     <span class='fu'>scale_fill_discrete_divergingx</span>(<span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Tropic"</span>, <span class='kw'>nmax</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fl'>5</span>))</div><div class='img'><img src='scale_colour_discrete_divergingx-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -117,7 +117,7 @@
 <li>
 <em>Diverging:</em> Designed for coding numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes.</li>
 </ul>
-<p>The corresponding functions are <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, and <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>. Their construction principles areexemplified in the following color swatches and explained in more detail below. The desaturated palettes bring out clearly that luminance differences (= light-dark contrasts), or the lack thereof, are crucial for coding the different kinds of palettes.</p>
+<p>The corresponding functions are <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, and <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>. Their construction principles are exemplified in the following color swatches and explained in more detail below. The desaturated palettes bring out clearly that luminance differences (= light-dark contrasts), or the lack thereof, are crucial for coding the different kinds of palettes.</p>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-principles-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>To facilitate obtaining good sets of colors, HCL parameter combinations that yield useful palettes are accessible by name. These can be listed using the function <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>()</a></code></pre></div>
@@ -146,23 +146,23 @@
 ##        Purple-Brown, Green-Brown, Blue-Yellow 2, Blue-Yellow 3,
 ##        Green-Orange, Cyan-Magenta, Tropic, Broc, Cork, Vik,
 ##        Berlin, Lisbon, Tofino</code></pre>
-<p>To inspect the HCL parameter combinations for a specific palette simply include the <code>name</code> where upper- vs. lower-case, spaces, etc. are ignored for matching the label, i.e., <code>"dark2"</code> matches <code>"Dark 2"</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="dt">palette =</span> <span class="st">"dark2"</span>)</a></code></pre></div>
+<p>To inspect the HCL parameter combinations for a specific palette simply include the <code>name</code> where upper- vs. lower-case, spaces, etc. are ignored for matching the label, i.e., <code>"set2"</code> matches <code>"Set 2"</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="dt">palette =</span> <span class="st">"set2"</span>)</a></code></pre></div>
 <pre><code>## HCL palette
-## Name: Dark 2
+## Name: Set 2
 ## Type: Qualitative
 ## Parameter ranges:
 ##  h1 h2 c1 c2 l1 l2 p1 p2 cmax fixup
-##   0 NA 50 NA 60 NA NA NA   NA  TRUE</code></pre>
+##   0 NA 60 NA 70 NA NA NA   NA  TRUE</code></pre>
 <p>To compute the actual color hex codes (representing sRGB coordinates), the functions <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, and <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>, respectively, can be used. Either all parameters can be specified “by hand” through the HCL parameters, an entire palette can be specified “by name”, or the name-based specification can be modified by a few HCL parameters. In case of the HCL parameters, either a vector-based specification such as <code>h = c(0, 270)</code> or individual parameters <code>h1 = 0</code> and <code>h2 = 270</code> can be used.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">270</span>), <span class="dt">c =</span> <span class="dv">50</span>, <span class="dt">l =</span> <span class="dv">60</span>)</a></code></pre></div>
-<pre><code>## [1] "#C87A8A" "#909646" "#00A396" "#9189C7"</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">h1 =</span> <span class="dv">0</span>, <span class="dt">h2 =</span> <span class="dv">270</span>, <span class="dt">c1 =</span> <span class="dv">50</span>, <span class="dt">l1 =</span> <span class="dv">60</span>)</a></code></pre></div>
-<pre><code>## [1] "#C87A8A" "#909646" "#00A396" "#9189C7"</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">palette =</span> <span class="st">"dark2"</span>)</a></code></pre></div>
-<pre><code>## [1] "#C87A8A" "#909646" "#00A396" "#9189C7"</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">palette =</span> <span class="st">"dark2"</span>, <span class="dt">c =</span> <span class="dv">80</span>)</a></code></pre></div>
-<pre><code>## [1] "#E16A86" "#909800" "#00AD9A" "#9183E6"</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">270</span>), <span class="dt">c =</span> <span class="dv">60</span>, <span class="dt">l =</span> <span class="dv">70</span>)</a></code></pre></div>
+<pre><code>## [1] "#ED90A4" "#ABB150" "#00C1B2" "#ACA2EC"</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">h1 =</span> <span class="dv">0</span>, <span class="dt">h2 =</span> <span class="dv">270</span>, <span class="dt">c1 =</span> <span class="dv">60</span>, <span class="dt">l1 =</span> <span class="dv">70</span>)</a></code></pre></div>
+<pre><code>## [1] "#ED90A4" "#ABB150" "#00C1B2" "#ACA2EC"</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">palette =</span> <span class="st">"set2"</span>)</a></code></pre></div>
+<pre><code>## [1] "#ED90A4" "#ABB150" "#00C1B2" "#ACA2EC"</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">palette =</span> <span class="st">"set2"</span>, <span class="dt">l =</span> <span class="dv">80</span>)</a></code></pre></div>
+<pre><code>## [1] "#FFACBF" "#C6CD70" "#32DDCD" "#C7BEFF"</code></pre>
 </div>
 <div id="qualitative-palettes" class="section level2">
 <h2 class="hasAnchor">
