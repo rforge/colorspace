@@ -132,6 +132,79 @@ length 3). This yields high-chroma colors in the middle of the palette that are
 more easily distinguished from the dark and light extremes. See "Blues 3", "Purples 3",
 "Reds 3", and "Greens 3" below.
 
+```{r hcl-trajectories, echo = FALSE, fig.width = 11.5, fig.height = 4.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+## pal <- qualitative_hcl(5, h1 = 70, "Set 2")
+## 
+## par(oma = c(2, 5, 2, 3))
+## layout(rbind(1, 2), heights = c(2, 10))
+## par(xaxt = "n", yaxt = "n", mar = c(0.2, 3, 0.2, 0), cex = 1)
+## image(matrix(seq_along(pal), ncol = 1L), col = pal)
+## par(yaxt = "s")
+## specplot(pal, type = "o", palette = FALSE, oma = FALSE, mar = c(0.2, 3, 0.2, 0))
+
+## constant:   c1
+## linear:     c2 - (c2 - c1) * i^p1
+## triangular: i^p1 <= cmax_at
+##                      c2 - (c2 - cmax) * (i^p1)/cmaxat,
+##                      cmax - (cmax - c1) * ((i^p1 - cmaxat)/(1 - cmaxat))
+## cmax_at = 1/(1 + abs(cmax - c1) / abs(cmax - c2))
+
+mylab <- function(x, y, text, ratio = 1, col = "black", ...) {
+  rect(x - 0.03/ratio, y - 3, x + 0.03/ratio, y + 3, border = col, ...)
+  text(x, y, text, col = col, ...)
+}
+
+par(mfrow = c(1, 3))
+i <- 0:100/100
+c1 <- 80
+plot(i, rep(c1, length(i)), xlim = c(0, 1), ylim = c(0, 100),
+  xlab = "Intensity (i)", ylab = "Coordinate", main = "Constant",
+  xaxs = "i", yaxs = "i", type = "l", lwd = 2, axes = FALSE)
+axis(1, at = c(0, 0.5, 1), labels = c("1", "0.5", "0"))
+axis(2)
+box()
+mylab(0.04, c1 + 4, "c1")
+
+c2 <- 10
+plot(1 - i, c2 - (c2 - c1) * i, xlim = c(0, 1), ylim = c(0, 100),
+  xlab = "Intensity (i)", ylab = "Coordinate", main = "Linear",
+  xaxs = "i", yaxs = "i", type = "l", lwd = 2, axes = FALSE)
+axis(1, at = c(0, 0.5, 1), labels = c("1", "0.5", "0"))
+axis(2)
+box()
+lines(1 - i, c2 - (c2 - c1) * i^1.6, lty = 2, lwd = 2)
+mylab(0.04, c1 + 3, "c1")
+mylab(0.96, c2 - 3, "c2")
+mylab(0.68, 40, "p1", col = gray(0.35))
+text(0.75, 40, "= 1", col = gray(0.35))
+mylab(0.23, 40, "p1", col = gray(0.35))
+text(0.30, 40, "= 1.6", col = gray(0.35))
+
+c1 <- 60
+cmax <- 80
+c2 <- 10
+maxat <- 1/(1 + abs(cmax - c1) / abs(cmax - c2))
+p1 <- 1
+ci1 <- ifelse(i^p1 <= maxat, c2 - (c2 - cmax) * (i^p1)/maxat, cmax - (cmax - c1) * ((i^p1 - maxat)/(1 - maxat)))
+p2 <- 1.6
+ci2 <- ifelse(i^p2 <= maxat, c2 - (c2 - cmax) * (i^p2)/maxat, cmax - (cmax - c1) * ((i^p2 - maxat)/(1 - maxat)))
+
+plot(1 - i, ci1, xlim = c(0, 1), ylim = c(0, 100),
+  xlab = "Intensity (i)", ylab = "Coordinate", main = "Triangular",
+  xaxs = "i", yaxs = "i", type = "l", lwd = 2, axes = FALSE)
+axis(1, at = c(0, 0.5, 1), labels = c("1", "0.5", "0"))
+axis(2)
+box()
+lines(1 - i, ci2, lwd = 2, lty = 2)
+mylab(0.04, c1 - 3, "c1")
+mylab(1 - maxat + 0.1, cmax, "cmax", ratio = 0.5)
+mylab(0.96, c2 - 3, "c2")
+mylab(0.75, 40, "p1", col = gray(0.35))
+text(0.82, 40, "= 1", col = gray(0.35))
+mylab(0.35, 40, "p1", col = gray(0.35))
+text(0.42, 40, "= 1.6", col = gray(0.35))
+```
+
 Instead of employing linear trajectories in the chroma or luminance coordinates
 some palettes employ a power transformation of the chroma and/or luminance
 trajectory. Either a vector `power` of length 2 or separate `p1` (for chroma)

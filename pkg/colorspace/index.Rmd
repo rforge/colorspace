@@ -38,6 +38,11 @@ demoplot(desaturate(sequential_hcl(99, "Inferno", rev = TRUE)), type = "heatmap"
 |:------------------------------------------:|:-------------------------------------------:|:---------------------------------------------:|
 | ![](index_files/figure-html/hcl-1.png)     | ![](index_files/figure-html/palettes-1.png) | ![](index_files/figure-html/ggplot2-1.png)    |
 
+| Interactive color apps                         |
+|:----------------------------------------------:|
+| ![](articles/screenshots/choose_palette_1.png) |
+
 | Demos                                      | Color vision deficiency                     | Utilities                                     |
 |:------------------------------------------:|:-------------------------------------------:|:---------------------------------------------:|
 | ![](index_files/figure-html/inferno-1.png) | ![](index_files/figure-html/deutan-1.png)   | ![](index_files/figure-html/desaturate-1.png) |
+

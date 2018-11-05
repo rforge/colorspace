@@ -38,6 +38,6 @@ Suggests: datasets, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd,
 VignetteBuilder: knitr
 License: BSD_3_clause + file LICENSE
 URL: http://colorspace.R-Forge.R-project.org, https://hclwizard.org/
-BugReports: https://R-Forge.R-project.org/projects/colorspace/
+BugReports: http://colorspace.R-Forge.R-project.org/contact.html
 LazyData: yes
 RoxygenNote: 6.1.0
