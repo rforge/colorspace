@@ -4,7 +4,7 @@
 \alias{hcl_color_picker}
 \alias{choose_color}
 \alias{hclcolorpicker}
-\title{Shiny App to Pick Colors in HCL Space}
+\title{Graphical User Interface to Pick Colors in HCL Space}
 \usage{
 hcl_color_picker(shiny.trace = FALSE)
 

@@ -108,19 +108,63 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>Designed to accompany <span class="citation">Stauffer et al. (2015)</span>.</p>
-<p>shiny <span class="citation">(Chang et al. 2018)</span> and Tcl/Tk via package <em>tcltk</em> shipped with base R <span class="citation">(<span class="sans-serif">R</span> Core Team 2018)</span></p>
-<p><code><a href="../reference/choose_palette.html">choose_palette()</a></code> <code><a href="../reference/choose_palette.html">hclwizard()</a></code> <code><a href="../reference/choose_palette.html">hcl_wizard()</a></code></p>
-<p><img src="screenshots/choose_palette_1.png" alt="choose_palette/hclwizard shiny interface"><img src="screenshots/choose_palette_2.png" alt="choose_palette/hclwizard shiny interface, dark mode"></p>
-<div class="figure">
-<img src="screenshots/choose_palette_3.png" alt="choose_palette/hclwizard Tcl/Tk interface"><p class="caption">choose_palette/hclwizard Tcl/Tk interface</p>
+<p>To facilitate exploring the package and employing it when working with colors, several graphical user interfaces (GUIs) are provided within the package as <em>shiny</em> apps <span class="citation">(Chang et al. 2018)</span>. All of these GUIs or apps can either be run locally from within R but are also provided at <a href="http://hclwizard.org/" class="uri">http://hclwizard.org/</a>.</p>
+<ul>
+<li>
+<strong>HCL color palette construction:</strong> <code><a href="../reference/choose_palette.html">choose_palette()</a></code> or <code><a href="../reference/choose_palette.html">hclwizard()</a></code> or <code><a href="../reference/choose_palette.html">hcl_wizard()</a></code>.<br>
+In addition to the <em>shiny</em> app, this is also available as a Tcl/Tk GUI via R package <em>tcltk</em> shipped with base R <span class="citation">(<span class="sans-serif">R</span> Core Team 2018)</span>. The <em>tcltk</em> version can only be run locally and is considerably faster while the <em>shiny</em> version has a nicer interface with more features and can be run online. The <code><a href="../reference/choose_palette.html">choose_palette()</a></code> function by default starts the <em>tcltk</em> version while <code><a href="../reference/choose_palette.html">hclwizard()</a></code>/<code><a href="../reference/choose_palette.html">hcl_wizard()</a></code> by default starts the <em>shiny</em> version.</li>
+<li>
+<strong>HCL color picker:</strong> <code><a href="../reference/hcl_color_picker.html">choose_color()</a></code> or equivalently <code><a href="../reference/hcl_color_picker.html">hcl_color_picker()</a></code>.</li>
+<li>
+<strong>Color vision deficiency emulator:</strong> <code><a href="../reference/cvd_emulator.html">cvd_emulator()</a></code>.</li>
+</ul>
 </div>
-<p><code><a href="../reference/hcl_color_picker.html">choose_color()</a></code> <code><a href="../reference/hcl_color_picker.html">hcl_color_picker()</a></code></p>
+<div id="choosing-palettes-with-the-hcl-color-model" class="section level2">
+<h2 class="hasAnchor">
+<a href="#choosing-palettes-with-the-hcl-color-model" class="anchor"></a>Choosing palettes with the HCL color model</h2>
+<p>This GUI can either be started with <code><a href="../reference/choose_palette.html">hclwizard()</a></code> (or equivalently <code><a href="../reference/choose_palette.html">hcl_wizard()</a></code>) which by default starts the <em>shiny</em>:</p>
 <div class="figure">
-<img src="screenshots/choose_color.png" alt="choose_color/hcl_color_picker"><p class="caption">choose_color/hcl_color_picker</p>
+<img src="screenshots/choose_palette_1.png" alt="choose_palette, hclwizard shiny interface"><p class="caption">choose_palette, hclwizard shiny interface</p>
 </div>
-<p><code><a href="../reference/cvd_emulator.html">cvd_emulator()</a></code></p>
+<p>The <em>tcltk</em> version is started by default with <code><a href="../reference/choose_palette.html">choose_palette()</a></code>:</p>
+<div class="figure">
+<img src="screenshots/choose_palette_3.png" alt="choose_palette, hclwizard tcltk interface"><p class="caption">choose_palette, hclwizard tcltk interface</p>
+</div>
+<p>However, all defaults can be modified by setting <code>gui = "tcltk"</code> or <code>"shiny"</code>.</p>
+<p>The GUIs interface the palette functions <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> for qualitative palettes, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> for sequential palettes with single or multiple hues, and <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> for diverging palettes (composed from two single-hue sequential palettes). See the discussion of <a href="hcl_palettes.html">HCL-based color palettes</a> for more details.</p>
+<p>The GUIs allow for interactive modification of the arguments of the respective palette-generating functions, i.e., starting/ending hue (wavelength, type of color), minimal/maximal chroma (colorfulness), minimal maximal luminance (brightness, amount of gray), and a power transformations that control how quickly/slowly chroma and/or luminance are changed through the palette. Subsets of the parameters may not be applicable depending on the type of palette chosen. See <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> and <span class="citation">Zeileis, Hornik, and Murrell (2009)</span> for a more detailed explanation of the different arguments. <span class="citation">Stauffer et al. (2015)</span> provide more examples and guidance.</p>
+<p>Optionally, active palette can be illustrated by using a range of examples such as a map, heatmap, scatter plot, perspective 3D surface etc. To demonstrate different types of deficiencies, the active palette may be desaturated (emulating printing on a grayscale printer) and collapsed to emulate different types of color-blindness (without red-green or green-blue contrasts) using the <code><a href="../reference/simulate_cvd.html">simulate_cvd()</a></code> functions. To facilitate generation of palettes for black/dark backgrounds, a “dark mode” of the GUIs is also available:</p>
+<div class="figure">
+<img src="screenshots/choose_palette_2.png" alt="choose_palette, hclwizard shiny interface, dark mode"><p class="caption">choose_palette, hclwizard shiny interface, dark mode</p>
+</div>
+</div>
+<div id="choosing-individual-colors-with-the-hcl-color-model" class="section level2">
+<h2 class="hasAnchor">
+<a href="#choosing-individual-colors-with-the-hcl-color-model" class="anchor"></a>Choosing individual colors with the HCL color model</h2>
+<p>This GUI can be started with either <code><a href="../reference/hcl_color_picker.html">choose_color()</a></code> or equivalently <code><a href="../reference/hcl_color_picker.html">hcl_color_picker()</a></code>.</p>
+<div class="figure">
+<img src="screenshots/choose_color.png" alt="choose_color, hcl_color_picker"><p class="caption">choose_color, hcl_color_picker</p>
+</div>
+<p>It shows the HCL color space either as a hue-chroma plane for a given luminance value or as a luminance-chroma plane for a given hue. Colors can be entered by:</p>
+<ul>
+<li>Clicking on a color coordinate in the hue-chroma or luminance-chroma plane.</li>
+<li>Specifying the hue/chroma/luminance values via sliders.</li>
+<li>Entering an RGB hex code.</li>
+</ul>
+<p>By repeating the selection a palette of colors can be constructed and returned within R for subsequent usage in visualizations.</p>
+</div>
+<div id="emulate-color-vision-deficiencies" class="section level2">
+<h2 class="hasAnchor">
+<a href="#emulate-color-vision-deficiencies" class="anchor"></a>Emulate color vision deficiencies</h2>
+<p>This GUI can be started with <code><a href="../reference/cvd_emulator.html">cvd_emulator()</a></code>.</p>
 <p><img src="screenshots/cvd_emulator_1.png" alt="cvd_emulator" style="width:49.0%"><img src="screenshots/cvd_emulator_2.png" alt="cvd_emulator" style="width:49.0%"></p>
+<p>It allows to upload a raster image in JPG or PNG format which is then check for various kinds of color vision deficiencies at the selected severity. By default the severity is set to 100% and all supported kinds of color vision deficiency are checked for, i.e.,</p>
+<ul>
+<li>Monochromatic (desaturated grayscale).</li>
+<li>Deuteranope vision (green deficient).</li>
+<li>Protanope vision (red deficient).</li>
+<li>Tritanope vision (blue deficient).</li>
+</ul>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
@@ -135,6 +179,9 @@
 <div id="ref-color:Stauffer+Mayr+Dabernig:2015">
 <p>Stauffer, Reto, Georg J. Mayr, Markus Dabernig, and Achim Zeileis. 2015. “Somewhere over the Rainbow: How to Make Effective Use of Colors in Meteorological Visualizations.” <em>Bulletin of the American Meteorological Society</em> 96 (2): 203–16. <a href="https://doi.org/10.1175/BAMS-D-13-00155.1" class="uri">https://doi.org/10.1175/BAMS-D-13-00155.1</a>.</p>
 </div>
+<div id="ref-color:Zeileis+Hornik+Murrell:2009">
+<p>Zeileis, Achim, Kurt Hornik, and Paul Murrell. 2009. “Escaping RGBland: Selecting Colors for Statistical Graphics.” <em>Computational Statistics &amp; Data Analysis</em> 53: 3259–70. <a href="https://doi.org/10.1016/j.csda.2008.11.033" class="uri">https://doi.org/10.1016/j.csda.2008.11.033</a>.</p>
+</div>
 </div>
 </div>
   </div>
@@ -145,6 +192,9 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#overview">Overview</a></li>
+      <li><a href="#choosing-palettes-with-the-hcl-color-model">Choosing palettes with the HCL color model</a></li>
+      <li><a href="#choosing-individual-colors-with-the-hcl-color-model">Choosing individual colors with the HCL color model</a></li>
+      <li><a href="#emulate-color-vision-deficiencies">Emulate color vision deficiencies</a></li>
       <li><a href="#references">References</a></li>
       </ul>
 </div>

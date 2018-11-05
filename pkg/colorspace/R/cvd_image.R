@@ -1,7 +1,7 @@
-#' Graphical User Interface to Check Images for Color Constriants
+#' Graphical User Interface to Check Images for Color Constraints
 #'
 #' A graphical user interface (GUI) to check an existing jpg/png image for (possible)
-#' color constraints. The image will be converted to protanope vision, deutanope vision,
+#' color constraints. The image will be converted to protanope vision, deuteranope vision,
 #' and a desaturated version (monochromatic vision).
 #' Allows a rapid check whether the colors used in the image show some
 #' constraints with respect to color deficiency or color blindness.
