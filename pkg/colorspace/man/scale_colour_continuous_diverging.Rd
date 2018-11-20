@@ -7,18 +7,25 @@
 \title{HCL-Based Continuous Diverging Color Scales for ggplot2}
 \usage{
 scale_colour_continuous_diverging(palette = NULL, c1 = NULL,
-  l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL,
-  p2 = NULL, rev = FALSE, mid = 0, na.value = "grey50",
-  guide = "colourbar", n_interp = 11, aesthetics = "colour", ...)
+  cmax = NULL, l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL,
+  p1 = NULL, p2 = NULL, rev = FALSE, mid = 0,
+  na.value = "grey50", guide = "colourbar", n_interp = 11,
+  aesthetics = "colour", ...)
 
-scale_color_continuous_diverging(...)
+scale_color_continuous_diverging(palette = NULL, c1 = NULL,
+  cmax = NULL, l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL,
+  p1 = NULL, p2 = NULL, rev = FALSE, mid = 0,
+  na.value = "grey50", guide = "colourbar", n_interp = 11,
+  aesthetics = "colour", ...)
 
-scale_fill_continuous_diverging(...)
+scale_fill_continuous_diverging(..., aesthetics = "fill")
 }
 \arguments{
 \item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "div")} for available options.}
 
 \item{c1}{Chroma value at the scale endpoints.}
+
+\item{cmax}{Maximum chroma value.}
 
 \item{l1}{Luminance value at the scale endpoints.}
 

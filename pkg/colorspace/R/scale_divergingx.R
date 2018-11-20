@@ -71,11 +71,17 @@ scale_colour_discrete_divergingx <- function(palette = "Geyser", c1 = NULL, c2 =
 
 #' @rdname scale_colour_discrete_divergingx
 #' @export
-scale_color_discrete_divergingx <- function(...) scale_colour_discrete_divergingx(...)
+scale_color_discrete_divergingx <- scale_colour_discrete_divergingx
 
 #' @rdname scale_colour_discrete_divergingx
 #' @export
-scale_fill_discrete_divergingx <- function(..., aesthetics = "fill") scale_colour_discrete_divergingx(..., aesthetics = aesthetics)
+scale_fill_discrete_divergingx <- function(..., aesthetics = "fill")
+{
+  args <- as.list(match.call())
+  args[[1]] <- NULL # remove the function call
+  if (is.null(args[["aesthetics"]])) args$aesthetics <- "fill"
+  do.call(scale_discrete_continuous_divergingx, args)
+}
 
   
   
@@ -182,8 +188,14 @@ scale_colour_continuous_divergingx <- function(palette = "Geyser", c1 = NULL, c2
 
 #' @rdname scale_colour_continuous_divergingx
 #' @export
-scale_color_continuous_divergingx <- function(...) scale_colour_continuous_divergingx(...)
+scale_color_continuous_divergingx <- scale_colour_continuous_divergingx
 
 #' @rdname scale_colour_continuous_divergingx
 #' @export
-scale_fill_continuous_divergingx <- function(..., aesthetics = "fill") scale_colour_continuous_divergingx(..., aesthetics = aesthetics)
+scale_fill_continuous_divergingx <- function(..., aesthetics = "fill")
+{
+  args <- as.list(match.call())
+  args[[1]] <- NULL # remove the function call
+  if (is.null(args[["aesthetics"]])) args$aesthetics <- "fill"
+  do.call(scale_colour_continuous_divergingx, args)
+}

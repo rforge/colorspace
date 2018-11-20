@@ -6,19 +6,24 @@
 \alias{scale_fill_discrete_diverging}
 \title{HCL-Based Discrete Diverging Color Scales for ggplot2}
 \usage{
-scale_colour_discrete_diverging(palette = NULL, c1 = NULL, l1 = NULL,
-  l2 = NULL, h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL,
-  alpha = 1, rev = FALSE, nmax = NULL, order = NULL,
-  aesthetics = "colour", ...)
+scale_colour_discrete_diverging(palette = NULL, c1 = NULL,
+  cmax = NULL, l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL,
+  p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
+  order = NULL, aesthetics = "colour", ...)
 
-scale_color_discrete_diverging(...)
+scale_color_discrete_diverging(palette = NULL, c1 = NULL,
+  cmax = NULL, l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL,
+  p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
+  order = NULL, aesthetics = "colour", ...)
 
-scale_fill_discrete_diverging(...)
+scale_fill_discrete_diverging(..., aesthetics = "fill")
 }
 \arguments{
 \item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "div")} for available options.}
 
 \item{c1}{Chroma value at the scale endpoints.}
+
+\item{cmax}{Maximum chroma value.}
 
 \item{l1}{Luminance value at the scale endpoints.}
 

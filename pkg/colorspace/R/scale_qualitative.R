@@ -61,11 +61,17 @@ scale_colour_discrete_qualitative <- function(palette = NULL, c1 = NULL, l1 = NU
 
 #' @rdname scale_colour_discrete_qualitative
 #' @export
-scale_color_discrete_qualitative <- function(...) scale_colour_discrete_qualitative(...)
+scale_color_discrete_qualitative <- scale_colour_discrete_qualitative
 
 #' @rdname scale_colour_discrete_qualitative
 #' @export
-scale_fill_discrete_qualitative <- function(..., aesthetics = "fill") scale_colour_discrete_qualitative(..., aesthetics = aesthetics)
+scale_fill_discrete_qualitative <- function(..., aesthetics = "fill")
+{
+  args <- as.list(match.call())
+  args[[1]] <- NULL # remove the function call
+  if (is.null(args[["aesthetics"]])) args$aesthetics <- "fill"
+  do.call(scale_colour_discrete_qualitative, args)
+}
 
 #' HCL-Based Continuous Qualitative Color Scales for ggplot2
 #'
@@ -127,8 +133,14 @@ scale_colour_continuous_qualitative <- function(palette = NULL, c1 = NULL, l1 = 
 
 #' @rdname scale_colour_continuous_qualitative
 #' @export
-scale_color_continuous_qualitative <- function(...) scale_colour_continuous_qualitative(...)
+scale_color_continuous_qualitative <- scale_colour_continuous_qualitative
 
 #' @rdname scale_colour_continuous_qualitative
 #' @export
-scale_fill_continuous_qualitative <- function(..., aesthetics = "fill") scale_colour_continuous_qualitative(..., aesthetics = aesthetics)
+scale_fill_continuous_qualitative <- function(..., aesthetics = "fill")
+{
+  args <- as.list(match.call())
+  args[[1]] <- NULL # remove the function call
+  if (is.null(args[["aesthetics"]])) args$aesthetics <- "fill"
+  do.call(scale_colour_continuous_qualitative, args)
+}

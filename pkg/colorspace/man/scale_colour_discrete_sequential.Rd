@@ -7,13 +7,16 @@
 \title{HCL-Based Discrete Sequential Color Scales for ggplot2}
 \usage{
 scale_colour_discrete_sequential(palette = NULL, c1 = NULL,
-  c2 = NULL, l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL,
+  c2 = NULL, cmax = NULL, l1 = NULL, l2 = NULL, h1 = NULL,
+  h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE,
+  nmax = NULL, order = NULL, aesthetics = "colour", ...)
+
+scale_color_discrete_sequential(palette = NULL, c1 = NULL, c2 = NULL,
+  cmax = NULL, l1 = NULL, l2 = NULL, h1 = NULL, h2 = NULL,
   p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE, nmax = NULL,
   order = NULL, aesthetics = "colour", ...)
 
-scale_color_discrete_sequential(...)
-
-scale_fill_discrete_sequential(...)
+scale_fill_discrete_sequential(..., aesthetics = "fill")
 }
 \arguments{
 \item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "seq")} for available options.}
@@ -21,6 +24,8 @@ scale_fill_discrete_sequential(...)
 \item{c1}{Beginning chroma value.}
 
 \item{c2}{Ending chroma value.}
+
+\item{cmax}{Maximum chroma value.}
 
 \item{l1}{Beginning luminance value.}
 

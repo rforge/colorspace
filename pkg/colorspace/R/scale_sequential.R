@@ -70,11 +70,17 @@ scale_colour_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NUL
 
 #' @rdname scale_colour_discrete_sequential
 #' @export
-scale_color_discrete_sequential <- function(...) scale_colour_discrete_sequential(...)
+scale_color_discrete_sequential <- scale_colour_discrete_sequential
 
 #' @rdname scale_colour_discrete_sequential
 #' @export
-scale_fill_discrete_sequential <- function(..., aesthetics = "fill") scale_colour_discrete_sequential(..., aesthetics = aesthetics)
+scale_fill_discrete_sequential <- function(..., aesthetics = "fill")
+{
+  args <- as.list(match.call())
+  args[[1]] <- NULL # remove the function call
+  if (is.null(args[["aesthetics"]])) args$aesthetics <- "fill"
+  do.call(scale_colour_discrete_sequential, args)
+}
 
 #' HCL-Based Continuous Sequential Color Scales for ggplot2
 #'
@@ -143,8 +149,14 @@ scale_colour_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = N
 
 #' @rdname scale_colour_continuous_sequential
 #' @export
-scale_color_continuous_sequential <- function(...) scale_colour_continuous_sequential(...)
+scale_color_continuous_sequential <- scale_colour_continuous_sequential
 
 #' @rdname scale_colour_continuous_sequential
 #' @export
-scale_fill_continuous_sequential <- function(..., aesthetics = "fill") scale_colour_continuous_sequential(..., aesthetics = aesthetics)
+scale_fill_continuous_sequential <- function(..., aesthetics = "fill") 
+{
+  args <- as.list(match.call())
+  args[[1]] <- NULL # remove the function call
+  if (is.null(args[["aesthetics"]])) args$aesthetics <- "fill"
+  do.call(scale_colour_continuous_sequential, args)
+}

@@ -11,9 +11,12 @@ scale_colour_continuous_qualitative(palette = NULL, c1 = NULL,
   end = 1, na.value = "grey50", guide = "colourbar",
   aesthetics = "colour", n_interp = 11, ...)
 
-scale_color_continuous_qualitative(...)
+scale_color_continuous_qualitative(palette = NULL, c1 = NULL,
+  l1 = NULL, h1 = NULL, h2 = NULL, rev = FALSE, begin = 0,
+  end = 1, na.value = "grey50", guide = "colourbar",
+  aesthetics = "colour", n_interp = 11, ...)
 
-scale_fill_continuous_qualitative(...)
+scale_fill_continuous_qualitative(..., aesthetics = "fill")
 }
 \arguments{
 \item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options.}

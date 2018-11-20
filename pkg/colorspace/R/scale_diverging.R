@@ -71,11 +71,17 @@ scale_colour_discrete_diverging <- function(palette = NULL, c1 = NULL, cmax = NU
 
 #' @rdname scale_colour_discrete_diverging
 #' @export
-scale_color_discrete_diverging <- function(...) scale_colour_discrete_diverging(...)
+scale_color_discrete_diverging <- scale_colour_discrete_diverging
 
 #' @rdname scale_colour_discrete_diverging
 #' @export
-scale_fill_discrete_diverging <- function(..., aesthetics = "fill") scale_colour_discrete_diverging(..., aesthetics = aesthetics)
+scale_fill_discrete_diverging <- function(..., aesthetics = "fill")
+{
+  args <- as.list(match.call())
+  args[[1]] <- NULL # remove the function call
+  if (is.null(args[["aesthetics"]])) args$aesthetics <- "fill"
+  do.call(scale_colour_discrete_diverging, args)
+}
 
 #' HCL-Based Continuous Diverging Color Scales for ggplot2
 #'
@@ -143,8 +149,14 @@ scale_colour_continuous_diverging <- function(palette = NULL, c1 = NULL, cmax = 
 
 #' @rdname scale_colour_continuous_diverging
 #' @export
-scale_color_continuous_diverging <- function(...) scale_colour_continuous_diverging(...)
+scale_color_continuous_diverging <- scale_colour_continuous_diverging
 
 #' @rdname scale_colour_continuous_diverging
 #' @export
-scale_fill_continuous_diverging <- function(..., aesthetics = "fill") scale_colour_continuous_diverging(..., aesthetics = aesthetics)
+scale_fill_continuous_diverging <- function(..., aesthetics = "fill")
+{
+  args <- as.list(match.call())
+  args[[1]] <- NULL # remove the function call
+  if (is.null(args[["aesthetics"]])) args$aesthetics <- "fill"
+  do.call(scale_colour_continuous_diverging, args)
+}

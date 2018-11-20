@@ -13,9 +13,14 @@ scale_colour_continuous_divergingx(palette = "Geyser", c1 = NULL,
   begin = 0, end = 1, mid = 0, na.value = "grey50",
   guide = "colourbar", n_interp = 11, aesthetics = "colour", ...)
 
-scale_color_continuous_divergingx(...)
+scale_color_continuous_divergingx(palette = "Geyser", c1 = NULL,
+  c2 = NULL, c3 = NULL, l1 = NULL, l2 = NULL, l3 = NULL,
+  h1 = NULL, h2 = NULL, h3 = NULL, p1 = NULL, p2 = NULL,
+  p3 = NULL, p4 = NULL, cmax1 = NULL, cmax2 = NULL, rev = FALSE,
+  begin = 0, end = 1, mid = 0, na.value = "grey50",
+  guide = "colourbar", n_interp = 11, aesthetics = "colour", ...)
 
-scale_fill_continuous_divergingx(...)
+scale_fill_continuous_divergingx(..., aesthetics = "fill")
 }
 \arguments{
 \item{palette}{The name of the palette to be used.}
