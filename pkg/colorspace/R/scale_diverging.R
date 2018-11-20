@@ -7,6 +7,7 @@
 #' named palette. This enables easy customization of named palettes.
 #' 
 #' @param c1 Chroma value at the scale endpoints.
+#' @param cmax Maximum chroma value.
 #' @param l1 Luminance value at the scale endpoints.
 #' @param l2 Luminance value at the scale midpoint.
 #' @param h1 Hue value at the first endpoint.
@@ -41,12 +42,12 @@
 #'     scale_fill_discrete_diverging(palette = "Green-Orange", nmax = 5, order = c(1, 4, 5))
 #' @importFrom stats na.omit
 #' @export
-scale_colour_discrete_diverging <- function(palette = NULL, c1 = NULL, l1 = NULL, l2 = NULL,
+scale_colour_discrete_diverging <- function(palette = NULL, c1 = NULL, cmax = NULL, l1 = NULL, l2 = NULL,
                                              h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE,
                                              nmax = NULL, order = NULL, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function diverging_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
+  hcl_args <- c("palette", "c1", "cmax", "l1", "l2", "h1", "h2", "p1", "p2")
   
   # match hcl_args to args provided
   args <- as.list(match.call())
@@ -116,13 +117,13 @@ scale_fill_discrete_diverging <- function(...) scale_colour_discrete_diverging(.
 #' gg + scale_fill_continuous_diverging(palette = "Blue-Red 3", l1 = 30, l2 = 100, p1 = .9, p2 = 1.2)
 #' @importFrom stats na.omit
 #' @export
-scale_colour_continuous_diverging <- function(palette = NULL, c1 = NULL, l1 = NULL, l2 = NULL,
+scale_colour_continuous_diverging <- function(palette = NULL, c1 = NULL, cmax = NULL, l1 = NULL, l2 = NULL,
                                                h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = FALSE,
                                                mid = 0, na.value = "grey50", guide = "colourbar",
                                                n_interp = 11, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function diverging_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "l1", "l2", "h1", "h2", "p1", "p2")
+  hcl_args <- c("palette", "c1", "cmax", "l1", "l2", "h1", "h2", "p1", "p2")
   
   # match hcl_args to args provided
   args <- as.list(match.call())

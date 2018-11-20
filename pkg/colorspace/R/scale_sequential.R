@@ -8,6 +8,7 @@
 #' 
 #' @param c1 Beginning chroma value.
 #' @param c2 Ending chroma value.
+#' @param cmax Maximum chroma value.
 #' @param l1 Beginning luminance value.
 #' @param l2 Ending luminance value.
 #' @param h1 Beginning hue value.
@@ -40,12 +41,12 @@
 #'   geom_density(alpha = 0.7) + scale_fill_discrete_sequential(palette = "Terrain") + theme_minimal()
 #' @importFrom stats na.omit
 #' @export
-scale_colour_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, l1 = NULL, l2 = NULL,
+scale_colour_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, cmax = NULL, l1 = NULL, l2 = NULL,
                                              h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE,
                                              nmax = NULL, order = NULL, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function sequential_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "c2", "l1", "l2", "h1", "h2", "p1", "p2")
+  hcl_args <- c("palette", "c1", "c2", "cmax", "l1", "l2", "h1", "h2", "p1", "p2")
   
   # match hcl_args to args provided
   args <- as.list(match.call())
@@ -116,13 +117,13 @@ scale_fill_discrete_sequential <- function(...) scale_colour_discrete_sequential
 #'   coord_fixed(expand = FALSE)
 #' @importFrom stats na.omit
 #' @export
-scale_colour_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, l1 = NULL, l2 = NULL,
+scale_colour_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, cmax = NULL, l1 = NULL, l2 = NULL,
                                                h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = FALSE,
                                                begin = 0, end = 1, na.value = "grey50", guide = "colourbar",
                                                aesthetics = "colour", n_interp = 11, ...)
 {
   # arguments we want to hand off to function sequential_hcl only if explicitly provided
-  hcl_args <- c("palette", "c1", "c2", "l1", "l2", "h1", "h2", "p1", "p2")
+  hcl_args <- c("palette", "c1", "c2", "cmax", "l1", "l2", "h1", "h2", "p1", "p2")
   
   # match hcl_args to args provided
   args <- as.list(match.call())
