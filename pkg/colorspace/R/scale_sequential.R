@@ -74,7 +74,7 @@ scale_color_discrete_sequential <- function(...) scale_colour_discrete_sequentia
 
 #' @rdname scale_colour_discrete_sequential
 #' @export
-scale_fill_discrete_sequential <- function(...) scale_colour_discrete_sequential(..., aesthetics = "fill")
+scale_fill_discrete_sequential <- function(..., aesthetics = "fill") scale_colour_discrete_sequential(..., aesthetics = aesthetics)
 
 #' HCL-Based Continuous Sequential Color Scales for ggplot2
 #'
@@ -147,4 +147,4 @@ scale_color_continuous_sequential <- function(...) scale_colour_continuous_seque
 
 #' @rdname scale_colour_continuous_sequential
 #' @export
-scale_fill_continuous_sequential <- function(...) scale_colour_continuous_sequential(..., aesthetics = "fill")
+scale_fill_continuous_sequential <- function(..., aesthetics = "fill") scale_colour_continuous_sequential(..., aesthetics = aesthetics)

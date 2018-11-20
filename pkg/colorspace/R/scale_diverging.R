@@ -75,7 +75,7 @@ scale_color_discrete_diverging <- function(...) scale_colour_discrete_diverging(
 
 #' @rdname scale_colour_discrete_diverging
 #' @export
-scale_fill_discrete_diverging <- function(...) scale_colour_discrete_diverging(..., aesthetics = "fill")
+scale_fill_discrete_diverging <- function(..., aesthetics = "fill") scale_colour_discrete_diverging(..., aesthetics = aesthetics)
 
 #' HCL-Based Continuous Diverging Color Scales for ggplot2
 #'
@@ -147,4 +147,4 @@ scale_color_continuous_diverging <- function(...) scale_colour_continuous_diverg
 
 #' @rdname scale_colour_continuous_diverging
 #' @export
-scale_fill_continuous_diverging <- function(...) scale_colour_continuous_diverging(..., aesthetics = "fill")
+scale_fill_continuous_diverging <- function(..., aesthetics = "fill") scale_colour_continuous_diverging(..., aesthetics = aesthetics)

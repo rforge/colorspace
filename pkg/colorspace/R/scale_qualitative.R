@@ -65,7 +65,7 @@ scale_color_discrete_qualitative <- function(...) scale_colour_discrete_qualitat
 
 #' @rdname scale_colour_discrete_qualitative
 #' @export
-scale_fill_discrete_qualitative <- function(...) scale_colour_discrete_qualitative(..., aesthetics = "fill")
+scale_fill_discrete_qualitative <- function(..., aesthetics = "fill") scale_colour_discrete_qualitative(..., aesthetics = aesthetics)
 
 #' HCL-Based Continuous Qualitative Color Scales for ggplot2
 #'
@@ -131,4 +131,4 @@ scale_color_continuous_qualitative <- function(...) scale_colour_continuous_qual
 
 #' @rdname scale_colour_continuous_qualitative
 #' @export
-scale_fill_continuous_qualitative <- function(...) scale_colour_continuous_qualitative(..., aesthetics = "fill")
+scale_fill_continuous_qualitative <- function(..., aesthetics = "fill") scale_colour_continuous_qualitative(..., aesthetics = aesthetics)

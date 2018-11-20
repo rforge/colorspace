@@ -75,7 +75,7 @@ scale_color_discrete_divergingx <- function(...) scale_colour_discrete_diverging
 
 #' @rdname scale_colour_discrete_divergingx
 #' @export
-scale_fill_discrete_divergingx <- function(...) scale_colour_discrete_divergingx(..., aesthetics = "fill")
+scale_fill_discrete_divergingx <- function(..., aesthetics = "fill") scale_colour_discrete_divergingx(..., aesthetics = aesthetics)
 
   
   
@@ -186,4 +186,4 @@ scale_color_continuous_divergingx <- function(...) scale_colour_continuous_diver
 
 #' @rdname scale_colour_continuous_divergingx
 #' @export
-scale_fill_continuous_divergingx <- function(...) scale_colour_continuous_divergingx(..., aesthetics = "fill")
+scale_fill_continuous_divergingx <- function(..., aesthetics = "fill") scale_colour_continuous_divergingx(..., aesthetics = aesthetics)
