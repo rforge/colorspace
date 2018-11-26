@@ -80,7 +80,7 @@ scale_fill_discrete_divergingx <- function(..., aesthetics = "fill")
   args <- as.list(match.call())
   args[[1]] <- NULL # remove the function call
   if (is.null(args[["aesthetics"]])) args$aesthetics <- "fill"
-  do.call(scale_discrete_continuous_divergingx, args)
+  do.call(scale_colour_discrete_divergingx, args)
 }
 
   
