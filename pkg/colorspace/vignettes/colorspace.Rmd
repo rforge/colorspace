@@ -31,10 +31,10 @@ them in various kinds of visualizations.
 At the core of the package there are various utilities for computing with
 color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
 representations of color to each other. A particularly important
-mapping was the one from the perceptually-based and device-independent color model
+mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
 specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
-in R). For completeness further standard color models were included as well in the package:
+in R). For completeness further standard color models are included as well in the package:
 `polarLUV()` (= HCL), `LUV()`, `polarLAB()`, `LAB()`, `XYZ()`, `RGB()`, `sRGB()`, `HLS()`,
 `HSV()`.
 
@@ -195,8 +195,8 @@ assessment of its palettes.
 * `demoplot()` can display a palette (with arbitrary number of colors) in a range of
   typical and somewhat simplified statistical graphics.
 * `hclplot()` converts the colors of a palette to the corresponding hue/chroma/luminance
-  coordinates and displays them in HCL space with one dimension collapsed. For qualitative
-  palettes the luminance is collapsed and for sequential/diverging palettes the hue.
+  coordinates and displays them in HCL space with one dimension collapsed. The collapsed
+  dimension is the luminance for qualitative palettes and the hue for sequential/diverging palettes.
 * `specplot()` also converts the colors to hue/chroma/luminance coordinates but draws
   the resulting spectrum in a line plot.
 
@@ -224,7 +224,7 @@ allplots(q4, "bar")
 
 A bar plot would be another typical application for a qualitative palette (instead of the
 time series and density plot used above). However, a lighter and less colorful palette
-might be preferable (e.g., `Pastel 1` or `Set 3`).
+might be preferable in this situation (e.g., `Pastel 1` or `Set 3`).
 
 The other two displays show that luminance is (almost) constant in the palette while
 the hue changes linearly along the color "wheel". Ideally, chroma would have also been

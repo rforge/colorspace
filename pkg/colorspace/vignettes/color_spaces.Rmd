@@ -23,10 +23,10 @@ library("colorspace")
 At the core of the _colorspace_ package there are various utilities for computing with
 color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
 representations of color to each other, see @color:Ihaka:2003. A particularly important
-mapping was the one from the perceptually-based and device-independent color model
+mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
 specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
-in R). For completeness further standard color models were included as well in the package.
+in R). For completeness further standard color models are included as well in the package.
 The connections are illustrated in the following graph:
 
 
@@ -68,35 +68,35 @@ constructors in _colorspace_ are:
   account the output device properties, it is not perceptually uniform (a unit step
   within RGB does not produce a constant perceptual change in color), and it is
   unintuitive for humans to specify colors (say brown or pink) in this space.
-  [@color:Wiki+RGB]
+  [See @color:Wiki+RGB.]
 * `sRGB()` addresses the issue of device dependency by adopting a so-called gamma
   correction. Therefore, the gamma-corrected standard RGB (sRGB), as opposed to the
   linearized RGB above, is a good model for specifying colors in software and for
   hardware. But it is still unintuitive for humans to work directly with this.
   Therefore, sRGB is a good place to end up in a color space manipulation but
-  it is not a good place to start. [@color:Wiki+sRGB:2018]
+  it is not a good place to start. [See @color:Wiki+sRGB:2018.]
 * `HSV()` is a simple transformation of the (s)RGB space that tries to capture the
   perceptual axes: _hue_ (dominant wavelength, the type of color), _saturation_
   (colorfulness), and _value_ (brightness, i.e., light vs. dark). Unfortunately,
   the three axes in the HSV model are confounded so that, e.g., brightness changes
   dramaticaly with hue.
-  [@color:Wiki+HSV]
+  [See @color:Wiki+HSV.]
 * `HLS()` (Hue-Lightness-Saturation) is another transformation of (s)RGB that tries
   to capture the perceptual axes. It does a somewhat better job but the dimensions
   are still strongly confounded.
-  [@color:Wiki+HSV]
+  [See @color:Wiki+HSV.]
 * `XYZ()` was established by the CIE (Commission Internationale de l'Eclairage)
   based on experiments with human subjects. It provides a unique triplet of
   XYZ values, coding the standard observer's perception of the color. It is
   device-independent but it is not perceptually uniform and the XYZ coordinates
   have no intuitive meaning.
-  [@color:Wiki+CIEXYZ]
+  [See @color:Wiki+CIEXYZ.]
 * `LUV()` and `LAB()` were therefore proposed by the CIE as perceptually uniform
   color spaces where the former is typically preferred for emissive technologies
   (such as screens and monitors) whereas the latter is usually preferred when
   working with dyes and pigments. However, the three axes of these two spaces
   still do not correspond to human perceptual axes.
-  [@color:Wiki+CIELUV; @color:Wiki+CIELAB]
+  [See @color:Wiki+CIELUV; @color:Wiki+CIELAB.]
 * `polarLUV()` and `polarLAB()` therefore take polar coordinates in the UV plane
   and AB plane, respectively. Specifically, the polar coordinates of the LUV
   model are known as the HCL (Hue-Chroma-Luminance) model. These capture the
@@ -107,13 +107,21 @@ All the S4 classes listed above inherit from a virtual class `color` which are
 internally always represented by matrices with three columns (corresponding to
 the different three dimensions).
 
+Note that since the inception of the color space conversion tools within _colorspace_
+by @color:Ihaka:2003 other R tools for this purpose became available. Notably,
+there is `grDevices::convertColor()` in base R [@color:R] as well as
+`farver::convert_colour()` [@color:farver] based on a C++ library. For many basic color
+conversion purposes the _colorspace_ package and these alternatives are equally suitable.
+Some details differ, though, and the color conversion tools in _colorspace_ are
+well-embedded into the remaining functionality of the package and make it self-contained.
+
 
 ## Utilities
 
 For working with these color spaces various utilities are available:
 
 * `as()` method: Conversions of a `color` object to the various color spaces,
-  e.g., `as(x, "sRGB").
+  e.g., `as(x, "sRGB")`.
 * `coords()`: Extract the three-dimensional coordinates pertaining to the current
   color class.
 * `hex()`: Convert a color object to sRGB and code in a hex string that can be
