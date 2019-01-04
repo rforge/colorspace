@@ -35,14 +35,14 @@
   Universit\"atsstra{\ss}e~15\\
   6020 Innsbruck, Austria\\
   E-mail: \email{Achim.Zeileis@R-project.org}\\
-  URL: \url{http://eeecon.uibk.ac.at/~zeileis/}\\
+  URL: \url{https://eeecon.uibk.ac.at/~zeileis/}\\
   
   Kurt Hornik\\
   Institute for Statistics and Mathematics\\
   Department of Finance, Accounting and Statistics\\
   WU Wirtschaftsuniversit\"at Wien\\
-  Augasse 2--6\\
-  1090 Wien, Austria\\
+  Welthandelsplatz 1\\
+  1020 Wien, Austria\\
   E-mail: \email{Kurt.Hornik@R-project.org}\\
   URL: \url{http://statmath.wu.ac.at/~hornik/}\\
 

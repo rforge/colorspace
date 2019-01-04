@@ -55,7 +55,7 @@ three types of palettes based on the HCL model:
 To aid choice and application of these palettes there are: scales for use
 with _ggplot2_; shiny (and tcltk) apps for interactive exploration;
 visualizations of palette properties; accompanying manipulation utilities
-(like desaturation, lighten/dark, and emulation of color vision deficiencies).
+(like desaturation, lighten/darken, and emulation of color vision deficiencies).
 
 More detailed overviews and examples are provided in the package vignettes:
 
