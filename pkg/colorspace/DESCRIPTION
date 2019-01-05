@@ -1,6 +1,6 @@
 Package: colorspace
 Version: 1.4-0
-Date: 2018-09-19
+Date: 2019-01-05
 Title: A Toolbox for Manipulating and Assessing Colors and Palettes
 Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "ihaka@stat.auckland.ac.nz"),
              person(given = "Paul", family = "Murrell", role = "aut", email = "paul@stat.auckland.ac.nz",
@@ -40,4 +40,4 @@ License: BSD_3_clause + file LICENSE
 URL: http://colorspace.R-Forge.R-project.org, https://hclwizard.org/
 BugReports: http://colorspace.R-Forge.R-project.org/contact.html
 LazyData: yes
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

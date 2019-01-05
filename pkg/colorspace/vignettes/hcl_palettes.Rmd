@@ -20,8 +20,10 @@ library("colorspace")
 
 ## Overview
 
-As motivated in the previous section, the HCL space is particularly useful for
-specifying individual colors and color palettes as its three axes match those
+
+
+As motivated in the previous article ([Color Spaces: S4 Classes and Utilities](color_spaces.html)),
+the HCL space is particularly useful for specifying individual colors and color palettes as its three axes match those
 of the human visual system very well. Therefore, the _colorspace_ package provides
 three types of palettes based on the HCL model:
 
@@ -29,8 +31,8 @@ three types of palettes based on the HCL model:
   where no particular ordering of categories is available and every color
   should receive the same perceptual weight.
 * _Sequential:_ Designed for coding ordered/numeric information, i.e.,
-  where colors go from high to low (or vice versa).
-* _Diverging:_ Designed for coding numeric information around a central
+  going from high to low (or vice versa).
+* _Diverging:_ Designed for coding ordered/numeric information around a central
   neutral value, i.e., where colors diverge from neutral to two extremes.
 
 The corresponding functions are `qualitative_hcl()`, `sequential_hcl()`,
@@ -70,6 +72,9 @@ palette can be specified "by name", or the name-based specification can be modif
 few HCL parameters. In case of the HCL parameters, either a vector-based specification
 such as `h = c(0, 270)` or individual parameters `h1 = 0` and `h2 = 270`
 can be used.
+
+The first three of the following commands lead to equivalent output. The fourth command
+yields a modified set of colors (lighter due to a luminance of 80 instead of 70).
 
 ```{r qualitative-hcl}
 qualitative_hcl(4, h = c(0, 270), c = 60, l = 70)
@@ -131,79 +136,6 @@ from `c1` over `cmax` to `c2` (or equivalently a vector `c` of
 length 3). This yields high-chroma colors in the middle of the palette that are
 more easily distinguished from the dark and light extremes. See "Blues 3", "Purples 3",
 "Reds 3", and "Greens 3" below.
-
-```{r hcl-trajectories, echo = FALSE, fig.width = 11.5, fig.height = 4.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
-## pal <- qualitative_hcl(5, h1 = 70, "Set 2")
-## 
-## par(oma = c(2, 5, 2, 3))
-## layout(rbind(1, 2), heights = c(2, 10))
-## par(xaxt = "n", yaxt = "n", mar = c(0.2, 3, 0.2, 0), cex = 1)
-## image(matrix(seq_along(pal), ncol = 1L), col = pal)
-## par(yaxt = "s")
-## specplot(pal, type = "o", palette = FALSE, oma = FALSE, mar = c(0.2, 3, 0.2, 0))
-
-## constant:   c1
-## linear:     c2 - (c2 - c1) * i^p1
-## triangular: i^p1 <= cmax_at
-##                      c2 - (c2 - cmax) * (i^p1)/cmaxat,
-##                      cmax - (cmax - c1) * ((i^p1 - cmaxat)/(1 - cmaxat))
-## cmax_at = 1/(1 + abs(cmax - c1) / abs(cmax - c2))
-
-mylab <- function(x, y, text, ratio = 1, col = "black", ...) {
-  rect(x - 0.03/ratio, y - 3, x + 0.03/ratio, y + 3, border = col, ...)
-  text(x, y, text, col = col, ...)
-}
-
-par(mfrow = c(1, 3))
-i <- 0:100/100
-c1 <- 80
-plot(i, rep(c1, length(i)), xlim = c(0, 1), ylim = c(0, 100),
-  xlab = "Intensity (i)", ylab = "Coordinate", main = "Constant",
-  xaxs = "i", yaxs = "i", type = "l", lwd = 2, axes = FALSE)
-axis(1, at = c(0, 0.5, 1), labels = c("1", "0.5", "0"))
-axis(2)
-box()
-mylab(0.04, c1 + 4, "c1")
-
-c2 <- 10
-plot(1 - i, c2 - (c2 - c1) * i, xlim = c(0, 1), ylim = c(0, 100),
-  xlab = "Intensity (i)", ylab = "Coordinate", main = "Linear",
-  xaxs = "i", yaxs = "i", type = "l", lwd = 2, axes = FALSE)
-axis(1, at = c(0, 0.5, 1), labels = c("1", "0.5", "0"))
-axis(2)
-box()
-lines(1 - i, c2 - (c2 - c1) * i^1.6, lty = 2, lwd = 2)
-mylab(0.04, c1 + 3, "c1")
-mylab(0.96, c2 - 3, "c2")
-mylab(0.68, 40, "p1", col = gray(0.35))
-text(0.75, 40, "= 1", col = gray(0.35))
-mylab(0.23, 40, "p1", col = gray(0.35))
-text(0.30, 40, "= 1.6", col = gray(0.35))
-
-c1 <- 60
-cmax <- 80
-c2 <- 10
-maxat <- 1/(1 + abs(cmax - c1) / abs(cmax - c2))
-p1 <- 1
-ci1 <- ifelse(i^p1 <= maxat, c2 - (c2 - cmax) * (i^p1)/maxat, cmax - (cmax - c1) * ((i^p1 - maxat)/(1 - maxat)))
-p2 <- 1.6
-ci2 <- ifelse(i^p2 <= maxat, c2 - (c2 - cmax) * (i^p2)/maxat, cmax - (cmax - c1) * ((i^p2 - maxat)/(1 - maxat)))
-
-plot(1 - i, ci1, xlim = c(0, 1), ylim = c(0, 100),
-  xlab = "Intensity (i)", ylab = "Coordinate", main = "Triangular",
-  xaxs = "i", yaxs = "i", type = "l", lwd = 2, axes = FALSE)
-axis(1, at = c(0, 0.5, 1), labels = c("1", "0.5", "0"))
-axis(2)
-box()
-lines(1 - i, ci2, lwd = 2, lty = 2)
-mylab(0.04, c1 - 3, "c1")
-mylab(1 - maxat + 0.1, cmax, "cmax", ratio = 0.5)
-mylab(0.96, c2 - 3, "c2")
-mylab(0.75, 40, "p1", col = gray(0.35))
-text(0.82, 40, "= 1", col = gray(0.35))
-mylab(0.35, 40, "p1", col = gray(0.35))
-text(0.42, 40, "= 1.6", col = gray(0.35))
-```
 
 Instead of employing linear trajectories in the chroma or luminance coordinates
 some palettes employ a power transformation of the chroma and/or luminance
@@ -280,8 +212,8 @@ and `h2`), either a single chroma value `c` (or `c1`) or a vector
 of two chroma values `c` (or `c1` and `cmax`), a vector of two
 luminances `l` (or `l1` and `l2`), and power parameter(s) `power`
 (or `p1` and `p2`) are used. For more flexible diverging palettes without
-the restrictrictions above (and consequently more parameters) see the next
-section.
+the restrictrictions above (and consequently more parameters) see the `divergingx_hcl()`
+palettes introduced below.
 
 The plot below shows all such diverging palettes that have been named in _colorspace_:
 
@@ -304,14 +236,153 @@ many colors are used while smaller luminance contrasts may suffice for palettes 
 fewer colors etc.
 
 
+## Construction details
+
+The three different types of palettes (_qualitative_, _sequential_, and _diverging_)
+are all constructed by combining three different types of trajectories (_constant_, _linear_, _triangular_)
+for the three different coordinates (hue _H_, chroma _C_, luminance _L_):
+
+| Type        | H                            | C                     | L                |
+|:------------|:-----------------------------|:----------------------|:-----------------|
+| Qualitative | Linear                       | Constant              | Constant         |
+| Sequential  | Constant (= single-hue) _or_ | Linear (+ power) _or_ | Linear (+ power) |
+|             | Linear (= multi-hue)         | Triangular (+ power)  |                  |
+| Diverging   | Constant (2x)                | Linear (+ power) _or_ | Linear (+ power) |
+|             |                              | Triangular (+ power)  |                  |
+|             |                              |                       |                  |
+
+As pointed out initially in this article, the luminance is probably the most important
+property for defining the type of palette. It is constant for qualitative palettes, monotonic
+for sequential palettes (linear or a power transformation), and uses two monotonic trajectories
+(linear or a power transformation) diverging from the same neutral value.
+
+The trajectories for the hue are also rather intuitive and straightforward for the three
+different types of palettes. However, the chroma trajectories are probably most complicated
+and least obvious from the examples above. Hence, the exact mathematical equations underlying
+the chroma trajectories are given in the following (i.e., using the parameters `c1`, `c2`, `cmax`,
+and `p1`, respectively). Analogous equations apply for the other two coordinates, though.
+
+The trajectories are functions of the _intensity_ $i \in [0, 1]$ where $1$ corresponds to
+the full intensity:
+
+$$
+\begin{align*}
+\text{Constant: }   & c_1 \\[0.2cm]
+\text{Linear: }     & c_2 - (c_2 - c_1) \cdot i \\[0.2cm]
+\text{Triangular: } & \left\{ \begin{array}{lcl}
+                      c_2 - (c_2 - c_\max) \cdot \frac{i}{j}            & \text{if } i & \le j \\
+                      c_\max - (c_\max - c_1) \cdot \frac{i - j}{1 - j} &              & >   j
+                     \end{array} \right.
+\end{align*}
+$$
+
+where $j$ is the intensity at which $c_\max$ is assumed. It is constructed such that
+the slope to the left is minus the slope to the right of $j$:
+
+$$
+j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
+$$
+
+Instead of using a linear intensity $i$ going from $1$ to $0$, one can replace $i$ with $i^{p_1}$
+in the equations above. This then leads to power-transformed curves that add or remove chroma
+more slowly or more quickly depending on whether the power parameter $p_1$ is $< 1$ or $> 1$.
+
+The three types of trajectories are also depicted below. Note that full intensity $i = 1$ is on
+the left and zero intensity $i = 0$ on the right of each panel.
+
+```{r hcl-trajectories, echo = FALSE, results = "hide"}
+svg(file = "screenshots/hcl-trajectories.svg", width = 11.5, height = 4.0)
+## pal <- qualitative_hcl(5, h1 = 70, "Set 2")
+## 
+## par(oma = c(2, 5, 2, 3))
+## layout(rbind(1, 2), heights = c(2, 10))
+## par(xaxt = "n", yaxt = "n", mar = c(0.2, 3, 0.2, 0), cex = 1)
+## image(matrix(seq_along(pal), ncol = 1L), col = pal)
+## par(yaxt = "s")
+## specplot(pal, type = "o", palette = FALSE, oma = FALSE, mar = c(0.2, 3, 0.2, 0))
+
+## constant:   c1
+## linear:     c2 - (c2 - c1) * i^p1
+## triangular: i^p1 <= cmax_at
+##                      c2 - (c2 - cmax) * (i^p1)/cmaxat,
+##                      cmax - (cmax - c1) * ((i^p1 - cmaxat)/(1 - cmaxat))
+## cmax_at = 1/(1 + abs(cmax - c1) / abs(cmax - c2))
+
+mylab <- function(x, y, text, ratio = 1, col = "black", ...) {
+  rect(x - 0.035/ratio, y - 3, x + 0.03/ratio, y + 3.5, border = col, ...)
+  text(x, y, text, col = col, ...)
+}
+
+par(mfrow = c(1, 3))
+i <- 0:100/100
+c1 <- 80
+plot(i, rep(c1, length(i)), xlim = c(0, 1), ylim = c(0, 100),
+  xlab = "Intensity (i)", ylab = "Coordinate", main = "Constant",
+  xaxs = "i", yaxs = "i", type = "l", lwd = 2, axes = FALSE)
+axis(1, at = c(0, 0.5, 1), labels = c("1", "0.5", "0"))
+axis(2)
+box()
+mylab(0.05, c1 + 5, "c1")
+
+c2 <- 10
+plot(1 - i, c2 - (c2 - c1) * i, xlim = c(0, 1), ylim = c(0, 100),
+  xlab = "Intensity (i)", ylab = "Coordinate", main = "Linear",
+  xaxs = "i", yaxs = "i", type = "l", lwd = 2, axes = FALSE)
+axis(1, at = c(0, 0.5, 1), labels = c("1", "0.5", "0"))
+axis(2)
+box()
+lines(1 - i, c2 - (c2 - c1) * i^1.6, lty = 2, lwd = 2)
+mylab(0.05, c1 + 4, "c1")
+mylab(0.95, c2 - 5, "c2")
+mylab(0.67, 40, "p1", col = gray(0.35))
+text(0.75, 40, "= 1", col = gray(0.35))
+mylab(0.23, 40, "p1", col = gray(0.35))
+text(0.32, 40, "= 1.6", col = gray(0.35))
+
+c1 <- 60
+cmax <- 80
+c2 <- 10
+maxat <- 1/(1 + abs(cmax - c1) / abs(cmax - c2))
+p1 <- 1
+ci1 <- ifelse(i^p1 <= maxat, c2 - (c2 - cmax) * (i^p1)/maxat, cmax - (cmax - c1) * ((i^p1 - maxat)/(1 - maxat)))
+p2 <- 1.6
+ci2 <- ifelse(i^p2 <= maxat, c2 - (c2 - cmax) * (i^p2)/maxat, cmax - (cmax - c1) * ((i^p2 - maxat)/(1 - maxat)))
+
+plot(1 - i, ci1, xlim = c(0, 1), ylim = c(0, 100),
+  xlab = "Intensity (i)", ylab = "Coordinate", main = "Triangular",
+  xaxs = "i", yaxs = "i", type = "l", lwd = 2, axes = FALSE)
+axis(1, at = c(0, 0.5, 1), labels = c("1", "0.5", "0"))
+axis(2)
+box()
+lines(1 - i, ci2, lwd = 2, lty = 2)
+mylab(0.05, c1 - 5, "c1")
+mylab(1 - maxat + 0.1, cmax + 2, "cmax", ratio = 0.5)
+mylab(0.95, c2 - 5, "c2")
+mylab(0.75, 40, "p1", col = gray(0.35))
+text(0.83, 40, "= 1", col = gray(0.35))
+mylab(0.33, 40, "p1", col = gray(0.35))
+text(0.42, 40, "= 1.6", col = gray(0.35))
+dev.off()
+```
+
+[![](screenshots/hcl-trajectories.svg){width=100%}](screenshots/hcl-trajectories.svg)
+
+The concrete parameters in the plot above are:
+
+* Constant: `c1 = 80`.
+* Linear: `c1 = 80`, `c2 = 10`, `p1 = 1` (solid) vs. `p1 = 1.6` (dashed).
+* Triangular: `c1 = 60`, `cmax = 80`, `c2 = 10`, `p1 = 1` (solid) vs. `p1 = 1.6` (dashed).
+
+
+
 ## Flexible diverging palettes
 
-The `divergingx_hcl()` provides more flexible diverging palettes by
+The `divergingx_hcl()` function provides more flexible diverging palettes by
 simply calling `sequential_hcl()` twice with prespecified sets of hue, chroma,
 and luminance parameters. Thus, it does not pose any restrictions that
 the two "arms" of the palette need to be balanced and also allows to go
 through a non-gray neutral color (typically light yellow).
-Consequently, the chroma/luminance paths can be rather unbalanced
+Consequently, the chroma/luminance paths can be rather unbalanced.
 
 The plot below shows all such flexible diverging palettes that have been named in _colorspace_:
 
@@ -322,7 +393,7 @@ The plot below shows all such flexible diverging palettes that have been named i
 divergingx_palettes(n = 7, plot = TRUE)
 ```
 
-Typically, the more restricted diverging palettes should be preferred because they are
+Typically, the more restricted `diverging_hcl()` palettes should be preferred because they are
 more balanced. However, by being able to go through light yellow as the neutral
 color warmer diverging palettes are available.
 
