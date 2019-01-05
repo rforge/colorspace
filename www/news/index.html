@@ -8,20 +8,18 @@
 
 <title>Changelog • colorspace</title>
 
-<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
-
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -37,7 +35,8 @@
 
 
 <!-- mathjax -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -61,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -140,13 +139,13 @@
 <li><p>Major update of the package that enhances many of its capabilities, e.g., more refined palettes, named palettes, ggplot2 color scales, visualizations for assessing palettes, more and enhanced shiny and Tcl/Tk apps, color vision deficiency emulation, and much more. See below for further details. A new web site presenting and documenting the package has been launched at <a href="http://colorspace.R-Forge.R-project.org/" class="uri">http://colorspace.R-Forge.R-project.org/</a></p></li>
 <li><p>Claus O. Wilke and Claire D. McWhite joined the <em>colorspace</em> team, adding and enhancing various features, including (but not limited to) especially the color vision deficiency emulation, the <em>ggplot2</em> palettes, and new shiny apps.</p></li>
 <li><p>New function <code><a href="../reference/simulate_cvd.html">simulate_cvd()</a></code> for simulating color vision deficiencies with convenience interfaces <code><a href="../reference/simulate_cvd.html">deutan()</a></code>, <code><a href="../reference/simulate_cvd.html">protan()</a></code>, and <code><a href="../reference/simulate_cvd.html">tritan()</a></code>.</p></li>
-<li><p>New function <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> to query pre-defined HCL-based palettes: qualitative, sequential (single-hue), sequential (multi-hue), diverging. The corresponding <code>print()</code>, <code>plot()</code>, and <code>summary()</code> methods can help to explore the palettes.</p></li>
+<li><p>New function <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> to query pre-defined HCL-based palettes: qualitative, sequential (single-hue), sequential (multi-hue), diverging. The corresponding <code><a href="https://www.rdocumentation.org/packages/base/topics/print">print()</a></code>, <code><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot()</a></code>, and <code><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary()</a></code> methods can help to explore the palettes.</p></li>
 <li><p>New and more flexible <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> palette function. This is similar to the old <code><a href="../reference/rainbow_hcl.html">rainbow_hcl()</a></code> but allows to use the pre-defined palettes and change the parameters more easily.</p></li>
 <li><p>Palette function <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> is now substantially more flexible: encompasses both single-hue and multi-hue palettes; gained a new parameter <code>cmax</code> for non-monotonic chroma paths. Parameters <code>h1</code>, <code>h2</code>, <code>c1</code>, <code>c2</code>, <code>l1</code>, <code>l2</code>, <code>p1</code>, <code>p2</code>, <code>cmax</code> allow to easily modify existing palettes in just a few HCL parameters.</p></li>
 <li><p>Function <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> is introduced as a copy of <code><a href="../reference/hcl_palettes.html">diverge_hcl()</a></code> for a more consistent naming of the *_hcl palettes where * is one of the adjectives “qualitative”, “sequential”, and “diverging”. Both <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> and <code><a href="../reference/hcl_palettes.html">diverge_hcl()</a></code> now also gained a <code>cmax</code> argument just like <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>. Individual parameters <code>h1</code>, <code>h2</code>, <code>c1</code>, <code>l1</code>, <code>l2</code>, <code>p1</code>, <code>p2</code> can also be easily modified.</p></li>
 <li><p>New functions <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code>/<code><a href="../reference/divergingx_hcl.html">divergex_hcl()</a></code> have been added for fully fle_x_ible diverging palettes (as opposed to the more restricted balanced palettes in <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>/<code><a href="../reference/hcl_palettes.html">diverge_hcl()</a></code>). These support parameters <code>h1</code>, <code>h2</code>, <code>h3</code>, <code>c1</code>, <code>c2</code>, <code>c3</code>, <code>l1</code>, <code>l2</code>, <code>l3</code>, <code>p1</code>, <code>p2</code>, <code>p3</code>, <code>p4</code>, <code>cmax1</code>, <code>cmax2</code>.</p></li>
 <li><p>Many new predefined palettes that facilitate close approximation of almost all palettes from <em>ColorBrewer.org</em>/<em>RColorBrewer</em>, <em>CARTO</em>/<em>rcartocolor</em>, and viridis. Additionally, approximations to a few of Fabio Crameri’s scientific color maps (<em>scico</em>) are available as well.</p></li>
-<li><p>New interactive shiny app <code><a href="../reference/hcl_color_picker.html">hcl_color_picker()</a></code> - or equivalently, <code><a href="../reference/hcl_color_picker.html">choose_color()</a></code> - for exploring HCL colors, and manually assembling individual colors or palettes. Douglas C. Wu (<a href='http://github.com/wckdouglas'>@wckdouglas</a>) provided the original implementation for the color palette feature.</p></li>
+<li><p>New interactive shiny app <code><a href="../reference/hcl_color_picker.html">hcl_color_picker()</a></code> - or equivalently, <code><a href="../reference/hcl_color_picker.html">choose_color()</a></code> - for exploring HCL colors, and manually assembling individual colors or palettes. Douglas C. Wu (<a href='https://github.com/wckdouglas'>@wckdouglas</a>) provided the original implementation for the color palette feature.</p></li>
 <li><p>New functions <code><a href="../reference/lighten.html">lighten()</a></code> and <code><a href="../reference/lighten.html">darken()</a></code> for programatically lightening and darkening colors.</p></li>
 <li><p>New convenience function <code><a href="../reference/swatchplot.html">swatchplot()</a></code> that facilitates displaying color swatches to display and compare collections of color palettes.</p></li>
 <li><p><code><a href="../reference/specplot.html">specplot()</a></code> gained an argument <code>y=NULL</code> to optionally display a second palette and compare their trajectories. By default, <code><a href="../reference/specplot.html">specplot()</a></code> now only shows the HCL spectrum but not the RGB spectrum (<code>rgb = FALSE</code>) because it is mainly used for illustrating and comparing properties of HCL-based palettes.</p></li>
@@ -173,7 +172,7 @@
 <a href="#colorspace-1-3-1" class="anchor"></a>colorspace 1.3-1<small> 2016-11-18 </small>
 </h1>
 <ul>
-<li>Fixed erroneous use of <code>return</code> rather than <code>return()</code> in <code><a href="../reference/choose_palette.html">choose_palette()</a></code>/<code><a href="../reference/choose_palette.html">hclwizard()</a></code>.</li>
+<li>Fixed erroneous use of <code>return</code> rather than <code><a href="https://www.rdocumentation.org/packages/base/topics/function">return()</a></code> in <code><a href="../reference/choose_palette.html">choose_palette()</a></code>/<code><a href="../reference/choose_palette.html">hclwizard()</a></code>.</li>
 </ul>
 </div>
     <div id="colorspace-1-3-0" class="section level1">
@@ -252,7 +251,7 @@
 <ul>
 <li><p>New Tcl/Tk-based GUI for choosing different types of palettes: qualitative (<code>rainbow_hcl</code>), single-hue sequential (<code>sequential_hcl</code>), multi-hue sequential (<code>heat_hcl</code>), and diverging (<code>diverge_hcl</code>). The GUI provides a wide collection of pre-stored palettes, easy manipulation of the corresponding arguments, illustration through a broad range of plot types (maps, heatmaps, variations of bar plots, scatter plots, and many more), emulation of desaturation and dichromatic vision, loading/saving palettes, etc.</p></li>
 <li><p>Bug fix in <code>polarLAB_to_LAB</code> conversion.</p></li>
-<li><p>All <code>.Call()</code> calls now with <code>PACKAGE = "colorspace"</code>.</p></li>
+<li><p>All <code><a href="https://www.rdocumentation.org/packages/base/topics/CallExternal">.Call()</a></code> calls now with <code>PACKAGE = "colorspace"</code>.</p></li>
 <li><p>Added some simple tests based on the examples and vignette.</p></li>
 </ul>
 </div>
@@ -288,7 +287,7 @@
 <a href="#colorspace-1-0-0" class="anchor"></a>colorspace 1.0-0<small> 2008-11-21 </small>
 </h1>
 <ul>
-<li>New version to accompany the “Escaping RGBland” paper accepted for publication in <em>Computational Statistics &amp; Data Analysis</em>, see <code>citation("colorspace")</code>
+<li>New version to accompany the “Escaping RGBland” paper accepted for publication in <em>Computational Statistics &amp; Data Analysis</em>, see <code><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation("colorspace")</a></code>
 </li>
 </ul>
 </div>
@@ -337,9 +336,8 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
-
       </footer>
    </div>
 

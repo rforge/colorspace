@@ -6,14 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HCL-Based Color Palettes • colorspace</title>
-<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="HCL-Based Color Palettes">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -31,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -108,14 +107,14 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>As motivated in the previous section, the HCL space is particularly useful for specifying individual colors and color palettes as its three axes match those of the human visual system very well. Therefore, the <em>colorspace</em> package provides three types of palettes based on the HCL model:</p>
+<p>As motivated in the previous article (<a href="color_spaces.html">Color Spaces: S4 Classes and Utilities</a>), the HCL space is particularly useful for specifying individual colors and color palettes as its three axes match those of the human visual system very well. Therefore, the <em>colorspace</em> package provides three types of palettes based on the HCL model:</p>
 <ul>
 <li>
 <em>Qualitative:</em> Designed for coding categorical information, i.e., where no particular ordering of categories is available and every color should receive the same perceptual weight.</li>
 <li>
-<em>Sequential:</em> Designed for coding ordered/numeric information, i.e., where colors go from high to low (or vice versa).</li>
+<em>Sequential:</em> Designed for coding ordered/numeric information, i.e., going from high to low (or vice versa).</li>
 <li>
-<em>Diverging:</em> Designed for coding numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes.</li>
+<em>Diverging:</em> Designed for coding ordered/numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes.</li>
 </ul>
 <p>The corresponding functions are <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, and <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>. Their construction principles are exemplified in the following color swatches and explained in more detail below. The desaturated palettes bring out clearly that luminance differences (= light-dark contrasts), or the lack thereof, are crucial for coding the different kinds of palettes.</p>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-principles-1.png" width="100%" style="display: block; margin: auto;"></p>
@@ -155,7 +154,8 @@
 ##  h1 h2 c1 c2 l1 l2 p1 p2 cmax fixup
 ##   0 NA 60 NA 70 NA NA NA   NA  TRUE</code></pre>
 <p>To compute the actual color hex codes (representing sRGB coordinates), the functions <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, and <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>, respectively, can be used. Either all parameters can be specified “by hand” through the HCL parameters, an entire palette can be specified “by name”, or the name-based specification can be modified by a few HCL parameters. In case of the HCL parameters, either a vector-based specification such as <code>h = c(0, 270)</code> or individual parameters <code>h1 = 0</code> and <code>h2 = 270</code> can be used.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">h =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">270</span>), <span class="dt">c =</span> <span class="dv">60</span>, <span class="dt">l =</span> <span class="dv">70</span>)</a></code></pre></div>
+<p>The first three of the following commands lead to equivalent output. The fourth command yields a modified set of colors (lighter due to a luminance of 80 instead of 70).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">270</span>), <span class="dt">c =</span> <span class="dv">60</span>, <span class="dt">l =</span> <span class="dv">70</span>)</a></code></pre></div>
 <pre><code>## [1] "#ED90A4" "#ABB150" "#00C1B2" "#ACA2EC"</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">h1 =</span> <span class="dv">0</span>, <span class="dt">h2 =</span> <span class="dv">270</span>, <span class="dt">c1 =</span> <span class="dv">60</span>, <span class="dt">l1 =</span> <span class="dv">70</span>)</a></code></pre></div>
 <pre><code>## [1] "#ED90A4" "#ABB150" "#00C1B2" "#ACA2EC"</code></pre>
@@ -176,26 +176,9 @@
 <div id="sequential-palettes-single-hue" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sequential-palettes-single-hue" class="anchor"></a>Sequential palettes (single-hue)</h2>
-<p><code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> codes the underlying numeric values by a monotonic sequence of increasing (or decreasing) luminance. Thus, the <code>l</code> argument should provide a vector of length 2 with starting and ending luminance (equivalently, <code>l1</code> and <code>l2</code> can be used). Without chroma (i.e., <code>c = 0</code>), this simply corresponds to a grayscale palette like <code>gray.colors()</code>, see “Grays” and “Light Grays” below.</p>
+<p><code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> codes the underlying numeric values by a monotonic sequence of increasing (or decreasing) luminance. Thus, the <code>l</code> argument should provide a vector of length 2 with starting and ending luminance (equivalently, <code>l1</code> and <code>l2</code> can be used). Without chroma (i.e., <code>c = 0</code>), this simply corresponds to a grayscale palette like <code><a href="https://www.rdocumentation.org/packages/grDevices/topics/gray.colors">gray.colors()</a></code>, see “Grays” and “Light Grays” below.</p>
 <p>For adding chroma, a simple strategy would be to pick a single hue (via <code>h</code> or <code>h1</code>) and then decrease chroma from some value (<code>c</code> or <code>c1</code>) to zero (i.e., gray) along with increasing luminance. For bringing out the extremes (a dark high-chroma color vs. a light gray) this is already very effective, see “Blues 2”, “Purples 2”, “Reds 2”, and “Greens 2”.</p>
 <p>For distinguishing also colors in the middle two strategies can be employed: (a) Hue can be varied as well by specifying an interval of hues in <code>h</code> (or beginning hue <code>h1</code> and ending hue <code>h2</code>). More details are provided in the next section. (b) Instead of a decreasing chroma a triangular chroma trajectory can be employed from <code>c1</code> over <code>cmax</code> to <code>c2</code> (or equivalently a vector <code>c</code> of length 3). This yields high-chroma colors in the middle of the palette that are more easily distinguished from the dark and light extremes. See “Blues 3”, “Purples 3”, “Reds 3”, and “Greens 3” below.</p>
-<p>Chroma coordinates</p>
-<p><span class="math display">\[
-\begin{align*}
-\text{Constant: }   &amp; c_1 \\[0.2cm]
-\text{Linear: }     &amp; c_2 - (c_2 - c_1) \cdot i \\[0.2cm]
-\text{Triangular: } &amp; \left\{ \begin{array}{lcl}
-                      c_2 - (c_2 - c_\max) \cdot \frac{i}{j}            &amp; \text{if } i &amp; \le j \\
-                      c_\max - (c_\max - c_1) \cdot \frac{i - j}{1 - j} &amp;              &amp; &gt;   j
-                 \end{array} \right.
-\end{align*}
-\]</span></p>
-<p>with</p>
-<p><span class="math display">\[
-j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
-\]</span></p>
-<p>Instead of <span class="math inline">\(i\)</span> also <span class="math inline">\(i^{p_1}\)</span>.</p>
-<p><a href="screenshots/hcl-trajectories.svg"><img src="screenshots/hcl-trajectories.svg" style="width:100.0%"></a></p>
 <p>Instead of employing linear trajectories in the chroma or luminance coordinates some palettes employ a power transformation of the chroma and/or luminance trajectory. Either a vector <code>power</code> of length 2 or separate <code>p1</code> (for chroma) and <code>p2</code> (for luminance) can be specified. If missing, the latter defaults to the former.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"sequential (single-hue)"</span>, <span class="dt">n =</span> <span class="dv">7</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-sequentials-1.png" width="70%" style="display: block; margin: auto;"></p>
@@ -210,7 +193,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <ul>
 <li>“Purple-Blue” to “Terrain 2” are various palettes created during the development of <em>colorspace</em>, e.g., by <span class="citation">Zeileis, Hornik, and Murrell (2009)</span> or <span class="citation">Stauffer et al. (2015)</span> among others.</li>
 <li>“Viridis” to “Inferno” closely match the palettes that <span class="citation">Smith and Walt (2015)</span> developed for <em>matplotlib</em> and that gained popularity recently.</li>
-<li>“Dark Mint” to “BrwnYl” closely match palettes provided in <em>CARTO</em> <span class="citation">(CARTO 2018)</span>.</li>
+<li>“Dark Mint” to “BrwnYl” closely match palettes provided in <em>CARTO</em> <span class="citation">(CARTO 2019)</span>.</li>
 <li>“YlOrRd” to “Blues” closely match <em>ColorBrewer.org</em> palettes <span class="citation">(Harrower and Brewer 2003)</span>.</li>
 <li>“Lajolla” and “Turku” closely match the scientific color maps of the same name by <span class="citation">Crameri (2018)</span> and are intended for a black/dark background.</li>
 </ul>
@@ -221,29 +204,109 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <div id="diverging-palettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#diverging-palettes" class="anchor"></a>Diverging palettes</h2>
-<p><code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> codes the underlying numeric values by a triangular luminance sequence with different hues in the left and in the right “arm” of the palette. Thus, it can be seen as a combination of two sequential palettes with some restrictions: (a) a single hue is used for each arm of the palette, (b) chroma and luminance trajectory are balanced between the two arms, (c) the neutral central value has zero chroma. To specify such a palette a vector of two hues <code>h</code> (or equivalently <code>h1</code> and <code>h2</code>), either a single chroma value <code>c</code> (or <code>c1</code>) or a vector of two chroma values <code>c</code> (or <code>c1</code> and <code>cmax</code>), a vector of two luminances <code>l</code> (or <code>l1</code> and <code>l2</code>), and power parameter(s) <code>power</code> (or <code>p1</code> and <code>p2</code>) are used. For more flexible diverging palettes without the restrictrictions above (and consequently more parameters) see the next section.</p>
+<p><code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> codes the underlying numeric values by a triangular luminance sequence with different hues in the left and in the right “arm” of the palette. Thus, it can be seen as a combination of two sequential palettes with some restrictions: (a) a single hue is used for each arm of the palette, (b) chroma and luminance trajectory are balanced between the two arms, (c) the neutral central value has zero chroma. To specify such a palette a vector of two hues <code>h</code> (or equivalently <code>h1</code> and <code>h2</code>), either a single chroma value <code>c</code> (or <code>c1</code>) or a vector of two chroma values <code>c</code> (or <code>c1</code> and <code>cmax</code>), a vector of two luminances <code>l</code> (or <code>l1</code> and <code>l2</code>), and power parameter(s) <code>power</code> (or <code>p1</code> and <code>p2</code>) are used. For more flexible diverging palettes without the restrictrictions above (and consequently more parameters) see the <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code> palettes introduced below.</p>
 <p>The plot below shows all such diverging palettes that have been named in <em>colorspace</em>:</p>
 <ul>
 <li>“Blue-Red” to “Cyan-Magenta” have been developed for <em>colorspace</em> starting from <span class="citation">Zeileis, Hornik, and Murrell (2009)</span>, taking inspiration from various other palettes, including more balanced and simplified versions of several <em>ColorBrewer.org</em> palettes <span class="citation">(Harrower and Brewer 2003)</span>.</li>
-<li>“Tropic” closely matches the palette of the same name from <em>CARTO</em> <span class="citation">(CARTO 2018)</span>.</li>
+<li>“Tropic” closely matches the palette of the same name from <em>CARTO</em> <span class="citation">(CARTO 2019)</span>.</li>
 <li>“Broc” to “Vik” and “Berlin” to “Tofino” closely match the scientific color maps of the same name by <span class="citation">Crameri (2018)</span>, where the first three are intended for a white/light background and the other three for a black/dark background.</li>
 </ul>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"diverging"</span>, <span class="dt">n =</span> <span class="dv">7</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-diverging-1.png" width="70%" style="display: block; margin: auto;"></p>
 <p>When choosing a particular palette for a display similar considerations apply as for the sequential palettes. Thus, large luminance differences are important when many colors are used while smaller luminance contrasts may suffice for palettes with fewer colors etc.</p>
 </div>
+<div id="construction-details" class="section level2">
+<h2 class="hasAnchor">
+<a href="#construction-details" class="anchor"></a>Construction details</h2>
+<p>The three different types of palettes (<em>qualitative</em>, <em>sequential</em>, and <em>diverging</em>) are all constructed by combining three different types of trajectories (<em>constant</em>, <em>linear</em>, <em>triangular</em>) for the three different coordinates (hue <em>H</em>, chroma <em>C</em>, luminance <em>L</em>):</p>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Type</th>
+<th align="left">H</th>
+<th align="left">C</th>
+<th align="left">L</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Qualitative</td>
+<td align="left">Linear</td>
+<td align="left">Constant</td>
+<td align="left">Constant</td>
+</tr>
+<tr class="even">
+<td align="left">Sequential</td>
+<td align="left">Constant (= single-hue) <em>or</em>
+</td>
+<td align="left">Linear (+ power) <em>or</em>
+</td>
+<td align="left">Linear (+ power)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Linear (= multi-hue)</td>
+<td align="left">Triangular (+ power)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Diverging</td>
+<td align="left">Constant (2x)</td>
+<td align="left">Linear (+ power) <em>or</em>
+</td>
+<td align="left">Linear (+ power)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Triangular (+ power)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>As pointed out initially in this article, the luminance is probably the most important property for defining the type of palette. It is constant for qualitative palettes, monotonic for sequential palettes (linear or a power transformation), and uses two monotonic trajectories (linear or a power transformation) diverging from the same neutral value.</p>
+<p>The trajectories for the hue are also rather intuitive and straightforward for the three different types of palettes. However, the chroma trajectories are probably most complicated and least obvious from the examples above. Hence, the exact mathematical equations underlying the chroma trajectories are given in the following (i.e., using the parameters <code>c1</code>, <code>c2</code>, <code>cmax</code>, and <code>p1</code>, respectively). Analogous equations apply for the other two coordinates, though.</p>
+<p>The trajectories are functions of the <em>intensity</em> <span class="math inline">\(i \in [0, 1]\)</span> where <span class="math inline">\(1\)</span> corresponds to the full intensity:</p>
+<p><span class="math display">\[
+\begin{align*}
+\text{Constant: }   &amp; c_1 \\[0.2cm]
+\text{Linear: }     &amp; c_2 - (c_2 - c_1) \cdot i \\[0.2cm]
+\text{Triangular: } &amp; \left\{ \begin{array}{lcl}
+                      c_2 - (c_2 - c_\max) \cdot \frac{i}{j}            &amp; \text{if } i &amp; \le j \\
+                      c_\max - (c_\max - c_1) \cdot \frac{i - j}{1 - j} &amp;              &amp; &gt;   j
+                     \end{array} \right.
+\end{align*}
+\]</span></p>
+<p>where <span class="math inline">\(j\)</span> is the intensity at which <span class="math inline">\(c_\max\)</span> is assumed. It is constructed such that the slope to the left is minus the slope to the right of <span class="math inline">\(j\)</span>:</p>
+<p><span class="math display">\[
+j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
+\]</span></p>
+<p>Instead of using a linear intensity <span class="math inline">\(i\)</span> going from <span class="math inline">\(1\)</span> to <span class="math inline">\(0\)</span>, one can replace <span class="math inline">\(i\)</span> with <span class="math inline">\(i^{p_1}\)</span> in the equations above. This then leads to power-transformed curves that add or remove chroma more slowly or more quickly depending on whether the power parameter <span class="math inline">\(p_1\)</span> is <span class="math inline">\(&lt; 1\)</span> or <span class="math inline">\(&gt; 1\)</span>.</p>
+<p>The three types of trajectories are also depicted below. Note that full intensity <span class="math inline">\(i = 1\)</span> is on the left and zero intensity <span class="math inline">\(i = 0\)</span> on the right of each panel.</p>
+<p><a href="screenshots/hcl-trajectories.svg"><img src="screenshots/hcl-trajectories.svg" style="width:100.0%"></a></p>
+<p>The concrete parameters in the plot above are:</p>
+<ul>
+<li>Constant: <code>c1 = 80</code>.</li>
+<li>Linear: <code>c1 = 80</code>, <code>c2 = 10</code>, <code>p1 = 1</code> (solid) vs. <code>p1 = 1.6</code> (dashed).</li>
+<li>Triangular: <code>c1 = 60</code>, <code>cmax = 80</code>, <code>c2 = 10</code>, <code>p1 = 1</code> (solid) vs. <code>p1 = 1.6</code> (dashed).</li>
+</ul>
+</div>
 <div id="flexible-diverging-palettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#flexible-diverging-palettes" class="anchor"></a>Flexible diverging palettes</h2>
-<p>The <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code> provides more flexible diverging palettes by simply calling <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> twice with prespecified sets of hue, chroma, and luminance parameters. Thus, it does not pose any restrictions that the two “arms” of the palette need to be balanced and also allows to go through a non-gray neutral color (typically light yellow). Consequently, the chroma/luminance paths can be rather unbalanced</p>
+<p>The <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code> function provides more flexible diverging palettes by simply calling <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> twice with prespecified sets of hue, chroma, and luminance parameters. Thus, it does not pose any restrictions that the two “arms” of the palette need to be balanced and also allows to go through a non-gray neutral color (typically light yellow). Consequently, the chroma/luminance paths can be rather unbalanced.</p>
 <p>The plot below shows all such flexible diverging palettes that have been named in <em>colorspace</em>:</p>
 <ul>
-<li>“ArmyRose” to “Tropic” closely match the palettes of the same name from <em>CARTO</em> <span class="citation">(CARTO 2018)</span>.</li>
+<li>“ArmyRose” to “Tropic” closely match the palettes of the same name from <em>CARTO</em> <span class="citation">(CARTO 2019)</span>.</li>
 <li>“PuOr” to “Spectral” closely match the palettes of the same name from <em>ColorBrewer.org</em> <span class="citation">(Harrower and Brewer 2003)</span>.</li>
 </ul>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/divergingx_hcl.html">divergingx_palettes</a></span>(<span class="dt">n =</span> <span class="dv">7</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/divergingx-palettes-1.png" width="70%" style="display: block; margin: auto;"></p>
-<p>Typically, the more restricted diverging palettes should be preferred because they are more balanced. However, by being able to go through light yellow as the neutral color warmer diverging palettes are available.</p>
+<p>Typically, the more restricted <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> palettes should be preferred because they are more balanced. However, by being able to go through light yellow as the neutral color warmer diverging palettes are available.</p>
 </div>
 <div id="hcl-and-hsv-color-palettes-corresponding-to-base-r-palettes" class="section level2">
 <h2 class="hasAnchor">
@@ -251,11 +314,11 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <p>To facilitate switching from base R palette functions to the HCL-based palettes above, <em>colorspace</em> provides a few convenience interfaces:</p>
 <ul>
 <li>
-<code><a href="../reference/rainbow_hcl.html">rainbow_hcl()</a></code>: Convenience interface to <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> for a HCL-based “rainbow” palette to replace the (in)famous <code>rainbow()</code> palette.</li>
+<code><a href="../reference/rainbow_hcl.html">rainbow_hcl()</a></code>: Convenience interface to <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> for a HCL-based “rainbow” palette to replace the (in)famous <code><a href="https://www.rdocumentation.org/packages/grDevices/topics/palettes">rainbow()</a></code> palette.</li>
 <li>
-<code><a href="../reference/rainbow_hcl.html">heat_hcl()</a></code>: Convenience interface to <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> with default parameters chosen to generate more balanced heat colors than the basic <code>heat.colors()</code> function.</li>
+<code><a href="../reference/rainbow_hcl.html">heat_hcl()</a></code>: Convenience interface to <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> with default parameters chosen to generate more balanced heat colors than the basic <code><a href="https://www.rdocumentation.org/packages/grDevices/topics/palettes">heat.colors()</a></code> function.</li>
 <li>
-<code><a href="../reference/rainbow_hcl.html">terrain_hcl()</a></code>: Convenience interface to <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> with default parameters chosen to generate more balanced terrain colors than the basic <code>terrain.colors()</code> function.</li>
+<code><a href="../reference/rainbow_hcl.html">terrain_hcl()</a></code>: Convenience interface to <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> with default parameters chosen to generate more balanced terrain colors than the basic <code><a href="https://www.rdocumentation.org/packages/grDevices/topics/palettes">terrain.colors()</a></code> function.</li>
 <li>
 <code><a href="../reference/rainbow_hcl.html">diverging_hsv()</a></code>: Diverging palettes generated in HSV space rather than HCL space as in <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>. This is provided for didactic purposes to contrast the more balanced HCL palettes with the more flashy and unbalanced HSV palettes.</li>
 </ul>
@@ -265,7 +328,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
 <div id="ref-color:CARTO">
-<p>CARTO. 2018. “CARTOColors – Data-Driven Color Schemes.” <a href="https://carto.com/carto-colors/" class="uri">https://carto.com/carto-colors/</a>.</p>
+<p>CARTO. 2019. “CARTOColors – Data-Driven Color Schemes.” <a href="https://carto.com/carto-colors/" class="uri">https://carto.com/carto-colors/</a>.</p>
 </div>
 <div id="ref-color:Crameri:2018">
 <p>Crameri, Fabio. 2018. “Geodynamic Diagnostics, Scientific Visualisation and <strong>Staglab</strong> 3.0.” <em>Geoscientific Model Development</em> 11 (6): 2541–62. <a href="https://doi.org/10.5194/gmd-11-2541-2018" class="uri">https://doi.org/10.5194/gmd-11-2541-2018</a>.</p>
@@ -299,6 +362,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
       <li><a href="#sequential-palettes-single-hue">Sequential palettes (single-hue)</a></li>
       <li><a href="#sequential-palettes-multi-hue">Sequential palettes (multi-hue)</a></li>
       <li><a href="#diverging-palettes">Diverging palettes</a></li>
+      <li><a href="#construction-details">Construction details</a></li>
       <li><a href="#flexible-diverging-palettes">Flexible diverging palettes</a></li>
       <li><a href="#hcl-and-hsv-color-palettes-corresponding-to-base-r-palettes">HCL (and HSV) color palettes corresponding to base R palettes</a></li>
       <li><a href="#references">References</a></li>
@@ -314,9 +378,8 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
-
       </footer>
 </div>
 

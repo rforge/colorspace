@@ -6,14 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HCL-Based Color Scales for ggplot2 • colorspace</title>
-<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="HCL-Based Color Scales for ggplot2">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -31,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -108,7 +107,7 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>All <a href="hcl_palettes.html">HCL-based color palettes</a> in the <em>colorspace</em> package <span class="citation">(Ihaka et al. 2018)</span> are also provided as discrete and/or continuous color scales for the use with the <em>ggplot2</em> package <span class="citation">(Wickham 2016)</span>.</p>
+<p>All <a href="hcl_palettes.html">HCL-based color palettes</a> in the <em>colorspace</em> package <span class="citation">(Ihaka et al. 2019)</span> are also provided as discrete and/or continuous color scales for the use with the <em>ggplot2</em> package <span class="citation">(Wickham 2016)</span>.</p>
 <p>The scales are called via the scheme <code>scale_&lt;aesthetic&gt;_&lt;datatype&gt;_&lt;colorscale&gt;()</code>, where <code>&lt;aesthetic&gt;</code> is the name of the aesthetic (<code>fill</code>, <code>color</code>, <code>colour</code>), <code>&lt;datatype&gt;</code> is the type of the variable plotted (<code>discrete</code> or <code>continuous</code>) and <code>&lt;colorscale&gt;</code> sets the type of the color scale used (<code>qualitative</code>, <code>sequential</code>, <code>diverging</code>, <code>divergingx</code>). We now provide a few examples of these scales.</p>
 </div>
 <div id="using-the-scales-in-ggplot2" class="section level2">
@@ -125,18 +124,18 @@
 <p>A continuous sequential scale applied to a fill aesthetic corresponds to the function <code><a href="../reference/scale_colour_continuous_sequential.html">scale_fill_continuous_sequential()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">nx =<span class="st"> </span><span class="dv">87</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">ny =<span class="st"> </span><span class="dv">61</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">height =</span> <span class="kw">c</span>(volcano), <span class="dt">x =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>nx, ny), <span class="dt">y =</span> <span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>ny, <span class="dt">each =</span> nx))</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">df &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">height =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(volcano), <span class="dt">x =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="dv">1</span><span class="op">:</span>nx, ny), <span class="dt">y =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="dv">1</span><span class="op">:</span>ny, <span class="dt">each =</span> nx))</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(x, y, <span class="dt">fill =</span> height)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_raster</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">expand =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="../reference/scale_colour_continuous_sequential.html">scale_fill_continuous_sequential</a></span>(<span class="dt">palette =</span> <span class="st">"Terrain"</span>)</a></code></pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/raster-sequential-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>A continuous diverging scale applied to a fill aesthetic corresponds to the function <code><a href="../reference/scale_colour_continuous_diverging.html">scale_fill_continuous_diverging()</a></code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">cm &lt;-<span class="st"> </span><span class="kw">cor</span>(mtcars)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">df_wide &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(cm)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">df_long &lt;-<span class="st"> </span><span class="kw">stack</span>(df_wide)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">names</span>(df_long) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"cor"</span>, <span class="st">"var1"</span>)</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">df_long &lt;-<span class="st"> </span><span class="kw">cbind</span>(df_long, <span class="dt">var2 =</span> <span class="kw">rep</span>(<span class="kw">rownames</span>(cm), <span class="kw">length</span>(<span class="kw">rownames</span>(cm))))</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">cm &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(mtcars)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">df_wide &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.data.frame">as.data.frame</a></span>(cm)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">df_long &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/stack">stack</a></span>(df_wide)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(df_long) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cor"</span>, <span class="st">"var1"</span>)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">df_long &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(df_long, <span class="dt">var2 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(cm), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(cm))))</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">ggplot</span>(df_long, <span class="kw">aes</span>(var1, var2, <span class="dt">fill=</span>cor)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_tile</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span></a>
@@ -155,10 +154,10 @@
 <p>The color palettes are calculated on the fly depending on the number of different colors needed. But sometimes, it may be desireable to pick specific colors out of a larger set, e.g. when we’re making two plots where one contains a subset of the data of the other, or when the default order of colors is not ideal. Therefore, all discrete scales provide parameters <code>nmax</code> to set the total number of colors requested and <code>order</code> (a vector of integers) to reorder the color palette.</p>
 <p>Applied to the previous plot, we could for example do the following:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">fill =</span> Species)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/scale_colour_discrete_qualitative.html">scale_fill_discrete_qualitative</a></span>(<span class="dt">palette =</span> <span class="st">"Harmonic"</span>, <span class="dt">nmax =</span> <span class="dv">5</span>, <span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/scale_colour_discrete_qualitative.html">scale_fill_discrete_qualitative</a></span>(<span class="dt">palette =</span> <span class="st">"Harmonic"</span>, <span class="dt">nmax =</span> <span class="dv">5</span>, <span class="dt">order =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>))</a></code></pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/density-qualitative3-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>The <code>nmax</code> option is also convenient to remove some colors from a scale that may not be appropriate for the plot. For example, the <code>scale_color_brewer()</code> scale that comes with ggplot tends to produce points that are too light:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">dsamp &lt;-<span class="st"> </span>diamonds[<span class="kw">sample</span>(<span class="kw">nrow</span>(diamonds), <span class="dv">1000</span>), ]</a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">dsamp &lt;-<span class="st"> </span>diamonds[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(diamonds), <span class="dv">1000</span>), ]</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">gg &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dsamp, <span class="kw">aes</span>(carat, price, <span class="dt">color =</span> cut)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">gg <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">"Blues"</span>)</a></code></pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/point-brewer-1.png" width="624" style="display: block; margin: auto;"></p>
@@ -174,11 +173,11 @@
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/scale_colour_continuous_sequential.html">scale_color_continuous_sequential</a></span>(<span class="dt">palette =</span> <span class="st">"Terrain"</span>, <span class="dt">h2 =</span> <span class="dv">80</span>)</a></code></pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/jitter-sequential3-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>The next example uses a diverging scale. Let’s first consider the plot with the unmodified “Blue-Yellow” palette:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">cm &lt;-<span class="st"> </span><span class="kw">cor</span>(mtcars)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">df_wide &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(cm)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">df_long &lt;-<span class="st"> </span><span class="kw">stack</span>(df_wide)</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw">names</span>(df_long) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"cor"</span>, <span class="st">"var1"</span>)</a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">df_long &lt;-<span class="st"> </span><span class="kw">cbind</span>(df_long, <span class="dt">var2 =</span> <span class="kw">rep</span>(<span class="kw">rownames</span>(cm), <span class="kw">length</span>(<span class="kw">rownames</span>(cm))))</a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">cm &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(mtcars)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">df_wide &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.data.frame">as.data.frame</a></span>(cm)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">df_long &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/stack">stack</a></span>(df_wide)</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(df_long) &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cor"</span>, <span class="st">"var1"</span>)</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">df_long &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(df_long, <span class="dt">var2 =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(cm), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">rownames</a></span>(cm))))</a>
 <a class="sourceLine" id="cb11-6" data-line-number="6">gg &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df_long, <span class="kw">aes</span>(var1, var2, <span class="dt">fill=</span>cor)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_tile</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb11-8" data-line-number="8"><span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span></a>
@@ -218,7 +217,7 @@
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
 <div id="ref-color:colorspace">
-<p>Ihaka, Ross, Paul Murrell, Kurt Hornik, Jason C. Fisher, Reto Stauffer, Claus O. Wilke, Claire D. McWhite, and Achim Zeileis. 2018. <em><strong>Colorspace</strong>: A Toolbox for Manipulating and Assessing Colors and Palettes</em>. <a href="https://CRAN.R-project.org/package=colorspace" class="uri">https://CRAN.R-project.org/package=colorspace</a>.</p>
+<p>Ihaka, Ross, Paul Murrell, Kurt Hornik, Jason C. Fisher, Reto Stauffer, Claus O. Wilke, Claire D. McWhite, and Achim Zeileis. 2019. <em><strong>Colorspace</strong>: A Toolbox for Manipulating and Assessing Colors and Palettes</em>. <a href="https://CRAN.R-project.org/package=colorspace" class="uri">https://CRAN.R-project.org/package=colorspace</a>.</p>
 </div>
 <div id="ref-color:ggplot2">
 <p>Wickham, Hadley. 2016. <em><strong>Ggplot2</strong>: Elegant Graphics for Data Analysis</em>. 2nd ed. Springer-Verlag. <a href="http://ggplot2.org/" class="uri">http://ggplot2.org/</a>.</p>
@@ -249,9 +248,8 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
-
       </footer>
 </div>
 

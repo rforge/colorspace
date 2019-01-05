@@ -8,20 +8,18 @@
 
 <title>HCL (and HSV) Color Palettes Corresponding to Base R Palettes — rainbow_hcl • colorspace</title>
 
-<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
-
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -41,7 +39,8 @@ base R palettes." />
 
 
 <!-- mathjax -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -65,7 +64,7 @@ base R palettes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -147,13 +146,13 @@ base R palettes.</p>
     <pre class="usage"><span class='fu'>rainbow_hcl</span>(<span class='no'>n</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>360</span> * (<span class='no'>n</span> - <span class='fl'>1</span>)/<span class='no'>n</span>,
   <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
 
-<span class='fu'>heat_hcl</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>90</span>), <span class='kw'>c.</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>100</span>, <span class='fl'>30</span>), <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>50</span>, <span class='fl'>90</span>),
-  <span class='kw'>power</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>/<span class='fl'>5</span>, <span class='fl'>1</span>), <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+<span class='fu'>heat_hcl</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>90</span>), <span class='kw'>c.</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>30</span>), <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>90</span>),
+  <span class='kw'>power</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>/<span class='fl'>5</span>, <span class='fl'>1</span>), <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
 
-<span class='fu'>terrain_hcl</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>130</span>, <span class='fl'>0</span>), <span class='kw'>c.</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>80</span>, <span class='fl'>0</span>), <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>60</span>, <span class='fl'>95</span>),
-  <span class='kw'>power</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>/<span class='fl'>10</span>, <span class='fl'>1</span>), <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+<span class='fu'>terrain_hcl</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>130</span>, <span class='fl'>0</span>), <span class='kw'>c.</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>80</span>, <span class='fl'>0</span>), <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>60</span>, <span class='fl'>95</span>),
+  <span class='kw'>power</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>/<span class='fl'>10</span>, <span class='fl'>1</span>), <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
 
-<span class='fu'>diverging_hsv</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>240</span>, <span class='fl'>0</span>), <span class='kw'>s</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>power</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+<span class='fu'>diverging_hsv</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>240</span>, <span class='fl'>0</span>), <span class='kw'>s</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>power</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -229,9 +228,9 @@ alternatives to standard base R palettes (which are highly saturated
 and too flashy).</p>
 <p><code>rainbow_hcl</code> computes a rainbow of colors via <code><a href='hcl_palettes.html'>qualitative_hcl</a></code>
 defined by different hues given a single value of each chroma and luminance.
-It corresponds to <code>rainbow</code> which computes a rainbow in HSV
+It corresponds to <code><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>rainbow</a></code> which computes a rainbow in HSV
 space.</p>
-<p><code>heat_hcl</code> is an implementation of <code><a href='http://www.rdocumentation.org/packages/grDevices/topics/palettes'>heat.colors</a></code> in
+<p><code>heat_hcl</code> is an implementation of <code><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>heat.colors</a></code> in
 HCL space based on a call to <code><a href='hcl_palettes.html'>sequential_hcl</a></code>. Similarly,
 <code>terrain_hcl</code> palette also calls <code>sequential_hcl</code> with different
 parameters, providing colors similar in spirit to <code>terrain.colors</code>
@@ -240,7 +239,7 @@ in HCL space.</p>
 provides an HSV-based version of <code><a href='hcl_palettes.html'>diverging_hcl</a></code>. Its purpose
 is mainly didactic to show that HSV-based diverging palettes are less
 appealing, more difficult to read and more flashy than HCL-based diverging
-palettes. <code>diverging_hsv</code> is similar to <code><a href='http://www.rdocumentation.org/packages/grDevices/topics/palettes'>cm.colors</a></code>.</p>
+palettes. <code>diverging_hsv</code> is similar to <code><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>cm.colors</a></code>.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -265,44 +264,44 @@ doi: <a href='http://doi.org/10.1175/BAMS-D-13-00155.1'>10.1175/BAMS-D-13-00155.
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## convenience demo function</span>
 <span class='no'>wheel</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>col</span>, <span class='no'>radius</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
-  <span class='fu'>pie</span>(<span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fu'>length</span>(<span class='no'>col</span>)), <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>col</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='no'>radius</span>, <span class='no'>...</span>)
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/pie'>pie</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>col</span>)), <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>col</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='no'>radius</span>, <span class='no'>...</span>)
 
 <span class='co'>## compare base and colorspace palettes</span>
 <span class='co'>## (in color and desaturated)</span>
-<span class='fu'>par</span>(<span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>0</span>, <span class='fl'>4</span>), <span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2</span>, <span class='fl'>2</span>))
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>0</span>, <span class='fl'>4</span>), <span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>))
 <span class='co'>## rainbow color wheel</span>
 <span class='fu'>wheel</span>(<span class='fu'>rainbow_hcl</span>(<span class='fl'>12</span>))
-<span class='fu'>wheel</span>(<span class='fu'>rainbow</span>(<span class='fl'>12</span>))
+<span class='fu'>wheel</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>rainbow</a></span>(<span class='fl'>12</span>))
 <span class='fu'>wheel</span>(<span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'>rainbow_hcl</span>(<span class='fl'>12</span>)))
-<span class='fu'>wheel</span>(<span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'>rainbow</span>(<span class='fl'>12</span>)))</div><div class='img'><img src='rainbow_hcl-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>wheel</span>(<span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>rainbow</a></span>(<span class='fl'>12</span>)))</div><div class='img'><img src='rainbow_hcl-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## diverging red-blue colors</span>
 <span class='fu'><a href='swatchplot.html'>swatchplot</a></span>(
   <span class='fu'>diverging_hsv</span>(<span class='fl'>7</span>),
   <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'>diverging_hsv</span>(<span class='fl'>7</span>)),
-  <span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>7</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>50</span>, <span class='fl'>90</span>)),
-  <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>7</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>50</span>, <span class='fl'>90</span>))),
+  <span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>7</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>90</span>)),
+  <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>7</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>90</span>))),
   <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>
 )</div><div class='img'><img src='rainbow_hcl-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## diverging cyan-magenta colors</span>
 <span class='fu'><a href='swatchplot.html'>swatchplot</a></span>(
-  <span class='fu'>cm.colors</span>(<span class='fl'>7</span>),
-  <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'>cm.colors</span>(<span class='fl'>7</span>)),
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>cm.colors</a></span>(<span class='fl'>7</span>),
+  <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>cm.colors</a></span>(<span class='fl'>7</span>)),
   <span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>7</span>, <span class='st'>"Cyan-Magenta"</span>), <span class='co'>## or, similarly: Tropic</span>
   <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>7</span>, <span class='st'>"Cyan-Magenta"</span>)),
   <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>
 )</div><div class='img'><img src='rainbow_hcl-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## heat colors</span>
 <span class='fu'><a href='swatchplot.html'>swatchplot</a></span>(
-  <span class='fu'>heat.colors</span>(<span class='fl'>12</span>),
-  <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'>heat.colors</span>(<span class='fl'>12</span>)),
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>heat.colors</a></span>(<span class='fl'>12</span>),
+  <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>heat.colors</a></span>(<span class='fl'>12</span>)),
   <span class='fu'>heat_hcl</span>(<span class='fl'>12</span>),
   <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'>heat_hcl</span>(<span class='fl'>12</span>)),
   <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>
 )</div><div class='img'><img src='rainbow_hcl-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## terrain colors</span>
 <span class='fu'><a href='swatchplot.html'>swatchplot</a></span>(
-  <span class='fu'>terrain.colors</span>(<span class='fl'>12</span>),
-  <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'>terrain.colors</span>(<span class='fl'>12</span>)),
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>terrain.colors</a></span>(<span class='fl'>12</span>),
+  <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>terrain.colors</a></span>(<span class='fl'>12</span>)),
   <span class='fu'>terrain_hcl</span>(<span class='fl'>12</span>),
   <span class='fu'><a href='desaturate.html'>desaturate</a></span>(<span class='fu'>terrain_hcl</span>(<span class='fl'>12</span>)),
   <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>
@@ -333,9 +332,8 @@ doi: <a href='http://doi.org/10.1175/BAMS-D-13-00155.1'>10.1175/BAMS-D-13-00155.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
-
       </footer>
    </div>
 
