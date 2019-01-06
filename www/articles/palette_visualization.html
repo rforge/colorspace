@@ -107,14 +107,14 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>The <em>colorspace</em> provides several visualization functions for depicting one or more color palettes and their underlying properties. Color palettes can be visualized by:</p>
+<p>The <em>colorspace</em> package provides several visualization functions for depicting one or more color palettes and their underlying properties. Color palettes can be visualized by:</p>
 <ul>
 <li>
 <code><a href="../reference/swatchplot.html">swatchplot()</a></code>: Color swatches.</li>
 <li>
-<code><a href="../reference/specplot.html">specplot()</a></code>: Spectrum of HCL and/or RGB coordinates.</li>
+<code><a href="../reference/specplot.html">specplot()</a></code>: Spectrum of HCL and/or RGB trajectories.</li>
 <li>
-<code><a href="../reference/hclplot.html">hclplot()</a></code>: Trajectories in HCL space projections.</li>
+<code><a href="../reference/hclplot.html">hclplot()</a></code>: Trajectories in 2-dimensional HCL space projections.</li>
 <li>
 <code><a href="../reference/demoplot.html">demoplot()</a></code>: Illustrations of typical (and simplified) statistical graphics.</li>
 </ul>
@@ -122,7 +122,7 @@
 <div id="color-swatches" class="section level2">
 <h2 class="hasAnchor">
 <a href="#color-swatches" class="anchor"></a>Color swatches</h2>
-<p>The function <code><a href="../reference/swatchplot.html">swatchplot()</a></code> is a convenience function for displaying collections of palettes that can be specified as lists or matrices of hex color codes. Essentially, the is just a call to the base graphics <code><a href="https://www.rdocumentation.org/packages/graphics/topics/rect">rect()</a></code> function but with heuristics for choosing default labels, margins, spacings, borders, etc. These are selected to work well for <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> and might need further tweaking in future versions.</p>
+<p>The function <code><a href="../reference/swatchplot.html">swatchplot()</a></code> is a convenience function for displaying collections of palettes that can be specified as lists or matrices of hex color codes. Essentially, it is just a call to the base graphics <code><a href="https://www.rdocumentation.org/packages/graphics/topics/rect">rect()</a></code> function but with heuristics for choosing default labels, margins, spacings, borders, etc. These are selected to work well for <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> and might need further tweaking in future versions.</p>
 <p>As a first simple example, the properties of the three HCL axes are brought out:</p>
 <ul>
 <li>Hue: Only changing the type of color with hues H = 0, 60, …, 300 but keeping chroma C = 60 and luminance L = 65 fixed.</li>
@@ -154,16 +154,16 @@
 <div id="hcl-and-rgb-spectrum" class="section level2">
 <h2 class="hasAnchor">
 <a href="#hcl-and-rgb-spectrum" class="anchor"></a>HCL (and RGB) spectrum</h2>
-<p>As the properties of a palette in terms of the perceptual dimensions <em>hue</em>, <em>chroma</em>, and <em>luminance</em> are not always clear from looking just at color swatches or (statistical) graphics based on these palettes, the <code><a href="../reference/specplot.html">specplot()</a></code> function provides an explicit display for the HCL coordinates associated with a palette. This can bring out clearly various aspects, e.g., whether hue is constant, chroma is monotonic or triangular, and whether luminance is approximately constant (as in many qualitative palettes), monotonic (as in sequential palettes), or diverging.</p>
-<p>The function first transforms a given color palette to their HCL (<code><a href="../reference/polarLUV.html">polarLUV()</a></code>) coordinates. As the hues for low-chroma colors are not (or only poorly) identified, by default a smoothing is applied to the hues. Also, to avoid jumps from 0 to 360 or vice versa, the hue coordinates are shifted suitably.</p>
-<p>By default, the resulting HCL spectrum is visualized by a simple line plot:</p>
+<p>As the properties of a palette in terms of the perceptual dimensions <em>hue</em>, <em>chroma</em>, and <em>luminance</em> are not always clear from looking just at color swatches or (statistical) graphics based on these palettes, the <code><a href="../reference/specplot.html">specplot()</a></code> function provides an explicit display for the coordinates of the HCL trajectory associated with a palette. This can bring out clearly various aspects, e.g., whether hue is constant, chroma is monotonic or triangular, and whether luminance is approximately constant (as in many qualitative palettes), monotonic (as in sequential palettes), or diverging.</p>
+<p>The function first transforms a given color palette to its HCL (<code><a href="../reference/polarLUV.html">polarLUV()</a></code>) coordinates. As the hues for low-chroma colors are not (or only poorly) identified, by default a smoothing is applied to the hues. Also, to avoid jumps from 0 to 360 or vice versa, the hue coordinates are shifted suitably.</p>
+<p>By default, the resulting trajectories in the HCL spectrum are visualized by a simple line plot:</p>
 <ul>
 <li>Hue is drawn in red and coordinates are indicated on the axis on the right with range [-360, 360].</li>
 <li>Chroma is drawn in green with coordinates on the left axis. The range [0, 100] is used unless the palette necessitates higher chroma values.</li>
 <li>Luminance is drawn in blue with coordinates on the left axis in the range [0, 100].</li>
 </ul>
-<p>Additionally, a color swatch for the palette is included. Optionally, a second spectrum for the corresponding RGB palettes can be included. However, this is usually just of interest for palettes created in RGB space (or simple transformations thereof).</p>
-<p>The illustrations below show how basic qualitative, sequential, and diverging palettes are constructed in HCL space. In the qualitative “Set 2” palette below, the hue traverses the entire color “wheel” (from 0 to 360 degrees) while keeping chroma and luminance (almost) constant (C = 60 and L = 70).</p>
+<p>Additionally, a color swatch for the palette is included. Optionally, a second spectrum for the corresponding trajectories of RGB coordinates can be included. However, this is usually just of interest for palettes created in RGB space (or simple transformations of RGB).</p>
+<p>The illustrations below show how basic qualitative, sequential, and diverging palettes are constructed in HCL space (the corresponding mathematical equations are provided in the <a href="hcl_palettes.html#construction-details">construction details</a>). In the qualitative “Set 2” palette below, the hue traverses the entire color “wheel” (from 0 to 360 degrees) while keeping chroma and luminance (almost) constant (C = 60 and L = 70).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">100</span>, <span class="st">"Set 2"</span>))</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-qualitative-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>Note that due to the restrictions of the HCL color space, some of the green/blue colors have a slightly smaller maximum chroma resulting in a small dip in the chroma curve. This is fixed automatically (by default) and is hardly noticable in visualization, though.</p>
@@ -171,7 +171,7 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">100</span>, <span class="st">"Blues 2"</span>))</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-sequential-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>Note that there is a little kink in the hue curve on the right. However, this is a mere artifact from the hue being poorly identified at very low chroma values.</p>
-<p>Finally, the diverging “Blue-Red” palette is depicted below. It simply combines a blue and a red sequential single-hue palette (as “Blues 2” above). Hue is constant in each “arm” of the palette and the chroma/luminance trajectories are balanced between both arms. In the center the palette passes through a light gray (with zero chroma) as the neutral value.</p>
+<p>Finally, the diverging “Blue-Red” palette is depicted below. It simply combines a blue and a red sequential single-hue palette (similar to the “Blues 2” palette discussed above). Hue is constant in each “arm” of the palette and the chroma/luminance trajectories are balanced between both arms. In the center the palette passes through a light gray (with zero chroma) as the neutral value.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(<span class="kw"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>(<span class="dv">100</span>, <span class="st">"Blue-Red"</span>))</a></code></pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-diverging-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>To contrast these well-balanced HCL-based palettes with a poorly-balanced palette, the spectrum of the (in)famous RGB rainbow palette is depicted in both RGB and HCL space.</p>

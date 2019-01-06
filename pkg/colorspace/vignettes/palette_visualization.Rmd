@@ -20,13 +20,13 @@ library("colorspace")
 
 ## Overview
 
-The _colorspace_ provides several visualization functions for depicting
+The _colorspace_ package provides several visualization functions for depicting
 one or more color palettes and their underlying properties. Color palettes
 can be visualized by:
 
 * `swatchplot()`: Color swatches.
-* `specplot()`: Spectrum of HCL and/or RGB coordinates.
-* `hclplot()`: Trajectories in HCL space projections.
+* `specplot()`: Spectrum of HCL and/or RGB trajectories.
+* `hclplot()`: Trajectories in 2-dimensional HCL space projections.
 * `demoplot()`: Illustrations of typical (and simplified) statistical graphics.
 
 
@@ -34,7 +34,7 @@ can be visualized by:
 
 The function `swatchplot()` is a convenience function for displaying
 collections of palettes that can be specified as lists or matrices of
-hex color codes. Essentially, the is just a call to the base graphics
+hex color codes. Essentially, it is just a call to the base graphics
 `rect()` function but with heuristics for choosing default labels, margins,
 spacings, borders, etc. These are selected to work well for `hcl_palettes()`
 and might need further tweaking in future versions.
@@ -88,19 +88,18 @@ swatchplot(
 As the properties of a palette in terms of the perceptual dimensions _hue_,
 _chroma_, and _luminance_ are not always clear from looking just at color
 swatches or (statistical) graphics based on these palettes, the `specplot()`
-function provides an explicit display for the HCL coordinates associated
+function provides an explicit display for the coordinates of the HCL trajectory associated
 with a palette. This can bring out clearly various aspects, e.g.,
 whether hue is constant, chroma is monotonic or triangular, and whether
 luminance is approximately constant (as in many qualitative palettes),
 monotonic (as in sequential palettes), or diverging.
 
-The function first transforms a given color palette to their HCL (`polarLUV()`)
+The function first transforms a given color palette to its HCL (`polarLUV()`)
 coordinates. As the hues for low-chroma colors are not (or only poorly) identified,
 by default a smoothing is applied to the hues. Also, to avoid jumps from 0 to 360 or vice
 versa, the hue coordinates are shifted suitably.
 
-
-By default, the resulting HCL spectrum is visualized by a simple line plot:
+By default, the resulting trajectories in the HCL spectrum are visualized by a simple line plot:
 
 - Hue is drawn in red and coordinates are indicated on the axis on the right
   with range [-360, 360].
@@ -109,12 +108,14 @@ By default, the resulting HCL spectrum is visualized by a simple line plot:
 - Luminance is drawn in blue with coordinates on the left axis in the range [0, 100].
 
 Additionally, a color swatch for the palette is included. Optionally, a
-second spectrum for the corresponding RGB palettes can be included. However,
+second spectrum for the corresponding trajectories of RGB coordinates can be included. However,
 this is usually just of interest for palettes created in RGB space (or simple
-transformations thereof).
+transformations of RGB).
 
 The illustrations below show how basic qualitative, sequential, and diverging
-palettes are constructed in HCL space. In the qualitative "Set 2" palette below, the
+palettes are constructed in HCL space (the corresponding mathematical equations
+are provided in the [construction details](hcl_palettes.html#construction-details)).
+In the qualitative "Set 2" palette below, the
 hue traverses the entire color "wheel" (from 0 to 360 degrees) while keeping
 chroma and luminance (almost) constant (C = 60 and L = 70).
 
@@ -139,8 +140,8 @@ Note that there is a little kink in the hue curve on the right. However, this is
 artifact from the hue being poorly identified at very low chroma values.
 
 Finally, the diverging "Blue-Red" palette is depicted below. It simply combines a blue
-and a red sequential single-hue palette (as "Blues 2" above). Hue is constant in each "arm"
-of the palette and the chroma/luminance trajectories are balanced between both arms.
+and a red sequential single-hue palette (similar to the "Blues 2" palette discussed above).
+Hue is constant in each "arm" of the palette and the chroma/luminance trajectories are balanced between both arms.
 In the center the palette passes through a light gray (with zero chroma) as the neutral
 value.
 

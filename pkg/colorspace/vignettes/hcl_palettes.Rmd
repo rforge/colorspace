@@ -49,6 +49,10 @@ swatchplot(
   nrow = 3, line = 7)
 ```
 
+More details about the construction of such palettes is provided in the following
+while the article on [Palette Visualization and Assessment](palette_visualization.html)
+introduces further tools to better understand the properties of color palettes.
+
 To facilitate obtaining good sets of colors, HCL parameter combinations that yield
 useful palettes are accessible by name. These can be listed using the function
 `hcl_palettes()`:
@@ -373,6 +377,9 @@ The concrete parameters in the plot above are:
 * Linear: `c1 = 80`, `c2 = 10`, `p1 = 1` (solid) vs. `p1 = 1.6` (dashed).
 * Triangular: `c1 = 60`, `cmax = 80`, `c2 = 10`, `p1 = 1` (solid) vs. `p1 = 1.6` (dashed).
 
+Further discussion of these trajectories and how they can be visualized and assessed
+for a given color palette is provided in the article:
+[Palette Visualization and Assessment](palette_visualization.html).
 
 
 ## Flexible diverging palettes

@@ -118,6 +118,7 @@
 </ul>
 <p>The corresponding functions are <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, and <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>. Their construction principles are exemplified in the following color swatches and explained in more detail below. The desaturated palettes bring out clearly that luminance differences (= light-dark contrasts), or the lack thereof, are crucial for coding the different kinds of palettes.</p>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-principles-1.png" width="100%" style="display: block; margin: auto;"></p>
+<p>More details about the construction of such palettes is provided in the following while the article on <a href="palette_visualization.html">Palette Visualization and Assessment</a> introduces further tools to better understand the properties of color palettes.</p>
 <p>To facilitate obtaining good sets of colors, HCL parameter combinations that yield useful palettes are accessible by name. These can be listed using the function <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>()</a></code></pre></div>
 <pre><code>## HCL palettes
@@ -294,6 +295,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <li>Linear: <code>c1 = 80</code>, <code>c2 = 10</code>, <code>p1 = 1</code> (solid) vs. <code>p1 = 1.6</code> (dashed).</li>
 <li>Triangular: <code>c1 = 60</code>, <code>cmax = 80</code>, <code>c2 = 10</code>, <code>p1 = 1</code> (solid) vs. <code>p1 = 1.6</code> (dashed).</li>
 </ul>
+<p>Further discussion of these trajectories and how they can be visualized and assessed for a given color palette is provided in the article: <a href="palette_visualization.html">Palette Visualization and Assessment</a>.</p>
 </div>
 <div id="flexible-diverging-palettes" class="section level2">
 <h2 class="hasAnchor">
