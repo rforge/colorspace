@@ -143,12 +143,12 @@
 
     <pre class="usage"><span class='fu'>scale_colour_discrete_sequential</span>(<span class='kw'>palette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>c1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>c2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cmax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>l1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>l2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>h1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>h2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>p1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>p2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>h2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>p1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>p2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>nmax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>, <span class='no'>...</span>)
 
 <span class='fu'>scale_color_discrete_sequential</span>(<span class='kw'>palette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>c1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>c2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>cmax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>l1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>l2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>h1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>h2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>p1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>p2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nmax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>p1</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>p2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>nmax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>order</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>, <span class='no'>...</span>)
 
 <span class='fu'>scale_fill_discrete_sequential</span>(<span class='no'>...</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)</pre>
@@ -202,7 +202,7 @@
     </tr>
     <tr>
       <th>rev</th>
-      <td><p>If <code>TRUE</code>, reverses the order of the colors in the color scale.</p></td>
+      <td><p>If <code>TRUE</code> (default), reverses the order of the colors in the color scale (compared to <code><a href='hcl_palettes.html'>sequential_hcl</a></code>).</p></td>
     </tr>
     <tr>
       <th>nmax</th>
@@ -228,6 +228,11 @@ from the data.</p></td>
 
     <p>If both a valid palette name and palette parameters are provided then the provided palette parameters overwrite the parameters in the
 named palette. This enables easy customization of named palettes.</p>
+<p>Compared to <code><a href='hcl_palettes.html'>sequential_hcl</a></code> the ordering of the colors in the sequential ggplot2 scale
+are reversed by default (i.e., <code>rev = TRUE</code>) to be more consistent with ggplot2's own scales such as
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_color_brewer</a></code>. For most named palettes this leads to darker and more
+colorful colors for larger values on the scale. This is typically the better default on light/white
+backgrounds.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
