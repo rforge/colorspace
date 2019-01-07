@@ -135,7 +135,7 @@ ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jit
   scale_color_continuous_sequential(palette = "Terrain", h2 = 60)
 ```
 
-The next example uses a diverging scale. First consider the plot with the unmodified "Blue-Yellow" palette:
+The next example uses a diverging scale. First consider the plot with the unmodified "Blue-Yellow 2" palette:
 
 ```{r tile-diverging2, fig.width = 6.5, fig.asp = .7, fig.align = "center"}
 cm <- cor(mtcars)
@@ -147,7 +147,7 @@ gg <- ggplot(df, aes(var1, var2, fill = cor)) +
   ylab("variable") +
   scale_x_discrete(position = "top", name = "variable")
 
-gg + scale_fill_continuous_diverging(palette = "Blue-Yellow")
+gg + scale_fill_continuous_diverging(palette = "Blue-Yellow 2")
 ```
 
 And now the same plot with some palette customizations: The ordering is reversed so that blue is used for
@@ -156,7 +156,7 @@ is increased so that only correlations close to an absolute value of 1 have dark
 correlations have relatively light colors.
 
 ```{r tile-diverging3, fig.width = 6.5, fig.asp = .7, fig.align = "center"}
-gg + scale_fill_continuous_diverging(palette = "Blue-Yellow", rev = TRUE, p2 = 2)
+gg + scale_fill_continuous_diverging(palette = "Blue-Yellow 2", rev = TRUE, p2 = 2)
 ```
 
 See the reference manual for the exact set of customization parameters that are available for each scale.
