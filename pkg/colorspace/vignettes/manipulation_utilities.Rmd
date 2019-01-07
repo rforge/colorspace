@@ -20,7 +20,7 @@ library("colorspace")
 
 ## Overview
 
-The _colorspace_ provides several color manipulation utilities that are
+The _colorspace_ package provides several color manipulation utilities that are
 useful for creating, assessing, or transforming color palettes, namely:
 
 * `desaturate()`: Desaturate colors by chroma removal in HCL space.
@@ -32,7 +32,7 @@ useful for creating, assessing, or transforming color palettes, namely:
 ## Desaturation in HCL space
 
 Desaturation should map a given color to the gray with the same "brightness".
-In principle, any perceptually based color model (HCL, HLS, HSV, ...) could be
+In principle, any perceptually-based color model (HCL, HLS, HSV, ...) could be
 employed for this but HCL works particularly well because its coordinates
 capture the perceptual properties better than most other color models.
 
@@ -44,7 +44,7 @@ for use in R.
 
 For illustration, a few simple examples are presented below. More examples in the
 context of palettes for statistical graphics are discussed along with the
-[color vision deficiency](color_vision_deficiency.html) vignette.
+[color vision deficiency](color_vision_deficiency.html) article.
 
 First, `desaturate()` is used to desaturate a vector of R color names:
 

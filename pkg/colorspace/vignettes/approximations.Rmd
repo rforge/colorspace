@@ -34,8 +34,8 @@ to closely approximate color palettes from various other packages:
 - The scientific color maps of @color:Crameri:2018 as provided by R package _scico_ [@color:scico].
 
 See the discussion of [HCL-based palettes](hcl_palettes.html) for more details. In the
-following `specplot()` is used to compare the HCL spectrum of the original palettes (top swatch, solid lines)
-and their HCL-based approximations (bottom swatch, dashed lines).
+following `specplot()` is used to compare the [HCL spectrum](palette_visualization.html#hcl-and-rgb-spectrum)
+of the original palettes (top swatch, solid lines) and their HCL-based approximations (bottom swatch, dashed lines).
 
 
 ## Approximations of ColorBrewer.org palettes

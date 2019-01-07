@@ -107,7 +107,7 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>The <em>colorspace</em> provides several color manipulation utilities that are useful for creating, assessing, or transforming color palettes, namely:</p>
+<p>The <em>colorspace</em> package provides several color manipulation utilities that are useful for creating, assessing, or transforming color palettes, namely:</p>
 <ul>
 <li>
 <code><a href="../reference/desaturate.html">desaturate()</a></code>: Desaturate colors by chroma removal in HCL space.</li>
@@ -122,9 +122,9 @@
 <div id="desaturation-in-hcl-space" class="section level2">
 <h2 class="hasAnchor">
 <a href="#desaturation-in-hcl-space" class="anchor"></a>Desaturation in HCL space</h2>
-<p>Desaturation should map a given color to the gray with the same “brightness”. In principle, any perceptually based color model (HCL, HLS, HSV, …) could be employed for this but HCL works particularly well because its coordinates capture the perceptual properties better than most other color models.</p>
+<p>Desaturation should map a given color to the gray with the same “brightness”. In principle, any perceptually-based color model (HCL, HLS, HSV, …) could be employed for this but HCL works particularly well because its coordinates capture the perceptual properties better than most other color models.</p>
 <p>Thus, the <code><a href="../reference/desaturate.html">desaturate()</a></code> function converts any given hex color code or named R color to the corresponding HCL coordinates and sets the chroma to zero. Thus, only the luminance matters which captures the “brightness” mentioned above. Finally, the resulting HCL coordinates are transformed back to hex color codes for use in R.</p>
-<p>For illustration, a few simple examples are presented below. More examples in the context of palettes for statistical graphics are discussed along with the <a href="color_vision_deficiency.html">color vision deficiency</a> vignette.</p>
+<p>For illustration, a few simple examples are presented below. More examples in the context of palettes for statistical graphics are discussed along with the <a href="color_vision_deficiency.html">color vision deficiency</a> article.</p>
 <p>First, <code><a href="../reference/desaturate.html">desaturate()</a></code> is used to desaturate a vector of R color names:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/desaturate.html">desaturate</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"white"</span>, <span class="st">"orange"</span>, <span class="st">"blue"</span>, <span class="st">"black"</span>))</a></code></pre></div>
 <pre><code>## [1] "#FFFFFF" "#B8B8B8" "#4C4C4C" "#000000"</code></pre>
