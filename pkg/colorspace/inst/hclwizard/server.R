@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-10-08 18:56 on marvin
+# - L@ST MODIFIED: 2019-01-07 23:33 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -17,7 +17,10 @@ library("colorspace")
 
 bpy <- eval(parse(text = "colorspace:::bpy"))
 
-autohclplot <- as.logical(Sys.getenv("hclwizard_autohclplot"))
+# Create some global variables to avoid notes during R CMD build
+if(getRversion() >= "2.15.1") utils::globalVariables(c("verbose", "autohclplot"))
+
+
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -278,7 +281,9 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    showColorplane <- function(colors) {
       if ( missing(colors) ) colors <- getColors( input$N )
+
       # dimension to collapse. If autohclplot option has been set to TRUE: take NULL.
+      autohclplot <- as.logical(Sys.getenv("hclwizard_autohclplot"))
       if ( autohclplot ) {
           plot_type <- NULL
       } else if ( grepl("^qual", input$typ) ) {

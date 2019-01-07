@@ -6,10 +6,10 @@
 #' Allows a rapid check whether the colors used in the image show some
 #' constraints with respect to color deficiency or color blindness.
 #'
-#' @param x If not set, an interactive GUI will be started. If \code{x} is of type
+#' @param file If not set, an interactive GUI will be started. If \code{x} is of type
 #'    \code{character} it has to be the full path to an image of type png or jpg/jpeg.
 #'    The image will be converted and stored on disc, no GUI.
-#' @param overwrite \code{logical}. Only used if \code{x} is provided. Allow the
+#' @param overwrite \code{logical}. Only used if \code{file} is provided. Allow the
 #'    function to overwrite files on disc if they exist.
 #' @param shiny.trace \code{logical}. Can be set to \code{TRUE} for more verbose
 #'    output when the GUI is started (development flag). 

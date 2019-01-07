@@ -41,8 +41,6 @@
 #' "tcltk"}.
 #' @param gui character; GUI to use. Available options are \code{tcltk} and
 #' \code{shiny}, see \sQuote{Details} below.
-#' @param shiny.trace boolean, default \code{FALSE}. Used for debugging if
-#' \code{gui = "shiny"}.
 #' @param ... Forwarded, used for development and demonstration purposes only.
 #' Currently considered: \code{verbose} (logical, default \code{FALSE}) and
 #' \code{autohclplot} (logical, default \code{FALSE}), and \code{shiny.trace}
@@ -96,14 +94,30 @@ hclwizard <- function(n = 7L, gui = "shiny", ...) {
    do.call(sprintf("choose_palette_%s", gui), args)
 }
 
+
 #' @rdname choose_palette
 #' @usage NULL
 #' @export
 hcl_wizard <- function(n = 7L, gui = "shiny", ...)
    hclwizard(n = n, gui = gui, ...)
 
+
+# Setting global variables to avoid notes during R CMD check
+utils::globalVariables(c("autohclplot", "verbose", "frame2.cvs.paloffset",
+                         "frame2.cvs.palwidth", "type",
+                         "frame3.scl.1.2", "frame3.scl.2.2", "frame3.scl.3.2", "frame3.scl.4.2",
+                         "frame3.scl.5.2", "frame3.scl.6.2", "frame3.scl.7.2", "frame3.scl.8.2",
+                         "frame3.scl.9.2", "frame3.ent.1.3", "frame3.ent.2.3", "frame3.ent.3.3",
+                         "frame3.ent.4.3", "frame3.ent.5.3", "frame3.ent.6.3", "frame3.ent.7.3",
+                         "frame3.ent.8.3", "frame3.ent.9.3", "h1.ent.var", "h1.scl.var", "h2.ent.var",
+                         "h2.scl.var", "c1.ent.var", "c1.scl.var", "cmax.ent.var", "cmax.scl.var",
+                         "c2.ent.var", "c2.scl.var", "l1.ent.var", "l1.scl.var", "l2.ent.var",
+                         "l2.scl.var", "p1.ent.var", "p1.scl.var", "p2.ent.var", "p2.scl.var"))
+
+
 # hclwizard shiny GUI for selecting color palette
 choose_palette_shiny <- function(pal, n = 7L, ...) {
+
    # Requirements for shiny application
    stopifnot(requireNamespace("shiny"), requireNamespace("shinyjs"))
    appDir <- system.file("hclwizard", package = "colorspace")
@@ -1081,6 +1095,13 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   invisible(pal.rtn)
 }
+
+
+# Setting global variables to avoid notes during R CMD check
+utils::globalVariables(c("type" , "h1" , "h2" , "c1" , "l1" , "reverse" , "cmax" ,
+                         "c2" , "l2" , "p1", "p2"))
+
+
 
 # Get color palette as function of n
 GetPalette <- function(...) { #type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, reverse, cmax) {
