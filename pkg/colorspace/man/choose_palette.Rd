@@ -27,9 +27,6 @@ used if \code{gui = "tcltk"}.}
 Currently considered: \code{verbose} (logical, default \code{FALSE}) and
 \code{autohclplot} (logical, default \code{FALSE}), and \code{shiny.trace}
 (logical, default \code{FALSE}).}
-
-\item{shiny.trace}{boolean, default \code{FALSE}. Used for debugging if
-\code{gui = "shiny"}.}
 }
 \value{
 Returns a palette-generating function with the selected arguments.

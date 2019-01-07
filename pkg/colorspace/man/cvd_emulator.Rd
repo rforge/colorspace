@@ -7,15 +7,15 @@
 cvd_emulator(file, overwrite = FALSE, shiny.trace = FALSE)
 }
 \arguments{
-\item{overwrite}{\code{logical}. Only used if \code{x} is provided. Allow the
+\item{file}{If not set, an interactive GUI will be started. If \code{x} is of type
+\code{character} it has to be the full path to an image of type png or jpg/jpeg.
+The image will be converted and stored on disc, no GUI.}
+
+\item{overwrite}{\code{logical}. Only used if \code{file} is provided. Allow the
 function to overwrite files on disc if they exist.}
 
 \item{shiny.trace}{\code{logical}. Can be set to \code{TRUE} for more verbose
 output when the GUI is started (development flag).}
-
-\item{x}{If not set, an interactive GUI will be started. If \code{x} is of type
-\code{character} it has to be the full path to an image of type png or jpg/jpeg.
-The image will be converted and stored on disc, no GUI.}
 }
 \description{
 A graphical user interface (GUI) to check an existing jpg/png image for (possible)
