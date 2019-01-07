@@ -72,6 +72,7 @@
 #' print(res)
 #' @export specplot
 #' @importFrom graphics axis image layout legend lines mtext text par plot
+#' @importFrom stats median sd
 specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
   type = "l", lwd = 2 * cex, lty = 1, pch = NULL, mar = NULL, oma = NULL,
   main = NULL, legend = TRUE, palette = TRUE, plot = TRUE, ...)
@@ -97,39 +98,53 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
   }
 
   # Fixing hue paths
-  # (1) as(RGB, "polarLUV") returns hue's in the
-  # range of 0-360. A palette from -100 to +100 results in
-  # c(260-360,0,100) - the iterative approach corrects this.
-
   if(fix & nrow(HCL) > 1L) {
+    # (1) as(RGB, "polarLUV") returns hue's in the
+    # range of 0-360. A palette from -100 to +100 results in
+    # c(260-360,0,100) - the iterative approach corrects this.
+
+    ## strategy:
+    ## change H by +360 or -360 if the hue trajectory has a very large jump,
+    ## (i.e., difference > +/- 300) or if the trajectory is essentially linear
+    ## but has a jump by +360 or -360 in additional to the "usual" difference
+    ## (i.e., median difference +/- 360)
+    md <- median(HCL[2L:nrow(HCL), "H"] - HCL[1L:(nrow(HCL) - 1L), "H"], na.rm = TRUE)
     for(i in 2L:nrow(HCL)) {
       if ( any(is.na(HCL[(i-1L):i,])) ) next
       d <- HCL[i, "H"] - HCL[i - 1L, "H"]
-      if (abs(d) > 320) HCL[i, "H"] <- HCL[i, "H"] - sign(d) * 360
+      if (abs(d) > 300 || (abs(d + 360 - md) < 4 || abs(d - 360 - md) < 4) ) HCL[i, "H"] <- HCL[i, "H"] - sign(d) * 360
       if (abs(HCL[i, "H"]) >  360) HCL[1L:i, "H"] <- HCL[1L:i, "H"] - sign(HCL[i, "H"]) * 360
     }
 
-    # (2) Smoothing hue values in batches where chroma is very low
+    # (2) Smoothing hue values in batches where chroma is very low (ad hoc: < 8)
     idx <- which(HCL[, "C"] < 8)
     if (length(idx) == nrow(HCL)) {
-      HCL[,"H"] <- mean(HCL[,"H"])
+      HCL[, "H"] <- mean(HCL[, "H"], na.rm = TRUE)
     } else if (length(idx) > 0L) {
-      # Pre-fixing hues where luminance is < 2 | > 98
+      # (a) pre-fixing hues where luminance is < 2 | > 98
       ix <- split(1:nrow(HCL), HCL[,"L"] < 2 | HCL[,"L"] > 98)
       if ( length(ix) == 2L ) {
         fun_fix_H <- function(HCL, ix, i) HCL[which.min(abs(ix["FALSE"][[1L]] - i)), "H"]
         HCL[ix["TRUE"][[1L]]] <- sapply(ix["TRUE"][[1L]], fun_fix_H, HCL = HCL, ix = ix)
-      }; rm(ix)
-      ## pre-smooth hue
+      }
+      ## (b) pre-smooth hue by rolling mean of length 3
       n <- nrow(HCL)
       if(n >= 49L) {
-        HCL[, "H"] <- 1/3 * (
-          HCL[c(rep.int(1L, 2L), 1L:(n - 2L)), "H"] +
-          HCL[c(rep.int(1L, 1L), 1L:(n - 1L)), "H"] +
-          HCL[                   1L:n,         "H"])
+        HCL[, "H"] <- rowMeans(cbind(
+          HCL[c(rep.int(1L, 2L), 1L:(n - 2L)), "H"],
+          HCL[c(rep.int(1L, 1L), 1L:(n - 1L)), "H"],
+          HCL[                   1L:n,         "H"]), na.rm = TRUE)
+        HCL[x.na, "H"] <- NA
       }
+      ## (c) interpolate linearly or by natural spline
+      
+      ## index list of consecutive segments with low-chroma colors
       idxs <- split(idx, cumsum(c(1, diff(idx)) > 1))
 
+      ## find start "s" and end "e" for each consecutive segment
+      ## (= problematic low-chroma indexes plus adjacent ok-chroma indexes)
+      ## distinguish: one vs. more problematic segments
+      ## and: problems only at beginning or end vs. in the middle (diverging)
       s <- 1L
       while(length(idxs) > 0L) {
         e <- if(any(s %in% idxs[[1L]])) {
@@ -137,10 +152,21 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
         } else {
           if(n %in% idxs[[1L]]) n else round(mean(range(idxs[[1L]])))
         }
-        io <- split(min(s):max(e), min(s):max(e) %in% idx)
-        if (length(io) == 2L & sum(!is.na(HCL[io[["FALSE"]],"H"])) > 0) {
-          HCL[io[["TRUE"]], "H"] <- stats::spline(io[["FALSE"]], HCL[io[["FALSE"]], "H"],
-            xout = io[["TRUE"]], method = "natural")$y
+	## "in" vs. "out" of low-chroma in current segment
+        io <- split(min(s):max(e), (min(s):max(e) %in% idx) |  (min(s):max(e) %in% x.na))
+	
+	## given enough ok-chroma observations fit a curve
+	## - either linear if residual standard error is small enough
+	## - or natural spline
+        if (length(io) == 2L & sum(!is.na(HCL[io[["FALSE"]], "H"])) > 0) {
+	  linfit <- stats::lm.fit(cbind(1, io[["FALSE"]]), HCL[io[["FALSE"]], "H"])
+	  HCL[io[["TRUE"]], "H"] <- if(sd(linfit$residuals) < 1.3) {
+            drop(cbind(1, io[["TRUE"]]) %*% linfit$coefficients)	  
+	  } else {
+            stats::spline(io[["FALSE"]], HCL[io[["FALSE"]], "H"],
+              xout = io[["TRUE"]], method = "natural")$y
+	  }
+	  HCL[x.na, "H"] <- NA
         }
         idxs[[1L]] <- NULL
         s <- e + 1L
@@ -239,8 +265,8 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
 
     # HCL spectrum
     if(show_hcl) {
-      plot(0, type = "n", ylim = c(0, pmax(max(HCL[, "C"]) * 1.005, 100)), xlim = c(1, length(x)))
-      if ( min(HCL[,"H"], na.rm = TRUE) >= 0 ) {
+      plot(0, type = "n", ylim = c(0, pmax(max(HCL[, "C"], na.rm = TRUE) * 1.005, 100)), xlim = c(1, length(x)))
+      if ( min(HCL[,"H"], na.rm = TRUE) >= -1 ) {
          labels <- seq(   0, 360, length.out = 5)
          axis(side = 4, at = labels/3.6, labels = labels)
          lines((HCL[, "H"])/3.6, lwd = lwd[1L], lty = lty[1L], col = hcl[1L], type = type[1L], pch = pch[1L])

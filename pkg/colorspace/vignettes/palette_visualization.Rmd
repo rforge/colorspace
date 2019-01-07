@@ -139,9 +139,6 @@ along with increasing luminance.
 specplot(sequential_hcl(100, "Blues 2"))
 ```
 
-Note that there is a little kink in the hue curve on the right. However, this is a mere
-artifact from the hue being poorly identified at very low chroma values.
-
 Finally, the diverging "Blue-Red" palette is depicted below. It simply combines a blue
 and a red sequential single-hue palette (similar to the "Blues 2" palette discussed above).
 Hue is constant in each "arm" of the palette and the chroma/luminance trajectories are balanced between both arms.
