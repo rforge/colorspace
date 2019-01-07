@@ -74,7 +74,7 @@ constructors in _colorspace_ are:
   linearized RGB above, is a good model for specifying colors in software and for
   hardware. But it is still unintuitive for humans to work directly with this.
   Therefore, sRGB is a good place to end up in a color space manipulation but
-  it is not a good place to start. [See @color:Wiki+sRGB:2018.]
+  it is not a good place to start. [See @color:Wiki+sRGB.]
 * `HSV()` is a simple transformation of the (s)RGB space that tries to capture the
   perceptual axes: _hue_ (dominant wavelength, the type of color), _saturation_
   (colorfulness), and _value_ (brightness, i.e., light vs. dark). Unfortunately,
