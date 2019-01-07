@@ -21,7 +21,7 @@ scale_color_continuous_diverging(palette = NULL, c1 = NULL,
 scale_fill_continuous_diverging(..., aesthetics = "fill")
 }
 \arguments{
-\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "div")} for available options.}
+\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "diverging")} for available options.}
 
 \item{c1}{Chroma value at the scale endpoints.}
 

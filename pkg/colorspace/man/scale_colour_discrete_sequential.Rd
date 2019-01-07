@@ -19,7 +19,7 @@ scale_color_discrete_sequential(palette = NULL, c1 = NULL, c2 = NULL,
 scale_fill_discrete_sequential(..., aesthetics = "fill")
 }
 \arguments{
-\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "seq")} for available options.}
+\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "sequential")} for available options.}
 
 \item{c1}{Beginning chroma value.}
 

@@ -21,7 +21,7 @@ scale_color_continuous_sequential(palette = NULL, c1 = NULL,
 scale_fill_continuous_sequential(..., aesthetics = "fill")
 }
 \arguments{
-\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "seq")} for available options.}
+\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "sequential")} for available options.}
 
 \item{c1}{Beginning chroma value.}
 

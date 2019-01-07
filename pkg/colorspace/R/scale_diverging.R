@@ -16,7 +16,7 @@
 #' @param p2 Control parameter determining how luminance should vary (1 = linear, 2 = quadratic, etc.).
 #' @param alpha Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).
 #' @param rev If \code{TRUE}, reverses the order of the colors in the color scale.
-#' @param palette The name of the palette to be used. Run \code{hcl_palettes(type = "div")} for available options.
+#' @param palette The name of the palette to be used. Run \code{hcl_palettes(type = "diverging")} for available options.
 #' @param nmax Maximum number of different colors the palette should contain. If not provided, is calculated automatically
 #'  from the data.
 #' @param order Numeric vector listing the order in which the colors should be used. Default is \code{1:nmax}.

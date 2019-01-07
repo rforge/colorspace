@@ -19,7 +19,7 @@ scale_color_continuous_qualitative(palette = NULL, c1 = NULL,
 scale_fill_continuous_qualitative(..., aesthetics = "fill")
 }
 \arguments{
-\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "qual")} for available options.}
+\item{palette}{The name of the palette to be used. Run \code{hcl_palettes(type = "qualitative")} for available options.}
 
 \item{c1}{Chroma value, used for all colors in the scale.}
 
