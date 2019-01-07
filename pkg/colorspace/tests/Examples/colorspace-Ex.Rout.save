@@ -1,5 +1,5 @@
 
-R version 3.5.1 (2018-07-02) -- "Feather Spray"
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -426,7 +426,7 @@ B 127.1266 219.9352 75.94962
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: hcl_color_picker
-> ### Title: Shiny App to Pick Colors in HCL Space
+> ### Title: Graphical User Interface to Pick Colors in HCL Space
 > ### Aliases: hcl_color_picker choose_color hclcolorpicker
 > ### Keywords: misc
 > 
@@ -477,7 +477,8 @@ Names: Purple-Blue, Red-Purple, Red-Blue, Purple-Orange, Blue-Yellow,
 Type:  Diverging 
 Names: Blue-Red, Blue-Red 2, Blue-Red 3, Red-Green, Purple-Green,
        Purple-Brown, Green-Brown, Blue-Yellow 2, Blue-Yellow 3,
-       Green-Orange, Cyan-Magenta, Tropic, Cork, Berlin, Lisbon, Tofino
+       Green-Orange, Cyan-Magenta, Tropic, Broc, Cork, Vik, Berlin,
+       Lisbon, Tofino
 > 
 > ## visualize
 > hcl_palettes("qualitative", plot = TRUE)
@@ -967,7 +968,7 @@ detaching ‘package:ggplot2’
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: scale_colour_continuous_divergingx
-> ### Title: Continuous Flexible Diverging Scales for ggplot2
+> ### Title: HCL-Based Continuous Flexible Diverging Scales for ggplot2
 > ### Aliases: scale_colour_continuous_divergingx
 > ###   scale_color_continuous_divergingx scale_fill_continuous_divergingx
 > 
@@ -1141,7 +1142,7 @@ detaching ‘package:ggplot2’
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: scale_colour_discrete_divergingx
-> ### Title: Discrete Flexible Diverging Scales for ggplot2
+> ### Title: HCL-Based Discrete Flexible Diverging Scales for ggplot2
 > ### Aliases: scale_colour_discrete_divergingx
 > ###   scale_color_discrete_divergingx scale_fill_discrete_divergingx
 > 
@@ -1285,9 +1286,9 @@ B    0   11  247
 > specplot(rainbow(100), rgb = TRUE)
 > 
 > ## spectrum of HCL-based palettes: qualitative/sequential/diverging
-> specplot(qualitative_hcl(100))
-> specplot(sequential_hcl(100))
-> specplot(diverging_hcl(100))
+> specplot(qualitative_hcl(100, "Set 2"))
+> specplot(sequential_hcl(100, "Blues 2"))
+> specplot(diverging_hcl(100, "Blue-Red"))
 > 
 > ## return computed RGB and HCL coordinates
 > res <- specplot(rainbow(10), plot = FALSE)
@@ -1420,7 +1421,7 @@ $hex
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.521 0.069 7.608 0 0 
+Time elapsed:  11.908 0.136 12.055 0 0 
 > grDevices::dev.off()
 null device 
           1 

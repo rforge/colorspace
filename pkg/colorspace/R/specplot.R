@@ -38,6 +38,7 @@
 #' @param legend logical. Should legends for the coordinates be plotted?
 #' @param palette logical. Should the given palette \code{x} be plotted?
 #' @param plot logical. Should the RGB and/or HCL coordinates be plotted?
+#' @param \dots currently not used.
 #' @return \code{specplot} invisibly returns a list with components
 #' \item{HCL}{a matrix of HCL coordinates,}
 #' \item{RGB}{a matrix of sRGB coordinates,}

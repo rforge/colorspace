@@ -41,6 +41,8 @@ should be set.}
 \item{palette}{logical. Should the given palette \code{x} be plotted?}
 
 \item{plot}{logical. Should the RGB and/or HCL coordinates be plotted?}
+
+\item{\dots}{currently not used.}
 }
 \value{
 \code{specplot} invisibly returns a list with components

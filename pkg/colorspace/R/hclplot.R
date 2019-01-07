@@ -82,7 +82,7 @@
 #' hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
 #' @export hclplot
 #' @importFrom graphics box lines mtext par plot points rect text
-#' @importFrom stats cor lm predict
+#' @importFrom stats cor lm median predict
 hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
     xlab = NULL, ylab = NULL, main = NULL, cex = 1.0, axes = TRUE,
     bg = "white", lwd = 1, size = 2.5, ...)
