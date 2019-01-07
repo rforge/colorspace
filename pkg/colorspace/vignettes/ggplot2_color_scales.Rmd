@@ -24,49 +24,62 @@ set.seed(403)
 ## Overview
 
 All [HCL-based color palettes](hcl_palettes.html) in the _colorspace_ package [@color:colorspace]
-are also provided as discrete and/or continuous color scales for the use with the _ggplot2_ package [@color:ggplot2].
+are also provided as discrete and/or continuous color scales for the use with the _ggplot2_ package
+[@color:ggplot2; @color:ggplot2pkg].
 
 The scales are called via the scheme
-`scale_<aesthetic>_<datatype>_<colorscale>()`, where `<aesthetic>` is the name
-of the aesthetic (`fill`, `color`, `colour`), `<datatype>` is the type of the
-variable plotted (`discrete` or `continuous`) and `<colorscale>` sets the type
-of the color scale used (`qualitative`, `sequential`, `diverging`,
-`divergingx`). We now provide a few examples of these scales.
+
+    scale_<aesthetic>_<datatype>_<colorscale>()
+    
+where
+
+- `<aesthetic>` is the name of the aesthetic (`fill`, `color`, `colour`).
+- `<datatype>` is the type of the variable plotted (`discrete` or `continuous`).
+- `<colorscale>` sets the type of the color scale used (`qualitative`, `sequential`, `diverging`, `divergingx`).
+
+A few examples of these scales are illustrated in the following sections.
 
 
 ## Using the scales in ggplot2
 
 A discrete qualitative scale applied to a fill aesthetic corresponds to the function `scale_fill_discrete_qualitative()`:
+
 ```{r density-qualitative, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
   scale_fill_discrete_qualitative()
 ```
 
+Similarly, a color aesthetic for a discrete qualitative scale corresponds to the function `scale_color_discrete_qualitative()`:
+
+```{r point-qualitative, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + geom_point() +
+  scale_color_discrete_qualitative(palette = "Set 2")
+```
+
 A continuous sequential scale applied to a color aesthetic corresponds to the function `scale_color_continuous_sequential()`:
+
 ```{r jitter-sequential, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
   scale_color_continuous_sequential(palette = "Heat")
 ```
 
 A continuous sequential scale applied to a fill aesthetic corresponds to the function `scale_fill_continuous_sequential()`:
+
 ```{r raster-sequential, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
-nx = 87
-ny = 61
-df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
+df <- data.frame(height = c(volcano), x = c(row(volcano)), y = c(col(volcano)))
 ggplot(df, aes(x, y, fill = height)) + 
   geom_raster() + 
   coord_fixed(expand = FALSE) +
-  scale_fill_continuous_sequential(palette = "Terrain")
+  scale_fill_continuous_sequential(palette = "Blues", rev = TRUE)
 ```
 
 A continuous diverging scale applied to a fill aesthetic corresponds to the function `scale_fill_continuous_diverging()`:
+
 ```{r tile-diverging, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 cm <- cor(mtcars)
-df_wide <- as.data.frame(cm)
-df_long <- stack(df_wide)
-names(df_long) <- c("cor", "var1")
-df_long <- cbind(df_long, var2 = rep(rownames(cm), length(rownames(cm))))
-ggplot(df_long, aes(var1, var2, fill=cor)) + 
+df <- data.frame(cor = c(cm), var1 = factor(col(cm)), var2 = factor(row(cm)))
+levels(df$var1) <- levels(df$var2) <- names(mtcars)
+ggplot(df, aes(var1, var2, fill = cor)) + 
   geom_tile() + 
   coord_fixed() +
   ylab("variable") +
@@ -77,20 +90,22 @@ ggplot(df_long, aes(var1, var2, fill=cor)) +
 ## Customizing the scales
 
 All scale functions accept a `palette` argument which allows you to pick a specific color palette out of a selection of different options. All available palettes are listed at the end of this document. For example, we could use the "Harmonic" palette when we need a qualitative color scale:
+
 ```{r density-qualitative2, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
   scale_fill_discrete_qualitative(palette = "Harmonic")
 ```
 
-The color palettes are calculated on the fly depending on the number of different colors needed. But sometimes, it may be desireable to pick specific colors out of a larger set, e.g. when we're making two plots where one contains a subset of the data of the other, or when the default order of colors is not ideal. Therefore, all discrete scales provide parameters `nmax` to set the total number of colors requested and `order` (a vector of integers) to reorder the color palette. 
+The color palettes are calculated on the fly depending on the number of different colors needed. But sometimes, it may be desireable to pick specific colors out of a larger set, e.g., when we are making two plots where one contains a subset of the data of the other, or when the default order of colors is not ideal. Therefore, all discrete scales provide parameters `nmax` to set the total number of colors requested and `order` (a vector of integers) to reorder the color palette. 
 
 Applied to the previous plot, we could for example do the following:
+
 ```{r density-qualitative3, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
   scale_fill_discrete_qualitative(palette = "Harmonic", nmax = 5, order = c(5, 1, 2))
 ```
 
-The `nmax` option is also convenient to remove some colors from a scale that may not be appropriate for the plot. For example, the `scale_color_brewer()` scale that comes with ggplot tends to produce points that are too light:
+The `nmax` option is also convenient to remove some colors from a scale that may not be appropriate for the plot. For example, the `scale_color_brewer()` scale that comes with _ggplot2_ tends to produce points that are too light:
 
 ```{r point-brewer, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -98,67 +113,66 @@ gg <- ggplot(dsamp, aes(carat, price, color = cut)) + geom_point()
 gg + scale_color_brewer(palette = "Blues")
 ```
 
-Similar problems can arise with the HCL palettes, but there we have the option of creating additional colors that we then don't use:
+Similar problems can arise with the HCL palettes, but there we have the option of creating additional colors that we then do not use:
+
 ```{r point-sequential, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 gg + scale_color_discrete_sequential(palette = "Blues", nmax = 6, order = 5:1)
 ```
+
 (We use `order = 5:1` to pick the five darkest colors in reverse order. We need to reverse the order because this scale runs from light to dark, whereas the ColorBrewer scale runs from dark to light.)
 
-All scales are defined via sets of hue (H), chroma (C), and luminance (L) values. For example, the qualitative scales vary hue from a start value to an end value while keeping chroma and luminance fixed. Similarly, single-hue sequential scales vary chroma and luminance while keeping the hue fixed. We can override these settings by specifying the corresponding H, C, or L values in addition to the palette name. As an example, consider the following plot:
+All [HCL-based color palettes](hcl_palettes.html) are defined via sets of hue (H), chroma (C), and luminance (L) values. For example, the qualitative scales vary hue from a start value to an end value while keeping chroma and luminance fixed. Similarly, single-hue sequential scales vary chroma and luminance while keeping the hue fixed. We can override these settings by specifying the corresponding H, C, or L values in addition to the palette name. As an example, consider the following plot:
 
 ```{r jitter-sequential2, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
   scale_color_continuous_sequential(palette = "Terrain")
 ```
 
-Now assume we generally like the color scale but find it a bit too pink at the end. We can fix this issue by specifying an alternative final hue value (`h2=80`):
+Now assume we generally like the color scale but find it a bit too pink at the end. We can fix this issue by specifying an alternative final hue value, e.g., `h2 = 60` corresponding to yellow:
 
 ```{r jitter-sequential3, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
-  scale_color_continuous_sequential(palette = "Terrain", h2 = 80)
+  scale_color_continuous_sequential(palette = "Terrain", h2 = 60)
 ```
 
-The next example uses a diverging scale. Let's first consider the plot with the unmodified "Blue-Yellow" palette:
+The next example uses a diverging scale. First consider the plot with the unmodified "Blue-Yellow" palette:
 
 ```{r tile-diverging2, fig.width = 6.5, fig.asp = .7, fig.align = "center"}
 cm <- cor(mtcars)
-df_wide <- as.data.frame(cm)
-df_long <- stack(df_wide)
-names(df_long) <- c("cor", "var1")
-df_long <- cbind(df_long, var2 = rep(rownames(cm), length(rownames(cm))))
-gg <- ggplot(df_long, aes(var1, var2, fill=cor)) + 
+df <- data.frame(cor = c(cm), var1 = factor(col(cm)), var2 = factor(row(cm)))
+levels(df$var1) <- levels(df$var2) <- names(mtcars)
+gg <- ggplot(df, aes(var1, var2, fill = cor)) + 
   geom_tile() + 
   coord_fixed() +
   ylab("variable") +
   scale_x_discrete(position = "top", name = "variable")
 
-gg + scale_fill_continuous_diverging(palette = "Purple-Green")
+gg + scale_fill_continuous_diverging(palette = "Blue-Yellow")
 ```
 
-And now the same plot with some palette customizations:
+And now the same plot with some palette customizations: The ordering is reversed so that blue is used for
+positive correlations and yellow for negative ones. Moreover, the power parameter `p2` for the luminance
+is increased so that only correlations close to an absolute value of 1 have dark colors while intermediate
+correlations have relatively light colors.
+
 ```{r tile-diverging3, fig.width = 6.5, fig.asp = .7, fig.align = "center"}
-gg + scale_fill_continuous_diverging(palette = "Purple-Green", p1 = 3)
+gg + scale_fill_continuous_diverging(palette = "Blue-Yellow", rev = TRUE, p2 = 2)
 ```
 
 See the reference manual for the exact set of customization parameters that are available for each scale.
 
-The continuous scales also provide the option to limit the scale range to which data are mapped, via the parameters `begin` and `end`. As an example, assume we're using the approximation of the viridis scale provided by `scale_color_continuous_sequential()`:
+The continuous scales also provide the option to limit the scale range to which data are mapped, via the parameters `begin` and `end`. As an example, assume we are using the approximation of the viridis scale provided by `scale_color_continuous_sequential()`:
+
 ```{r jitter-sequential4, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
   scale_color_continuous_sequential(palette = "Viridis")
 ```
 
 If we want to remove some of the darkest blues and some of the brightest yellows from this scale, we can write:
+
 ```{r jitter-sequential5, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
   scale_color_continuous_sequential(palette = "Viridis", begin = 0.15, end = 0.9) 
-```
-
-Finally, all scales allow easy switching of their direction, via the `rev` argument:
-
-```{r jitter-sequential6, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
-  scale_color_continuous_sequential(palette = "Viridis", rev = TRUE)
 ```
 
 
@@ -172,16 +186,16 @@ pre-defined names. These visualizations are generated by the function
 hcl_palettes(plot = TRUE)
 ```
 
-The discrete qualitative scales are all called via `scale_*_discrete_diverging(palette = "name")`,
-where `name` is the name of the palette, e.g. `palette = "Pastel 1"`. There are no continuous qualitative
+The discrete qualitative scales are all called via `scale_*_discrete_qualitative(palette = "name")`,
+where `name` is the name of the palette, e.g., `palette = "Pastel 1"`. There are no continuous qualitative
 scales.
 
 The discrete sequential scales are all called via `scale_*_discrete_sequential(palette = "name")`,
-where `name` is the name of the palette, e.g. `palette = "Grays"`. Continuous approximations to the discrete
+where `name` is the name of the palette, e.g., `palette = "Grays"`. Continuous approximations to the discrete
 scales exist and can be called via `scale_*_continuous_sequential(palette = "name")`
 
 The discrete diverging scales are all called via `scale_*_discrete_diverging(palette = "name")`,
-where `name` is the name of the palette, e.g. `palette = "Red-Blue"`. Continuous approximations to the discrete
+where `name` is the name of the palette, e.g., `palette = "Blue-Red"`. Continuous approximations to the discrete
 scales exist and can be called via `scale_*_continuous_diverging(palette = "name")`
 
 
