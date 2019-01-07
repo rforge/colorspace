@@ -749,10 +749,10 @@ GetPaletteConfig <- function(gui = NULL) {
            "Blues 3", "Purples 3", "Reds 3", "Greens 3", "Oslo",
            # Sequential multiple-hues
            "Purple-Blue", "Purple-Orange", "Red-Blue", "Red-Purple",
-           "Red-Yellow", "Heat", "PinkYl", "Peach", "Green-Yellow", "Terrain
-           2", "Dark Mint", "BluYl", "Blue-Yellow", "Viridis", "Plasma",
+           "Red-Yellow", "Heat", "PinkYl", "Green-Yellow", "Terrain 2",
+	   "Dark Mint", "BluYl", "Blue-Yellow", "Viridis", "Plasma",
            # Sequential multiple-hues advanced
-           "YlGnBu", "Greens", "BuGn", "Teal", "Blues", "BuPu", "Purples",
+           "YlGnBu", "Greens", "BuGn", "Teal", "Peach", "Blues", "BuPu", "Purples",
            "Purp", "Burg", "Reds", "YlOrRd", "Sunset", "RdPu", "Inferno",
            "Lajolla", "Turku",
            # Base color maps (for shiny)
@@ -772,7 +772,7 @@ GetPaletteConfig <- function(gui = NULL) {
        # Extending the type names for use in GUIs
        idx <- which(with(pals, (type == "dive" &  !is.na(CMAX) |
                                (type == "seqs" & (!is.na(CMAX) | !is.na(P2))) |
-                               (type == "seqm" & (!is.na(CMAX))))))
+                               (type == "seqm" & (!is.na(CMAX) | C1 > 100 | C2 > 100)))))
        if ( length(idx) > 0 ) pals$type[idx] <- sprintf("%s_advanced", pals$type[idx])
    }
 
