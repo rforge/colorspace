@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2018-10-08 18:56 on marvin
+# - L@ST MODIFIED: 2019-01-07 11:43 on marvin
 # -------------------------------------------------------------------
 
 
@@ -127,7 +127,8 @@ shinyUI(fluidPage(
          withTags(span(class = "hcl-slidervalue",
             textInput("H1val", label = "HUE 1", width = NULL),
             actionButton("H1set","SET")
-         ))
+         )),
+         withTags(div(class = "hcl-slidervalue-compact", "H1"))
       )),
       withTags(div(class = "hcl-sliderwrapper", id = "H2-wrapper",
          withTags(span(class = "hcl-slider",
@@ -138,7 +139,8 @@ shinyUI(fluidPage(
          withTags(span(class = "hcl-slidervalue",
             textInput("H2val", label = "HUE 2", width  =  NULL),
             actionButton("H2set", "SET")
-         ))
+         )),
+         withTags(div(class = "hcl-slidervalue-compact", "H2"))
       )),
 
       # -------------------------------------------------------------
@@ -146,36 +148,39 @@ shinyUI(fluidPage(
       # -------------------------------------------------------------
       withTags(div(class = "hcl-sliderwrapper", id = "C1-wrapper",
          withTags(span(class = "hcl-slider",
-            sliderInput("C1", label=NULL, 0, 100, default$C1, step = NULL,
+            sliderInput("C1", label=NULL, 0, 180, default$C1, step = NULL,
                         round = TRUE, ticks = FALSE, animate = FALSE,
                         width = NULL, sep = ",", pre = NULL, post = NULL)
          )),
          withTags(span(class = "hcl-slidervalue",
             textInput("C1val", label="CHROMA 1", width = NULL),
             actionButton("C1set","SET")
-         ))
+         )),
+         withTags(div(class = "hcl-slidervalue-compact", "C1"))
       )),
       withTags(div(class = "hcl-sliderwrapper", id = "CMAX-wrapper",
          withTags(span(class = "hcl-slider",
-            sliderInput("CMAX", label=NULL, 0, 200, default$CMAX, step = NULL,
+            sliderInput("CMAX", label=NULL, 0, 180, default$CMAX, step = NULL,
                         round = TRUE, ticks = FALSE, animate = FALSE,
                         width = NULL, sep = ",", pre = NULL, post = NULL)
          )),
          withTags(span(class = "hcl-slidervalue",
             textInput("CMAXval", label="MAX CHROMA", width = NULL),
             actionButton("CMAXset","SET")
-         ))
+         )),
+         withTags(div(class = "hcl-slidervalue-compact", "CX"))
       )),
       withTags(div(class = "hcl-sliderwrapper", id = "C2-wrapper",
          withTags(span(class = "hcl-slider",
-            sliderInput("C2", label=NULL, 0, 100, default$C2, step = NULL,
+            sliderInput("C2", label=NULL, 0, 180, default$C2, step = NULL,
                         round = TRUE, ticks = FALSE, animate = FALSE,
                         width = NULL, sep = ",", pre = NULL, post = NULL)
          )),
          withTags(span(class = "hcl-slidervalue",
             textInput("C2val", label="CHROMA 2", width = NULL),
             actionButton("C2set","SET")
-         ))
+         )),
+         withTags(div(class = "hcl-slidervalue-compact", "C2"))
       )),
 
       # -------------------------------------------------------------
@@ -190,7 +195,8 @@ shinyUI(fluidPage(
          withTags(span(class = "hcl-slidervalue",
             textInput("L1val", label = "LUMIN. 1", width = NULL),
             actionButton("L1set","SET")
-         ))
+         )),
+         withTags(div(class = "hcl-slidervalue-compact", "L1"))
       )),
       withTags(div(class = "hcl-sliderwrapper", id = "L2-wrapper",
          withTags(span(class = "hcl-slider",
@@ -201,7 +207,8 @@ shinyUI(fluidPage(
          withTags(span(class = "hcl-slidervalue",
             textInput("L2val", label = "LUMIN. 2", width = NULL),
             actionButton("L2set","SET")
-         ))
+         )),
+         withTags(div(class = "hcl-slidervalue-compact", "L2"))
       )),
    
       # -------------------------------------------------------------
@@ -216,7 +223,8 @@ shinyUI(fluidPage(
          withTags(span(class = "hcl-slidervalue",
             textInput("P1val", label = "POWER 1", width = NULL),
             actionButton("P1set","SET")
-         ))
+         )),
+         withTags(div(class = "hcl-slidervalue-compact", "P1"))
       )),
       withTags(div(class = "hcl-sliderwrapper", id = "P2-wrapper",
          withTags(span(class = "hcl-slider",
@@ -227,7 +235,8 @@ shinyUI(fluidPage(
          withTags(span(class = "hcl-slidervalue",
             textInput("P2val", label="POWER 2", width = NULL),
             actionButton("P2set","SET")
-         ))
+         )),
+         withTags(div(class = "hcl-slidervalue-compact", "P1"))
       )),
 
       # -------------------------------------------------------------
@@ -242,7 +251,8 @@ shinyUI(fluidPage(
          withTags(span(class = "hcl-slidervalue",
             textInput("Nval", label="NUMBER", width = NULL),
             actionButton("Nset", "SET")
-         ))
+         )),
+         withTags(div(class = "hcl-slidervalue-compact", "N"))
       )),
 
      

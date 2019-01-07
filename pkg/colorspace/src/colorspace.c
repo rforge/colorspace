@@ -1315,7 +1315,7 @@ static const char HEXDIG[] = {
 SEXP sRGB_to_RColor(SEXP rgb, SEXP fixup)
 {
     double r, g, b;
-    int fixupvalue, i, ir, ig, ib, n, nagen;
+    int fixupvalue, i, ir, ig, ib, n; //, nagen;
     char hex[8];
     SEXP ans;
 
@@ -1323,7 +1323,7 @@ SEXP sRGB_to_RColor(SEXP rgb, SEXP fixup)
     CheckFixup(fixup, &fixupvalue);
 
     PROTECT(ans = allocVector(STRSXP, n));
-    nagen = 0;
+    //nagen = 0;
 
     for (i = 0; i < n; i++) {
 	r = REAL(rgb)[i];

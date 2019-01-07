@@ -703,8 +703,10 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
         else if ( grepl("[Ss]equential", type) )  { type <- "sequential" }
         else if ( grepl("[Qq]ualitative", type) ) { type <- "qualitative" }
         else                                      { type <- NULL }
-    } else { type = NULL }
-    plot_example(pal.cols, type = type)
+        plot_example(pal.cols, type = type)
+    } else {
+        plot_example(pal.cols)
+    }
   }
 
 
