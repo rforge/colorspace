@@ -662,18 +662,18 @@ Parameter ranges:
 > # darken light colors, example 1
 > cl <- qualitative_hcl(5, "Pastel 1")
 > swatchplot(list(
-+   combined = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "combined"), "30%" = darken(cl, 0.3, space = "combined")),
-+   HCL      = rbind("0%" = cl, "15%" = darken(cl, 0.15),                     "30%" = darken(cl, 0.3)),
-+   HLS      = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "HLS"),      "30%" = darken(cl, 0.3, space = "HLS"))),
++   combined = rbind("0%" = cl, "15%" = darken(cl, 0.15),                      "30%" = darken(cl, 0.3)),
++   HCL      = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "HCL"),       "30%" = darken(cl, 0.3, space = "HCL")),
++   HLS      = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "HLS"),       "30%" = darken(cl, 0.3, space = "HLS"))),
 +   nrow = 4, line = 2.5
 + )
 > 
 > # darken light colors, example 2 
 > cl <- c("#CDE4F3","#E7F3D3","#F7F0C7","#EFCFE5","#D0D1E7")
 > swatchplot(list(
-+   combined = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "combined"), "30%" = darken(cl, 0.3, space = "combined")),
-+   HCL      = rbind("0%" = cl, "15%" = darken(cl, 0.15),                     "30%" = darken(cl, 0.3)),
-+   HLS      = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "HLS"),      "30%" = darken(cl, 0.3, space = "HLS"))),
++   combined = rbind("0%" = cl, "15%" = darken(cl, 0.15),                      "30%" = darken(cl, 0.3)),
++   HCL      = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "HCL"),       "30%" = darken(cl, 0.3, space = "HCL")),
++   HLS      = rbind("0%" = cl, "15%" = darken(cl, 0.15, space = "HLS"),       "30%" = darken(cl, 0.3, space = "HLS"))),
 +   nrow = 4, line = 2.5
 + )
 > 
@@ -1085,14 +1085,12 @@ detaching ‘package:ggplot2’
 > gg + scale_color_continuous_sequential(palette = "Reds", l1 = 20, c2 = 70, p1 = 1)
 > 
 > # select a range out of the entire palette
-> gg + scale_color_continuous_sequential(palette = "Heat", begin = .2, end = .8)
+> gg + scale_color_continuous_sequential(palette = "Heat", begin = 0.2, end = 0.8)
 > 
 > # volcano plot
-> nx = 87
-> ny = 61
-> df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
-> ggplot(df, aes(x, y, fill=height)) + 
-+   geom_raster() + scale_fill_continuous_sequential(palette = "Terrain") +
+> df <- data.frame(height = c(volcano), x = c(row(volcano)), y = c(col(volcano)))
+> ggplot(df, aes(x, y, fill = height)) + 
++   geom_raster() + scale_fill_continuous_sequential(palette = "Terrain", rev = FALSE) +
 +   coord_fixed(expand = FALSE)
 > 
 > 
@@ -1421,7 +1419,7 @@ $hex
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  11.908 0.136 12.055 0 0 
+Time elapsed:  8.581 0.081 8.67 0 0 
 > grDevices::dev.off()
 null device 
           1 

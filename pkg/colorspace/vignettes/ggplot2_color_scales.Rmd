@@ -70,7 +70,7 @@ df <- data.frame(height = c(volcano), x = c(row(volcano)), y = c(col(volcano)))
 ggplot(df, aes(x, y, fill = height)) + 
   geom_raster() + 
   coord_fixed(expand = FALSE) +
-  scale_fill_continuous_sequential(palette = "Blues", rev = TRUE)
+  scale_fill_continuous_sequential(palette = "Blues")
 ```
 
 A continuous diverging scale applied to a fill aesthetic corresponds to the function `scale_fill_continuous_diverging()`:
@@ -108,7 +108,7 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) 
 The `nmax` option is also convenient to remove some colors from a scale that may not be appropriate for the plot. For example, the `scale_color_brewer()` scale that comes with _ggplot2_ tends to produce points that are too light:
 
 ```{r point-brewer, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
-dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+dsamp <- diamonds[1 + 1:1000 * 50, ]
 gg <- ggplot(dsamp, aes(carat, price, color = cut)) + geom_point()
 gg + scale_color_brewer(palette = "Blues")
 ```
@@ -116,10 +116,10 @@ gg + scale_color_brewer(palette = "Blues")
 Similar problems can arise with the HCL palettes, but there we have the option of creating additional colors that we then do not use:
 
 ```{r point-sequential, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
-gg + scale_color_discrete_sequential(palette = "Blues", nmax = 6, order = 5:1)
+gg + scale_color_discrete_sequential(palette = "Blues", nmax = 6, order = 2:6)
 ```
 
-(We use `order = 5:1` to pick the five darkest colors in reverse order. We need to reverse the order because this scale runs from light to dark, whereas the ColorBrewer scale runs from dark to light.)
+(We use `order = 2:6` to pick the five darkest colors and omit the lightest color.)
 
 All [HCL-based color palettes](hcl_palettes.html) are defined via sets of hue (H), chroma (C), and luminance (L) values. For example, the qualitative scales vary hue from a start value to an end value while keeping chroma and luminance fixed. Similarly, single-hue sequential scales vary chroma and luminance while keeping the hue fixed. We can override these settings by specifying the corresponding H, C, or L values in addition to the palette name. As an example, consider the following plot:
 
@@ -137,7 +137,7 @@ ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jit
 
 The next example uses a diverging scale. First consider the plot with the unmodified "Blue-Yellow 2" palette:
 
-```{r tile-diverging2, fig.width = 6.5, fig.asp = .7, fig.align = "center"}
+```{r tile-diverging2, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 cm <- cor(mtcars)
 df <- data.frame(cor = c(cm), var1 = factor(col(cm)), var2 = factor(row(cm)))
 levels(df$var1) <- levels(df$var2) <- names(mtcars)

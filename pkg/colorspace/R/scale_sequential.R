@@ -6,6 +6,12 @@
 #' If both a valid palette name and palette parameters are provided then the provided palette parameters overwrite the parameters in the
 #' named palette. This enables easy customization of named palettes.
 #' 
+#' Compared to \code{\link{sequential_hcl}} the ordering of the colors in the sequential ggplot2 scale
+#' are reversed by default (i.e., \code{rev = TRUE}) to be more consistent with ggplot2's own scales such as
+#' \code{\link[ggplot2]{scale_color_brewer}}. For most named palettes this leads to darker and more
+#' colorful colors for larger values on the scale. This is typically the better default on light/white
+#' backgrounds.
+#'
 #' @param c1 Beginning chroma value.
 #' @param c2 Ending chroma value.
 #' @param cmax Maximum chroma value.
@@ -16,7 +22,7 @@
 #' @param p1 Control parameter determining how chroma should vary (1 = linear, 2 = quadratic, etc.).
 #' @param p2 Control parameter determining how luminance should vary (1 = linear, 2 = quadratic, etc.).
 #' @param alpha Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).
-#' @param rev If \code{TRUE}, reverses the order of the colors in the color scale.
+#' @param rev If \code{TRUE} (default), reverses the order of the colors in the color scale (compared to \code{\link{sequential_hcl}}).
 #' @param palette The name of the palette to be used. Run \code{hcl_palettes(type = "sequential")} for available options.
 #' @param nmax Maximum number of different colors the palette should contain. If not provided, is calculated automatically
 #'  from the data.
@@ -42,7 +48,7 @@
 #' @importFrom stats na.omit
 #' @export
 scale_colour_discrete_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, cmax = NULL, l1 = NULL, l2 = NULL,
-                                             h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE,
+                                             h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = TRUE,
                                              nmax = NULL, order = NULL, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function sequential_hcl only if explicitly provided
@@ -90,6 +96,12 @@ scale_fill_discrete_sequential <- function(..., aesthetics = "fill")
 #' If both a valid palette name and palette parameters are provided then the provided palette parameters overwrite the parameters in the
 #' named palette. This enables easy customization of named palettes.
 #' 
+#' Compared to \code{\link{sequential_hcl}} the ordering of the colors in the sequential ggplot2 scale
+#' are reversed by default (i.e., \code{rev = TRUE}) to be more consistent with ggplot2's own scales such as
+#' \code{\link[ggplot2]{scale_color_brewer}}. For most named palettes this leads to darker and more
+#' colorful colors for larger values on the scale. This is typically the better default on light/white
+#' backgrounds.
+#'
 #' @inheritParams scale_colour_discrete_sequential
 #' @param begin Number in the range of \code{[0, 1]} indicating to which point in the color scale the smallest data value should be mapped.
 #' @param end Number in the range of \code{[0, 1]} indicating to which point in the color scale the largest data value should be mapped.
@@ -112,19 +124,17 @@ scale_fill_discrete_sequential <- function(..., aesthetics = "fill")
 #' gg + scale_color_continuous_sequential(palette = "Reds", l1 = 20, c2 = 70, p1 = 1)
 #' 
 #' # select a range out of the entire palette
-#' gg + scale_color_continuous_sequential(palette = "Heat", begin = .2, end = .8)
+#' gg + scale_color_continuous_sequential(palette = "Heat", begin = 0.2, end = 0.8)
 #' 
 #' # volcano plot
-#' nx = 87
-#' ny = 61
-#' df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
-#' ggplot(df, aes(x, y, fill=height)) + 
-#'   geom_raster() + scale_fill_continuous_sequential(palette = "Terrain") +
+#' df <- data.frame(height = c(volcano), x = c(row(volcano)), y = c(col(volcano)))
+#' ggplot(df, aes(x, y, fill = height)) + 
+#'   geom_raster() + scale_fill_continuous_sequential(palette = "Terrain", rev = FALSE) +
 #'   coord_fixed(expand = FALSE)
 #' @importFrom stats na.omit
 #' @export
 scale_colour_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, cmax = NULL, l1 = NULL, l2 = NULL,
-                                               h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = FALSE,
+                                               h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = TRUE,
                                                begin = 0, end = 1, na.value = "grey50", guide = "colourbar",
                                                aesthetics = "colour", n_interp = 11, ...)
 {

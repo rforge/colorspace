@@ -175,15 +175,13 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) 
 
 The sequential palette is used to code the cut levels in a scatter of price by carat
 in the diamonds data (or rather a small subsample thereof). The scale function first
-generates six colors but then drops the last color because the light gray is too light
+generates six colors but then drops the first color because the light gray is too light
 in this display. (Alternatively, the chroma and luminance parameters could also be tweaked.)
-The remaining colors are reversely ordered to code the five cut levels with increasing
-color intensity.
 
 ```{r diamonds-ggplot, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, width.width = 6, dpi = 48, out.width = "100%"}
 dsamp <- diamonds[1 + 1:1000 * 50, ]
 ggplot(dsamp, aes(carat, price, color = cut)) + geom_point() +
-  scale_color_discrete_sequential(palette = "Purples 3", nmax = 6, order = 5:1)
+  scale_color_discrete_sequential(palette = "Purples 3", nmax = 6, order = 2:6)
 ```
 
 
