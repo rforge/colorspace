@@ -1,9 +1,5 @@
 destination: "../../www/"
 
-template:
-  params:
-    bootswatch: "flatly"
-
 navbar:
   left:
     - text: "Get started"
