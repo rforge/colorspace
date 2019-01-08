@@ -246,14 +246,11 @@ The three different types of palettes (_qualitative_, _sequential_, and _divergi
 are all constructed by combining three different types of trajectories (_constant_, _linear_, _triangular_)
 for the three different coordinates (hue _H_, chroma _C_, luminance _L_):
 
-| Type        | H                            | C                     | L                |
-|:------------|:-----------------------------|:----------------------|:-----------------|
-| Qualitative | Linear                       | Constant              | Constant         |
-| Sequential  | Constant (= single-hue) _or_ | Linear (+ power) _or_ | Linear (+ power) |
-|             | Linear (= multi-hue)         | Triangular (+ power)  |                  |
-| Diverging   | Constant (2x)                | Linear (+ power) _or_ | Linear (+ power) |
-|             |                              | Triangular (+ power)  |                  |
-|             |                              |                       |                  |
+| Type        | H                                                       | C                                                | L                             |
+|:------------|:--------------------------------------------------------|:-------------------------------------------------|:------------------------------|
+| Qualitative | Linear                                                  | Constant                                         | Constant                      |
+| Sequential  | Constant (= single-hue) _or_ <br/> Linear (= multi-hue) | Linear (+ power) _or_ <br/> Triangular (+ power) | Linear (+ power) <br/> &nbsp; |
+| Diverging   | Constant (2x)                                           | Linear (+ power) _or_ <br/> Triangular (+ power) | Linear (+ power) <br/> &nbsp; |
 
 As pointed out initially in this article, the luminance is probably the most important
 property for defining the type of palette. It is constant for qualitative palettes, monotonic
