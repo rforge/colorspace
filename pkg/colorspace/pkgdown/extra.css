@@ -50,6 +50,9 @@ b, strong, th {
     display: block;
     font-size: 1.7em;
     line-height: 1em;
+    width: 250px;
+    height: 30px;
+    float: left;
 }
 
 /* Adjust main navigation bar (top) to match the size of the
