@@ -1,8 +1,8 @@
 /* Edit pkgdown/extra.css to customize the theme */
 
 /* Colors:
- * logo-pinkish: #e94c6f;
- * href bright blue: #17cdf2;
+ * logo-pinkish:     #e94c6f;
+ * href bright blue: #00a7e9;
  */
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,500');
@@ -50,6 +50,9 @@ b, strong, th {
     display: block;
     font-size: 1.7em;
     line-height: 1em;
+    width: 250px;
+    height: 30px;
+    float: left;
 }
 
 /* Adjust main navigation bar (top) to match the size of the
@@ -62,6 +65,19 @@ b, strong, th {
     background-color: transparent;
     /*color: #e94c6f;*/
     color: #777;
+}
+
+/* Make the logo slightly smaller to avoid line breaks
+ * on the collapsed view */
+@media all and (max-width: 550px) {
+    .navbar-brand {
+        width: 220px;
+        background-size: 200px;
+        background-position: 10px 5px;
+        height: 39px;
+    }
+    .navbar-brand > .navbar-link { height: 25px; width: 200px; }
+    .navbar-brand > .label { margin-top: 10px; margin-left: 200px; }
 }
 
 .navbar .navbar-nav > li > a {
