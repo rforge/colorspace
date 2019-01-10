@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-10 11:43 on marvin
+# - L@ST MODIFIED: 2019-01-10 17:48 on marvin
 # -------------------------------------------------------------------
 
 
@@ -35,12 +35,39 @@ default = list("N"    =   7,
 # Take default argument if set
 default$N <- colorspace:::.colorspace_get_info("hclwizard_ninit")
 
+# Hide register-functionality on uberspace.
+if ( Sys.info()["nodename"] == "sculptor.uberspace.de" ) {
+    xtra <- "$(\".registerpalette\").remove();"
+} else { xtra <- "" }
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
    tags$head(
       tags$link(rel = "stylesheet", type = "text/css", href = "hclwizard.css"),
-      tags$link(rel = "stylesheet", type = "text/css", href = "hclwizard_darkmode.css")
+      tags$link(rel = "stylesheet", type = "text/css", href = "hclwizard_darkmode.css"),
+      # Register palette with user-defined name: only allow
+      # alphanumeric values, spaces, underscores, and dashes.
+      HTML("<script>
+           $(document).ready(function() {
+              $(\"#registerpalettebutton\").attr(\"disabled\", \"disabled\");
+              $(\"#registerpalettename\").keyup(function(e) {
+                 e.preventDefault()
+                 this.value = this.value.replace(/[^A-Za-z0-9_\\s\\-]/gi, \"\");
+                 if ( this.value.length == 0 ) {
+                     $(\"#registerpalettebutton\").attr(\"disabled\", \"disabled\");
+                 } else {
+                     $(\"#registerpalettebutton\").removeAttr(\"disabled\");
+                 }
+              });
+              //$(\"#registerpalettebutton\").click(function(e) {
+              //   var val = $(\"#registerpalettename\").val();
+              //   if ( val.length == 0 ) {
+              //       ...
+              //   }
+              //});\n", xtra, "\n",
+           "});
+           </script>")
+       
    ),
    useShinyjs(),
    div(class = "version-info", htmlOutput("version_info")),
@@ -103,6 +130,12 @@ shinyUI(fluidPage(
                choices  =  c("Normal", "Deutan", "Protan", "Tritan"), 
                selected = "Normal"),
 
+      # Register custom palettes.
+      withTags(span(class = "registerpalette",
+          h3("Register Custom Palette"),
+          textInput("registerpalettename", labe = NA, width = "200px"),
+          actionButton("registerpalettebutton","Register")
+      )),
       width = 2
    ),
 

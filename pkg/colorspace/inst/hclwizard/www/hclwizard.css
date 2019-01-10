@@ -11,6 +11,7 @@ form.well    {
 div.checkbox { padding: 0px; margin: 0px; }
 div.form-group.shiny-input-container { margin: 0 0 5px 0; }
 
+
 /* Scale the plot image relative to the main panel */
 div#plot > img,
 div#spectrum > img,

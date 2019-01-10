@@ -1174,12 +1174,12 @@ GetPalette <- function(...) { #type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, reve
    #type <- as.character(tcltk::tclvalue(nature.var))
    if (grepl("^(qual|.*[Qq]ualitative)", type)) {
       f <- qualitative_hcl
-      formals(f) <- eval(substitute(alist(n=, h=hh, c=d1, l=d2, start=d3, end=d4,
-                                          fixup=d5, gamma=NULL, alpha=1,
-                                          palette=NULL, rev=d6, ...=,
+      formals(f) <- eval(substitute(alist(n=, h=hh, c=d1, l=d2,
+                                          fixup=d3, gamma=NULL, alpha=1,
+                                          palette=NULL, rev=d4, ...=,
                                           h1=, h2=, c1=, l1=, cmax=),
                                     list(hh = c(h1, h2), #0,360), 
-                                         d1=c1, d2=l1, d3=h1, d4=h2, d5=fixup, d6=reverse)))
+                                         d1=c1, d2=l1, d3=fixup, d4=reverse)))
    #} else if (type %in% c("seqs","Sequential (single hue)")) {
    } else if (grepl("^(seqs|.*[Ss]equential.*single)", type)) {
       f <- sequential_hcl

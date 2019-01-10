@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-10 11:55 on marvin
+# - L@ST MODIFIED: 2019-01-10 17:55 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -16,7 +16,6 @@ library("colorspace")
 #options( shiny.trace = TRUE )
 
 bpy <- eval(parse(text = "colorspace:::bpy"))
-
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -73,6 +72,13 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    observeEvent(input$typ, {
       x <- list()
+      if ( grepl("^base$", input$typ) ) {
+          shinyjs::disable("registerpalettebutton")
+          shinyjs::disable("registerpalettename")
+      } else {
+          shinyjs::enable("registerpalettebutton")
+          shinyjs::enable("registerpalettename")
+      }
       for ( i in which(palettes$typ == input$typ) )
          x[[sprintf("%s",rownames(palettes)[i])]] <- rownames(palettes)[i]
       updateSelectInput(session, "PAL", choices = x)
@@ -169,6 +175,18 @@ shinyServer(function(input, output, session) {
    observeEvent(input$P1set,      { setValueByUser("P1")     })
    observeEvent(input$P2set,      { setValueByUser("P2")     })
    observeEvent(input$Nset,       { setValueByUser("N")      })
+
+   # ----------------------------------------------------------------
+   # Register custom palette by user-defined name
+   # ----------------------------------------------------------------
+   observeEvent(input$registerpalettebutton, {
+       if ( nchar(input$registerpalettename) > 0 ) {
+           cmd <- function_to_string(input$N, register = input$registerpalettename)
+           eval(parse(text = cmd))
+           showNotification(sprintf("Custom palette \"%s\" registered in current R session.",
+                                    input$registerpalettename))
+       }
+   })
 
    # ----------------------------------------------------------------
    # Getting currently selected color scheme
@@ -386,10 +404,13 @@ shinyServer(function(input, output, session) {
       } else {
           fname <- input$PAL
       }
-      if ( nchar(register) > 0 ) fname <- sprintf("colorspace::%s", fname)
+      if ( nchar(register) > 0 ) {
+          if ( grepl("^base$", input$typ ) ) return("# Not possible for default schemes.")
+          fname <- sprintf("colorspace::%s", fname)
+      }
 
       # Create the result
-      argstr <- paste(names(arglist),arglist, sep = " = ", collapse = ", ")
+      argstr <- paste(names(arglist), arglist, sep = " = ", collapse = ", ")
       result <- sprintf("%s(%s)", fname, argstr)
 
       # Default palette, reversed?
