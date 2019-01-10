@@ -113,6 +113,8 @@
 #' transparency channel (0 means transparent and 1 means opaque).
 #' @param palette character. Name of HCL color palette.
 #' @param rev logical. Should the color palette vector be returned in reverse order?
+#' @param register character. If set to a non-empty character string, the corresponding
+#' palette is registered with that name for subsequent use (within the same session).
 #' @param \dots Other arguments passed to \code{\link{hex}}.
 #' @param type character indicating type of HCL palette.
 #' @param plot logical. Should the selected HCL color palettes be visualized?
@@ -186,20 +188,21 @@ hcl_palettes <- function(type = NULL, palette = NULL, plot = FALSE, n = 5L, ...)
 {
   ## subset by type and name (by flexible matching)
   fx <- function(n) tolower(gsub("[-, _, \\,, (, ), \\ , \\.]", "", n))
+  pals <- .colorspace_get_info("hcl_pals")
   if(!is.null(type)) {
-    tytab <- c("sequential", fx(levels(hcl_pals$type)))
+    tytab <- c("sequential", fx(levels(pals$type)))
     type <- lapply(type, function(ty) {
       ty <- startsWith(tytab, fx(ty))
-      if(all(!ty)) stop("Palette 'type' should be one of: ", paste(levels(hcl_pals$type), collapse = ", "))
+      if(all(!ty)) stop("Palette 'type' should be one of: ", paste(levels(pals$type), collapse = ", "))
       ty <- tytab[which(ty)[1L]]
       if(ty == "sequential") ty <- c("sequentialsinglehue", "sequentialmultihue")
       return(ty)
     })
     type <- unlist(type)
-    type <- levels(hcl_pals$type)[tytab[-1L] %in% type]
-    pals <- hcl_pals[as.character(hcl_pals$type) %in% type, , drop = FALSE]
+    type <- levels(pals$type)[tytab[-1L] %in% type]
+    pals <- pals[as.character(pals$type) %in% type, , drop = FALSE]
   } else {
-    pals <- hcl_pals
+    pals <- pals
   }
   if(!is.null(palette)) {
     namtab <- fx(rownames(pals))
@@ -316,7 +319,7 @@ plot.hcl_palettes <- function(x, n = 5L, fixup = TRUE, off = NULL, border = NULL
 #' @rdname hcl_palettes
 #' @export
 qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
-  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1, h2, c1, l1)
+  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, register = "", ..., h1, h2, c1, l1)
 {
     ## edge cases
     if(n < 1L) return(character(0L))
@@ -343,8 +346,18 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
     if(!missing(h2)) pals["h2"] <- h2
     if(!missing(c1)) pals["c1"] <- c1
     if(!missing(l1)) pals["l1"] <- l1
-    if(is.na(pals["h2"])) pals["h2"] <- pals["h1"] + 360 * (n - 1)/n
     
+    ## register custom palette?
+    if(is.character(register) && nchar(register) > 0L) {
+      add_hcl_pals(palette = register, type = "Qualitative", parameters = pals)
+      register <- TRUE
+    } else {
+      register <- FALSE
+    }
+
+    ## explicitly expand h2 if still NA    
+    if(is.na(pals["h2"])) pals["h2"] <- pals["h1"] + 360 * (n - 1)/n
+
     ## HCL trajectory
     rval <- hex(polarLUV(
         L = pals["l1"],
@@ -361,13 +374,13 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
 
     ## return value
     if(rev) rval <- rev(rval)
-    return(rval)
+    if(register) invisible(rval) else return(rval)
 }
 
 #' @rdname hcl_palettes
 #' @export
 sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ...,
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, register = "", ...,
   h1, h2, c1, c2, l1, l2, p1, p2, cmax, c.)
 {
     ## edge cases
@@ -423,6 +436,19 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     if(!missing(p1)) pals["p1"] <- p1
     if(!missing(p2)) pals["p2"] <- p2
     if(!missing(cmax)) pals["cmax"] <- cmax
+    if(!is.na(pals["h2"]) && pals["h1"] == pals["h2"]) pals["h2"] <- NA
+
+    ## register custom palette?
+    if(is.character(register) && nchar(register) > 0L) {
+      add_hcl_pals(palette = register,
+        type = if(is.na(pals["h2"])) "Sequential (single-hue)" else "Sequential (multi-hue)",
+	parameters = pals)
+      register <- TRUE
+    } else {
+      register <- FALSE
+    }
+
+    ## expand parameters that are potentially NA
     if(is.na(pals["h2"])) pals["h2"] <- pals["h1"]
     if(is.na(pals["c2"])) pals["c2"] <- 0
     if(is.na(pals["p2"])) pals["p2"] <- pals["p1"]
@@ -453,13 +479,13 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
 
     ## return value
     if(rev) rval <- rev(rval)
-    return(rval)
+    if(register) invisible(rval) else return(rval)
 }
 
 #' @rdname hcl_palettes
 #' @export
 diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ...,
+  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, register = "", ...,
   h1, h2, c1, l1, l2, p1, p2, cmax)
 {
     ## edge cases
@@ -470,7 +496,7 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     ## (1) palette
     if(is.character(h)) palette <- h
     pals <- if(!is.null(palette)) {
-        as.matrix(hcl_palettes(type = "Diverging", palette = palette)[, 2L:10L])[1L, ]
+        as.matrix(hcl_palettes(type = "Diverging", palette = palette)[, 2L:11L])[1L, ]
     } else {
         structure(c(
             rep_len(h, 2L),
@@ -511,6 +537,16 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     if(!missing(p2)) pals["p2"] <- p2
     if(!missing(cmax)) pals["cmax"] <- cmax
     pals["c2"] <- NA
+
+    ## register custom palette?
+    if(is.character(register) && nchar(register) > 0L) {
+      add_hcl_pals(palette = register, type = "Diverging", parameters = pals)
+      register <- TRUE
+    } else {
+      register <- FALSE
+    }
+
+    ## expand parameters that are potentially NA
     if(is.na(pals["p2"])) pals["p2"] <- pals["p1"]
 
     ## HCL trajectory
@@ -539,7 +575,7 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
 
     ## return value
     if(rev) rval <- rev(rval)
-    return(rval)
+    if(register) invisible(rval) else return(rval)
 }
 
 #' @rdname hcl_palettes
@@ -695,7 +731,20 @@ make_hcl_pals <- function() {
   pals <- pals[, c("type", names(pals)[!names(pals) %in% "type"])]
   return(pals)
 }
-hcl_pals <- make_hcl_pals()
+
+.colorspace_set_info(
+  hcl_pals = make_hcl_pals()
+)
+
+add_hcl_pals <- function(palette, type, parameters) {
+  pals <- .colorspace_get_info("hcl_pals")
+  p <- data.frame(type = factor(type, levels = levels(pals$type)))
+  p <- cbind(p, as.data.frame(as.list(parameters)))
+  p$fixup <- as.logical(p$fixup)
+  pals[palette, ] <- p
+  pals <- pals[order(pals$type), ]
+  .colorspace_set_info(hcl_pals = pals)
+}
 
 
 # -------------------------------------------------------------------

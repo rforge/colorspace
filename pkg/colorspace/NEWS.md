@@ -20,6 +20,15 @@
   diverging. The corresponding `print()`, `plot()`, and `summary()` methods
   can help to explore the palettes.
   
+* Pre-defined HCL palettes are taken from previous publications about colorspace
+  as well as approximations from other packages (ColorBrewer.org, CARTO,
+  viridis, scico).
+
+o Users can also register their own custom color palettes for subsequent
+  usage (within the same session). To generally make such custom palettes
+  available, the registration R code can be placed in the .Rprofile or
+  similar startup scripts.
+
 * New and more flexible `qualitative_hcl()` palette function. This is
   similar to the old `rainbow_hcl()` but allows to use the pre-defined
   palettes and change the parameters more easily.

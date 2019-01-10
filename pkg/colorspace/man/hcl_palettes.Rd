@@ -22,16 +22,17 @@ hcl_palettes(type = NULL, palette = NULL, plot = FALSE, n = 5L,
   border = NULL, ...)
 
 qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
-  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE, ..., h1,
-  h2, c1, l1)
+  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE,
+  register = "", ..., h1, h2, c1, l1)
 
 sequential_hcl(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
   gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
-  rev = FALSE, ..., h1, h2, c1, c2, l1, l2, p1, p2, cmax, c.)
+  rev = FALSE, register = "", ..., h1, h2, c1, c2, l1, l2, p1, p2,
+  cmax, c.)
 
 diverging_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
   gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
-  rev = FALSE, ..., h1, h2, c1, l1, l2, p1, p2, cmax)
+  rev = FALSE, register = "", ..., h1, h2, c1, l1, l2, p1, p2, cmax)
 }
 \arguments{
 \item{type}{character indicating type of HCL palette.}
@@ -63,6 +64,9 @@ offsets between the color rectangles displayed.}
 transparency channel (0 means transparent and 1 means opaque).}
 
 \item{rev}{logical. Should the color palette vector be returned in reverse order?}
+
+\item{register}{character. If set to a non-empty character string, the corresponding
+palette is registered with that name for subsequent use (within the same session).}
 
 \item{power, p1, p2}{control parameter determining how chroma and luminance should
 be increased (1 = linear, 2 = quadratic, etc.).}

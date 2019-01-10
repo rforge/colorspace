@@ -168,16 +168,17 @@ color palettes based on the HCL (hue-chroma-luminance) color model.</p>
   <span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='fu'>qualitative_hcl</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>360</span> * (<span class='no'>n</span> - <span class='fl'>1</span>)/<span class='no'>n</span>), <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>60</span>,
-  <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>, <span class='no'>h1</span>,
-  <span class='no'>h2</span>, <span class='no'>c1</span>, <span class='no'>l1</span>)
+  <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>register</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>, <span class='no'>h1</span>, <span class='no'>h2</span>, <span class='no'>c1</span>, <span class='no'>l1</span>)
 
 <span class='fu'>sequential_hcl</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fl'>260</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>90</span>), <span class='kw'>power</span> <span class='kw'>=</span> <span class='fl'>1.5</span>,
   <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>, <span class='no'>h1</span>, <span class='no'>h2</span>, <span class='no'>c1</span>, <span class='no'>c2</span>, <span class='no'>l1</span>, <span class='no'>l2</span>, <span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>cmax</span>, <span class='no'>c.</span>)
+  <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>register</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>, <span class='no'>h1</span>, <span class='no'>h2</span>, <span class='no'>c1</span>, <span class='no'>c2</span>, <span class='no'>l1</span>, <span class='no'>l2</span>, <span class='no'>p1</span>, <span class='no'>p2</span>,
+  <span class='no'>cmax</span>, <span class='no'>c.</span>)
 
 <span class='fu'>diverging_hcl</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>260</span>, <span class='fl'>0</span>), <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>90</span>), <span class='kw'>power</span> <span class='kw'>=</span> <span class='fl'>1.5</span>,
   <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>, <span class='no'>h1</span>, <span class='no'>h2</span>, <span class='no'>c1</span>, <span class='no'>l1</span>, <span class='no'>l2</span>, <span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>cmax</span>)</pre>
+  <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>register</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>, <span class='no'>h1</span>, <span class='no'>h2</span>, <span class='no'>c1</span>, <span class='no'>l1</span>, <span class='no'>l2</span>, <span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>cmax</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -239,6 +240,11 @@ transparency channel (0 means transparent and 1 means opaque).</p></td>
     <tr>
       <th>rev</th>
       <td><p>logical. Should the color palette vector be returned in reverse order?</p></td>
+    </tr>
+    <tr>
+      <th>register</th>
+      <td><p>character. If set to a non-empty character string, the corresponding
+palette is registered with that name for subsequent use (within the same session).</p></td>
     </tr>
     <tr>
       <th>power, p1, p2</th>
