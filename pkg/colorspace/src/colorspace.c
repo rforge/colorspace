@@ -1400,7 +1400,7 @@ SEXP hex_to_RGB(SEXP hex, SEXP gamma)
     int i, n = 0;
     SEXP ans;
     CheckHex(hex, &n);
-    ans = allocMatrix(REALSXP, n, 3);
+    PROTECT(ans = allocMatrix(REALSXP, n, 3));
     for(i = 0; i < n; i++) {
         decodeHexStr(CHAR(STRING_ELT(hex, i)), &r, &g, &b);
         if (asLogical(gamma))
@@ -1409,5 +1409,6 @@ SEXP hex_to_RGB(SEXP hex, SEXP gamma)
         REAL(ans)[i+n] = g;
         REAL(ans)[i+2*n] = b;
     }
+    UNPROTECT(1);
     return ans;
 }
