@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-07 11:43 on marvin
+# - L@ST MODIFIED: 2019-01-10 11:43 on marvin
 # -------------------------------------------------------------------
 
 
@@ -146,7 +146,7 @@ shinyUI(fluidPage(
       # -------------------------------------------------------------
       withTags(div(class = "hcl-sliderwrapper", id = "C1-wrapper",
          withTags(span(class = "hcl-slider",
-            sliderInput("C1", label=NULL, 0, 180, default$C1, step = NULL,
+            sliderInput("C1", label=NULL, 0, 100, default$C1, step = NULL,
                         round = TRUE, ticks = FALSE, animate = FALSE,
                         width = NULL, sep = ",", pre = NULL, post = NULL)
          )),
@@ -158,7 +158,7 @@ shinyUI(fluidPage(
       )),
       withTags(div(class = "hcl-sliderwrapper", id = "CMAX-wrapper",
          withTags(span(class = "hcl-slider",
-            sliderInput("CMAX", label=NULL, 0, 180, default$CMAX, step = NULL,
+            sliderInput("CMAX", label=NULL, 0, 100, default$CMAX, step = NULL,
                         round = TRUE, ticks = FALSE, animate = FALSE,
                         width = NULL, sep = ",", pre = NULL, post = NULL)
          )),
@@ -170,7 +170,7 @@ shinyUI(fluidPage(
       )),
       withTags(div(class = "hcl-sliderwrapper", id = "C2-wrapper",
          withTags(span(class = "hcl-slider",
-            sliderInput("C2", label=NULL, 0, 180, default$C2, step = NULL,
+            sliderInput("C2", label=NULL, 0, 100, default$C2, step = NULL,
                         round = TRUE, ticks = FALSE, animate = FALSE,
                         width = NULL, sep = ",", pre = NULL, post = NULL)
          )),
@@ -323,8 +323,9 @@ shinyUI(fluidPage(
                   ),
                   # Python output
                   tabPanel("Python",
+                     includeHTML("html/python.html"),
                      htmlOutput("exportPython"),
-                     includeHTML("html/python.html")
+                     includeHTML("html/python-example.html")
                   ),
                   # Matlab output
                   tabPanel("matlab",
@@ -334,7 +335,9 @@ shinyUI(fluidPage(
                   # Matlab output
                   tabPanel("R",
                      includeHTML("html/R.html"),
-                     htmlOutput("exportFun")
+                     htmlOutput("exportFun"),
+                     includeHTML("html/RReg.html"),
+                     htmlOutput("exportFunReg")
                   )
                )
             ))

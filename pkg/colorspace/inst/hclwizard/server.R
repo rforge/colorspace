@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-07 23:33 on marvin
+# - L@ST MODIFIED: 2019-01-10 11:55 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -42,16 +42,16 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    # Package version information
    # ----------------------------------------------------------------
-   output$version_info <- renderText(sprintf("<a href=\"%s\">R colorspace %s</a>",
-                                     "https://cran.r-project.org/package=colorspace",
-                                     packageVersion("colorspace")))
+   output$version_info <- shiny::renderText(sprintf("<a href=\"%s\">R colorspace %s</a>",
+                                            "https://cran.r-project.org/package=colorspace",
+                                            packageVersion("colorspace")))
 
    # ----------------------------------------------------------------
    # Helper function. Input: character vectors to show/hide.
    # ----------------------------------------------------------------
    showHideElements <- function(show,hide) {
-      for ( elem in hide ) addClass(   elem, "hcl-is-hidden")
-      for ( elem in show ) removeClass(elem, "hcl-is-hidden")
+      for ( elem in hide ) shinyjs::addClass(   elem, "hcl-is-hidden")
+      for ( elem in show ) shinyjs::removeClass(elem, "hcl-is-hidden")
    }
 
    # ----------------------------------------------------------------
@@ -64,6 +64,7 @@ shinyServer(function(input, output, session) {
          eval(parse(text = sprintf("pal$%s <- as.numeric(input$%s)", elem, elem)))
       }
       pal$N <- input$N
+      if ( ! "register" %in% names(pal) ) pal$register <- ""
       return(pal)
    }
 
@@ -332,6 +333,15 @@ shinyServer(function(input, output, session) {
          if ( is.na(palettes[idx,elem]) ) { hide <- c(hide, sprintf("%s-wrapper", elem)) }
          else                             { show <- c(show, sprintf("%s-wrapper", elem)) }
          showHideElements(show,hide)
+         if ( any(grepl("^CMAX-wrapper$", show)) ) {
+             updateSliderInput(session, "C1",   max = 180)
+             updateSliderInput(session, "C2",   max = 180)
+             updateSliderInput(session, "CMAX", max = 180)
+         } else {
+             updateSliderInput(session, "C1",   max = 100)
+             updateSliderInput(session, "C2",   max = 100)
+             updateSliderInput(session, "CMAX", max = 100)
+         }
       }
    }
 
@@ -340,7 +350,7 @@ shinyServer(function(input, output, session) {
    # Returns the R function call of the current palette as specified
    # by the user.
    # ----------------------------------------------------------------
-   function_to_string <- function(n) {
+   function_to_string <- function(n, register = "") {
 
       # It is possible that the function cannot be evaluated
       # at the moment shiny changes the palette typ. In these
@@ -355,6 +365,8 @@ shinyServer(function(input, output, session) {
           arglist[[arg]] <- formals(pal)[[arg]]
       }
       arglist[["n"]] <- sprintf("%d", n)
+      if ( nchar(register) > 0 )
+          arglist[["register"]] <- sprintf("\"%s\"", register)
 
       # Remove defaults
       if ( "fixup" %in% names(arglist) )
@@ -374,6 +386,7 @@ shinyServer(function(input, output, session) {
       } else {
           fname <- input$PAL
       }
+      if ( nchar(register) > 0 ) fname <- sprintf("colorspace::%s", fname)
 
       # Create the result
       argstr <- paste(names(arglist),arglist, sep = " = ", collapse = ", ")
@@ -385,14 +398,16 @@ shinyServer(function(input, output, session) {
 
 
       # If visual constraints are selected: add wrapping function
-      if ( input$desaturate )
-          result <- sprintf("desaturate(%s)", result)
-      if ( input$constraint == "Deutan" ) {
-          result <- sprintf("deutan(%s)", result)
-      } else if ( input$constraint == "Protan" ) {
-          result <- sprintf("protan(%s)", result)
-      } else if ( input$constraint == "Tritan" ) {
-          result <- sprintf("tritan(%s)", result)
+      if ( nchar(register) == 0 ) {
+          if ( input$desaturate )
+              result <- sprintf("desaturate(%s)", result)
+          if ( input$constraint == "Deutan" ) {
+              result <- sprintf("deutan(%s)", result)
+          } else if ( input$constraint == "Protan" ) {
+              result <- sprintf("protan(%s)", result)
+          } else if ( input$constraint == "Tritan" ) {
+              result <- sprintf("tritan(%s)", result)
+          }
       }
 
       return(result)
@@ -463,7 +478,10 @@ shinyServer(function(input, output, session) {
       output$exportRAW4 <- renderText(paste(raw4, collapse = "\n"))
 
       # The corresponding R call
-      output$exportFun  <- renderText(sprintf("<code>%s</code>",function_to_string(input$N)))
+      output$exportFun    <- renderText(sprintf("<code>%s</code>",
+                                        function_to_string(input$N)))
+      output$exportFunReg <- renderText(sprintf("<code>%s</code>",
+                                        function_to_string(input$N, register = "Custom-Palette")))
 
       
       # -----------------------------

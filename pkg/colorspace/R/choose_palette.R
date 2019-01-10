@@ -433,6 +433,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
       args <- args[which(! names(args) %in% c("name", "gui"))]
       args$type    <- as.character(tcltk::tclvalue(nature.var))
       args$reverse <- FALSE
+      args$register <- ""
 
       pal      <- do.call(GetPalette, args=args)
       pal.cols <- pal(5)
@@ -686,6 +687,34 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
                            i, ifelse(state, "!disabled", "disabled"))
             eval(parse(text = cmd))
         }
+
+        # Update slider range (c1/c2) if a palette with
+        # additional cmax has been selected by the user.
+        # In these cases we are setting:
+        # - c1 range of 0 - 180
+        # - c2 range of 0 - 180
+        if ( is.na(pal_args$cmax) ) {
+            for ( i in grep("^(c1|c2)$", slider_elements) ) {
+                # Reducing upper limit from 180 to 100: make
+                # sure the values are not above 100. If they are, 
+                # set them to 100.
+                cmd   <- sprintf("tcltk::tclvalue(%s.ent.var)", slider_elements[i])
+                val   <- eval(parse(text = cmd))
+                val   <- ifelse(val == "NA", NA, as.numeric(val))
+                if ( ! is.na(val) && val > 100 ) {
+                    eval(parse(text = sprintf("tcltk::tclvalue(%s.ent.var) <- 100", slider_elements[i])))
+                    eval(parse(text = sprintf("tcltk::tclvalue(%s.scl.var) <- 100", slider_elements[i])))
+                }
+                cmd   <- sprintf("tcltk::tkconfigure(frame3.scl.%d.2, to = %d)", i, 100)
+                eval(parse(text = cmd))
+            }
+        } else {
+            for ( i in grep("^(c1|c2)$", slider_elements) ) {
+                cmd   <- sprintf("tcltk::tkconfigure(frame3.scl.%d.2, to = %d)", i, 180)
+                eval(parse(text = cmd))
+            }
+        }
+
 
         # If attribute is NA: set to 0
         #val <- ifelse(is.na(pal_args[[key]]), 0, pal_args[[key]])
