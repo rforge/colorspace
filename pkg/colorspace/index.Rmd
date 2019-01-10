@@ -9,7 +9,7 @@ hclplot(qualitative_hcl(9, c = 50, l = 70))
 hcl_palettes(palette = c(
   "Pastel 1", "Dark 3", "Harmonic",
   "Blues 3", "Greens 3", "Reds 3",
-  "Heat", "Purple-Blue", "Viridis",
+  "ag_Sunset", "Purple-Blue", "Viridis",
   "Blue-Red", "Green-Brown", "Tropic"
 ), plot = TRUE, n = 7)
 ```
