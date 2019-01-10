@@ -17,10 +17,6 @@ library("colorspace")
 
 bpy <- eval(parse(text = "colorspace:::bpy"))
 
-# Create some global variables to avoid notes during R CMD build
-if(getRversion() >= "2.15.1") utils::globalVariables(c("verbose", "autohclplot"))
-
-
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -283,8 +279,7 @@ shinyServer(function(input, output, session) {
       if ( missing(colors) ) colors <- getColors( input$N )
 
       # dimension to collapse. If autohclplot option has been set to TRUE: take NULL.
-      autohclplot <- as.logical(Sys.getenv("hclwizard_autohclplot"))
-      if ( autohclplot ) {
+      if ( colorspace:::.colorspace_get_info("hclwizard_autohclplot") ) {
           plot_type <- NULL
       } else if ( grepl("^qual", input$typ) ) {
           plot_type <- "qualitative"

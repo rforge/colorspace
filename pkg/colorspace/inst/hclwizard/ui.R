@@ -33,9 +33,7 @@ default = list("N"    =   7,
                "P1"   = 0.7,
                "P2"   = 1.3)
 # Take default argument if set
-if ( nchar(Sys.getenv("hclwizard_Ninit")) > 0 &
-     is.numeric(as.numeric(Sys.getenv("hclwizard_Ninit"))) )
-   default$N <- as.numeric(Sys.getenv("hclwizard_Ninit"))
+default$N <- colorspace:::.colorspace_get_info("hclwizard_ninit")
 
 
 # Define UI for application that draws a histogram

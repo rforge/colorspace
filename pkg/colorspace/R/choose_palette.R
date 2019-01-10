@@ -101,9 +101,42 @@ hclwizard <- function(n = 7L, gui = "shiny", ...) {
 hcl_wizard <- function(n = 7L, gui = "shiny", ...)
    hclwizard(n = n, gui = gui, ...)
 
+# -------------------------------------------------------------------
+# Environment for passing around internal information
+# -------------------------------------------------------------------
+
+.colorspace_env <- new.env()
+
+.colorspace_get_info <- function(x = NULL) {
+  if(is.null(x)) return(as.list(.colorspace_env))
+  x <- as.character(x)[1L]
+  return(.colorspace_env[[x]])
+}
+
+.colorspace_set_info <- function(...) {
+  dots <- list(...)
+  if(is.null(names(dots))) {
+    stop("arguments must be named")
+  } else if(any(names(dots) == "")) {
+    warning("ignoring unnamed arguments")
+    dots <- dots[names != ""]
+  }
+  if(length(dots) > 0L) {
+    for(i in names(dots)) {
+      .colorspace_env[[i]] <- dots[[i]]
+    }
+  }
+  invisible(NULL)
+}
+
+.colorspace_set_info(
+  hclwizard_autohclplot = FALSE,
+  hclwizard_ninit       = 7,
+  hclwizard_verbose     = FALSE
+)
 
 # Setting global variables to avoid notes during R CMD check
-utils::globalVariables(c("autohclplot", "verbose", "frame2.cvs.paloffset",
+utils::globalVariables(c("frame2.cvs.paloffset",
                          "frame2.cvs.palwidth", "type",
                          "frame3.scl.1.2", "frame3.scl.2.2", "frame3.scl.3.2", "frame3.scl.4.2",
                          "frame3.scl.5.2", "frame3.scl.6.2", "frame3.scl.7.2", "frame3.scl.8.2",
@@ -124,15 +157,12 @@ choose_palette_shiny <- function(pal, n = 7L, ...) {
    if (appDir == "")
       stop("Could not find hclwizard app directory. Try re-installing `colorspace`.", call. = FALSE)
    # Start shiny
-   Sys.setenv("hclwizard_Ninit" = n)
-   dots         <- list(...)
-   autohclplot <<- ifelse(is.null(dots$autohclplot), FALSE, as.logical(dots$autohclplot))
-   Sys.setenv("hclwizard_autohclplot" = autohclplot)
+   dots <- list(...)
+   .colorspace_set_info(hclwizard_aninit = n)
+   .colorspace_set_info(hclwizard_autohclplot = ifelse(is.null(dots$autohclplot), FALSE, as.logical(dots$autohclplot)))
    shiny.trace <- ifelse(is.null(list(...)$shiny.trace), FALSE, as.logical(list(...)$shiny.trace))
    options(shiny.trace = shiny.trace)
    pal <- shiny::runApp(appDir, display.mode = "normal", quiet = TRUE )
-   Sys.unsetenv("hclwizard_Ninit")
-   Sys.unsetenv("hclwizard_autohclplot")
    return(pal)
 }
 
@@ -140,14 +170,16 @@ choose_palette_shiny <- function(pal, n = 7L, ...) {
 choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... ) {
 
   # Evaluate dots args
-  dots         <- list(...)
-  verbose     <<- ifelse(is.null(dots$verbose),     FALSE, as.logical(dots$verbose))
-  autohclplot <<- ifelse(is.null(dots$autohclplot), FALSE, as.logical(dots$autohclplot))
+  dots <- list(...)
+  .colorspace_set_info(
+    hclwizard_verbose =  ifelse(is.null(dots$verbose), FALSE, as.logical(dots$verbose)),
+    hclwizard_autohclplot = ifelse(is.null(dots$autohclplot), FALSE, as.logical(dots$autohclplot))
+  )
 
   # Choose a file interactively
   ChooseFile <- function(cmd, win.title, initialfile=NULL, 
                          defaultextension=NULL) {
-    if ( verbose) cat(sprintf("Calling ChooseFile\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling ChooseFile\n"))
 
     filetypes <- "{{R Source Files} {.R}} {{All files} {*}}"
     if (cmd == "Open") {
@@ -175,7 +207,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   # Open palette from file
   OpenPaletteFromFile <- function() {
-    if ( verbose) cat(sprintf("Calling OpenPaletteFromFile\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling OpenPaletteFromFile\n"))
 
     f <- ChooseFile(cmd = "Open", win.title = "Open Palette File")
     if (is.null(f)) return()
@@ -188,7 +220,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   # Save palette to file
   SavePaletteToFile <- function() {
-    if ( verbose) cat(sprintf("Calling SavePaletteToFile\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling SavePaletteToFile\n"))
 
     f <- ChooseFile(cmd = "Save As", win.title = "Save Palette As",
                     initialfile = "color_palette", defaultextension = ".R")
@@ -203,7 +235,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   # Save colors to file
   SaveColorsToFile <- function(type) {
-    if ( verbose) cat(sprintf("Calling SaveColorsToFile\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling SaveColorsToFile\n"))
 
     args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
     for ( arg in vars.pal[!vars.pal %in% "type"] )
@@ -253,7 +285,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   # Save palette and quit
   SavePalette <- function() {
-    if ( verbose) cat(sprintf("Calling SavePalette\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling SavePalette\n"))
 
     args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
     for ( arg in vars.pal[!vars.pal %in% "type"] )
@@ -265,7 +297,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   # Scale change
   ScaleChange <- function(x, v, x.ent.var) {
-    if ( verbose) cat(sprintf("Calling ScaleChange\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling ScaleChange\n"))
 
     if (x == get(v)) return()
     assign(v, x, inherits=TRUE)
@@ -276,7 +308,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   # Entry change
   EntryChange <- function(v, x.lim, x.ent.var, x.scl.var) {
-    if ( verbose) cat(sprintf("Calling EntryChange\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling EntryChange\n"))
 
     x <- suppressWarnings(as.numeric(tcltk::tclvalue(x.ent.var)))
     if (is.na(x))
@@ -314,7 +346,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   # FALSE the "selected default color palette" polygon ("browse")
   # will be removed.
   DrawPalette <- function(is.n = FALSE) {
-    if ( verbose) cat(sprintf("Calling DrawPalette\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling DrawPalette\n"))
 
     args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
     for ( arg in vars.pal[!vars.pal %in% "type"] )
@@ -344,8 +376,9 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   # @param init logical. Default is FALSE, if set to TRUE the first default
   #     palette of the current palette config is used. Only used when initializing
   #     the GUI.
+  frame2.cvs.paloffset <- frame2.cvs.palwidth <- NULL
   UpdateDataType <- function(..., init = FALSE) {
-    if ( verbose ) cat(sprintf("Calling UpdateDataType\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling UpdateDataType\n"))
     tcltk::tcl(frame2.cvs, "delete", "browse")
 
     # Default palettes to data.frame
@@ -434,7 +467,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   # Select default palette
   # Triggered when the user clicks one of our default palettes.
   SelectDefaultPalette <- function(x, y) {
-    if ( verbose) cat(sprintf("Calling SelectDefaultPalette\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling SelectDefaultPalette\n"))
 
     # Position within tcltk object
     x <- as.numeric(x)
@@ -474,7 +507,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   # Convert palette to attributes
   ConvertPaletteToAttributes <- function(pal) {
-    if ( verbose) cat(sprintf("Calling ConvertPaletteToAttributes\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling ConvertPaletteToAttributes\n"))
 
     # If input was missing or NULL, take a default sequential
     # multi hue palette (the first in the GetPaletteConfig data.frame)
@@ -613,7 +646,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   # palette). If an element contains NA the corresponding
   # slider will be disabled.
   AssignAttributesToWidgets <- function(pal_args) {
-    if ( verbose) cat(sprintf("Calling AssignAttributesToWidgets\n"))
+    if ( .colorspace_get_info("hclwizard_verbose") ) cat(sprintf("Calling AssignAttributesToWidgets\n"))
 
     # Setting rev (reverse colors) if specified
     if ( is.logical(pal_args$rev) ) {
@@ -711,7 +744,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     if ( tcltk::tclvalue(example.var) == "Spectrum" ) n <- 100
     pal.cols <- get_hex_colors(pal,n)
 
-    if ( grepl("^HCL\\sPlot$", as.character(tcltk::tclvalue(example.var))) & !autohclplot ) {
+    if ( grepl("^HCL\\sPlot$", as.character(tcltk::tclvalue(example.var))) & !.colorspace_get_info("hclwizard_autohclplot") ) {
         type <- as.character(tcltk::tclvalue(nature.var))
         if      ( grepl("[Dd]iverging", type) )   { type <- "diverging" }
         else if ( grepl("[Ss]equential", type) )  { type <- "sequential" }
