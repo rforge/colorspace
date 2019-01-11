@@ -182,7 +182,20 @@
 #' 
 #' ## balanced diverging palette constructed from two simple single-hue sequential
 #' ## palettes (for hues 260/blue and 0/red)
-#' hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
+#' hclplot(diverging_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
+#' 
+#' ## to register a particular adapted palette for re-use in the same session
+#' ## with a new name the register=... argument can be used once, e.g.,
+#' diverging_hcl(7, palette = "Tropic", h2 = 0, register = "mytropic")
+#' 
+#' ## subsequently palete="mytropic" is available in diverging_hcl() and the diverging
+#' ## ggplot2 scales such as scale_color_continuous_diverging() etc.
+#' demoplot(diverging_hcl(11, "mytropic"), type = "map")
+#' 
+#' ## to register this palette in all R sessions you could place the following
+#' ## code in a startup script (e.g., .Rprofile):
+#' ## colorspace::diverging_hcl(7, palette = "Tropic", h2 = 0, register = "mytropic")
+#' 
 #' @export
 hcl_palettes <- function(type = NULL, palette = NULL, plot = FALSE, n = 5L, ...)
 {

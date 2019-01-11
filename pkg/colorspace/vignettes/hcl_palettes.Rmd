@@ -379,6 +379,47 @@ for a given color palette is provided in the article:
 [Palette Visualization and Assessment](palette_visualization.html).
 
 
+## Registering your own palettes
+
+The `hcl_palettes()` already come with a wide range of pre-defined palettes to which
+customizations can be easily added. However, it might also be convenient to register
+a custom palette so that it can subsequently be re-used with a new dedicated name.
+This is supported by adding a `register = "..."` argument once to a call to
+`qualitative_hcl()`, `sequential_hcl()`, or `diverging_hcl()`:
+
+```{r register1}
+qualitative_hcl(3, palette = "set2", l = 80, register = "myset")
+```
+
+The new palette is then included in `hcl_palettes()`:
+
+```{r register2}
+hcl_palettes("Qualitative")
+```
+
+And can be used subsequently in `qualitative_hcl()` as well as the
+qualitative [ggplot2 color scales](ggplot2_color_scales.html), e.g.,
+
+```{r register3}
+qualitative_hcl(4, palette = "myset")
+```
+
+Remarks:
+
+* The number of of colors in the palette that was used during registration is not
+  actually stored and can be modified subsequently. The same holds for arguments
+  `alpha` and `rev`.
+* When registering a new palette with an old name that was already available
+  previously, the old palette gets overwritten. We recommend not to overwrite
+  the palettes that are pre-defined in the package (albeit it is technically possible).
+* The registration of a palette is only stored for the current session. When
+  R is restarted and/or the `colorspace` package reloaded, only the pre-defined
+  palettes from the package are available. Thus, to make a palette permanently
+  available a registration R code like
+  `colorspace::qualitative_hcl(3, palette = "set2", l = 80, register = "myset")`
+  can be placed in your `.Rprofile` or similar startup scripts.
+
+
 ## Flexible diverging palettes
 
 The `divergingx_hcl()` function provides more flexible diverging palettes by

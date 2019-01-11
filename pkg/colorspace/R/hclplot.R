@@ -79,7 +79,8 @@
 #' 
 #' ## balanced diverging palette constructed from two simple single-hue sequential
 #' ## palettes (for hues 260/blue and 0/red)
-#' hclplot(diverge_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
+#' hclplot(diverging_hcl(7, h = c(260, 0), c = 80, l = c(35, 95), power = 1))
+#' 
 #' @export hclplot
 #' @importFrom graphics box lines mtext par plot points rect text
 #' @importFrom stats cor lm median predict

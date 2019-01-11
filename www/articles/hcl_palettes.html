@@ -290,6 +290,28 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 </ul>
 <p>Further discussion of these trajectories and how they can be visualized and assessed for a given color palette is provided in the article: <a href="palette_visualization.html">Palette Visualization and Assessment</a>.</p>
 </div>
+<div id="registering-your-own-palettes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#registering-your-own-palettes" class="anchor"></a>Registering your own palettes</h2>
+<p>The <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> already come with a wide range of pre-defined palettes to which customizations can be easily added. However, it might also be convenient to register a custom palette so that it can subsequently be re-used with a new dedicated name. This is supported by adding a <code>register = "..."</code> argument once to a call to <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, or <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">3</span>, <span class="dt">palette =</span> <span class="st">"set2"</span>, <span class="dt">l =</span> <span class="dv">80</span>, <span class="dt">register =</span> <span class="st">"myset"</span>)</a></code></pre></div>
+<p>The new palette is then included in <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"Qualitative"</span>)</a></code></pre></div>
+<pre><code>## HCL palettes
+## 
+## Type:  Qualitative 
+## Names: Pastel 1, Dark 2, Dark 3, Set 2, Set 3, Warm, Cold, Harmonic,
+##        Dynamic, myset</code></pre>
+<p>And can be used subsequently in <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> as well as the qualitative <a href="ggplot2_color_scales.html">ggplot2 color scales</a>, e.g.,</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">palette =</span> <span class="st">"myset"</span>)</a></code></pre></div>
+<pre><code>## [1] "#FFACBF" "#C6CD70" "#32DDCD" "#C7BEFF"</code></pre>
+<p>Remarks:</p>
+<ul>
+<li>The number of of colors in the palette that was used during registration is not actually stored and can be modified subsequently. The same holds for arguments <code>alpha</code> and <code>rev</code>.</li>
+<li>When registering a new palette with an old name that was already available previously, the old palette gets overwritten. We recommend not to overwrite the palettes that are pre-defined in the package (albeit it is technically possible).</li>
+<li>The registration of a palette is only stored for the current session. When R is restarted and/or the <code>colorspace</code> package reloaded, only the pre-defined palettes from the package are available. Thus, to make a palette permanently available a registration R code like <code><a href="../reference/hcl_palettes.html">colorspace::qualitative_hcl(3, palette = "set2", l = 80, register = "myset")</a></code> can be placed in your <code>.Rprofile</code> or similar startup scripts.</li>
+</ul>
+</div>
 <div id="flexible-diverging-palettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#flexible-diverging-palettes" class="anchor"></a>Flexible diverging palettes</h2>
@@ -299,7 +321,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <li>“ArmyRose” to “Tropic” closely match the palettes of the same name from <em>CARTO</em> <span class="citation">(CARTO 2019)</span>.</li>
 <li>“PuOr” to “Spectral” closely match the palettes of the same name from <em>ColorBrewer.org</em> <span class="citation">(Harrower and Brewer 2003)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/divergingx_hcl.html">divergingx_palettes</a></span>(<span class="dt">n =</span> <span class="dv">7</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw"><a href="../reference/divergingx_hcl.html">divergingx_palettes</a></span>(<span class="dt">n =</span> <span class="dv">7</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/divergingx-palettes-1.png" width="70%" style="display: block; margin: auto;"></p>
 <p>Typically, the more restricted <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> palettes should be preferred because they are more balanced. However, by being able to go through light yellow as the neutral color warmer diverging palettes are available.</p>
 </div>
@@ -358,6 +380,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
       <li><a href="#sequential-palettes-multi-hue">Sequential palettes (multi-hue)</a></li>
       <li><a href="#diverging-palettes">Diverging palettes</a></li>
       <li><a href="#construction-details">Construction details</a></li>
+      <li><a href="#registering-your-own-palettes">Registering your own palettes</a></li>
       <li><a href="#flexible-diverging-palettes">Flexible diverging palettes</a></li>
       <li><a href="#hcl-and-hsv-color-palettes-corresponding-to-base-r-palettes">HCL (and HSV) color palettes corresponding to base R palettes</a></li>
       <li><a href="#references">References</a></li>
