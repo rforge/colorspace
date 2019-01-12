@@ -152,21 +152,21 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
         } else {
           if(n %in% idxs[[1L]]) n else round(mean(range(idxs[[1L]])))
         }
-	## "in" vs. "out" of low-chroma in current segment
+        ## "in" vs. "out" of low-chroma in current segment
         io <- split(min(s):max(e), (min(s):max(e) %in% idx) |  (min(s):max(e) %in% x.na))
-	
-	## given enough ok-chroma observations fit a curve
-	## - either linear if residual standard error is small enough
-	## - or natural spline
-        if (length(io) == 2L & sum(!is.na(HCL[io[["FALSE"]], "H"])) > 0) {
-	  linfit <- stats::lm.fit(cbind(1, io[["FALSE"]]), HCL[io[["FALSE"]], "H"])
-	  HCL[io[["TRUE"]], "H"] <- if(sd(linfit$residuals) < 1.3) {
-            drop(cbind(1, io[["TRUE"]]) %*% linfit$coefficients)	  
-	  } else {
-            stats::spline(io[["FALSE"]], HCL[io[["FALSE"]], "H"],
-              xout = io[["TRUE"]], method = "natural")$y
-	  }
-	  HCL[x.na, "H"] <- NA
+      
+        ## given enough ok-chroma observations fit a curve
+        ## - either linear if residual standard error is small enough
+        ## - or natural spline
+        if (length(io) == 2L & sum(!is.na(HCL[io[["FALSE"]], "H"])) > 0 & length(io[["FALSE"]]) > 1) {
+           linfit <- stats::lm.fit(cbind(1, io[["FALSE"]]), HCL[io[["FALSE"]], "H"])
+           HCL[io[["TRUE"]], "H"] <- if(sd(linfit$residuals) < 1.3) {
+                 drop(cbind(1, io[["TRUE"]]) %*% linfit$coefficients)      
+           } else {
+                 stats::spline(io[["FALSE"]], HCL[io[["FALSE"]], "H"],
+                   xout = io[["TRUE"]], method = "natural")$y
+           }
+           HCL[x.na, "H"] <- NA
         }
         idxs[[1L]] <- NULL
         s <- e + 1L
@@ -243,7 +243,7 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
       mtext(side = 2, "Red / Green / Blue", cex = cex, line = 2.0)
       if(!is.null(main)) {
         mtext(side = 3, main, line = 1.5, cex = 1.5 * cex)
-	main <- NULL
+    main <- NULL
       }
     }
 
@@ -254,7 +254,7 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
       par(yaxt = "s")
       if(!is.null(main)) {
         mtext(side = 3, main, line = 1.0, cex = 1.5 * cex)
-	main <- NULL
+    main <- NULL
       }
     }
     if(palette && y) {
@@ -270,7 +270,7 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
          labels <- seq(   0, 360, length.out = 5)
          axis(side = 4, at = labels/3.6, labels = labels)
          lines((HCL[, "H"])/3.6, lwd = lwd[1L], lty = lty[1L], col = hcl[1L], type = type[1L], pch = pch[1L])
-	 if(y) lines((yspec$HCL[, "H"])/3.6, lwd = lwd[1L], lty = lty[1L] + 1L, col = hcl[1L], type = type[1L], pch = pch[1L])
+     if(y) lines((yspec$HCL[, "H"])/3.6, lwd = lwd[1L], lty = lty[1L] + 1L, col = hcl[1L], type = type[1L], pch = pch[1L])
       } else {
          labels <- seq(-360, 360, length.out = 5)
          axis(side = 4, at = labels/7.2 + 50, labels = labels)
