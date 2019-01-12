@@ -501,8 +501,9 @@ shinyServer(function(input, output, session) {
       # The corresponding R call
       output$exportFun    <- renderText(sprintf("<code>%s</code>",
                                         function_to_string(input$N)))
-      output$exportFunReg <- renderText(sprintf("<code>%s</code>",
-                                        function_to_string(input$N, register = "Custom-Palette")))
+      output$exportFunReg2 <- output$exportFunReg <- renderText(
+          sprintf("<code>%s</code>",
+          function_to_string(input$N, register = "Custom-Palette")))
 
       
       # -----------------------------

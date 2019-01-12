@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-10 17:48 on marvin
+# - L@ST MODIFIED: 2019-01-12 14:22 on marvin
 # -------------------------------------------------------------------
 
 
@@ -37,7 +37,7 @@ default$N <- colorspace:::.colorspace_get_info("hclwizard_ninit")
 
 # Hide register-functionality on uberspace.
 if ( Sys.info()["nodename"] == "sculptor.uberspace.de" ) {
-    xtra <- "$(\".registerpalette\").remove();"
+    xtra <- "$(\"#hcl-main-export > div > ul > li:last-child\").remove();"
 } else { xtra <- "" }
 
 # Define UI for application that draws a histogram
@@ -130,12 +130,6 @@ shinyUI(fluidPage(
                choices  =  c("Normal", "Deutan", "Protan", "Tritan"), 
                selected = "Normal"),
 
-      # Register custom palettes.
-      withTags(span(class = "registerpalette",
-          h3("Register Custom Palette"),
-          textInput("registerpalettename", labe = NA, width = "200px"),
-          actionButton("registerpalettebutton","Register")
-      )),
       width = 2
    ),
 
@@ -370,6 +364,16 @@ shinyUI(fluidPage(
                      includeHTML("html/R.html"),
                      htmlOutput("exportFun"),
                      includeHTML("html/RReg.html"),
+                     htmlOutput("exportFunReg2")
+                  ),
+                  # Register palette
+                  tabPanel("Register",
+                     includeHTML("html/Register.html"),
+                     withTags(span(class = "registerpalette",
+                         textInput("registerpalettename", labe = NA, width = "200px"),
+                         actionButton("registerpalettebutton","Register")
+                     )),
+                     includeHTML("html/RegisterRcode.html"),
                      htmlOutput("exportFunReg")
                   )
                )

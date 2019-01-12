@@ -250,3 +250,9 @@ div.version-info a:hover {
 }
 
 
+/* Styling for the registration function (input/button) */
+#registerpalettename {
+    float: left;
+    margin-right: 15px;
+}
+

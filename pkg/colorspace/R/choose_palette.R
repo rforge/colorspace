@@ -41,10 +41,7 @@
 #' "tcltk"}.
 #' @param gui character; GUI to use. Available options are \code{tcltk} and
 #' \code{shiny}, see \sQuote{Details} below.
-#' @param ... Forwarded, used for development and demonstration purposes only.
-#' Currently considered: \code{verbose} (logical, default \code{FALSE}) and
-#' \code{autohclplot} (logical, default \code{FALSE}), and \code{shiny.trace}
-#' (logical, default \code{FALSE}).
+#' @param ... used for development purposes only.
 #' @return Returns a palette-generating function with the selected arguments.
 #' Thus, the returned function takes an integer argument and returns the
 #' corresponding number of HCL colors by traversing HCL space through
@@ -132,7 +129,8 @@ hcl_wizard <- function(n = 7L, gui = "shiny", ...)
 .colorspace_set_info(
   hclwizard_autohclplot = FALSE,
   hclwizard_ninit       = 7,
-  hclwizard_verbose     = FALSE
+  hclwizard_verbose     = FALSE,
+  hclwizard_shiny.trace = FALSE
 )
 
 # Setting global variables to avoid notes during R CMD check
@@ -161,8 +159,8 @@ choose_palette_shiny <- function(pal, n = 7L, ...) {
    dots <- list(...)
    .colorspace_set_info(hclwizard_aninit = n)
    .colorspace_set_info(hclwizard_autohclplot = ifelse(is.null(dots$autohclplot), FALSE, as.logical(dots$autohclplot)))
-   shiny.trace <- ifelse(is.null(list(...)$shiny.trace), FALSE, as.logical(list(...)$shiny.trace))
-   options(shiny.trace = shiny.trace)
+   .colorspace_set_info(hclwizard_shiny.trace = ifelse(is.null(dots$shiny.trace), FALSE, as.logical(dots$shiny.trace)))
+   options(shiny.trace = .colorspace_get_info("hclwizard_shiny.trace"))
    pal <- shiny::runApp(appDir, display.mode = "normal", quiet = TRUE )
    return(pal)
 }
@@ -737,10 +735,11 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   # Open window to register a palette
   RegisterPalette <- function(x) {
+
     # New tcltk window (tktoplevel)
     ttreg <- tcltk::tktoplevel()
+
     # Loading geometry (sidze and position) of the main window
-    #tcltk::tkwm.transient(ttreg, tt)
     geo <- unlist(strsplit(as.character(tcltk::tkwm.geometry(tt)), "\\+"))
     dim <- unlist(strsplit(geo[1L], "x"))
     pos_x <- as.integer(geo[2L]) + (as.integer(dim[1L]) - 300) / 2
@@ -748,35 +747,50 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     tcltk::tkwm.geometry(ttreg, sprintf("300x100+%.0f+%.0f", pos_x, pos_y))
     tcltk::tkwm.resizable(ttreg, 0, 0)
     tcltk::tktitle(ttreg) <- "Register Custom Palette"
-    #reg_frame <- tcltk::tkframe(ttreg)
 
-    ## Adding text, text input, and register button.
-    ## Command to create the text output
+    # Function registering the palette
+    reg_pal <- function() {
+        name <- tcltk::tclvalue(ttreg.name)
+        if ( nchar(name) > 0 ) {
+            args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
+            for ( arg in vars.pal[!vars.pal %in% "type"] )
+                args[[arg]] <- eval(parse(text=arg))
+            args$reverse  <- reverse
+            args$register <- name
+            # Loading palette with register = NAME
+            pal <- do.call(GetPalette, args)
+            # Evaluate/execute the function to register the new palette.
+            pal(1)
+            # Close Register-window
+            tcltk::tclvalue(ttreg.done.var) <- 1
+        }
+    }
+
+    # Adding text, text input, and register button.
     ttreg.name <- tcltk::tclVar("")
-    #reg_text   <- tcltk::tklabel(  ttreg, text = paste("Register the current color palette.",
-    #                "Please enter a valid name for",
-    #                "your custom palette. Once registered one can",
-    #                "use the custom palette by name.", sep = "\n"))
     reg_text   <- tcltk::tklabel(  ttreg, text = "Enter palette name:")
     reg_name   <- tcltk::ttkentry( ttreg, textvariable = ttreg.name, width = 12)
-    reg_btn    <- tcltk::ttkbutton(ttreg, width=12, text="Register", command = function() print("REG"))
+    reg_btn    <- tcltk::ttkbutton(ttreg, width=12, state = "disabled",
+                     text="Register", command = reg_pal)
 
     # Allow to close with Escape, register palette when pressing return, and
     # the destroy functionality when pressing the "X" button.
-    tcltk::tkbind(ttreg, "<Escape>", function(x) tcltk::tclvalue(ttreg.done.var) <- 1)
-    tcltk::tkbind(ttreg, "<Return>", function(x) {
-        name <- tcltk::tclvalue(ttreg.name)
-        if ( nchar(name) > 0 ) {
-            
-            #tcltk::tclvalue(ttreg.done.var) <- 1
-        }
-    })
+    tcltk::tkbind(ttreg, "<Escape>", function() tcltk::tclvalue(ttreg.done.var) <- 1)
+    tcltk::tkbind(ttreg, "<Return>", reg_pal)
     tcltk::tkbind(ttreg, "<Destroy>", function() tcltk::tclvalue(ttreg.done.var) <- 1);
 
+    # Checking user name for the palette. Only allows alpha numeric values,
+    # blanks, dashes, and underscores.
     check_name <- function() {
         name <- unlist(strsplit(tcltk::tclvalue(ttreg.name), ""))
-        name <- paste(regmatches(name, regexpr("[A-Za-z\\_\\-\\s0-9]", name, perl = T)), collapse = "")
+        name <- paste(regmatches(name, regexpr("[A-Za-z\\_\\-\\s0-9]",
+                                 name, perl = T)), collapse = "")
         tcltk::tclvalue(ttreg.name) <- name
+        if ( nchar(name) > 0 ) {
+           tcltk::tkconfigure(reg_btn, state = "normal")
+        } else {
+           tcltk::tkconfigure(reg_btn, state = "disabled")
+        }
     }
     tcltk::tkbind(reg_name, "<KeyRelease>", check_name)
 
@@ -946,8 +960,8 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   top.menu  <- tcltk::tkmenu(tt, tearoff = 0)
   menu.file <- tcltk::tkmenu(tt, tearoff = 0)
   tcltk::tkadd(top.menu, "cascade", label = "File", menu = menu.file, underline = 0)
-  #tcltk::tkadd(top.menu, "command", label = "Register",
-  #             command = RegisterPalette, underline = 0)
+  tcltk::tkadd(top.menu, "command", label = "Register",
+               command = RegisterPalette, underline = 0)
 
   tcltk::tkadd(menu.file, "command", label = "Open palette", accelerator = "Ctrl+O",
                command = OpenPaletteFromFile)
@@ -1178,7 +1192,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   tcltk::tkbind(tt, "<Control-o>", OpenPaletteFromFile)
   tcltk::tkbind(tt, "<Shift-Control-S>", SavePaletteToFile)
-  #tcltk::tkbind(tt, "<Control-r>", RegisterPalette)
+  tcltk::tkbind(tt, "<Control-r>", RegisterPalette)
   
   UpdateDataTypeInit <- function() UpdateDataType(init = TRUE)
   tcltk::tkbind(frame1.box.2, "<<ComboboxSelected>>", UpdateDataTypeInit)
