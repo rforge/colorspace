@@ -336,7 +336,6 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   get_hex_colors <- function(pal,n) {
     fixup <- as.logical(as.numeric(tcltk::tclvalue(fixup.var)))
     pal.cols <- pal(n, fixup = fixup)
-    pal.cols[is.na(pal.cols)] <- "#FFFFFF"
     if (as.logical(as.integer(tcltk::tclvalue(desaturation.var))))
       pal.cols <- desaturate(pal.cols)
     if (as.logical(as.integer(tcltk::tclvalue(colorblind.var)))) {
@@ -365,16 +364,19 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     pal <- do.call(GetPalette, args)
     tcltk::tcl(frame7.cvs, "delete", "pal")
 
-    pal.cols <- get_hex_colors(pal,n)
+    pal.cols <- get_hex_colors(pal, n)
     dx <- (cvs.width - 1) / n
     x2 <- 1
     y1 <- 1
     y2 <- cvs.height
-    for (i in pal.cols) {
-      x1 <- x2
-      x2 <- x1 + dx
+    # NA color (white or black, depending on darkmode.var)
+    NAcolor <- ifelse(tcltk::tclvalue(darkmode.var) != "1", "#FFFFFF", "#000000")
+    for (color in pal.cols) {
+      color <- ifelse(is.na(color), NAcolor, color)
+      x1  <- x2
+      x2  <- x1 + dx
       pts <- tcltk::.Tcl.args(c(x1, y1, x2, y1, x2, y2, x1, y2))
-      tcltk::tkcreate(frame7.cvs, "polygon", pts, fill=i, tag="pal")
+      tcltk::tkcreate(frame7.cvs, "polygon", pts, fill = color, tag = "pal")
     }
     RegenExample(pal,n)
   }

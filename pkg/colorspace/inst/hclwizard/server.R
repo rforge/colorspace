@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-12 23:36 on marvin
+# - L@ST MODIFIED: 2019-01-12 23:52 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -251,7 +251,10 @@ shinyServer(function(input, output, session) {
       colors <- getColors()
 
       output$colormap <- renderPlot({
-         par(mar = rep(0,4),xaxt = "n",yaxt = "n",oma = rep(0,4),bty = "n")
+         bg <- ifelse(input$darkmode, "black", "white") # background
+         fg <- ifelse(input$darkmode, "white", "black") # foreground
+         par(mar = rep(0,4), xaxt = "n", yaxt = "n", oma = rep(0,4), bty = "n",
+             bg = bg, fg = fg)
          image(matrix(1:length(colors),ncol = 1),col = colors)
       }, width = 500, height = 5)
 
@@ -296,6 +299,11 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    showColorplane <- function(colors) {
       if ( missing(colors) ) colors <- getColors( input$N )
+
+      # Quick fix: setting NA colors to NAcolor
+      NAcolor <- ifelse(input$darkmode, "#000000", "#FFFFFF")
+      NAidx <- which(is.na(colors))
+      if ( length(NAidx) > 0 ) colors[NAidx] <- NAcolor
 
       # dimension to collapse. If autohclplot option has been set to TRUE: take NULL.
       if ( colorspace:::.colorspace_get_info("hclwizard_autohclplot") ) {
