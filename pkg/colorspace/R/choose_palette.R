@@ -138,6 +138,7 @@ hcl_wizard <- function(n = 7L, gui = "shiny", ...)
 # Setting global variables to avoid notes during R CMD check
 utils::globalVariables(c("frame2.cvs.paloffset",
                          "frame2.cvs.palwidth", "type",
+                         "dev.example", "ttreg.name",
                          "frame3.scl.1.2", "frame3.scl.2.2", "frame3.scl.3.2", "frame3.scl.4.2",
                          "frame3.scl.5.2", "frame3.scl.6.2", "frame3.scl.7.2", "frame3.scl.8.2",
                          "frame3.scl.9.2", "frame3.ent.1.3", "frame3.ent.2.3", "frame3.ent.3.3",
@@ -734,10 +735,73 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   }
 
+  # Open window to register a palette
+  RegisterPalette <- function(x) {
+    # New tcltk window (tktoplevel)
+    ttreg <- tcltk::tktoplevel()
+    # Loading geometry (sidze and position) of the main window
+    #tcltk::tkwm.transient(ttreg, tt)
+    geo <- unlist(strsplit(as.character(tcltk::tkwm.geometry(tt)), "\\+"))
+    dim <- unlist(strsplit(geo[1L], "x"))
+    pos_x <- as.integer(geo[2L]) + (as.integer(dim[1L]) - 300) / 2
+    pos_y <- as.integer(geo[3L]) + 50
+    tcltk::tkwm.geometry(ttreg, sprintf("300x100+%.0f+%.0f", pos_x, pos_y))
+    tcltk::tkwm.resizable(ttreg, 0, 0)
+    tcltk::tktitle(ttreg) <- "Register Custom Palette"
+    #reg_frame <- tcltk::tkframe(ttreg)
+
+    ## Adding text, text input, and register button.
+    ## Command to create the text output
+    ttreg.name <- tcltk::tclVar("")
+    #reg_text   <- tcltk::tklabel(  ttreg, text = paste("Register the current color palette.",
+    #                "Please enter a valid name for",
+    #                "your custom palette. Once registered one can",
+    #                "use the custom palette by name.", sep = "\n"))
+    reg_text   <- tcltk::tklabel(  ttreg, text = "Enter palette name:")
+    reg_name   <- tcltk::ttkentry( ttreg, textvariable = ttreg.name, width = 12)
+    reg_btn    <- tcltk::ttkbutton(ttreg, width=12, text="Register", command = function() print("REG"))
+
+    # Allow to close with Escape, register palette when pressing return, and
+    # the destroy functionality when pressing the "X" button.
+    tcltk::tkbind(ttreg, "<Escape>", function(x) tcltk::tclvalue(ttreg.done.var) <- 1)
+    tcltk::tkbind(ttreg, "<Return>", function(x) {
+        name <- tcltk::tclvalue(ttreg.name)
+        if ( nchar(name) > 0 ) {
+            
+            #tcltk::tclvalue(ttreg.done.var) <- 1
+        }
+    })
+    tcltk::tkbind(ttreg, "<Destroy>", function() tcltk::tclvalue(ttreg.done.var) <- 1);
+
+    check_name <- function() {
+        name <- unlist(strsplit(tcltk::tclvalue(ttreg.name), ""))
+        name <- paste(regmatches(name, regexpr("[A-Za-z\\_\\-\\s0-9]", name, perl = T)), collapse = "")
+        tcltk::tclvalue(ttreg.name) <- name
+    }
+    tcltk::tkbind(reg_name, "<KeyRelease>", check_name)
+
+
+    # Add to window
+    #tcltk::tkgrid(reg_text, sticky = "w", padx = c(10,10), pady = c(10,10))
+    #tcltk::tkgrid(reg_name, reg_btn, padx = c(10,10))
+    tcltk::tkgrid(reg_text, sticky = "w", padx = c(10, 10), pady = c(10, 10))
+    tcltk::tkgrid(reg_name, reg_btn)
+    tcltk::tkfocus(reg_name)
+
+    # GUI control
+    tcltk::tkgrab(ttreg)
+    tcltk::tkwait.variable(ttreg.done.var)
+    tcltk::tclServiceMode(FALSE)
+    tcltk::tkgrab.release(ttreg)
+    tcltk::tkdestroy(ttreg)
+    tcltk::tclServiceMode(TRUE)
+  }
+
+
   # Show example plot
   ShowExample <- function() {
-    if (!dev.example %in% dev.list()) {
-      dev.new(width=7L, height=7L)
+    if ( ! dev.example %in% dev.list() ) {
+      dev.new(width = 7L, height = 7L)
       dev.example <<- dev.cur()
     }
     ExampleSetPar()
@@ -862,6 +926,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   colorblind.type.var <- tcltk::tclVar("deutan")
 
   tt.done.var         <- tcltk::tclVar(0)
+  ttreg.done.var      <- tcltk::tclVar(0)
 
   # Open GUI
   tcltk::tclServiceMode(FALSE)
@@ -878,14 +943,16 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   tcltk::tktitle(tt) <- "Choose Color Palette"
 
   # Top file menu
-  top.menu <- tcltk::tkmenu(tt, tearoff=0)
-  menu.file <- tcltk::tkmenu(tt, tearoff=0)
-  tcltk::tkadd(top.menu, "cascade", label="File", menu=menu.file, underline=0)
+  top.menu  <- tcltk::tkmenu(tt, tearoff = 0)
+  menu.file <- tcltk::tkmenu(tt, tearoff = 0)
+  tcltk::tkadd(top.menu, "cascade", label = "File", menu = menu.file, underline = 0)
+  #tcltk::tkadd(top.menu, "command", label = "Register",
+  #             command = RegisterPalette, underline = 0)
 
-  tcltk::tkadd(menu.file, "command", label="Open palette", accelerator="Ctrl+O",
-               command=OpenPaletteFromFile)
-  tcltk::tkadd(menu.file, "command", label="Save palette as",
-               accelerator="Shift+Ctrl+S", command=SavePaletteToFile)
+  tcltk::tkadd(menu.file, "command", label = "Open palette", accelerator = "Ctrl+O",
+               command = OpenPaletteFromFile)
+  tcltk::tkadd(menu.file, "command", label = "Save palette as",
+               accelerator = "Shift+Ctrl+S", command = SavePaletteToFile)
 
   menu.file.colors <- tcltk::tkmenu(tt, tearoff=0)
   tcltk::tkadd(menu.file.colors, "command", label="HEX",
@@ -1111,6 +1178,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
 
   tcltk::tkbind(tt, "<Control-o>", OpenPaletteFromFile)
   tcltk::tkbind(tt, "<Shift-Control-S>", SavePaletteToFile)
+  #tcltk::tkbind(tt, "<Control-r>", RegisterPalette)
   
   UpdateDataTypeInit <- function() UpdateDataType(init = TRUE)
   tcltk::tkbind(frame1.box.2, "<<ComboboxSelected>>", UpdateDataTypeInit)
@@ -1140,7 +1208,9 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   tcltk::tkbind(frame5.ent.3, "<KeyRelease>",
          function() EntryChange("n", n.lim, n.ent.var, n.scl.var))
 
-  tcltk::tkbind(tt, "<Destroy>", function() tcltk::tclvalue(tt.done.var) <- 1)
+  tcltk::tkbind(tt, "<Destroy>", function() {
+                    tcltk::tclvalue(tt.done.var)    <- 1;
+                    tcltk::tclvalue(ttreg.done.var) <- 1 });
 
   # GUI control
   tcltk::tkfocus(tt)
@@ -1166,50 +1236,84 @@ utils::globalVariables(c("type" , "h1" , "h2" , "c1" , "l1" , "reverse" , "cmax"
 
 
 # Get color palette as function of n
-GetPalette <- function(...) { #type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, reverse, cmax) {
+# For testing:
+#  args <- list(type = "sequential (single hue)",
+#               h1 = 0, h2 = 120,
+#               c1 = 10, c2 = 80,
+#               l1 = 90, l2 = 10,
+#               fixup = TRUE, p1 = 1, p2 = 1,
+#               reverse = FALSE, cmax = 50, register = "")
+#  pal <- do.call(colorspace:::GetPalette, args)
+#  colorspace::swatchplot(pal(10))
+GetPalette <- function(...) { #type, h1, h2, c1, c2, l1, l2, p1, p2, fixup, reverse, cmax, register) {
 
-   attach(list(...), warn.conflicts = FALSE)
+   # Input arguments to list and make fixup logical
+   arg <- list(...)
+   arg$fixup <- as.logical(arg$fixup)
 
-   fixup <- as.logical(fixup)
-   #type <- as.character(tcltk::tclvalue(nature.var))
-   if (grepl("^(qual|.*[Qq]ualitative)", type)) {
+   # Qualitative color palettes
+   if (grepl("^(qual|.*[Qq]ualitative)", arg$type)) {
       f <- qualitative_hcl
-      formals(f) <- eval(substitute(alist(n=, h=hh, c=d1, l=d2,
-                                          fixup=d3, gamma=NULL, alpha=1,
-                                          palette=NULL, rev=d4, ...=,
+      formals(f) <- eval(substitute(alist(n =, h = hh, c = d1, l = d2,
+                                          fixup = d3, gamma = NULL, alpha = 1,
+                                          palette = NULL, rev = d4,
+                                          register = d5, ... =,
                                           h1=, h2=, c1=, l1=, cmax=),
-                                    list(hh = c(h1, h2), #0,360), 
-                                         d1=c1, d2=l1, d3=fixup, d4=reverse)))
-   #} else if (type %in% c("seqs","Sequential (single hue)")) {
-   } else if (grepl("^(seqs|.*[Ss]equential.*single)", type)) {
+                                    list(hh = c(arg$h1, arg$h2),
+                                         d1 = arg$c1,
+                                         d2 = arg$l1,
+                                         d3 = arg$fixup,
+                                         d4 = arg$reverse,
+                                         d5 = arg$register)))
+
+   # Sequential single-hue palettes
+   } else if (grepl("^(seqs|.*[Ss]equential.*single)", arg$type)) {
       f <- sequential_hcl
-      formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
-                                          gamma=NULL, fixup=d5, alpha=1,
-                                          palette=NULL, rev=d6, ...=,
-                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, cmax=, c.=),
-                                    list(d1=h1, d2=c(c1,cmax,c2), d3=c(l1, l2),
-                                         d4=p1, d5=fixup, d6=reverse)))
-   #} else if (type %in% c("seqm","Sequential (multiple hues)")) {
-   } else if (grepl("^(seqm|.*[Ss]equential.*multi)", type)) {
+      formals(f) <- eval(substitute(alist(n =, h = d1, c = d2, l = d3, power = d4,
+                                          gamma = NULL, fixup = d5, alpha = 1,
+                                          palette = NULL, rev = d6, register = d7, ... =,
+                                          h1 =, h2 =, c1 =, c2 =, l1 =, l2 =, p1 =, p2 =, cmax =, c. =),
+                                    list(d1 = arg$h1,
+                                         d2 = c(arg$c1, arg$cmax, arg$c2),
+                                         d3 = c(arg$l1, arg$l2),
+                                         d4 = arg$p1,
+                                         d5 = arg$fixup,
+                                         d6 = arg$reverse,
+                                         d7 = arg$register)))
+
+   # Sequential multi-hue palettes
+   } else if (grepl("^(seqm|.*[Ss]equential.*multi)", arg$type)) {
       f <- sequential_hcl
-      formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
-                                          gamma=NULL, fixup=d5, alpha=1,
-                                          palette=NULL, rev=d6, ...=,
-                                          h1=, h2=, c1=, c2=, l1=, l2=, p1=, p2=, cmax=, c.=),
-                                    list(d1=c(h1, h2), d2=c(c1, cmax, c2),
-                                          d3=c(l1, l2), d4=c(p1, p2), d5=fixup, d6=reverse)))
-   #} else if (type %in% c("dive","Diverging")) {
-   } else if (grepl("^(dive|.*[Dd]iverging)", type)) {
+      formals(f) <- eval(substitute(alist(n =, h = d1, c = d2, l = d3, power = d4,
+                                          gamma = NULL, fixup = d5, alpha = 1,
+                                          palette = NULL, rev = d6, register = d7, ... =,
+                                          h1 =, h2 =, c1 =, c2 =, l1 =, l2 =, p1 =, p2 =, cmax =, c. =),
+                                    list(d1 = c(arg$h1, arg$h2),
+                                         d2 = c(arg$c1, arg$cmax, arg$c2),
+                                         d3 = c(arg$l1, arg$l2),
+                                         d4 = c(arg$p1, arg$p2),
+                                         d5 = arg$fixup,
+                                         d6 = arg$reverse,
+                                         d7 = arg$register)))
+
+   # Diverging color palettes
+   } else if (grepl("^(dive|.*[Dd]iverging)", arg$type)) {
       f <- diverging_hcl
-      arg_names <- names(list(...))[!is.na(list(...))]
-      if ( all(c("p1", "p2")   %in% arg_names) ) power <- c(p1, p2) else power <- p1
-      if ( all(c("c1", "cmax") %in% arg_names) ) chroma <- c(c1, cmax) else chroma <- c1
-      formals(f) <- eval(substitute(alist(n=, h=d1, c=d2, l=d3, power=d4,
-                                          gamma=NULL, fixup=d5, alpha=1,
-                                          palette=NULL, rev=d6, ...=,
-                                          h1=, h2=, c1=, l1=, l2=, p1=, p2=, cmax=d7),
-                                    list(d1=c(h1, h2), d2=chroma, d3=c(l1, l2),
-                                         d4=power, d5=fixup, d6=reverse, d7=cmax)))
+      arg_names <- names(arg[!is.na(arg)])
+      if ( all(c("p1", "p2")   %in% arg_names) ) power  <- c(arg$p1, arg$p2)   else power  <- arg$p1
+      if ( all(c("c1", "cmax") %in% arg_names) ) chroma <- c(arg$c1, arg$cmax) else chroma <- arg$c1
+      formals(f) <- eval(substitute(alist(n =, h=d1, c = d2, l = d3, power = d4,
+                                          gamma = NULL, fixup = d5, alpha = 1,
+                                          palette = NULL, rev = d6, register = d7, ... =,
+                                          h1 =, h2 =, c1 =, l1 =, l2 =, p1 =, p2 =, cmax = d8),
+                                    list(d1 = c(arg$h1, arg$h2),
+                                         d2 = chroma,
+                                         d3 = c(arg$l1, arg$l2),
+                                         d4 = power,
+                                         d5 = arg$fixup,
+                                         d6 = arg$reverse,
+                                         d7 = arg$register,
+                                         d8 = arg$cmas)))
    }
    f
 }
