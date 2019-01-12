@@ -406,7 +406,7 @@ qualitative_hcl(4, palette = "myset")
 
 Remarks:
 
-* The number of of colors in the palette that was used during registration is not
+* The number of colors in the palette that was used during registration is not
   actually stored and can be modified subsequently. The same holds for arguments
   `alpha` and `rev`.
 * When registering a new palette with an old name that was already available
