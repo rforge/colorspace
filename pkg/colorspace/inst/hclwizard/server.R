@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-10 17:55 on marvin
+# - L@ST MODIFIED: 2019-01-12 23:36 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -223,10 +223,10 @@ shinyServer(function(input, output, session) {
          args$reverse <- input$reverse
          pal <- do.call(colorspace:::GetPalette, args)
       }
-      # If fun is set to false: return values
+      # If fun is set to FALSE: return values
       if ( ! fun ) {
          # Remove alpha (base color maps)
-         colors <- substr(pal(curPAL$N),0,7)
+         colors <- substr(pal(curPAL$N, fixup = input$fixup),0,7)
          # Add desaturation or constraints
          if ( input$desaturate ) colors <- desaturate(colors)
          if ( any(tolower(input$constraint) %in% c("protan","deutan","tritan")) )

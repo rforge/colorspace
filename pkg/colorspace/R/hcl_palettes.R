@@ -353,7 +353,7 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
     }
     if(!missing(c)) pals["c1"] <- c
     if(!missing(l))  pals["l1"] <- l
-    if ("fixup" %in% ls()) pals["fixup"] <- fixup
+    if(!missing(fixup)) pals["fixup"] <- as.logical(fixup)
     ## (3) h1/h2/...
     if(!missing(h1)) pals["h1"] <- h1
     if(!missing(h2)) pals["h2"] <- h2
@@ -438,7 +438,7 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
         pals["p1"] <- power[1L]
         pals["p2"] <- power[2L]
     }
-    if ("fixup" %in% ls()) pals["fixup"] <- fixup
+    if(!missing(fixup)) pals["fixup"] <- as.logical(fixup)
     ## (3) h1/h2/...
     if(!missing(h1)) pals["h1"] <- h1
     if(!missing(h2)) pals["h2"] <- h2
@@ -539,7 +539,7 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
         pals["p1"] <- power[1L]
         pals["p2"] <- power[2L]
     }
-    if ("fixup" %in% ls()) pals["fixup"] <- fixup
+    if(!missing(fixup)) pals["fixup"] <- as.logical(fixup)
     ## (3) h1/h2/...
     if(!missing(h1)) pals["h1"] <- h1
     if(!missing(h2)) pals["h2"] <- h2

@@ -224,10 +224,12 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     f <- ChooseFile(cmd = "Save As", win.title = "Save Palette As",
                     initialfile = "color_palette", defaultextension = ".R")
     if (is.null(f)) return()
-    args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
+    args <- list("type"  = as.character(tcltk::tclvalue(nature.var)))
     for ( arg in vars.pal[!vars.pal %in% "type"] )
         args[[arg]] <- eval(parse(text=arg))
+    # Adding reverse and fixup arguments
     args$reverse <- reverse
+    args$fixup   <- as.logical(as.integer(tcltk::tclvalue(fixup.var)))
     pal  <- do.call(GetPalette, args)
     dput(pal, file=f)
   }
@@ -239,7 +241,9 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
     for ( arg in vars.pal[!vars.pal %in% "type"] )
         eval(parse(text=arg))
+    # Adding reverse and fixup arguments
     args$reverse <- reverse
+    args$fixup   <- as.logical(as.integer(tcltk::tclvalue(fixup.var)))
     pal <- do.call(GetPalette, args)
     
     cols <- try(hex2RGB(pal(n)), silent=TRUE)
@@ -289,8 +293,10 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
     for ( arg in vars.pal[!vars.pal %in% "type"] )
         args[[arg]] <- eval(parse(text=arg))
+    # Adding reverse and fixup arguments
     args$reverse <- reverse
-    pal.rtn <<- do.call(GetPalette, args)
+    args$fixup   <- as.logical(as.integer(tcltk::tclvalue(fixup.var)))
+    pal.rtn     <<- do.call(GetPalette, args)
     tcltk::tclvalue(tt.done.var) <- 1
   }
 
@@ -328,7 +334,8 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
   # Generates "n" colors from palette "pal" and manipulates them
   # if desaturation or CVD simulation is required. 
   get_hex_colors <- function(pal,n) {
-    pal.cols <- pal(n)
+    fixup <- as.logical(as.numeric(tcltk::tclvalue(fixup.var)))
+    pal.cols <- pal(n, fixup = fixup)
     pal.cols[is.na(pal.cols)] <- "#FFFFFF"
     if (as.logical(as.integer(tcltk::tclvalue(desaturation.var))))
       pal.cols <- desaturate(pal.cols)
@@ -350,7 +357,9 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
     args <- list("type" = as.character(tcltk::tclvalue(nature.var)))
     for ( arg in vars.pal[!vars.pal %in% "type"] )
         args[[arg]] <- eval(parse(text=arg))
+    # Adding reverse and fixup arguments
     args$reverse <- reverse
+    args$fixup   <- as.logical(as.integer(tcltk::tclvalue(fixup.var)))
 
     if ( ! is.n ) tcltk::tcl(frame2.cvs, "delete", "browse")
     pal <- do.call(GetPalette, args)
@@ -430,8 +439,9 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
       # Create numeric palette parameter list, drop name
       args <- as.list(default.pals[i,])
       args <- args[which(! names(args) %in% c("name", "gui"))]
-      args$type    <- as.character(tcltk::tclvalue(nature.var))
-      args$reverse <- FALSE
+      args$type     <- as.character(tcltk::tclvalue(nature.var))
+      args$reverse  <- FALSE
+      args$fixup    <- as.logical(as.integer(tcltk::tclvalue(fixup.var)))
       args$register <- ""
 
       pal      <- do.call(GetPalette, args=args)
@@ -757,6 +767,7 @@ choose_palette_tcltk <- function( pal = diverging_hcl, n=7L, parent = NULL, ... 
                 args[[arg]] <- eval(parse(text=arg))
             args$reverse  <- reverse
             args$register <- name
+            args$fixup    <- as.logical(as.integer(tcltk::tclvalue(fixup.var)))
             # Loading palette with register = NAME
             pal <- do.call(GetPalette, args)
             # Evaluate/execute the function to register the new palette.
