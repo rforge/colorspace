@@ -382,7 +382,7 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
     if(!missing(alpha)) {
         alpha <- pmax(pmin(alpha, 1), 0)
         alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
-        rval <- paste(rval, alpha, sep = "")
+        rval <- ifelse(is.na(rval), NA, paste(rval, alpha, sep = ""))
     }
 
     ## return value
@@ -487,7 +487,7 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     if(!missing(alpha)) {
         alpha <- pmax(pmin(alpha, 1), 0)
         alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
-        rval  <- paste(rval, alpha, sep = "")
+        rval <- ifelse(is.na(rval), NA, paste(rval, alpha, sep = ""))
     }
 
     ## return value
@@ -504,7 +504,7 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     ## edge cases
     if (!is.null(gamma)) warning("'gamma' is deprecated and has no effect")
     if(n < 1L) return(character(0L))
-    
+
     ## process HCL coordinates: (1) palette, (2) h/c/l, (3) h1/h2/...
     ## (1) palette
     if(is.character(h)) palette <- h
@@ -583,7 +583,7 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     if(!missing(alpha)) {
         alpha <- pmax(pmin(alpha, 1), 0)
         alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
-        rval <- paste(rval, alpha, sep = "")
+        rval <- ifelse(is.na(rval), NA, paste(rval, alpha, sep = ""))
     }
 
     ## return value
