@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-12 23:52 on marvin
+# - L@ST MODIFIED: 2019-01-13 00:01 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -299,11 +299,6 @@ shinyServer(function(input, output, session) {
    # ----------------------------------------------------------------
    showColorplane <- function(colors) {
       if ( missing(colors) ) colors <- getColors( input$N )
-
-      # Quick fix: setting NA colors to NAcolor
-      NAcolor <- ifelse(input$darkmode, "#000000", "#FFFFFF")
-      NAidx <- which(is.na(colors))
-      if ( length(NAidx) > 0 ) colors[NAidx] <- NAcolor
 
       # dimension to collapse. If autohclplot option has been set to TRUE: take NULL.
       if ( colorspace:::.colorspace_get_info("hclwizard_autohclplot") ) {

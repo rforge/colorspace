@@ -88,6 +88,10 @@ hclplot <- function(x, type = NULL, h = NULL, c = NULL, l = NULL,
     xlab = NULL, ylab = NULL, main = NULL, cex = 1.0, axes = TRUE,
     bg = "white", lwd = 1, size = 2.5, ...)
 {  
+
+    ## TODO: Not yet able to handle NA values. Thus, replace
+    ## NA values with white, if needed.
+    NAidx <- which(is.na(x)); if (length(NAidx) > 0) x[NAidx] <- "#FFFFFF"
     ## convert to HCL coordinates
     if(is.character(x)) {
       HCL <- hex2RGB(x)
