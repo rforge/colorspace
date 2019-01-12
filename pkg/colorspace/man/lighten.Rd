@@ -71,36 +71,60 @@ or \code{darken}) does not look right in a specific application.
 # lighten dark colors, example 1
 cl <- qualitative_hcl(5)
 swatchplot(list(
-  HCL      = rbind("0\%" = cl, "15\%" = lighten(cl, 0.15),                     "30\%" = lighten(cl, 0.3)),
-  HLS      = rbind("0\%" = cl, "15\%" = lighten(cl, 0.15, space = "HLS"),      "30\%" = lighten(cl, 0.3, space = "HLS")),
-  combined = rbind("0\%" = cl, "15\%" = lighten(cl, 0.15, space = "combined"), "30\%" = lighten(cl, 0.3, space = "combined"))),
+  HCL = rbind("0\%" = cl,
+              "15\%" = lighten(cl, 0.15),
+              "30\%" = lighten(cl, 0.3)),
+  HLS = rbind("0\%" = cl,
+              "15\%" = lighten(cl, 0.15, space = "HLS"),
+              "30\%" = lighten(cl, 0.3, space = "HLS")),
+  combined = rbind("0\%" = cl,
+              "15\%" = lighten(cl, 0.15, space = "combined"),
+              "30\%" = lighten(cl, 0.3, space = "combined"))),
   nrow = 4, line = 2.5
 )
 
 # lighten dark colors, example 2
 cl <- c("#61A9D9", "#ADD668", "#E6D152", "#CE6BAF", "#797CBA")
 swatchplot(list(
-  HCL      = rbind("0\%" = cl, "15\%" = lighten(cl, 0.15),                     "30\%" = lighten(cl, 0.3)),
-  HLS      = rbind("0\%" = cl, "15\%" = lighten(cl, 0.15, space = "HLS"),      "30\%" = lighten(cl, 0.3, space = "HLS")),
-  combined = rbind("0\%" = cl, "15\%" = lighten(cl, 0.15, space = "combined"), "30\%" = lighten(cl, 0.3, space = "combined"))),
+  HCL = rbind("0\%" = cl,
+              "15\%" = lighten(cl, 0.15),
+              "30\%" = lighten(cl, 0.3)),
+  HLS = rbind("0\%" = cl,
+              "15\%" = lighten(cl, 0.15, space = "HLS"),
+              "30\%" = lighten(cl, 0.3, space = "HLS")),
+  combined = rbind("0\%" = cl,
+              "15\%" = lighten(cl, 0.15, space = "combined"),
+              "30\%" = lighten(cl, 0.3, space = "combined"))),
   nrow = 4, line = 2.5
 )
 
 # darken light colors, example 1
 cl <- qualitative_hcl(5, "Pastel 1")
 swatchplot(list(
-  combined = rbind("0\%" = cl, "15\%" = darken(cl, 0.15),                      "30\%" = darken(cl, 0.3)),
-  HCL      = rbind("0\%" = cl, "15\%" = darken(cl, 0.15, space = "HCL"),       "30\%" = darken(cl, 0.3, space = "HCL")),
-  HLS      = rbind("0\%" = cl, "15\%" = darken(cl, 0.15, space = "HLS"),       "30\%" = darken(cl, 0.3, space = "HLS"))),
+  combined = rbind("0\%" = cl,
+              "15\%" = darken(cl, 0.15),
+              "30\%" = darken(cl, 0.3)),
+  HCL = rbind("0\%" = cl,
+              "15\%" = darken(cl, 0.15, space = "HCL"),
+              "30\%" = darken(cl, 0.3, space = "HCL")),
+  HLS = rbind("0\%" = cl,
+              "15\%" = darken(cl, 0.15, space = "HLS"),
+              "30\%" = darken(cl, 0.3, space = "HLS"))),
   nrow = 4, line = 2.5
 )
 
 # darken light colors, example 2 
 cl <- c("#CDE4F3","#E7F3D3","#F7F0C7","#EFCFE5","#D0D1E7")
 swatchplot(list(
-  combined = rbind("0\%" = cl, "15\%" = darken(cl, 0.15),                      "30\%" = darken(cl, 0.3)),
-  HCL      = rbind("0\%" = cl, "15\%" = darken(cl, 0.15, space = "HCL"),       "30\%" = darken(cl, 0.3, space = "HCL")),
-  HLS      = rbind("0\%" = cl, "15\%" = darken(cl, 0.15, space = "HLS"),       "30\%" = darken(cl, 0.3, space = "HLS"))),
+  combined = rbind("0\%" = cl,
+              "15\%" = darken(cl, 0.15),
+              "30\%" = darken(cl, 0.3)),
+  HCL = rbind("0\%" = cl,
+              "15\%" = darken(cl, 0.15, space = "HCL"),
+              "30\%" = darken(cl, 0.3, space = "HCL")),
+  HLS = rbind("0\%" = cl,
+              "15\%" = darken(cl, 0.15, space = "HLS"),
+              "30\%" = darken(cl, 0.3, space = "HLS"))),
   nrow = 4, line = 2.5
 )
 }
