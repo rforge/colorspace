@@ -23,10 +23,7 @@ used if \code{gui = "tcltk"}.}
 \item{gui}{character; GUI to use. Available options are \code{tcltk} and
 \code{shiny}, see \sQuote{Details} below.}
 
-\item{...}{Forwarded, used for development and demonstration purposes only.
-Currently considered: \code{verbose} (logical, default \code{FALSE}) and
-\code{autohclplot} (logical, default \code{FALSE}), and \code{shiny.trace}
-(logical, default \code{FALSE}).}
+\item{...}{used for development purposes only.}
 }
 \value{
 Returns a palette-generating function with the selected arguments.
