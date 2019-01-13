@@ -29,7 +29,8 @@ o Users can also register their own custom color palettes for subsequent
   and `diverging_hcl()` using the `register = "..."` argument. To generally
   make such custom palettes available, a registration R code a la
   `colorspace::qualitative_hcl(..., register = "myname")` can be placed in
-  the `.Rprofile` or similar startup scripts.
+  the `.Rprofile` or similar startup scripts. Also the `choose_color()`/`hclwizard()`
+  app allows to register palettes in the current session.
 
 * New and more flexible `qualitative_hcl()` palette function. This is
   similar to the old `rainbow_hcl()` but allows to use the pre-defined

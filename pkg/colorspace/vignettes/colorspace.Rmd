@@ -19,7 +19,7 @@ vignette: >
 library("colorspace")
 library("ggplot2")
 theme_set(theme_minimal())
-prefix <- "" ## "http://colorspace.R-Forge.R-project.org/articles/"
+prefix <- "http://colorspace.R-Forge.R-project.org/articles/" ## ""
 ```
 
 ## Overview
