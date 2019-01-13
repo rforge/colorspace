@@ -307,7 +307,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <pre><code>## [1] "#FFACBF" "#C6CD70" "#32DDCD" "#C7BEFF"</code></pre>
 <p>Remarks:</p>
 <ul>
-<li>The number of of colors in the palette that was used during registration is not actually stored and can be modified subsequently. The same holds for arguments <code>alpha</code> and <code>rev</code>.</li>
+<li>The number of colors in the palette that was used during registration is not actually stored and can be modified subsequently. The same holds for arguments <code>alpha</code> and <code>rev</code>.</li>
 <li>When registering a new palette with an old name that was already available previously, the old palette gets overwritten. We recommend not to overwrite the palettes that are pre-defined in the package (albeit it is technically possible).</li>
 <li>The registration of a palette is only stored for the current session. When R is restarted and/or the <code>colorspace</code> package reloaded, only the pre-defined palettes from the package are available. Thus, to make a palette permanently available a registration R code like <code><a href="../reference/hcl_palettes.html">colorspace::qualitative_hcl(3, palette = "set2", l = 80, register = "myset")</a></code> can be placed in your <code>.Rprofile</code> or similar startup scripts.</li>
 </ul>

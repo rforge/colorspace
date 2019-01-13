@@ -34,6 +34,8 @@ b, strong, th {
 }
 
 /* Colorspace branding (logo): hardcoded logo size */
+/* The palm trees in the logo by www.freevector.com, creative commons
+ * attribution license. */
 .navbar-brand {
     background-image: url('logo.png');
     background-repeat: no-repeat;

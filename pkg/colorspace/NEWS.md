@@ -24,7 +24,7 @@
   as well as approximations from other packages (ColorBrewer.org, CARTO,
   viridis, scico).
 
-o Users can also register their own custom color palettes for subsequent
+* Users can also register their own custom color palettes for subsequent
   usage (within the same session) in `qualitative_hcl()`, `sequential_hcl()`,
   and `diverging_hcl()` using the `register = "..."` argument. To generally
   make such custom palettes available, a registration R code a la
