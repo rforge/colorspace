@@ -26,8 +26,6 @@ shiny::shinyServer(function(input, output, session) {
     ##   delay(0, toggleState("closeapp", condition = F))
     ##}
 
-    delay(0, toggleState("closeapp", condition = F))
-
     picked_color_list <- shiny::reactiveValues(cl=c())
 
     # ----------------------------------------------------------------

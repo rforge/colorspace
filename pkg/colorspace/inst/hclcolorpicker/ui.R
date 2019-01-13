@@ -47,7 +47,7 @@ color_picker_sidebarPanel <- function() {
         shiny::actionButton("color_unpicker", "Unpick"),
         shiny::actionButton("clear_color_picker", "Clear"),
         # Disable "Return to R" button if running on webserver
-        if ( Sys.getenv('SHINY_PORT') == "" ) {
+        if ( ! Sys.info()["nodename"] == "sculptor.uberspace.de" ) {
           shiny::actionButton("closeapp","Return to R")
         },
         checkboxInput("darkmode", "Dark mode", value = FALSE, width = NULL)

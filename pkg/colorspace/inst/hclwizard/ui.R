@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-12 14:22 on marvin
+# - L@ST MODIFIED: 2019-01-13 11:36 on marvin
 # -------------------------------------------------------------------
 
 
@@ -35,9 +35,9 @@ default = list("N"    =   7,
 # Take default argument if set
 default$N <- colorspace:::.colorspace_get_info("hclwizard_ninit")
 
-# Hide register-functionality on uberspace.
+# Hide return-to-R button on webserver
 if ( Sys.info()["nodename"] == "sculptor.uberspace.de" ) {
-    xtra <- "$(\"#hcl-main-export > div > ul > li:last-child\").remove();"
+    xtra <- "$(\"#closeapp\").remove();"
 } else { xtra <- "" }
 
 # Define UI for application that draws a histogram
@@ -367,15 +367,17 @@ shinyUI(fluidPage(
                      htmlOutput("exportFunReg2")
                   ),
                   # Register palette
-                  tabPanel("Register",
-                     includeHTML("html/Register.html"),
-                     withTags(span(class = "registerpalette",
-                         textInput("registerpalettename", labe = NA, width = "200px"),
-                         actionButton("registerpalettebutton","Register")
-                     )),
-                     includeHTML("html/RegisterRcode.html"),
-                     htmlOutput("exportFunReg")
-                  )
+                  if ( ! Sys.info()["nodename"] == "sculptor.uberspace.de" ) {
+                     tabPanel("Register",
+                        includeHTML("html/Register.html"),
+                        withTags(span(class = "registerpalette",
+                            textInput("registerpalettename", labe = NA, width = "200px"),
+                            actionButton("registerpalettebutton","Register")
+                        )),
+                        includeHTML("html/RegisterRcode.html"),
+                        htmlOutput("exportFunReg")
+                     )
+                  }
                )
             ))
          ),
