@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-13 00:01 on marvin
+# - L@ST MODIFIED: 2019-01-13 10:05 on marvin
 # -------------------------------------------------------------------
 
 library("shiny")
@@ -602,13 +602,20 @@ shinyServer(function(input, output, session) {
    # The content function is passed a filename as an argument, and
    #   it should write out data to that filename.
    getRGB <- function(int=FALSE) {
-      colors <- getColors()
-      if ( int ) { scale = 255; digits = 0 } else { scale = 1; digits = 3 }
-      RGB <- round(attr(hex2RGB(colors), "coords")*scale, digits)
-      return(RGB)
+       colors <- getColors()
+       NAidx  <- which(is.na(colors))
+       if (length(NAidx) > 0) colors[NAidx] <- "#FFFFFF"
+       if (int) { scale = 255; digits = 0 } else { scale = 1; digits = 3 }
+       RGB <- round(attr(hex2RGB(colors), "coords")*scale, digits)
+       if (length(NAidx) > 0) RGB[NAidx,] <- NA
+       return(RGB)
    }
    getHCL <- function() {
-       HCL <- coords(as(hex2RGB(getColors()), "polarLUV"))
+       colors <- getColors()
+       NAidx  <- which(is.na(colors))
+       if (length(NAidx) > 0) colors[NAidx] <- "#FFFFFF"
+       HCL <- coords(as(hex2RGB(colors), "polarLUV"))
+       if (length(NAidx) > 0) HCL[NAidx,] <- NA
        return(round(HCL)[,c("H","C","L")])
    }
    output$downloadRAW1 <- downloadHandler(

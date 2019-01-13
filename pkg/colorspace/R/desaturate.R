@@ -64,6 +64,9 @@ desaturate <- function(col, amount = 1, ...) {
   args = as.list(match.call(expand.dots = TRUE))
   if ( ! is.null(args$severity) ) amount <- args$severity
 
+  ## keep indizes of NA colors
+  NAidx <- which(is.na(col))
+
   ## col has to be hex code, otherwise col2rgb is used
   matrix_input <- is.matrix(col)
   if(is.character(col) &&
@@ -102,5 +105,6 @@ desaturate <- function(col, amount = 1, ...) {
   ## convert back to hex and add alpha again (if any)
   col <- hex(col)
   col <- paste(col, alpha, sep = "")
+  if(length(NAidx) > 0) col[NAidx] <- NA
   return(col)
 }

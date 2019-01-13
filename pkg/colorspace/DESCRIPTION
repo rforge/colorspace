@@ -30,11 +30,30 @@ Description: Carries out mapping between assorted color spaces including RGB, HS
 	     simulation of color vision deficiencies (deutanomaly, protanomaly, tritanomaly).
 Depends: R (>= 3.0.0), methods
 Imports: graphics, grDevices, stats
-Suggests: datasets, utils, KernSmooth, MASS, kernlab, mvtnorm, vcd,
-          tcltk, shiny, shinyjs,
-	  ggplot2, dplyr, scales, grid,
-	  png, jpeg, knitr, rmarkdown,
-	  RColorBrewer, rcartocolor, scico, viridis
+Suggests: 
+    datasets,
+    utils,
+    KernSmooth,
+    MASS,
+    kernlab,
+    mvtnorm,
+    vcd,
+    tcltk,
+    shiny,
+    shinyjs,
+    ggplot2,
+    dplyr,
+    scales,
+    grid,
+    png,
+    jpeg,
+    knitr,
+    rmarkdown,
+    RColorBrewer,
+    rcartocolor,
+    scico,
+    viridis,
+    testthat
 VignetteBuilder: knitr
 License: BSD_3_clause + file LICENSE
 URL: http://colorspace.R-Forge.R-project.org, http://hclwizard.org/

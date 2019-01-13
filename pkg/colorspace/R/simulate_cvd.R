@@ -54,20 +54,25 @@
 #' @importFrom grDevices col2rgb
 simulate_cvd <- function(col, cvd_transform) {
   matrix_input <- is.matrix(col)
+  NAidx <- NULL
   # Adapted from desaturate
   # If all hex
   if (is.character(col) && (all(substr(col, 1L, 1L) == "#") &
                             all(nchar(col) %in% c(7L, 9L)))) {
-    #Save transparency value for later
+    # Save transparency value for later
     alpha <- substr(col, 8L, 9L)
+    # keep indizes of NA colors
+    NAidx <- which(is.na(col))
     col <- substr(col, 1L, 7L)
     col <- grDevices::col2rgb(col)
   # Colors are a wide matrix with three columns containing
   # R, G, B (0-255). Rownames have to be set!
   } else if ( matrix_input ) { 
-    stopifnot( all(toupper(rownames(col)) == c("R","G","B")) )
+    stopifnot(all(toupper(rownames(col)) == c("R","G","B")))
   # If contains built in color..,
   } else {
+    # keep indizes of NA colors
+    NAidx <- which(is.na(col))
     col <- grDevices::col2rgb(col, alpha = TRUE)
     ## extract alpha values (if non-FF)
     alpha <- format(as.hexmode(col[4L, ]), width = 2L, upper.case = TRUE)
@@ -81,7 +86,7 @@ simulate_cvd <- function(col, cvd_transform) {
   rownames(RGB) <- c("R","G","B")
 
   # Bound RGB values
-  RGB[RGB<0] <- 0
+  RGB[RGB<0]   <- 0
   RGB[RGB>255] <- 255
 
   # If input 'col' was RGB matrix: return RGB matrix with simulated colors
@@ -90,7 +95,8 @@ simulate_cvd <- function(col, cvd_transform) {
   # Convert back to hex
   rgb2hex <- function(RGB) grDevices::rgb(RGB[1,], RGB[2,], RGB[3,], maxColorValue = 255)
 
-  final_hex <- paste(rgb2hex(RGB), alpha, sep="")
+  final_hex <- paste(rgb2hex(RGB), alpha, sep = "")
+  if(length(NAidx) > 0) final_hex[NAidx] <- NA
   return(final_hex)
 }
 
