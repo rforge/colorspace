@@ -118,7 +118,9 @@
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>The <em>colorspace</em> package provides a broad toolbox for selecting individual colors or color palettes, manipulating these colors, and employing them in various kinds of visualizations.</p>
 <p>At the core of the package there are various utilities for computing with color spaces (as the name conveys). Thus, the package helps to map various three-dimensional representations of color to each other. A particularly important mapping is the one from the perceptually-based and device-independent color model HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color specifications in many systems based on the corresponding hex codes (e.g., in HTML but also in R). For completeness further standard color models are included as well in the package: <code><a href="../reference/polarLUV.html">polarLUV()</a></code> (= HCL), <code><a href="../reference/LUV.html">LUV()</a></code>, <code><a href="../reference/polarLAB.html">polarLAB()</a></code>, <code><a href="../reference/LAB.html">LAB()</a></code>, <code><a href="../reference/XYZ.html">XYZ()</a></code>, <code><a href="../reference/RGB.html">RGB()</a></code>, <code><a href="../reference/sRGB.html">sRGB()</a></code>, <code><a href="../reference/HLS.html">HLS()</a></code>, <code><a href="../reference/HSV.html">HSV()</a></code>.</p>
-<p>The HCL space (= polar coordinates in CIELUV) is particularly useful for specifying individual colors and color palettes as its three axes match those of the human visual system very well. Therefore, the <em>colorspace</em> package provides three types of palettes based on the HCL model:</p>
+<p>The HCL space (= polar coordinates in CIELUV) is particularly useful for specifying individual colors and color palettes as its three axes match those of the human visual system very well: Hue (= type of color, dominant wavelength), chroma (= colorfulness), luminance (= brightness).</p>
+<p><img src="colorspace_files/figure-html/hcl-properties-1.png" width="384" style="display: block; margin: auto;"></p>
+<p>The <em>colorspace</em> package provides three types of palettes based on the HCL model:</p>
 <ul>
 <li>
 <em>Qualitative:</em> Designed for coding categorical information, i.e., where no particular ordering of categories is available and every color should receive the same perceptual weight. Function: <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>.</li>
@@ -128,7 +130,7 @@
 <em>Diverging:</em> Designed for coding numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes. Function: <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>.</li>
 </ul>
 <p>To aid choice and application of these palettes there are: scales for use with <em>ggplot2</em>; shiny (and tcltk) apps for interactive exploration; visualizations of palette properties; accompanying manipulation utilities (like desaturation, lighten/darken, and emulation of color vision deficiencies).</p>
-<p>More detailed overviews and examples are provided in the package vignettes:</p>
+<p>More detailed overviews and examples are provided in the articles:</p>
 <ul>
 <li><a href="color_spaces.html">Color Spaces: S4 Classes and Utilities</a></li>
 <li><a href="hcl_palettes.html">HCL-Based Color Palettes</a></li>

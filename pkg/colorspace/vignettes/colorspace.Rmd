@@ -40,8 +40,19 @@ in R). For completeness further standard color models are included as well in th
 
 The HCL space (= polar coordinates in CIELUV) is particularly useful for
 specifying individual colors and color palettes as its three axes match those
-of the human visual system very well. Therefore, the _colorspace_ package provides
-three types of palettes based on the HCL model:
+of the human visual system very well: Hue (= type of color, dominant wavelength),
+chroma (= colorfulness), luminance (= brightness).
+
+```{r hcl-properties, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 4, fig.height = 2.2, fig.align = "center", dev = "png"}
+swatchplot(
+  "Hue"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
+  "Chroma"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
+  "Luminance" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
+  off = 0
+)
+```
+
+The _colorspace_ package provides three types of palettes based on the HCL model:
 
 * _Qualitative:_ Designed for coding categorical information, i.e.,
   where no particular ordering of categories is available and every color
@@ -57,7 +68,7 @@ with _ggplot2_; shiny (and tcltk) apps for interactive exploration;
 visualizations of palette properties; accompanying manipulation utilities
 (like desaturation, lighten/darken, and emulation of color vision deficiencies).
 
-More detailed overviews and examples are provided in the package vignettes:
+More detailed overviews and examples are provided in the articles:
 
 * [Color Spaces: S4 Classes and Utilities](`r prefix`color_spaces.html)
 * [HCL-Based Color Palettes](`r prefix`hcl_palettes.html)
