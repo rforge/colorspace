@@ -30,7 +30,7 @@ append("# Testing qualitative color schemes")
 append("test_that(\"qualitative hcl palettes\", {")
 for ( idx in grep("^Qualitative$", pals$type) ) {
     cols <- qualitative_hcl(N, palette = rownames(pals)[idx])
-    cmd <- sprintf("    expect_equal(qualitative_hcl(%d, \"%s\"), c(%s))",
+    cmd <- sprintf("    expect_identical(qualitative_hcl(%d, \"%s\"), c(%s))",
                    N, rownames(pals)[idx], paste(sprintf("\"%s\"", cols), collapse = ", "))
     append(cmd)
 }
@@ -44,7 +44,7 @@ append("# Testing sequential color schemes")
 append("test_that(\"sequential hcl palettes\", {")
 for ( idx in grep("^Sequential", pals$type) ) {
     cols <- sequential_hcl(N, palette = rownames(pals)[idx])
-    cmd <- sprintf("    expect_equal(sequential_hcl(%d, \"%s\"), c(%s))",
+    cmd <- sprintf("    expect_identical(sequential_hcl(%d, \"%s\"), c(%s))",
                    N, rownames(pals)[idx], paste(sprintf("\"%s\"", cols), collapse = ", "))
     append(cmd)
 }
@@ -58,7 +58,7 @@ append("# Testing diverging color schemes")
 append("test_that(\"diverging hcl palettes\", {")
 for ( idx in grep("^Diverging$", pals$type) ) {
     cols <- diverging_hcl(N, palette = rownames(pals)[idx])
-    cmd <- sprintf("    expect_equal(diverging_hcl(%d, \"%s\"), c(%s))",
+    cmd <- sprintf("    expect_identical(diverging_hcl(%d, \"%s\"), c(%s))",
                    N, rownames(pals)[idx], paste(sprintf("\"%s\"", cols), collapse = ", "))
     append(cmd)
 }
@@ -72,7 +72,7 @@ append("# Testing divergingx color schemes")
 append("test_that(\"divergingx hcl palettes\", {")
 for ( idx in grep("^Diverging\\s\\(flexible\\)$", xpals$type) ) {
     cols <- divergingx_hcl(N, palette = rownames(xpals)[idx])
-    cmd <- sprintf("    expect_equal(divergingx_hcl(%d, \"%s\"), c(%s))",
+    cmd <- sprintf("    expect_identical(divergingx_hcl(%d, \"%s\"), c(%s))",
                    N, rownames(xpals)[idx], paste(sprintf("\"%s\"", cols), collapse = ", "))
     append(cmd)
 }
