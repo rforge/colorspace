@@ -1,6 +1,6 @@
 Package: colorspace
-Version: 1.4-0
-Date: 2019-01-13
+Version: 1.4-1
+Date: 2019-02-11
 Title: A Toolbox for Manipulating and Assessing Colors and Palettes
 Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "ihaka@stat.auckland.ac.nz"),
              person(given = "Paul", family = "Murrell", role = "aut", email = "paul@stat.auckland.ac.nz",

@@ -1,3 +1,14 @@
+# colorspace 1.4-1
+
+* New sequential multi-hue palette: Purple-Yellow. This is a slightly
+  improved version (i.e., with higher luminance contrast) of the palette
+  used in Figure 4 of [Stauffer _et al._ (2015, BAMS)](https://dx.doi.org/10.1175/BAMS-D-13-00155.1).
+
+* New article/vignette "Somewhere over the Rainbow" with published examples
+  of RGB rainbow palettes (or similar highly saturated and non-monotonic
+  palettes).
+
+
 # colorspace 1.4-0
 
 * Major update of the package that enhances many of its capabilities,

@@ -632,6 +632,7 @@ seqm.pals[["Purple-Blue"]] <- c(300,  200,  60,  0, 25, 95, 0.7, 1.3,  NA, 1) # 
 seqm.pals[["Red-Purple"]]  <- c( 10,  -80,  80,  5, 25, 95, 0.7, 1.3,  NA, 1) # ColorBrewer.org: PuRd
 seqm.pals[["Red-Blue"]]    <- c(  0, -100,  80, 40, 40, 75, 1.0, 1.0,  NA, 1) # Z+KH+PM-09, Fig.5: Red-Blue
 seqm.pals[["Purple-Orange"]]<-c(-83,   20,  65, 18, 32, 90, 0.5, 1.0,  NA, 1) # CARTO: PurpOr
+seqm.pals[["Purple-Yellow"]]<-c(320,   80,  60, 20, 30, 95, 0.7, 1.3,  65, 1) # RS+GM+MD+Z-15, similar to Fig.4: Precipitation
 seqm.pals[["Blue-Yellow"]] <- c(265,   80,  60, 10, 25, 95, 0.7, 2.0,  NA, 1) # ColorBrewer.org: YlGnBu
 seqm.pals[["Green-Yellow"]]<- c(140,   80,  50, 10, 40, 97, 0.7, 1.8,  NA, 1) # ColorBrewer.org: YlGn
 seqm.pals[["Red-Yellow"]]  <- c( 10,   85,  80, 10, 25, 95, 0.4, 1.3,  NA, 1) # ColorBrewer.org: YlOrRd
@@ -815,7 +816,7 @@ GetPaletteConfig <- function(gui = NULL) {
            "Red-Yellow", "Heat", "PinkYl", "Green-Yellow", "Terrain 2",
 	   "Dark Mint", "BluYl", "Blue-Yellow", "Viridis", "Plasma",
            # Sequential multiple-hues advanced
-           "YlGnBu", "Greens", "BuGn", "Teal", "Peach", "Blues", "BuPu", "Purples",
+           "Purple-Yellow", "YlGnBu", "Greens", "BuGn", "Teal", "Peach", "Blues", "BuPu", "Purples",
            "Purp", "Burg", "Reds", "YlOrRd", "Sunset", "RdPu", "Inferno",
            "Lajolla", "Turku",
            # Base color maps (for shiny)
