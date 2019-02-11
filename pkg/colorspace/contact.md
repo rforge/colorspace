@@ -14,7 +14,7 @@ For discussions we also try to follow these channels:
 ## Other resources
 
 - <http://hclwizard.org/>  
-  Blog and online shiny apps.
+  Online color apps.
 - <https://github.com/retostauffer/python-colorspace>  
   Python re-implementation of the R package.
 
