@@ -21,7 +21,7 @@ library("colorspace")
 ## Overview
 
 Using the physiologically-based model for simulating color vision deficiency (CVD)
-of @color:Machado+Oliveira+Fernandes:2009, deutanope, protanope, and tritanope vision can be emulated.
+of @color:Machado+Oliveira+Fernandes:2009, deuteranope, protanope, and tritanope vision can be emulated.
 The workhorse function to do so is `simulate_cvd()` which can take any vector
 of valid R colors and transform them according to a certain CVD transformation
 matrix and transformation equation. The transformation matrices have been established
@@ -73,7 +73,7 @@ Subsequently, all combinations of palette and color vision deficiency are visual
 Additionally, a grayscale version is created with `desaturate()`.
 
 ```{r heatmap-sequential, echo = FALSE, fig.height = 15, fig.width = 9, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
-par(mfrow = c(5, 2), mar = rep(0.5, 4), oma = c(1, 6.7, 3, 1), las = 1)
+par(mfrow = c(5, 2), mar = rep(0.5, 4), oma = c(1, 7.9, 3, 1), las = 1)
 rain <- rainbow(11, end = 2/3)
 blyl <- sequential_hcl(11, "Blue-Yellow")
 demoplot(rain, "heatmap")
@@ -85,7 +85,7 @@ demoplot(desaturate(rain), "heatmap")
 mtext("Grayscale", side = 2, line = 1)
 demoplot(desaturate(blyl), "heatmap")
 demoplot(deutan(rain), "heatmap")
-mtext("Deutanope", side = 2, line = 1)
+mtext("Deuteranope", side = 2, line = 1)
 demoplot(deutan(blyl), "heatmap")
 demoplot(protan(rain), "heatmap")
 mtext("Protanope", side = 2, line = 1)
@@ -123,7 +123,7 @@ a green/blue and hence needs the `divergingx_hcl()` function (as opposed to
 `diverging_hcl()` which always uses a neutral gray).
 
 ```{r map-diverging, echo = FALSE, fig.height = 13, fig.width = 9, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
-par(mfrow = c(5, 2), mar = rep(0.5, 4), oma = c(1, 6.7, 3, 1), las = 1)
+par(mfrow = c(5, 2), mar = rep(0.5, 4), oma = c(1, 7.9, 3, 1), las = 1)
 rain <- rainbow(11, end = 1/3)
 gysr <- divergingx_hcl(11, "Geyser", rev = TRUE)
 demoplot(rain, "map")
@@ -135,7 +135,7 @@ demoplot(desaturate(rain), "map")
 mtext("Grayscale", side = 2, line = 1)
 demoplot(desaturate(gysr), "map")
 demoplot(deutan(rain), "map")
-mtext("Deutanope", side = 2, line = 1)
+mtext("Deuteranope", side = 2, line = 1)
 demoplot(deutan(gysr), "map")
 demoplot(protan(rain), "map")
 mtext("Protanope", side = 2, line = 1)
