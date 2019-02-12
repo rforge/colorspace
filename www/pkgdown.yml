@@ -6,6 +6,7 @@ articles:
   color_spaces: color_spaces.html
   color_vision_deficiency: color_vision_deficiency.html
   colorspace: colorspace.html
+  endrainbow: endrainbow.html
   ggplot2_color_scales: ggplot2_color_scales.html
   hcl_palettes: hcl_palettes.html
   hclwizard: hclwizard.html

@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
       </span>
     </div>
 
@@ -77,6 +77,9 @@
     </li>
     <li>
       <a href="../articles/approximations.html">Approximating Palettes from Other Packages</a>
+    </li>
+    <li>
+      <a href="../articles/endrainbow.html">Somewhere over the Rainbow</a>
     </li>
   </ul>
 </li>
@@ -140,27 +143,28 @@
 <li><a href="color_vision_deficiency.html">Color Vision Deficiency Emulation</a></li>
 <li><a href="manipulation_utilities.html">Color Manipulation and Utilities</a></li>
 <li><a href="approximations.html">Approximating Palettes from Other Packages</a></li>
+<li><a href="endrainbow.html">Somewhere over the Rainbow</a></li>
 </ul>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The stable release version of <em>colorspace</em> is hosted on the Comprehensive R Archive Network (CRAN) at <a href="https://CRAN.R-project.org/package=colorspace" class="uri">https://CRAN.R-project.org/package=colorspace</a> and can be installed via</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"colorspace"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"colorspace"</span>)</a></code></pre></div>
 <p>The development version of <em>colorspace</em> is hosted on R-Forge at <a href="https://R-Forge.R-project.org/projects/colorspace/" class="uri">https://R-Forge.R-project.org/projects/colorspace/</a> in a Subversion (SVN) repository. It can be installed via</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"colorspace"</span>, <span class="dt">repos =</span> <span class="st">"http://R-Forge.R-project.org"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"colorspace"</span>, <span class="dt">repos =</span> <span class="st">"http://R-Forge.R-project.org"</span>)</a></code></pre></div>
 <p>For Python users a beta re-implementation of the full <em>colorspace</em> package in Python 2/Python 3 is also available, see <a href="https://github.com/retostauffer/python-colorspace" class="uri">https://github.com/retostauffer/python-colorspace</a>.</p>
 </div>
 <div id="choosing-hcl-based-color-palettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#choosing-hcl-based-color-palettes" class="anchor"></a>Choosing HCL-based color palettes</h2>
 <p>The <em>colorspace</em> package ships with a wide range of predefined color palettes, specified through suitable trajectories in the HCL (hue-chroma-luminance) color space. A quick overview can be gained easily with <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"colorspace"</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"colorspace"</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/hcl-palettes-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <p>Using the names from the plot above and a desired number of colors in the palette a suitable color vector can be easily computed, e.g.,</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">q4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="st">"Dark 3"</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">q4</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">q4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="st">"Dark 3"</span>)</a>
+<a class="sourceLine" id="cb4-2" title="2">q4</a></code></pre></div>
 <pre><code>## [1] "#E16A86" "#909800" "#00AD9A" "#9183E6"</code></pre>
 <p>The functions <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, and <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> work analogously. Additionally, their hue/chroma/luminance parameters can be modified, thus allowing to easily customize each palette. Moreover, the <code><a href="../reference/choose_palette.html">choose_palette()</a></code>/<code><a href="../reference/choose_palette.html">hclwizard()</a></code> app provide convenient user interfaces to do the customization interactively. Finally, even more flexible diverging HCL palettes are provided by <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code>.</p>
 </div>
@@ -168,12 +172,12 @@
 <h2 class="hasAnchor">
 <a href="#usage-with-base-graphics" class="anchor"></a>Usage with base graphics</h2>
 <p>The color vectors returned by the HCL palette functions can usually be passed directly to most base graphics function, typically through the <code>col</code> argument. Here, the <code>q4</code> vector created above is used in a time series display:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log</a></span>(EuStockMarkets), <span class="dt">plot.type =</span> <span class="st">"single"</span>, <span class="dt">col =</span> q4, <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/legend">legend</a></span>(<span class="st">"topleft"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(EuStockMarkets), <span class="dt">col =</span> q4, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">bty =</span> <span class="st">"n"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log</a></span>(EuStockMarkets), <span class="dt">plot.type =</span> <span class="st">"single"</span>, <span class="dt">col =</span> q4, <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/legend">legend</a></span>(<span class="st">"topleft"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(EuStockMarkets), <span class="dt">col =</span> q4, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">bty =</span> <span class="st">"n"</span>)</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/eustockmarkets-plot-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <p>As another example for a sequential palette a spine plot is created below, displaying the proportion of Titanic passengers that survived per class. The <code>Purples 3</code> palette is used which is quite similar to the <strong>ColorBrewer.org</strong> palette <code>Purples</code>. Here, only two colors are employed, yielding a dark purple and light gray.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">ttnc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/margin.table">margin.table</a></span>(Titanic, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">4</span>))[, <span class="dv">2</span><span class="op">:</span><span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/spineplot">spineplot</a></span>(ttnc, <span class="dt">col =</span> <span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">2</span>, <span class="st">"Purples 3"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">ttnc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/margin.table">margin.table</a></span>(Titanic, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">4</span>))[, <span class="dv">2</span><span class="op">:</span><span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/spineplot">spineplot</a></span>(ttnc, <span class="dt">col =</span> <span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">2</span>, <span class="st">"Purples 3"</span>))</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/titanic-plot-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 </div>
 <div id="usage-with-ggplot2" class="section level2">
@@ -182,14 +186,14 @@
 </h2>
 <p>To plug the HCL color palettes into <em>ggplot2</em> graphics suitable discrete and/or continuous <em>gglot2</em> color scales are provided. The scales are called via the scheme <code>scale_&lt;aesthetic&gt;_&lt;datatype&gt;_&lt;colorscale&gt;()</code>, where <code>&lt;aesthetic&gt;</code> is the name of the aesthetic (<code>fill</code>, <code>color</code>, <code>colour</code>), <code>&lt;datatype&gt;</code> is the type of the variable plotted (<code>discrete</code> or <code>continuous</code>) and <code>&lt;colorscale&gt;</code> sets the type of the color scale used (<code>qualitative</code>, <code>sequential</code>, <code>diverging</code>, <code>divergingx</code>).</p>
 <p>To illustrate their usage two simple examples are shown using the qualitative <code>Dark 3</code> and sequential <code>Purples 3</code> palettes that were also employed above. First, semi-transparent shaded densities of the sepal length from the iris data are shown, grouped by species.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"ggplot2"</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(iris, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">fill =</span> Species)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span>(<span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/scale_colour_discrete_qualitative.html">scale_fill_discrete_qualitative</a></span>(<span class="dt">palette =</span> <span class="st">"Dark 3"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"ggplot2"</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(iris, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">fill =</span> Species)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span>(<span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/scale_colour_discrete_qualitative.html">scale_fill_discrete_qualitative</a></span>(<span class="dt">palette =</span> <span class="st">"Dark 3"</span>)</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/iris-ggplot-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <p>The sequential palette is used to code the cut levels in a scatter of price by carat in the diamonds data (or rather a small subsample thereof). The scale function first generates six colors but then drops the first color because the light gray is too light in this display. (Alternatively, the chroma and luminance parameters could also be tweaked.)</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">dsamp &lt;-<span class="st"> </span>diamonds[<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span> <span class="op">*</span><span class="st"> </span><span class="dv">50</span>, ]</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(dsamp, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(carat, price, <span class="dt">color =</span> cut)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/scale_colour_discrete_sequential.html">scale_color_discrete_sequential</a></span>(<span class="dt">palette =</span> <span class="st">"Purples 3"</span>, <span class="dt">nmax =</span> <span class="dv">6</span>, <span class="dt">order =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">dsamp &lt;-<span class="st"> </span>diamonds[<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span> <span class="op">*</span><span class="st"> </span><span class="dv">50</span>, ]</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(dsamp, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(carat, price, <span class="dt">color =</span> cut)) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/scale_colour_discrete_sequential.html">scale_color_discrete_sequential</a></span>(<span class="dt">palette =</span> <span class="st">"Purples 3"</span>, <span class="dt">nmax =</span> <span class="dv">6</span>, <span class="dt">order =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">6</span>)</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/diamonds-ggplot-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 </div>
 <div id="palette-visualization-and-assessment" class="section level2">
@@ -205,17 +209,17 @@
 <code><a href="../reference/specplot.html">specplot()</a></code> also converts the colors to hue/chroma/luminance coordinates but draws the resulting spectrum in a line plot.</li>
 </ul>
 <p>For the qualitative <code>Dark 3</code> palette from above the following plots can be obtained.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(q4, <span class="st">"bar"</span>)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(q4)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(q4, <span class="dt">type =</span> <span class="st">"o"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(q4, <span class="st">"bar"</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(q4)</a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(q4, <span class="dt">type =</span> <span class="st">"o"</span>)</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/allplots-qualitative-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>A bar plot would be another typical application for a qualitative palette (instead of the time series and density plot used above). However, a lighter and less colorful palette might be preferable in this situation (e.g., <code>Pastel 1</code> or <code>Set 3</code>).</p>
 <p>The other two displays show that luminance is (almost) constant in the palette while the hue changes linearly along the color “wheel”. Ideally, chroma would have also been constant to completely balance the colors. However, at this luminance the maximum chroma differs across hues so that the palette is fixed up to use less chroma for the yellow and green elements.</p>
 <p>Subsequently, the same assessment is carried out for the sequential <code>Purples 3</code> palette as employed above.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">s9 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">9</span>, <span class="st">"Purples 3"</span>)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(s9, <span class="st">"heatmap"</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(s9)</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(s9, <span class="dt">type =</span> <span class="st">"o"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">s9 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">9</span>, <span class="st">"Purples 3"</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(s9, <span class="st">"heatmap"</span>)</a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(s9)</a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(s9, <span class="dt">type =</span> <span class="st">"o"</span>)</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/allplots-sequential-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>Here, a heatmap (based on the well-known Maunga Whau volcano data) is used as a typical application for a sequential palette. The elevation of the volcano is brought out clearly, focusing with the dark colors on the higher elevations.</p>
 <p>The other two displays show that hue is constant in the palette while luminance and chroma vary. Luminance increases monotonically from dark to light (as required for a proper sequential palette). Chroma is triangular-shaped which allows to better distinguish the middle colors in the palette (compared to a monotonic chroma trajectory).</p>
