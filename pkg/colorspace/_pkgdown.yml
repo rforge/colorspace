@@ -22,6 +22,8 @@ navbar:
           href: articles/manipulation_utilities.html
         - text: "Approximating Palettes from Other Packages"
           href: articles/approximations.html
+        - text: "Somewhere over the Rainbow"
+          href: articles/endrainbow.html
     - text: "Reference"
       href: reference/index.html
     - text: "Changelog"

@@ -78,6 +78,7 @@ More detailed overviews and examples are provided in the articles:
 * [Color Vision Deficiency Emulation](`r prefix`color_vision_deficiency.html)
 * [Color Manipulation and Utilities](`r prefix`manipulation_utilities.html)
 * [Approximating Palettes from Other Packages](`r prefix`approximations.html)
+* [Somewhere over the Rainbow](`r prefix`endrainbow.html)
 
 
 ## Installation
