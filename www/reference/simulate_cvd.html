@@ -192,7 +192,9 @@ Input <code>col</code> can also be a matrix with three rows containing R/G/B (0-
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Using the physiologically-based model for simulating color vision deficiency (CVD)
-of Machado et al. (2009), deutanope, protanope, and tritanope vision can be emulated.
+of Machado et al. (2009), different kinds of limitations can be
+emulated: deuteranope (green cone cells defective), protanope (red cone cells defective),
+and tritanope (blue cone cells defective).
 The workhorse function to do so is <code>simulate_cvd</code> which can take any vector
 of valid R colors and transform them according to a certain CVD transformation
 matrix (see <code><a href='cvd.html'>cvd</a></code>) and transformation equation.</p>

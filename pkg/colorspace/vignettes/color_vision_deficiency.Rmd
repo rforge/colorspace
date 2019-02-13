@@ -21,7 +21,9 @@ library("colorspace")
 ## Overview
 
 Using the physiologically-based model for simulating color vision deficiency (CVD)
-of @color:Machado+Oliveira+Fernandes:2009, deuteranope, protanope, and tritanope vision can be emulated.
+of @color:Machado+Oliveira+Fernandes:2009 different kinds of limitations can be
+emulated: deuteranope (green cone cells defective), protanope (red cone cells defective),
+and tritanope (blue cone cells defective).
 The workhorse function to do so is `simulate_cvd()` which can take any vector
 of valid R colors and transform them according to a certain CVD transformation
 matrix and transformation equation. The transformation matrices have been established
@@ -33,8 +35,9 @@ simulating the corresponding kind of color blindness with a given severity (call
 `simulate_cvd()` internally).
 
 For further guidance on color blindness in relation to statistical graphics
-see @color:Lumley:2006 which accompanies the R package _dichromat_ and is based on
-earlier emulation techniques.
+see @color:Lumley:2006 which accompanies the R package _dichromat_ [@color:dichromat]
+and is based on earlier emulation techniques
+[@color:Vienot+Brettel+Ott:1995; @color:Brettel+Vienot+Mollon:1997; @color:Vienot+Brettel+Mollon:1999].
 
 
 ## Illustration: Heatmap with sequential palette
@@ -82,7 +85,7 @@ mtext("rainbow(11, end = 2/3)", line = 1)
 demoplot(blyl, "heatmap")
 mtext("sequential_hcl(11, \"Blue-Yellow\")", line = 1)
 demoplot(desaturate(rain), "heatmap")
-mtext("Grayscale", side = 2, line = 1)
+mtext("Desaturated", side = 2, line = 1)
 demoplot(desaturate(blyl), "heatmap")
 demoplot(deutan(rain), "heatmap")
 mtext("Deuteranope", side = 2, line = 1)
@@ -132,7 +135,7 @@ mtext("rainbow(11, end = 1/3)", line = 1)
 demoplot(gysr, "map")
 mtext("divergingx_hcl(11, \"Geyser\", rev = TRUE)", line = 1)
 demoplot(desaturate(rain), "map")
-mtext("Grayscale", side = 2, line = 1)
+mtext("Desaturated", side = 2, line = 1)
 demoplot(desaturate(gysr), "map")
 demoplot(deutan(rain), "map")
 mtext("Deuteranope", side = 2, line = 1)
