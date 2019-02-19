@@ -34,7 +34,7 @@ theme_set(theme_minimal())
 
 \begin{document}
 
-\section{colorspace}
+\section{colorspace: A Toolbox for Manipulating and Assessing Color Palettes for Statistical Graphics}
 
 \subsection{Color spaces}
 
@@ -528,6 +528,22 @@ specplot(
 
 \includegraphics[width=0.34\textwidth]{../../vignettes/screenshots/cvd_emulator_1.png}
 \includegraphics[width=0.34\textwidth]{../../vignettes/screenshots/cvd_emulator_2.png}
+
+\end{frame}
+
+\subsection{Recommendations}
+
+\begin{frame}
+\frametitle{Recommendations}
+
+\begin{itemize}
+  \item Do not overestimate the effectiveness of color.
+  \item Choose type of palette based on the data to be visualized.
+  \item For areas use light colors (higher luminance, lower chroma).
+  \item For points/lines darker colors are needed (lower luminance, higher chroma).
+  \item For palettes with more colors stronger luminance contrasts are needed.
+  \item Triangular chroma trajectories useful for distinguishing central colors.
+\end{itemize}
 
 \end{frame}
 
