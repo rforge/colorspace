@@ -415,7 +415,7 @@ for (i in c("map", "heatmap", "scatter", "spine", "bar", "pie", "perspective", "
 \begin{frame}[fragile]
 \frametitle{Color vision deficiency}
 
-\textbf{Emulate:} Color vision deficies.
+\textbf{Emulate:} Color vision deficiencies.
 
 \begin{itemize}
   \item \code{deutan()}: Deuteranopia (green deficient).
