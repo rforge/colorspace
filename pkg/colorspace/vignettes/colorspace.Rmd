@@ -64,7 +64,7 @@ The _colorspace_ package provides three types of palettes based on the HCL model
   Function: `diverging_hcl()`.
 
 To aid choice and application of these palettes there are: scales for use
-with _ggplot2_; shiny (and tcltk) apps for interactive exploration;
+with _ggplot2_; _shiny_ (and _tcltk_) apps for interactive exploration;
 visualizations of palette properties; accompanying manipulation utilities
 (like desaturation, lighten/darken, and emulation of color vision deficiencies).
 
@@ -139,7 +139,7 @@ plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
 legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
 ```
 
-```{r eustockmarkets-plot, echo = FALSE, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, width.width = 6, dpi = 48, out.width = "100%"}
+```{r eustockmarkets-plot, echo = FALSE, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
 q4 <- qualitative_hcl(4)
 par(mar = c(5, 4, 1, 1))
 plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
@@ -157,7 +157,7 @@ ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
 spineplot(ttnc, col = sequential_hcl(2, palette = "Purples 3"))
 ```
 
-```{r titanic-plot, echo = FALSE, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, width.width = 6, dpi = 48, out.width = "100%"}
+```{r titanic-plot, echo = FALSE, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
 ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
 par(mar = c(5, 4, 1, 1))
 spineplot(ttnc, col = sequential_hcl(2, "Purples 3"))
@@ -179,7 +179,7 @@ and sequential `Purples 3` palettes that were also employed above. First, semi-t
 shaded densities of the sepal length from the iris data are shown, grouped by species.
 
 
-```{r iris-ggplot, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, width.width = 6, dpi = 48, out.width = "100%"}
+```{r iris-ggplot, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
 library("ggplot2")
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
   scale_fill_discrete_qualitative(palette = "Dark 3")
@@ -190,7 +190,7 @@ in the diamonds data (or rather a small subsample thereof). The scale function f
 generates six colors but then drops the first color because the light gray is too light
 in this display. (Alternatively, the chroma and luminance parameters could also be tweaked.)
 
-```{r diamonds-ggplot, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, width.width = 6, dpi = 48, out.width = "100%"}
+```{r diamonds-ggplot, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
 dsamp <- diamonds[1 + 1:1000 * 50, ]
 ggplot(dsamp, aes(carat, price, color = cut)) + geom_point() +
   scale_color_discrete_sequential(palette = "Purples 3", nmax = 6, order = 2:6)
