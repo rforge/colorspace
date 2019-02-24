@@ -81,10 +81,14 @@ colors or color palettes, manipulating these colors, and employing
 them in various kinds of visualizations.
 
 
-```{r preliminaries, echo=FALSE, message=FALSE}
+```{r preliminaries, echo = FALSE, message = FALSE}
 library("colorspace")
 library("ggplot2")
 theme_set(theme_minimal())
+knitr::opts_chunk$set(message = FALSE, warning = FALSE,
+  dev = "pdf", dpi = 150,
+  fig.height = 6, fig.width = 6, fig.pos = "t!",
+  fig.align = "center", fig.show = "hold", fig.path = "Figures/")
 ```
 
 At the core of the package there are various utilities for computing with
@@ -102,12 +106,12 @@ specifying individual colors and color palettes as its three axes match those
 of the human visual system very well: Hue (= type of color, dominant wavelength),
 chroma (= colorfulness), luminance (= brightness), see Figure\ \ref{fig:hcl-properties}.
 
-```{r hcl-properties, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 4, fig.height = 2.2, out.width = "0.5\\textwidth", fig.cap = "Axes of the HCL color space: Hue (= type of color, dominant wavelength), chroma (= colorfulness), luminance (= brightness). In each line the color coordinates are varied along the indicated axis, keeping the other two coordinates fixed."}
+```{r hcl-properties, echo = FALSE, fig.width = 4, fig.height = 2.2, out.width = "0.5\\textwidth", fig.cap = "Axes of the HCL color space. Top: Hue $H$ changes from 0 (red) via 60 (yellow), etc.\\ to 300 (purple) with fixed $C = 60$ and $L = 65$. Center: Chroma $C$ changes from 0 (gray) to 100 (colorful) with fixed $H = 0$ (red) and $L = 65$. Bottom: Luminance $L$ changes from 90 (light) to 25 (dark) with fixed $H = 260$ (blue) and $C = 25$ (low, close to gray)."}
 swatchplot(
-  "Hue"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
-  "Chroma"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
-  "Luminance" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
-  off = 0
+  "Hue\n(Type of color)"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
+  "Chroma\n(Colorfulness)"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
+  "Luminance\n(Brightness)" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
+  nrow = 3, line = 5.2, off = 0
 )
 ```
 
@@ -130,17 +134,9 @@ visualizations of palette properties; accompanying manipulation utilities
 
 # Getting started {#sec:start}
 
-## Installation
-
 The stable release version of \pkg{colorspace} is hosted on the Comprehensive \proglang{R} Archive Network
 (CRAN) at <https://CRAN.R-project.org/package=colorspace> and the development version of \pkg{colorspace}
 is hosted on \proglang{R}-Forge.
-
-For \proglang{Python} users a beta re-implementation of the full \pkg{colorspace} package in
-\proglang{Python}\ 2/\proglang{Python}\ 3 is also available, see <https://github.com/retostauffer/python-colorspace>.
-In the manuscript we focus on the more mature \proglang{R} implementation but
-replication materials for most examples are not only provided for \proglang{R} but
-also for \proglang{Python}.
 
 
 ## Choosing HCL-based color palettes
@@ -149,7 +145,7 @@ The \pkg{colorspace} package ships with a wide range of predefined color palette
 specified through suitable trajectories in the HCL (hue-chroma-luminance) color space.
 A quick overview can be gained easily with `hcl_palettes()` (see Figure\ \ref{fig:hcl-palettes}):
 
-```{r hcl-palettes, message = FALSE, warning = FALSE, fig.height = 6.75, fig.width = 12, out.width = "\\textwidth", fig.cap = "Overview of available predefined palettes in \\pkg{colorspace}."}
+```{r hcl-palettes, fig.height = 6.75, fig.width = 12, out.width = "\\textwidth", fig.cap = "Overview of available predefined palettes in \\pkg{colorspace}."}
 library("colorspace")
 hcl_palettes(plot = TRUE)
 ```
@@ -180,7 +176,7 @@ plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
 legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
 ```
 
-```{r eustockmarkets-plot, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Time series plot of \\code{EuStockMarkets} data with \\code{qualitative\\_hcl(4, \"Dark 3\")} palette."}
+```{r eustockmarkets-plot, echo = FALSE, warning = FALSE, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Time series plot of \\code{EuStockMarkets} data with \\code{qualitative\\_hcl(4, \"Dark 3\")} palette."}
 q4 <- qualitative_hcl(4)
 par(mar = c(5, 4, 1, 1))
 plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
@@ -198,7 +194,7 @@ ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
 spineplot(ttnc, col = sequential_hcl(2, palette = "Purples 3"))
 ```
 
-```{r titanic-plot, echo = FALSE, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Foo."}
+```{r titanic-plot, echo = FALSE, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Foo."}
 ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
 par(mar = c(5, 4, 1, 1))
 spineplot(ttnc, col = sequential_hcl(2, "Purples 3"))
@@ -207,20 +203,23 @@ spineplot(ttnc, col = sequential_hcl(2, "Purples 3"))
 
 ## Usage with ggplot2
 
-To plug the HCL color palettes into \pkg{ggplot2} graphics suitable discrete and/or
-continuous \pkg{gglot2} color scales are provided. The scales are called via the scheme
-`scale_<aesthetic>_<datatype>_<colorscale>()`, where `<aesthetic>` is the name
-of the aesthetic (`fill`, `color`, `colour`), `<datatype>` is the type of the
-variable plotted (`discrete` or `continuous`) and `<colorscale>` sets the type
-of the color scale used (`qualitative`, `sequential`, `diverging`,
-`divergingx`).
+To plug the HCL color palettes into \pkg{ggplot2} graphics [@color:ggplot2; @color:ggplot2pkg]
+suitable discrete and/or continuous \pkg{gglot2} color scales are provided.
+The scales are called via the scheme
+
+    scale_<aesthetic>_<datatype>_<colorscale>()
+    
+where
+
+- `<aesthetic>` is the name of the aesthetic (`fill`, `color`, `colour`).
+- `<datatype>` is the type of the variable plotted (`discrete` or `continuous`).
+- `<colorscale>` sets the type of the color scale used (`qualitative`, `sequential`, `diverging`, `divergingx`).
 
 To illustrate their usage two simple examples are shown using the qualitative `Dark 3`
 and sequential `Purples 3` palettes that were also employed above. First, semi-transparent
 shaded densities of the sepal length from the iris data are shown, grouped by species.
 
-
-```{r iris-ggplot, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Foo."}
+```{r iris-ggplot, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Foo."}
 library("ggplot2")
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
   scale_fill_discrete_qualitative(palette = "Dark 3")
@@ -231,7 +230,7 @@ in the diamonds data (or rather a small subsample thereof). The scale function f
 generates six colors but then drops the first color because the light gray is too light
 in this display. (Alternatively, the chroma and luminance parameters could also be tweaked.)
 
-```{r diamonds-ggplot, message = FALSE, warning = FALSE, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Foo."}
+```{r diamonds-ggplot, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Foo."}
 dsamp <- diamonds[1 + 1:1000 * 50, ]
 ggplot(dsamp, aes(carat, price, color = cut)) + geom_point() +
   scale_color_discrete_sequential(palette = "Purples 3", nmax = 6, order = 2:6)
@@ -459,22 +458,12 @@ hex(x)
 
 # HCL-based color palettes {#sec:hcl_palettes}
 
-As motivated in the previous article ([Color Spaces: S4 Classes and Utilities](color_spaces.html)),
+As motivated in the previous section,
 the HCL space is particularly useful for specifying individual colors and color palettes as its three axes match those
 of the human visual system very well. Therefore, the \pkg{colorspace} package provides
-three types of palettes based on the HCL model:
-
-* _Qualitative:_ Designed for coding categorical information, i.e.,
-  where no particular ordering of categories is available and every color
-  should receive the same perceptual weight.
-* _Sequential:_ Designed for coding ordered/numeric information, i.e.,
-  going from high to low (or vice versa).
-* _Diverging:_ Designed for coding ordered/numeric information around a central
-  neutral value, i.e., where colors diverge from neutral to two extremes.
-
-The corresponding functions are `qualitative_hcl()`, `sequential_hcl()`,
-and `diverging_hcl()`. Their construction principles are exemplified in the
-following color swatches and explained in more detail below. The desaturated
+three palette functions based on the HCL model: `qualitative_hcl()`, `sequential_hcl()`,
+and `diverging_hcl()`. Their construction principles are exemplified in
+Figure\ \ref{fig:hcl-palettes-principles} and explained in more detail below. The desaturated
 palettes bring out clearly that luminance differences (= light-dark contrasts),
 or the lack thereof, are crucial for coding the different kinds of palettes.
 
@@ -866,6 +855,44 @@ Typically, the more restricted `diverging_hcl()` palettes should be preferred be
 more balanced. However, by being able to go through light yellow as the neutral
 color warmer diverging palettes are available.
 
+## Approximating palettes from other packages
+
+The flexible specification of HCL-based color palettes in \pkg{colorspace} allows
+to closely approximate color palettes from various other packages:
+
+- _ColorBrewer.org_ [@color:Harrower+Brewer:2003] as provided by R package _RColorBrewer_ [@color:RColorBrewer].
+- _CARTO_ colors [@color:CARTO] as provided by R package _rcartocolor_ [@color:rcartocolor].
+- The viridis palettes of @color:Smith+VanDerWalt:2015 developed for _matplotlib_,
+  as provided by R package _viridis_ [@color:viridis].
+- The scientific color maps of @color:Crameri:2018 as provided by R package _scico_ [@color:scico].
+
+See the discussion of [HCL-based palettes](hcl_palettes.html) for more details. In the
+following `specplot()` is used to compare the [HCL spectrum](palette_visualization.html#hcl-and-rgb-spectrum)
+of the original palettes (top swatch, solid lines) and their HCL-based approximations (bottom swatch, dashed lines).
+
+
+```{r brewer-carto-viridis, results = "hide", echo = FALSE, fig.width = 6, fig.height = 6, out.width = "0.49\\textwidth", fig.cap = "Foo."}
+specplot(
+  rev(RColorBrewer::brewer.pal(7, "YlGnBu")),
+  sequential_hcl(7, "YlGnBu"),
+  main = "ColorBrewer.org: YlGnBu"
+)
+specplot(
+  viridis::viridis(7),
+  sequential_hcl(7, "Viridis"),
+  main = "viridis: Viridis"
+)
+specplot(
+  rcartocolor::carto_pal(7, "ag_Sunset"),
+  sequential_hcl(7, "ag_Sunset"),
+  main = "CARTO: ag_Sunset"
+)
+specplot(
+  viridis::plasma(7),
+  sequential_hcl(7, "Plasma"),
+  main = "viridis: Plasma"
+)
+```
 
 ## HCL (and HSV) color palettes corresponding to base R palettes
 
@@ -882,181 +909,6 @@ above, \pkg{colorspace} provides a few convenience interfaces:
   in `diverging_hcl()`. This is provided for didactic purposes to contrast the more balanced
   HCL palettes with the more flashy and unbalanced HSV palettes.
 
-
-
-
-# HCL-based color scales for ggplot2 {#sec:ggplot2_color_scales}
-
-All [HCL-based color palettes](hcl_palettes.html) in the \pkg{colorspace} package [@color:colorspace]
-are also provided as discrete and/or continuous color scales for the use with the _ggplot2_ package
-[@color:ggplot2; @color:ggplot2pkg].
-
-The scales are called via the scheme
-
-    scale_<aesthetic>_<datatype>_<colorscale>()
-    
-where
-
-- `<aesthetic>` is the name of the aesthetic (`fill`, `color`, `colour`).
-- `<datatype>` is the type of the variable plotted (`discrete` or `continuous`).
-- `<colorscale>` sets the type of the color scale used (`qualitative`, `sequential`, `diverging`, `divergingx`).
-
-A few examples of these scales are illustrated in the following sections.
-
-
-## Using the scales in ggplot2
-
-A discrete qualitative scale applied to a fill aesthetic corresponds to the function `scale_fill_discrete_qualitative()`:
-
-```{r density-qualitative, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
-  scale_fill_discrete_qualitative()
-```
-
-Similarly, a color aesthetic for a discrete qualitative scale corresponds to the function `scale_color_discrete_qualitative()`:
-
-```{r point-qualitative, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + geom_point() +
-  scale_color_discrete_qualitative(palette = "Set 2")
-```
-
-A continuous sequential scale applied to a color aesthetic corresponds to the function `scale_color_continuous_sequential()`:
-
-```{r jitter-sequential, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
-  scale_color_continuous_sequential(palette = "Heat")
-```
-
-A continuous sequential scale applied to a fill aesthetic corresponds to the function `scale_fill_continuous_sequential()`:
-
-```{r raster-sequential, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-df <- data.frame(height = c(volcano), x = c(row(volcano)), y = c(col(volcano)))
-ggplot(df, aes(x, y, fill = height)) + 
-  geom_raster() + 
-  coord_fixed(expand = FALSE) +
-  scale_fill_continuous_sequential(palette = "Blues")
-```
-
-A continuous diverging scale applied to a fill aesthetic corresponds to the function `scale_fill_continuous_diverging()`:
-
-```{r tile-diverging, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-cm <- cor(mtcars)
-df <- data.frame(cor = c(cm), var1 = factor(col(cm)), var2 = factor(row(cm)))
-levels(df$var1) <- levels(df$var2) <- names(mtcars)
-ggplot(df, aes(var1, var2, fill = cor)) + 
-  geom_tile() + 
-  coord_fixed() +
-  ylab("variable") +
-  scale_x_discrete(position = "top", name = "variable") +
-  scale_fill_continuous_diverging("Blue-Red 3")
-```
-
-## Customizing the scales
-
-All scale functions accept a `palette` argument which allows you to pick a specific color palette out of a selection of different options. All available palettes are listed at the end of this document. For example, we could use the "Harmonic" palette when we need a qualitative color scale:
-
-```{r density-qualitative2, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
-  scale_fill_discrete_qualitative(palette = "Harmonic")
-```
-
-The color palettes are calculated on the fly depending on the number of different colors needed. But sometimes, it may be desireable to pick specific colors out of a larger set, e.g., when we are making two plots where one contains a subset of the data of the other, or when the default order of colors is not ideal. Therefore, all discrete scales provide parameters `nmax` to set the total number of colors requested and `order` (a vector of integers) to reorder the color palette. 
-
-Applied to the previous plot, we could for example do the following:
-
-```{r density-qualitative3, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
-  scale_fill_discrete_qualitative(palette = "Harmonic", nmax = 5, order = c(5, 1, 2))
-```
-
-The `nmax` option is also convenient to remove some colors from a scale that may not be appropriate for the plot. For example, the `scale_color_brewer()` scale that comes with _ggplot2_ tends to produce points that are too light:
-
-```{r point-brewer, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-dsamp <- diamonds[1 + 1:1000 * 50, ]
-gg <- ggplot(dsamp, aes(carat, price, color = cut)) + geom_point()
-gg + scale_color_brewer(palette = "Blues")
-```
-
-Similar problems can arise with the HCL palettes, but there we have the option of creating additional colors that we then do not use:
-
-```{r point-sequential, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-gg + scale_color_discrete_sequential(palette = "Blues", nmax = 6, order = 2:6)
-```
-
-(We use `order = 2:6` to pick the five darkest colors and omit the lightest color.)
-
-All [HCL-based color palettes](hcl_palettes.html) are defined via sets of hue (H), chroma (C), and luminance (L) values. For example, the qualitative scales vary hue from a start value to an end value while keeping chroma and luminance fixed. Similarly, single-hue sequential scales vary chroma and luminance while keeping the hue fixed. We can override these settings by specifying the corresponding H, C, or L values in addition to the palette name. As an example, consider the following plot:
-
-```{r jitter-sequential2, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
-  scale_color_continuous_sequential(palette = "Terrain")
-```
-
-Now assume we generally like the color scale but find it a bit too pink at the end. We can fix this issue by specifying an alternative final hue value, e.g., `h2 = 60` corresponding to yellow:
-
-```{r jitter-sequential3, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
-  scale_color_continuous_sequential(palette = "Terrain", h2 = 60)
-```
-
-The next example uses a diverging scale. First consider the plot with the unmodified "Blue-Yellow 2" palette:
-
-```{r tile-diverging2, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-cm <- cor(mtcars)
-df <- data.frame(cor = c(cm), var1 = factor(col(cm)), var2 = factor(row(cm)))
-levels(df$var1) <- levels(df$var2) <- names(mtcars)
-gg <- ggplot(df, aes(var1, var2, fill = cor)) + 
-  geom_tile() + 
-  coord_fixed() +
-  ylab("variable") +
-  scale_x_discrete(position = "top", name = "variable")
-
-gg + scale_fill_continuous_diverging(palette = "Blue-Yellow 2")
-```
-
-And now the same plot with some palette customizations: The ordering is reversed so that blue is used for
-positive correlations and yellow for negative ones. Moreover, the power parameter `p2` for the luminance
-is increased so that only correlations close to an absolute value of 1 have dark colors while intermediate
-correlations have relatively light colors.
-
-```{r tile-diverging3, fig.width = 6.5, fig.asp = .7, fig.cap = "Foo."}
-gg + scale_fill_continuous_diverging(palette = "Blue-Yellow 2", rev = TRUE, p2 = 2)
-```
-
-See the reference manual for the exact set of customization parameters that are available for each scale.
-
-The continuous scales also provide the option to limit the scale range to which data are mapped, via the parameters `begin` and `end`. As an example, assume we are using the approximation of the viridis scale provided by `scale_color_continuous_sequential()`:
-
-```{r jitter-sequential4, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
-  scale_color_continuous_sequential(palette = "Viridis")
-```
-
-If we want to remove some of the darkest blues and some of the brightest yellows from this scale, we can write:
-
-```{r jitter-sequential5, fig.width = 6.5, fig.asp = 0.7, fig.cap = "Foo."}
-ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + geom_jitter(width = 0.2) +
-  scale_color_continuous_sequential(palette = "Viridis", begin = 0.15, end = 0.9)
-```
-
-
-## Available palettes
-
-In the following, we are visualizing all scales currently available via
-pre-defined names. These visualizations are generated by the function
-`hcl_palettes()` with option `plot = TRUE`.
-
-The discrete qualitative scales are all called via `scale_*_discrete_qualitative(palette = "name")`,
-where `name` is the name of the palette, e.g., `palette = "Pastel 1"`. There are no continuous qualitative
-scales.
-
-The discrete sequential scales are all called via `scale_*_discrete_sequential(palette = "name")`,
-where `name` is the name of the palette, e.g., `palette = "Grays"`. Continuous approximations to the discrete
-scales exist and can be called via `scale_*_continuous_sequential(palette = "name")`
-
-The discrete diverging scales are all called via `scale_*_discrete_diverging(palette = "name")`,
-where `name` is the name of the palette, e.g., `palette = "Blue-Red"`. Continuous approximations to the discrete
-scales exist and can be called via `scale_*_continuous_diverging(palette = "name")`
 
 
 
@@ -1081,26 +933,9 @@ hex color codes. Essentially, it is just a call to the base graphics
 spacings, borders, etc. These are selected to work well for `hcl_palettes()`
 and might need further tweaking in future versions.
 
-As a first simple example, the properties of the three HCL axes are brought out by varying
-only one coordinate while keeping the other two fixed:
+As a first simple example:
+`swatchplot("Label" = sequential_hcl(5))`.
 
-```{r swatch-hcl, fig.width = 4, fig.height = 2.2, fig.cap = "Foo."}
-swatchplot(
-  "Hue"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
-  "Chroma"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
-  "Luminance" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
-  off = 0
-)
-```
-
-This shows the following:
-
-- Hue: Only the hue (= type of color) changes from H = 0 (red) via 60 (yellow), etc. to 300 (purple)
-  while chroma and luminance are fixed to moderate values of C = 60 and L = 65, respectively.
-- Chroma: Only the chroma (= colorfulness) changes from C = 0 (gray) to 100 (colorful)
-  while hue and luminance are fixed to H = 0 (red) and L = 65, respectively.
-- Luminance: Only the luminance (= brightness) changes from L = 90 (light) to 25 (dark)
-  while hue and chroma are fixed to H = 260 (blue) and C = 25 (low, close to gray), respectively.
 
 As a somewhat more complex example a `swatchplot()` is created with three matrices
 of sequential color palettes of blues, purples, reds, and greens. For all palettes,
@@ -1164,7 +999,7 @@ In the qualitative "Set 2" palette below, the
 hue traverses the entire color "wheel" (from 0 to 360 degrees) while keeping
 chroma and luminance (almost) constant (C = 60 and L = 70).
 
-```{r spec-qualitative, fig.width = 5, fig.height = 5, fig.cap = "Foo."}
+```{r spec-qualitative, fig.width = 5, fig.height = 5, out.width = "0.5\\textwidth", fig.cap = "Foo."}
 specplot(qualitative_hcl(100, "Set 2"))
 ```
 
@@ -1177,7 +1012,7 @@ The sequential "Blues 2" palette below employs a single hue (H = 260) and a mono
 increasing luminance trajectory (from dark to light). Chroma simply decreases monotonically
 along with increasing luminance.
 
-```{r spec-sequential, fig.width = 5, fig.height = 5, fig.cap = "Foo."}
+```{r spec-sequential, fig.width = 5, fig.height = 5, out.width = "0.5\\textwidth", fig.cap = "Foo."}
 specplot(sequential_hcl(100, "Blues 2"))
 ```
 
@@ -1187,14 +1022,14 @@ Hue is constant in each "arm" of the palette and the chroma/luminance trajectori
 In the center the palette passes through a light gray (with zero chroma) as the neutral
 value.
 
-```{r spec-diverging, fig.width = 5, fig.height = 5, fig.cap = "Foo."}
+```{r spec-diverging, fig.width = 5, fig.height = 5, out.width = "0.5\\textwidth", fig.cap = "Foo."}
 specplot(diverging_hcl(100, "Blue-Red"))
 ```
 
 To contrast these well-balanced HCL-based palettes with a poorly-balanced palette, the
 spectrum of the (in)famous RGB rainbow palette is depicted in both RGB and HCL space.
 
-```{r spec-rainbow, fig.width = 5, fig.height = 7.5, fig.cap = "Foo."}
+```{r spec-rainbow, fig.width = 5, fig.height = 7.5, out.width = "0.5\\textwidth", fig.cap = "Foo."}
 specplot(rainbow(100), rgb = TRUE)
 ```
 
@@ -1361,107 +1196,6 @@ demoplot(diverging_hcl(9, "Cyan-Magenta", l2 = 20), "lines")
 ```
 
 
-
-# Apps for choosing colors and palettes interactively {#sec:hclwizard}
-
-To facilitate exploring the package and employing it when working with colors,
-several graphical user interfaces (GUIs) are provided within the package as
-_shiny_ apps [@color:shiny]. All of these GUIs or apps can either be run locally
-from within R but are also provided at <http://hclwizard.org/>.
-
-* **Palette constructor:** `choose_palette()` or `hclwizard()` or `hcl_wizard()`.  
-* **Color picker:** `choose_color()` or equivalently `hcl_color_picker()`.
-* **Color vision deficiency emulator:** `cvd_emulator()`.
-
-In addition to the _shiny_ app, the **palette constructor** app is also available as a Tcl/Tk GUI via R package
-_tcltk_ shipped with base R [@color:R]. The _tcltk_ version can only be run locally
-and is considerably faster while the _shiny_ version has a nicer interface with more
-features  and can be run online. The `choose_palette()` function by default starts the
-_tcltk_ version while `hclwizard()`/`hcl_wizard()` by default start the _shiny_
-version.
-
-
-## Choose palettes with the HCL color model
-
-This GUI can either be started with `hclwizard()` (or equivalently `hcl_wizard()`) which
-by default starts the _shiny_ version:
-
-![](../../vignettes/screenshots/choose_palette_1.png)
-
-The _tcltk_ version is started by default with `choose_palette()`:
-
-![](../../vignettes/screenshots/choose_palette_3.png)
-
-However, all defaults can be modified by setting  `gui = "tcltk"` or `gui = "shiny"`.
-
-The GUIs interface the palette functions `qualitative_hcl()` for qualitative palettes,
-`sequential_hcl()` for sequential palettes with single or
-multiple hues, and `diverging_hcl()` for diverging palettes (composed
-from two single-hue sequential palettes). See the discussion of
-[HCL-based color palettes](hcl_palettes.html) for more details.
-
-The GUIs
-allow for interactive modification of the arguments of the respective
-palette-generating functions, i.e., starting/ending hue (wavelength, type of
-color), minimal/maximal chroma (colorfulness), minimal maximal luminance
-(brightness, amount of gray), and a power transformations that control how
-quickly/slowly chroma and/or luminance are changed through the palette.
-Subsets of the parameters may not be applicable depending on the type of
-palette chosen. See `qualitative_hcl()` and @color:Zeileis+Hornik+Murrell:2009 for
-a more detailed explanation of the different arguments. 
-@color:Stauffer+Mayr+Dabernig:2015 provide more examples and guidance.
-
-Optionally, the active palette can be illustrated by using a
-[range of examples](palette_visualization.html#demonstration-of-statistical-graphics)
-such as a map, heatmap, scatter plot, perspective 3D surface etc.
-To demonstrate different types of deficiencies, the active palette may be
-desaturated (emulating printing on a grayscale printer) and collapsed to
-emulate different types of color-blindness (without red-green or green-blue
-contrasts) using the `simulate_cvd()` functions. To facilitate generation of
-palettes for black/dark backgrounds, a "dark mode" of the GUIs is also available:
-
-![](../../vignettes/screenshots/choose_palette_2.png)
-
-
-
-
-## Choose individual colors with the HCL color model
-
-This GUI can be started with either `choose_color()` or equivalently `hcl_color_picker()`.
-
-![](../../vignettes/screenshots/choose_color.png)
-
-It shows the HCL color space either as a hue-chroma plane for a given luminance value or
-as a luminance-chroma plane for a given hue. Colors can be entered by:
-
-* Clicking on a color coordinate in the hue-chroma or luminance-chroma plane.
-* Specifying the hue/chroma/luminance values via sliders.
-* Entering an RGB hex code.
-
-By repeating the selection a palette of colors can be constructed and returned
-within R for subsequent usage in visualizations.
-
-
-
-## Emulate color vision deficiencies
-
-This GUI can be started with `cvd_emulator()`.
-
-![](../../vignettes/screenshots/cvd_emulator_1.png){width=49%}
-![](../../vignettes/screenshots/cvd_emulator_2.png){width=49%}
-
-It allows to upload a raster image in
-JPG or PNG format which is then check for various kinds of color vision deficiencies
-at the selected severity. By default the severity is set to 100% and all supported
-kinds of color vision deficiency are checked for, i.e.,
-
-* Monochromatic (desaturated grayscale).
-* Deuteranope vision (green deficient).
-* Protanope vision (red deficient).
-* Tritanope vision (blue deficient).
-
-
-
 # Color vision deficiency emulation {#sec:color_vision_deficiency}
 
 Using the physiologically-based model for simulating color vision deficiency (CVD)
@@ -1507,7 +1241,7 @@ and so on. To aid the interpretation of the heatmap a perspective display using
 only gray shades is included first, providing another intuitive display of what
 the terrain around Maunga Whau looks like.
 
-```{r volcano, echo = FALSE, fig.height = 3, fig.width = 5.5, dev = "png", fig.cap = "Foo.", dpi = 100}
+```{r volcano, echo = FALSE, fig.height = 3, fig.width = 5.5, dev = "png", fig.cap = "Foo.", dpi = 100, out.width = "0.5\\textwidth"}
 z <- 2 * volcano
 x <- 10 * (1:nrow(z))
 y <- 10 * (1:ncol(z))
@@ -1519,7 +1253,7 @@ persp(x, y, z, theta = 10, phi = 30, col = "lightgray", scale = FALSE,
 Subsequently, all combinations of palette and color vision deficiency are visualized.
 Additionally, a grayscale version is created with `desaturate()`.
 
-```{r heatmap-sequential, echo = FALSE, fig.height = 15, fig.width = 9, out.width = "\\textwidth", fig.cap = "Foo."}
+```{r heatmap-sequential, echo = FALSE, fig.height = 15, fig.width = 9, out.width = "0.85\\textwidth", fig.pos = "p!", fig.cap = "Foo."}
 par(mfrow = c(5, 2), mar = rep(0.5, 4), oma = c(1, 7.9, 3, 1), las = 1)
 rain <- rainbow(11, end = 2/3)
 blyl <- sequential_hcl(11, "Blue-Yellow")
@@ -1550,56 +1284,98 @@ correct interpretation quite hard. Moreover, the red-green contrasts deteriorate
 substantially in the dichromatic emulations.
 
 
-## Illustration: Map with diverging palette
 
-As another example for the poor performance of the RGB rainbow we employ a
-shaded map. This is available as `demoplot(..., "map")` and is based on county
-polygons for Alabama, Georgia, and South Carolina along with an artifical variable
-used for coloring.
+# Apps for choosing colors and palettes interactively {#sec:hclwizard}
 
-Often the red-yellow-green RGB spectrum is used for a diverging palette with 
-yellow as the neutral value. In base R this can be generated by
-`rainbow(11, end = 1/3)`. However, this palette has again a number of weaknesses,
-especially that the green-yellow part of the palette almost collapses to the same
-color when desaturated or when color blindness is emulated.
+To facilitate exploring the package and employing it when working with colors,
+several graphical user interfaces (GUIs) are provided within the package as
+_shiny_ apps [@color:shiny]. All of these GUIs or apps can either be run locally
+from within R but are also provided at <http://hclwizard.org/>.
 
-To illustrate that much more balanced palettes for the same purpose are available
-the `Geyser` palette [mimicked from @color:CARTO] is adopted:
-`divergingx_hcl(11, "Geyser", rev = TRUE)`. This also goes from red via yellow to
-a green/blue and hence needs the `divergingx_hcl()` function (as opposed to
-`diverging_hcl()` which always uses a neutral gray).
+* **Palette constructor:** `choose_palette()` or `hclwizard()` or `hcl_wizard()`.  
+* **Color picker:** `choose_color()` or equivalently `hcl_color_picker()`.
+* **Color vision deficiency emulator:** `cvd_emulator()`.
 
-```{r map-diverging, echo = FALSE, fig.height = 13, fig.width = 9, out.width = "\\textwidth", fig.cap = "Foo."}
-par(mfrow = c(5, 2), mar = rep(0.5, 4), oma = c(1, 7.9, 3, 1), las = 1)
-rain <- rainbow(11, end = 1/3)
-gysr <- divergingx_hcl(11, "Geyser", rev = TRUE)
-demoplot(rain, "map")
-mtext("Original", side = 2, line = 1)
-mtext("rainbow(11, end = 1/3)", line = 1)
-demoplot(gysr, "map")
-mtext("divergingx_hcl(11, \"Geyser\", rev = TRUE)", line = 1)
-demoplot(desaturate(rain), "map")
-mtext("Desaturated", side = 2, line = 1)
-demoplot(desaturate(gysr), "map")
-demoplot(deutan(rain), "map")
-mtext("Deuteranope", side = 2, line = 1)
-demoplot(deutan(gysr), "map")
-demoplot(protan(rain), "map")
-mtext("Protanope", side = 2, line = 1)
-demoplot(protan(gysr), "map")
-demoplot(tritan(rain), "map")
-mtext("Tritanope", side = 2, line = 1)
-demoplot(tritan(gysr), "map")
+In addition to the _shiny_ app, the **palette constructor** app is also available as a Tcl/Tk GUI via R package
+_tcltk_ shipped with base R [@color:R]. The _tcltk_ version can only be run locally
+and is considerably faster while the _shiny_ version has a nicer interface with more
+features  and can be run online. The `choose_palette()` function by default starts the
+_tcltk_ version while `hclwizard()`/`hcl_wizard()` by default start the _shiny_
+version.
+
+
+## Choose palettes with the HCL color model
+
+This GUI can either be started with `hclwizard()` (or equivalently `hcl_wizard()`) which
+by default starts the _shiny_ version.
+The _tcltk_ version is started by default with `choose_palette()`.
+However, all defaults can be modified by setting  `gui = "tcltk"` or `gui = "shiny"`.
+
+```{r choose_palette, echo = FALSE, out.width = "\\textwidth", fig.cap="Foo."}
+knitr::include_graphics("../../vignettes/screenshots/choose_palette_1.png")
 ```
 
-While many versions of the RGB rainbow displays are hard to read because
-they do not bring out any differences in the green-yellow arm of the palette,
-the HCL-based palette works reasonably well in all settings. Only the grayscale
-version cannot bring out the different arms of the palette. However, at least
-both directions of deviation are visible even if they cannot be distinguished.
-This is preferable to the RGB rainbow which hides all differences in the
-green-yellow arm of the palette. (However, if grayscale printing is desired
-a sequential rather than a diverging palette is probably necessary.)
+The GUIs interface the palette functions `qualitative_hcl()` for qualitative palettes,
+`sequential_hcl()` for sequential palettes with single or
+multiple hues, and `diverging_hcl()` for diverging palettes (composed
+from two single-hue sequential palettes).
+
+The GUIs
+allow for interactive modification of the arguments of the respective
+palette-generating functions, i.e., starting/ending hue (wavelength, type of
+color), minimal/maximal chroma (colorfulness), minimal maximal luminance
+(brightness, amount of gray), and a power transformations that control how
+quickly/slowly chroma and/or luminance are changed through the palette.
+Subsets of the parameters may not be applicable depending on the type of
+palette chosen. See `qualitative_hcl()` and @color:Zeileis+Hornik+Murrell:2009 for
+a more detailed explanation of the different arguments. 
+@color:Stauffer+Mayr+Dabernig:2015 provide more examples and guidance.
+
+Optionally, the active palette can be illustrated by using a
+[range of examples](palette_visualization.html#demonstration-of-statistical-graphics)
+such as a map, heatmap, scatter plot, perspective 3D surface etc.
+To demonstrate different types of deficiencies, the active palette may be
+desaturated (emulating printing on a grayscale printer) and collapsed to
+emulate different types of color-blindness (without red-green or green-blue
+contrasts) using the `simulate_cvd()` functions. To facilitate generation of
+palettes for black/dark backgrounds, a "dark mode" of the GUIs is also available.
+
+
+## Choose individual colors with the HCL color model
+
+This GUI can be started with either `choose_color()` or equivalently `hcl_color_picker()`.
+
+```{r choose_color, echo = FALSE, out.width = "\\textwidth", fig.cap="Foo."}
+knitr::include_graphics("../../vignettes/screenshots/choose_color.png")
+```
+
+It shows the HCL color space either as a hue-chroma plane for a given luminance value or
+as a luminance-chroma plane for a given hue. Colors can be entered by:
+
+* Clicking on a color coordinate in the hue-chroma or luminance-chroma plane.
+* Specifying the hue/chroma/luminance values via sliders.
+* Entering an RGB hex code.
+
+By repeating the selection a palette of colors can be constructed and returned
+within R for subsequent usage in visualizations.
+
+
+
+## Emulate color vision deficiencies
+
+This GUI can be started with `cvd_emulator()`.
+
+\begin{figure}[t!]
+\centering 
+\includegraphics[width=0.49\textwidth]{../../vignettes/screenshots/cvd_emulator_1} 
+\includegraphics[width=0.49\textwidth]{../../vignettes/screenshots/cvd_emulator_2}
+\caption[Foo]{Foo.}\label{fig:cvd_emulator}
+\end{figure}
+
+It allows to upload a raster image in
+JPG or PNG format which is then checked for various kinds of color vision deficiencies
+at the selected severity. By default the severity is set to 100% and all supported
+kinds of color vision deficiency are checked for.
 
 
 # Color manipulation and utilities {#sec:manipulation_utilities}
@@ -1653,7 +1429,7 @@ a full color wheel (of colors with hues in [0, 360] degrees). While the RGB
 `rainbow()` is very unbalanced the HCL `rainbow_hcl()` (or also `qualitative_hcl()`)
 is (by design) balanced with respect to luminance.
 
-```{r desaturate-wheel, fig.height = 6, fig.width = 6, fig.cap = "Foo."}
+```{r desaturate-wheel, out.width = "0.5\\textwidth", fig.cap = "Foo."}
 wheel <- function(col, radius = 1, ...)
   pie(rep(1, length(col)), col = col, radius = radius, ...) 
 par(mar = rep(0.5, 4), mfrow = c(2, 2))
@@ -1690,7 +1466,7 @@ Regardless of the chosen color space, the adjustment of the `L` component can oc
 For illustration a qualitative palette (Okabe-Ito) is transformed by two levels of both lightening and
 darkening, respectively.
 
-```{r lighten-darken, fig.height = 3.5, fig.width = 4.5, fig.cap = "Foo."}
+```{r lighten-darken, fig.height = 3.5, fig.width = 4.5, out.width = "0.5\\textwidth", fig.cap = "Foo."}
 oi <- c("#61A9D9", "#ADD668", "#E6D152", "#CE6BAF", "#797CBA")
 swatchplot(
   "-40%" = lighten(oi, 0.4),
@@ -1726,40 +1502,6 @@ a given hue (here: H = 120, green):
 max_chroma(120, seq(0, 100, by = 20))
 ```
 
-In the plots below more combinations are visualized: In the left panel for maximum
-chroma across hues given luminance and in the right panel with increasing luminance
-given hue.
-
-```{r max-chroma-plot, echo = FALSE, fig.height = 4.5, fig.width = 10, out.width = "\\textwidth", fig.cap = "Foo."}
-H <- seq(0, 360, by = 10)
-L <- seq(30, 90, by = 20)
-C <- outer(H, L, max_chroma)
-
-par(mfrow = c(1, 2), xaxs = "i", yaxs = "i", mar = c(5, 4, 1, 5), las = 1)
-plot(0, 0, type = "n", xlim = c(0, 360), ylim = c(0, 165),
-  xlab = "Hue (H)", ylab = "Maximum chroma (C)")
-axis(4, at = C[37, ], labels = paste("L =", L))
-for(i in seq_along(L)) {
-  lines(H, C[, i])
-  points(H, C[, i], col = hex(polarLUV(L[i], C[, i], H)), pch = 19, cex = 1.5, xpd = TRUE)
-}
-
-L <- seq(0, 100, by = 5)
-H <- c(0, 60, 120, 250, 330)
-C <- outer(H, L, max_chroma)
-
-par(xaxs = "i", yaxs = "i", mar = c(5, 4, 1, 1), las = 1)
-plot(0, 0, type = "n", xlim = c(0, 175), ylim = c(0, 100),
-  xlab = "Maximum chroma (C)", ylab = "Luminance (L)")
-for(i in rev(seq_along(H))) {
-  lines(C[i, ], L)
-  points(C[i, ], L, col = hex(polarLUV(L, C[i, ], H[i])), pch = 19, cex = 1.5, xpd = TRUE)
-  j <- which.max(C[i,])
-  text(C[i, j], L[j], paste("H =", H[i]), pos = 4, col = hex(polarLUV(L[j], C[i, j], H[i])))
-}
-points(0, 100, cex = 1.6, xpd = TRUE)
-```
-
 
 ## Additive mixing of two colors
 
@@ -1767,54 +1509,24 @@ In additive color models like `RGB()` or `XYZ()` it can be useful to combine
 colors by additive mixing. Below a fully saturated red and green are mixed,
 yielding a medium brownish yellow.
 
-```{r mixcolor, fig.height = 1.5, fig.width = 5, fig.cap = "Foo."}
+```{r mixcolor}
 R <- RGB(1, 0, 0)
 G <- RGB(0, 1, 0)
 Y <- mixcolor(0.5, R, G)
 Y
-par(mar = rep(0, 4))
-swatchplot(c(hex(R), hex(Y), hex(G)))
 ```
-
-# Approximating palettes from other packages {#sec:approximations}
-
-The flexible specification of HCL-based color palettes in \pkg{colorspace} allows
-to closely approximate color palettes from various other packages:
-
-- _ColorBrewer.org_ [@color:Harrower+Brewer:2003] as provided by R package _RColorBrewer_ [@color:RColorBrewer].
-- _CARTO_ colors [@color:CARTO] as provided by R package _rcartocolor_ [@color:rcartocolor].
-- The viridis palettes of @color:Smith+VanDerWalt:2015 developed for _matplotlib_,
-  as provided by R package _viridis_ [@color:viridis].
-- The scientific color maps of @color:Crameri:2018 as provided by R package _scico_ [@color:scico].
-
-See the discussion of [HCL-based palettes](hcl_palettes.html) for more details. In the
-following `specplot()` is used to compare the [HCL spectrum](palette_visualization.html#hcl-and-rgb-spectrum)
-of the original palettes (top swatch, solid lines) and their HCL-based approximations (bottom swatch, dashed lines).
-
-
-## Approximations of ColorBrewer.org palettes
-
-```{r brewer, results = "hide", message = FALSE, warning = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Foo."}
-specplot(
-  rev(RColorBrewer::brewer.pal(9, "YlGnBu")),
-  sequential_hcl(9, "YlGnBu"),
-  main = "ColorBrewer.org: YlGnBu"
-)
-```
-
-```{r viridis, results = "hide", message = FALSE, warning = FALSE, fig.width = 6, fig.height = 6, fig.cap = "Foo."}
-specplot(
-  viridis::viridis(9),
-  sequential_hcl(9, "Viridis"),
-  main = "Viridis"
-)
-```
-
 
 
 # Summary and discussion {#sec:summary}
 
 As usual...
+
+For \proglang{Python} users a beta re-implementation of the full \pkg{colorspace} package in
+\proglang{Python}\ 2/\proglang{Python}\ 3 is also available, see <https://github.com/retostauffer/python-colorspace>.
+In the manuscript we focus on the more mature \proglang{R} implementation but
+replication materials for most examples are not only provided for \proglang{R} but
+also for \proglang{Python}.
+
 
 # Computational details {#computational-details .unnumbered}
 
