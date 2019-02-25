@@ -107,7 +107,7 @@ This GUI can be started with `cvd_emulator()`.
 ![](screenshots/cvd_emulator_2.png){width=49%}
 
 It allows to upload a raster image in
-JPG or PNG format which is then check for various kinds of color vision deficiencies
+JPG or PNG format which is then checked for various kinds of color vision deficiencies
 at the selected severity. By default the severity is set to 100% and all supported
 kinds of color vision deficiency are checked for, i.e.,
 

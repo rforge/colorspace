@@ -61,7 +61,7 @@ useful palettes are accessible by name. These can be listed using the function
 hcl_palettes()
 ```
 
-To inspect the HCL parameter combinations for a specific palette simply include the `name`
+To inspect the HCL parameter combinations for a specific palette simply include the `palette` name
 where upper- vs. lower-case, spaces, etc. are ignored for matching the label, i.e.,
 `"set2"` matches `"Set 2"`:
 
@@ -94,7 +94,7 @@ hues while keeping both chroma and luminance constant to give each color in the
 resulting palette the same perceptual weight. Thus, `h` should be a pair of
 hues (or equivalently `h1` and `h2` can be used) with the starting and
 ending hue of the palette. Then, an equidistant sequence between these hues is
-employed, by default spanning the full color wheel (i.e, the full 360 degrees).
+employed, by default spanning the full color wheel (i.e., the full 360 degrees).
 Chroma `c` (or equivalently `c1`) and luminance `l` (or equivalently
 `l1`) are constants.
 

@@ -86,7 +86,7 @@ library("colorspace")
 library("ggplot2")
 theme_set(theme_minimal())
 knitr::opts_chunk$set(message = FALSE, warning = FALSE,
-  dev = "pdf", dpi = 150,
+  dev = "pdf", dpi = 150, out.width = "\\textwidth", fig.cap = "FIXME.",
   fig.height = 6, fig.width = 6, fig.pos = "t!",
   fig.align = "center", fig.show = "hold", fig.path = "Figures/")
 ```
@@ -132,7 +132,7 @@ visualizations of palette properties; accompanying manipulation utilities
 (like desaturation, lighten/darken, and emulation of color vision deficiencies).
 
 
-# Getting started {#sec:start}
+# A quick tour {#sec:tour}
 
 The stable release version of \pkg{colorspace} is hosted on the Comprehensive \proglang{R} Archive Network
 (CRAN) at <https://CRAN.R-project.org/package=colorspace> and the development version of \pkg{colorspace}
@@ -145,7 +145,7 @@ The \pkg{colorspace} package ships with a wide range of predefined color palette
 specified through suitable trajectories in the HCL (hue-chroma-luminance) color space.
 A quick overview can be gained easily with `hcl_palettes()` (see Figure\ \ref{fig:hcl-palettes}):
 
-```{r hcl-palettes, fig.height = 6.75, fig.width = 12, out.width = "\\textwidth", fig.cap = "Overview of available predefined palettes in \\pkg{colorspace}."}
+```{r hcl-palettes, fig.height = 6.75, fig.width = 12, fig.cap = "Overview of available predefined palettes in \\pkg{colorspace}."}
 library("colorspace")
 hcl_palettes(plot = TRUE)
 ```
@@ -169,26 +169,28 @@ HCL palettes are provided by `divergingx_hcl()`.
 
 The color vectors returned by the HCL palette functions can usually be passed directly
 to most base graphics function, typically through the `col` argument. Here, the `q4`
-vector created above is used in a time series display (see Figure \ref{fig:eustockmarkets-plot}):
+vector created above is used in a time series display (see the left panel of
+Figure\ \ref{fig:eustockmarkets-titanic}):
 
 ```{r eustockmarkets, eval = FALSE}
 plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
 legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
 ```
 
-As another example for a sequential palette a spine plot is created below,
+As another example for a sequential palette a spine plot is created (see the right
+panel of Figure\ \ref{fig:eustockmarkets-titanic}),
 displaying the proportion of Titanic passengers that survived per class.
-The `Purples 3` palette is used which is quite similar to the **ColorBrewer.org**
-palette `Purples`. Here, only two colors are employed, yielding a dark purple
-and light gray.
+The `"Purples 3"` palette is used which is quite similar to the \pkg{ColorBrewer.org}
+[@color:Harrower+Brewer:2003] palette `"Purples"`. Here, only two colors are
+employed, yielding a dark purple and light gray.
 
 ```{r titanic, eval = FALSE}
 ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
 spineplot(ttnc, col = sequential_hcl(2, palette = "Purples 3"))
 ```
 
-```{r eustockmarkets-titanic, echo = FALSE, fig.height = 4, fig.width = 10, out.width = "\\textwidth", fig.cap = "Time series plot of \\code{EuStockMarkets} data with \\code{qualitative\\_hcl(4, \"Dark 3\")} palette."}
-par(mar = c(5, 4, 1, 1), mfrow = c(1, 2))
+```{r eustockmarkets-titanic, echo = FALSE, fig.height = 4, fig.width = 10, fig.cap = "Using \\pkg{colorspace} with base \\proglang{R} graphics. Left: Time series plot of log-prices from \\code{EuStockMarkets} data with \\code{qualitative\\_hcl(4, \"Dark 3\")} palette. Right: Spine plot with survival proportions across passenger classes in the \\code{titanice} data with \\code{sequential\\_hcl(2, \"Purples 3\")} palette."}
+par(mar = c(5, 4, 1, 2), mfrow = c(1, 2))
 plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
 legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
 ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
@@ -210,28 +212,30 @@ where
 - `<datatype>` is the type of the variable plotted (`discrete` or `continuous`).
 - `<colorscale>` sets the type of the color scale used (`qualitative`, `sequential`, `diverging`, `divergingx`).
 
-To illustrate their usage two simple examples are shown using the qualitative `Dark 3`
-and sequential `Purples 3` palettes that were also employed above. First, semi-transparent
-shaded densities of the sepal length from the iris data are shown, grouped by species.
+To illustrate their usage two simple examples are shown using the qualitative `"Dark 3"`
+and sequential `"Purples 3"` palettes that were also employed above. First, semi-transparent
+shaded densities of the sepal length from the `iris` data are shown, grouped by species.
 
 ```{r iris-ggplot, eval = FALSE}
 library("ggplot2")
-ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
+  geom_density(alpha = 0.6) +
   scale_fill_discrete_qualitative(palette = "Dark 3")
 ```
 
 The sequential palette is used to code the cut levels in a scatter of price by carat
-in the diamonds data (or rather a small subsample thereof). The scale function first
+in the `diamonds` data (or rather a small subsample thereof). The scale function first
 generates six colors but then drops the first color because the light gray is too light
 in this display. (Alternatively, the chroma and luminance parameters could also be tweaked.)
 
 ```{r diamonds-ggplot, eval = FALSE}
 dsamp <- diamonds[1 + 1:1000 * 50, ]
 ggplot(dsamp, aes(carat, price, color = cut)) + geom_point() +
-  scale_color_discrete_sequential(palette = "Purples 3", nmax = 6, order = 2:6)
+  scale_color_discrete_sequential(palette = "Purples 3",
+    nmax = 6, order = 2:6)
 ```
 
-```{r iris-diamonds, echo = FALSE, fig.height = 4, fig.width = 5, out.width = "0.49\\textwidth", fig.cap = "Foo."}
+```{r iris-diamonds, echo = FALSE, fig.height = 4, fig.width = 5, out.width = "0.49\\textwidth", fig.cap = "Using \\pkg{colorspace} with \\pkg{ggplot2} graphics. Left: Kernel density of sepal length, grouped and shaded by species, in the \\code{iris} data with semi-transparent \\code{scale\\_fill\\_discrete\\_qualitative(palette = \"Dark 3\")} color scale. Right: Scatter plot of price by carat, shaded by cut levels, in a subsample of the \\code{diamonds} data with the \\code{scale\\_color\\_discrete\\_sequential(palette = \"Purples 3\", nmax = 6, order = 2:6)} color scale."}
 library("ggplot2")
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
   scale_fill_discrete_qualitative(palette = "Dark 3")
@@ -255,7 +259,8 @@ assessment of its palettes.
 * `specplot()` also converts the colors to hue/chroma/luminance coordinates but draws
   the resulting spectrum in a line plot.
 
-For the qualitative `Dark 3` palette from above the following plots can be obtained.
+For the qualitative `"Dark 3"` palette from above the following plots can be obtained
+(see Figure\ \ref{fig:allplots-qualitative}).
 
 ```{r visualiation-qualitative, eval = FALSE}
 demoplot(q4, "bar")
@@ -263,7 +268,7 @@ hclplot(q4)
 specplot(q4, type = "o")
 ```
 
-```{r allplots-qualitative, echo = FALSE, fig.height = 4.5, fig.width = 14, out.width = "\\textwidth", fig.cap = "Foo.", dev = "png", dpi = 150}
+```{r allplots-qualitative, echo = FALSE, fig.height = 4.5, fig.width = 14, dev = "png", fig.cap = "Palette visualization and assessment for \\code{qualitative\\_hcl(4, \"Dark 3\")} palette. Left: Demo bar plot. Center: Hue-chroma plane at fixed $L = 60$ in HCL space. Right: HCL spectrum with linearly changing hue (around color wheel), almost constant chroma, and constant luminance."}
 allplots <- function(palette, ...) {
   layout(cbind(1, 2, 3:4), heights = c(2, 10))
   par(oma = c(2, 5, 2, 3), mar = rep(0.5, 4))
@@ -277,17 +282,19 @@ allplots <- function(palette, ...) {
 allplots(q4, "bar")
 ```
 
-A bar plot would be another typical application for a qualitative palette (instead of the
-time series and density plot used above). However, a lighter and less colorful palette
-might be preferable in this situation (e.g., `Pastel 1` or `Set 3`).
+The bar plot is used as a typical application for a qualitative palette (in addition to the
+time series and density plots used above). The other two displays show that luminance
+is (almost) constant in the palette while the hue changes linearly along the color
+"wheel". Ideally, chroma would have also been constant to completely balance the colors.
+However, at this luminance the maximum chroma differs across hues so that the palette
+is fixed up to use less chroma for the yellow and green elements.
 
-The other two displays show that luminance is (almost) constant in the palette while
-the hue changes linearly along the color "wheel". Ideally, chroma would have also been
-constant to completely balance the colors. However, at this luminance the maximum
-chroma differs across hues so that the palette is fixed up to use less chroma for
-the yellow and green elements.
+Note also that in a bar plot areas are shaded (and not just points or lines) so that
+lighter colors would be preferable. In the density plot in Figure\ \ref{fig:iris-diamonds}
+this was achieved through semi-transparency. Alternatively, luminance could be increased
+as is done in the `"Pastel 1"` or `"Set 3"` palettes.
 
-Subsequently, the same assessment is carried out for the sequential `Purples 3` palette
+Subsequently, the same types of assessment are carried out for the sequential `"Purples 3"` palette
 as employed above. 
 
 ```{r visualization-sequential, eval = FALSE}
@@ -297,7 +304,7 @@ hclplot(s9)
 specplot(s9, type = "o")
 ```
 
-```{r allplots-sequential, echo = FALSE, fig.height = 4.5, fig.width = 14, out.width = "\\textwidth", fig.cap = "Foo.", dev = "png", dpi = 150}
+```{r allplots-sequential, echo = FALSE, fig.height = 4.5, fig.width = 14, dev = "png", fig.cap = "Palette visualization and assessment for \\code{sequential\\_hcl(4, \"Purples 3\")} palette. Left: Demo heatmap. Center: Chroma-luminance plane at fixed $H = 270$ in HCL space. Right: HCL spectrum with constant hue, triangular chroma, and increasting luminance."}
 s9 <- sequential_hcl(9, "Purples 3")
 allplots(s9, "heatmap")
 ```
@@ -316,17 +323,7 @@ Chroma is triangular-shaped which allows to better distinguish the middle colors
 
 # Color spaces: S4 classes and utilities  {#sec:color_spaces}
 
-At the core of the \pkg{colorspace} package there are various utilities for computing with
-color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
-representations of color to each other, see @color:Ihaka:2003. A particularly important
-mapping is the one from the perceptually-based and device-independent color model
-HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
-specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
-in R). For completeness further standard color models are included as well in the package.
-The connections are illustrated in the following graph:
-
-
-```{r color-spaces, fig.width = 9.5, fig.height = 4.5, echo = FALSE, out.width = "0.9\\textwidth", fig.cap = "Foo."}
+```{r color-spaces, fig.width = 9.5, fig.height = 4.5, echo = FALSE, out.width = "0.9\\textwidth", fig.cap = "Relationship between three-dimensional color spaces implemented in \\pkg{colorspace}. Color models that are (or try to be) perceptually-based are displayed with circles, other color models with rectangles."}
 par(mar = rep(0, 4))
 
 d <- data.frame(
@@ -351,77 +348,94 @@ text(3.5, 2, "white point\n= D65", cex = 0.7, pos = 3)
 text(4.56, 2, "gamma\n(= 2.4)", cex = 0.7, pos = 3)
 ```
 
+At the core of the \pkg{colorspace} package there are various utilities for computing with
+color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
+representations of color to each other, see @color:Ihaka:2003. A particularly important
+mapping is the one from the perceptually-based and device-independent color model
+HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
+specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
+in \proglang{R}). For completeness further standard color models are included as well in the package.
+The connections are illustrated in Figure\ \ref{fig:color-spaces}.
 Color models that are (or try to be) perceptually-based are displayed with circles,
-other color models with rectangles. The corresponding classes and eponymous class
-constructors in \pkg{colorspace} are:
+other color models with rectangles.
+
+## Implemented color spaces
+
+The color spaces, implemented in \pkg{colorspace}, along with corresponding \proglang{S}4 classes
+and eponymous class constructors are:
 
 * `RGB()` for the classic Red-Green-Blue color model that mixes three primary colors
   with different intensities to obtain a spectrum of colors. The advantage of this
   color model is (or was) that it corresponded to how computer and TV screens generated
   colors, hence it was widely adopted and still is the basis for color specifications
-  in many systems. For example, the hex color codes are employed in HTML but also in R.
+  in many systems. For example, the hex color codes are employed in HTML but also in \proglang{R}.
   However, the RGB model also has some important drawbacks: It does not take into
   account the output device properties, it is not perceptually uniform (a unit step
   within RGB does not produce a constant perceptual change in color), and it is
   unintuitive for humans to specify colors (say brown or pink) in this space.
-  [See @color:Wiki+RGB.]
+  See @color:Wiki+RGB for more details.
 * `sRGB()` addresses the issue of device dependency by adopting a so-called gamma
   correction. Therefore, the gamma-corrected standard RGB (sRGB), as opposed to the
   linearized RGB above, is a good model for specifying colors in software and for
   hardware. But it is still unintuitive for humans to work directly with this.
   Therefore, sRGB is a good place to end up in a color space manipulation but
-  it is not a good place to start. [See @color:Wiki+sRGB.]
+  it is not a good place to start. See @color:Wiki+sRGB for more details.
 * `HSV()` is a simple transformation of the (s)RGB space that tries to capture the
   perceptual axes: _hue_ (dominant wavelength, the type of color), _saturation_
-  (colorfulness), and _value_ (brightness, i.e., light vs. dark). Unfortunately,
+  (colorfulness), and _value_ (brightness, i.e., light vs.\ dark). Unfortunately,
   the three axes in the HSV model are confounded so that, e.g., brightness changes
   dramaticaly with hue.
-  [See @color:Wiki+HSV.]
+  See @color:Wiki+HSV for more details.
 * `HLS()` (Hue-Lightness-Saturation) is another transformation of (s)RGB that tries
   to capture the perceptual axes. It does a somewhat better job but the dimensions
   are still strongly confounded.
-  [See @color:Wiki+HSV.]
+  See @color:Wiki+HSV for more details.
 * `XYZ()` was established by the CIE (Commission Internationale de l'Eclairage)
-  based on experiments with human subjects. It provides a unique triplet of
+  based on psychophysical experiments with human subjects. It provides a unique triplet of
   XYZ values, coding the standard observer's perception of the color. It is
   device-independent but it is not perceptually uniform and the XYZ coordinates
   have no intuitive meaning.
-  [See @color:Wiki+CIEXYZ.]
+  See @color:Wiki+CIEXYZ for more details.
 * `LUV()` and `LAB()` were therefore proposed by the CIE as perceptually uniform
   color spaces where the former is typically preferred for emissive technologies
   (such as screens and monitors) whereas the latter is usually preferred when
   working with dyes and pigments. However, the three axes of these two spaces
   still do not correspond to human perceptual axes.
-  [See @color:Wiki+CIELUV; @color:Wiki+CIELAB.]
+  See @color:Wiki+CIELUV; @color:Wiki+CIELAB for more details.
 * `polarLUV()` and `polarLAB()` therefore take polar coordinates in the UV plane
   and AB plane, respectively. Specifically, the polar coordinates of the LUV
   model are known as the HCL (Hue-Chroma-Luminance) model. These capture the
   human perceptual axes very well without confounding effects as in the HSV or
   HLS approaches. (More details follow below.)
 
-All the S4 classes listed above inherit from a virtual class `color` which are
+All the \proglang{S}4 classes listed above inherit from a virtual class `color` which are
 internally always represented by matrices with three columns (corresponding to
 the different three dimensions).
 
-Note that since the inception of the color space conversion tools within \pkg{colorspace}
-by @color:Ihaka:2003 other R tools for this purpose became available. Notably,
-there is `grDevices::convertColor()` in base R [@color:R] as well as
-`farver::convert_colour()` [@color:farver] based on a C++ library. For many basic color
-conversion purposes the \pkg{colorspace} package and these alternatives are equally suitable.
-Some details differ, though, and the color conversion tools in \pkg{colorspace} are
-well-embedded into the remaining functionality of the package and make it self-contained.
+Note that since the inception of the color space conversion tools within \pkg{colorspace}'s
+\proglang{C} code by @color:Ihaka:2003 other \proglang{R} tools for this purpose became available.
+Notably, base \proglang{R} meanwhile provides `grDevices::convertColor()`
+[computed in high-level \proglang{R}, @color:R] and
+`farver::convert_colour()` [@color:farver] is based on a \proglang{C++} library. For many basic color
+conversion purposes the \pkg{colorspace} package and these alternatives are essentially equally suitable,
+though [see the discussion in @color:convertColor]. Moreover, base \proglang{R} also provides
+`grDevices::hcl()` for mapping HCL representations to hex codes.
+
+To make the package self-contained and exactly backward compatible the \proglang{C}
+code in \pkg{colorspace} is still used as the basis for all color space conversions.
+
 
 
 ## Utilities
 
-For working with these color spaces various utilities are available:
+For working with the implemented \proglang{S}4 color spaces various utilities are available:
 
 * `as()` method: Conversions of a `color` object to the various color spaces,
   e.g., `as(x, "sRGB")`.
 * `coords()`: Extract the three-dimensional coordinates pertaining to the current
   color class.
 * `hex()`: Convert a color object to sRGB and code in a hex string that can be
-  used within R plotting functions.
+  used within \proglang{R} plotting functions.
 * `hex2RGB()`: Convert a given hex color string to an sRGB color object which
   can also be coerced to other color spaces.
 * `readRGB()` and `readhex()` can read text files into color objects, either
@@ -453,7 +467,7 @@ as numeric matrices. And from sRGB we can also coerce to HSV for example:
 as(y, "HSV")
 ```
 
-For display in many systems (including R itself) hex color codes based on the
+For display in many systems (including \proglang{R} itself) hex color codes based on the
 sRGB coordinates can be created:
 
 ```{r hex}
@@ -472,17 +486,13 @@ Figure\ \ref{fig:hcl-palettes-principles} and explained in more detail below. Th
 palettes bring out clearly that luminance differences (= light-dark contrasts),
 or the lack thereof, are crucial for coding the different kinds of palettes.
 
-```{r hcl-palettes-principles, echo = FALSE, fig.width = 12, fig.height = 1.6, out.width = "\\textwidth", fig.cap = "Foo."}
+```{r hcl-palettes-principles, echo = FALSE, fig.width = 12, fig.height = 1.6, fig.cap = "Examples of palette types in \\pkg{colorspace}. Qualitative palettes are balanced towards the same luminance level while sequential and diverging palettes go from dark to light and/or vice versa, respectively."}
 swatchplot(
   "Qualitative (Set 2)"     = rbind("Color" = qualitative_hcl(5, "Set 2"),     "Desaturated" = desaturate(qualitative_hcl(5, "Set 2"))),
   "Sequential (Blues 3)"    = rbind("Color" = sequential_hcl(7, "Blues 3"),    "Desaturated" = desaturate(sequential_hcl(7, "Blues 3"))),
   "Diverging (Green-Brown)" = rbind("Color" = diverging_hcl(7, "Green-Brown"), "Desaturated" = desaturate(diverging_hcl(7, "Green-Brown"))),
   nrow = 3, line = 7)
 ```
-
-More details about the construction of such palettes is provided in the following
-while the article on [Palette Visualization and Assessment](palette_visualization.html)
-introduces further tools to better understand the properties of color palettes.
 
 To facilitate obtaining good sets of colors, HCL parameter combinations that yield
 useful palettes are accessible by name. These can be listed using the function
@@ -492,15 +502,15 @@ useful palettes are accessible by name. These can be listed using the function
 hcl_palettes()
 ```
 
-To inspect the HCL parameter combinations for a specific palette simply include the `name`
-where upper- vs. lower-case, spaces, etc. are ignored for matching the label, i.e.,
+To inspect the HCL parameter combinations for a specific palette simply include the `palette` name
+where upper- vs.\ lower-case, spaces, etc.\ are ignored for matching the label, i.e.,
 `"set2"` matches `"Set 2"`:
 
 ```{r hcl-palette}
 hcl_palettes(palette = "set2")
 ```
 
-To compute the actual color hex codes (representing sRGB coordinates), the functions
+To compute the actual color hex codes (representing sRGB coordinates) based on these parameters, the functions
 `qualitative_hcl()`, `sequential_hcl()`, and `diverging_hcl()`, respectively, can be used.
 Either all parameters can be specified "by hand" through the HCL parameters, an entire
 palette can be specified "by name", or the name-based specification can be modified by a
@@ -520,48 +530,49 @@ qualitative_hcl(4, palette = "set2", l = 80)
 
 ## Qualitative palettes
 
-`qualitative_hcl()` distinguishes the underlying categories by a sequence of
+As suggested by @color:Ihaka:2003 `qualitative_hcl()` distinguishes the underlying categories by a sequence of
 hues while keeping both chroma and luminance constant to give each color in the
 resulting palette the same perceptual weight. Thus, `h` should be a pair of
 hues (or equivalently `h1` and `h2` can be used) with the starting and
 ending hue of the palette. Then, an equidistant sequence between these hues is
-employed, by default spanning the full color wheel (i.e, the full 360 degrees).
+employed, by default spanning the full color wheel (i.e., the full 360 degrees).
 Chroma `c` (or equivalently `c1`) and luminance `l` (or equivalently
 `l1`) are constants.
 
-In the following graphic the available named palettes are shown. The first five
-palettes are close to the _ColorBrewer.org_ palettes of the same name [@color:Harrower+Brewer:2003].
+In Figure\ \ref{fig:hcl-palettes-qualitative} the available named palettes are shown. The first five
+palettes are close to the \pkg{ColorBrewer.org} palettes of the same name [@color:Harrower+Brewer:2003].
 They employ different levels of chroma and luminance and, by default, span the full
 hue range. The remaining four palettes are taken from @color:Ihaka:2003. They are
 based on the same chroma (= 50) and luminance (= 70) but the hue is restricted to
 different intervals.
 
-```{r hcl-palettes-qualitative, fig.width = 5.5, fig.height = 5.0, out.width = "0.6\\textwidth", fig.cap = "Foo."}
+```{r hcl-palettes-qualitative, fig.width = 5.5, fig.height = 5.0, out.width = "0.4\\textwidth", fig.cap = "Prespecified qualitative HCL palettes available in \\code{qualitative\\_hcl()} in \\pkg{colorspace}."}
 hcl_palettes("qualitative", plot = TRUE)
 ```
 
 When qualtitative palettes are employed for shading areas in statistical displays
 (e.g., in bar plots, pie charts, or regions in maps), then it is typically
 less distracting to use lighter colors (with moderate chroma and high luminance)
-such as "Pastel 1" or "Set 3". When coloring points or lines then more flashy
+such as `"Pastel 1"` or `"Set 3"`. When coloring points or lines then more flashy
 colors (with high chroma) are often required: On a white background a moderate
-luminance as in "Dark 2" or "Dark 3" usually works better while on a black/dark
-background the luminance should be higher as in "Set 2" for example.
-
+luminance as in `"Dark 2"` or `"Dark 3"` usually works better while on a black/dark
+background the luminance should be higher as in `"Set 2"` for example.
+Some examples with demo graphics are provided in Section\ \ref{sec:palette_visualization}.
 
 ## Sequential palettes (single-hue)
 
-`sequential_hcl()` codes the underlying numeric values by a monotonic sequence
+As suggested by @color:Zeileis+Murrell+Hornik:2009 `sequential_hcl()` codes the underlying numeric values by a monotonic sequence
 of increasing (or decreasing) luminance. Thus, the `l` argument should provide
 a vector of length 2 with starting and ending luminance (equivalently, `l1` and
 `l2` can be used). Without chroma (i.e., `c = 0`), this simply corresponds
-to a grayscale palette like `gray.colors()`, see "Grays" and "Light Grays" below.
+to a grayscale palette like `gray.colors()`, see `"Grays"` and `"Light Grays"`
+in Figure\ \ref{fig:hcl-palettes-sequentials}.
 
 For adding chroma, a simple strategy would be to pick a single hue (via `h` or `h1`)
 and then decrease chroma from some value (`c` or `c1`) to zero (i.e., gray) along with
-increasing luminance. For bringing out the extremes (a dark high-chroma color vs.
-a light gray) this is already very effective, see "Blues 2", "Purples 2", "Reds 2",
-and "Greens 2".
+increasing luminance. For bringing out the extremes (a dark high-chroma color vs.\ a
+light gray) this is already very effective, see `"Blues 2"`, `"Purples 2"`, `"Reds 2"`,
+and `"Greens 2"`.
 
 For distinguishing also colors in the middle two strategies can be employed:
 (a) Hue can be varied as well by specifying an interval of hues in `h` (or beginning
@@ -569,8 +580,8 @@ hue `h1` and ending hue `h2`). More details are provided in the next section.
 (b) Instead of a decreasing chroma a triangular chroma trajectory can be employed
 from `c1` over `cmax` to `c2` (or equivalently a vector `c` of
 length 3). This yields high-chroma colors in the middle of the palette that are
-more easily distinguished from the dark and light extremes. See "Blues 3", "Purples 3",
-"Reds 3", and "Greens 3" below.
+more easily distinguished from the dark and light extremes. See `"Blues 3"`, `"Purples 3"`,
+`"Reds 3"`, and `"Greens 3"` in Figure\ \ref{fig:hcl-palettes-sequentials}.
 
 Instead of employing linear trajectories in the chroma or luminance coordinates
 some palettes employ a power transformation of the chroma and/or luminance
@@ -578,11 +589,11 @@ trajectory. Either a vector `power` of length 2 or separate `p1` (for chroma)
 and `p2` (for luminance) can be specified. If missing, the latter defaults to the
 former.
 
-```{r hcl-palettes-sequentials, fig.width = 6.5, fig.height = 6.0, out.width = "0.7\\textwidth", fig.cap = "Foo."}
+```{r hcl-palettes-sequentials, fig.width = 6.5, fig.height = 6.0, out.width = "0.5\\textwidth", fig.cap = "Prespecified sequential single-hue HCL palettes available in \\code{sequential\\_hcl()} in \\pkg{colorspace}."}
 hcl_palettes("sequential (single-hue)", n = 7, plot = TRUE)
 ```
 
-All except the last palette are inspired by the _ColorBrewer.org_ palettes with
+All except the last palette are inspired by the \pkg{ColorBrewer.org} palettes with
 the same base name [@color:Harrower+Brewer:2003] but restricted to a single hue only.
 They are intended for a white/light background. The last palette is taken from
 the scientific color maps of @color:Crameri:2018 and is intended for a black/dark
@@ -609,27 +620,27 @@ luminance (`l` and `l1`/`l2`, respectively), and
 power transformations for the chroma and luminance trajectories
 (`power` and `p1`/`p2`, respectively). This yields a broad variety of sequential
 palettes, including many that closely match other well-known color palettes.
-The plot below shows all the named multi-hue sequential palettes in \pkg{colorspace}:
+Figure\ \ref{fig:hcl-palettes-sequentialm} shows all the named multi-hue sequential palettes in \pkg{colorspace}:
 
-* "Purple-Blue" to "Terrain 2" are various palettes created during the development
-  of \pkg{colorspace}, e.g., by @color:Zeileis+Hornik+Murrell:2009 or @color:Stauffer+Mayr+Dabernig:2015
-  among others.
-* "Viridis" to "Inferno" closely match the palettes that @color:Smith+VanDerWalt:2015
-  developed for _matplotlib_ and that gained popularity recently.
-* "Dark Mint" to "BrwnYl" closely match palettes provided in _CARTO_ [@color:CARTO].
-* "YlOrRd" to "Blues" closely match _ColorBrewer.org_ palettes [@color:Harrower+Brewer:2003].
-* "Lajolla" and "Turku" closely match the scientific color maps of the same name by
-  @color:Crameri:2018 and are intended for a black/dark background.
-
-```{r hcl-palettes-sequentialm, fig.width = 8.5, fig.height = 9.0, out.width = "\\textwidth", fig.cap = "Foo."}
+```{r hcl-palettes-sequentialm, fig.width = 8.5, fig.height = 9.0, fig.cap = "Prespecified sequential multi-hue HCL palettes available in \\code{sequential\\_hcl()} in \\pkg{colorspace}."}
 hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
 ```
 
+* `"Purple-Blue"` to `"Terrain 2"` are various palettes created during the development
+  of \pkg{colorspace}, e.g., by @color:Zeileis+Hornik+Murrell:2009 or @color:Stauffer+Mayr+Dabernig:2015
+  among others.
+* `"Viridis"` to `"Inferno"` closely match the palettes that @color:Smith+VanDerWalt:2015
+  developed for \pkg{matplotlib} and that gained popularity recently.
+* `"Dark Mint"` to `"BrwnYl"` closely match palettes provided in \pkg{CARTO} [@color:CARTO].
+* `"YlOrRd"` to `"Blues"` closely match \pkg{ColorBrewer.org} palettes [@color:Harrower+Brewer:2003].
+* `"Lajolla"` and `"Turku"` closely match the scientific color maps of the same name by
+  @color:Crameri:2018 and are intended for a black/dark background.
+
 Note that the palettes differ substantially in the amount of chroma and luminance
 contrasts, respectively. For example, many palettes go from a dark high-chroma color
-to a neutral low-chroma color (e.g., "Reds", "Purples", "Greens", "Blues") or even
-light gray (e.g., "Purple-Blue"). But some palettes also employ relatively high chroma
-throughout the palette (e.g., the viridis and many _CARTO_ palettes). To emphasize
+to a neutral low-chroma color (e.g., `"Reds"`, `"Purples"`, `"Greens"`, `"Blues"`) or even
+light gray (e.g., `"Purple-Blue"`). But some palettes also employ relatively high chroma
+throughout the palette (e.g., the viridis and many \pkg{CARTO} palettes). To emphasize
 the extremes the former strategy is typically more suitable while the latter works
 better if all values along the sequence should receive some more perceptual weight.
 
@@ -650,20 +661,20 @@ luminances `l` (or `l1` and `l2`), and power parameter(s) `power`
 the restrictrictions above (and consequently more parameters) see the `divergingx_hcl()`
 palettes introduced below.
 
-The plot below shows all such diverging palettes that have been named in \pkg{colorspace}:
+Figure\ \ref{fig:hcl-palettes-diverging} shows all such diverging palettes that have been named in \pkg{colorspace}:
 
-* "Blue-Red" to "Cyan-Magenta" have been developed for \pkg{colorspace} starting from
-  @color:Zeileis+Hornik+Murrell:2009, taking inspiration from various other palettes,
-  including more balanced and simplified versions of several _ColorBrewer.org_
-  palettes [@color:Harrower+Brewer:2003].
-* "Tropic" closely matches the palette of the same name from _CARTO_ [@color:CARTO].
-* "Broc" to "Vik" and "Berlin" to "Tofino" closely match the scientific color maps of the same name by
-  @color:Crameri:2018, where the first three are intended for a white/light background and
-  the other three for a black/dark background.
-
-```{r hcl-palettes-diverging, fig.width = 6.5, fig.height = 7.5, out.width = "0.7\\textwidth", fig.cap = "Foo."}
+```{r hcl-palettes-diverging, fig.width = 6.5, fig.height = 7.5, out.width = "0.7\\textwidth", fig.cap = "Prespecified diverging HCL palettes available in \\code{diverging\\_hcl()} in \\pkg{colorspace}."}
 hcl_palettes("diverging", n = 7, plot = TRUE)
 ```
+
+* `"Blue-Red"` to `"Cyan-Magenta"` have been developed for \pkg{colorspace} starting from
+  @color:Zeileis+Hornik+Murrell:2009, taking inspiration from various other palettes,
+  including more balanced and simplified versions of several \pkg{ColorBrewer.org}
+  palettes [@color:Harrower+Brewer:2003].
+* `"Tropic"` closely matches the palette of the same name from \pkg{CARTO} [@color:CARTO].
+* `"Broc"` to `"Vik"` and `"Berlin"` to `"Tofino"` closely match the scientific color maps of the same name by
+  @color:Crameri:2018, where the first three are intended for a white/light background and
+  the other three for a black/dark background.
 
 When choosing a particular palette for a display similar considerations apply as
 for the sequential palettes. Thus, large luminance differences are important when
@@ -673,15 +684,15 @@ fewer colors etc.
 
 ## Construction details
 
-The three different types of palettes (_qualitative_, _sequential_, and _diverging_)
-are all constructed by combining three different types of trajectories (_constant_, _linear_, _triangular_)
-for the three different coordinates (hue _H_, chroma _C_, luminance _L_):
+Table\ \ref{tab:hcl} summarizes which types of trajectories (_constant_, _linear_, _triangular_)
+are used for the three HCL coordinates (hue _H_, chroma _C_, luminance _L_) to construct
+the different types of palettes (_qualitative_, _sequential_, and _diverging_).
 
 \begin{table}[t!]
 \centering
 \begin{tabular}{llll}
 \hline
-Type          & H                                 & C                          & L                \\ \hline
+Type          & $H$                               & $C$                        & $L$              \\ \hline
 Qualitative   & Linear  		          & Constant	               & Constant	  \\
 Sequential    & Constant (= single-hue) \emph{or} & Linear (+ power) \emph{or} & Linear (+ power) \\
 	      & Linear (= multi-hue)	          & Triangular (+ power)       & 		  \\
@@ -689,19 +700,21 @@ Diverging     & Constant ($2\times$)	          & Linear (+ power) \emph{or} & Li
 	      & 			          & Triangular (+ power)       & 		  \\
 \hline
 \end{tabular}
-\caption{\label{tab:hcl} Foo, see Equations~\ref{eq:constant}--\ref{eq:triangular}.}
+\caption{\label{tab:hcl} Types of trajectories used for the HCL coordinates to construct qualitative,
+sequential, and diverging palettes, see Equations~\ref{eq:constant}--\ref{eq:triangular}.}
 \end{table}
 
-As pointed out initially in this article, the luminance is probably the most important
+As emphasized in Figure\ \ref{fig:hcl-palettes-principles}, the luminance is probably the most important
 property for defining the type of palette. It is constant for qualitative palettes, monotonic
-for sequential palettes (linear or a power transformation), and uses two monotonic trajectories
+for sequential palettes (linear or a power transformation), or uses two monotonic trajectories
 (linear or a power transformation) diverging from the same neutral value.
 
 The trajectories for the hue are also rather intuitive and straightforward for the three
-different types of palettes. However, the chroma trajectories are probably most complicated
+different types of palettes (constant vs.\ linear). However, the chroma trajectories are probably most complicated
 and least obvious from the examples above. Hence, the exact mathematical equations underlying
 the chroma trajectories are given in the following (i.e., using the parameters `c1`, `c2`, `cmax`,
-and `p1`, respectively). Analogous equations apply for the other two coordinates, though.
+and `p1`, respectively) and are depicted in Figure\ \ref{fig:hcl-trajectories}.
+Analogous equations apply for the other two coordinates, though.
 
 The trajectories are functions of the _intensity_ $i \in [0, 1]$ where $1$ corresponds to
 the full intensity:
@@ -723,13 +736,10 @@ j = \left(1 + \frac{|c_{\max} - c_1|}{|c_{\max} - c_2|} \right)^{-1}
 $$
 
 Instead of using a linear intensity $i$ going from $1$ to $0$, one can replace $i$ with $i^{p_1}$
-in the equations above. This then leads to power-transformed curves that add or remove chroma
+in Equations\ \ref{eq:constant}--\ref{eq:triangular}. This then leads to power-transformed curves that add or remove chroma
 more slowly or more quickly depending on whether the power parameter $p_1$ is $< 1$ or $> 1$.
 
-The three types of trajectories are also depicted below. Note that full intensity $i = 1$ is on
-the left and zero intensity $i = 0$ on the right of each panel.
-
-```{r hcl-trajectories, echo = FALSE, results = "hide", fig.width = 7, fig.height = 2.5, out.width = "\\textwidth", fig.cap = "Foo."}
+```{r hcl-trajectories, echo = FALSE, results = "hide", fig.width = 7, fig.height = 2.5, fig.cap = "Foo."}
 mylab <- function(x, y, text, ratio = 1, col = "black", ...) {
   rect(x - 0.045/ratio, y - 3.5, x + 0.04/ratio, y + 4, border = col, ...)
   text(x, y, text, col = col, ...)
@@ -786,15 +796,15 @@ mylab(0.27, 40, "p1", col = gray(0.35))
 text(0.39, 40, "= 1.6", col = gray(0.35))
 ```
 
-The concrete parameters in the plot above are:
+The three types of trajectories are also depicted in Figure\ \ref{fig:hcl-trajectories}. Note that full intensity $i = 1$ is on
+the left and zero intensity $i = 0$ on the right of each panel. The concrete parameters are:
 
 * Constant: `c1 = 80`.
-* Linear: `c1 = 80`, `c2 = 10`, `p1 = 1` (solid) vs. `p1 = 1.6` (dashed).
-* Triangular: `c1 = 60`, `cmax = 80`, `c2 = 10`, `p1 = 1` (solid) vs. `p1 = 1.6` (dashed).
+* Linear: `c1 = 80`, `c2 = 10`, `p1 = 1` (solid) vs.\ `p1 = 1.6` (dashed).
+* Triangular: `c1 = 60`, `cmax = 80`, `c2 = 10`, `p1 = 1` (solid) vs.\ `p1 = 1.6` (dashed).
 
 Further discussion of these trajectories and how they can be visualized and assessed
-for a given color palette is provided in the article:
-[Palette Visualization and Assessment](palette_visualization.html).
+for a given color palette is provided in Section\ \ref{sec:palette_visualization}.
 
 
 ## Registering your own palettes
@@ -831,9 +841,9 @@ Remarks:
   previously, the old palette gets overwritten. We recommend not to overwrite
   the palettes that are pre-defined in the package (albeit it is technically possible).
 * The registration of a palette is only stored for the current session. When
-  R is restarted and/or the `colorspace` package reloaded, only the pre-defined
+  \proglang{R} is restarted and/or the `colorspace` package reloaded, only the pre-defined
   palettes from the package are available. Thus, to make a palette permanently
-  available a registration R code like
+  available a registration \proglang{R} code like
   `colorspace::qualitative_hcl(3, palette = "set2", l = 80, register = "myset")`
   can be placed in your `.Rprofile` or similar startup scripts.
 
@@ -847,14 +857,14 @@ the two "arms" of the palette need to be balanced and also allows to go
 through a non-gray neutral color (typically light yellow).
 Consequently, the chroma/luminance paths can be rather unbalanced.
 
-The plot below shows all such flexible diverging palettes that have been named in \pkg{colorspace}:
-
-* "ArmyRose" to "Tropic" closely match the palettes of the same name from _CARTO_ [@color:CARTO].
-* "PuOr" to "Spectral" closely match the palettes of the same name from _ColorBrewer.org_ [@color:Harrower+Brewer:2003].
+Figure\ \ref{fig:divergingx-palettes} shows all such flexible diverging palettes that have been named in \pkg{colorspace}:
 
 ```{r divergingx-palettes, fig.width = 6.5, fig.height = 8.0, out.width = "0.7\\textwidth", fig.cap = "Foo."}
 divergingx_palettes(n = 7, plot = TRUE)
 ```
+
+* `"ArmyRose"` to `"Tropic"` closely match the palettes of the same name from \pkg{CARTO} [@color:CARTO].
+* `"PuOr"` to `"Spectral"` closely match the palettes of the same name from \pkg{ColorBrewer.org} [@color:Harrower+Brewer:2003].
 
 Typically, the more restricted `diverging_hcl()` palettes should be preferred because they are
 more balanced. However, by being able to go through light yellow as the neutral
@@ -865,11 +875,11 @@ color warmer diverging palettes are available.
 The flexible specification of HCL-based color palettes in \pkg{colorspace} allows
 to closely approximate color palettes from various other packages:
 
-- _ColorBrewer.org_ [@color:Harrower+Brewer:2003] as provided by R package _RColorBrewer_ [@color:RColorBrewer].
-- _CARTO_ colors [@color:CARTO] as provided by R package _rcartocolor_ [@color:rcartocolor].
-- The viridis palettes of @color:Smith+VanDerWalt:2015 developed for _matplotlib_,
-  as provided by R package _viridis_ [@color:viridis].
-- The scientific color maps of @color:Crameri:2018 as provided by R package _scico_ [@color:scico].
+- \pkg{ColorBrewer.org} [@color:Harrower+Brewer:2003] as provided by \proglang{R} package \pkg{RColorBrewer} [@color:RColorBrewer].
+- \pkg{CARTO} colors [@color:CARTO] as provided by \proglang{R} package \pkg{rcartocolor} [@color:rcartocolor].
+- The viridis palettes of @color:Smith+VanDerWalt:2015 developed for \pkg{matplotlib},
+  as provided by \proglang{R} package \pkg{viridis} [@color:viridis].
+- The scientific color maps of @color:Crameri:2018 as provided by \proglang{R} package \pkg{scico} [@color:scico].
 
 See the discussion of [HCL-based palettes](hcl_palettes.html) for more details. In the
 following `specplot()` is used to compare the [HCL spectrum](palette_visualization.html#hcl-and-rgb-spectrum)
@@ -901,7 +911,7 @@ specplot(
 
 ## HCL (and HSV) color palettes corresponding to base R palettes
 
-To facilitate switching from base R palette functions to the HCL-based palettes
+To facilitate switching from base \proglang{R} palette functions to the HCL-based palettes
 above, \pkg{colorspace} provides a few convenience interfaces:
 
 * `rainbow_hcl()`: Convenience interface to `qualitative_hcl()` for a HCL-based "rainbow"
@@ -950,7 +960,7 @@ palette.
 
 - Single-hue: In each palette the hue is fixed and chroma decreases monotonically
   (along with increasing luminance). This is typically sufficient to clearly bring
-  out the extreme colors (dark/colorful vs. light gray).
+  out the extreme colors (dark/colorful vs.\ light gray).
 - Single-hue (advanced): The hue is fixed (as above) but the chroma trajectory is
   triangular. Compared to the basic single-hue palette above this allows to better
   distinguish the colors in the middle and not only the extremes.
@@ -958,7 +968,7 @@ palette.
   is triangular but additionally the hue varies slightly. This can further enhance
   the distinction of colors in the middle of the palette.
 
-```{r swatch-brpg, fig.width = 11.5, fig.height = 3.5, out.width = "\\textwidth", fig.cap = "Foo."}
+```{r swatch-brpg, fig.width = 11.5, fig.height = 3.5, fig.cap = "Foo."}
 bprg <- c("Blues", "Purples", "Reds", "Greens")
 swatchplot(
   "Single-hue"            = t(sapply(paste(bprg, 2), sequential_hcl, n = 7)),
@@ -987,7 +997,7 @@ versa, the hue coordinates are shifted suitably.
 By default, the resulting trajectories in the HCL spectrum are visualized by a simple line plot:
 
 - Hue is drawn in red and coordinates are indicated on the axis on the right
-  with range [-360, 360].
+  with range $[-360, 360]$.
 - Chroma is drawn in green with coordinates on the left axis. The range [0, 100]
   is used unless the palette necessitates higher chroma values.
 - Luminance is drawn in blue with coordinates on the left axis in the range [0, 100].
@@ -999,14 +1009,17 @@ transformations of RGB).
 
 FIXME: Point to previous plots
 
-Finally, the diverging "Green-Brown" palette is depicted below. It simply combines a green
-and a brown/yellow sequential single-hue palette, both with triangular chroma trajectory.
+Finally, the diverging `"Green-Brown"` palette is depicted in the left panel of Figure\ \ref{fig:specplot}.
+It simply combines a green and a brown/yellow sequential single-hue palette, both with triangular chroma trajectory.
 Hue is constant in each "arm" of the palette and the chroma/luminance trajectories are balanced between both arms.
-In the center the palette passes through a light gray (with zero chroma) as the neutral
-value.
-
-To contrast these well-balanced HCL-based palettes with a poorly-balanced palette, the
-spectrum of the (in)famous RGB rainbow palette is depicted in both RGB and HCL space.
+In the center the palette passes through a light gray (with zero chroma) as the neutral value.
+By including the corresponding RGB spectrum in the top panel, it also becomes apparent that
+choosing such well-balanced palettes through trajectories in RGB color space is not straightforward.
+This balanced palette -- based on relatively simple HCL trajectories -- is contrasted
+with a poorly-balanced palette -- based on simple linear RGB trajectories in the right panel of
+Figure\ \ref{fig:specplot}. This depicts the RGB and HCL spectrum of the 
+(in)famous RGB rainbow palette. [See @color:Hawkins+McNeall+Stephenson:2014 for a
+plea why the RGB rainbow palette should be avoided in almost all scientific graphics.]
 
 ```{r specplot, fig.width = 5, fig.height = 7, out.width = "0.49\\textwidth", fig.cap = "Foo."}
 specplot(diverging_hcl(100, "Green-Brown"), rgb = TRUE)
@@ -1044,7 +1057,7 @@ The function `hclplot()` has been designed to work well with the
 `hcl_palettes()` in this package. While it is possible to apply
 it to other color palettes as well, the results might look weird or confusing
 if these palettes are constructed very differently (e.g., like the
-highly-saturated base R palettes). To infer the default `type` of projection
+highly-saturated base \proglang{R} palettes). To infer the default `type` of projection
 `hclplot()` assesses the luminance trajectory and sets the default correspondingly:
 
 - `type = "qualitative"` if luminance is approximately constant.
@@ -1052,19 +1065,20 @@ highly-saturated base R palettes). To infer the default `type` of projection
 - `type = "diverging"` if luminance is diverging with two monotonic "arms" in the trajectory.
 
 Thus, for qualitative palettes - where luminance and chroma are fixed - the varying
-hue is displayed in a projection onto the hue-chroma plane at a given fixed luminance:
+hue is displayed in a projection onto the hue-chroma plane at a given fixed luminance
+(Figure\ \ref{fig:hcl-qualitative}):
 
 ```{r hcl-qualitative, fig.width = 4, fig.height = 4, fig.cap = "Foo.", dev = "png", dpi = 150, out.width = "0.5\\textwidth"}
 hclplot(qualitative_hcl(9, c = 50, l = 70))
 ```
 
-The display below compares three single-hue sequential palettes by projection
+Figure\ \ref{fig:hcl-sequential} compares three single-hue sequential palettes by projection
 to the luminance-chroma plane for the given fixed hue. In the left panel
 the hue 260 is used with a simple linear chroma trajectory. The other two
 panels employ a triangular chroma trajectory for hue 245, either with
 a piecewise-linear (center) or power-transformed (right) trajectory.
 
-```{r hcl-sequential, fig.width = 11.5, fig.height = 4.0, out.width = "\\textwidth", fig.cap = "Foo.", dev = "png", dpi = 150}
+```{r hcl-sequential, fig.width = 11.5, fig.height = 4.0, fig.cap = "Foo.", dev = "png", dpi = 150}
 par(mfrow = c(1, 3))
 hclplot(sequential_hcl(7, h = 260, c = 80, l = c(35, 95), power = 1))
 hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95), power = 1))
@@ -1075,10 +1089,10 @@ Note that for H = 260 it is possible to go to dark colors (= low luminance) with
 high chroma while this is not possible to the same extent for H = 245. Hence,
 chroma has to be decreased when proceeding to the dark low-luminance colors.
 
-Finally, the display below compares two multi-hue sequential palettes along
+Finally, Figure\ \ref{fig:hcl-multi} compares two multi-hue sequential palettes along
 with a diverging palette.
 
-```{r hcl-multi, fig.width = 11.5, fig.height = 4.0, out.width = "\\textwidth", fig.cap = "Foo.", dev = "png", dpi = 150}
+```{r hcl-multi, fig.width = 11.5, fig.height = 4.0, fig.cap = "Foo.", dev = "png", dpi = 150}
 par(mfrow = c(1, 3))
 hclplot(sequential_hcl(7, h = c(260, 220), c = c(50, 75, 0), l = c(30, 95), power = 1))
 hclplot(sequential_hcl(7, h = c(260, 60), c = 60, l = c(40, 95), power = 1))
@@ -1103,7 +1117,7 @@ interface to some base graphics with (mostly artificial) data sets.
 As a first overview, all built-in demos are displayed with the same
 sequential heat colors palette: `sequential_hcl(5, "Heat")`.
 
-```{r demoplot-all, echo = FALSE, fig.width = 8.5, fig.height = 8.5, out.width = "\\textwidth", fig.cap = "Foo."}
+```{r demoplot-all, echo = FALSE, fig.width = 8.5, fig.height = 8.5, fig.cap = "Foo."}
 par(mfrow = c(3, 3))
 cl <- sequential_hcl(5, "Heat")
 for (i in c("map", "heatmap", "scatter", "spine", "bar", "pie", "perspective", "mosaic", "lines")) {
@@ -1115,9 +1129,9 @@ for (i in c("map", "heatmap", "scatter", "spine", "bar", "pie", "perspective", "
 All types of demos can, in principle, deal with arbitrarily many colors from any palette
 but clearly the graphics differ in various respects such as:
 
-- Work best for fewer colors (e.g., bar, pie, scatter, lines, ...) vs. many colors (e.g., heatmap, perspective, ...).
-- Intended for categorical data (e.g., bar, pie, ...) vs. continuous numeric data (e.g., heatmap, perspective, ...).
-- Shading areas (e.g., map, bar, pie, ...) vs. shading points or lines (scatter, lines).
+- Work best for fewer colors (e.g., bar, pie, scatter, lines, ...) vs.\ many colors (e.g., heatmap, perspective, ...).
+- Intended for categorical data (e.g., bar, pie, ...) vs.\ continuous numeric data (e.g., heatmap, perspective, ...).
+- Shading areas (e.g., map, bar, pie, ...) vs.\ shading points or lines (scatter, lines).
 
 Hence, in the following some further illustrations are organized by type of
 palette, using suitable demos for the particular palettes.
@@ -1126,7 +1140,7 @@ _Qualitative palettes:_ Light pastel colors typically work better for
 shading areas (pie, left) while darker and more colorful palettes are usually
 preferred for points (center) or lines (right).
 
-```{r demoplot-qualitative, fig.width = 8.5, fig.height = 3.0, out.width = "\\textwidth", fig.cap = "Foo."}
+```{r demoplot-qualitative, fig.width = 8.5, fig.height = 3.0, fig.cap = "Foo."}
 par(mfrow = c(1, 3))
 demoplot(qualitative_hcl(4, "Pastel 1"), type = "pie")
 demoplot(qualitative_hcl(4, "Set 2"),    type = "scatter")
@@ -1139,7 +1153,7 @@ In contrast, when only a few ordered categories are to be displayed
 (e.g., in a spine plot, right) more colorful sequential palettes 
 like the viridis palette can be useful.
 
-```{r demoplot-sequential, fig.width = 8.5, fig.height = 3.0, out.width = "\\textwidth", fig.cap = "Foo."}
+```{r demoplot-sequential, fig.width = 8.5, fig.height = 3.0, fig.cap = "Foo."}
 par(mfrow = c(1, 3))
 demoplot(sequential_hcl(99, "Purple-Blue"), type = "heatmap")
 demoplot(sequential_hcl(99, "Reds"),        type = "perspective")
@@ -1154,18 +1168,18 @@ the extremes even further. In contrast, when fewer colors are needed
 more colorful palettes with lower luminance contrasts can be desired.
 This is exemplified by a mosaic (center) and bar plot (right).
 
-```{r demoplot-diverging, fig.width = 8.5, fig.height = 3.0, out.width = "\\textwidth", fig.cap = "Foo."}
+```{r demoplot-diverging, fig.width = 8.5, fig.height = 3.0, fig.cap = "Foo."}
 par(mfrow = c(1, 3))
 demoplot(diverging_hcl(99, "Tropic", power = 2.5), type = "map")
 demoplot(diverging_hcl( 5, "Green-Orange"),        type = "mosaic")
 demoplot(diverging_hcl( 5, "Blue-Red 2"),          type = "bar")
 ```
 
-All displays above focused on palettes designed for light/white backgrounds.
-Therefore, to conclude, some palettes are highlighted that work well on
+Figures\ \ref{fig:demoplot-qualitative}--\ref{fig:demoplot-diverging} focused on palettes designed for light/white backgrounds.
+Therefore, to conclude, some palettes are highlighted in Figure\ \ref{fig:demoplot-dark} that work well on
 dark/black backgrounds.
 
-```{r demoplot-dark, fig.width = 8.5, fig.height = 6.0, out.width = "\\textwidth", fig.cap = "Foo."}
+```{r demoplot-dark, fig.width = 8.5, fig.height = 6.0, fig.cap = "Foo."}
 par(mfrow = c(2, 3), bg = "black")
 demoplot(sequential_hcl(9, "Oslo"), "heatmap")
 demoplot(sequential_hcl(9, "Turku"), "heatmap")
@@ -1183,7 +1197,7 @@ of @color:Machado+Oliveira+Fernandes:2009 different kinds of limitations can be
 emulated: deuteranope (green cone cells defective), protanope (red cone cells defective),
 and tritanope (blue cone cells defective).
 The workhorse function to do so is `simulate_cvd()` which can take any vector
-of valid R colors and transform them according to a certain CVD transformation
+of valid \proglang{R} colors and transform them according to a certain CVD transformation
 matrix and transformation equation. The transformation matrices have been established
 by @color:Machado+Oliveira+Fernandes:2009 and are provided in objects `protanomaly_cvd`,
 `deutanomaly_cvd`, and `tritanomaly_cvd`.
@@ -1193,7 +1207,7 @@ simulating the corresponding kind of color blindness with a given severity (call
 `simulate_cvd()` internally).
 
 For further guidance on color blindness in relation to statistical graphics
-see @color:Lumley:2006 which accompanies the R package _dichromat_ [@color:dichromat]
+see @color:Lumley:2006 which accompanies the \proglang{R} package \pkg{dichromat} [@color:dichromat]
 and is based on earlier emulation techniques
 [@color:Vienot+Brettel+Ott:1995; @color:Brettel+Vienot+Mollon:1997; @color:Vienot+Brettel+Mollon:1999].
 
@@ -1202,14 +1216,14 @@ and is based on earlier emulation techniques
 
 To illustrate that poor color choices can severely reduce the usefulness of a statistical
 graphic for readers with color vision deficiencies, we employ the infamous RGB rainbow
-color palette in a heatmap. In base R this can be generated by `rainbow(11, end = 2/3)`
+color palette in a heatmap. In base \proglang{R} this can be generated by `rainbow(11, end = 2/3)`
 ranging from red (for high values) to blue (for low values).
 
 The poor results for the RGB rainbow palette are contrasted with a proper sequential
 palette ranging dark blue to light yellow: `sequential_hcl(11, "Blue-Yellow")`.
 
 The statistical graphic employed for illustration is a heatmap of the well-known
-Maunga Whau `volcano` data from base R. This heatmap is easily available as
+Maunga Whau `volcano` data from base \proglang{R}. This heatmap is easily available as
 `demoplot(..., "heatmap")` where `...` is the color vector to be used, e.g.,
 
 ```{r colors}
@@ -1269,29 +1283,29 @@ substantially in the dichromatic emulations.
 
 To facilitate exploring the package and employing it when working with colors,
 several graphical user interfaces (GUIs) are provided within the package as
-_shiny_ apps [@color:shiny]. All of these GUIs or apps can either be run locally
-from within R but are also provided at <http://hclwizard.org/>.
+\pkg{shiny} apps [@color:shiny]. All of these GUIs or apps can either be run locally
+from within \proglang{R} but are also provided at <http://hclwizard.org/>.
 
 * **Palette constructor:** `choose_palette()` or `hclwizard()` or `hcl_wizard()`.  
 * **Color picker:** `choose_color()` or equivalently `hcl_color_picker()`.
 * **Color vision deficiency emulator:** `cvd_emulator()`.
 
-In addition to the _shiny_ app, the **palette constructor** app is also available as a Tcl/Tk GUI via R package
-_tcltk_ shipped with base R [@color:R]. The _tcltk_ version can only be run locally
-and is considerably faster while the _shiny_ version has a nicer interface with more
+In addition to the \pkg{shiny} app, the **palette constructor** app is also available as a Tcl/Tk GUI via \proglang{R} package
+\pkg{tcltk} shipped with base \proglang{R} [@color:R]. The \pkg{tcltk} version can only be run locally
+and is considerably faster while the \pkg{shiny} version has a nicer interface with more
 features  and can be run online. The `choose_palette()` function by default starts the
-_tcltk_ version while `hclwizard()`/`hcl_wizard()` by default start the _shiny_
+\pkg{tcltk} version while `hclwizard()`/`hcl_wizard()` by default start the \pkg{shiny}
 version.
 
 
 ## Choose palettes with the HCL color model
 
 This GUI can either be started with `hclwizard()` (or equivalently `hcl_wizard()`) which
-by default starts the _shiny_ version.
-The _tcltk_ version is started by default with `choose_palette()`.
+by default starts the \pkg{shiny} version.
+The \pkg{tcltk} version is started by default with `choose_palette()`.
 However, all defaults can be modified by setting  `gui = "tcltk"` or `gui = "shiny"`.
 
-```{r choose_palette, echo = FALSE, out.width = "\\textwidth", fig.cap="Foo."}
+```{r choose_palette, echo = FALSE}
 knitr::include_graphics("../../vignettes/screenshots/choose_palette_1.png")
 ```
 
@@ -1325,7 +1339,7 @@ palettes for black/dark backgrounds, a "dark mode" of the GUIs is also available
 
 This GUI can be started with either `choose_color()` or equivalently `hcl_color_picker()`.
 
-```{r choose_color, echo = FALSE, out.width = "\\textwidth", fig.cap="Foo."}
+```{r choose_color, echo = FALSE, fig.cap="Foo."}
 knitr::include_graphics("../../vignettes/screenshots/choose_color.png")
 ```
 
@@ -1337,7 +1351,7 @@ as a luminance-chroma plane for a given hue. Colors can be entered by:
 * Entering an RGB hex code.
 
 By repeating the selection a palette of colors can be constructed and returned
-within R for subsequent usage in visualizations.
+within \proglang{R} for subsequent usage in visualizations.
 
 
 
@@ -1380,13 +1394,13 @@ Thus, the `desaturate()` function converts any given hex color code or named
 R color to the corresponding HCL coordinates and sets the chroma to zero.
 Thus, only the luminance matters which captures the "brightness" mentioned above.
 Finally, the resulting HCL coordinates are transformed back to hex color codes
-for use in R.
+for use in \proglang{R}.
 
-For illustration, a few simple examples are presented below. More examples in the
+For illustration, a few simple examples are presented in Figure\ \ref{fig:desaturate-named}. More examples in the
 context of palettes for statistical graphics are discussed along with the
 [color vision deficiency](color_vision_deficiency.html) article.
 
-First, `desaturate()` is used to desaturate a vector of R color names:
+First, `desaturate()` is used to desaturate a vector of \proglang{R} color names:
 
 ```{r desaturate-named}
 desaturate(c("white", "orange", "blue", "black"))
@@ -1396,7 +1410,7 @@ Notice that the hex codes corresponding to three coordinates in sRGB space
 are always the same, indicating gray colors.
 
 Analogously, hex color codes can also be transformed - in this case RGB rainbow
-colors from the base R function `rainbow()`:
+colors from the base \proglang{R} function `rainbow()`:
 
 ```{r desaturate-rainbow}
 rainbow(3)

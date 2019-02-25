@@ -232,17 +232,19 @@ allplots <- function(palette, ...) {
 allplots(q4, "bar")
 ```
 
-A bar plot would be another typical application for a qualitative palette (instead of the
-time series and density plot used above). However, a lighter and less colorful palette
-might be preferable in this situation (e.g., `Pastel 1` or `Set 3`).
+The bar plot is used as a typical application for a qualitative palette (in addition to the
+time series and density plots used above). The other two displays show that luminance
+is (almost) constant in the palette while the hue changes linearly along the color
+"wheel". Ideally, chroma would have also been constant to completely balance the colors.
+However, at this luminance the maximum chroma differs across hues so that the palette
+is fixed up to use less chroma for the yellow and green elements.
 
-The other two displays show that luminance is (almost) constant in the palette while
-the hue changes linearly along the color "wheel". Ideally, chroma would have also been
-constant to completely balance the colors. However, at this luminance the maximum
-chroma differs across hues so that the palette is fixed up to use less chroma for
-the yellow and green elements.
+Note also that in a bar plot areas are shaded (and not just points or lines) so that
+lighter colors would be preferable. In the density plot above
+this was achieved through semi-transparency. Alternatively, luminance could be increased
+as is done in the `"Pastel 1"` or `"Set 3"` palettes.
 
-Subsequently, the same assessment is carried out for the sequential `Purples 3` palette
+Subsequently, the same types of assessment are carried out for the sequential `"Purples 3"` palette
 as employed above. 
 
 ```{r visualization-sequential, eval = FALSE}
