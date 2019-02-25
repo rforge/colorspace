@@ -176,13 +176,6 @@ plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
 legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
 ```
 
-```{r eustockmarkets-plot, echo = FALSE, warning = FALSE, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Time series plot of \\code{EuStockMarkets} data with \\code{qualitative\\_hcl(4, \"Dark 3\")} palette."}
-q4 <- qualitative_hcl(4)
-par(mar = c(5, 4, 1, 1))
-plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
-legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
-```
-
 As another example for a sequential palette a spine plot is created below,
 displaying the proportion of Titanic passengers that survived per class.
 The `Purples 3` palette is used which is quite similar to the **ColorBrewer.org**
@@ -194,9 +187,11 @@ ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
 spineplot(ttnc, col = sequential_hcl(2, palette = "Purples 3"))
 ```
 
-```{r titanic-plot, echo = FALSE, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Foo."}
+```{r eustockmarkets-titanic, echo = FALSE, fig.height = 4, fig.width = 10, out.width = "\\textwidth", fig.cap = "Time series plot of \\code{EuStockMarkets} data with \\code{qualitative\\_hcl(4, \"Dark 3\")} palette."}
+par(mar = c(5, 4, 1, 1), mfrow = c(1, 2))
+plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
+legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
 ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
-par(mar = c(5, 4, 1, 1))
 spineplot(ttnc, col = sequential_hcl(2, "Purples 3"))
 ```
 
@@ -219,7 +214,7 @@ To illustrate their usage two simple examples are shown using the qualitative `D
 and sequential `Purples 3` palettes that were also employed above. First, semi-transparent
 shaded densities of the sepal length from the iris data are shown, grouped by species.
 
-```{r iris-ggplot, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Foo."}
+```{r iris-ggplot, eval = FALSE}
 library("ggplot2")
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
   scale_fill_discrete_qualitative(palette = "Dark 3")
@@ -230,7 +225,17 @@ in the diamonds data (or rather a small subsample thereof). The scale function f
 generates six colors but then drops the first color because the light gray is too light
 in this display. (Alternatively, the chroma and luminance parameters could also be tweaked.)
 
-```{r diamonds-ggplot, fig.height = 4, fig.width = 6, out.width = "0.75\\textwidth", fig.cap = "Foo."}
+```{r diamonds-ggplot, eval = FALSE}
+dsamp <- diamonds[1 + 1:1000 * 50, ]
+ggplot(dsamp, aes(carat, price, color = cut)) + geom_point() +
+  scale_color_discrete_sequential(palette = "Purples 3", nmax = 6, order = 2:6)
+```
+
+```{r iris-diamonds, echo = FALSE, fig.height = 4, fig.width = 5, out.width = "0.49\\textwidth", fig.cap = "Foo."}
+library("ggplot2")
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
+  scale_fill_discrete_qualitative(palette = "Dark 3")
+set.seed(1)
 dsamp <- diamonds[1 + 1:1000 * 50, ]
 ggplot(dsamp, aes(carat, price, color = cut)) + geom_point() +
   scale_color_discrete_sequential(palette = "Purples 3", nmax = 6, order = 2:6)
@@ -959,7 +964,7 @@ swatchplot(
   "Single-hue"            = t(sapply(paste(bprg, 2), sequential_hcl, n = 7)),
   "Single-hue (advanced)" = t(sapply(paste(bprg, 3), sequential_hcl, n = 7)),
   "Multi-hue (advanced)"  = t(sapply(bprg,           sequential_hcl, n = 7)),
-  nrow = 5
+  nrow = 5, line = 5
 )
 ```
 
@@ -992,44 +997,19 @@ second spectrum for the corresponding trajectories of RGB coordinates can be inc
 this is usually just of interest for palettes created in RGB space (or simple
 transformations of RGB).
 
-The illustrations below show how basic qualitative, sequential, and diverging
-palettes are constructed in HCL space (the corresponding mathematical equations
-are provided in the [construction details](hcl_palettes.html#construction-details)).
-In the qualitative "Set 2" palette below, the
-hue traverses the entire color "wheel" (from 0 to 360 degrees) while keeping
-chroma and luminance (almost) constant (C = 60 and L = 70).
+FIXME: Point to previous plots
 
-```{r spec-qualitative, fig.width = 5, fig.height = 5, out.width = "0.5\\textwidth", fig.cap = "Foo."}
-specplot(qualitative_hcl(100, "Set 2"))
-```
-
-Note that due to the restrictions of the HCL color space, some of the green/blue
-colors have a slightly smaller maximum chroma resulting in a small dip in the chroma
-curve. This is fixed automatically (by default) and is hardly noticable in visualizations,
-though.
-
-The sequential "Blues 2" palette below employs a single hue (H = 260) and a monotonically
-increasing luminance trajectory (from dark to light). Chroma simply decreases monotonically
-along with increasing luminance.
-
-```{r spec-sequential, fig.width = 5, fig.height = 5, out.width = "0.5\\textwidth", fig.cap = "Foo."}
-specplot(sequential_hcl(100, "Blues 2"))
-```
-
-Finally, the diverging "Blue-Red" palette is depicted below. It simply combines a blue
-and a red sequential single-hue palette (similar to the "Blues 2" palette discussed above).
+Finally, the diverging "Green-Brown" palette is depicted below. It simply combines a green
+and a brown/yellow sequential single-hue palette, both with triangular chroma trajectory.
 Hue is constant in each "arm" of the palette and the chroma/luminance trajectories are balanced between both arms.
 In the center the palette passes through a light gray (with zero chroma) as the neutral
 value.
 
-```{r spec-diverging, fig.width = 5, fig.height = 5, out.width = "0.5\\textwidth", fig.cap = "Foo."}
-specplot(diverging_hcl(100, "Blue-Red"))
-```
-
 To contrast these well-balanced HCL-based palettes with a poorly-balanced palette, the
 spectrum of the (in)famous RGB rainbow palette is depicted in both RGB and HCL space.
 
-```{r spec-rainbow, fig.width = 5, fig.height = 7.5, out.width = "0.5\\textwidth", fig.cap = "Foo."}
+```{r specplot, fig.width = 5, fig.height = 7, out.width = "0.49\\textwidth", fig.cap = "Foo."}
+specplot(diverging_hcl(100, "Green-Brown"), rgb = TRUE)
 specplot(rainbow(100), rgb = TRUE)
 ```
 
