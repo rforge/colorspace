@@ -105,7 +105,7 @@ hue range. The remaining four palettes are taken from @color:Ihaka:2003. They ar
 based on the same chroma (= 50) and luminance (= 70) but the hue is restricted to
 different intervals.
 
-```{r hcl-palettes-qualitative, fig.width = 5.5, fig.height = 5.0, fig.align = "center", dev = "png", dpi = 48, out.width = "60%"}
+```{r hcl-palettes-qualitative, fig.width = 4.0, fig.height = 5.0, fig.align = "center", dev = "png", dpi = 48, out.width = "60%"}
 hcl_palettes("qualitative", plot = TRUE)
 ```
 
@@ -147,7 +147,7 @@ trajectory. Either a vector `power` of length 2 or separate `p1` (for chroma)
 and `p2` (for luminance) can be specified. If missing, the latter defaults to the
 former.
 
-```{r hcl-palettes-sequentials, fig.width = 6.5, fig.height = 6.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+```{r hcl-palettes-sequentials, fig.width = 4.0, fig.height = 6.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
 hcl_palettes("sequential (single-hue)", n = 7, plot = TRUE)
 ```
 
@@ -230,7 +230,7 @@ The plot below shows all such diverging palettes that have been named in _colors
   @color:Crameri:2018, where the first three are intended for a white/light background and
   the other three for a black/dark background.
 
-```{r hcl-palettes-diverging, fig.width = 6.5, fig.height = 7.5, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+```{r hcl-palettes-diverging, fig.width = 4.0, fig.height = 9.5, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
 hcl_palettes("diverging", n = 7, plot = TRUE)
 ```
 
@@ -381,9 +381,9 @@ for a given color palette is provided in the article:
 
 ## Registering your own palettes
 
-The `hcl_palettes()` already come with a wide range of pre-defined palettes to which
+The `hcl_palettes()` already come with a wide range of predefined palettes to which
 customizations can be easily added. However, it might also be convenient to register
-a custom palette so that it can subsequently be re-used with a new dedicated name.
+a custom palette so that it can subsequently be reused with a new dedicated name.
 This is supported by adding a `register = "..."` argument once to a call to
 `qualitative_hcl()`, `sequential_hcl()`, or `diverging_hcl()`:
 
@@ -411,9 +411,9 @@ Remarks:
   `alpha` and `rev`.
 * When registering a new palette with an old name that was already available
   previously, the old palette gets overwritten. We recommend not to overwrite
-  the palettes that are pre-defined in the package (albeit it is technically possible).
+  the palettes that are predefined in the package (albeit it is technically possible).
 * The registration of a palette is only stored for the current session. When
-  R is restarted and/or the `colorspace` package reloaded, only the pre-defined
+  R is restarted and/or the _colorspace_ package reloaded, only the predefined
   palettes from the package are available. Thus, to make a palette permanently
   available a registration R code like
   `colorspace::qualitative_hcl(3, palette = "set2", l = 80, register = "myset")`
@@ -434,7 +434,7 @@ The plot below shows all such flexible diverging palettes that have been named i
 * "ArmyRose" to "Tropic" closely match the palettes of the same name from _CARTO_ [@color:CARTO].
 * "PuOr" to "Spectral" closely match the palettes of the same name from _ColorBrewer.org_ [@color:Harrower+Brewer:2003].
 
-```{r divergingx-palettes, fig.width = 6.5, fig.height = 8.0, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
+```{r divergingx-palettes, fig.width = 4.0, fig.height = 8.5, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
 divergingx_palettes(n = 7, plot = TRUE)
 ```
 

@@ -286,7 +286,7 @@ like the viridis palette can be useful.
 par(mfrow = c(1, 3))
 demoplot(sequential_hcl(99, "Purple-Blue"), type = "heatmap")
 demoplot(sequential_hcl(99, "Reds"),        type = "perspective")
-demoplot(sequential_hcl( 4, "Viridis"),      type = "spine")
+demoplot(sequential_hcl( 4, "Viridis"),     type = "spine")
 ```
 
 _Diverging palettes:_ In some displays (such as the map, left),

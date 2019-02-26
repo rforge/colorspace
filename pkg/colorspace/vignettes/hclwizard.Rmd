@@ -22,14 +22,14 @@ library("colorspace")
 
 To facilitate exploring the package and employing it when working with colors,
 several graphical user interfaces (GUIs) are provided within the package as
-_shiny_ apps [@color:shiny]. All of these GUIs or apps can either be run locally
+_shiny_ apps [@color:shiny]. All of these GUIs/apps can either be run locally
 from within R but are also provided at <http://hclwizard.org/>.
 
-* **Palette constructor:** `choose_palette()` or `hclwizard()` or `hcl_wizard()`.  
+* **Palette constructor:** `choose_palette()` or `hclwizard()` or `hcl_wizard()`.
 * **Color picker:** `choose_color()` or equivalently `hcl_color_picker()`.
 * **Color vision deficiency emulator:** `cvd_emulator()`.
 
-In addition to the _shiny_ app, the **palette constructor** app is also available as a Tcl/Tk GUI via R package
+In addition to the _shiny_ version, the **palette constructor** app is also available as a Tcl/Tk GUI via R package
 _tcltk_ shipped with base R [@color:R]. The _tcltk_ version can only be run locally
 and is considerably faster while the _shiny_ version has a nicer interface with more
 features  and can be run online. The `choose_palette()` function by default starts the

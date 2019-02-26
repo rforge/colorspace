@@ -101,7 +101,7 @@ the default yields unexpected results.
 
 Regardless of the chosen color space, the adjustment of the `L` component can occur by two methods, relative
 (the default) and absolute. For example for darkening these either use `L - 100 * amount` (absolute) or
-`L * (1 - amount)` (relative). See `lighhten()` and `darken()` for more details.
+`L * (1 - amount)` (relative). See `lighten()` and `darken()` for more details.
 
 For illustration a qualitative palette (Okabe-Ito) is transformed by two levels of both lightening and
 darkening, respectively.
@@ -124,7 +124,7 @@ swatchplot(
 As the possible combinations of chroma and luminance in HCL space depend on hue,
 it is not obvious which trajectories through HCL space are possible prior to
 trying a specific HCL coordinate by calling `polarLUV()`. To avoid having to
-`fixup` the color upon conversion to RGB `hex` color codes, the
+`fixup` the color upon conversion to RGB `hex()` color codes, the
 `max_chroma()` function computes (approximately) the maximum chroma
 possible. 
 
