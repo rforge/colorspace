@@ -132,6 +132,25 @@ visualizations of palette properties; accompanying manipulation utilities
 (like desaturation, lighten/darken, and emulation of color vision deficiencies).
 
 
+FIXME: More comparison with/discussion of other palette packages.
+the viridis palettes of @color:Smith+VanDerWalt:2015 developed for \pkg{matplotlib},
+as provided by \proglang{R} package \pkg{viridis} [@color:viridis], and
+the scientific color maps of @color:Crameri:2018 as provided by \proglang{R}
+package \pkg{scico} [@color:scico]. All yield mostly well-balanced color palettes
+and can be approximated reasonably well in \pkg{colorspace}
+(see Section\ \ref{sec:approximations}).
+A broad range of packages that provide color palettes that are "in harmony" as
+they are extracted and clustered from movies, paintings, etc. However, many of these
+are not so suitable for scientific visualization as they are not clearly 
+qualitative/sequential/diverging. An influential package following such an
+approach is \pkg{weanderson} [@color:wesanderson]. The \pkg{paletteer}
+[@color:paletteer] package aggregates these and provides them in a unified
+user interface.
+Aims of code in \pkg{colorspace} are general trajectories, adaptable HCL
+coordinates, along with visualization and assessment of palettes (beyond
+color swatches).
+
+
 # A quick tour {#sec:tour}
 
 The stable release version of \pkg{colorspace} is hosted on the Comprehensive \proglang{R} Archive Network
@@ -871,7 +890,7 @@ Typically, the more restricted `diverging_hcl()` palettes should be preferred be
 more balanced. However, by being able to go through light yellow as the neutral
 color warmer diverging palettes are available.
 
-## Approximating palettes from other packages
+## Approximating palettes from other packages {#sec:approximations}
 
 The flexible specification of HCL-based color palettes in \pkg{colorspace} allows
 to closely approximate color palettes from various other packages:
@@ -1544,6 +1563,15 @@ in a given situation. Further useful is provided in many sources, including
 @color:Ware:1988, @color:Okabe+Ito:2008, @color:Aigner:2010,
 @color:Stauffer+Mayr+Dabernig:2015, @color:Zhang:2015, @color:Rost:2018,
 @color:Wilke:2019, and @color:Ciechanowski:2019.
+
+
+FIXME: Discuss relation ship to other packages:
+
+* \pkg{Polychrome} [@color:Polychrome]: qualitative palettes with more "categories".
+* \pkg{roloc} [@color:roloc]: naming palettes.
+* \pkg{colorscience} [@color:colorscience]: More color mappings.
+* \pkg{paletteer} [@color:paletteer]: Aggregation of palettes.
+
 
 In addition to the \proglang{R} version of \pkg{colorspace}, a
 \proglang{Python}\ 2/\proglang{Python}\ 3 re-implementation is in beta
