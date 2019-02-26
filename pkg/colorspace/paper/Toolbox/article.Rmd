@@ -56,8 +56,8 @@ abstract: >
   neutral to two extremes.  
 
   To aid selection and application of these palettes the package provides scales
-  for use with \pkg{ggplot2}; \pkg{shiny} (and \pkg{tcltk}) apps for interactive
-  exploration; visualizations of palette properties;
+  for use with \pkg{ggplot2}, \pkg{shiny} (and \pkg{tcltk}) apps for interactive
+  exploration, visualizations of palette properties,
   accompanying manipulation utilities (like desaturation and lighten/darken), and
   emulation of color vision deficiencies.
 keywords:
@@ -160,7 +160,7 @@ q4
 
 The functions `sequential_hcl()`, and `diverging_hcl()` work analogously. Additionally,
 their hue/chroma/luminance parameters can be modified, thus allowing to easily customize
-each palette. Moreover, the `choose_palette()`/`hclwizard()` app provide convenient user
+each palette. Moreover, the `choose_palette()`/`hclwizard()` app provides convenient user
 interfaces to do the customization interactively. Finally, even more flexible diverging
 HCL palettes are provided by `divergingx_hcl()`.
 
@@ -213,7 +213,8 @@ where
 - `<colorscale>` sets the type of the color scale used (`qualitative`, `sequential`, `diverging`, `divergingx`).
 
 To illustrate their usage two simple examples are shown using the qualitative `"Dark 3"`
-and sequential `"Purples 3"` palettes that were also employed above. First, semi-transparent
+and sequential `"Purples 3"` palettes that were also employed above
+(see Figure\ \ref{fig:iris-diamonds}). First, semi-transparent
 shaded densities of the sepal length from the `iris` data are shown, grouped by species.
 
 ```{r iris-ggplot, eval = FALSE}
@@ -1027,7 +1028,7 @@ this is usually just of interest for palettes created in RGB space (or simple
 transformations of RGB).
 
 As spectrum plots have already been used for illustration in Figures\ \ref{fig:allplots-qualitative}
-(for a qualitative palette) as well as \ref{fig:allplots-sequential} and \ref{brewer-carto-viridis}
+(for a qualitative palette) as well as \ref{fig:allplots-sequential} and \ref{fig:brewer-carto-viridis}
 (for sequential palettes), this section only provides a couple of additional illustrations.
 The diverging `"Green-Brown"` palette is depicted in the left panel of Figure\ \ref{fig:specplot}.
 It simply combines a green and a brown/yellow sequential single-hue palette, both with triangular chroma trajectory.
