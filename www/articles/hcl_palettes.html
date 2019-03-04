@@ -158,7 +158,7 @@
 ##        Purple-Brown, Green-Brown, Blue-Yellow 2, Blue-Yellow 3,
 ##        Green-Orange, Cyan-Magenta, Tropic, Broc, Cork, Vik,
 ##        Berlin, Lisbon, Tofino</code></pre>
-<p>To inspect the HCL parameter combinations for a specific palette simply include the <code>name</code> where upper- vs. lower-case, spaces, etc. are ignored for matching the label, i.e., <code>"set2"</code> matches <code>"Set 2"</code>:</p>
+<p>To inspect the HCL parameter combinations for a specific palette simply include the <code>palette</code> name where upper- vs. lower-case, spaces, etc. are ignored for matching the label, i.e., <code>"set2"</code> matches <code>"Set 2"</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="dt">palette =</span> <span class="st">"set2"</span>)</a></code></pre></div>
 <pre><code>## HCL palette
 ## Name: Set 2
@@ -180,7 +180,7 @@
 <div id="qualitative-palettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#qualitative-palettes" class="anchor"></a>Qualitative palettes</h2>
-<p><code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> distinguishes the underlying categories by a sequence of hues while keeping both chroma and luminance constant to give each color in the resulting palette the same perceptual weight. Thus, <code>h</code> should be a pair of hues (or equivalently <code>h1</code> and <code>h2</code> can be used) with the starting and ending hue of the palette. Then, an equidistant sequence between these hues is employed, by default spanning the full color wheel (i.e, the full 360 degrees). Chroma <code>c</code> (or equivalently <code>c1</code>) and luminance <code>l</code> (or equivalently <code>l1</code>) are constants.</p>
+<p><code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> distinguishes the underlying categories by a sequence of hues while keeping both chroma and luminance constant to give each color in the resulting palette the same perceptual weight. Thus, <code>h</code> should be a pair of hues (or equivalently <code>h1</code> and <code>h2</code> can be used) with the starting and ending hue of the palette. Then, an equidistant sequence between these hues is employed, by default spanning the full color wheel (i.e., the full 360 degrees). Chroma <code>c</code> (or equivalently <code>c1</code>) and luminance <code>l</code> (or equivalently <code>l1</code>) are constants.</p>
 <p>In the following graphic the available named palettes are shown. The first five palettes are close to the <em>ColorBrewer.org</em> palettes of the same name <span class="citation">(Harrower and Brewer 2003)</span>. They employ different levels of chroma and luminance and, by default, span the full hue range. The remaining four palettes are taken from <span class="citation">Ihaka (2003)</span>. They are based on the same chroma (= 50) and luminance (= 70) but the hue is restricted to different intervals.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"qualitative"</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-qualitative-1.png" width="60%" style="display: block; margin: auto;"></p>
@@ -205,7 +205,7 @@
 <p><code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> allows to combine variations in hue (<code>h</code> and <code>h1</code>/<code>h2</code>, respectively), chroma (<code>c</code> and <code>c1</code>/<code>c2</code>/<code>cmax</code>, respectively), luminance (<code>l</code> and <code>l1</code>/<code>l2</code>, respectively), and power transformations for the chroma and luminance trajectories (<code>power</code> and <code>p1</code>/<code>p2</code>, respectively). This yields a broad variety of sequential palettes, including many that closely match other well-known color palettes. The plot below shows all the named multi-hue sequential palettes in <em>colorspace</em>:</p>
 <ul>
 <li>“Purple-Blue” to “Terrain 2” are various palettes created during the development of <em>colorspace</em>, e.g., by <span class="citation">Zeileis, Hornik, and Murrell (2009)</span> or <span class="citation">Stauffer et al. (2015)</span> among others.</li>
-<li>“Viridis” to “Inferno” closely match the palettes that <span class="citation">Smith and Walt (2015)</span> developed for <em>matplotlib</em> and that gained popularity recently.</li>
+<li>“Viridis” to “Inferno” closely match the palettes that <span class="citation">Smith and Van der Walt (2015)</span> developed for <em>matplotlib</em> and that gained popularity recently.</li>
 <li>“Dark Mint” to “BrwnYl” closely match palettes provided in <em>CARTO</em> <span class="citation">(CARTO 2019)</span>.</li>
 <li>“YlOrRd” to “Blues” closely match <em>ColorBrewer.org</em> palettes <span class="citation">(Harrower and Brewer 2003)</span>.</li>
 <li>“Lajolla” and “Turku” closely match the scientific color maps of the same name by <span class="citation">Crameri (2018)</span> and are intended for a black/dark background.</li>
@@ -297,7 +297,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <div id="registering-your-own-palettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#registering-your-own-palettes" class="anchor"></a>Registering your own palettes</h2>
-<p>The <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> already come with a wide range of pre-defined palettes to which customizations can be easily added. However, it might also be convenient to register a custom palette so that it can subsequently be re-used with a new dedicated name. This is supported by adding a <code>register = "..."</code> argument once to a call to <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, or <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>:</p>
+<p>The <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> already come with a wide range of predefined palettes to which customizations can be easily added. However, it might also be convenient to register a custom palette so that it can subsequently be reused with a new dedicated name. This is supported by adding a <code>register = "..."</code> argument once to a call to <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, or <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">3</span>, <span class="dt">palette =</span> <span class="st">"set2"</span>, <span class="dt">l =</span> <span class="dv">80</span>, <span class="dt">register =</span> <span class="st">"myset"</span>)</a></code></pre></div>
 <p>The new palette is then included in <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code>:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"Qualitative"</span>)</a></code></pre></div>
@@ -312,8 +312,8 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <p>Remarks:</p>
 <ul>
 <li>The number of colors in the palette that was used during registration is not actually stored and can be modified subsequently. The same holds for arguments <code>alpha</code> and <code>rev</code>.</li>
-<li>When registering a new palette with an old name that was already available previously, the old palette gets overwritten. We recommend not to overwrite the palettes that are pre-defined in the package (albeit it is technically possible).</li>
-<li>The registration of a palette is only stored for the current session. When R is restarted and/or the <code>colorspace</code> package reloaded, only the pre-defined palettes from the package are available. Thus, to make a palette permanently available a registration R code like <code><a href="../reference/hcl_palettes.html">colorspace::qualitative_hcl(3, palette = "set2", l = 80, register = "myset")</a></code> can be placed in your <code>.Rprofile</code> or similar startup scripts.</li>
+<li>When registering a new palette with an old name that was already available previously, the old palette gets overwritten. We recommend not to overwrite the palettes that are predefined in the package (albeit it is technically possible).</li>
+<li>The registration of a palette is only stored for the current session. When R is restarted and/or the <em>colorspace</em> package reloaded, only the predefined palettes from the package are available. Thus, to make a palette permanently available a registration R code like <code><a href="../reference/hcl_palettes.html">colorspace::qualitative_hcl(3, palette = "set2", l = 80, register = "myset")</a></code> can be placed in your <code>.Rprofile</code> or similar startup scripts.</li>
 </ul>
 </div>
 <div id="flexible-diverging-palettes" class="section level2">
@@ -324,6 +324,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <ul>
 <li>“ArmyRose” to “Tropic” closely match the palettes of the same name from <em>CARTO</em> <span class="citation">(CARTO 2019)</span>.</li>
 <li>“PuOr” to “Spectral” closely match the palettes of the same name from <em>ColorBrewer.org</em> <span class="citation">(Harrower and Brewer 2003)</span>.</li>
+<li>“Cividis” closely matches the palette of the same name from the <em>viridis</em> family <span class="citation">(Garnier 2018)</span>. Note that despite having two “arms” with blue vs. yellow colors and a low-chroma center color, this is probably better classified as a sequential palette due to the monotonic chroma going from dark to light. (See <a href="approximations.html">Approximating Palettes from Other Packages</a> for more details.)</li>
 </ul>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw"><a href="../reference/divergingx_hcl.html">divergingx_palettes</a></span>(<span class="dt">n =</span> <span class="dv">7</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/divergingx-palettes-1.png" width="70%" style="display: block; margin: auto;"></p>
@@ -353,6 +354,9 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 </div>
 <div id="ref-color:Crameri:2018">
 <p>Crameri, Fabio. 2018. “Geodynamic Diagnostics, Scientific Visualisation and <em>Staglab</em> 3.0.” <em>Geoscientific Model Development</em> 11 (6): 2541–62. <a href="https://doi.org/10.5194/gmd-11-2541-2018" class="uri">https://doi.org/10.5194/gmd-11-2541-2018</a>.</p>
+</div>
+<div id="ref-color:viridis">
+<p>Garnier, Simon. 2018. <em><span style="font-style:normal;">Viridis</span>: Default Color Maps from <span style="font-style:normal;">Matplotlib</span></em>. <a href="https://CRAN.R-project.org/package=viridis" class="uri">https://CRAN.R-project.org/package=viridis</a>.</p>
 </div>
 <div id="ref-color:Harrower+Brewer:2003">
 <p>Harrower, Mark A., and Cynthia A. Brewer. 2003. “<em>ColorBrewer.org</em>: An Online Tool for Selecting Color Schemes for Maps.” <em>The Cartographic Journal</em> 40: 27–37. <a href="http://ColorBrewer.org/" class="uri">http://ColorBrewer.org/</a>.</p>

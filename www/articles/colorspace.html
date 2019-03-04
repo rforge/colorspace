@@ -130,9 +130,9 @@
 <li>
 <em>Sequential:</em> Designed for coding ordered/numeric information, i.e., where colors go from high to low (or vice versa). Function: <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>.</li>
 <li>
-<em>Diverging:</em> Designed for coding numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes. Function: <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>.</li>
+<em>Diverging:</em> Designed for coding ordered/numeric information around a central neutral value, i.e., where colors diverge from neutral to two extremes. Function: <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>.</li>
 </ul>
-<p>To aid choice and application of these palettes there are: scales for use with <em>ggplot2</em>; shiny (and tcltk) apps for interactive exploration; visualizations of palette properties; accompanying manipulation utilities (like desaturation, lighten/darken, and emulation of color vision deficiencies).</p>
+<p>To aid choice and application of these palettes there are: scales for use with <em>ggplot2</em>; <em>shiny</em> (and <em>tcltk</em>) apps for interactive exploration; visualizations of palette properties; accompanying manipulation utilities (like desaturation, lighten/darken, and emulation of color vision deficiencies).</p>
 <p>More detailed overviews and examples are provided in the articles:</p>
 <ul>
 <li><a href="color_spaces.html">Color Spaces: S4 Classes and Utilities</a></li>
@@ -163,7 +163,7 @@
 <a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="dt">plot =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/hcl-palettes-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <p>Using the names from the plot above and a desired number of colors in the palette a suitable color vector can be easily computed, e.g.,</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">q4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="st">"Dark 3"</span>)</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">q4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">palette =</span> <span class="st">"Dark 3"</span>)</a>
 <a class="sourceLine" id="cb4-2" title="2">q4</a></code></pre></div>
 <pre><code>## [1] "#E16A86" "#909800" "#00AD9A" "#9183E6"</code></pre>
 <p>The functions <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, and <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> work analogously. Additionally, their hue/chroma/luminance parameters can be modified, thus allowing to easily customize each palette. Moreover, the <code><a href="../reference/choose_palette.html">choose_palette()</a></code>/<code><a href="../reference/choose_palette.html">hclwizard()</a></code> app provide convenient user interfaces to do the customization interactively. Finally, even more flexible diverging HCL palettes are provided by <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code>.</p>
@@ -177,7 +177,7 @@
 <p><img src="colorspace_files/figure-html/eustockmarkets-plot-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <p>As another example for a sequential palette a spine plot is created below, displaying the proportion of Titanic passengers that survived per class. The <code>Purples 3</code> palette is used which is quite similar to the <strong>ColorBrewer.org</strong> palette <code>Purples</code>. Here, only two colors are employed, yielding a dark purple and light gray.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">ttnc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/margin.table">margin.table</a></span>(Titanic, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">4</span>))[, <span class="dv">2</span><span class="op">:</span><span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/spineplot">spineplot</a></span>(ttnc, <span class="dt">col =</span> <span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">2</span>, <span class="st">"Purples 3"</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/spineplot">spineplot</a></span>(ttnc, <span class="dt">col =</span> <span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">2</span>, <span class="dt">palette =</span> <span class="st">"Purples 3"</span>))</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/titanic-plot-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 </div>
 <div id="usage-with-ggplot2" class="section level2">
@@ -213,9 +213,9 @@
 <a class="sourceLine" id="cb10-2" title="2"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(q4)</a>
 <a class="sourceLine" id="cb10-3" title="3"><span class="kw"><a href="../reference/specplot.html">specplot</a></span>(q4, <span class="dt">type =</span> <span class="st">"o"</span>)</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/allplots-qualitative-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>A bar plot would be another typical application for a qualitative palette (instead of the time series and density plot used above). However, a lighter and less colorful palette might be preferable in this situation (e.g., <code>Pastel 1</code> or <code>Set 3</code>).</p>
-<p>The other two displays show that luminance is (almost) constant in the palette while the hue changes linearly along the color “wheel”. Ideally, chroma would have also been constant to completely balance the colors. However, at this luminance the maximum chroma differs across hues so that the palette is fixed up to use less chroma for the yellow and green elements.</p>
-<p>Subsequently, the same assessment is carried out for the sequential <code>Purples 3</code> palette as employed above.</p>
+<p>The bar plot is used as a typical application for a qualitative palette (in addition to the time series and density plots used above). The other two displays show that luminance is (almost) constant in the palette while the hue changes linearly along the color “wheel”. Ideally, chroma would have also been constant to completely balance the colors. However, at this luminance the maximum chroma differs across hues so that the palette is fixed up to use less chroma for the yellow and green elements.</p>
+<p>Note also that in a bar plot areas are shaded (and not just points or lines) so that lighter colors would be preferable. In the density plot above this was achieved through semi-transparency. Alternatively, luminance could be increased as is done in the <code>"Pastel 1"</code> or <code>"Set 3"</code> palettes.</p>
+<p>Subsequently, the same types of assessment are carried out for the sequential <code>"Purples 3"</code> palette as employed above.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">s9 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="dv">9</span>, <span class="st">"Purples 3"</span>)</a>
 <a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="../reference/demoplot.html">demoplot</a></span>(s9, <span class="st">"heatmap"</span>)</a>
 <a class="sourceLine" id="cb11-3" title="3"><span class="kw"><a href="../reference/hclplot.html">hclplot</a></span>(s9)</a>

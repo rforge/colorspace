@@ -118,17 +118,16 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>To facilitate exploring the package and employing it when working with colors, several graphical user interfaces (GUIs) are provided within the package as <em>shiny</em> apps <span class="citation">(Chang et al. 2018)</span>. All of these GUIs or apps can either be run locally from within R but are also provided at <a href="http://hclwizard.org/" class="uri">http://hclwizard.org/</a>.</p>
+<p>To facilitate exploring the package and employing it when working with colors, several graphical user interfaces (GUIs) are provided within the package as <em>shiny</em> apps <span class="citation">(Chang et al. 2018)</span>. All of these GUIs/apps can either be run locally from within R but are also provided at <a href="http://hclwizard.org/" class="uri">http://hclwizard.org/</a>.</p>
 <ul>
 <li>
-<strong>Palette constructor:</strong> <code><a href="../reference/choose_palette.html">choose_palette()</a></code> or <code><a href="../reference/choose_palette.html">hclwizard()</a></code> or <code><a href="../reference/choose_palette.html">hcl_wizard()</a></code>.<br>
-</li>
+<strong>Palette constructor:</strong> <code><a href="../reference/choose_palette.html">choose_palette()</a></code> or <code><a href="../reference/choose_palette.html">hclwizard()</a></code> or <code><a href="../reference/choose_palette.html">hcl_wizard()</a></code>.</li>
 <li>
 <strong>Color picker:</strong> <code><a href="../reference/hcl_color_picker.html">choose_color()</a></code> or equivalently <code><a href="../reference/hcl_color_picker.html">hcl_color_picker()</a></code>.</li>
 <li>
 <strong>Color vision deficiency emulator:</strong> <code><a href="../reference/cvd_emulator.html">cvd_emulator()</a></code>.</li>
 </ul>
-<p>In addition to the <em>shiny</em> app, the <strong>palette constructor</strong> app is also available as a Tcl/Tk GUI via R package <em>tcltk</em> shipped with base R <span class="citation">(<span class="sans-serif">R</span> Core Team 2018)</span>. The <em>tcltk</em> version can only be run locally and is considerably faster while the <em>shiny</em> version has a nicer interface with more features and can be run online. The <code><a href="../reference/choose_palette.html">choose_palette()</a></code> function by default starts the <em>tcltk</em> version while <code><a href="../reference/choose_palette.html">hclwizard()</a></code>/<code><a href="../reference/choose_palette.html">hcl_wizard()</a></code> by default start the <em>shiny</em> version.</p>
+<p>In addition to the <em>shiny</em> version, the <strong>palette constructor</strong> app is also available as a Tcl/Tk GUI via R package <em>tcltk</em> shipped with base R <span class="citation">(<span class="sans-serif">R</span> Core Team 2018)</span>. The <em>tcltk</em> version can only be run locally and is considerably faster while the <em>shiny</em> version has a nicer interface with more features and can be run online. The <code><a href="../reference/choose_palette.html">choose_palette()</a></code> function by default starts the <em>tcltk</em> version while <code><a href="../reference/choose_palette.html">hclwizard()</a></code>/<code><a href="../reference/choose_palette.html">hcl_wizard()</a></code> by default start the <em>shiny</em> version.</p>
 </div>
 <div id="choose-palettes-with-the-hcl-color-model" class="section level2">
 <h2 class="hasAnchor">
@@ -161,7 +160,7 @@
 <a href="#emulate-color-vision-deficiencies" class="anchor"></a>Emulate color vision deficiencies</h2>
 <p>This GUI can be started with <code><a href="../reference/cvd_emulator.html">cvd_emulator()</a></code>.</p>
 <p><img src="screenshots/cvd_emulator_1.png" style="width:49.0%"><img src="screenshots/cvd_emulator_2.png" style="width:49.0%"></p>
-<p>It allows to upload a raster image in JPG or PNG format which is then check for various kinds of color vision deficiencies at the selected severity. By default the severity is set to 100% and all supported kinds of color vision deficiency are checked for, i.e.,</p>
+<p>It allows to upload a raster image in JPG or PNG format which is then checked for various kinds of color vision deficiencies at the selected severity. By default the severity is set to 100% and all supported kinds of color vision deficiency are checked for, i.e.,</p>
 <ul>
 <li>Monochromatic (desaturated grayscale).</li>
 <li>Deuteranope vision (green deficient).</li>
