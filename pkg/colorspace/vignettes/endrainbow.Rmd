@@ -197,5 +197,48 @@ is rather problematic.
 ![](screenshots/fv3gfs-sunset-deutan.png){width=49%}
 
 
+## Risk map: Influenza
+
+The shaded map below was taken from the web site of the
+[Robert Koch-Institut](https://influenza.rki.de/) (Arbeitsgemeinschaft Influenza)
+and it shows the severity of influenza in Germany in week 8, 2019.
+The original color palette (left) is the classic rainbow ranging from
+"normal" (blue) to "strongly increased" (red). As all colors in the palette
+are very flashy and highly-saturated it is hard to grasp intuitively which
+areas are most affected by influenza. Also, the least interesting "normal" areas
+stand out as blue is the darkest color in the palette.
+
+As an alternative, a proper multi-hue `sequential_hcl(99, "Purple-Yellow")`
+palette is used on the right. This has smooth gradients and the overall message
+can be grasped quickly, giving focus to the high-risk regions depicted
+with dark/colorful colors. However, the extremely sharp transitions
+between "normal" and "strongly increased" areas (e.g., in the North and the East)
+might indicate some overfitting in the underlying smoothing for the map.
+
+![](screenshots/influenza-rainbow.png){width=49%}
+![](screenshots/influenza-purpleyellow.png){width=49%}
+
+Converting all colors to grayscale brings out even more clearly why the overall
+picture is so hard to grasp with the original palette: The gradients are discontinuous
+switching several times between bright and dark. Thus, it is hard to identify the
+high-risk regions with while this is more natural and straightforward
+with the HCL-based sequential palette.
+
+![](screenshots/influenza-rainbow-gray.png){width=49%}
+![](screenshots/influenza-purpleyellow-gray.png){width=49%}
+
+Emulating deuteranope vision emphasizes the same problems as the desaturated version
+above but shows even more problems with the original palette.
+
+![](screenshots/influenza-rainbow-deutan.png){width=49%}
+![](screenshots/influenza-purpleyellow-deutan.png){width=49%}
+
+Showing changes in hue/chroma/luminance across the two palettes also highlights
+the discontinuity vs. smoothness of the two palettes.
+
+![](screenshots/influenza-rainbow-spectrum.png){width=49%}
+![](screenshots/influenza-purpleyellow-spectrum.png){width=49%}
+
+
 
 ## References
