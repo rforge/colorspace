@@ -143,7 +143,7 @@ A broad range of packages that provide color palettes that are "in harmony" as
 they are extracted and clustered from movies, paintings, etc. However, many of these
 are not so suitable for scientific visualization as they are not clearly 
 qualitative/sequential/diverging. An influential package following such an
-approach is \pkg{weanderson} [@color:wesanderson]. The \pkg{paletteer}
+approach is \pkg{wesanderson} [@color:wesanderson]. The \pkg{paletteer}
 [@color:paletteer] package aggregates these and provides them in a unified
 user interface.
 Aims of code in \pkg{colorspace} are general trajectories, adaptable HCL
@@ -868,7 +868,7 @@ Remarks:
   can be placed in your `.Rprofile` or similar startup scripts.
 
 
-## Flexible diverging palettes
+## Flexible diverging palettes {#sec:divergingx}
 
 The `divergingx_hcl()` function provides more flexible diverging palettes by
 simply calling `sequential_hcl()` twice with prespecified sets of hue, chroma,
@@ -885,6 +885,10 @@ divergingx_palettes(n = 7, plot = TRUE, nrow = 9)
 
 * `"ArmyRose"` to `"Tropic"` closely match the palettes of the same name from \pkg{CARTO} [@color:CARTO].
 * `"PuOr"` to `"Spectral"` closely match the palettes of the same name from \pkg{ColorBrewer.org} [@color:Harrower+Brewer:2003].
+* `"Cividis"` closely matches the palette of the same name from the \pkg{viridis} family [@color:viridis].
+  Note that despite having two "arms" with blue vs.\ yellow colors and a low-chroma center color,
+  this is probably better classified as a sequential palette due to the monotonic chroma going from dark to light.
+  (See Section\ \ref{sec:approximations} for more details.)
 
 Typically, the more restricted `diverging_hcl()` palettes should be preferred because they are
 more balanced. However, by being able to go through light yellow as the neutral
@@ -908,26 +912,7 @@ to closely approximate color palettes from various other packages:
 The graphics resulting from the demos can also be viewed online at
 <http://colorspace.R-Forge.R-project.org/articles/approximations.html>.
 
-In Figure\ \ref{fig:brewer-carto-viridis} `specplot()` panels (see also
-Section\ \ref{sec:specplot}) are shown for two blue/green/yellow palettes (`RColorBrewer::brewer.pal(7, "YlGnBu")`
-and `viridis::viridis(7)`) and two purple/red/yellow (`rcartocolor::carto_pal(7, "ag_Sunset")` and `viridis::plasma(7)`).
-Each panel compares the hue, chroma, and luminance trajectories
-of the original palettes (top swatch, solid lines) and their HCL-based approximations (bottom swatch, dashed lines).
-The palettes are not identical but very close for most colors. Note that also the chroma trajectories from the HCL
-palettes (green dashed lines) have some kinks which are due to fixing HCL coordinates at the boundaries of
-admissible RGB colors.
-
-Furthermore, Figure\ \ref{fig:brewer-carto-viridis} illustrates what sets the viridis palettes apart from
-other sequential palettes. While the hue and luminance trajectories of `"Viridis"` and `"YlGnBu"` are very similar,
-the chroma trajectories differ: While lighter colors (with high luminance) have low chroma for `"YlGnBu"`, they have
-increasing chroma for `"Viridis"`. Similarly, `"ag_Sunset"` and `"Plasma"` have similar hue and luminance trajectories
-but different chroma trajectories. The result is that the viridis palettes have rather high chroma throughout which
-does not work so well for sequential palettes on a white/light background as all shaded areas convey high "intensity".
-However, they work better on a dark/black background (see Figure\ \ref{fig:demoplot-dark}). Also, they might be a reasonable
-alternative for qualitative palettes when grayscale printing should also work.
-
-
-```{r brewer-carto-viridis, echo = FALSE, fig.width = 6, fig.height = 6, out.width = "0.49\\textwidth", fig.cap = "HCL spectrum of four palettes taken from \\pkg{ColorBrewer.org}, \\pkg{CARTO}, and \\pkg{viridis} (top swatch, solid lines) along with their HCL-based approximations (bottom swatch, dashed lines)."}
+```{r brewer-carto-viridis, echo = FALSE, fig.width = 6, fig.height = 6, out.width = "0.49\\textwidth", fig.cap = "HCL spectrum of four palettes taken from \\pkg{ColorBrewer.org}, \\pkg{CARTO}, and \\pkg{viridis} (top swatches, solid lines) along with their HCL-based approximations (bottom swatches, dashed lines)."}
 specplot(
   rev(RColorBrewer::brewer.pal(7, "YlGnBu")),
   sequential_hcl(7, "YlGnBu"),
@@ -949,6 +934,74 @@ specplot(
   main = "viridis: Plasma"
 )
 ```
+
+Figure\ \ref{fig:brewer-carto-viridis} shows a selection of such approximations using `specplot()` 
+(see also Section\ \ref{sec:specplot}) for two blue/green/yellow palettes (`RColorBrewer::brewer.pal(7, "YlGnBu")`
+and `viridis::viridis(7)`) and two purple/red/yellow (`rcartocolor::carto_pal(7, "ag_Sunset")` and `viridis::plasma(7)`).
+Each panel compares the hue, chroma, and luminance trajectories
+of the original palettes (top swatches, solid lines) and their HCL-based approximations (bottom swatches, dashed lines).
+The palettes are not identical but very close for most colors. Note that also the chroma trajectories from the HCL
+palettes (green dashed lines) have some kinks which are due to fixing HCL coordinates at the boundaries of
+admissible RGB colors.
+
+Furthermore, Figure\ \ref{fig:brewer-carto-viridis} illustrates what sets the viridis palettes apart from
+other sequential palettes. While the hue and luminance trajectories of `"Viridis"` and `"YlGnBu"` are very similar,
+the chroma trajectories differ: While lighter colors (with high luminance) have low chroma for `"YlGnBu"`, they have
+increasing chroma for `"Viridis"`. Similarly, `"ag_Sunset"` and `"Plasma"` have similar hue and luminance trajectories
+but different chroma trajectories. The result is that the viridis palettes have rather high chroma throughout which
+does not work so well for sequential palettes on a white/light background as all shaded areas convey high "intensity".
+However, they work better on a dark/black background (see Figure\ \ref{fig:demoplot-dark}). Also, they might be a reasonable
+alternative for qualitative palettes when grayscale printing should also work.
+
+```{r cividis, echo = FALSE, fig.width = 6, fig.height = 6, out.width = "0.49\\textwidth", fig.cap = "HCL spectrum of \\texttt{viridis::cividis} (top swatch, solid lines) along with an HCL-based approximation (bottom swatch, dashed lines)."}
+specplot(viridis::cividis(9), divergingx_hcl(9, "Cividis"), main = "viridis: Cividis")
+```
+
+Another somewhat nonstandard palette from the viridis family is the
+cividis palette based on blue and yellow hues and hence safe for red-green deficient viewers.
+Figure\ \ref{fig:cividis} shows the corresponding `specplot()` along with an HCL-based approximation.
+What is unusual about this palette: The hue and chroma trajectories would suggest a diverging palette,
+as there are two "arms" wth different hues and a zero-chroma point in the center. However,
+the luminance trajectory clearly indicates a sequential palette as colors go monotonically from
+dark to light. Due to this unusual mixture the palette cannot be composed using the trajectories from
+Table\ \ref{tab:hcl}.
+
+However, the tools in \pkg{colorspace} can still be employed to easily reconstruct the palette.
+One strategy would be to set up the trajectories manually, using a linear luminance, piecewise
+linear chroma, and piecewise constant hue:
+
+```{r cividis_hcl}
+cividis_hcl <- function(n) {
+  i <- seq(1, 0, length.out = n)
+  hex(polarLUV(
+    L = 92 - (92 - 13) * i,
+    C = approx(c(1, 0.9, 0.5, 0), c(30, 50, 0, 95), xout = i)$y,
+    H = c(255, 75)[1 + (i < 0.5)]
+  ), fix = TRUE)
+}
+```
+
+Instead of constructing the hex code from the HCL coordinates via \pkg{colorspace}'s `hex(polarLUV(L, C, H))`,
+the base \proglang{R} function `hcl(H, C, L)` from \pkg{grDevices} could also be used.
+
+In addition to manually setting up a dedicated function `cividis_hcl()`, it is possible to approximate the
+palette using `divergingx_hcl()` (see Section\ \ref{sec:divergingx}), e.g.,
+
+```{r diverging_cividis, eval = FALSE}
+divergingx_hcl(n,
+  h1 = 255, h2 = NA, h3 = 75,
+  c1 = 30, cmax1 = 47, c2 = 0, c3 = 95,
+  l1 = 13, l2 = 52, l3 = 92,
+  p1 = 1.1, p3 = 1.0
+)
+```
+
+This uses a slight power transformation with `p1 = 1` in the blue arm of the palette but otherwise essentially
+corresponds to what `cividis_hcl()` does. For convenience `divergingx_hcl(n, palette = "Cividis")` is preregistered
+using the above parameters.
+
+
+
 
 ## HCL (and HSV) color palettes corresponding to base R palettes
 

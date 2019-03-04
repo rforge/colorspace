@@ -168,8 +168,8 @@ To facilitate using HCL-based palettes a wide range of example palettes are
 provided in the package and can be specified by a name instead of a set of
 parameters/coordinates. The examples have been taken from the literature and many
 approximate color palettes from other software packages such as ColorBrewer.org
-(\pkg{RColorBrewer}), CARTO colors (\pkg{rcartocolor}), or \pkg{scico}. The function
-\code{hcl_palettes} can be used to query the available pre-specified palettes. It
+(\pkg{RColorBrewer}), CARTO colors (\pkg{rcartocolor}), \pkg{scico}, or \pkg{virids}. The
+function \code{hcl_palettes} can be used to query the available pre-specified palettes. It
 comes with a \code{print} method (listing names and types), a \code{summary} method
 (additionally listing the underlying parameters/coordinates), and a \code{plot}
 method that creates a \code{\link{swatchplot}} with suitable labels.

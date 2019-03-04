@@ -433,6 +433,10 @@ The plot below shows all such flexible diverging palettes that have been named i
 
 * "ArmyRose" to "Tropic" closely match the palettes of the same name from _CARTO_ [@color:CARTO].
 * "PuOr" to "Spectral" closely match the palettes of the same name from _ColorBrewer.org_ [@color:Harrower+Brewer:2003].
+* "Cividis" closely matches the palette of the same name from the _viridis_ family [@color:viridis].
+  Note that despite having two "arms" with blue vs. yellow colors and a low-chroma center color,
+  this is probably better classified as a sequential palette due to the monotonic chroma going from dark to light.
+  (See [Approximating Palettes from Other Packages](approximations.html) for more details.)
 
 ```{r divergingx-palettes, fig.width = 4.0, fig.height = 8.5, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
 divergingx_palettes(n = 7, plot = TRUE)
