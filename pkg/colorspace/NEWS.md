@@ -1,12 +1,19 @@
 # colorspace 1.4-1
 
+* New article/vignette "Somewhere over the Rainbow" with published examples
+  of RGB rainbow palettes (or similar highly saturated and non-monotonic
+  palettes).
+
 * New sequential multi-hue palette: Purple-Yellow. This is a slightly
   improved version (i.e., with higher luminance contrast) of the palette
   used in Figure 4 of [Stauffer _et al._ (2015, BAMS)](https://dx.doi.org/10.1175/BAMS-D-13-00155.1).
 
-* New article/vignette "Somewhere over the Rainbow" with published examples
-  of RGB rainbow palettes (or similar highly saturated and non-monotonic
-  palettes).
+* New palette Cividis in `divergingx_hcl()` approximating the palette of
+  the same name from the viridis family. While luminance increases monotonically
+  from dark to light in the palette (thus indicating a _sequential_ and not
+  a _diverging_ palette), the hue and chroma trajectories resemble a
+  diverging pattern. Therefore, the flexibility of `divergingx_hcl()` is
+  needed and the palette could not be approximated by `sequential_hcl()`.
 
 
 # colorspace 1.4-0
