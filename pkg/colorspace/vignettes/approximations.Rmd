@@ -125,6 +125,27 @@ This uses a slight power transformation with `p1 = 1` in the blue arm of the pal
 corresponds to what `cividis_hcl()` does. For convenience `divergingx_hcl(n, palette = "Cividis")` is preregistered
 using the above parameters.
 
+Finally, we compare the flexible diverging "Temps" palette, originally from _CARTO_, and the "Zissou 1" palette
+from the _wesanderson_ [@color:wesanderson] package. Both employ a similar hue trajectory going from blue/green
+via yellow to orange/red. Also, the luminance trajectory is similar but for "Temps" this is more balanced and
+provides a stronger luminance contrast. The chroma trajectory is rather unbalanced in both palettes but for
+"Zissou 1" much more so, leading to very high-chroma colors throughout. Thus, both palettes are more suitable
+for palettes with fewer colors but in "Zissou 1" this issue is more pronounced.
+
+```{r temps-zissou, echo = FALSE, results = "hide", message = FALSE, warning = FALSE, fig.width = 6, fig.height = 6, dev = "png", dpi = 48}
+specplot(
+  rcartocolor::carto_pal(7, "Temps"),
+  divergingx_hcl(7, "Temps"),
+  main = "CARTO: Temps"
+)
+specplot(
+  wesanderson::wes_palette("Zissou1", 7, "continuous"),
+  divergingx_hcl(7, "Zissou 1"),
+  main = "wesanderson: Zissou 1"
+)
+```
+
+
 
 ## Approximations of ColorBrewer.org palettes
 

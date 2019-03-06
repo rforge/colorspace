@@ -880,11 +880,12 @@ Consequently, the chroma/luminance paths can be rather unbalanced.
 Figure\ \ref{fig:divergingx-palettes} shows all such flexible diverging palettes that have been named in \pkg{colorspace}:
 
 ```{r divergingx-palettes, fig.width = 8.0, fig.height = 4.25, out.width = "0.8\\textwidth", fig.cap = "Prespecified flexible diverging HCL palettes available in \\code{divergingx\\_hcl()} in \\pkg{colorspace}."}
-divergingx_palettes(n = 7, plot = TRUE, nrow = 9)
+divergingx_palettes(n = 7, plot = TRUE, nrow = 10)
 ```
 
 * `"ArmyRose"` to `"Tropic"` closely match the palettes of the same name from \pkg{CARTO} [@color:CARTO].
 * `"PuOr"` to `"Spectral"` closely match the palettes of the same name from \pkg{ColorBrewer.org} [@color:Harrower+Brewer:2003].
+* `"Zissou 1"` closely matches the palette of the same name from \pkg{wesanderson} [@color:wesanderson].
 * `"Cividis"` closely matches the palette of the same name from the \pkg{viridis} family [@color:viridis].
   Note that despite having two "arms" with blue vs.\ yellow colors and a low-chroma center color,
   this is probably better classified as a sequential palette due to the monotonic chroma going from dark to light.

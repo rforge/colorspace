@@ -151,6 +151,8 @@
 <a class="sourceLine" id="cb2-5" title="5">  <span class="dt">p1 =</span> <span class="fl">1.1</span>, <span class="dt">p3 =</span> <span class="fl">1.0</span></a>
 <a class="sourceLine" id="cb2-6" title="6">)</a></code></pre></div>
 <p>This uses a slight power transformation with <code>p1 = 1</code> in the blue arm of the palette but otherwise essentially corresponds to what <code>cividis_hcl()</code> does. For convenience <code><a href="../reference/divergingx_hcl.html">divergingx_hcl(n, palette = "Cividis")</a></code> is preregistered using the above parameters.</p>
+<p>Finally, we compare the flexible diverging “Temps” palette, originally from <em>CARTO</em>, and the “Zissou 1” palette from the <em>wesanderson</em> <span class="citation">(Ram and Wickham 2018)</span> package. Both employ a similar hue trajectory going from blue/green via yellow to orange/red. Also, the luminance trajectory is similar but for “Temps” this is more balanced and provides a stronger luminance contrast. The chroma trajectory is rather unbalanced in both palettes but for “Zissou 1” much more so, leading to very high-chroma colors throughout. Thus, both palettes are more suitable for palettes with fewer colors but in “Zissou 1” this issue is more pronounced.</p>
+<p><img src="approximations_files/figure-html/temps-zissou-1.png" width="288"><img src="approximations_files/figure-html/temps-zissou-2.png" width="288"></p>
 </div>
 <div id="approximations-of-colorbrewer-org-palettes" class="section level2">
 <h2 class="hasAnchor">
@@ -200,6 +202,9 @@
 </div>
 <div id="ref-color:scico">
 <p>Pedersen, Thomas Lin, and Fabio Crameri. 2018. <em><span style="font-style:normal;">Scico</span>: Colour Palettes Based on the Scientific Colour-Maps</em>. <a href="https://CRAN.R-project.org/package=scico" class="uri">https://CRAN.R-project.org/package=scico</a>.</p>
+</div>
+<div id="ref-color:wesanderson">
+<p>Ram, Karthik, and Hadley Wickham. 2018. <em><span style="font-style:normal;">Wesanderson</span>: A Wes Anderson Palette Generator</em>. <a href="https://CRAN.R-project.org/package=wesanderson" class="uri">https://CRAN.R-project.org/package=wesanderson</a>.</p>
 </div>
 <div id="ref-color:Smith+VanDerWalt:2015">
 <p>Smith, Nathaniel, and Stéfan Van der Walt. 2015. “A Better Default Colormap for <em>Matplotlib</em>.” In <em>SciPy 2015 – Scientific Computing with <span class="sans-serif">Python</span></em>. Austin. <a href="https://www.youtube.com/watch?v=xAoljeRJ3lU" class="uri">https://www.youtube.com/watch?v=xAoljeRJ3lU</a>.</p>
