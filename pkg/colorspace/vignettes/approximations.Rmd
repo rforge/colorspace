@@ -9,7 +9,7 @@ bibliography: color.bib
 vignette: >
   %\VignetteIndexEntry{Approximating Palettes from Other Packages}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteDepends{colorspace,RColorBrewer,rcartocolor,viridis}
+  %\VignetteDepends{colorspace,RColorBrewer,rcartocolor,scico,viridis,wesanderson}
   %\VignetteKeywords{HCL, palettes, spectrum, ColorBrewer.org, CARTO, viridis}
   %\VignettePackage{colorspace}
 ---
@@ -20,6 +20,7 @@ library("RColorBrewer")
 library("rcartocolor")
 library("viridis")
 library("scico")
+library("wesanderson")
 ```
 
 ## Overview
