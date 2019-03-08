@@ -221,7 +221,7 @@ might indicate some overfitting in the underlying smoothing for the map.
 Converting all colors to grayscale brings out even more clearly why the overall
 picture is so hard to grasp with the original palette: The gradients are discontinuous
 switching several times between bright and dark. Thus, it is hard to identify the
-high-risk regions with while this is more natural and straightforward
+high-risk regions while this is more natural and straightforward
 with the HCL-based sequential palette.
 
 ![](screenshots/influenza-rainbow-gray.png){width=49%}

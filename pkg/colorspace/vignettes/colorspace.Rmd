@@ -106,15 +106,14 @@ Python 2/Python 3 is also available, see <https://github.com/retostauffer/python
 
 The _colorspace_ package ships with a wide range of predefined color palettes,
 specified through suitable trajectories in the HCL (hue-chroma-luminance) color space.
-A quick overview can be gained easily with `hcl_palettes()`:
+A quick overview can be gained easily with the `hcl_palettes()` function:
 
 ```{r hcl-palettes, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 9, fig.width = 16, dpi = 48, out.width = "100%"}
 library("colorspace")
 hcl_palettes(plot = TRUE)
 ```
 
-Using the names from the plot above and a desired number of colors in the palette
-a suitable color vector can be easily computed, e.g.,
+A suitable vector of colors can be easily computed by specifying the desired number of colors and palette name (see the plot above), e.g.,
 
 ```{r qualitative-hcl-4}
 q4 <- qualitative_hcl(4, palette = "Dark 3")
@@ -124,7 +123,7 @@ q4
 The functions `sequential_hcl()`, and `diverging_hcl()` work analogously. Additionally,
 their hue/chroma/luminance parameters can be modified, thus allowing to easily customize
 each palette. Moreover, the `choose_palette()`/`hclwizard()` app provide convenient user
-interfaces to do the customization interactively. Finally, even more flexible diverging
+interfaces to perform palette customization interactively. Finally, even more flexible diverging
 HCL palettes are provided by `divergingx_hcl()`.
 
 
@@ -175,9 +174,8 @@ of the color scale used (`qualitative`, `sequential`, `diverging`,
 `divergingx`).
 
 To illustrate their usage two simple examples are shown using the qualitative `Dark 3`
-and sequential `Purples 3` palettes that were also employed above. First, semi-transparent
+and sequential `Purples 3` palettes that were also employed above. For the first example, semi-transparent
 shaded densities of the sepal length from the iris data are shown, grouped by species.
-
 
 ```{r iris-ggplot, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
 library("ggplot2")
@@ -185,10 +183,10 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) 
   scale_fill_discrete_qualitative(palette = "Dark 3")
 ```
 
-The sequential palette is used to code the cut levels in a scatter of price by carat
+And for the second example the sequential palette is used to code the cut levels in a scatter of price by carat
 in the diamonds data (or rather a small subsample thereof). The scale function first
 generates six colors but then drops the first color because the light gray is too light
-in this display. (Alternatively, the chroma and luminance parameters could also be tweaked.)
+here. (Alternatively, the chroma and luminance parameters could also be tweaked.)
 
 ```{r diamonds-ggplot, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
 dsamp <- diamonds[1 + 1:1000 * 50, ]
@@ -266,4 +264,4 @@ focusing with the dark colors on the higher elevations.
 The other two displays show that hue is constant in the palette while luminance and chroma vary.
 Luminance increases monotonically from dark to light (as required for a proper sequential palette).
 Chroma is triangular-shaped which allows to better distinguish the middle colors in the palette
-(compared to a monotonic chroma trajectory).
+when compared to a monotonic chroma trajectory.

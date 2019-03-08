@@ -38,8 +38,9 @@ three types of palettes based on the HCL model:
 The corresponding functions are `qualitative_hcl()`, `sequential_hcl()`,
 and `diverging_hcl()`. Their construction principles are exemplified in the
 following color swatches and explained in more detail below. The desaturated
-palettes bring out clearly that luminance differences (= light-dark contrasts),
-or the lack thereof, are crucial for coding the different kinds of palettes.
+palettes bring out clearly that luminance differences (= light-dark contrasts)
+are crucial for sequential and diverging palettes while qualitative palettes
+are balanced at the same luminance.
 
 ```{r hcl-palettes-principles, echo = FALSE, fig.width = 12, fig.height = 1.6, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 swatchplot(
@@ -121,7 +122,7 @@ background the luminance should be higher as in "Set 2" for example.
 ## Sequential palettes (single-hue)
 
 `sequential_hcl()` codes the underlying numeric values by a monotonic sequence
-of increasing (or decreasing) luminance. Thus, the `l` argument should provide
+of increasing (or decreasing) luminance. Thus, the function's `l` argument should provide
 a vector of length 2 with starting and ending luminance (equivalently, `l1` and
 `l2` can be used). Without chroma (i.e., `c = 0`), this simply corresponds
 to a grayscale palette like `gray.colors()`, see "Grays" and "Light Grays" below.
@@ -132,7 +133,7 @@ increasing luminance. For bringing out the extremes (a dark high-chroma color vs
 a light gray) this is already very effective, see "Blues 2", "Purples 2", "Reds 2",
 and "Greens 2".
 
-For distinguishing also colors in the middle two strategies can be employed:
+For distinguishing colors in the middle, two strategies can be employed:
 (a) Hue can be varied as well by specifying an interval of hues in `h` (or beginning
 hue `h1` and ending hue `h2`). More details are provided in the next section.
 (b) Instead of a decreasing chroma a triangular chroma trajectory can be employed
@@ -141,7 +142,7 @@ length 3). This yields high-chroma colors in the middle of the palette that are
 more easily distinguished from the dark and light extremes. See "Blues 3", "Purples 3",
 "Reds 3", and "Greens 3" below.
 
-Instead of employing linear trajectories in the chroma or luminance coordinates
+Instead of employing linear trajectories in the chroma or luminance coordinates,
 some palettes employ a power transformation of the chroma and/or luminance
 trajectory. Either a vector `power` of length 2 or separate `p1` (for chroma)
 and `p2` (for luminance) can be specified. If missing, the latter defaults to the
@@ -153,7 +154,7 @@ hcl_palettes("sequential (single-hue)", n = 7, plot = TRUE)
 
 All except the last palette are inspired by the _ColorBrewer.org_ palettes with
 the same base name [@color:Harrower+Brewer:2003] but restricted to a single hue only.
-They are intended for a white/light background. The last palette is taken from
+They are intended for a white/light background. The last palette (Oslo) is taken from
 the scientific color maps of @color:Crameri:2018 and is intended for a black/dark
 background and hence the order is reversed starting from a light blue (not a light gray).
 
@@ -169,10 +170,10 @@ categorical variable with few levels) then a lower luminance contrast may suffic
 To not only bring out extreme colors in a sequential palette but also better distinguish
 middle colors it is a common strategy to employ a sequence of hues. Thus, the basis
 of such a palette is still a monotonic luminance sequence as above (combined with a
-monotonic or triangular chroma sequence). But, instead of a single hue, an interval
-of hues in `h` (or beginning hue `h1` and ending hue `h2`) is specified.
+monotonic or triangular chroma sequence). But rather than using a single hue, an interval
+of hues in `h` (or beginning hue `h1` and ending hue `h2`) can be specified.
 
-`sequential_hcl()` allows to combine variations in hue (`h` and `h1`/`h2`, respectively),
+`sequential_hcl()` allows combined variations in hue (`h` and `h1`/`h2`, respectively),
 chroma (`c` and `c1`/`c2`/`cmax`, respectively),
 luminance (`l` and `l1`/`l2`, respectively), and
 power transformations for the chroma and luminance trajectories

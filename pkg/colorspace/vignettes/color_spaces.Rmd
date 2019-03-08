@@ -20,9 +20,9 @@ library("colorspace")
 
 ## Overview
 
-At the core of the _colorspace_ package there are various utilities for computing with
+At the core of the _colorspace_ package are various utilities for computing with
 color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
-representations of color to each other, see @color:Ihaka:2003. A particularly important
+representations of color to each other [@color:Ihaka:2003]. A particularly important
 mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
 specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
@@ -55,8 +55,8 @@ text(3.5, 2, "white point\n= D65", cex = 0.7, pos = 3)
 text(4.56, 2, "gamma\n(= 2.4)", cex = 0.7, pos = 3)
 ```
 
-Color models that are (or try to be) perceptually-based are displayed with circles,
-other color models with rectangles. The corresponding classes and eponymous class
+Color models that are (or try to be) perceptually-based are displayed with circles
+and models that are not are displayed with rectangles. The corresponding classes and eponymous class
 constructors in _colorspace_ are:
 
 * `RGB()` for the classic Red-Green-Blue color model that mixes three primary colors
@@ -143,7 +143,7 @@ As an example a vector of colors `x` can be specified in the HCL (or polar LUV) 
 (x <- polarLUV(L = 70, C = 50, H = c(0, 120, 240)))
 ```
 
-These are pastel red (hue = 0), green (hue = 120), and blue (hue = 240) with moderate chroma and luminance.
+The resulting three colors are pastel red (hue = 0), green (hue = 120), and blue (hue = 240) with moderate chroma and luminance.
 For display in other systems an sRGB representation might be needed:
 
 ```{r sRGB}

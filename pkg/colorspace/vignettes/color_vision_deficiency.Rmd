@@ -20,23 +20,32 @@ library("colorspace")
 
 ## Overview
 
-Using the physiologically-based model for simulating color vision deficiency (CVD)
-of @color:Machado+Oliveira+Fernandes:2009 different kinds of limitations can be
-emulated: deuteranope (green cone cells defective), protanope (red cone cells defective),
-and tritanope (blue cone cells defective).
-The workhorse function to do so is `simulate_cvd()` which can take any vector
-of valid R colors and transform them according to a certain CVD transformation
-matrix and transformation equation. The transformation matrices have been established
-by @color:Machado+Oliveira+Fernandes:2009 and are provided in objects `protanomaly_cvd`,
-`deutanomaly_cvd`, and `tritanomaly_cvd`.
+Different kinds of limitations can be emulated using the physiologically-based model
+for simulating color vision deficiency (CVD) of @color:Machado+Oliveira+Fernandes:2009:
+deuteranomaly (green cone cells defective),
+protanomaly (red cone cells defective), and
+tritanomaly (blue cone cells defective).
+While most other CVD simulations handle only dichromacy, where one of three cones is
+non-functional, @color:Machado+Oliveira+Fernandes:2009 provides a unified model of
+both dichromacy and anomalous trichromacy, where one cone has shifted spectral
+sensitivity. As anomalous trichromacy is the most common form of color vision
+deficiency, it is important to emulate along with the rarer, but more severe
+dichromacy.
 
-The convenience interfaces `deutan()`, `protan()`, and `tritan()` are the high-level functions for
-simulating the corresponding kind of color blindness with a given severity (calling
-`simulate_cvd()` internally).
+The workhorse function to emulate color vision deficiencies is `simulate_cvd()`
+which can take any vector of valid R colors and transform them according to a
+certain CVD transformation matrix and transformation equation. The
+transformation matrices have been established by @color:Machado+Oliveira+Fernandes:2009 and are
+provided in objects `protanomaly_cvd`, `deutanomaly_cvd`, and `tritanomaly_cvd`.
+The convenience interfaces `deutan()`, `protan()`, and `tritan()` are the high-level
+functions for simulating the corresponding kind of color blindness with a given
+`severity` (calling `simulate_cvd()` internally). A severity of `1` corresponds to
+dichromacy, `0` to normal color vision, and intermediate values to varying
+severities of anomalous trichromacy.
 
-For further guidance on color blindness in relation to statistical graphics
-see @color:Lumley:2006 which accompanies the R package _dichromat_ [@color:dichromat]
-and is based on earlier emulation techniques
+For further guidance on color blindness in
+relation to statistical graphics see @color:Lumley:2006 which accompanies the R
+package dichromat [@color:dichromat] and is based on earlier emulation techniques
 [@color:Vienot+Brettel+Ott:1995; @color:Brettel+Vienot+Mollon:1997; @color:Vienot+Brettel+Mollon:1999].
 
 

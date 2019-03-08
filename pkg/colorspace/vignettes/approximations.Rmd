@@ -75,7 +75,7 @@ other sequential palettes. While the hue and luminance trajectories of `"Viridis
 the chroma trajectories differ: While lighter colors (with high luminance) have low chroma for `"YlGnBu"`, they have
 increasing chroma for `"Viridis"`. Similarly, `"ag_Sunset"` and `"Plasma"` have similar hue and luminance trajectories
 but different chroma trajectories. The result is that the viridis palettes have rather high chroma throughout which
-does not work so well for sequential palettes on a white/light background as all shaded areas convey high "intensity".
+does not work as well for sequential palettes on a white/light background as all shaded areas convey high "intensity".
 However, they work better on a dark/black background. Also, they might be a reasonable
 alternative for qualitative palettes when grayscale printing should also work.
 
