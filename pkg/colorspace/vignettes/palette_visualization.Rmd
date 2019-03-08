@@ -37,7 +37,7 @@ collections of palettes that can be specified as lists or matrices of
 hex color codes. Essentially, it is just a call to the base graphics
 `rect()` function but with heuristics for choosing default labels, margins,
 spacings, borders, etc. These heuristics are selected to work well for `hcl_palettes()`
-and might need further tweaking in future versions.
+and might need further tweaking in future versions of the package.
 
 As a first simple example, the properties of the three HCL axes are brought out by varying
 only one coordinate while keeping the other two fixed:

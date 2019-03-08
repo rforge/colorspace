@@ -118,9 +118,9 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>At the core of the <em>colorspace</em> package there are various utilities for computing with color spaces (as the name conveys). Thus, the package helps to map various three-dimensional representations of color to each other, see <span class="citation">Ihaka (2003)</span>. A particularly important mapping is the one from the perceptually-based and device-independent color model HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color specifications in many systems based on the corresponding hex codes (e.g., in HTML but also in R). For completeness further standard color models are included as well in the package. The connections are illustrated in the following graph:</p>
+<p>At the core of the <em>colorspace</em> package are various utilities for computing with color spaces (as the name conveys). Thus, the package helps to map various three-dimensional representations of color to each other <span class="citation">(Ihaka 2003)</span>. A particularly important mapping is the one from the perceptually-based and device-independent color model HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color specifications in many systems based on the corresponding hex codes (e.g., in HTML but also in R). For completeness further standard color models are included as well in the package. The connections are illustrated in the following graph:</p>
 <p><img src="color_spaces_files/figure-html/color-spaces-1.png" width="912" style="display: block; margin: auto;"></p>
-<p>Color models that are (or try to be) perceptually-based are displayed with circles, other color models with rectangles. The corresponding classes and eponymous class constructors in <em>colorspace</em> are:</p>
+<p>Color models that are (or try to be) perceptually-based are displayed with circles and models that are not are displayed with rectangles. The corresponding classes and eponymous class constructors in <em>colorspace</em> are:</p>
 <ul>
 <li>
 <code><a href="../reference/RGB.html">RGB()</a></code> for the classic Red-Green-Blue color model that mixes three primary colors with different intensities to obtain a spectrum of colors. The advantage of this color model is (or was) that it corresponded to how computer and TV screens generated colors, hence it was widely adopted and still is the basis for color specifications in many systems. For example, the hex color codes are employed in HTML but also in R. However, the RGB model also has some important drawbacks: It does not take into account the output device properties, it is not perceptually uniform (a unit step within RGB does not produce a constant perceptual change in color), and it is unintuitive for humans to specify colors (say brown or pink) in this space. <span class="citation">(See Wikipedia 2019e.)</span>
@@ -176,7 +176,7 @@
 ## [1,] 70 50   0
 ## [2,] 70 50 120
 ## [3,] 70 50 240</code></pre>
-<p>These are pastel red (hue = 0), green (hue = 120), and blue (hue = 240) with moderate chroma and luminance. For display in other systems an sRGB representation might be needed:</p>
+<p>The resulting three colors are pastel red (hue = 0), green (hue = 120), and blue (hue = 240) with moderate chroma and luminance. For display in other systems an sRGB representation might be needed:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">(y &lt;-<span class="st"> </span><span class="kw">as</span>(x, <span class="st">"sRGB"</span>))</a></code></pre></div>
 <pre><code>##              R         G         B
 ## [1,] 0.8931564 0.5853740 0.6465459
