@@ -146,6 +146,10 @@ qualitative/sequential/diverging. An influential package following such an
 approach is \pkg{wesanderson} [@color:wesanderson]. The \pkg{paletteer}
 [@color:paletteer] package aggregates these and provides them in a unified
 user interface.
+The \pkg{pals} package also provides a large number of palettes,
+but some are just pre-existing palettes, and where the palettes are new
+there is no description of a specific algorithm that was used to generate
+them.  
 Aims of code in \pkg{colorspace} are general trajectories, adaptable HCL
 coordinates, along with visualization and assessment of palettes (beyond
 color swatches).
@@ -1293,40 +1297,35 @@ demoplot(diverging_hcl(9, "Cyan-Magenta", l2 = 20), "lines")
 
 # Color vision deficiency emulation {#sec:color_vision_deficiency}
 
-Different kinds of limitations can be emulated using the physiologically-based model
-for simulating color vision deficiency (CVD) of @color:Machado+Oliveira+Fernandes:2009:
-deuteranomaly (green cone cells defective),
-protanomaly (red cone cells defective), and
-tritanomaly (blue cone cells defective).
-While most other CVD simulations handle only dichromacy, where one of three cones is
-non-functional, @color:Machado+Oliveira+Fernandes:2009 provides a unified model of
-both dichromacy and anomalous trichromacy, where one cone has shifted spectral
-sensitivity. As anomalous trichromacy is the most common form of color vision
-deficiency, it is important to emulate along with the rarer, but more severe
-dichromacy. Below we briefly describe our \proglang{R} interface to these emulation
-techniques and show them in practice for a heatmap with sequential palette.
-Another example with diverging palette is available at
+Using the physiologically-based model for simulating color vision deficiency (CVD)
+of @color:Machado+Oliveira+Fernandes:2009 different kinds of limitations can be
+emulated: deuteranope (green cone cells defective), protanope (red cone cells defective),
+and tritanope (blue cone cells defective).
+
+Below we briefly describe our \proglang{R} interface to these emulation techniques
+and show them in practice for a heatmap with sequential palette. Another example
+with diverging palette is available at
 <http://colorspace.R-Forge.R-project.org/articles/color_vision_deficiency.html>.
-Finally, CVD emulation is particularly useful for bringing out why the RGB
-rainbow palette is almost always a bad choice in scientific displays. See
+Finally, CVD emulation is particularly useful for bringing out why the RGB rainbow
+palette is almost always a bad choice in scientific displays. See
 <http://colorspace.R-Forge.R-project.org/articles/endrainbow.html> for further
 illustrations.
 
 
 ## R functions
 
-The workhorse function to emulate color vision deficiencies is `simulate_cvd()`
-which can take any vector of valid \proglang{R} colors and transform them according to a
-certain CVD transformation matrix and transformation equation. The
-transformation matrices have been established by @color:Machado+Oliveira+Fernandes:2009 and are
-provided in objects `protanomaly_cvd`, `deutanomaly_cvd`, and `tritanomaly_cvd`.
-The convenience interfaces `deutan()`, `protan()`, and `tritan()` are the high-level
-functions for simulating the corresponding kind of color blindness with a given
-`severity` (calling `simulate_cvd()` internally). A severity of `1` corresponds to
-dichromacy, `0` to normal color vision, and intermediate values to varying
-severities of anomalous trichromacy. For further guidance on color blindness in
-relation to statistical graphics see @color:Lumley:2006 which accompanies the \proglang{R}
-package \pkg{dichromat} [@color:dichromat] and is based on earlier emulation techniques
+The workhorse function to do so is `simulate_cvd()` which can take any vector
+of valid \proglang{R} colors and transform them according to a certain CVD transformation
+matrix and transformation equation. The transformation matrices have been established
+by @color:Machado+Oliveira+Fernandes:2009 and are provided in objects `protanomaly_cvd`,
+`deutanomaly_cvd`, and `tritanomaly_cvd`.
+The convenience interfaces `deutan()`, `protan()`, and `tritan()` are the high-level functions for
+simulating the corresponding kind of color blindness with a given severity (calling
+`simulate_cvd()` internally).
+
+For further guidance on color blindness in relation to statistical graphics
+see @color:Lumley:2006 which accompanies the \proglang{R} package \pkg{dichromat} [@color:dichromat]
+and is based on earlier emulation techniques
 [@color:Vienot+Brettel+Ott:1995; @color:Brettel+Vienot+Mollon:1997; @color:Vienot+Brettel+Mollon:1999].
 
 
@@ -1630,9 +1629,21 @@ in a given situation. Further useful guidance is provided in many sources, inclu
 
 FIXME: Discuss relation ship to other packages:
 
-* \pkg{Polychrome} [@color:Polychrome]: qualitative palettes with more "categories".
-* \pkg{roloc} [@color:roloc]: naming palettes.
-* \pkg{colorscience} [@color:colorscience]: More color mappings.
+* \pkg{Polychrome} [@color:Polychrome]: qualitative palettes with more "categories". This can generate 
+  palettes with the (a large number of) 
+  colours spaced far apart from each other in Luv space.
+  It also has functions for visualising colour palettes in different ways 
+  (https://www.biorxiv.org/content/biorxiv/early/2018/04/18/303883.full.pdf)
+* \pkg{roloc} [@color:roloc]: colour conversions, but not between
+  numeric colour spaces;  instead, from numeric colour spaces to
+  colour names.  
+  (https://stattech.wordpress.fos.auckland.ac.nz/2018/01/25/2018-01-generating-colour-names-the-roloc-package-for-r/)
+* \pkg{colorscience} [@color:colorscience]: This package is for Colour
+Science.  It has data sets, does more complex conversions (including
+different chromatic adaptation algorithms).  
+So more sophisticated than \pkg{colorspace}
+in terms of flexibility and low-level detail, BUT it does not do
+palette-generation.
 * \pkg{paletteer} [@color:paletteer]: Aggregation of palettes.
 
 
