@@ -27,7 +27,10 @@
 #' 
 #' @param n the number of colors (\eqn{\ge 1}{>= 1}) to be in the palette.
 #' @param palette character with the name (see details).
-#' @param \dots arguments passed to \code{\link{sequential_hcl}}.
+#' @param \dots arguments passed to \code{\link{hex}}.
+#' @param fixup logical. Should the color be corrected to a valid RGB value?
+#' @param alpha numeric vector of values in the range \code{[0, 1]} for alpha
+#' transparency channel (0 means transparent and 1 means opaque).
 #' @param rev logical. Should the palette be reversed?
 #' @param h1 numeric. Starting hue coordinate.
 #' @param h2 numeric. Center hue coordinate.
@@ -59,16 +62,15 @@
 #' @rdname divergingx_hcl
 
 #' @export
-divergingx_hcl <- function(n, palette = "Geyser", ..., rev = FALSE,
+divergingx_hcl <- function(n, palette = "Geyser", ...,
+  fixup = TRUE, alpha = 1, rev = FALSE,
   h1, h2, h3, c1, c2, c3, l1, l2, l3, p1, p2, p3, p4, cmax1, cmax2)
 {
     ## empty palette
     if(n < 1L) return(character(0L))
 
-    ## obtained stored coordinates    
-    palette <- match.arg(palette, names(divex_pals))
-    pals <- divex_pals[[palette]]
-    names(pals) <- c("h1", "h2", "h3", "c1", "c2", "c3", "l1", "l2", "l3", "p1", "p2", "p3", "p4", "cmax1", "cmax2")
+    ## obtained stored coordinates
+    pals <- as.matrix(divergingx_palettes(palette = palette)[, -1L])[1L, ]
 
     ## replace coordinates (if specified)
     if(!missing(h1)) pals["h1"] <- h1
@@ -106,10 +108,19 @@ divergingx_hcl <- function(n, palette = "Geyser", ..., rev = FALSE,
     n2 <- ceiling(n/2)    
     rval <- seq.int(1, by = -2/(n - 1), length.out = n2)
     rval <- c(seqhcl(rval, pals["h1"], if(is.na(pals["h2"])) pals["h1"] else pals["h2"], pals["c1"], pals["c2"],
-                     pals["l1"], pals["l2"], pals["p1"], pals["p2"], pals["cmax1"], as.logical(pals["fixup"]), ...),
+                     pals["l1"], pals["l2"], pals["p1"], pals["p2"], pals["cmax1"], fixup, ...),
     	  rev(seqhcl(rval, pals["h3"], if(is.na(pals["h2"])) pals["h3"] else pals["h2"], pals["c3"], pals["c2"],
-	             pals["l3"], pals["l2"], pals["p3"], pals["p4"], pals["cmax2"], as.logical(pals["fixup"]), ...)))
+	             pals["l3"], pals["l2"], pals["p3"], pals["p4"], pals["cmax2"], fixup, ...)))
     if(floor(n/2) < n2) rval <- rval[-n2]
+
+    ## alpha transparency
+    if(!missing(alpha)) {
+        alpha <- pmax(pmin(alpha, 1), 0)
+        alpha <- format(as.hexmode(round(alpha * 255 + 0.0001)), width = 2L, upper.case = TRUE)
+        rval <- ifelse(is.na(rval), NA, paste(rval, alpha, sep = ""))
+    }
+
+    ## return value
     if(rev) rval <- rev(rval)
     return(rval)   
 }

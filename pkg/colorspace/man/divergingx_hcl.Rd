@@ -6,8 +6,9 @@
 \alias{divergingx_palettes}
 \title{(More) Flexible Diverging HCL Palettes}
 \usage{
-divergingx_hcl(n, palette = "Geyser", ..., rev = FALSE, h1, h2, h3, c1,
-  c2, c3, l1, l2, l3, p1, p2, p3, p4, cmax1, cmax2)
+divergingx_hcl(n, palette = "Geyser", ..., fixup = TRUE, alpha = 1,
+  rev = FALSE, h1, h2, h3, c1, c2, c3, l1, l2, l3, p1, p2, p3, p4, cmax1,
+  cmax2)
 
 divergingx_palettes(palette = NULL, plot = FALSE, n = 7L, ...)
 }
@@ -16,7 +17,12 @@ divergingx_palettes(palette = NULL, plot = FALSE, n = 7L, ...)
 
 \item{palette}{character with the name (see details).}
 
-\item{\dots}{arguments passed to \code{\link{sequential_hcl}}.}
+\item{\dots}{arguments passed to \code{\link{hex}}.}
+
+\item{fixup}{logical. Should the color be corrected to a valid RGB value?}
+
+\item{alpha}{numeric vector of values in the range \code{[0, 1]} for alpha
+transparency channel (0 means transparent and 1 means opaque).}
 
 \item{rev}{logical. Should the palette be reversed?}
 
