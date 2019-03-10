@@ -36,6 +36,64 @@ theme_set(theme_minimal())
 
 \section{colorspace: A Toolbox for Manipulating and Assessing Color Palettes for Statistical Graphics}
 
+\subsection{Motivation}
+
+\begin{frame}
+\frametitle{Motivation}
+
+\vspace*{-0.3cm}
+
+\begin{minipage}{0.54\textwidth}
+\only<1,4>{\includegraphics[width=\textwidth]{../../vignettes/screenshots/influenza-rainbow.png}}%
+\only<2>{\includegraphics[width=\textwidth]{../../vignettes/screenshots/influenza-rainbow-deutan.png}}%
+\only<3>{\includegraphics[width=\textwidth]{../../vignettes/screenshots/influenza-rainbow-gray.png}}%
+\only<5>{\includegraphics[width=\textwidth]{../../vignettes/screenshots/influenza-purpleyellow.png}}%
+\only<6>{\includegraphics[width=\textwidth]{../../vignettes/screenshots/influenza-purpleyellow-deutan.png}}%
+\only<7>{\includegraphics[width=\textwidth]{../../vignettes/screenshots/influenza-purpleyellow-gray.png}}
+\end{minipage}
+\hspace*{0.6cm}
+\begin{minipage}{0.4\textwidth}
+
+\textbf{Map:} Influenza severity in Germany (week 8, 2019).\\
+
+\textbf{Source:} Arbeitsgemeinschaft Influenza, Robert-Koch-Institut.\\
+
+\textbf{Reported in:} SPIEGEL Online, Tagesschau, \dots\\
+
+\visible<2->{\textbf{Problems:} Color vision deficiency.}
+\visible<3->{Grayscale.}
+\visible<4->{Flashy.\\}
+
+\visible<5->{\textbf{Alternative:} HCL-based sequential palette.}
+
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Motivation}
+
+\textbf{Need tools for:}
+\begin{itemize}
+  \item Construction of palettes with better perceptual properties.
+  \item Assessment of color palettes.
+  \item Manipulation of colors.
+\end{itemize}
+
+\pause
+\bigskip
+
+\begin{minipage}{0.5\textwidth}
+\includegraphics[width=\textwidth]{../../vignettes/screenshots/bobross.jpg}
+\end{minipage}
+\hspace*{0.6cm}
+\begin{minipage}{0.36\textwidth}
+\vspace*{-4cm}
+Because Bob Ross would not approve of this!
+\end{minipage}
+
+\end{frame}
+
 \subsection{Color spaces}
 
 \begin{frame}
