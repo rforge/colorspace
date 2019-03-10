@@ -4,8 +4,9 @@
   of RGB rainbow palettes (or similar highly saturated and non-monotonic
   palettes).
 
-* Bug fix in `divergingx_hcl(n)` with even `n`. The two central colorse
-  were erroneously duplicated.
+* Bug fix in `divergingx_hcl(n)` with even `n` where the two central colorse
+  were erroneously duplicated. Also, partial matching of palette names has
+  been fixed.
 
 * New sequential multi-hue palette: Purple-Yellow. This is a slightly
   improved version (i.e., with higher luminance contrast) of the palette
