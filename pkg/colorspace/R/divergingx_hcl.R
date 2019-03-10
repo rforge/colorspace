@@ -104,15 +104,12 @@ divergingx_hcl <- function(n, palette = "Geyser", ..., rev = FALSE,
 
     ## call sequential_hcl() once or twice
     n2 <- ceiling(n/2)    
-    rval <- sequential_hcl(n2, rev = TRUE,
-    	h1 = pals["h1"], h2 = pals["h2"], c1 = pals["c1"], c2 = pals["c2"],
-    	l1 = pals["l1"], l2 = pals["l2"], p1 = pals["p1"], p2 = pals["p2"],
-	cmax = pals["cmax1"], ...)
-    if(floor(n/2) < n2) rval <- rval[-1L]
-    rval <- c(rev(rval), sequential_hcl(n2, rev = TRUE,
-    	h1 = pals["h3"], h2 = pals["h2"], c1 = pals["c3"], c2 = pals["c2"],
-    	l1 = pals["l3"], l2 = pals["l2"], p1 = pals["p3"], p2 = pals["p4"],
-	cmax = pals["cmax2"], ...))
+    rval <- seq.int(1, by = -2/(n - 1), length.out = n2)
+    rval <- c(seqhcl(rval, pals["h1"], if(is.na(pals["h2"])) pals["h1"] else pals["h2"], pals["c1"], pals["c2"],
+                     pals["l1"], pals["l2"], pals["p1"], pals["p2"], pals["cmax1"], as.logical(pals["fixup"]), ...),
+    	  rev(seqhcl(rval, pals["h3"], if(is.na(pals["h2"])) pals["h3"] else pals["h2"], pals["c3"], pals["c2"],
+	             pals["l3"], pals["l2"], pals["p3"], pals["p4"], pals["cmax2"], as.logical(pals["fixup"]), ...)))
+    if(floor(n/2) < n2) rval <- rval[-n2]
     if(rev) rval <- rev(rval)
     return(rval)   
 }

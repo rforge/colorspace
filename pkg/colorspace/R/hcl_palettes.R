@@ -390,6 +390,25 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
     if(register) invisible(rval) else return(rval)
 }
 
+## trajectories
+lintrj <- function(i, p1, p2) p2 - (p2 - p1) * i
+tritrj <- function(i, j, p1, p2, pm) ifelse(i <= j,
+  p2 - (p2 - pm) * i/j,
+  pm - (pm - p1) * abs((i - j)/(1 - j)))
+
+## HCL sequence
+seqhcl <- function(i, h1, h2, c1, c2, l1, l2, p1, p2, cmax, fixup, ...) {
+    j <- 1/(1 + abs(cmax - c1) / abs(cmax - c2))
+    if (!is.na(j) && (j <= 0 | j >= 1)) j <- NA
+    hex(polarLUV(
+      L = lintrj(i^p2, l1, l2),
+      C = if(is.na(j)) lintrj(i^p1, c1, c2) else tritrj(i^p1, j, c1, c2, cmax),
+      H = lintrj(i, h1, h2)),
+      fixup = fixup, ...
+    )
+}
+
+
 #' @rdname hcl_palettes
 #' @export
 sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
@@ -467,21 +486,8 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     if(is.na(pals["p2"])) pals["p2"] <- pals["p1"]
 
     ## HCL trajectory
-    cmaxat <- 1/(1 + abs(pals["cmax"] - pals["c1"]) / abs(pals["cmax"] - pals["c2"]))
-    if ( ! is.na(cmaxat) && (cmaxat <= 0 | cmaxat >= 1) ) cmaxat <- NA
     rval <- seq(1, 0, length = n)
-    rval <- hex(polarLUV(
-        L = pals["l2"] - (pals["l2"] - pals["l1"]) * rval^pals["p2"],
-        C = if(is.na(cmaxat)) {
-              pals["c2"] - (pals["c2"] - pals["c1"]) * rval^pals["p1"]
-            } else {
-              ifelse(rval^pals["p1"] <= cmaxat,
-                     pals["c2"] - (pals["c2"] - pals["cmax"]) * (rval^pals["p1"])/cmaxat,
-                     pals["cmax"] - (pals["cmax"] - pals["c1"]) * ((rval^pals["p1"] - cmaxat)/(1 - cmaxat))
-              )
-            },
-        H = pals["h2"] - (pals["h2"] - pals["h1"]) * rval),
-        fixup = as.logical(pals["fixup"]), ...)
+    rval <- seqhcl(rval, pals["h1"], pals["h2"], pals["c1"], pals["c2"], pals["l1"], pals["l2"], pals["p1"], pals["p2"], pals["cmax"], as.logical(pals["fixup"]), ...)
 
     ## alpha transparency
     if(!missing(alpha)) {
@@ -563,21 +569,11 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
     if(is.na(pals["p2"])) pals["p2"] <- pals["p1"]
 
     ## HCL trajectory
-    cmaxat <- 1/(1 + abs(pals["cmax"] - pals["c1"]) / pals["cmax"])
-    if ( ! is.na(cmaxat) && (cmaxat <= 0 | cmaxat >= 1) ) cmaxat <- NA
-    rval <- seq(1, -1, length = n)
-    rval <- hex(polarLUV(
-        L = pals["l2"] - (pals["l2"] - pals["l1"]) * abs(rval)^pals["p2"],
-        C = if(is.na(cmaxat)) {
-              pals["c1"] * abs(rval)^pals["p1"]
-            } else {
-              ifelse(abs(rval)^pals["p1"] <= cmaxat,
-                pals["cmax"] * (abs(rval)^pals["p1"])/cmaxat,
-                    pals["cmax"] - (pals["cmax"] - pals["c1"]) * ((abs(rval)^pals["p1"] - cmaxat)/(1 - cmaxat))
-              )
-            },
-        H = ifelse(rval > 0, pals["h1"], pals["h2"])),
-        fixup = as.logical(pals["fixup"]), ...)
+    n2 <- ceiling(n/2)    
+    rval <- seq.int(1, by = -2/(n - 1), length.out = n2)
+    rval <- c(seqhcl(rval, pals["h1"], pals["h1"], pals["c1"], 0, pals["l1"], pals["l2"], pals["p1"], pals["p2"], pals["cmax"], as.logical(pals["fixup"]), ...),
+    	  rev(seqhcl(rval, pals["h2"], pals["h2"], pals["c1"], 0, pals["l1"], pals["l2"], pals["p1"], pals["p2"], pals["cmax"], as.logical(pals["fixup"]), ...)))
+    if(floor(n/2) < n2) rval <- rval[-n2]
 
     ## alpha transparency
     if(!missing(alpha)) {
