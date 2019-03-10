@@ -10,5 +10,14 @@ data/USSouthPolygon_script.R$
 data/max_chroma_table_script.R$
 paper
 vignettes/screenshots
+vignettes/approximations.Rmd
+vignettes/ggplot2_color_scales.Rmd
+vignettes/color_spaces.Rmd
+vignettes/hcl_palettes.Rmd
+vignettes/color_vision_deficiency.Rmd
+vignettes/hclwizard.Rmd
+vignettes/manipulation_utilities.Rmd
+vignettes/endrainbow.Rmd
+vignettes/palette_visualization.Rmd
 tests/testthat.R$
 tests/testthat
