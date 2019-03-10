@@ -157,8 +157,9 @@ flexible (and possibly unbalanced) multi-hue sequential palettes.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>divergingx_hcl</span>(<span class='no'>n</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Geyser"</span>, <span class='no'>...</span>, <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>h1</span>, <span class='no'>h2</span>, <span class='no'>h3</span>, <span class='no'>c1</span>,
-  <span class='no'>c2</span>, <span class='no'>c3</span>, <span class='no'>l1</span>, <span class='no'>l2</span>, <span class='no'>l3</span>, <span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>cmax1</span>, <span class='no'>cmax2</span>)
+    <pre class="usage"><span class='fu'>divergingx_hcl</span>(<span class='no'>n</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Geyser"</span>, <span class='no'>...</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>h1</span>, <span class='no'>h2</span>, <span class='no'>h3</span>, <span class='no'>c1</span>, <span class='no'>c2</span>, <span class='no'>c3</span>, <span class='no'>l1</span>, <span class='no'>l2</span>, <span class='no'>l3</span>, <span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>cmax1</span>,
+  <span class='no'>cmax2</span>)
 
 <span class='fu'>divergingx_palettes</span>(<span class='kw'>palette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>7L</span>, <span class='no'>...</span>)</pre>
     
@@ -175,7 +176,16 @@ flexible (and possibly unbalanced) multi-hue sequential palettes.</p>
     </tr>
     <tr>
       <th>&#8230;</th>
-      <td><p>arguments passed to <code><a href='hcl_palettes.html'>sequential_hcl</a></code>.</p></td>
+      <td><p>arguments passed to <code><a href='hex.html'>hex</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>fixup</th>
+      <td><p>logical. Should the color be corrected to a valid RGB value?</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>numeric vector of values in the range <code>[0, 1]</code> for alpha
+transparency channel (0 means transparent and 1 means opaque).</p></td>
     </tr>
     <tr>
       <th>rev</th>
