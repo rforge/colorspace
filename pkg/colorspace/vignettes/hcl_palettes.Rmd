@@ -293,7 +293,7 @@ The three types of trajectories are also depicted below. Note that full intensit
 the left and zero intensity $i = 0$ on the right of each panel.
 
 ```{r hcl-trajectories, echo = FALSE, results = "hide"}
-svg(file = "screenshots/hcl-trajectories.svg", width = 11.5, height = 4.0)
+grDevices::svg(file = "screenshots/hcl-trajectories.svg", width = 11.5, height = 4.0)
 ## pal <- qualitative_hcl(5, h1 = 70, "Set 2")
 ## 
 ## par(oma = c(2, 5, 2, 3))
