@@ -25,8 +25,8 @@ color spaces (as the name conveys). Thus, the package helps to map various three
 representations of color to each other [@color:Ihaka:2003]. A particularly important
 mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
-specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
-in R). For completeness further standard color models are included as well in the package.
+specifications in many systems based on the corresponding hex codes [@color:Wiki+Webcolors],
+e.g., in HTML but also in R). For completeness further standard color models are included as well in the package.
 The connections are illustrated in the following graph:
 
 
@@ -103,7 +103,7 @@ constructors in _colorspace_ are:
   human perceptual axes very well without confounding effects as in the HSV or
   HLS approaches. (More details follow below.)
 
-All the S4 classes listed above inherit from a virtual class `color` which are
+All S4 classes for color spaces inherit from a virtual class `color` which are
 internally always represented by matrices with three columns (corresponding to
 the different three dimensions).
 

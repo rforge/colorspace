@@ -60,7 +60,7 @@ The GUIs
 allow for interactive modification of the arguments of the respective
 palette-generating functions, i.e., starting/ending hue (wavelength, type of
 color), minimal/maximal chroma (colorfulness), minimal maximal luminance
-(brightness, amount of gray), and a power transformations that control how
+(brightness, amount of gray), and power transformations that control how
 quickly/slowly chroma and/or luminance are changed through the palette.
 Subsets of the parameters may not be applicable depending on the type of
 palette chosen. See `qualitative_hcl()` and @color:Zeileis+Hornik+Murrell:2009 for

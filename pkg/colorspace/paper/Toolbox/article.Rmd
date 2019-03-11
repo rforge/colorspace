@@ -48,7 +48,7 @@ abstract: >
   thus facilitating intuitive selection of color palettes through trajectories in
   this space.  
 
-  Namely, general strategies for three types of palettes are provided:
+  General strategies for three types of palettes are provided:
   (1)\ Qualitative for coding categorical information, i.e., where no particular
   ordering of categories is available. (2)\ Sequential for coding ordered/numeric information, i.e.,
   going from high to low (or vice versa). (3)\ Diverging for coding ordered/numeric
@@ -92,7 +92,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE,
 ```
 
 At the core of the package there are various utilities for computing with
-color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
+color spaces [@color:Wiki+Colorspace], as the name conveys. Thus, the package helps to map various three-dimensional
 representations of color to each other. A particularly important
 mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
@@ -154,6 +154,7 @@ Aims of code in \pkg{colorspace} are general trajectories, adaptable HCL
 coordinates, along with visualization and assessment of palettes (beyond
 color swatches).
 
+This paper is organized as follows...
 
 # A quick tour {#sec:tour}
 
@@ -378,8 +379,9 @@ color spaces (as the name conveys). Thus, the package helps to map various three
 representations of color to each other [@color:Ihaka:2003]. A particularly important
 mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
-specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
-in \proglang{R}). For completeness further standard color models are included as well in the package.
+specifications in many systems based on the corresponding hex codes
+[@color:Wiki+Webcolors], e.g., in HTML but also in \proglang{R}.
+For completeness further standard color models are included as well in the package.
 The connections are illustrated in Figure\ \ref{fig:color-spaces}.
 Color models that are (or try to be) perceptually-based are displayed with circles
 and models that are not are displayed with rectangles.
@@ -433,7 +435,7 @@ and eponymous class constructors are:
   human perceptual axes very well without confounding effects as in the HSV or
   HLS approaches. (More details follow below.)
 
-All the \proglang{S}4 classes listed above inherit from a virtual class `color` which are
+All \proglang{S}4 classes for color spaces inherit from a virtual class `color` which are
 internally always represented by matrices with three columns (corresponding to
 the different three dimensions).
 
@@ -443,7 +445,10 @@ Notably, base \proglang{R} meanwhile provides `grDevices::convertColor()`
 [computed in high-level \proglang{R}, @color:R] and
 `farver::convert_colour()` [@color:farver] is based on a \proglang{C++} library. For many basic color
 conversion purposes the \pkg{colorspace} package and these alternatives are essentially equally suitable,
-though [see the discussion in @color:convertColor]. Moreover, base \proglang{R} also provides
+though [see the discussion in @color:convertColor]. For more complex conversions, including
+different chromatic adaptation algorithms, a more comprehensive color science approach
+is implemented in the \proglang{R} package \pkg{colorscience} [@color:colorscience].
+Finally, base \proglang{R} also provides
 `grDevices::hcl()` for mapping HCL representations to hex codes.
 
 To make the \pkg{colorspace} package self-contained and exactly backward compatible, the \proglang{C}
@@ -742,7 +747,7 @@ different types of palettes (constant vs.\ linear). However, the chroma trajecto
 and least obvious from the examples above. Hence, the exact mathematical equations underlying
 the chroma trajectories are given in the following (i.e., using the parameters `c1`, `c2`, `cmax`,
 and `p1`, respectively) and are depicted in Figure\ \ref{fig:hcl-trajectories}.
-Analogous equations apply for the other two coordinates, though.
+Analogous equations apply for the other two coordinates.
 
 The trajectories are functions of the _intensity_ $i \in [0, 1]$ where $1$ corresponds to
 the full intensity:
@@ -1429,7 +1434,7 @@ The GUIs interface the `qualitative_hcl()`, `sequential_hcl()`, and `diverging_h
 palettes from Section\ \ref{sec:hcl_palettes}. They
 allow for interactive modification of the arguments of the respective
 palette-generating functions, i.e., starting/ending hue, minimal/maximal chroma,
-minimal maximal luminance, and a power transformations that control how
+minimal maximal luminance, and power transformations that control how
 quickly/slowly chroma and/or luminance are changed through the palette.
 Subsets of the parameters may not be applicable depending on the type of
 palette chosen.
@@ -1629,12 +1634,12 @@ in a given situation. Further useful guidance is provided in many sources, inclu
 
 FIXME: Discuss relation ship to other packages:
 
-* \pkg{Polychrome} [@color:Polychrome]: qualitative palettes with more "categories". This can generate 
+* \pkg{Polychrome} [@color:Polychrome, @color:Polychrome2]: qualitative palettes with more "categories". This can generate 
   palettes with the (a large number of) 
   colours spaced far apart from each other in Luv space.
   It also has functions for visualising colour palettes in different ways 
   (https://www.biorxiv.org/content/biorxiv/early/2018/04/18/303883.full.pdf)
-* \pkg{roloc} [@color:roloc]: colour conversions, but not between
+* \pkg{roloc} [@color:roloc,@color:roloc2]: colour conversions, but not between
   numeric colour spaces;  instead, from numeric colour spaces to
   colour names.  
   (https://stattech.wordpress.fos.auckland.ac.nz/2018/01/25/2018-01-generating-colour-names-the-roloc-package-for-r/)

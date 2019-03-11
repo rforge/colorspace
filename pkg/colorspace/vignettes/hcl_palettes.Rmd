@@ -262,7 +262,7 @@ The trajectories for the hue are also rather intuitive and straightforward for t
 different types of palettes. However, the chroma trajectories are probably most complicated
 and least obvious from the examples above. Hence, the exact mathematical equations underlying
 the chroma trajectories are given in the following (i.e., using the parameters `c1`, `c2`, `cmax`,
-and `p1`, respectively). Analogous equations apply for the other two coordinates, though.
+and `p1`, respectively). Analogous equations apply for the other two coordinates.
 
 The trajectories are functions of the _intensity_ $i \in [0, 1]$ where $1$ corresponds to
 the full intensity:
