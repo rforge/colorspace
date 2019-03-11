@@ -795,7 +795,7 @@ Parameter ranges:
 > 
 > ### Name: polarLUV
 > ### Title: Create polarLUV (HCL) Colors
-> ### Aliases: polarLUV
+> ### Aliases: polarLUV HCL
 > ### Keywords: color
 > 
 > ### ** Examples
