@@ -24,6 +24,10 @@
   diverging pattern. Therefore, the flexibility of `divergingx_hcl()` is
   needed and the palette could not be approximated by `sequential_hcl()`.
 
+* Limits of hue axis are improved in `specplot()`. Previously, the hues
+  were always matched to [0, 100] on the chroma/luminance axis. Now they
+  are matched to [0, maximum chroma].
+
 
 # colorspace 1.4-0
 
