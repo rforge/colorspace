@@ -67,6 +67,7 @@ keywords:
 preamble: >
   \usepackage{thumbpdf,lmodern}
   \usepackage{booktabs,amsmath,longtable,supertabular,framed}
+  \shortcites{color:colorspace,color:ggplot2pkg}
   \newcommand{\tex}[1]{#1}
 output: rticles::jss_article
 bibliography: ../../vignettes/color.bib
@@ -75,11 +76,6 @@ bibliography: ../../vignettes/color.bib
 \tex{\vspace*{-0.4cm}}
 
 # Introduction {#sec:intro}
-
-The \pkg{colorspace} package provides a broad toolbox for selecting individual
-colors or color palettes, manipulating these colors, and employing
-them in various kinds of visualizations.
-
 
 ```{r preliminaries, echo = FALSE, message = FALSE}
 library("colorspace")
@@ -91,19 +87,40 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE,
   fig.align = "center", fig.show = "hold", fig.path = "Figures/")
 ```
 
-At the core of the package there are various utilities for computing with
-color spaces [@color:Wiki+Colorspace], as the name conveys. Thus, the package helps to map various three-dimensional
-representations of color to each other. A particularly important
-mapping is the one from the perceptually-based and device-independent color model
-HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
-specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
-in \proglang{R}). For completeness further standard color models are included as well in the package:
-`polarLUV()` (= HCL), `LUV()`, `polarLAB()`, `LAB()`, `XYZ()`, `RGB()`, `sRGB()`, `HLS()`,
-`HSV()`.
+Color is an integral and omnipresent element of many statistical graphics and data
+visualizations. Therefore, colors should be carefully chosen to support the information
+displayed [@color:Tufte:1990, @color:Brewer:1999, @color:Ware:2004, @color:Wilkinson:2005, @color:Wilke:2019].
+However, until relatively recently many software packages have been using color
+palettes derived from simple RGB (red-green-blue)
+color combinations such as the RGB "rainbow" (or "jet") color palette
+with poor perceptual properties. See @color:Hawkins+McNeall+Stephenson:2014
+and @color:Stauffer+Mayr+Dabernig:2015 and the references therein for an overview.
 
-The HCL space (= polar coordinates in CIELUV) is particularly useful for
-specifying individual colors and color palettes as its three axes match those
-of the human visual system very well: Hue (= type of color, dominant wavelength),
+To address these problems, many improved color palettes with better perceptual
+properties have been suggested in the literature
+[@color:Harrower+Brewer:2003, @color:Zeileis+Hornik+Murrell:2009, @color:Smith+VanDerWalt:2015, @color:Crameri:2018]
+and also made available in standard software packages including various
+packages for \proglang{R} [@color:R] such as 
+\pkg{RColorBrewer} [@color:RColorBrewer],
+\pkg{rcartocolor} [@color:rcartocolor],
+\pkg{viridis} [@color:viridis],
+\pkg{wesanderson} [@color:wesanderson],
+or \pkg{scico} [@color:scico] among many others.
+In packages like \pkg{pals} [@color:pals] and \pkg{paletteer} [@color:paletteer]
+many of these palettes are collected and provided with a unified interface.
+Most of these palettes, however, are pre-existing palettes, stored as a
+limited set of colors and interpolated as necessary. And even if specific
+algorithms have been used in the first construction of the palettes, these
+are often not reflected in the software implementations.
+
+In contrast, the \pkg{colorspace} package [@color:colorspace] adopts a perceptually-based
+approach -- the so-called HCL (hue--chroma--luminance) space -- and
+establishes a broad range of color palettes through general and adaptable
+trajectories in HCL space. In addition to constructing the palettes the HCL
+space is also employed to visualize and assess the properties of a given
+palette (beyond simple color swatches). The reason for choosing the HCL space
+for all of these tools is that its three axes match those of the human visual system very well:
+Hue (= type of color, dominant wavelength),
 chroma (= colorfulness), luminance (= brightness), see Figure\ \ref{fig:hcl-properties}.
 
 ```{r hcl-properties, echo = FALSE, fig.width = 4, fig.height = 2.2, out.width = "0.5\\textwidth", fig.cap = "Axes of the HCL color space. Top: Hue $H$ changes from 0 (red) via 60 (yellow), etc.\\ to 300 (purple) with fixed $C = 60$ and $L = 65$. Center: Chroma $C$ changes from 0 (gray) to 100 (colorful) with fixed $H = 0$ (red) and $L = 65$. Bottom: Luminance $L$ changes from 90 (light) to 25 (dark) with fixed $H = 260$ (blue) and $C = 25$ (low, close to gray)."}
@@ -155,6 +172,26 @@ coordinates, along with visualization and assessment of palettes (beyond
 color swatches).
 
 This paper is organized as follows...
+
+
+
+
+The \pkg{colorspace} package provides a broad toolbox for selecting individual
+colors or color palettes, manipulating these colors, and employing
+them in various kinds of visualizations.
+
+
+At the core of the package there are various utilities for computing with
+color spaces [@color:Wiki+Colorspace], as the name conveys. Thus, the package helps to map various three-dimensional
+representations of color to each other. A particularly important
+mapping is the one from the perceptually-based and device-independent color model
+HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
+specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
+in \proglang{R}). For completeness further standard color models are included as well in the package:
+`polarLUV()` (= HCL), `LUV()`, `polarLAB()`, `LAB()`, `XYZ()`, `RGB()`, `sRGB()`, `HLS()`,
+`HSV()`.
+
+
 
 # A quick tour {#sec:tour}
 
@@ -240,7 +277,7 @@ To illustrate their usage two simple examples are shown using the qualitative `"
 and sequential `"Purples 3"` palettes that were also employed above
 (see Figure\ \ref{fig:iris-diamonds}). For the first example, semi-transparent
 shaded densities of the sepal length from the `iris` data are shown, grouped by species
- (see the left panel of Figure\ \ref{fig:iris-ggplot}).
+(see the left panel of Figure\ \ref{fig:iris-diamonds}).
 
 ```{r iris-ggplot, eval = FALSE}
 library("ggplot2")
@@ -251,7 +288,7 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
 
 And for the second example the sequential palette is used to code the cut levels
 in a scatter of price by carat in the `diamonds` data (or rather a small subsample
-thereof, see the right panel of Figure\ \ref{fig:iris-ggplot}). The scale function first
+thereof, see the right panel of Figure\ \ref{fig:iris-diamonds}). The scale function first
 generates six colors but then drops the first color because the light gray is too light
 here. (Alternatively, the chroma and luminance parameters could also be tweaked.)
 
@@ -336,7 +373,7 @@ s9 <- sequential_hcl(9, "Purples 3")
 allplots(s9, "heatmap")
 ```
 
-In Figure\ \ref{fig:applots-sequential}, a heatmap (based on the well-known Maunga Whau volcano data) is used as a typical
+In Figure\ \ref{fig:allplots-sequential}, a heatmap (based on the well-known Maunga Whau volcano data) is used as a typical
 application for a sequential palette. The elevation of the volcano is brought out clearly,
 focusing with the dark colors on the higher elevations.
 The other two displays show that hue is constant in the palette while luminance and chroma vary.
@@ -607,7 +644,7 @@ increasing luminance. For bringing out the extremes (a dark high-chroma color vs
 light gray) this is already very effective, see `"Blues 2"`, `"Purples 2"`, `"Reds 2"`,
 and `"Greens 2"`.
 
-For distinguishing colors in the middle, two strategies can be employed:
+For distinguishing colors in the center of the palette, two strategies can be employed:
 (a) Hue can be varied as well by specifying an interval of hues in `h` (or beginning
 hue `h1` and ending hue `h2`). More details are provided in the next section.
 (b) Instead of a decreasing chroma a triangular chroma trajectory can be employed
@@ -1066,13 +1103,13 @@ luminance increases monotonically to yield a proper sequential palette. However,
 the hue and chroma handling is somewhat different to emphasize different parts of the
 palette.
 
-* Single-hue: In each palette the hue is fixed and chroma decreases monotonically
+* _Single-hue:_ In each palette the hue is fixed and chroma decreases monotonically
   (along with increasing luminance). This is typically sufficient to clearly bring
   out the extreme colors (dark/colorful vs.\ light gray).
-* Single-hue (advanced): The hue is fixed (as above) but the chroma trajectory is
+* _Single-hue (advanced):_ The hue is fixed (as above) but the chroma trajectory is
   triangular. Compared to the basic single-hue palette above this allows to better
   distinguish the colors in the middle and not only the extremes.
-* Multi-hue (advanced): As in the advanced single-hue palette the chroma trajectory
+* _Multi-hue (advanced):_ As in the advanced single-hue palette the chroma trajectory
   is triangular but additionally the hue varies slightly. This can further enhance
   the distinction of colors in the middle of the palette.
 
@@ -1102,11 +1139,11 @@ by default a smoothing is applied to the hues. Also, to avoid jumps from 0 to 36
 versa, the hue coordinates are shifted suitably.
 By default, the resulting trajectories in the HCL spectrum are visualized by a simple line plot:
 
-- Hue is drawn in red and coordinates are indicated on the axis on the right
-  with range $[-360, 360]$.
-- Chroma is drawn in green with coordinates on the left axis. The range [0, 100]
+* Hue is drawn in red and coordinates are indicated on the axis on the right
+  with range $[0, 360]$ or (if necessary) $[-360, 360]$.
+* Chroma is drawn in green with coordinates on the left axis. The range [0, 100]
   is used unless the palette necessitates higher chroma values.
-- Luminance is drawn in blue with coordinates on the left axis in the range [0, 100].
+* Luminance is drawn in blue with coordinates on the left axis in the range [0, 100].
 
 Additionally, a color swatch for the palette is included. Optionally, a
 second spectrum for the corresponding trajectories of RGB coordinates can be included. However,
