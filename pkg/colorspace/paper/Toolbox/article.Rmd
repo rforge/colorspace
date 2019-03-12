@@ -124,7 +124,7 @@ swatchplot(
 ```
 
 The \pkg{colorspace} package [@color:colorspace] adopts a somewhat different
-approach, utiliting the perceptually-based HCL (hue--chroma--luminance) color space
+approach, utiliting the perceptually-based HCL (Hue--Chroma--Luminance) color space
 [@color:Wiki+HCL]. The three axes of the HCL space match those of the human visual
 system very well: Hue (= type of color, dominant wavelength),
 chroma (= colorfulness), luminance (= brightness), see Figure\ \ref{fig:hcl-properties}.
@@ -175,7 +175,7 @@ is hosted on \proglang{R}-Forge at \url{https://R-Forge.R-project.org/projects/c
 ## Choosing HCL-based color palettes
 
 The \pkg{colorspace} package ships with a wide range of predefined color palettes,
-specified through suitable trajectories in the HCL (hue-chroma-luminance) color space.
+specified through suitable trajectories in the HCL (Hue-Chroma-Luminance) color space.
 A quick overview can be gained easily with the `hcl_palettes()` function (see Figure\ \ref{fig:hcl-palettes}):
 
 ```{r hcl-palettes, fig.height = 6.75, fig.width = 12, fig.cap = "Overview of available predefined palettes in \\pkg{colorspace}."}
@@ -1630,37 +1630,35 @@ manipulating these colors, and employing them in various kinds of visualizations
 
 In particular, the package provides various qualitative, sequential, and
 diverging palettes derived by relatively simple trajectories in HCL
-(Hue-Chroma-Luminance) space. In contrast to many other packages providing
+(Hue--Chroma--Luminance) space. In contrast to many other packages providing
 modern balanced color palettes (such as \pkg{ColorBrewer.org}, \pkg{CARTO},
 \pkg{viridis}, or \pkg{scico}) special emphasis is given to flexibility of
 the palettes that can be adjusted to the particular needs of a given
-data visulization. The manuscript already provided various tips and tricks
-regarding factors that are relevant in choosing an effective palette
-in a given situation. Further useful guidance is provided in many sources, including
+data visulization. The manuscript also provides various tips and tricks
+for choosing an effective palette in a given situation. Further useful
+guidance is provided in many sources, including:
 @color:Ware:1988, @color:Okabe+Ito:2008, @color:Aigner:2010,
 @color:Stauffer+Mayr+Dabernig:2015, @color:Zhang:2015, @color:Rost:2018,
-@color:Wilke:2019, and @color:Ciechanowski:2019.
+@color:Wilke:2019, and @color:Ciechanowski:2019, among many others.
 
-
-FIXME: Discuss relation ship to other packages:
-
-* \pkg{Polychrome} [@color:Polychrome, @color:Polychrome2]: qualitative palettes with more "categories". This can generate 
-  palettes with the (a large number of) 
-  colours spaced far apart from each other in Luv space.
-  It also has functions for visualising colour palettes in different ways 
-  (https://www.biorxiv.org/content/biorxiv/early/2018/04/18/303883.full.pdf)
-* \pkg{roloc} [@color:roloc,@color:roloc2]: colour conversions, but not between
-  numeric colour spaces;  instead, from numeric colour spaces to
-  colour names.  
-  (https://stattech.wordpress.fos.auckland.ac.nz/2018/01/25/2018-01-generating-colour-names-the-roloc-package-for-r/)
-* \pkg{colorscience} [@color:colorscience]: This package is for Colour
-Science.  It has data sets, does more complex conversions (including
-different chromatic adaptation algorithms).  
-So more sophisticated than \pkg{colorspace}
-in terms of flexibility and low-level detail, BUT it does not do
-palette-generation.
-* \pkg{paletteer} [@color:paletteer]: Aggregation of palettes.
-
+Further \proglang{R} packages that can complement the palettes provided
+by \pkg{colorspace} include:
+\pkg{Polychrome} [@color:Polychrome; @color:Polychrome2] implements strategies
+for qualitative palettes with many "categories". While the qualitative palettes
+in Section\ \ref{sec:hcl_palettes} yield only about 6--8 clearly distinguishable
+colors due to the fixed chroma and luminance, \pkg{Polychrome} relaxes this
+restriction and can thus find a larger number of colors in CIELUV space that
+are spaced as far apart as possible. It also has several functions for visualizing
+color palettes in different ways. 
+The palette collection packages \pkg{pals} [@color:pals] and \pkg{paletteer} [@color:paletteer]
+also provide a wide range of prespecified palettes, including some qualitative
+schemes with many categories. Note that the palettes are quite diverse, though,
+and not all of them are equally suitable for coding qualitative information.
+The visualization functions in \pkg{colorspace} from Section\ \ref{sec:palette_visualization}
+may be helpful in assessing their properties.
+\pkg{roloc} [@color:roloc; @color:roloc2] also provides color conversions, but
+not between numeric colour spaces; instead, from numeric color spaces to
+English color names.
 
 In addition to the \proglang{R} version of \pkg{colorspace}, a
 \proglang{Python}\ 2/\proglang{Python}\ 3 re-implementation is in beta
