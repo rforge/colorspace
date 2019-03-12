@@ -21,7 +21,7 @@ library("colorspace")
 ## Overview
 
 At the core of the _colorspace_ package are various utilities for computing with
-color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
+color spaces [@color:Wiki+Colorspace], as the name conveys. Thus, the package helps to map various three-dimensional
 representations of color to each other [@color:Ihaka:2003]. A particularly important
 mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color

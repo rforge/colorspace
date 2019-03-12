@@ -88,8 +88,8 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE,
 ```
 
 Color is an integral and omnipresent element of many statistical graphics and data
-visualizations. Therefore, colors should be carefully chosen to support the information
-displayed [@color:Tufte:1990, @color:Brewer:1999, @color:Ware:2004, @color:Wilkinson:2005, @color:Wilke:2019].
+visualizations. Therefore, colors should be carefully chosen to support all viewers in
+accessing the information displayed [@color:Tufte:1990; @color:Brewer:1999; @color:Ware:2004; @color:Wilkinson:2005; @color:Wilke:2019].
 However, until relatively recently many software packages have been using color
 palettes derived from simple RGB (red-green-blue)
 color combinations such as the RGB "rainbow" (or "jet") color palette
@@ -97,31 +97,22 @@ with poor perceptual properties. See @color:Hawkins+McNeall+Stephenson:2014
 and @color:Stauffer+Mayr+Dabernig:2015 and the references therein for an overview.
 
 To address these problems, many improved color palettes with better perceptual
-properties have been suggested in the literature
-[@color:Harrower+Brewer:2003, @color:Zeileis+Hornik+Murrell:2009, @color:Smith+VanDerWalt:2015, @color:Crameri:2018]
-and also made available in standard software packages including various
-packages for \proglang{R} [@color:R] such as 
+properties have been suggested in the literature over the last one or two decades
+[@color:Harrower+Brewer:2003; @color:Zeileis+Hornik+Murrell:2009; @color:Smith+VanDerWalt:2015; @color:CARTO; @color:Crameri:2018].
+Many systems for systems for statistical and scientific computing provide
+infrastructure for such color palettes, e.g., for \proglang{R} [@color:R] the
+list of useful packages encompasses:
 \pkg{RColorBrewer} [@color:RColorBrewer],
-\pkg{rcartocolor} [@color:rcartocolor],
 \pkg{viridis} [@color:viridis],
+\pkg{rcartocolor} [@color:rcartocolor],
 \pkg{wesanderson} [@color:wesanderson],
 or \pkg{scico} [@color:scico] among many others.
-In packages like \pkg{pals} [@color:pals] and \pkg{paletteer} [@color:paletteer]
-many of these palettes are collected and provided with a unified interface.
+Furthermore, packages like \pkg{pals} [@color:pals] and \pkg{paletteer} [@color:paletteer]
+collect many of the proposed palettes in combination with a unified interface.
 Most of these palettes, however, are pre-existing palettes, stored as a
 limited set of colors and interpolated as necessary. And even if specific
-algorithms have been used in the first construction of the palettes, these
+algorithms have been used in the initial construction of the palettes, these
 are often not reflected in the software implementations.
-
-In contrast, the \pkg{colorspace} package [@color:colorspace] adopts a perceptually-based
-approach -- the so-called HCL (hue--chroma--luminance) space -- and
-establishes a broad range of color palettes through general and adaptable
-trajectories in HCL space. In addition to constructing the palettes the HCL
-space is also employed to visualize and assess the properties of a given
-palette (beyond simple color swatches). The reason for choosing the HCL space
-for all of these tools is that its three axes match those of the human visual system very well:
-Hue (= type of color, dominant wavelength),
-chroma (= colorfulness), luminance (= brightness), see Figure\ \ref{fig:hcl-properties}.
 
 ```{r hcl-properties, echo = FALSE, fig.width = 4, fig.height = 2.2, out.width = "0.5\\textwidth", fig.cap = "Axes of the HCL color space. Top: Hue $H$ changes from 0 (red) via 60 (yellow), etc.\\ to 300 (purple) with fixed $C = 60$ and $L = 65$. Center: Chroma $C$ changes from 0 (gray) to 100 (colorful) with fixed $H = 0$ (red) and $L = 65$. Bottom: Luminance $L$ changes from 90 (light) to 25 (dark) with fixed $H = 260$ (blue) and $C = 25$ (low, close to gray)."}
 swatchplot(
@@ -132,7 +123,15 @@ swatchplot(
 )
 ```
 
-The \pkg{colorspace} package provides three types of palettes based on the HCL model:
+The \pkg{colorspace} package [@color:colorspace] adopts a somewhat different
+approach, utiliting the perceptually-based HCL (hue--chroma--luminance) color space
+[@color:Wiki+HCL]. The three axes of the HCL space match those of the human visual
+system very well: Hue (= type of color, dominant wavelength),
+chroma (= colorfulness), luminance (= brightness), see Figure\ \ref{fig:hcl-properties}.
+Thus, based on this color model the \pkg{colorspace} package can derive general and adaptable
+strategies for color palettes; manipulate individual colors and color palettes;
+and assess and visualize the properties of color palettes (beyond simple color swatches).
+Specifically, \pkg{colorspace} provides three types of palettes based on the HCL model:
 
 * _Qualitative:_ Designed for coding categorical information, i.e.,
   where no particular ordering of categories is available and every color
@@ -143,54 +142,27 @@ The \pkg{colorspace} package provides three types of palettes based on the HCL m
   neutral value, i.e., where colors diverge from neutral to two extremes.
   Function: `diverging_hcl()`.
 
-To aid choice and application of these palettes there are: scales for use
-with \pkg{ggplot2} [@color:ggplot2]; \pkg{shiny} [@color:shiny] [and \pkg{tcltk}, @color:R] apps for interactive exploration;
-visualizations of palette properties; accompanying manipulation utilities
-(like desaturation, lighten/darken, and emulation of color vision deficiencies).
+A broad collection of prespecified palettes are shipped in the package, existing
+palettes can be easily tweaked, and new or adapted palettes registered. The prespecified
+palettes include suitable HCL color choices that closely approximate of most palettes
+from packages \pkg{RColorBrewer}, \pkg{rcartocolor}, and \pkg{viridis} by using only a
+small set of hue, chroma, and luminance parameters.
 
+To aid choice and application of these palettes there are
+(a) scales for use with \pkg{ggplot2} [@color:ggplot2],
+(b) \pkg{shiny} [@color:shiny] [and \pkg{tcltk}, @color:R] apps for interactive exploration,
+(c) visualizations of palette properties, and
+(d) accompanying manipulation utilities (like desaturation, lighten/darken, and emulation of color vision deficiencies).
 
-FIXME: More comparison with/discussion of other palette packages.
-the viridis palettes of @color:Smith+VanDerWalt:2015 developed for \pkg{matplotlib},
-as provided by \proglang{R} package \pkg{viridis} [@color:viridis], and
-the scientific color maps of @color:Crameri:2018 as provided by \proglang{R}
-package \pkg{scico} [@color:scico]. All yield mostly well-balanced color palettes
-and can be approximated reasonably well in \pkg{colorspace}
-(see Section\ \ref{sec:approximations}).
-A broad range of packages that provide color palettes that are "in harmony" as
-they are extracted and clustered from movies, paintings, etc. However, many of these
-are not so suitable for scientific visualization as they are not clearly 
-qualitative/sequential/diverging. An influential package following such an
-approach is \pkg{wesanderson} [@color:wesanderson]. The \pkg{paletteer}
-[@color:paletteer] package aggregates these and provides them in a unified
-user interface.
-The \pkg{pals} package also provides a large number of palettes,
-but some are just pre-existing palettes, and where the palettes are new
-there is no description of a specific algorithm that was used to generate
-them.  
-Aims of code in \pkg{colorspace} are general trajectories, adaptable HCL
-coordinates, along with visualization and assessment of palettes (beyond
-color swatches).
-
-This paper is organized as follows...
-
-
-
-
-The \pkg{colorspace} package provides a broad toolbox for selecting individual
-colors or color palettes, manipulating these colors, and employing
-them in various kinds of visualizations.
-
-
-At the core of the package there are various utilities for computing with
-color spaces [@color:Wiki+Colorspace], as the name conveys. Thus, the package helps to map various three-dimensional
-representations of color to each other. A particularly important
-mapping is the one from the perceptually-based and device-independent color model
-HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
-specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
-in \proglang{R}). For completeness further standard color models are included as well in the package:
-`polarLUV()` (= HCL), `LUV()`, `polarLAB()`, `LAB()`, `XYZ()`, `RGB()`, `sRGB()`, `HLS()`,
-`HSV()`.
-
+The remainder of the manuscript is organized as follows:
+Section\ \ref{sec:tour} gives a first overview of the package's "look & feel" and the general workflow.
+Section\ \ref{sec:hcl_palettes} introduces the extensible collection of HCL-based palettes along with their construction details.
+Section\ \ref{sec:palette_visualization} presents the toolbox for palette visualization and assessment.
+Section\ \ref{sec:color_vision_deficiency} discusses the implemented techniques for color vision deficiency emulation
+that help assess the suitability of colors for colorblind viewers.
+Section\ \ref{sec:hclwizard} briefly highlights the interactive color apps from the package.
+Finally, some further color manipulation utilities are highlighted in Section\ \ref{sec:manipulation_utilities}
+before Section\ \ref{sec:summary} concludes the manuscript.
 
 
 # A quick tour {#sec:tour}
@@ -412,7 +384,7 @@ text(4.56, 2, "gamma\n(= 2.4)", cex = 0.7, pos = 3)
 ```
 
 At the core of the \pkg{colorspace} package are various utilities for computing with
-color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
+color spaces [@color:Wiki+Colorspace], as the name conveys. Thus, the package helps to map various three-dimensional
 representations of color to each other [@color:Ihaka:2003]. A particularly important
 mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
@@ -1231,7 +1203,8 @@ hclplot(sequential_hcl(7, h = 245, c = c(40, 75, 0), l = c(30, 95),
 ```
 
 Note that for $H = 260$ it is possible to go to dark colors (= low luminance) with
-high chroma while this is not possible to the same extent for $H = 245$. Hence,
+high chroma while this is not possible to the same extent for $H = 245$ because of
+the distorted shape of the HCL space. Hence,
 chroma has to be decreased when proceeding to the dark low-luminance colors.
 
 Finally, Figure\ \ref{fig:hcl-multi} compares two multi-hue sequential palettes along
@@ -1443,9 +1416,9 @@ several graphical user interfaces (GUIs) are provided within the package as
 \pkg{shiny} apps [@color:shiny]. All of these GUIs/apps can either be run locally
 from within \proglang{R} but are also provided online at <http://hclwizard.org/>.
 
-* **Palette constructor:** `choose_palette()` or `hclwizard()` or `hcl_wizard()`.
-* **Color picker:** `choose_color()` or equivalently `hcl_color_picker()`.
-* **Color vision deficiency emulator:** `cvd_emulator()`.
+* _Palette constructor:_ `choose_palette()` or `hclwizard()` or `hcl_wizard()`.
+* _Color picker:_ `choose_color()` or equivalently `hcl_color_picker()`.
+* _Color vision deficiency emulator:_ `cvd_emulator()`.
 
 In addition to the \pkg{shiny} version, the **palette constructor** app is also available
 as a \proglang{Tcl}/\proglang{Tk} GUI via \proglang{R} package
@@ -1481,7 +1454,7 @@ Optionally, the active palette can be illustrated by using a `specplot()` (see S
 (see Section\ \ref{sec:demoplot}), and assessed using emulation
 of color vision deficiencies (see Section\ \ref{sec:color_vision_deficiency}).
 To facilitate generation of palettes for black/dark backgrounds, a "dark mode"
-of the GUIs is also available:
+of the GUIs is also available.
 
 
 ## Choose individual colors with the HCL color model
@@ -1579,7 +1552,7 @@ In principle, a similar approach for lightening and darkening colors can be empl
 above. The colors can simply be transformed to HCL space and then the luminance can either be decreased
 (turning the color darker) or increased (turning it lighter) while preserving the hue and chroma coordinates.
 This strategy typically works well for lightening colors, although in some situations the result can be
-rather colorful. Conversely, when darkening rather light colors with little chroma, this can result
+somewhat too colorful. Conversely, when darkening rather light colors with little chroma, this can result
 in rather gray colors.
 
 In these situations, an alternative might be to apply the analogous strategy in HLS space which is frequently
@@ -1592,8 +1565,8 @@ hence the default in `lighten()`. For darkening colors, the combined strategy of
 the default in `darken()`. In either case it is recommended to try the other available strategies in case
 the default yields unexpected results.
 
-Regardless of the chosen color space, the adjustment of the `L` component can occur by two methods, relative
-(the default) and absolute. For example for darkening these either use `L - 100 * amount` (absolute) or
+Regardless of the chosen color space, the adjustment of the `L` component by a certain `amount` can occur by two methods, relative
+(the default) or absolute. For example for darkening these either use `L - 100 * amount` (absolute) or
 `L * (1 - amount)` (relative). See `?lighten` and `?darken` for more details.
 
 For illustration the qualitative palette suggested by @color:Okabe+Ito:2008 is transformed by two
