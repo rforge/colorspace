@@ -32,7 +32,7 @@ sensitivity. As anomalous trichromacy is the most common form of color vision
 deficiency, it is important to emulate along with the rarer, but more severe
 dichromacy.
 
-The workhorse function to emulate color vision deficiencies is `simulate_cvd()`
+The workhorse function to emulate color vision deficiencies is `simulate_cvd()`,
 which can take any vector of valid R colors and transform them according to a
 certain CVD transformation matrix and transformation equation. The
 transformation matrices have been established by @color:Machado+Oliveira+Fernandes:2009 and are

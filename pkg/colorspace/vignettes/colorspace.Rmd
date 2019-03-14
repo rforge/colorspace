@@ -113,7 +113,7 @@ library("colorspace")
 hcl_palettes(plot = TRUE)
 ```
 
-A suitable vector of colors can be easily computed by specifying the desired number of colors and palette name (see the plot above), e.g.,
+A suitable vector of colors can be easily computed by specifying the desired number of colors and the palette name (see the plot above), e.g.,
 
 ```{r qualitative-hcl-4}
 q4 <- qualitative_hcl(4, palette = "Dark 3")
@@ -121,7 +121,7 @@ q4
 ```
 
 The functions `sequential_hcl()`, and `diverging_hcl()` work analogously. Additionally,
-their hue/chroma/luminance parameters can be modified, thus allowing to easily customize
+their hue/chroma/luminance parameters can be modified, thus allowing for easy customization of
 each palette. Moreover, the `choose_palette()`/`hclwizard()` app provide convenient user
 interfaces to perform palette customization interactively. Finally, even more flexible diverging
 HCL palettes are provided by `divergingx_hcl()`.
@@ -145,9 +145,9 @@ plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
 legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
 ```
 
-As another example for a sequential palette a spine plot is created below,
+As another example for a sequential palette, we demonstrate how to create a spine plot
 displaying the proportion of Titanic passengers that survived per class.
-The `Purples 3` palette is used which is quite similar to the **ColorBrewer.org**
+The `Purples 3` palette is used, which is quite similar to the **ColorBrewer.org**
 palette `Purples`. Here, only two colors are employed, yielding a dark purple
 and light gray.
 
@@ -165,8 +165,8 @@ spineplot(ttnc, col = sequential_hcl(2, "Purples 3"))
 
 ## Usage with _ggplot2_
 
-To plug the HCL color palettes into _ggplot2_ graphics suitable discrete and/or
-continuous _gglot2_ color scales are provided. The scales are called via the scheme
+To provide access to the HCL color palettes from within _ggplot2_ graphics suitable discrete and/or
+continuous _gglot2_ color scales are provided. The scales are named via the scheme
 `scale_<aesthetic>_<datatype>_<colorscale>()`, where `<aesthetic>` is the name
 of the aesthetic (`fill`, `color`, `colour`), `<datatype>` is the type of the
 variable plotted (`discrete` or `continuous`) and `<colorscale>` sets the type
@@ -259,7 +259,7 @@ allplots(s9, "heatmap")
 
 Here, a heatmap (based on the well-known Maunga Whau volcano data) is used as a typical
 application for a sequential palette. The elevation of the volcano is brought out clearly,
-focusing with the dark colors on the higher elevations.
+using dark colors to give emphasis to higher elevations.
 
 The other two displays show that hue is constant in the palette while luminance and chroma vary.
 Luminance increases monotonically from dark to light (as required for a proper sequential palette).

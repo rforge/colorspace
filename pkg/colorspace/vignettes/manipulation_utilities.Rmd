@@ -26,7 +26,7 @@ useful for creating, assessing, or transforming color palettes, namely:
 * `desaturate()`: Desaturate colors by chroma removal in HCL space.
 * `darken()` and `lighten()`: Algorithmically lighten or darken colors in HCL and/or HLS space.
 * `max_chroma()`: Compute maximum chroma for given hue and luminance in HCL space.
-* `mixcolor()`: Additive mixing of two colors by computing the convex combination.
+* `mixcolor()`: Additively mix two colors by computing their convex combination.
 
 
 ## Desaturation in HCL space
@@ -36,7 +36,7 @@ In principle, any perceptually-based color model (HCL, HLS, HSV, ...) could be
 employed for this but HCL works particularly well because its coordinates
 capture the perceptual properties better than most other color models.
 
-Thus, the `desaturate()` function converts any given hex color code or named
+The `desaturate()` function converts any given hex color code or named
 R color to the corresponding HCL coordinates and sets the chroma to zero.
 Thus, only the luminance matters which captures the "brightness" mentioned above.
 Finally, the resulting HCL coordinates are transformed back to hex color codes
@@ -124,7 +124,7 @@ swatchplot(
 As the possible combinations of chroma and luminance in HCL space depend on hue,
 it is not obvious which trajectories through HCL space are possible prior to
 trying a specific HCL coordinate by calling `polarLUV()`. To avoid having to
-`fixup` the color upon conversion to RGB `hex()` color codes, the
+fix up the color upon conversion to RGB `hex()` color codes, the
 `max_chroma()` function computes (approximately) the maximum chroma
 possible. 
 

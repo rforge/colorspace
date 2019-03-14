@@ -60,7 +60,7 @@ This shows the following:
 - Luminance: Only the luminance (= brightness) changes from L = 90 (light) to 25 (dark)
   while hue and chroma are fixed to H = 260 (blue) and C = 25 (low, close to gray), respectively.
 
-As a somewhat more complex example a `swatchplot()` is created with three matrices
+Next, we demonstrate a more complex example of a `swatchplot()` with three matrices
 of sequential color palettes of blues, purples, reds, and greens. For all palettes,
 luminance increases monotonically to yield a proper sequential palette. However,
 the hue and chroma handling is somewhat different to emphasize different parts of the
@@ -166,7 +166,7 @@ of [color vision deficiency](color_vision_deficiency.html).
 ## Trajectories in HCL space
 
 While the `specplot()` function above works well for bringing out the HCL coordinates
-associated with a given palette, it does not bring out how the palette fits into
+associated with a given palette, it does not show how the palette fits into
 the HCL space. For example, it is not so clear whether high chroma values are
 close to the maximum possible for a given hue. Thus, it cannot be judged so easily
 how the parameters of the hue, chroma, and luminance trajectories can be
@@ -198,10 +198,11 @@ Thus, for qualitative palettes - where luminance and chroma are fixed - the vary
 hue is displayed in a projection onto the hue-chroma plane at a given fixed luminance:
 
 ```{r hcl-qualitative, fig.width = 4, fig.height = 4, fig.align = "center", dev = "png"}
-hclplot(qualitative_hcl(9, c = 50, l = 70))
+hclplot(qualitative_hcl(9, "Dynamic"))
 ```
 
-The display below compares three single-hue sequential palettes by projection
+The display below compares three single-hue sequential palettes
+(similar to "Blues 2" and "Blues 3") by projection
 to the luminance-chroma plane for the given fixed hue. In the left panel
 the hue 260 is used with a simple linear chroma trajectory. The other two
 panels employ a triangular chroma trajectory for hue 245, either with

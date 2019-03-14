@@ -127,14 +127,14 @@
 <li>
 <code><a href="../reference/max_chroma.html">max_chroma()</a></code>: Compute maximum chroma for given hue and luminance in HCL space.</li>
 <li>
-<code><a href="../reference/mixcolor.html">mixcolor()</a></code>: Additive mixing of two colors by computing the convex combination.</li>
+<code><a href="../reference/mixcolor.html">mixcolor()</a></code>: Additively mix two colors by computing their convex combination.</li>
 </ul>
 </div>
 <div id="desaturation-in-hcl-space" class="section level2">
 <h2 class="hasAnchor">
 <a href="#desaturation-in-hcl-space" class="anchor"></a>Desaturation in HCL space</h2>
 <p>Desaturation should map a given color to the gray with the same “brightness”. In principle, any perceptually-based color model (HCL, HLS, HSV, …) could be employed for this but HCL works particularly well because its coordinates capture the perceptual properties better than most other color models.</p>
-<p>Thus, the <code><a href="../reference/desaturate.html">desaturate()</a></code> function converts any given hex color code or named R color to the corresponding HCL coordinates and sets the chroma to zero. Thus, only the luminance matters which captures the “brightness” mentioned above. Finally, the resulting HCL coordinates are transformed back to hex color codes for use in R.</p>
+<p>The <code><a href="../reference/desaturate.html">desaturate()</a></code> function converts any given hex color code or named R color to the corresponding HCL coordinates and sets the chroma to zero. Thus, only the luminance matters which captures the “brightness” mentioned above. Finally, the resulting HCL coordinates are transformed back to hex color codes for use in R.</p>
 <p>For illustration, a few simple examples are presented below. More examples in the context of palettes for statistical graphics are discussed along with the <a href="color_vision_deficiency.html">color vision deficiency</a> article.</p>
 <p>First, <code><a href="../reference/desaturate.html">desaturate()</a></code> is used to desaturate a vector of R color names:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="../reference/desaturate.html">desaturate</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"white"</span>, <span class="st">"orange"</span>, <span class="st">"blue"</span>, <span class="st">"black"</span>))</a></code></pre></div>
@@ -178,7 +178,7 @@
 <div id="maximum-chroma-for-given-hue-and-luminance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#maximum-chroma-for-given-hue-and-luminance" class="anchor"></a>Maximum chroma for given hue and luminance</h2>
-<p>As the possible combinations of chroma and luminance in HCL space depend on hue, it is not obvious which trajectories through HCL space are possible prior to trying a specific HCL coordinate by calling <code><a href="../reference/polarLUV.html">polarLUV()</a></code>. To avoid having to <code>fixup</code> the color upon conversion to RGB <code><a href="../reference/hex.html">hex()</a></code> color codes, the <code><a href="../reference/max_chroma.html">max_chroma()</a></code> function computes (approximately) the maximum chroma possible.</p>
+<p>As the possible combinations of chroma and luminance in HCL space depend on hue, it is not obvious which trajectories through HCL space are possible prior to trying a specific HCL coordinate by calling <code><a href="../reference/polarLUV.html">polarLUV()</a></code>. To avoid having to fix up the color upon conversion to RGB <code><a href="../reference/hex.html">hex()</a></code> color codes, the <code><a href="../reference/max_chroma.html">max_chroma()</a></code> function computes (approximately) the maximum chroma possible.</p>
 <p>For illustration we show that for given luminance (here: L = 50) the maximum chroma varies substantially with hue:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/max_chroma.html">max_chroma</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>, <span class="dv">360</span>, <span class="dt">by =</span> <span class="dv">60</span>), <span class="dv">50</span>)</a></code></pre></div>
 <pre><code>## [1] 137.96  59.99  69.06  39.81  65.45 119.54 137.96</code></pre>

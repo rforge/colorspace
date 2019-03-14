@@ -72,7 +72,7 @@ constructors in _colorspace_ are:
 * `sRGB()` addresses the issue of device dependency by adopting a so-called gamma
   correction. Therefore, the gamma-corrected standard RGB (sRGB), as opposed to the
   linearized RGB above, is a good model for specifying colors in software and for
-  hardware. But it is still unintuitive for humans to work directly with this.
+  hardware. But it is still unintuitive for humans to work directly with this color space.
   Therefore, sRGB is a good place to end up in a color space manipulation but
   it is not a good place to start. [See @color:Wiki+sRGB.]
 * `HSV()` is a simple transformation of the (s)RGB space that tries to capture the
@@ -97,13 +97,13 @@ constructors in _colorspace_ are:
   working with dyes and pigments. However, the three axes of these two spaces
   still do not correspond to human perceptual axes.
   [See @color:Wiki+CIELUV; @color:Wiki+CIELAB.]
-* `polarLUV()` and `polarLAB()` therefore take polar coordinates in the UV plane
+* `polarLUV()` and `polarLAB()` take polar coordinates in the UV plane
   and AB plane, respectively. Specifically, the polar coordinates of the LUV
   model are known as the HCL (Hue-Chroma-Luminance) model. These capture the
   human perceptual axes very well without confounding effects as in the HSV or
   HLS approaches. (More details follow below.)
 
-All S4 classes for color spaces inherit from a virtual class `color` which are
+All S4 classes for color spaces inherit from a virtual class `color` which is
 internally always represented by matrices with three columns (corresponding to
 the different three dimensions).
 
