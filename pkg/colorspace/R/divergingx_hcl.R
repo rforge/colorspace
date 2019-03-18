@@ -51,6 +51,9 @@
 #'
 #' @return A character vector with (s)RGB codings of the colors in the palette.
 #' @seealso \code{\link[colorspace]{sequential_hcl}}, \code{\link[colorspace]{diverging_hcl}}
+#' @references Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2019).
+#' \dQuote{ccolorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.}
+#' arXiv:1903.06490, arXiv.org E-Print Archive. \url{http://arxiv.org/abs/1903.06490}
 #' @keywords color
 #' @examples
 #' ## show emulated CARTO/ColorBrewer.org palettes

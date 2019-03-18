@@ -96,6 +96,11 @@ divergingx_palettes(plot = TRUE)
 ## but also less balanced with respect to chroma/luminance, see e.g.,
 specplot(divergingx_hcl(7, "ArmyRose"))
 }
+\references{
+Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2019).
+\dQuote{ccolorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.}
+arXiv:1903.06490, arXiv.org E-Print Archive. \url{http://arxiv.org/abs/1903.06490}
+}
 \seealso{
 \code{\link[colorspace]{sequential_hcl}}, \code{\link[colorspace]{diverging_hcl}}
 }
