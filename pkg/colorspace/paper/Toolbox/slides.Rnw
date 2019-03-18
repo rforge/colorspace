@@ -613,9 +613,10 @@ specplot(
 
 \small
 
-Ihaka R, Murrell P, Hornik K, Fisher JC, Stauffer R, Wilke CO, McWhite CD, Zeileis A (2019).
-  \emph{colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.}
-  \url{http://colorspace.R-Forge.R-project.org/}
+Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2019).
+  \dquote{colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.}
+  arXiv:1903.06490, arXiv.org E-Print Archive.
+  \url{http://arxiv.org/abs/1903.06490}
 
 \bigskip
 
