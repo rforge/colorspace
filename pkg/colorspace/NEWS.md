@@ -4,7 +4,7 @@
   of RGB rainbow palettes (or similar highly saturated and non-monotonic
   palettes).
 
-* Bug fix in `divergingx_hcl(n)` with even `n` where the two central colorse
+* Bug fix in `divergingx_hcl(n)` with even `n` where the two central colors
   were erroneously duplicated. Also, partial matching of palette names has
   been fixed.
 
