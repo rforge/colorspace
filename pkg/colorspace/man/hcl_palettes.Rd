@@ -75,6 +75,15 @@ be increased (1 = linear, 2 = quadratic, etc.).}
 
 \item{cmax}{Maximum chroma value in the HCL color description.}
 }
+\value{
+\code{qualitative_hcl}, \code{sequential_hcl}, \code{diverging_hcl} return
+a vector of \code{n} color strings (hex codes).
+
+The function \code{hcl_palettes} returns a data frame of class \code{"hcl_palettes"}
+where each row contains information about one of the requested palettes (name, type,
+HCL trajectory coordinates). Suitable \code{print}, \code{summary}, and \code{plot}
+methods are available.
+}
 \description{
 Qualitative, sequential (single-hue and multi-hue), and diverging
 color palettes based on the HCL (hue-chroma-luminance) color model.

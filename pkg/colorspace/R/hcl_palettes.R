@@ -120,6 +120,13 @@
 #' @param plot logical. Should the selected HCL color palettes be visualized?
 #' @param x,object A \code{hcl_palettes} object.
 #'
+#' @return \code{qualitative_hcl}, \code{sequential_hcl}, \code{diverging_hcl} return
+#' a vector of \code{n} color strings (hex codes).
+#'
+#' The function \code{hcl_palettes} returns a data frame of class \code{"hcl_palettes"}
+#' where each row contains information about one of the requested palettes (name, type,
+#' HCL trajectory coordinates). Suitable \code{print}, \code{summary}, and \code{plot}
+#' methods are available.
 #' @seealso \code{\link{divergingx_hcl}}
 #' @references Zeileis A, Hornik K, Murrell P (2009).  Escaping RGBland:
 #' Selecting Colors for Statistical Graphics.  \emph{Computational Statistics &

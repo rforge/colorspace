@@ -264,6 +264,15 @@ be increased (1 = linear, 2 = quadratic, etc.).</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>qualitative_hcl</code>, <code>sequential_hcl</code>, <code>diverging_hcl</code> return
+a vector of <code>n</code> color strings (hex codes).</p>
+<p>The function <code>hcl_palettes</code> returns a data frame of class <code>"hcl_palettes"</code>
+where each row contains information about one of the requested palettes (name, type,
+HCL trajectory coordinates). Suitable <code>print</code>, <code>summary</code>, and <code>plot</code>
+methods are available.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The HCL (hue-chroma-luminance) color model is a perceptual color model
@@ -457,6 +466,8 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
 
       <li><a href="#references">References</a></li>
