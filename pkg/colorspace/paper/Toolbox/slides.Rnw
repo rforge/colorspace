@@ -589,11 +589,55 @@ specplot(
 
 \end{frame}
 
+\subsection{Base R}
+
+\begin{frame}
+\frametitle{Base R}
+
+\textbf{In 3.6.0:} All prespecified palettes also via \code{grDevices::hcl.colors()}.
+
+\vspace*{-1.8cm}
+
+\setkeys{Gin}{width=\textwidth}
+<<hcl-colors, fig = TRUE, width = 11, height = 8>>=
+hcl.swatch <- function(palette = hcl.pals(), n = 5, nrow = 11,
+  border = if (n < 15) "black" else NA)
+{
+    cols <- sapply(palette, hcl.colors, n = n)
+    ncol <- ncol(cols)
+    nswatch <- min(ncol, nrow)
+
+    par(mar = rep(0.1, 4),
+        mfrow = c(1, min(10, ncol %/% nrow + 1)),
+        pin = c(1, 0.5 * nswatch),
+        cex = 0.7)
+
+    while (length(palette)) {
+        subset <- 1:min(nrow, ncol(cols))
+        plot.new()
+        plot.window(c(0, n), c(0, nrow + 1))
+        text(0, rev(subset) + 0.1, palette[subset], adj = c(0, 0))
+        y <- rep(subset, each = n)
+        rect(rep(0:(n-1), n), rev(y), rep(1:n, n), rev(y) - 0.5,
+             col = cols[, subset], border = border)
+        palette <- palette[-subset]
+        cols <- cols[, -subset]
+    }
+
+    par(mfrow = c(1, 1), mar = c(5.1, 4.1, 4.1, 2.1), cex = 1)
+}
+hcl.swatch()
+@
+
+\end{frame}
+
+
 \subsection{Recommendations}
 
 \begin{frame}
 \frametitle{Recommendations}
 
+\textbf{Colors and palettes:}
 \begin{itemize}
   \item Do not overestimate the effectiveness of color.
   \item Choose type of palette based on the data to be visualized.
@@ -601,6 +645,16 @@ specplot(
   \item For points/lines darker colors are needed (lower luminance, higher chroma).
   \item For palettes with more colors stronger luminance contrasts are needed.
   \item Triangular chroma trajectories useful for distinguishing central colors.
+\end{itemize}
+
+\bigskip
+\pause
+
+\textbf{R packages:}
+\begin{itemize}
+  \item \pkg{colorspace} facilitates exploration, manipulation, and assessment.
+  \item HCL approximations of palettes from \pkg{RColorBrewer}, \pkg{rcartocolor}, \pkg{scico}, \dots
+  \item Prespecified palettes are also easily available in base R.
 \end{itemize}
 
 \end{frame}
