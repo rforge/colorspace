@@ -14,7 +14,7 @@ hcl_palettes(palette = c(
 ), plot = TRUE, n = 7)
 ```
 
-```{r ggplot2, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 4.5, fig.align = "center", dev = "png", dpi = 48}
+```{r ggplot2, echo = FALSE, message = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 4.5, fig.align = "center", dev = "png", dpi = 48}
 library("ggplot2")
 theme_set(theme_minimal())
 ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) + scale_fill_discrete_qualitative()

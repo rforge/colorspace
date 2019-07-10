@@ -464,4 +464,8 @@ above, _colorspace_ provides a few convenience interfaces:
   in `diverging_hcl()`. This is provided for didactic purposes to contrast the more balanced
   HCL palettes with the more flashy and unbalanced HSV palettes.
 
+Meanwhile, base R has also adopted the HCL-based palettes from _colorspace_ into the `hcl.colors()`
+function in _grDevices_ [@color:grDevices]. This provides all the named palettes introduced in
+_colorspace_ (with the same names) but without the flexibility to modify or adapt existing palettes.
+
 ## References
