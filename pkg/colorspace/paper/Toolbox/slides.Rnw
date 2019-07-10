@@ -592,7 +592,7 @@ specplot(
 \subsection{Base R}
 
 \begin{frame}
-\frametitle{Base R}
+\frametitle{Base R\only<2>{: Why you might not need our package after all}}
 
 \textbf{In 3.6.0:} All prespecified palettes also via \code{grDevices::hcl.colors()}.
 
