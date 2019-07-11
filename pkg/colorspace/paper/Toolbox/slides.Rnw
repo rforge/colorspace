@@ -15,9 +15,9 @@
 }
 \headerimage{1}
 
-\title{A Toolbox for Manipulating and Assessing Color Palettes for Statistical Graphics}
+\title{A Toolbox for Manipulating and Assessing Color Palettes}
 \subtitle{\phantom{.}\\Achim Zeileis, Jason C. Fisher, Kurt Hornik, Ross Ihaka, Claire D. McWhite, Paul Murrell, Reto Stauffer, Claus O. Wilke}
-\author{\vspace*{-6.83cm}\hspace*{12.5cm}\includegraphics[width=1.6cm]{palmfooter.png}\\[5.5cm]}
+\author{\vspace*{-6.3cm}\hspace*{12.5cm}\includegraphics[width=1.6cm]{palmfooter.png}\\[5.5cm]} %% -6.83 with "for Statistical Graphics"
 \URL{http://colorspace.R-Forge.R-project.org/}
 
 %% need no \usepackage{Sweave}
@@ -34,7 +34,7 @@ theme_set(theme_minimal())
 
 \begin{document}
 
-\section{colorspace: A Toolbox for Manipulating and Assessing Color Palettes for Statistical Graphics}
+\section{colorspace: A Toolbox for Manipulating and Assessing Color Palettes}
 
 \subsection{Motivation}
 
