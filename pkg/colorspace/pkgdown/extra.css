@@ -37,7 +37,7 @@ b, strong, th {
 /* The palm trees in the logo by www.freevector.com, creative commons
  * attribution license. */
 .navbar-brand {
-    background-image: url('logo.png');
+    background-image: url('logo_wide.png');
     background-repeat: no-repeat;
     background-position: 12.5px 5px;
     background-size: 250px auto;

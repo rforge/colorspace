@@ -1,4 +1,8 @@
+url: "http://colorspace.R-Forge.R-project.org/"
 destination: "../../www/"
+
+template:
+  assets: "pkgdown/assets/"
 
 navbar:
   left:
