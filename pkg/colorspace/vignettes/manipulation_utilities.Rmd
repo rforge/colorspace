@@ -63,8 +63,8 @@ rainbow(3)
 desaturate(rainbow(3))
 ```
 
-Already this simple example shows that the three RGB rainbow colors have very
-different grayscale levels. This can be brought even more clearly when using 
+Even this simple example suffices to show that the three RGB rainbow colors have very
+different grayscale levels. This deficiency is even clearer when using 
 a full color wheel (of colors with hues in [0, 360] degrees). While the RGB
 `rainbow()` is very unbalanced the HCL `rainbow_hcl()` (or also `qualitative_hcl()`)
 is (by design) balanced with respect to luminance.
@@ -92,7 +92,7 @@ in rather gray colors.
 In these situations, an alternative might be to apply the analogous strategy in HLS space which is frequently
 used in HTML style sheets. However, this strategy may also yield colors that are either too gray or too
 colorful. A compromise that sometimes works well is to adjust the luminance coordinate in HCL space but
-to take the chroma coordinate corresponding the HLS transformation.
+to take the chroma coordinate corresponding to the HLS transformation.
 
 We have found that typically the HCL-based transformation performs best for lightening colors and this is
 hence the default in `lighten()`. For darkening colors, the combined strategy often works best and is hence
@@ -100,8 +100,8 @@ the default in `darken()`. In either case it is recommended to try the other ava
 the default yields unexpected results.
 
 Regardless of the chosen color space, the adjustment of the `L` component can occur by two methods, relative
-(the default) and absolute. For example for darkening these either use `L - 100 * amount` (absolute) or
-`L * (1 - amount)` (relative). See `lighten()` and `darken()` for more details.
+(the default) and absolute. For example `L - 100 * amount` is used for absolute darkening, or
+`L * (1 - amount)` for relative darkening. See `lighten()` and `darken()` for more details.
 
 For illustration a qualitative palette (Okabe-Ito) is transformed by two levels of both lightening and
 darkening, respectively.
@@ -132,14 +132,14 @@ For illustration we show that for given luminance (here: L = 50) the maximum chr
 varies substantially with hue:
 
 ```{r max-chroma-L50}
-max_chroma(seq(0, 360, by = 60), 50)
+max_chroma(h = seq(0, 360, by = 60), l = 50)
 ```
 
 Similarly, maximum chroma also varies substantially across luminance values for
 a given hue (here: H = 120, green):
 
 ```{r max-chroma-H120}
-max_chroma(120, seq(0, 100, by = 20))
+max_chroma(h = 120, l = seq(0, 100, by = 20))
 ```
 
 In the plots below more combinations are visualized: In the left panel for maximum

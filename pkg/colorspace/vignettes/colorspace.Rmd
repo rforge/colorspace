@@ -29,7 +29,7 @@ colors or color palettes, manipulating these colors, and employing
 them in various kinds of visualizations.
 
 At the core of the package there are various utilities for computing with
-color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
+color spaces (as the name of the package conveys). Thus, the package helps to map various three-dimensional
 representations of color to each other. A particularly important
 mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
@@ -149,7 +149,7 @@ As another example for a sequential palette, we demonstrate how to create a spin
 displaying the proportion of Titanic passengers that survived per class.
 The `Purples 3` palette is used, which is quite similar to the **ColorBrewer.org**
 palette `Purples`. Here, only two colors are employed, yielding a dark purple
-and light gray.
+and a light gray.
 
 ```{r titanic, eval = FALSE}
 ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
@@ -166,7 +166,7 @@ spineplot(ttnc, col = sequential_hcl(2, "Purples 3"))
 ## Usage with _ggplot2_
 
 To provide access to the HCL color palettes from within _ggplot2_ graphics suitable discrete and/or
-continuous _gglot2_ color scales are provided. The scales are named via the scheme
+continuous _ggplot2_ color scales are provided. The scales are named via the scheme
 `scale_<aesthetic>_<datatype>_<colorscale>()`, where `<aesthetic>` is the name
 of the aesthetic (`fill`, `color`, `colour`), `<datatype>` is the type of the
 variable plotted (`discrete` or `continuous`) and `<colorscale>` sets the type
@@ -263,5 +263,5 @@ using dark colors to give emphasis to higher elevations.
 
 The other two displays show that hue is constant in the palette while luminance and chroma vary.
 Luminance increases monotonically from dark to light (as required for a proper sequential palette).
-Chroma is triangular-shaped which allows to better distinguish the middle colors in the palette
+Chroma is triangular-shaped which allows the viewer to better distinguish the middle colors in the palette
 when compared to a monotonic chroma trajectory.

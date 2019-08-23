@@ -26,7 +26,7 @@ library("wesanderson")
 ## Overview
 
 The flexible specification of HCL-based color palettes in _colorspace_ allows
-to closely approximate color palettes from various other packages:
+one to closely approximate color palettes from various other packages:
 
 * _ColorBrewer.org_ [@color:Harrower+Brewer:2003] as provided by R package _RColorBrewer_ [@color:RColorBrewer].
 * _CARTO_ colors [@color:CARTO] as provided by R package _rcartocolor_ [@color:rcartocolor].
@@ -40,10 +40,10 @@ of the original palettes (top swatches, solid lines) and their HCL-based approxi
 
 Before, a selection of such approximations using `specplot()` is highlighted and discussed in some more detail.
 Specifically, the graphic below shows two blue/green/yellow palettes (`RColorBrewer::brewer.pal(7, "YlGnBu")`
-and `viridis::viridis(7)`) and two purple/red/yellow (`rcartocolor::carto_pal(7, "ag_Sunset")` and `viridis::plasma(7)`).
+and `viridis::viridis(7)`) and two purple/red/yellow palettes (`rcartocolor::carto_pal(7, "ag_Sunset")` and `viridis::plasma(7)`).
 Each panel compares the hue, chroma, and luminance trajectories
 of the original palettes (top swatches, solid lines) and their HCL-based approximations (bottom swatches, dashed lines).
-The palettes are not identical but very close for most colors. Note that also the chroma trajectories from the HCL
+The palettes are not identical but very close for most colors. Note also that the chroma trajectories from the HCL
 palettes (green dashed lines) have some kinks which are due to fixing HCL coordinates at the boundaries of
 admissible RGB colors.
 
@@ -82,7 +82,7 @@ alternative for qualitative palettes when grayscale printing should also work.
 Another somewhat nonstandard palette from the viridis family is the
 cividis palette based on blue and yellow hues and hence safe for red-green deficient viewers.
 The figure below shows the corresponding `specplot()` along with an HCL-based approximation.
-What is unusual about this palette: The hue and chroma trajectories would suggest a diverging palette,
+This palette is unusual: The hue and chroma trajectories would suggest a diverging palette,
 as there are two "arms" wth different hues and a zero-chroma point in the center. However,
 the luminance trajectory clearly indicates a sequential palette as colors go monotonically from
 dark to light. Due to this unusual mixture the palette cannot be composed using the trajectories

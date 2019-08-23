@@ -61,7 +61,7 @@ palette ranging from dark blue to light yellow: `sequential_hcl(11, "Blue-Yellow
 
 The statistical graphic employed for illustration is a heatmap of the well-known
 Maunga Whau `volcano` data from base R. This heatmap is easily available as
-`demoplot(..., "heatmap")` where `...` is the color vector to be used, e.g.,
+`demoplot(x, "heatmap")` where `x` is the color vector to be used, e.g.,
 
 ```{r colors}
 rainbow(11, end = 2/3)

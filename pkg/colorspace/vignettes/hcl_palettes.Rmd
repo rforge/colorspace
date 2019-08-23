@@ -38,7 +38,7 @@ three types of palettes based on the HCL model:
 The corresponding functions are `qualitative_hcl()`, `sequential_hcl()`,
 and `diverging_hcl()`. Their construction principles are exemplified in the
 following color swatches and explained in more detail below. The desaturated
-palettes bring out clearly that luminance differences (= light-dark contrasts)
+palettes bring out clearly that luminance differences (light-dark contrasts)
 are crucial for sequential and diverging palettes while qualitative palettes
 are balanced at the same luminance.
 
@@ -97,13 +97,14 @@ hues (or equivalently `h1` and `h2` can be used) with the starting and
 ending hue of the palette. Then, an equidistant sequence between these hues is
 employed, by default spanning the full color wheel (i.e., the full 360 degrees).
 Chroma `c` (or equivalently `c1`) and luminance `l` (or equivalently
-`l1`) are constants.
+`l1`) are constants. Finally, `fixup` indicates
+whether colors with out-of-range coordinates should be corrected.
 
 In the following graphic the available named palettes are shown. The first five
 palettes are close to the _ColorBrewer.org_ palettes of the same name [@color:Harrower+Brewer:2003].
 They employ different levels of chroma and luminance and, by default, span the full
 hue range. The remaining four palettes are taken from @color:Ihaka:2003. They are
-based on the same chroma (= 50) and luminance (= 70) but the hue is restricted to
+based on the same chroma (50) and luminance (70) but the hue is restricted to
 different intervals.
 
 ```{r hcl-palettes-qualitative, fig.width = 4.0, fig.height = 5.0, fig.align = "center", dev = "png", dpi = 48, out.width = "60%"}
@@ -129,9 +130,9 @@ to a grayscale palette like `gray.colors()`, see "Grays" and "Light Grays" below
 
 For adding chroma, a simple strategy would be to pick a single hue (via `h` or `h1`)
 and then decrease chroma from some value (`c` or `c1`) to zero (i.e., gray) along with
-increasing luminance. For bringing out the extremes (a dark high-chroma color vs.
-a light gray) this is already very effective, see "Blues 2", "Purples 2", "Reds 2",
-and "Greens 2".
+increasing luminance. This is already very effective for bringing out the extremes
+(a dark high-chroma color vs. a light gray), see `"Blues 2"`, `"Purples 2"`, `"Reds 2"`,
+and `"Greens 2"`.
 
 For distinguishing colors in the middle, two strategies can be employed:
 (a) Hue can be varied as well by specifying an interval of hues in `h` (or beginning
@@ -250,7 +251,7 @@ for the three different coordinates (hue _H_, chroma _C_, luminance _L_):
 | Type        | H                                                       | C                                                | L                             |
 |:------------|:--------------------------------------------------------|:-------------------------------------------------|:------------------------------|
 | Qualitative | Linear                                                  | Constant                                         | Constant                      |
-| Sequential  | Constant (= single-hue) _or_ <br/> Linear (= multi-hue) | Linear (+ power) _or_ <br/> Triangular (+ power) | Linear (+ power) <br/> &nbsp; |
+| Sequential  | Constant (single-hue) _or_ <br/> Linear (multi-hue)     | Linear (+ power) _or_ <br/> Triangular (+ power) | Linear (+ power) <br/> &nbsp; |
 | Diverging   | Constant (2x)                                           | Linear (+ power) _or_ <br/> Triangular (+ power) | Linear (+ power) <br/> &nbsp; |
 
 As pointed out initially in this article, the luminance is probably the most important
@@ -279,7 +280,7 @@ $$
 $$
 
 where $j$ is the intensity at which $c_\max$ is assumed. It is constructed such that
-the slope to the left is minus the slope to the right of $j$:
+the slope to the left is the negative of the slope to the right of $j$:
 
 $$
 j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
@@ -385,7 +386,7 @@ for a given color palette is provided in the article:
 The `hcl_palettes()` already come with a wide range of predefined palettes to which
 customizations can be easily added. However, it might also be convenient to register
 a custom palette so that it can subsequently be reused with a new dedicated name.
-This is supported by adding a `register = "..."` argument once to a call to
+This is supported by adding a `register` argument once to a call to
 `qualitative_hcl()`, `sequential_hcl()`, or `diverging_hcl()`:
 
 ```{r register1}
@@ -410,8 +411,8 @@ Remarks:
 * The number of colors in the palette that was used during registration is not
   actually stored and can be modified subsequently. The same holds for arguments
   `alpha` and `rev`.
-* When registering a new palette with an old name that was already available
-  previously, the old palette gets overwritten. We recommend not to overwrite
+* When registering a new palette with a previously-used name, the old palette
+  gets overwritten. We recommend not to overwrite
   the palettes that are predefined in the package (albeit it is technically possible).
 * The registration of a palette is only stored for the current session. When
   R is restarted and/or the _colorspace_ package reloaded, only the predefined
@@ -426,7 +427,7 @@ Remarks:
 The `divergingx_hcl()` function provides more flexible diverging palettes by
 simply calling `sequential_hcl()` twice with prespecified sets of hue, chroma,
 and luminance parameters. Thus, it does not pose any restrictions that
-the two "arms" of the palette need to be balanced and also allows to go
+the two "arms" of the palette need to be balanced and also may go
 through a non-gray neutral color (typically light yellow).
 Consequently, the chroma/luminance paths can be rather unbalanced.
 

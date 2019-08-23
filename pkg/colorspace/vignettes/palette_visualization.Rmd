@@ -99,7 +99,7 @@ monotonic (as in sequential palettes), or diverging.
 
 The function first transforms a given color palette to its HCL (`polarLUV()`)
 coordinates. As the hues for low-chroma colors are not (or only poorly) identified,
-by default a smoothing is applied to the hues. Also, to avoid jumps from 0 to 360 or vice
+they are smoothed by default. Also, to avoid jumps from 0 to 360 or vice
 versa, the hue coordinates are shifted suitably.
 
 By default, the resulting trajectories in the HCL spectrum are visualized by a simple line plot:
@@ -187,7 +187,7 @@ The function `hclplot()` has been designed to work well with the
 `hcl_palettes()` in this package. While it is possible to apply
 it to other color palettes as well, the results might look weird or confusing
 if these palettes are constructed very differently (e.g., like the
-highly-saturated base R palettes). To infer the default `type` of projection
+highly saturated base R palettes). To infer the default `type` of projection
 `hclplot()` assesses the luminance trajectory and sets the default correspondingly:
 
 - `type = "qualitative"` if luminance is approximately constant.
