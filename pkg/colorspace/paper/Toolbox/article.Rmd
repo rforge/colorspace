@@ -182,7 +182,8 @@ is hosted on \proglang{R}-Forge at \url{https://R-Forge.R-project.org/projects/c
 
 The \pkg{colorspace} package ships with a wide range of predefined color palettes,
 specified through suitable trajectories in the HCL (Hue-Chroma-Luminance) color space.
-A quick overview can be gained easily with the `hcl_palettes()` function (see Figure\ \ref{fig:hcl-palettes}):
+A quick overview can be gained easily with the `hcl_palettes()` function (see Figure\ \ref{fig:hcl-palettes},
+some of these are illustrated in more detail later):
 
 ```{r hcl-palettes, fig.height = 6.75, fig.width = 12, fig.cap = "Brief overview of available predefined palettes in \\pkg{colorspace}."}
 library("colorspace")
@@ -221,7 +222,7 @@ panel of Figure\ \ref{fig:eustockmarkets-titanic})
 displaying the proportion of Titanic passengers that survived per class.
 The `"Purples 3"` palette is used, which is quite similar to the \pkg{ColorBrewer.org}
 [@color:Harrower+Brewer:2003] palette `"Purples"`. Here, only two colors are
-employed, yielding a dark purple and a light gray.
+employed: a dark purple that is highlighted against a light gray.
 
 ```{r titanic, eval = FALSE}
 ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
@@ -1186,7 +1187,10 @@ The function first transforms a given color palette to its HCL (`polarLUV()`)
 coordinates. As the hues for low-chroma colors are not (or only poorly) identified,
 they are smoothed by default. Also, to avoid jumps from 0 to 360 or vice
 versa, the hue coordinates are shifted suitably.
-By default, the resulting trajectories in the HCL spectrum are visualized by a simple line plot:
+By default, the resulting trajectories
+in the HCL spectrum are visualized by a simple line plot where the
+x-axis gives the ordering of the colors in the palette. The
+y-axis depicts the following information:
 
 * Hue is drawn in red and coordinates are indicated on the axis on the right
   with range $[0, 360]$ or (if necessary) $[-360, 360]$.
@@ -1533,6 +1537,17 @@ Optionally, the active palette can be illustrated by using a `specplot()` (see S
 of color vision deficiencies (see Section\ \ref{sec:color_vision_deficiency}).
 To facilitate generation of palettes for black/dark backgrounds, a "dark mode"
 of the GUIs is also available.
+
+The app has been influenced considerably by \pkg{ColorBrewer.org} [@color:Harrower+Brewer:2003].
+Similarities include the selection of a qualitative, sequential, or diverging palette
+from a list of predefined colors along with an example visualization. However, unlike
+\pkg{ColorBrewer.org} our \pkg{shiny} app allows to tweak the HCL parameters underlying
+each palette. This makes the app much more flexible but also more complex, potentially requiring more
+thought and experience. Due to the flexibility, our app cannot automatically judge safety regarding
+color vision deficiencies and printers/photocopiers (as \pkg{ColorBrewer.org} does) but instead it allows to emulate color vision
+deficiencies and desaturation. Finally, \pkg{ColorBrewer.org} is geared towards cartography
+(albeit its palettes are useful much more generally) while our \pkg{shiny} app includes a
+broader range of illustrative displays.
 
 
 ## Choose individual colors with the HCL color model
