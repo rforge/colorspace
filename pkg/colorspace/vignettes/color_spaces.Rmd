@@ -26,7 +26,7 @@ representations of color to each other [@color:Ihaka:2003]. A particularly impor
 mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
 specifications in many systems based on the corresponding hex codes [@color:Wiki+Webcolors],
-e.g., in HTML but also in R). For completeness further standard color models are included as well in the package.
+e.g., in HTML but also in R. For completeness further standard color models are included as well in the package.
 Their connections are illustrated in the following graph:
 
 
@@ -99,7 +99,7 @@ constructors in _colorspace_ are:
   [See @color:Wiki+CIELUV; @color:Wiki+CIELAB.]
 * `polarLUV()` and `polarLAB()` take polar coordinates in the UV plane
   and AB plane, respectively. Specifically, the polar coordinates of the LUV
-  model are known as the HCL (Hue-Chroma-Luminance) model. These capture the
+  model are known as the HCL (Hue-Chroma-Luminance) model [@color:Wiki+HCL]. These capture the
   human perceptual axes very well without confounding effects as in the HSV or
   HLS approaches. (More details follow below.)
 
@@ -116,9 +116,66 @@ Some details differ, though, and the color conversion tools in _colorspace_ are
 well-embedded into the remaining functionality of the package and make it self-contained.
 
 
+## Human color vision and the HCL color model
+
+It has been hypothesized that human color vision has evolved in three distinct stages:
+
+1. Perception of light/dark contrasts (monochrome only).
+2. Yellow/blue contrasts (usually associated with our notion of warm/cold colors).
+3. Green/red contrasts (helpful for assessing the ripeness of fruit).
+
+See @color:Kaiser+Boynton:1996, @color:Knoblauch:2002, @color:Ihaka:2003, @color:Lumley:2006, @color:Zeileis+Hornik+Murrell:2009
+for more details and references. Thus, colors can be described using a 3-dimensional space:
+
+```{r human-axes, echo = FALSE, results = "hide"}
+grDevices::svg(file = "screenshots/human-axes.svg", width = 4.5, height = 4.5)
+par(mar = rep(0, 4))
+midgray <- gray(134/255)
+res <- persp(c(-1, 1), c(-1, 1), matrix(c(-1, 1, 1, -1), 2, 2),
+  xlim = c(-0.77, 0.77), ylim = c(-0.77, 0.77), zlim = c(-0.77, 0.77),
+  border = "transparent", box = FALSE, axes = FALSE, phi = 20, theta = 30, r = 50)
+ax <- trans3d(c(1, -1, 0, 0, 0, 0), c(0, 0, 1, -1, 0, 0), c(0, 0, 0, 0, 1, -1), res)
+circ <- (-45:45)/50
+circ <- trans3d(rep(circ, 2), c(sqrt(circ[1]^2 - circ^2), -sqrt(circ[1]^2 - circ^2)), 0, res)
+arrows(ax$x[c(1, 3, 5)], ax$y[c(1, 3, 5)], ax$x[c(2, 4, 6)], ax$y[c(2, 4, 6)], code = 3, length = 0.1, col = midgray, lwd = 3)
+lines(circ$x, circ$y, col = midgray, lty = 2)
+text(ax$x, ax$y, c("green", "red", "blue", "yellow", "light", "dark"), col = midgray, pos = c(4, 2, 4, 2, 3, 1))
+dev.off()
+```
+
+[![](screenshots/human-axes.svg)](screenshots/human-axes.svg)
+
+However, for describing colors in such a space, it is more natural for humans to employ
+polar coordinates in the color plane (yellow/blue vs. green/red, visualized by the dashed circle above)
+plus a third light/dark axis.
+Hence, color models that attempt to capture these perceptual axes are also called perceptually-based color spaces.
+As already argued above, the HCL model captures these dimensions very well, calling them: _hue_, _chroma_, and _luminance_.
+The corresponding sRGB gamut, i.e., the HCL colors that can also be represented in sRGB, is visualized
+in the animation below [by @color:Horvath+Lipka:2017].
+
+<iframe src="https://commons.wikimedia.org/wiki/File:SRGB_gamut_within_CIELCHuv_color_space_mesh.webm?embedplayer=yes" width="512" height="512" frameborder="0" ></iframe>
+
+The shape of the HCL space is a distorted double cone which is seen best by looking at
+vertical slices, i.e., chroma-luminance planes for given hues. For example, the left panel below depicts
+the chroma-luminance plane for a certain blue (hue = 255). Along with luminance the colors change from
+dark to light. With increasing chroma the colors become more colorful, where the highest chroma is
+possible for intermediate luminance.
+
+As some colors are relatively dark (e.g., blue and red assume their maximum chroma for relatively low luminances)
+while others are relatively light (e.g., yellow and green), horizontal slices of hue-chroma planes for given hue
+have somewhat irregular shapes. The right panel below shows such a hue-chroma plane for moderately light colors
+(luminance = 70). At that luminance, green and orange can become much more colorful compared to blue or red.
+
+```{r hcl-projections, fig.width = 9.5, fig.height = 4.5, fig.align = "center", echo = FALSE, dev = "png"}
+par(mfrow = c(1, 2))
+hclplot(sequential_hcl(5), h = 255, c = 125, size = 0, lwd = 0)
+hclplot(qualitative_hcl(5), l = 70, c = 125, size = 0, lwd = 0)
+```
+
 ## Utilities
 
-Various utilities are available for working with these color spaces:
+Several utilities are available for working with the S4 classes implementing the
+color spaces listed above.
 
 * `as()` method: Conversions of a `color` object to the various color spaces,
   e.g., `as(x, "sRGB")`.
