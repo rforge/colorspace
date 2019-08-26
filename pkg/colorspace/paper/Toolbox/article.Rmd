@@ -446,7 +446,7 @@ and eponymous class constructors, are:
   See @color:Wiki+CIELUV; @color:Wiki+CIELAB for more details.
 * `polarLUV()` and `polarLAB()` take polar coordinates in the UV plane
   and AB plane, respectively. Specifically, the polar coordinates of the LUV
-  model are known as the HCL (Hue-Chroma-Luminance) model. These capture the
+  model are known as the HCL (Hue-Chroma-Luminance) model [@color:Wiki+HCL]. These capture the
   human perceptual axes very well without confounding effects as in the HSV or
   HLS approaches. (More details follow below.)
 
