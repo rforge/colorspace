@@ -63,7 +63,7 @@ constructors in _colorspace_ are:
   with different intensities to obtain a spectrum of colors. The advantage of this
   color model is (or was) that it corresponded to how computer and TV screens generated
   colors, hence it was widely adopted and still is the basis for color specifications
-  in many systems. For example, the hex color codes are employed in HTML but also in R.
+  in many systems. For example, hex color codes are employed in HTML but also in R.
   However, the RGB model also has some important drawbacks: It does not take into
   account the output device properties, it is not perceptually uniform (a unit step
   within RGB does not produce a constant perceptual change in color), and it is
@@ -107,10 +107,10 @@ All S4 classes for color spaces inherit from a virtual class `color` which is
 internally always represented by matrices with three columns (corresponding to
 the three dimensions).
 
-Note that since the inception of the color space conversion tools within _colorspace_
-by @color:Ihaka:2003 other R tools for this purpose became available. Notably,
-there is `grDevices::convertColor()` in base R [@color:R] as well as
-`farver::convert_colour()` [@color:farver] based on a C++ library. For many basic color
+Note that since the inception of the color space conversion tools in \pkg{colorspace}
+[in \proglang{C}, @color:Ihaka:2003] other \proglang{R} tools for this purpose became available,
+notably `grDevices::convertColor()` [in high-level \proglang{R}, @color:R] and
+`farver::convert_colour()` [in \proglang{C++}, @color:farver]. For many basic color
 conversion purposes the _colorspace_ package and these alternatives are equally suitable.
 Some details differ, though, and the color conversion tools in _colorspace_ are
 well-embedded into the remaining functionality of the package and make it self-contained.
@@ -177,7 +177,7 @@ hclplot(qualitative_hcl(5), l = 70, c = 125, size = 0, lwd = 0)
 Several utilities are available for working with the S4 classes implementing the
 color spaces listed above.
 
-* `as()` method: Conversions of a `color` object to the various color spaces,
+* `as()` method: Convert a `color` object to the various color spaces,
   e.g., `as(x, "sRGB")`.
 * `coords()`: Extract the three-dimensional coordinates pertaining to the current
   color class.
@@ -187,7 +187,7 @@ color spaces listed above.
   can also be coerced to other color spaces.
 * `readRGB()` and `readhex()` can read text files into color objects, either
   from RGB coordinates or hex color strings.
-* `writehex()`: Writes hex color strings to a text file.
+* `writehex()`: Write hex color strings to a text file.
 * `whitepoint()`: Query and change the so-called white point employed in conversions
   from CIE XYZ to RGB. Defaults to D65 that has been specified by the CIE to
   approximate daylight.

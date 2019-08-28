@@ -29,7 +29,7 @@ from within R and are also provided at <http://hclwizard.org/>.
 * _Color picker:_ `choose_color()` or equivalently `hcl_color_picker()`.
 * _Color vision deficiency emulator:_ `cvd_emulator()`.
 
-In addition to the _shiny_ version, the _palette constructor_ app is also available as a Tcl/Tk GUI via R package
+In addition to the _shiny_ version, the _palette constructor_ app is also available as a Tcl/Tk GUI via the R package
 _tcltk_ shipped with base R [@color:R]. The _tcltk_ version can only be run locally
 and is considerably faster while the _shiny_ version has a nicer interface with more
 features  and can be run online. The `choose_palette()` function by default starts the
@@ -39,7 +39,7 @@ version.
 
 ## Choose palettes with the HCL color model
 
-This GUI can either be started with `hclwizard()` (or equivalently `hcl_wizard()`) which
+The palette constructor GUI can either be started with `hclwizard()` (or equivalently `hcl_wizard()`) which
 by default starts the _shiny_ version:
 
 ![](screenshots/choose_palette_1.png)

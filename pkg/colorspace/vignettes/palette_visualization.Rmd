@@ -70,8 +70,8 @@ palette.
   (along with increasing luminance). This is typically sufficient to clearly bring
   out the extreme colors (dark/colorful vs. light gray).
 - Single-hue (advanced): The hue is fixed (as above) but the chroma trajectory is
-  triangular. Compared to the basic single-hue palette above this allows to better
-  distinguish the colors in the middle and not only the extremes.
+  triangular. Compared to the basic single-hue palette above this better
+  distinguishes the colors in the middle and not only the extremes.
 - Multi-hue (advanced): As in the advanced single-hue palette the chroma trajectory
   is triangular but additionally the hue varies slightly. This can further enhance
   the distinction of colors in the middle of the palette.
@@ -168,18 +168,18 @@ of [color vision deficiency](color_vision_deficiency.html).
 While the `specplot()` function above works well for bringing out the HCL coordinates
 associated with a given palette, it does not show how the palette fits into
 the HCL space. For example, it is not so clear whether high chroma values are
-close to the maximum possible for a given hue. Thus, it cannot be judged so easily
+close to the maximum possible for a given hue. Thus, it cannot be easily judged
 how the parameters of the hue, chroma, and luminance trajectories can be
 modified to obtain another palette.
 
 Therefore, the `hclplot()` is another visualization of the HCL coordinates associated
 with a palette. It does so by collapsing over one of the coordinates (either the hue H
-or the luminance L) and displays a heatmap of colors combining the remaining
+or the luminance L) and displaying a heatmap of colors combining the remaining
 two dimensions. The coordinates for the given color palette are highlighted
 to bring out its trajectory. In case the hue is really fixed (as in single-hue
 sequential palettes) or the luminance is really fixed (as in the qualitative
 palettes), collapsing is straightforward. However, when the coordinate that is
-collapsed over is actually not constant in the palette, a simple bivariate linear
+collapsed over is not actually constant in the palette, a simple bivariate linear
 model is used to capture how the collapsed coordinate varies along with the
 two displayed coordinates.
 
@@ -256,10 +256,10 @@ for (i in c("map", "heatmap", "scatter", "spine", "bar", "pie", "perspective", "
 }
 ```
 
-All types of demos can, in principle, deal with arbitrarily many colors from any palette
-but clearly the graphics differ in various respects such as:
+All types of demos can, in principle, deal with arbitrarily many colors from any palette,
+but the graphics differ in various respects such as:
 
-- Work best for fewer colors (e.g., bar, pie, scatter, lines, ...) vs. many colors (e.g., heatmap, perspective, ...).
+- Working best for fewer colors (e.g., bar, pie, scatter, lines, ...) vs. many colors (e.g., heatmap, perspective, ...).
 - Intended for categorical data (e.g., bar, pie, ...) vs. continuous numeric data (e.g., heatmap, perspective, ...).
 - Shading areas (e.g., map, bar, pie, ...) vs. shading points or lines (scatter, lines).
 

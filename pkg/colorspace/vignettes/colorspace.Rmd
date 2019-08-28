@@ -130,7 +130,7 @@ HCL palettes are provided by `divergingx_hcl()`.
 ## Usage with base graphics
 
 The color vectors returned by the HCL palette functions can usually be passed directly
-to most base graphics function, typically through the `col` argument. Here, the `q4`
+to most base graphics, typically through the `col` argument. Here, the `q4`
 vector created above is used in a time series display:
 
 ```{r eustockmarkets, eval = FALSE}

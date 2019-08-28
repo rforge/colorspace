@@ -28,11 +28,11 @@ library("wesanderson")
 The flexible specification of HCL-based color palettes in _colorspace_ allows
 one to closely approximate color palettes from various other packages:
 
-* _ColorBrewer.org_ [@color:Harrower+Brewer:2003] as provided by R package _RColorBrewer_ [@color:RColorBrewer].
-* _CARTO_ colors [@color:CARTO] as provided by R package _rcartocolor_ [@color:rcartocolor].
+* _ColorBrewer.org_ [@color:Harrower+Brewer:2003] as provided by the R package _RColorBrewer_ [@color:RColorBrewer].
+* _CARTO_ colors [@color:CARTO] as provided by the R package _rcartocolor_ [@color:rcartocolor].
 * The viridis palettes of @color:Smith+VanDerWalt:2015 developed for _matplotlib_,
-  as provided by R package _viridis_ [@color:viridis].
-* The scientific color maps of @color:Crameri:2018 as provided by R package _scico_ [@color:scico].
+  as provided by the R package _viridis_ [@color:viridis].
+* The scientific color maps of @color:Crameri:2018 as provided by the R package _scico_ [@color:scico].
 
 See the discussion of [HCL-based palettes](hcl_palettes.html) for more details. In the
 following sections `specplot()` is used to compare the [HCL spectrum](palette_visualization.html#hcl-and-rgb-spectrum)

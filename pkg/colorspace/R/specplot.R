@@ -180,7 +180,7 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
 
   # plot spectra and palette?
   if(isTRUE(rgb)) rgb <- hex(sRGB(c(0.8, 0, 0), c(0, 0.8, 0), c(0, 0, 0.8)))
-  if(isTRUE(hcl)) hcl <- rainbow_hcl(3L)
+  if(isTRUE(hcl)) hcl <- qualitative_hcl(3L)
   show_rgb <- !identical(rgb, FALSE)
   show_hcl <- !identical(hcl, FALSE)
 

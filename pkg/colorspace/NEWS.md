@@ -1,3 +1,9 @@
+# colorspace 1.4-2
+
+* Changed the default colors in `specplot()` from `rainbow_hcl(3)` to
+  `qualitative_hcl(3)` which is darker and has more chroma.
+
+
 # colorspace 1.4-1
 
 * New article/vignette "Somewhere over the Rainbow" with published examples

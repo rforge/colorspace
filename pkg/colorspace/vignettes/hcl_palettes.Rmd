@@ -111,7 +111,7 @@ different intervals.
 hcl_palettes("qualitative", plot = TRUE)
 ```
 
-When qualtitative palettes are employed for shading areas in statistical displays
+When palettes are employed for shading areas in statistical displays
 (e.g., in bar plots, pie charts, or regions in maps), lighter colors
 (with moderate chroma and high luminance) such as "Pastel 1" or "Set 3" are
 typically less distracting. By contrast, when coloring points or lines, more flashy
@@ -153,7 +153,7 @@ former.
 hcl_palettes("sequential (single-hue)", n = 7, plot = TRUE)
 ```
 
-All except the last one are inspired by the _ColorBrewer.org_ palettes with
+All except the last are inspired by the _ColorBrewer.org_ palettes with
 the same base name [@color:Harrower+Brewer:2003] but restricted to a single hue only.
 They are intended for a white/light background. The last palette (Oslo) is taken from
 the scientific color maps of @color:Crameri:2018 and is intended for a black/dark
@@ -197,7 +197,7 @@ hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
 ```
 
 Note that the palettes differ substantially in the amount of chroma and luminance
-contrasts, respectively. For example, many palettes go from a dark high-chroma color
+contrasts. For example, many palettes go from a dark high-chroma color
 to a neutral low-chroma color (e.g., "Reds", "Purples", "Greens", "Blues") or even
 light gray (e.g., "Purple-Blue"). But some palettes also employ relatively high chroma
 throughout the palette (e.g., the viridis and many _CARTO_ palettes). To emphasize
@@ -209,7 +209,7 @@ better if all values along the sequence should receive some more perceptual weig
 ## Diverging palettes
 
 `diverging_hcl()` codes the underlying numeric values by a triangular luminance
-sequence with different hues in the left and in the right "arm" of the palette. Thus,
+sequence with different hues in the left and in the right "arms" of the palette. Thus,
 it can be seen as a combination of two sequential palettes with some restrictions:
 (a) a single hue is used for each arm of the palette, (b) chroma and luminance trajectory
 are balanced between the two arms, (c) the neutral central value has zero chroma.
@@ -218,7 +218,7 @@ and `h2`), either a single chroma value `c` (or `c1`) or a vector
 of two chroma values `c` (or `c1` and `cmax`), a vector of two
 luminances `l` (or `l1` and `l2`), and power parameter(s) `power`
 (or `p1` and `p2`) are used. For more flexible diverging palettes without
-the restrictrictions above (and consequently more parameters) see the `divergingx_hcl()`
+the restrictions above (and consequently more parameters) see the `divergingx_hcl()`
 palettes introduced below.
 
 The plot below shows all such diverging palettes that have been named in _colorspace_:
@@ -254,13 +254,13 @@ for the three different coordinates (hue _H_, chroma _C_, luminance _L_):
 | Sequential  | Constant (single-hue) _or_ <br/> Linear (multi-hue)     | Linear (+ power) _or_ <br/> Triangular (+ power) | Linear (+ power) <br/> &nbsp; |
 | Diverging   | Constant (2x)                                           | Linear (+ power) _or_ <br/> Triangular (+ power) | Linear (+ power) <br/> &nbsp; |
 
-As pointed out initially in this article, the luminance is probably the most important
+As pointed out initially in this article, luminance is probably the most important
 property for defining the type of palette. It is constant for qualitative palettes, monotonic
 for sequential palettes (linear or a power transformation), and uses two monotonic trajectories
 (linear or a power transformation) diverging from the same neutral value.
 
-The trajectories for the hue are also rather intuitive and straightforward for the three
-different types of palettes. However, the chroma trajectories are probably most complicated
+Hue trajectories are also rather intuitive and straightforward for the three
+different types of palettes. However, chroma trajectories are probably the most complicated
 and least obvious from the examples above. Hence, the exact mathematical equations underlying
 the chroma trajectories are given in the following (i.e., using the parameters `c1`, `c2`, `cmax`,
 and `p1`, respectively). Analogous equations apply for the other two coordinates.
@@ -291,7 +291,7 @@ in the equations above. This then leads to power-transformed curves that add or 
 more slowly or more quickly depending on whether the power parameter $p_1$ is $< 1$ or $> 1$.
 
 The three types of trajectories are also depicted below. Note that full intensity $i = 1$ is on
-the left and zero intensity $i = 0$ on the right of each panel.
+the left and zero intensity $i = 0$ is on the right of each panel.
 
 ```{r hcl-trajectories, echo = FALSE, results = "hide"}
 grDevices::svg(file = "screenshots/hcl-trajectories.svg", width = 11.5, height = 4.0)
@@ -399,7 +399,7 @@ The new palette is then included in `hcl_palettes()`:
 hcl_palettes("Qualitative")
 ```
 
-And can be used subsequently in `qualitative_hcl()` as well as the
+The palette can be used subsequently in `qualitative_hcl()` as well as the
 qualitative [ggplot2 color scales](ggplot2_color_scales.html), e.g.,
 
 ```{r register3}
@@ -412,8 +412,8 @@ Remarks:
   actually stored and can be modified subsequently. The same holds for arguments
   `alpha` and `rev`.
 * When registering a new palette with a previously-used name, the old palette
-  gets overwritten. We recommend not to overwrite
-  the palettes that are predefined in the package (albeit it is technically possible).
+  gets overwritten. We recommend to not overwrite
+  the palettes that are predefined in the package (albeit technically possible).
 * The registration of a palette is only stored for the current session. When
   R is restarted and/or the _colorspace_ package reloaded, only the predefined
   palettes from the package are available. Thus, to make a palette permanently

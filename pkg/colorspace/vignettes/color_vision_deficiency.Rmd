@@ -108,7 +108,7 @@ demoplot(tritan(blyl), "heatmap")
 ```
 
 This clearly shows how poorly the RGB rainbow performs, often giving quite
-misleading impressions of what the terrain around Maunga Whau looks like.
+misleading impressions of the terrain around Maunga Whau.
 In contrast, the HCL-based blue-yellow palette works reasonably well in all settings. The most important
 problem of the RGB rainbow is that it is not monotonic in luminance, making
 correct interpretation quite hard. Moreover, the red-green contrasts deteriorate
