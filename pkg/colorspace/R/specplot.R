@@ -12,7 +12,17 @@
 #' 
 #' By default (\code{plot = TRUE}), the resulting HCL and optionally RGB coordinates are
 #' visualized by simple line plots along with the color palette \code{x}
-#' itself.
+#' itself. The x-axis simply gives the ordering of the colors in the palette
+#' The y-axis depicts the following information: (1) Hue is drawn in red and
+#' coordinates are indicated on the axis on the right with range [0, 360] or
+#' (if necessary) [-360, 360]. (2) Chroma is drawn in green with coordinates on
+#' the left axis. The range [0, 100] is used unless the palette necessitates
+#' higher chroma values. (3) Luminance is drawn in blue with coordinates on the
+#' left axis in the range [0, 100]. Luminance (and hence also chroma) is on
+#' the left axis because it is arguably most important for understanding the
+#' type of palette (qualitative vs. sequential vs. diverging). To facilitate
+#' reading the legend the reversed order Luminance / Chroma / Hue is used so that
+#' the legend labels are closer to the axis they pertain to.
 #' 
 #' For comparing two palettes, \code{specplot(x, y)} can be used which adds
 #' lines (dashed, by default) corresponding to the \code{y} palette HCL/RGB
@@ -289,10 +299,10 @@ specplot <- function(x, y = NULL, rgb = FALSE, hcl = TRUE, fix = TRUE, cex = 1,
         lines(yspec$HCL[, "C"], lwd = lwd[2L], lty = lty[2L] + 1L, col = hcl[2L], type = type[1L], pch = pch[1L])
         lines(yspec$HCL[, "L"], lwd = lwd[3L], lty = lty[3L] + 1L, col = hcl[3L], type = type[1L], pch = pch[1L])
       }
-      legend("bottomleft", legend = c("Hue", "Chroma", "Luminance"),
-        ncol = 3L, bty = "n", lwd = lwd, lty = lty, col = hcl, pch = pch)
+      legend("bottomleft", legend = rev(c("Hue", "Chroma", "Luminance")),
+        ncol = 3L, bty = "n", lwd = rev(lwd), lty = rev(lty), col = rev(hcl), pch = rev(pch))
       mtext(side = 1, "HCL Spectrum",    cex = cex, line = 0.2)
-      mtext(side = 2, "Chroma / Luminance", cex = cex, line = 2.0)
+      mtext(side = 2, "Luminance / Chroma", cex = cex, line = 2.0)
       mtext(side = 4, "Hue",       cex = cex, line = 2.0)
       if(!is.null(main)) mtext(side = 3, main, line = 1.0, cex = 1.5 * cex)
     }

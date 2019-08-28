@@ -1,7 +1,9 @@
 # colorspace 1.4-2
 
 * Changed the default colors in `specplot()` from `rainbow_hcl(3)` to
-  `qualitative_hcl(3)` which is darker and has more chroma.
+  `qualitative_hcl(3)` which is darker and has more chroma. Also, the order
+  of the legend has been reversed (Luminance / Chroma / Hue) so that the
+  legend labels are closer to the axis that they pertain to.
 
 
 # colorspace 1.4-1
