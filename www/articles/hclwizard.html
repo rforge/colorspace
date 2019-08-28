@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>To facilitate exploring the package and employing it when working with colors, several graphical user interfaces (GUIs) are provided within the package as <em>shiny</em> apps <span class="citation">(Chang et al. 2018)</span>. All of these GUIs/apps can be run locally from within R and are also provided at <a href="http://hclwizard.org/" class="uri">http://hclwizard.org/</a>.</p>
+<p>To facilitate exploring the package and employing it when working with colors, several graphical user interfaces (GUIs) are provided within the package as <em>shiny</em> apps <span class="citation">(Chang et al. 2019)</span>. All of these GUIs/apps can be run locally from within R and are also provided at <a href="http://hclwizard.org/" class="uri">http://hclwizard.org/</a>.</p>
 <ul>
 <li>
 <em>Palette constructor:</em> <code><a href="../reference/choose_palette.html">choose_palette()</a></code> or <code><a href="../reference/choose_palette.html">hclwizard()</a></code> or <code><a href="../reference/choose_palette.html">hcl_wizard()</a></code>.</li>
@@ -127,12 +127,12 @@
 <li>
 <em>Color vision deficiency emulator:</em> <code><a href="../reference/cvd_emulator.html">cvd_emulator()</a></code>.</li>
 </ul>
-<p>In addition to the <em>shiny</em> version, the <em>palette constructor</em> app is also available as a Tcl/Tk GUI via R package <em>tcltk</em> shipped with base R <span class="citation">(<span class="sans-serif">R</span> Core Team 2018)</span>. The <em>tcltk</em> version can only be run locally and is considerably faster while the <em>shiny</em> version has a nicer interface with more features and can be run online. The <code><a href="../reference/choose_palette.html">choose_palette()</a></code> function by default starts the <em>tcltk</em> version while <code><a href="../reference/choose_palette.html">hclwizard()</a></code>/<code><a href="../reference/choose_palette.html">hcl_wizard()</a></code> by default start the <em>shiny</em> version.</p>
+<p>In addition to the <em>shiny</em> version, the <em>palette constructor</em> app is also available as a Tcl/Tk GUI via the R package <em>tcltk</em> shipped with base R <span class="citation">(<span class="sans-serif">R</span> Core Team 2019)</span>. The <em>tcltk</em> version can only be run locally and is considerably faster while the <em>shiny</em> version has a nicer interface with more features and can be run online. The <code><a href="../reference/choose_palette.html">choose_palette()</a></code> function by default starts the <em>tcltk</em> version while <code><a href="../reference/choose_palette.html">hclwizard()</a></code>/<code><a href="../reference/choose_palette.html">hcl_wizard()</a></code> by default start the <em>shiny</em> version.</p>
 </div>
 <div id="choose-palettes-with-the-hcl-color-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#choose-palettes-with-the-hcl-color-model" class="anchor"></a>Choose palettes with the HCL color model</h2>
-<p>This GUI can either be started with <code><a href="../reference/choose_palette.html">hclwizard()</a></code> (or equivalently <code><a href="../reference/choose_palette.html">hcl_wizard()</a></code>) which by default starts the <em>shiny</em> version:</p>
+<p>The palette constructor GUI can either be started with <code><a href="../reference/choose_palette.html">hclwizard()</a></code> (or equivalently <code><a href="../reference/choose_palette.html">hcl_wizard()</a></code>) which by default starts the <em>shiny</em> version:</p>
 <p><img src="screenshots/choose_palette_1.png"></p>
 <p>The <em>tcltk</em> version is started by default with <code><a href="../reference/choose_palette.html">choose_palette()</a></code>:</p>
 <p><img src="screenshots/choose_palette_3.png"></p>
@@ -173,10 +173,10 @@
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
 <div id="ref-color:shiny">
-<p>Chang, Winston, Joe Cheng, J. J. Allaire, Yihui Xie, and Jonathan McPherson. 2018. <em><span style="font-style:normal;">Shiny</span>: Web Application Framework for <span class="sans-serif">R</span></em>. <a href="https://CRAN.R-project.org/package=shiny" class="uri">https://CRAN.R-project.org/package=shiny</a>.</p>
+<p>Chang, Winston, Joe Cheng, J. J. Allaire, Yihui Xie, and Jonathan McPherson. 2019. <em><span style="font-style:normal;">Shiny</span>: Web Application Framework for <span class="sans-serif">R</span></em>. <a href="https://CRAN.R-project.org/package=shiny" class="uri">https://CRAN.R-project.org/package=shiny</a>.</p>
 </div>
 <div id="ref-color:R">
-<p><span class="sans-serif">R</span> Core Team. 2018. <em><span class="sans-serif">R</span>: A Language and Environment for Statistical Computing</em>. Vienna, Austria: <span class="sans-serif">R</span> Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+<p><span class="sans-serif">R</span> Core Team. 2019. <em><span class="sans-serif">R</span>: A Language and Environment for Statistical Computing</em>. Vienna, Austria: <span class="sans-serif">R</span> Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
 </div>
 <div id="ref-color:Stauffer+Mayr+Dabernig:2015">
 <p>Stauffer, Reto, Georg J. Mayr, Markus Dabernig, and Achim Zeileis. 2015. “Somewhere over the Rainbow: How to Make Effective Use of Colors in Meteorological Visualizations.” <em>Bulletin of the American Meteorological Society</em> 96 (2): 203–16. <a href="https://doi.org/10.1175/BAMS-D-13-00155.1" class="uri">https://doi.org/10.1175/BAMS-D-13-00155.1</a>.</p>

@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
       </span>
     </div>
 
@@ -121,11 +121,11 @@
 <p>The flexible specification of HCL-based color palettes in <em>colorspace</em> allows one to closely approximate color palettes from various other packages:</p>
 <ul>
 <li>
-<em>ColorBrewer.org</em> <span class="citation">(Harrower and Brewer 2003)</span> as provided by R package <em>RColorBrewer</em> <span class="citation">(Neuwirth 2014)</span>.</li>
+<em>ColorBrewer.org</em> <span class="citation">(Harrower and Brewer 2003)</span> as provided by the R package <em>RColorBrewer</em> <span class="citation">(Neuwirth 2014)</span>.</li>
 <li>
-<em>CARTO</em> colors <span class="citation">(CARTO 2019)</span> as provided by R package <em>rcartocolor</em> <span class="citation">(Nowosad 2018)</span>.</li>
-<li>The viridis palettes of <span class="citation">Smith and Van der Walt (2015)</span> developed for <em>matplotlib</em>, as provided by R package <em>viridis</em> <span class="citation">(Garnier 2018)</span>.</li>
-<li>The scientific color maps of <span class="citation">Crameri (2018)</span> as provided by R package <em>scico</em> <span class="citation">(Pedersen and Crameri 2018)</span>.</li>
+<em>CARTO</em> colors <span class="citation">(CARTO 2019)</span> as provided by the R package <em>rcartocolor</em> <span class="citation">(Nowosad 2019)</span>.</li>
+<li>The viridis palettes of <span class="citation">Smith and Van der Walt (2015)</span> developed for <em>matplotlib</em>, as provided by the R package <em>viridis</em> <span class="citation">(Garnier 2018)</span>.</li>
+<li>The scientific color maps of <span class="citation">Crameri (2018)</span> as provided by the R package <em>scico</em> <span class="citation">(Pedersen and Crameri 2018)</span>.</li>
 </ul>
 <p>See the discussion of <a href="hcl_palettes.html">HCL-based palettes</a> for more details. In the following sections <code><a href="../reference/specplot.html">specplot()</a></code> is used to compare the <a href="palette_visualization.html#hcl-and-rgb-spectrum">HCL spectrum</a> of the original palettes (top swatches, solid lines) and their HCL-based approximations (bottom swatches, dashed lines).</p>
 <p>Before, a selection of such approximations using <code><a href="../reference/specplot.html">specplot()</a></code> is highlighted and discussed in some more detail. Specifically, the graphic below shows two blue/green/yellow palettes (<code><a href="https://www.rdocumentation.org/packages/RColorBrewer/topics/ColorBrewer">RColorBrewer::brewer.pal(7, "YlGnBu")</a></code> and <code><a href="https://www.rdocumentation.org/packages/viridis/topics/reexports">viridis::viridis(7)</a></code>) and two purple/red/yellow palettes (<code><a href="https://www.rdocumentation.org/packages/rcartocolor/topics/carto_pal">rcartocolor::carto_pal(7, "ag_Sunset")</a></code> and <code><a href="https://www.rdocumentation.org/packages/viridis/topics/reexports">viridis::plasma(7)</a></code>). Each panel compares the hue, chroma, and luminance trajectories of the original palettes (top swatches, solid lines) and their HCL-based approximations (bottom swatches, dashed lines). The palettes are not identical but very close for most colors. Note also that the chroma trajectories from the HCL palettes (green dashed lines) have some kinks which are due to fixing HCL coordinates at the boundaries of admissible RGB colors.</p>
@@ -198,7 +198,7 @@
 <p>Neuwirth, Erich. 2014. <em><span style="font-style:normal;">RColorBrewer</span>: ColorBrewer Palettes</em>. <a href="https://CRAN.R-project.org/package=RColorBrewer" class="uri">https://CRAN.R-project.org/package=RColorBrewer</a>.</p>
 </div>
 <div id="ref-color:rcartocolor">
-<p>Nowosad, Jakub. 2018. <em><span style="font-style:normal;">Rcartocolor</span>: “CARTOColors” Palettes</em>. <a href="https://CRAN.R-project.org/package=rcartocolor" class="uri">https://CRAN.R-project.org/package=rcartocolor</a>.</p>
+<p>Nowosad, Jakub. 2019. <em><span style="font-style:normal;">Rcartocolor</span>: “CARTOColors” Palettes</em>. <a href="https://CRAN.R-project.org/package=rcartocolor" class="uri">https://CRAN.R-project.org/package=rcartocolor</a>.</p>
 </div>
 <div id="ref-color:scico">
 <p>Pedersen, Thomas Lin, and Fabio Crameri. 2018. <em><span style="font-style:normal;">Scico</span>: Colour Palettes Based on the Scientific Colour-Maps</em>. <a href="https://CRAN.R-project.org/package=scico" class="uri">https://CRAN.R-project.org/package=scico</a>.</p>

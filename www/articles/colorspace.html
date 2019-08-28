@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
       </span>
     </div>
 
@@ -171,7 +171,7 @@
 <div id="usage-with-base-graphics" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage-with-base-graphics" class="anchor"></a>Usage with base graphics</h2>
-<p>The color vectors returned by the HCL palette functions can usually be passed directly to most base graphics function, typically through the <code>col</code> argument. Here, the <code>q4</code> vector created above is used in a time series display:</p>
+<p>The color vectors returned by the HCL palette functions can usually be passed directly to most base graphics, typically through the <code>col</code> argument. Here, the <code>q4</code> vector created above is used in a time series display:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log</a></span>(EuStockMarkets), <span class="dt">plot.type =</span> <span class="st">"single"</span>, <span class="dt">col =</span> q4, <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/legend">legend</a></span>(<span class="st">"topleft"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(EuStockMarkets), <span class="dt">col =</span> q4, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">bty =</span> <span class="st">"n"</span>)</a></code></pre></div>
 <p><img src="colorspace_files/figure-html/eustockmarkets-plot-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>

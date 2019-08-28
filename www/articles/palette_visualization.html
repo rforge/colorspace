@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
       </span>
     </div>
 
@@ -151,7 +151,7 @@
 <p>Next, we demonstrate a more complex example of a <code><a href="../reference/swatchplot.html">swatchplot()</a></code> with three matrices of sequential color palettes of blues, purples, reds, and greens. For all palettes, luminance increases monotonically to yield a proper sequential palette. However, the hue and chroma handling is somewhat different to emphasize different parts of the palette.</p>
 <ul>
 <li>Single-hue: In each palette the hue is fixed and chroma decreases monotonically (along with increasing luminance). This is typically sufficient to clearly bring out the extreme colors (dark/colorful vs. light gray).</li>
-<li>Single-hue (advanced): The hue is fixed (as above) but the chroma trajectory is triangular. Compared to the basic single-hue palette above this allows to better distinguish the colors in the middle and not only the extremes.</li>
+<li>Single-hue (advanced): The hue is fixed (as above) but the chroma trajectory is triangular. Compared to the basic single-hue palette above this better distinguishes the colors in the middle and not only the extremes.</li>
 <li>Multi-hue (advanced): As in the advanced single-hue palette the chroma trajectory is triangular but additionally the hue varies slightly. This can further enhance the distinction of colors in the middle of the palette.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">bprg &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Blues"</span>, <span class="st">"Purples"</span>, <span class="st">"Reds"</span>, <span class="st">"Greens"</span>)</a>
@@ -193,8 +193,8 @@
 <div id="trajectories-in-hcl-space" class="section level2">
 <h2 class="hasAnchor">
 <a href="#trajectories-in-hcl-space" class="anchor"></a>Trajectories in HCL space</h2>
-<p>While the <code><a href="../reference/specplot.html">specplot()</a></code> function above works well for bringing out the HCL coordinates associated with a given palette, it does not show how the palette fits into the HCL space. For example, it is not so clear whether high chroma values are close to the maximum possible for a given hue. Thus, it cannot be judged so easily how the parameters of the hue, chroma, and luminance trajectories can be modified to obtain another palette.</p>
-<p>Therefore, the <code><a href="../reference/hclplot.html">hclplot()</a></code> is another visualization of the HCL coordinates associated with a palette. It does so by collapsing over one of the coordinates (either the hue H or the luminance L) and displays a heatmap of colors combining the remaining two dimensions. The coordinates for the given color palette are highlighted to bring out its trajectory. In case the hue is really fixed (as in single-hue sequential palettes) or the luminance is really fixed (as in the qualitative palettes), collapsing is straightforward. However, when the coordinate that is collapsed over is actually not constant in the palette, a simple bivariate linear model is used to capture how the collapsed coordinate varies along with the two displayed coordinates.</p>
+<p>While the <code><a href="../reference/specplot.html">specplot()</a></code> function above works well for bringing out the HCL coordinates associated with a given palette, it does not show how the palette fits into the HCL space. For example, it is not so clear whether high chroma values are close to the maximum possible for a given hue. Thus, it cannot be easily judged how the parameters of the hue, chroma, and luminance trajectories can be modified to obtain another palette.</p>
+<p>Therefore, the <code><a href="../reference/hclplot.html">hclplot()</a></code> is another visualization of the HCL coordinates associated with a palette. It does so by collapsing over one of the coordinates (either the hue H or the luminance L) and displaying a heatmap of colors combining the remaining two dimensions. The coordinates for the given color palette are highlighted to bring out its trajectory. In case the hue is really fixed (as in single-hue sequential palettes) or the luminance is really fixed (as in the qualitative palettes), collapsing is straightforward. However, when the coordinate that is collapsed over is not actually constant in the palette, a simple bivariate linear model is used to capture how the collapsed coordinate varies along with the two displayed coordinates.</p>
 <p>The function <code><a href="../reference/hclplot.html">hclplot()</a></code> has been designed to work well with the <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> in this package. While it is possible to apply it to other color palettes as well, the results might look weird or confusing if these palettes are constructed very differently (e.g., like the highly saturated base R palettes). To infer the default <code>type</code> of projection <code><a href="../reference/hclplot.html">hclplot()</a></code> assesses the luminance trajectory and sets the default correspondingly:</p>
 <ul>
 <li>
@@ -227,9 +227,9 @@
 <a href="#demonstration-of-statistical-graphics" class="anchor"></a>Demonstration of statistical graphics</h2>
 <p>To demonstrate how different kinds of color palettes work in different kinds of statistical displays, <code><a href="../reference/demoplot.html">demoplot()</a></code> provides a simple convenience interface to some base graphics with (mostly artificial) data sets. As a first overview, all built-in demos are displayed with the same sequential heat colors palette: <code><a href="../reference/hcl_palettes.html">sequential_hcl(5, "Heat")</a></code>.</p>
 <p><img src="palette_visualization_files/figure-html/demoplot-all-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>All types of demos can, in principle, deal with arbitrarily many colors from any palette but clearly the graphics differ in various respects such as:</p>
+<p>All types of demos can, in principle, deal with arbitrarily many colors from any palette, but the graphics differ in various respects such as:</p>
 <ul>
-<li>Work best for fewer colors (e.g., bar, pie, scatter, lines, …) vs. many colors (e.g., heatmap, perspective, …).</li>
+<li>Working best for fewer colors (e.g., bar, pie, scatter, lines, …) vs. many colors (e.g., heatmap, perspective, …).</li>
 <li>Intended for categorical data (e.g., bar, pie, …) vs. continuous numeric data (e.g., heatmap, perspective, …).</li>
 <li>Shading areas (e.g., map, bar, pie, …) vs. shading points or lines (scatter, lines).</li>
 </ul>

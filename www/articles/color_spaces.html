@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@
 <p>Color models that are (or try to be) perceptually-based are displayed with circles and models that are not are displayed with rectangles. The corresponding classes and eponymous class constructors in <em>colorspace</em> are:</p>
 <ul>
 <li>
-<code><a href="../reference/RGB.html">RGB()</a></code> for the classic Red-Green-Blue color model, which mixes three primary colors with different intensities to obtain a spectrum of colors. The advantage of this color model is (or was) that it corresponded to how computer and TV screens generated colors, hence it was widely adopted and still is the basis for color specifications in many systems. For example, the hex color codes are employed in HTML but also in R. However, the RGB model also has some important drawbacks: It does not take into account the output device properties, it is not perceptually uniform (a unit step within RGB does not produce a constant perceptual change in color), and it is unintuitive for humans to specify colors (say brown or pink) in this space. <span class="citation">(See Wikipedia 2019g.)</span>
+<code><a href="../reference/RGB.html">RGB()</a></code> for the classic Red-Green-Blue color model, which mixes three primary colors with different intensities to obtain a spectrum of colors. The advantage of this color model is (or was) that it corresponded to how computer and TV screens generated colors, hence it was widely adopted and still is the basis for color specifications in many systems. For example, hex color codes are employed in HTML but also in R. However, the RGB model also has some important drawbacks: It does not take into account the output device properties, it is not perceptually uniform (a unit step within RGB does not produce a constant perceptual change in color), and it is unintuitive for humans to specify colors (say brown or pink) in this space. <span class="citation">(See Wikipedia 2019g.)</span>
 </li>
 <li>
 <code><a href="../reference/sRGB.html">sRGB()</a></code> addresses the issue of device dependency by adopting a so-called gamma correction. Therefore, the gamma-corrected standard RGB (sRGB), as opposed to the linearized RGB above, is a good model for specifying colors in software and for hardware. But it is still unintuitive for humans to work directly with this color space. Therefore, sRGB is a good place to end up in a color space manipulation but it is not a good place to start. <span class="citation">(See Wikipedia 2019h.)</span>
@@ -144,7 +144,7 @@
 <code><a href="../reference/polarLUV.html">polarLUV()</a></code> and <code><a href="../reference/polarLAB.html">polarLAB()</a></code> take polar coordinates in the UV plane and AB plane, respectively. Specifically, the polar coordinates of the LUV model are known as the HCL (Hue-Chroma-Luminance) model <span class="citation">(Wikipedia 2019e)</span>. These capture the human perceptual axes very well without confounding effects as in the HSV or HLS approaches. (More details follow below.)</li>
 </ul>
 <p>All S4 classes for color spaces inherit from a virtual class <code>color</code> which is internally always represented by matrices with three columns (corresponding to the three dimensions).</p>
-<p>Note that since the inception of the color space conversion tools within <em>colorspace</em> by <span class="citation">Ihaka (2003)</span> other R tools for this purpose became available. Notably, there is <code><a href="https://www.rdocumentation.org/packages/grDevices/topics/convertColor">grDevices::convertColor()</a></code> in base R <span class="citation">(<span class="sans-serif">R</span> Core Team 2019)</span> as well as <code><a href="https://www.rdocumentation.org/packages/farver/topics/convert_colour">farver::convert_colour()</a></code> <span class="citation">(Pedersen, Nicolae, and François 2018)</span> based on a C++ library. For many basic color conversion purposes the <em>colorspace</em> package and these alternatives are equally suitable. Some details differ, though, and the color conversion tools in <em>colorspace</em> are well-embedded into the remaining functionality of the package and make it self-contained.</p>
+<p>Note that since the inception of the color space conversion tools in  <span class="citation">(in , Ihaka 2003)</span> other  tools for this purpose became available, notably <code><a href="https://www.rdocumentation.org/packages/grDevices/topics/convertColor">grDevices::convertColor()</a></code> <span class="citation">(in high-level , <span class="sans-serif">R</span> Core Team 2019)</span> and <code><a href="https://www.rdocumentation.org/packages/farver/topics/convert_colour">farver::convert_colour()</a></code> <span class="citation">(in , Pedersen, Nicolae, and François 2018)</span>. For many basic color conversion purposes the <em>colorspace</em> package and these alternatives are equally suitable. Some details differ, though, and the color conversion tools in <em>colorspace</em> are well-embedded into the remaining functionality of the package and make it self-contained.</p>
 </div>
 <div id="human-color-vision-and-the-hcl-color-model" class="section level2">
 <h2 class="hasAnchor">
@@ -170,7 +170,7 @@
 <p>Several utilities are available for working with the S4 classes implementing the color spaces listed above.</p>
 <ul>
 <li>
-<code>as()</code> method: Conversions of a <code>color</code> object to the various color spaces, e.g., <code>as(x, "sRGB")</code>.</li>
+<code>as()</code> method: Convert a <code>color</code> object to the various color spaces, e.g., <code>as(x, "sRGB")</code>.</li>
 <li>
 <code><a href="../reference/coords.html">coords()</a></code>: Extract the three-dimensional coordinates pertaining to the current color class.</li>
 <li>
@@ -180,7 +180,7 @@
 <li>
 <code><a href="../reference/readRGB.html">readRGB()</a></code> and <code><a href="../reference/readhex.html">readhex()</a></code> can read text files into color objects, either from RGB coordinates or hex color strings.</li>
 <li>
-<code><a href="../reference/writehex.html">writehex()</a></code>: Writes hex color strings to a text file.</li>
+<code><a href="../reference/writehex.html">writehex()</a></code>: Write hex color strings to a text file.</li>
 <li>
 <code><a href="../reference/whitepoint.html">whitepoint()</a></code>: Query and change the so-called white point employed in conversions from CIE XYZ to RGB. Defaults to D65 that has been specified by the CIE to approximate daylight.</li>
 </ul>

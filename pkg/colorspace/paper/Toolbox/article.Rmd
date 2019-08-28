@@ -185,7 +185,7 @@ specified through suitable trajectories in the HCL (Hue-Chroma-Luminance) color 
 A quick overview can be gained easily with the `hcl_palettes()` function (see Figure\ \ref{fig:hcl-palettes},
 some of these are illustrated in more detail later):
 
-```{r hcl-palettes, echo = TRUE, eval = FALSE}
+```{r hcl-palettes-0, echo = TRUE, eval = FALSE}
 library("colorspace")
 hcl_palettes(plot = TRUE)
 ```
@@ -739,8 +739,11 @@ power transformations for the chroma and luminance trajectories
 palettes, including many that closely match other well-known color palettes.
 Figure\ \ref{fig:hcl-palettes-sequentialm} shows all the named multi-hue sequential palettes in \pkg{colorspace}:
 
-```{r hcl-palettes-sequentialm, fig.width = 8.5, fig.height = 9.0, fig.cap = "Prespecified sequential multi-hue HCL palettes available in \\code{sequential\\_hcl()} in \\pkg{colorspace}."}
+```{r hcl-palettes-sequentialm-0, echo = TRUE, eval = FALSE}
 hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
+```
+```{r hcl-palettes-sequentialm, echo = FALSE, fig.width = 8.5, fig.height = 9.0, fig.cap = "Prespecified sequential multi-hue HCL palettes available in \\code{sequential\\_hcl()} in \\pkg{colorspace}."}
+hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE, mar = c(0.1, 7, 0, 0), line = 6)
 ```
 
 * `"Purple-Blue"` to `"Terrain 2"` are various palettes created during the development
