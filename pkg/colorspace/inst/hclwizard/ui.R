@@ -261,7 +261,7 @@ shinyUI(fluidPage(
             textInput("P2val", label="POWER 2", width = NULL),
             actionButton("P2set","SET")
          )),
-         withTags(div(class = "hcl-slidervalue-compact", "P1"))
+         withTags(div(class = "hcl-slidervalue-compact", "P2"))
       )),
 
       # -------------------------------------------------------------
