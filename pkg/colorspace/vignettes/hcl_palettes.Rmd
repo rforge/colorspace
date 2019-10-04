@@ -63,7 +63,7 @@ hcl_palettes()
 ```
 
 To inspect the HCL parameter combinations for a specific palette simply include the `palette` name
-where upper- vs. lower-case, spaces, etc. are ignored for matching the label, i.e.,
+where upper- vs. lower-case, spaces, etc. are ignored for matching the label, e.g.,
 `"set2"` matches `"Set 2"`:
 
 ```{r hcl-palette}

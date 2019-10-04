@@ -1,6 +1,6 @@
 ## A Toolbox for Manipulating and Assessing Colors and Palettes
 
-```{r hcl, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 4.5, fig.align = "center", dev = "png", dpi = 48}
+```{r, hcl, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 4.5, fig.align = "center", dev = "png", dpi = 48}
 library("colorspace")
 hclplot(qualitative_hcl(9, c = 50, l = 70))
 ```

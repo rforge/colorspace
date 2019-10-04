@@ -87,7 +87,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE,
   fig.align = "center", fig.show = "hold", fig.path = "Figures/")
 ```
 
-Color is an integral and omnipresent element of many statistical graphics and data
+Color is an integral element of many statistical graphics and data
 visualizations. Therefore, colors should be carefully chosen to support all viewers in
 accessing the information displayed [@color:Tufte:1990; @color:Brewer:1999; @color:Ware:2004; @color:Wilkinson:2005; @color:Wilke:2019].
 However, until relatively recently many software packages have been using color
@@ -167,7 +167,7 @@ Section\ \ref{sec:palette_visualization} presents the toolbox for palette visual
 Section\ \ref{sec:color_vision_deficiency} discusses the implemented techniques for color vision deficiency emulation
 that help assess the suitability of colors for colorblind viewers.
 Section\ \ref{sec:hclwizard} briefly highlights the interactive color apps from the package.
-Finally, some further color manipulation utilities are highlighted in Section\ \ref{sec:manipulation_utilities}
+Some further color manipulation utilities are highlighted in Section\ \ref{sec:manipulation_utilities}
 before Section\ \ref{sec:summary} concludes the paper.
 
 
@@ -616,7 +616,7 @@ hcl_palettes()
 ```
 
 To inspect the HCL parameter combinations for a specific palette simply include the `palette` name
-where upper- vs.\ lower-case, spaces, etc.\ are ignored for matching the label, i.e.,
+where upper- vs.\ lower-case, spaces, etc.\ are ignored for matching the label, e.g.,
 `"set2"` matches `"Set 2"`:
 
 ```{r hcl-palette}
@@ -1185,7 +1185,7 @@ _chroma_, and _luminance_ are not always clear from looking just at color
 swatches or (statistical) graphics based on these palettes, the `specplot()`
 function provides an explicit display for the coordinates of the HCL trajectory associated
 with a palette. This can bring out clearly various aspects, e.g.,
-whether hue is constant, chroma is monotonic or triangular, and whether
+whether hue is constant, whether chroma is monotonic or triangular, and whether
 luminance is approximately constant (as in many qualitative palettes),
 monotonic (as in sequential palettes), or diverging.
 
@@ -1338,7 +1338,7 @@ but the graphics differ in various respects such as:
 
 - Working best for fewer colors (e.g., bar, pie, scatter, lines, ...) vs.\ many colors (e.g., heatmap, perspective, ...).
 - Intended for categorical data (e.g., bar, pie, ...) vs.\ continuous numeric data (e.g., heatmap, perspective, ...).
-- Shading areas (e.g., map, bar, pie, ...) vs.\ shading points or lines (scatter, lines).
+- Shading areas (e.g., map, bar, pie, ...) vs.\ coloring points or lines (scatter, lines).
 
 Hence, in the following Figures\ \ref{fig:demoplot-qualitative}--\ref{fig:demoplot-diverging}
 some further illustrations are organized by type of
@@ -1755,15 +1755,15 @@ schemes with many categories. Note that the palettes are quite diverse, though,
 and not all of them are equally suitable for coding qualitative information.
 The visualization functions in \pkg{colorspace} from Section\ \ref{sec:palette_visualization}
 may be helpful in assessing their properties.
-\pkg{roloc} [@color:roloc; @color:roloc2] also provides color conversions,
+\pkg{roloc} [@color:roloc2; @color:roloc] also provides color conversions,
 not between numeric color spaces, but rather from numeric color spaces to English color names.
 
 In addition to the \proglang{R} version of \pkg{colorspace}, a
 \proglang{Python}\ 2/\proglang{Python}\ 3 re-implementation is in beta
 and available at <https://github.com/retostauffer/python-colorspace>.
 In the paper we focus on the more mature \proglang{R} implementation but
-replication materials for most examples are not only provided for both \proglang{R}
-and \proglang{Python}.
+replication materials for most examples are also available for
+\proglang{Python}.
 
 
 
@@ -1782,3 +1782,9 @@ and all packages used are available from the Comprehensive
 \proglang{R} Archive Network (CRAN) at
 <https://CRAN.R-project.org/>.
 
+
+# Acknowledgments {#acknowledgments .unnumbered}
+
+The authors would like to thank the journal editors, the associate editor,
+and two anonymous reviewers for their constructive and helpful feedback
+that substantially improved the paper.
