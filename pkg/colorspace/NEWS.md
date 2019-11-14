@@ -5,6 +5,11 @@
   of the legend has been reversed (Luminance / Chroma / Hue) so that the
   legend labels are closer to the axis that they pertain to.
 
+* Improve the documentation of the \code{LUV()} and \code{LAB()} color
+  spaces, pointing out that the \code{U}/\code{V} and \code{A}/\code{B}
+  coordinates are _typically_ in [-100, 100] but can actually be exceeded
+  by highly saturated colors.
+
 
 # colorspace 1.4-1
 
