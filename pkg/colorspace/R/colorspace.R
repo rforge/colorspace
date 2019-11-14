@@ -326,9 +326,10 @@ XYZ <-
 #' The \code{L}, \code{A} and \code{B} values give the coordinates of the
 #' colors in the CIE \eqn{L^*a^*b^*}{L*a*b*} space.  This is a transformation
 #' of the 1931 CIE XYZ space which attempts to produce perceptually based axes.
-#' Luminance takes values between 0 and 100, and the other coordinates take
-#' values between -100 and 100.  The \eqn{a} and \eqn{b} coordinates measure
-#' positions on green/red and blue/yellow axes.
+#' Luminance takes values between 0 and 100, and the other coordinates 
+#' typically take values between -100 and 100, although these values can also
+#' be exceeded by highly saturated colors. The \eqn{a} and \eqn{b} coordinates
+#' measure positions on green/red and blue/yellow axes.
 #' 
 #' @param L,A,B these arguments give the L, A and B coordinates of the colors.
 #' The values can be provided in separate \code{L}, \code{A} and \code{B}
@@ -508,8 +509,9 @@ HLS <-
 #' The \code{L}, \code{U} and \code{V} values give the coordinates of the
 #' colors in the CIE (1976) \eqn{L^*u^*v^*}{L*u*v*} space.  This is a
 #' transformation of the 1931 CIE XYZ space which attempts to produce
-#' perceptually based axes.  Luminance takes values between 0 and 100, and the
-#' other coordinates take values between -100 and 100.  The \eqn{a} and \eqn{b}
+#' perceptually based axes.  Luminance takes values between 0 and 100, and the other coordinates 
+#' typically take values between -100 and 100, although these values can also
+#' be exceeded by highly saturated colors. The \eqn{u} and \eqn{v}
 #' coordinates measure positions on green/red and blue/yellow axes.
 #' 
 #' @param L,U,V these arguments give the L, U and V coordinates of the colors.
