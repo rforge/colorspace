@@ -166,7 +166,7 @@
 <div id="hcl-and-rgb-spectrum" class="section level2">
 <h2 class="hasAnchor">
 <a href="#hcl-and-rgb-spectrum" class="anchor"></a>HCL (and RGB) spectrum</h2>
-<p>As the properties of a palette in terms of the perceptual dimensions <em>hue</em>, <em>chroma</em>, and <em>luminance</em> are not always clear from looking just at color swatches or (statistical) graphics based on these palettes, the <code><a href="../reference/specplot.html">specplot()</a></code> function provides an explicit display for the coordinates of the HCL trajectory associated with a palette. This can bring out clearly various aspects, e.g., whether hue is constant, chroma is monotonic or triangular, and whether luminance is approximately constant (as in many qualitative palettes), monotonic (as in sequential palettes), or diverging.</p>
+<p>As the properties of a palette in terms of the perceptual dimensions <em>hue</em>, <em>chroma</em>, and <em>luminance</em> are not always clear from looking just at color swatches or (statistical) graphics based on these palettes, the <code><a href="../reference/specplot.html">specplot()</a></code> function provides an explicit display for the coordinates of the HCL trajectory associated with a palette. This can bring out clearly various aspects, e.g., whether hue is constant, whether chroma is monotonic or triangular, and whether luminance is approximately constant (as in many qualitative palettes), monotonic (as in sequential palettes), or diverging.</p>
 <p>The function first transforms a given color palette to its HCL (<code><a href="../reference/polarLUV.html">polarLUV()</a></code>) coordinates. As the hues for low-chroma colors are not (or only poorly) identified, they are smoothed by default. Also, to avoid jumps from 0 to 360 or vice versa, the hue coordinates are shifted suitably.</p>
 <p>By default, the resulting trajectories in the HCL spectrum are visualized by a simple line plot:</p>
 <ul>
@@ -231,7 +231,7 @@
 <ul>
 <li>Working best for fewer colors (e.g., bar, pie, scatter, lines, …) vs. many colors (e.g., heatmap, perspective, …).</li>
 <li>Intended for categorical data (e.g., bar, pie, …) vs. continuous numeric data (e.g., heatmap, perspective, …).</li>
-<li>Shading areas (e.g., map, bar, pie, …) vs. shading points or lines (scatter, lines).</li>
+<li>Shading areas (e.g., map, bar, pie, …) vs. coloring points or lines (scatter, lines).</li>
 </ul>
 <p>Hence, in the following some further illustrations are organized by type of palette, using suitable demos for the particular palettes.</p>
 <p><em>Qualitative palettes:</em> Light pastel colors typically work better for shading areas (pie, left) while darker and more colorful palettes are usually preferred for points (center) or lines (right).</p>

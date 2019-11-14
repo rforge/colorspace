@@ -445,14 +445,19 @@ and eponymous class constructors, are:
 * `LUV()` and `LAB()` were therefore proposed by the CIE as perceptually uniform
   color spaces where the former is typically preferred for emissive technologies
   (such as screens and monitors) whereas the latter is usually preferred when
-  working with dyes and pigments. However, the three axes of these two spaces
-  still do not correspond to human perceptual axes.
+  working with dyes and pigments. The L coordinate in both spaces has the same
+  meaning and captures luminace (light-dark contrasts). Both the U and V coordinates
+  as well as the A and B coordinates measure positions on red/green and yellow/blue
+  axes, respectively, albeit in somewhat different ways. While this corresponds
+  to how human color vision likely evolved (see the next section), these two color
+  models still not correspond to perceptual axes that humans use to describe colors.
   See @color:Wiki+CIELUV; @color:Wiki+CIELAB for more details.
-* `polarLUV()` and `polarLAB()` take polar coordinates in the UV plane
+* `polarLUV()` and `polarLAB()` therefore take polar coordinates in the UV plane
   and AB plane, respectively. Specifically, the polar coordinates of the LUV
-  model are known as the HCL (Hue-Chroma-Luminance) model [@color:Wiki+HCL]. These capture the
-  human perceptual axes very well without confounding effects as in the HSV or
-  HLS approaches. (More details follow below.)
+  model are known as the HCL (Hue-Chroma-Luminance) model [see @color:Wiki+HCL, 
+  which points out that the LAB-based polar coordinates are also sometimes referred to as HCL].
+  The HCL model captures the human perceptual axes very well without confounding
+  effects as in the HSV or HLS approaches. (More details follow below.)
 
 All \proglang{S}4 classes for color spaces inherit from a virtual class `color` which is
 internally always represented by matrices with three columns (corresponding to
