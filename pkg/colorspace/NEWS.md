@@ -1,5 +1,9 @@
 # colorspace 1.4-2
 
+* New function `transparency()` that manages the alpha transparency
+  of some color specification and returns a hexadecimal string where
+  the alpha component is modified, added, or removed.
+
 * Changed the default colors in `specplot()` from `rainbow_hcl(3)` to
   `qualitative_hcl(3)` which is darker and has more chroma. Also, the order
   of the legend has been reversed (Luminance / Chroma / Hue) so that the
