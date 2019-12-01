@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -39,12 +41,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
+
 <meta property="og:title" content="Color Palette Demonstration Plot — demoplot" />
-
 <meta property="og:description" content="Demonstration of color palettes in various kinds of statistical graphics." />
-
 <meta property="og:image" content="http://colorspace.R-Forge.R-project.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -129,7 +131,6 @@
   <a href="../contact.html">Contact</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -150,14 +151,16 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Demonstration of color palettes in various kinds of statistical graphics.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>demoplot</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"map"</span>, <span class='st'>"heatmap"</span>, <span class='st'>"scatter"</span>, <span class='st'>"spine"</span>, <span class='st'>"bar"</span>, <span class='st'>"pie"</span>,
-  <span class='st'>"perspective"</span>, <span class='st'>"mosaic"</span>, <span class='st'>"lines"</span>), <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>demoplot</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"map"</span>, <span class='st'>"heatmap"</span>, <span class='st'>"scatter"</span>, <span class='st'>"spine"</span>, <span class='st'>"bar"</span>, <span class='st'>"pie"</span>, <span class='st'>"perspective"</span>, <span class='st'>"mosaic"</span>,
+    <span class='st'>"lines"</span>),
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -174,12 +177,11 @@
       <td><p>currently not used.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>demoplot</code> returns invisibly what the respective base graphics
 functions return that are called internally.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>To demonstrate how different kinds of color palettes work in different
@@ -188,17 +190,14 @@ interface to some base graphics with (mostly artificial) data sets.
 All types of demos can deal with arbitrarily many colors. However, some
 displays are much more suitable for a low number of colors (e.g., the pie
 chart) while others work better with more colors (e.g., the heatmap).</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2019).
 &#8220;ccolorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.&#8221;
 arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.06490'>http://arxiv.org/abs/1903.06490</a></p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='specplot.html'>specplot</a></code>, <code><a href='hclplot.html'>hclplot</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## all built-in demos with the same sequential heat color palette</span>
@@ -241,15 +240,10 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

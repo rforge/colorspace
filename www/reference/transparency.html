@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>(More) Flexible Diverging HCL Palettes — divergingx_hcl • colorspace</title>
+<title>Manage Transparency of Colors — transparency • colorspace</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="(More) Flexible Diverging HCL Palettes — divergingx_hcl" />
-<meta property="og:description" content="Diverging HCL color palettes generated through combination of two fully
-flexible (and possibly unbalanced) multi-hue sequential palettes." />
+<meta property="og:title" content="Manage Transparency of Colors — transparency" />
+<meta property="og:description" content="Add, remove, or modify alpha transparency of a vector of colors." />
 <meta property="og:image" content="http://colorspace.R-Forge.R-project.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -146,159 +145,62 @@ flexible (and possibly unbalanced) multi-hue sequential palettes." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>(More) Flexible Diverging HCL Palettes</h1>
+    <h1>Manage Transparency of Colors</h1>
     
-    <div class="hidden name"><code>divergingx_hcl.Rd</code></div>
+    <div class="hidden name"><code>transparency.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Diverging HCL color palettes generated through combination of two fully
-flexible (and possibly unbalanced) multi-hue sequential palettes.</p>
+    <p>Add, remove, or modify alpha transparency of a vector of colors.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>divergingx_hcl</span>(
-  <span class='no'>n</span>,
-  <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Geyser"</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>h1</span>,
-  <span class='no'>h2</span>,
-  <span class='no'>h3</span>,
-  <span class='no'>c1</span>,
-  <span class='no'>c2</span>,
-  <span class='no'>c3</span>,
-  <span class='no'>l1</span>,
-  <span class='no'>l2</span>,
-  <span class='no'>l3</span>,
-  <span class='no'>p1</span>,
-  <span class='no'>p2</span>,
-  <span class='no'>p3</span>,
-  <span class='no'>p4</span>,
-  <span class='no'>cmax1</span>,
-  <span class='no'>cmax2</span>
-)
-
-<span class='fu'>divergingx_palettes</span>(<span class='kw'>palette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>7L</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>transparency</span>(<span class='no'>col</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>n</th>
-      <td><p>the number of colors (\(\ge 1\)) to be in the palette.</p></td>
-    </tr>
-    <tr>
-      <th>palette</th>
-      <td><p>character with the name (see details).</p></td>
-    </tr>
-    <tr>
-      <th>&#8230;</th>
-      <td><p>arguments passed to <code><a href='hex.html'>hex</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>fixup</th>
-      <td><p>logical. Should the color be corrected to a valid RGB value?</p></td>
+      <th>col</th>
+      <td><p>vector of R colors. Can be any of the three kinds of R colors,
+i.e., either a color name (an element of
+<code><a href='https://www.rdocumentation.org/packages/grDevices/topics/colors'>colors</a></code>), a hexadecimal (hex) string of the form
+<code>"#rrggbb"</code> or <code>"#rrggbbaa"</code> (see <code><a href='https://www.rdocumentation.org/packages/grDevices/topics/rgb'>rgb</a></code>), or
+an integer <code>i</code> meaning <code>palette()[i]</code>. Additionally, <code>col</code> can be
+a formal <code><a href='color-class.html'>color-class</a></code> object or a matrix with three
+rows containing R/G/B (0-255) values.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>numeric vector of values in the range <code>[0, 1]</code> for alpha
-transparency channel (0 means transparent and 1 means opaque).</p></td>
-    </tr>
-    <tr>
-      <th>rev</th>
-      <td><p>logical. Should the palette be reversed?</p></td>
-    </tr>
-    <tr>
-      <th>h1</th>
-      <td><p>numeric. Starting hue coordinate.</p></td>
-    </tr>
-    <tr>
-      <th>h2</th>
-      <td><p>numeric. Center hue coordinate.</p></td>
-    </tr>
-    <tr>
-      <th>h3</th>
-      <td><p>numeric. Ending hue coordinate.</p></td>
-    </tr>
-    <tr>
-      <th>c1</th>
-      <td><p>numeric. Chroma coordinate corresponding to <code>h1</code>.</p></td>
-    </tr>
-    <tr>
-      <th>c2</th>
-      <td><p>numeric. Chroma coordinate corresponding to <code>h2</code> (if <code>NA</code>, set to 0).</p></td>
-    </tr>
-    <tr>
-      <th>c3</th>
-      <td><p>numeric. Chroma coordinate corresponding to <code>h3</code>.</p></td>
-    </tr>
-    <tr>
-      <th>l1</th>
-      <td><p>numeric. Luminance coordinate corresponding to <code>h1</code>.</p></td>
-    </tr>
-    <tr>
-      <th>l2</th>
-      <td><p>numeric. Luminance coordinate corresponding to <code>h2</code>.</p></td>
-    </tr>
-    <tr>
-      <th>l3</th>
-      <td><p>numeric. Luminance coordinate corresponding to <code>h3</code> (if <code>NA</code>, <code>l1</code> is used).</p></td>
-    </tr>
-    <tr>
-      <th>p1</th>
-      <td><p>numeric. Power parameter for chroma coordinates in first sequential palette.</p></td>
-    </tr>
-    <tr>
-      <th>p2</th>
-      <td><p>numeric. Power parameter for luminance coordinates in first sequential palette (if <code>NA</code>, <code>p1</code> is used).</p></td>
-    </tr>
-    <tr>
-      <th>p3</th>
-      <td><p>numeric. Power parameter for chroma coordinates in second sequential palette (if <code>NA</code>, <code>p1</code> is used).</p></td>
-    </tr>
-    <tr>
-      <th>p4</th>
-      <td><p>numeric. Power parameter for luminance coordinates in second sequential palette (if <code>NA</code>, <code>p3</code> is used).</p></td>
-    </tr>
-    <tr>
-      <th>cmax1</th>
-      <td><p>numeric. Maximum chroma coordinate in first sequential palette (not used if <code>NA</code>).</p></td>
-    </tr>
-    <tr>
-      <th>cmax2</th>
-      <td><p>numeric. Maximum chroma coordinate in second sequential palette (if <code>NA</code>, <code>cmax1</code> is used).</p></td>
-    </tr>
-    <tr>
-      <th>plot</th>
-      <td><p>logical. Should the selected HCL color palettes be visualized?</p></td>
+      <td><p>either a new numeric alpha transparency value or logical (to add/remove alpha)
+or <code>NULL</code>. See details.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A character vector with (s)RGB codings of the colors in the palette.</p>
+    <p>A character vector with hexadecimal color strings with alpha transparency
+corresponding to <code>alpha</code> argument.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>divergingx_hcl</code> function simply calls <code><a href='hcl_palettes.html'>sequential_hcl</a></code>
-twice with a prespecified set of hue, chroma, and luminance parameters. This is
-similar to <code><a href='hcl_palettes.html'>diverging_hcl</a></code> but allows for more flexibility:
-<code>diverging_hcl</code> employs two <em>single-hue</em> sequential palettes,
-always uses zero chroma for the neutral/central color, and restricts the
-chroma/luminance path to be the same in both &#8220;arms&#8221; of the palette.
-In contrast, <code>divergingx_hcl</code> relaxes this to two full <em>multi-hue</em>
-palettes that can thus go through a non-gray neutral color (typically light
-yellow). Consequently, the chroma/luminance paths can be rather unbalanced
-between the two arms.</p>
-<p>With this additional flexibility various diverging palettes suggested by
-<a href='http://ColorBrewer.org/'>http://ColorBrewer.org/</a> and CARTO (<a href='https://carto.com/carto-colors/'>https://carto.com/carto-colors/</a>),
-can be emulated along with the Zissou 1 palette from <span class="pkg">wesanderson</span> and
-Cividis from <span class="pkg">viridis</span>.</p>
-<p>Available CARTO palettes: ArmyRose, Earth, Fall, Geyser, TealRose, Temps, and
-Tropic (with Tropic also available in <code>diverging_hcl</code>).</p>
-<p>Available ColorBrewer.org palettes: PuOr, RdBu, RdGy, PiYG, PRGn, BrBG, RdYlBu,
-RdYlGn, Spectral.</p>
+    <p>Alpha transparency is useful for making colors semi-transparent, e.g., for
+overlaying different elements in graphics. An alpha value of 0 (or 00 in hex strings)
+corresponds to fully transparent and an alpha value of 1 (or FF in hex strings)
+corresponds to fully opaque. If a color hex string in R does not provide an explicit
+alpha transparency, the color is assumed to be fully opaque.</p>
+<p>The <code>transparency</code> function can be used to manage the alpha transparency
+of a set of colors. It always returns a hex color specification. This hex color
+can have the alpha transparency added/removed/modified depending on the
+specification of <code>alpha</code>:</p><ul>
+<li><p><code>alpha = NULL</code>: Returns a hex vector with alpha transparency only if needed.
+      Thus, it keeps the alpha transparency for the colors (if any) but only if
+      different from opaque.</p></li>
+<li><p><code>alpha = TRUE</code>: Returns a hex vector with alpha transparency
+      for all colors, using opaque (FF) as the default if missing.</p></li>
+<li><p><code>alpha = FALSE</code>: Returns a hex vector without alpha transparency for
+      all colors (even if the original colors had non-opaque alpha).</p></li>
+<li><p><code>alpha</code> numeric: Returns a hex vector with alpha transparency for
+      all colors set to the <code>alpha</code> argument (recycled if necessary).</p></li>
+</ul>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2019).
@@ -306,14 +208,17 @@ RdYlGn, Spectral.</p>
 arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.06490'>http://arxiv.org/abs/1903.06490</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='hcl_palettes.html'>sequential_hcl</a></code>, <code><a href='hcl_palettes.html'>diverging_hcl</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/grDevices/topics/rgb'>rgb</a></code>, <code><a href='desaturate.html'>desaturate</a></code>, <code><a href='lighten.html'>lighten</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## show emulated CARTO/ColorBrewer.org palettes</span>
-<span class='fu'>divergingx_palettes</span>(<span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='divergingx_hcl-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## compared to diverging_hcl() the diverging CARTO palettes are typically warmer</span>
-<span class='co'>## but also less balanced with respect to chroma/luminance, see e.g.,</span>
-<span class='fu'><a href='specplot.html'>specplot</a></span>(<span class='fu'>divergingx_hcl</span>(<span class='fl'>7</span>, <span class='st'>"ArmyRose"</span>))</div><div class='img'><img src='divergingx_hcl-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='co'>## modify transparency of a color (in different formats)</span>
+<span class='fu'>transparency</span>(<span class='st'>"black"</span>,   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>)) <span class='co'>## name</span></div><div class='output co'>#&gt; [1] "#00000000" "#00000080" "#000000FF"</div><div class='input'><span class='fu'>transparency</span>(<span class='st'>"#000000"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>)) <span class='co'>## hex string</span></div><div class='output co'>#&gt; [1] "#00000000" "#00000080" "#000000FF"</div><div class='input'><span class='fu'>transparency</span>(<span class='fl'>1</span>,         <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>)) <span class='co'>## palette() integer</span></div><div class='output co'>#&gt; [1] "#00000000" "#00000080" "#000000FF"</div><div class='input'>
+<span class='co'>## three shades of gray (in different formats:</span>
+<span class='co'>## name/opaque, hex/opaque, hex/semi-transparent)</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"gray"</span>, <span class='st'>"#BEBEBE"</span>, <span class='st'>"#BEBEBE80"</span>)
+
+<span class='co'>## manage transparency</span>
+<span class='fu'>transparency</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)  <span class='co'>## only if necessary</span></div><div class='output co'>#&gt; [1] "#BEBEBE"   "#BEBEBE"   "#BEBEBE80"</div><div class='input'><span class='fu'>transparency</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)  <span class='co'>## add</span></div><div class='output co'>#&gt; [1] "#BEBEBEFF" "#BEBEBEFF" "#BEBEBE80"</div><div class='input'><span class='fu'>transparency</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='co'>## remove</span></div><div class='output co'>#&gt; [1] "#BEBEBE" "#BEBEBE" "#BEBEBE"</div><div class='input'><span class='fu'>transparency</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)   <span class='co'>## modify</span></div><div class='output co'>#&gt; [1] "#BEBEBECC" "#BEBEBECC" "#BEBEBECC"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

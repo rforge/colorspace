@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -39,12 +41,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
+
 <meta property="og:title" content="Convert Colors to Hexadecimal Strings — hex" />
-
 <meta property="og:description" content="This functions converts color-class objects into hexadecimal strings." />
-
 <meta property="og:image" content="http://colorspace.R-Forge.R-project.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -129,7 +131,6 @@
   <a href="../contact.html">Contact</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -150,13 +151,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>This functions converts <code><a href='color-class.html'>color-class</a></code> objects into hexadecimal strings.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>hex</span>(<span class='no'>from</span>, <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -175,11 +174,10 @@ correction.  The default is to convert out-of-gamut colors to the string
 <code>"NA"</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A vector of character strings.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The color objects are first converted to sRGB color objects.  They are then
@@ -188,13 +186,11 @@ then converted to hexadecimal strings of the form <code>"#RRGGBB"</code> and
 suitable for use as color descriptions for R graphics.  Out of gamut values
 are either corrected to valid RGB values by translating the the individual
 primary values so that they lie between 0 and 255.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='hex2RGB.html'>hex2RGB</a></code>, <code><a href='RGB.html'>RGB</a></code>, <code><a href='sRGB.html'>sRGB</a></code>,
 <code><a href='HSV.html'>HSV</a></code>, <code><a href='XYZ.html'>XYZ</a></code>, <code><a href='LAB.html'>LAB</a></code>,
 <code><a href='polarLAB.html'>polarLAB</a></code>, <code><a href='LUV.html'>LUV</a></code>, <code><a href='polarLUV.html'>polarLUV</a></code>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>hsv</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='HSV.html'>HSV</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>360</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>7</span>)[-<span class='fl'>7</span>], <span class='fl'>1</span>, <span class='fl'>1</span>)
@@ -210,13 +206,9 @@ primary values so that they lie between 0 and 255.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

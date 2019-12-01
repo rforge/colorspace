@@ -135,29 +135,27 @@
 <pre><code>## HCL palettes
 ## 
 ## Type:  Qualitative 
-## Names: Pastel 1, Dark 2, Dark 3, Set 2, Set 3, Warm, Cold, Harmonic,
-##        Dynamic
+## Names: Pastel 1, Dark 2, Dark 3, Set 2, Set 3, Warm, Cold, Harmonic, Dynamic
 ## 
 ## Type:  Sequential (single-hue) 
-## Names: Grays, Light Grays, Blues 2, Blues 3, Purples 2, Purples 3, Reds
-##        2, Reds 3, Greens 2, Greens 3, Oslo
+## Names: Grays, Light Grays, Blues 2, Blues 3, Purples 2, Purples 3, Reds 2,
+##        Reds 3, Greens 2, Greens 3, Oslo
 ## 
 ## Type:  Sequential (multi-hue) 
 ## Names: Purple-Blue, Red-Purple, Red-Blue, Purple-Orange, Purple-Yellow,
-##        Blue-Yellow, Green-Yellow, Red-Yellow, Heat, Heat 2,
-##        Terrain, Terrain 2, Viridis, Plasma, Inferno, Dark Mint,
-##        Mint, BluGrn, Teal, TealGrn, Emrld, BluYl, ag_GrnYl, Peach,
-##        PinkYl, Burg, BurgYl, RedOr, OrYel, Purp, PurpOr, Sunset,
-##        Magenta, SunsetDark, ag_Sunset, BrwnYl, YlOrRd, YlOrBr,
-##        OrRd, Oranges, YlGn, YlGnBu, Reds, RdPu, PuRd, Purples,
-##        PuBuGn, PuBu, Greens, BuGn, GnBu, BuPu, Blues, Lajolla,
-##        Turku
+##        Blue-Yellow, Green-Yellow, Red-Yellow, Heat, Heat 2, Terrain,
+##        Terrain 2, Viridis, Plasma, Inferno, Dark Mint, Mint, BluGrn,
+##        Teal, TealGrn, Emrld, BluYl, ag_GrnYl, Peach, PinkYl, Burg,
+##        BurgYl, RedOr, OrYel, Purp, PurpOr, Sunset, Magenta, SunsetDark,
+##        ag_Sunset, BrwnYl, YlOrRd, YlOrBr, OrRd, Oranges, YlGn, YlGnBu,
+##        Reds, RdPu, PuRd, Purples, PuBuGn, PuBu, Greens, BuGn, GnBu,
+##        BuPu, Blues, Lajolla, Turku
 ## 
 ## Type:  Diverging 
 ## Names: Blue-Red, Blue-Red 2, Blue-Red 3, Red-Green, Purple-Green,
 ##        Purple-Brown, Green-Brown, Blue-Yellow 2, Blue-Yellow 3,
-##        Green-Orange, Cyan-Magenta, Tropic, Broc, Cork, Vik,
-##        Berlin, Lisbon, Tofino</code></pre>
+##        Green-Orange, Cyan-Magenta, Tropic, Broc, Cork, Vik, Berlin,
+##        Lisbon, Tofino</code></pre>
 <p>To inspect the HCL parameter combinations for a specific palette simply include the <code>palette</code> name where upper- vs. lower-case, spaces, etc. are ignored for matching the label, e.g., <code>"set2"</code> matches <code>"Set 2"</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="dt">palette =</span> <span class="st">"set2"</span>)</a></code></pre></div>
 <pre><code>## HCL palette
@@ -304,8 +302,8 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <pre><code>## HCL palettes
 ## 
 ## Type:  Qualitative 
-## Names: Pastel 1, Dark 2, Dark 3, Set 2, Set 3, Warm, Cold, Harmonic,
-##        Dynamic, myset</code></pre>
+## Names: Pastel 1, Dark 2, Dark 3, Set 2, Set 3, Warm, Cold, Harmonic, Dynamic,
+##        myset</code></pre>
 <p>The palette can be used subsequently in <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> as well as the qualitative <a href="ggplot2_color_scales.html">ggplot2 color scales</a>, e.g.,</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="dv">4</span>, <span class="dt">palette =</span> <span class="st">"myset"</span>)</a></code></pre></div>
 <pre><code>## [1] "#FFACBF" "#C6CD70" "#32DDCD" "#C7BEFF"</code></pre>
@@ -386,6 +384,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>

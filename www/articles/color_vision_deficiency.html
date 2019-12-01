@@ -129,13 +129,11 @@
 <p>The poor results for the RGB rainbow palette are contrasted with a proper sequential palette ranging from dark blue to light yellow: <code><a href="../reference/hcl_palettes.html">sequential_hcl(11, "Blue-Yellow")</a></code>.</p>
 <p>The statistical graphic employed for illustration is a heatmap of the well-known Maunga Whau <code>volcano</code> data from base R. This heatmap is easily available as <code><a href="../reference/demoplot.html">demoplot(x, "heatmap")</a></code> where <code>x</code> is the color vector to be used, e.g.,</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/palettes">rainbow</a></span>(<span class="dv">11</span>, <span class="dt">end =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</a></code></pre></div>
-<pre><code>##  [1] "#FF0000FF" "#FF6600FF" "#FFCC00FF" "#CCFF00FF" "#66FF00FF"
-##  [6] "#00FF00FF" "#00FF66FF" "#00FFCCFF" "#00CCFFFF" "#0066FFFF"
-## [11] "#0000FFFF"</code></pre>
+<pre><code>##  [1] "#FF0000FF" "#FF6600FF" "#FFCC00FF" "#CCFF00FF" "#66FF00FF" "#00FF00FF"
+##  [7] "#00FF66FF" "#00FFCCFF" "#00CCFFFF" "#0066FFFF" "#0000FFFF"</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/simulate_cvd.html">deutan</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/palettes">rainbow</a></span>(<span class="dv">11</span>, <span class="dt">end =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>))</a></code></pre></div>
-<pre><code>##  [1] "#5D4700FF" "#B58C01FF" "#FFD005FF" "#FFE408FF" "#FFC809FF"
-##  [6] "#DBAB0AFF" "#C4B06DFF" "#ACB5D0FF" "#7595FFFF" "#1D50FBFF"
-## [11] "#000CF7FF"</code></pre>
+<pre><code>##  [1] "#5D4700FF" "#B58C01FF" "#FFD005FF" "#FFE408FF" "#FFC809FF" "#DBAB0AFF"
+##  [7] "#C4B06DFF" "#ACB5D0FF" "#7595FFFF" "#1D50FBFF" "#000CF7FF"</code></pre>
 <p>and so on. To aid the interpretation of the heatmap a perspective display using only gray shades is included first, providing another intuitive display of what the terrain around Maunga Whau looks like.</p>
 <p><img src="color_vision_deficiency_files/figure-html/volcano-1.png" width="528" style="display: block; margin: auto;"></p>
 <p>Subsequently, all combinations of palette and color vision deficiency are visualized. Additionally, a grayscale version is created with <code><a href="../reference/desaturate.html">desaturate()</a></code>.</p>
@@ -181,6 +179,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>

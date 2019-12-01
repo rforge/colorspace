@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -39,13 +41,13 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="HCL (and HSV) Color Palettes Corresponding to Base R Palettes — rainbow_hcl" />
 
+<meta property="og:title" content="HCL (and HSV) Color Palettes Corresponding to Base R Palettes — rainbow_hcl" />
 <meta property="og:description" content="Color palettes based on the HCL (and HSV) color space to replace
 base R palettes." />
-
 <meta property="og:image" content="http://colorspace.R-Forge.R-project.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -130,7 +132,6 @@ base R palettes." />
   <a href="../contact.html">Contact</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -151,24 +152,58 @@ base R palettes." />
     </div>
 
     <div class="ref-description">
-    
     <p>Color palettes based on the HCL (and HSV) color space to replace
 base R palettes.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>rainbow_hcl</span>(<span class='no'>n</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>360</span> * (<span class='no'>n</span> - <span class='fl'>1</span>)/<span class='no'>n</span>,
-  <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>rainbow_hcl</span>(
+  <span class='no'>n</span>,
+  <span class='kw'>c</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>70</span>,
+  <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>360</span> * (<span class='no'>n</span> - <span class='fl'>1</span>)/<span class='no'>n</span>,
+  <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>heat_hcl</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>90</span>), <span class='kw'>c.</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>30</span>), <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>90</span>),
-  <span class='kw'>power</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>/<span class='fl'>5</span>, <span class='fl'>1</span>), <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+<span class='fu'>heat_hcl</span>(
+  <span class='no'>n</span>,
+  <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>90</span>),
+  <span class='kw'>c.</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>30</span>),
+  <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>90</span>),
+  <span class='kw'>power</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>/<span class='fl'>5</span>, <span class='fl'>1</span>),
+  <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>terrain_hcl</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>130</span>, <span class='fl'>0</span>), <span class='kw'>c.</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>80</span>, <span class='fl'>0</span>), <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>60</span>, <span class='fl'>95</span>),
-  <span class='kw'>power</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>/<span class='fl'>10</span>, <span class='fl'>1</span>), <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
+<span class='fu'>terrain_hcl</span>(
+  <span class='no'>n</span>,
+  <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>130</span>, <span class='fl'>0</span>),
+  <span class='kw'>c.</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>80</span>, <span class='fl'>0</span>),
+  <span class='kw'>l</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>60</span>, <span class='fl'>95</span>),
+  <span class='kw'>power</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>/<span class='fl'>10</span>, <span class='fl'>1</span>),
+  <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>diverging_hsv</span>(<span class='no'>n</span>, <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>240</span>, <span class='fl'>0</span>), <span class='kw'>s</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>power</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'>diverging_hsv</span>(
+  <span class='no'>n</span>,
+  <span class='kw'>h</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>240</span>, <span class='fl'>0</span>),
+  <span class='kw'>s</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>v</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>power</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>gamma</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fixup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -229,11 +264,10 @@ be increased (1 = linear, 2 = quadratic, etc.).</p></td>
       <td><p>value value in the HSV color description.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A character vector with (s)RGB codings of the colors in the palette.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Based on the general qualitative, sequential, and diverging <code><a href='hcl_palettes.html'>hcl_palettes</a></code>
@@ -254,7 +288,6 @@ provides an HSV-based version of <code><a href='hcl_palettes.html'>diverging_hcl
 is mainly didactic to show that HSV-based diverging palettes are less
 appealing, more difficult to read and more flashy than HCL-based diverging
 palettes. <code>diverging_hsv</code> is similar to <code><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>cm.colors</a></code>.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Zeileis A, Hornik K, Murrell P (2009).  Escaping RGBland:
@@ -268,12 +301,10 @@ Rainbow: How to Make Effective Use of Colors in Meteorological
 Visualizations.  <em>Bulletin of the American Meteorological Society</em>,
 <b>96</b>(2), 203--216.
 doi: <a href='https://doi.org/10.1175/BAMS-D-13-00155.1'>10.1175/BAMS-D-13-00155.1</a></p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='polarLUV.html'>polarLUV</a></code>, <code><a href='HSV.html'>HSV</a></code>,
 <code><a href='hex.html'>hex</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## convenience demo function</span>
@@ -325,15 +356,10 @@ doi: <a href='https://doi.org/10.1175/BAMS-D-13-00155.1'>10.1175/BAMS-D-13-00155
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
