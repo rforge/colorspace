@@ -7,11 +7,12 @@
 transparency(col, alpha = TRUE)
 }
 \arguments{
-\item{col}{vector of R colors. Can be a formal \code{\link[colorspace]{color-class}} object or
-any of the three kinds of R colors, i.e., either a color name (an element of
+\item{col}{vector of R colors. Can be any of the three kinds of R colors,
+i.e., either a color name (an element of
 \code{\link[grDevices]{colors}}), a hexadecimal (hex) string of the form
 \code{"#rrggbb"} or \code{"#rrggbbaa"} (see \code{\link[grDevices]{rgb}}), or
-an integer \code{i} meaning \code{palette()[i]}. Input \code{col} can also be a matrix with three
+an integer \code{i} meaning \code{palette()[i]}. Additionally, \code{col} can be
+a formal \code{\link[colorspace]{color-class}} object or a matrix with three
 rows containing R/G/B (0-255) values.}
 
 \item{alpha}{either a new numeric alpha transparency value or logical (to add/remove alpha)
@@ -34,8 +35,7 @@ alpha transparency, the color is assumed to be fully opaque.
 The \code{transparency} function can be used to manage the alpha transparency
 of a set of colors. It always returns a hex color specification. This hex color
 can have the alpha transparency added/removed/modified depending on the
-specification of \code{alpha}:
-
+specification of \code{alpha}: \itemize{
 \item \code{alpha = NULL}: Returns a hex vector with alpha transparency only if needed.
       Thus, it keeps the alpha transparency for the colors (if any) but only if
       different from opaque.
@@ -45,6 +45,7 @@ specification of \code{alpha}:
       all colors (even if the original colors had non-opaque alpha).
 \item \code{alpha} numeric: Returns a hex vector with alpha transparency for
       all colors set to the \code{alpha} argument (recycled if necessary).
+}
 }
 \examples{
 ## modify transparency of a color (in different formats)
