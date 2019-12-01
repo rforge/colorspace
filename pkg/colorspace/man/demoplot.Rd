@@ -4,8 +4,12 @@
 \alias{demoplot}
 \title{Color Palette Demonstration Plot}
 \usage{
-demoplot(x, type = c("map", "heatmap", "scatter", "spine", "bar", "pie",
-  "perspective", "mosaic", "lines"), ...)
+demoplot(
+  x,
+  type = c("map", "heatmap", "scatter", "spine", "bar", "pie", "perspective", "mosaic",
+    "lines"),
+  ...
+)
 }
 \arguments{
 \item{x}{character vector containing color hex codes.}

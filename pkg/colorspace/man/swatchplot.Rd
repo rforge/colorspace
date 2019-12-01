@@ -4,8 +4,18 @@
 \alias{swatchplot}
 \title{Palette Swatch Plot}
 \usage{
-swatchplot(x, ..., nrow = 20, border = NULL, sborder = NULL,
-  off = NULL, mar = NULL, line = NULL, cex = NULL, font = 1:2)
+swatchplot(
+  x,
+  ...,
+  nrow = 20,
+  border = NULL,
+  sborder = NULL,
+  off = NULL,
+  mar = NULL,
+  line = NULL,
+  cex = NULL,
+  font = 1:2
+)
 }
 \arguments{
 \item{x}{character vector/matrix (or list of character vectors/matrices)

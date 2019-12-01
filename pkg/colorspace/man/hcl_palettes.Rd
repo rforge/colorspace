@@ -11,28 +11,78 @@
 \alias{diverge_hcl}
 \title{HCL Color Palettes}
 \usage{
-hcl_palettes(type = NULL, palette = NULL, plot = FALSE, n = 5L,
-  ...)
+hcl_palettes(type = NULL, palette = NULL, plot = FALSE, n = 5L, ...)
 
 \method{print}{hcl_palettes}(x, ...)
 
 \method{summary}{hcl_palettes}(object, ...)
 
-\method{plot}{hcl_palettes}(x, n = 5L, fixup = TRUE, off = NULL,
-  border = NULL, ...)
+\method{plot}{hcl_palettes}(x, n = 5L, fixup = TRUE, off = NULL, border = NULL, ...)
 
-qualitative_hcl(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
-  fixup = TRUE, alpha = 1, palette = NULL, rev = FALSE,
-  register = "", ..., h1, h2, c1, l1)
+qualitative_hcl(
+  n,
+  h = c(0, 360 * (n - 1)/n),
+  c = 80,
+  l = 60,
+  fixup = TRUE,
+  alpha = 1,
+  palette = NULL,
+  rev = FALSE,
+  register = "",
+  ...,
+  h1,
+  h2,
+  c1,
+  l1
+)
 
-sequential_hcl(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
-  rev = FALSE, register = "", ..., h1, h2, c1, c2, l1, l2, p1, p2,
-  cmax, c.)
+sequential_hcl(
+  n,
+  h = 260,
+  c = 80,
+  l = c(30, 90),
+  power = 1.5,
+  gamma = NULL,
+  fixup = TRUE,
+  alpha = 1,
+  palette = NULL,
+  rev = FALSE,
+  register = "",
+  ...,
+  h1,
+  h2,
+  c1,
+  c2,
+  l1,
+  l2,
+  p1,
+  p2,
+  cmax,
+  c.
+)
 
-diverging_hcl(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
-  gamma = NULL, fixup = TRUE, alpha = 1, palette = NULL,
-  rev = FALSE, register = "", ..., h1, h2, c1, l1, l2, p1, p2, cmax)
+diverging_hcl(
+  n,
+  h = c(260, 0),
+  c = 80,
+  l = c(30, 90),
+  power = 1.5,
+  gamma = NULL,
+  fixup = TRUE,
+  alpha = 1,
+  palette = NULL,
+  rev = FALSE,
+  register = "",
+  ...,
+  h1,
+  h2,
+  c1,
+  l1,
+  l2,
+  p1,
+  p2,
+  cmax
+)
 }
 \arguments{
 \item{type}{character indicating type of HCL palette.}
