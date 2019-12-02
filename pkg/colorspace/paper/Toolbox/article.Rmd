@@ -1694,34 +1694,31 @@ swatchplot(
 ## Adjust transparency of colors
 
 Alpha transparency is useful for making colors semi-transparent, e.g., for
-overlaying different elements in graphics. An alpha value of 0 (or 00 in hex strings)
-corresponds to fully transparent and an alpha value of 1 (or FF in hex strings)
-corresponds to fully opaque. If a color hex string in \proglang{R} does not provide an explicit
-alpha transparency, the color is assumed to be fully opaque.
+overlaying different elements in graphics [@color:Wiki+Webcolors]. An alpha value
+(or alpha channel) of 0 (or 00 in hex strings) corresponds to fully transparent and
+an alpha value of 1 (or FF in hex strings) corresponds to fully opaque. If a color
+hex string in \proglang{R} does not provide an explicit alpha transparency, the
+color is assumed to be fully opaque.
 
-color:Wiki+Webcolors
-
-The \code{transparency} function can be used to adjust the alpha transparency
+The `adjust_transparency()` function can be used to adjust the alpha transparency
 of a set of colors. It always returns a hex color specification. This hex color
 can have the alpha transparency added/removed/modified depending on the
-specification of \code{alpha}: \itemize{
-\item \code{alpha = NULL}: Returns a hex vector with alpha transparency only if needed.
-      Thus, it keeps the alpha transparency for the colors (if any) but only if
-      different from opaque.
-\item \code{alpha = TRUE}: Returns a hex vector with alpha transparency
-      for all colors, using opaque (FF) as the default if missing.
-\item \code{alpha = FALSE}: Returns a hex vector without alpha transparency for
-      all colors (even if the original colors had non-opaque alpha).
-\item \code{alpha} numeric: Returns a hex vector with alpha transparency for
-      all colors set to the \code{alpha} argument (recycled if necessary).
-}
+specification of the argument `alpha`:
 
+* `alpha = NULL`: Returns a hex vector with alpha transparency only if needed.
+  Thus, it keeps the alpha transparency for the colors (if any) but only if
+  different from opaque.
+* `alpha = TRUE`: Returns a hex vector with alpha transparency
+  for all colors, using opaque (FF) as the default if missing.
+* `alpha = FALSE`: Returns a hex vector without alpha transparency for
+  all colors (even if the original colors had non-opaque alpha).
+* `alpha` numeric: Returns a hex vector with alpha transparency for
+  all colors set to the `alpha` argument (recycled if necessary).
 
-A character vector with hexadecimal color strings with alpha transparency
-corresponding to \code{alpha} argument.
-
-## modify transparency of a color specified by name (`"black"`), hex string
-(`"#000000"`), or integer position in the palette (`1`).
+For illustration, the transparency of a single black color is modified to three
+alpha levels: fully transparent, semi-transparent, and fully opaque, respectively.
+Black can be equivalently specified by name (`"black"`), hex string (`"#000000"`),
+or integer position in the palette (`1`).
 
 ```{r transparency-black}
 adjust_transparency("black",   alpha = c(0, 0.5, 1))
@@ -1729,13 +1726,13 @@ adjust_transparency("#000000", alpha = c(0, 0.5, 1))
 adjust_transparency(1,         alpha = c(0, 0.5, 1))
 ```
 
-three shades of gray (in different formats:
-name/opaque, hex/opaque, hex/semi-transparent)
+Subsequently, different settings of `alpha` are illustrated for adjusting
+a vector with three shades of gray, specified by name (`gray`, opaque),
+opaque hex string (`"#BEBEBE"`), and semi-transparent hex string (`"#BEBEBE80"`).
+Four types of adjustment are shown: only if necessary (`alpha = NULL`),
+add (`alpha = TRUE`), remove (`alpha = FALSE`), or modify (`alpha = 0.8`).
 
-adjust transparency: only if necessary (`alpha = NULL`), add (`alpha = TRUE`),
-remove (`alpha = FALSE`), or modify (`alpha = 0.8`)
-
-```{r transparency-black}
+```{r transparency-gray}
 x <- c("gray", "#BEBEBE", "#BEBEBE80")
 adjust_transparency(x, alpha = NULL)
 adjust_transparency(x, alpha = TRUE)
