@@ -8,7 +8,7 @@
 #' corresponds to fully opaque. If a color hex string in R does not provide an explicit
 #' alpha transparency, the color is assumed to be fully opaque.
 #'
-#' The \code{transparency} function can be used to adjust the alpha transparency
+#' The \code{adjust_transparency} function can be used to adjust the alpha transparency
 #' of a set of colors. It always returns a hex color specification. This hex color
 #' can have the alpha transparency added/removed/modified depending on the
 #' specification of \code{alpha}: \itemize{

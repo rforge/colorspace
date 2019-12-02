@@ -398,7 +398,7 @@ color spaces [@color:Wiki+Colorspace], as the name of the package conveys. Thus,
 representations of color to each other [@color:Ihaka:2003]. A particularly important
 mapping is the one from the perceptually-based and device-independent color model
 HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
-specifications in many systems based on the corresponding hex codes
+specifications in many systems based on the corresponding hexadecimal (or simply hex) codes
 [@color:Wiki+Webcolors], e.g., in HTML but also in \proglang{R}.
 For completeness further standard color models are included as well in the package.
 Their connections are illustrated in Figure\ \ref{fig:color-spaces}.
@@ -1604,6 +1604,7 @@ useful for creating, assessing, or transforming color palettes, namely:
 
 * `desaturate()`: Desaturate colors by chroma removal in HCL space.
 * `darken()` and `lighten()`: Algorithmically lighten or darken colors in HCL and/or HLS space.
+* `adjust_transparency()`: Add, remove, or modify alpha transparency of colors.
 * `max_chroma()`: Compute maximum chroma for given hue and luminance in HCL space.
 * `mixcolor()`: Additively mix two colors by computing their convex combination.
 
@@ -1687,6 +1688,59 @@ swatchplot(
   " 40%" =  darken(oi, 0.4),
   off = c(0, 0)
 )
+```
+
+
+## Adjust transparency of colors
+
+Alpha transparency is useful for making colors semi-transparent, e.g., for
+overlaying different elements in graphics. An alpha value of 0 (or 00 in hex strings)
+corresponds to fully transparent and an alpha value of 1 (or FF in hex strings)
+corresponds to fully opaque. If a color hex string in \proglang{R} does not provide an explicit
+alpha transparency, the color is assumed to be fully opaque.
+
+color:Wiki+Webcolors
+
+The \code{transparency} function can be used to adjust the alpha transparency
+of a set of colors. It always returns a hex color specification. This hex color
+can have the alpha transparency added/removed/modified depending on the
+specification of \code{alpha}: \itemize{
+\item \code{alpha = NULL}: Returns a hex vector with alpha transparency only if needed.
+      Thus, it keeps the alpha transparency for the colors (if any) but only if
+      different from opaque.
+\item \code{alpha = TRUE}: Returns a hex vector with alpha transparency
+      for all colors, using opaque (FF) as the default if missing.
+\item \code{alpha = FALSE}: Returns a hex vector without alpha transparency for
+      all colors (even if the original colors had non-opaque alpha).
+\item \code{alpha} numeric: Returns a hex vector with alpha transparency for
+      all colors set to the \code{alpha} argument (recycled if necessary).
+}
+
+
+A character vector with hexadecimal color strings with alpha transparency
+corresponding to \code{alpha} argument.
+
+## modify transparency of a color specified by name (`"black"`), hex string
+(`"#000000"`), or integer position in the palette (`1`).
+
+```{r transparency-black}
+adjust_transparency("black",   alpha = c(0, 0.5, 1))
+adjust_transparency("#000000", alpha = c(0, 0.5, 1))
+adjust_transparency(1,         alpha = c(0, 0.5, 1))
+```
+
+three shades of gray (in different formats:
+name/opaque, hex/opaque, hex/semi-transparent)
+
+adjust transparency: only if necessary (`alpha = NULL`), add (`alpha = TRUE`),
+remove (`alpha = FALSE`), or modify (`alpha = 0.8`)
+
+```{r transparency-black}
+x <- c("gray", "#BEBEBE", "#BEBEBE80")
+adjust_transparency(x, alpha = NULL)
+adjust_transparency(x, alpha = TRUE)
+adjust_transparency(x, alpha = FALSE)
+adjust_transparency(x, alpha = 0.8)
 ```
 
 
