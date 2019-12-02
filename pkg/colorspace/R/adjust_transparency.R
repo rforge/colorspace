@@ -1,4 +1,4 @@
-#' Manage Transparency of Colors
+#' Adjust Transparency of Colors
 #' 
 #' Add, remove, or modify alpha transparency of a vector of colors.
 #'
@@ -8,7 +8,7 @@
 #' corresponds to fully opaque. If a color hex string in R does not provide an explicit
 #' alpha transparency, the color is assumed to be fully opaque.
 #'
-#' The \code{transparency} function can be used to manage the alpha transparency
+#' The \code{transparency} function can be used to adjust the alpha transparency
 #' of a set of colors. It always returns a hex color specification. This hex color
 #' can have the alpha transparency added/removed/modified depending on the
 #' specification of \code{alpha}: \itemize{
@@ -41,23 +41,23 @@
 #' @keywords color
 #' @examples
 #' ## modify transparency of a color (in different formats)
-#' transparency("black",   alpha = c(0, 0.5, 1)) ## name
-#' transparency("#000000", alpha = c(0, 0.5, 1)) ## hex string
-#' transparency(1,         alpha = c(0, 0.5, 1)) ## palette() integer
+#' adjust_transparency("black",   alpha = c(0, 0.5, 1)) ## name
+#' adjust_transparency("#000000", alpha = c(0, 0.5, 1)) ## hex string
+#' adjust_transparency(1,         alpha = c(0, 0.5, 1)) ## palette() integer
 #' 
 #' ## three shades of gray (in different formats:
 #' ## name/opaque, hex/opaque, hex/semi-transparent)
 #' x <- c("gray", "#BEBEBE", "#BEBEBE80")
 #' 
-#' ## manage transparency
-#' transparency(x, alpha = NULL)  ## only if necessary
-#' transparency(x, alpha = TRUE)  ## add
-#' transparency(x, alpha = FALSE) ## remove
-#' transparency(x, alpha = 0.8)   ## modify
-#' @export transparency
+#' ## adjust transparency
+#' adjust_transparency(x, alpha = NULL)  ## only if necessary
+#' adjust_transparency(x, alpha = TRUE)  ## add
+#' adjust_transparency(x, alpha = FALSE) ## remove
+#' adjust_transparency(x, alpha = 0.8)   ## modify
+#' @export adjust_transparency
 #' @importFrom grDevices rgb col2rgb
 
-transparency <- function(col, alpha = TRUE) {
+adjust_transparency <- function(col, alpha = TRUE) {
 
   ## alpha argument controls new alpha values
   new_alpha <- alpha
@@ -88,7 +88,7 @@ transparency <- function(col, alpha = TRUE) {
     col <- rgb(col[1L, ], col[2L, ], col[3L, ], maxColorValue = 255)
   }
 
-  ## manage/modify alpha transparency
+  ## adjust alpha transparency
   if(is.null(new_alpha)) {
     alpha[alpha == "FF"] <- ""
   } else if(identical(new_alpha, FALSE)) {

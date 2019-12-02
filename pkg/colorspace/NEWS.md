@@ -1,6 +1,6 @@
 # colorspace 1.4-2
 
-* New function `transparency()` that manages the alpha transparency
+* New function `adjust_transparency()` that adjusts the alpha transparency
   of some color specification and returns a hexadecimal string where
   the alpha component is modified, added, or removed.
 

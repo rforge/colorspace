@@ -133,7 +133,7 @@ reference:
       - desaturate
       - lighten
       - darken
-      - transparency
+      - adjust_transparency
       - max_chroma
       - max_chroma_table
       - mixcolor
