@@ -175,15 +175,48 @@
 <a class="sourceLine" id="cb8-9" title="9">)</a></code></pre></div>
 <p><img src="manipulation_utilities_files/figure-html/lighten-darken-1.png" width="432"></p>
 </div>
+<div id="adjust-transparency-of-colors" class="section level2">
+<h2 class="hasAnchor">
+<a href="#adjust-transparency-of-colors" class="anchor"></a>Adjust transparency of colors</h2>
+<p>Alpha transparency is useful for making colors semi-transparent, e.g., for overlaying different elements in graphics. An alpha value (or alpha channel) of 0 (or 00 in hex strings) corresponds to fully transparent and an alpha value of 1 (or FF in hex strings) corresponds to fully opaque. If a color hex string in R does not provide an explicit alpha transparency, the color is assumed to be fully opaque.</p>
+<p>The <code><a href="../reference/adjust_transparency.html">adjust_transparency()</a></code> function can be used to adjust the alpha transparency of a set of colors. It always returns a hex color specification. This hex color can have the alpha transparency added/removed/modified depending on the specification of the argument <code>alpha</code>:</p>
+<ul>
+<li>
+<code>alpha = NULL</code>: Returns a hex vector with alpha transparency only if needed. Thus, it keeps the alpha transparency for the colors (if any) but only if different from opaque.</li>
+<li>
+<code>alpha = TRUE</code>: Returns a hex vector with alpha transparency for all colors, using opaque (FF) as the default if missing.</li>
+<li>
+<code>alpha = FALSE</code>: Returns a hex vector without alpha transparency for all colors (even if the original colors had non-opaque alpha).</li>
+<li>
+<code>alpha</code> numeric: Returns a hex vector with alpha transparency for all colors set to the <code>alpha</code> argument (recycled if necessary).</li>
+</ul>
+<p>For illustration, the transparency of a single black color is modified to three alpha levels: fully transparent, semi-transparent, and fully opaque, respectively. Black can be equivalently specified by name (<code>"black"</code>), hex string (<code>"#000000"</code>), or integer position in the palette (<code>1</code>).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(<span class="st">"black"</span>,   <span class="dt">alpha =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</a></code></pre></div>
+<pre><code>## [1] "#00000000" "#00000080" "#000000FF"</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(<span class="st">"#000000"</span>, <span class="dt">alpha =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</a></code></pre></div>
+<pre><code>## [1] "#00000000" "#00000080" "#000000FF"</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(<span class="dv">1</span>,         <span class="dt">alpha =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>))</a></code></pre></div>
+<pre><code>## [1] "#00000000" "#00000080" "#000000FF"</code></pre>
+<p>Subsequently, different settings of <code>alpha</code> are illustrated for adjusting a vector with three shades of gray, specified by name (<code>gray</code>, opaque), opaque hex string (<code>"#BEBEBE"</code>), and semi-transparent hex string (<code>"#BEBEBE80"</code>). Four types of adjustment are shown: only if necessary (<code>alpha = NULL</code>), add (<code>alpha = TRUE</code>), remove (<code>alpha = FALSE</code>), or modify (<code>alpha = 0.8</code>).</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"gray"</span>, <span class="st">"#BEBEBE"</span>, <span class="st">"#BEBEBE80"</span>)</a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="kw"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(x, <span class="dt">alpha =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<pre><code>## [1] "#BEBEBE"   "#BEBEBE"   "#BEBEBE80"</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(x, <span class="dt">alpha =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## [1] "#BEBEBEFF" "#BEBEBEFF" "#BEBEBE80"</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(x, <span class="dt">alpha =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## [1] "#BEBEBE" "#BEBEBE" "#BEBEBE"</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(x, <span class="dt">alpha =</span> <span class="fl">0.8</span>)</a></code></pre></div>
+<pre><code>## [1] "#BEBEBECC" "#BEBEBECC" "#BEBEBECC"</code></pre>
+</div>
 <div id="maximum-chroma-for-given-hue-and-luminance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#maximum-chroma-for-given-hue-and-luminance" class="anchor"></a>Maximum chroma for given hue and luminance</h2>
 <p>As the possible combinations of chroma and luminance in HCL space depend on hue, it is not obvious which trajectories through HCL space are possible prior to trying a specific HCL coordinate by calling <code><a href="../reference/polarLUV.html">polarLUV()</a></code>. To avoid having to fix up the color upon conversion to RGB <code><a href="../reference/hex.html">hex()</a></code> color codes, the <code><a href="../reference/max_chroma.html">max_chroma()</a></code> function computes (approximately) the maximum chroma possible.</p>
 <p>For illustration we show that for given luminance (here: L = 50) the maximum chroma varies substantially with hue:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="../reference/max_chroma.html">max_chroma</a></span>(<span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>, <span class="dv">360</span>, <span class="dt">by =</span> <span class="dv">60</span>), <span class="dt">l =</span> <span class="dv">50</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw"><a href="../reference/max_chroma.html">max_chroma</a></span>(<span class="dt">h =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>, <span class="dv">360</span>, <span class="dt">by =</span> <span class="dv">60</span>), <span class="dt">l =</span> <span class="dv">50</span>)</a></code></pre></div>
 <pre><code>## [1] 137.96  59.99  69.06  39.81  65.45 119.54 137.96</code></pre>
 <p>Similarly, maximum chroma also varies substantially across luminance values for a given hue (here: H = 120, green):</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="../reference/max_chroma.html">max_chroma</a></span>(<span class="dt">h =</span> <span class="dv">120</span>, <span class="dt">l =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dt">by =</span> <span class="dv">20</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw"><a href="../reference/max_chroma.html">max_chroma</a></span>(<span class="dt">h =</span> <span class="dv">120</span>, <span class="dt">l =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dt">by =</span> <span class="dv">20</span>))</a></code></pre></div>
 <pre><code>## [1]   0.00  28.04  55.35  82.79 110.28   0.00</code></pre>
 <p>In the plots below more combinations are visualized: In the left panel for maximum chroma across hues given luminance and in the right panel with increasing luminance given hue.</p>
 <p><img src="manipulation_utilities_files/figure-html/max-chroma-plot-1.png" width="100%" style="display: block; margin: auto;"></p>
@@ -192,14 +225,14 @@
 <h2 class="hasAnchor">
 <a href="#additive-mixing-of-two-colors" class="anchor"></a>Additive mixing of two colors</h2>
 <p>In additive color models like <code><a href="../reference/RGB.html">RGB()</a></code> or <code><a href="../reference/XYZ.html">XYZ()</a></code> it can be useful to combine colors by additive mixing. Below a fully saturated red and green are mixed, yielding a medium brownish yellow.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">R &lt;-<span class="st"> </span><span class="kw"><a href="../reference/RGB.html">RGB</a></span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb13-2" title="2">G &lt;-<span class="st"> </span><span class="kw"><a href="../reference/RGB.html">RGB</a></span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb13-3" title="3">Y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mixcolor.html">mixcolor</a></span>(<span class="fl">0.5</span>, R, G)</a>
-<a class="sourceLine" id="cb13-4" title="4">Y</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">R &lt;-<span class="st"> </span><span class="kw"><a href="../reference/RGB.html">RGB</a></span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb27-2" title="2">G &lt;-<span class="st"> </span><span class="kw"><a href="../reference/RGB.html">RGB</a></span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb27-3" title="3">Y &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mixcolor.html">mixcolor</a></span>(<span class="fl">0.5</span>, R, G)</a>
+<a class="sourceLine" id="cb27-4" title="4">Y</a></code></pre></div>
 <pre><code>##        R   G B
 ## [1,] 0.5 0.5 0</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="dv">0</span>, <span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="kw"><a href="../reference/swatchplot.html">swatchplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="../reference/hex.html">hex</a></span>(R), <span class="kw"><a href="../reference/hex.html">hex</a></span>(Y), <span class="kw"><a href="../reference/hex.html">hex</a></span>(G)))</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="dv">0</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="kw"><a href="../reference/swatchplot.html">swatchplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="kw"><a href="../reference/hex.html">hex</a></span>(R), <span class="kw"><a href="../reference/hex.html">hex</a></span>(Y), <span class="kw"><a href="../reference/hex.html">hex</a></span>(G)))</a></code></pre></div>
 <p><img src="manipulation_utilities_files/figure-html/mixcolor-1.png" width="240"></p>
 </div>
   </div>
@@ -213,6 +246,7 @@
 <li><a href="#overview">Overview</a></li>
       <li><a href="#desaturation-in-hcl-space">Desaturation in HCL space</a></li>
       <li><a href="#lighten-or-darken-colors">Lighten or darken colors</a></li>
+      <li><a href="#adjust-transparency-of-colors">Adjust transparency of colors</a></li>
       <li><a href="#maximum-chroma-for-given-hue-and-luminance">Maximum chroma for given hue and luminance</a></li>
       <li><a href="#additive-mixing-of-two-colors">Additive mixing of two colors</a></li>
       </ul>
