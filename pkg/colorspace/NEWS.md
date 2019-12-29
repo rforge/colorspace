@@ -13,6 +13,10 @@
   pointing out that the `U`/`V` and `A`/`B` coordinates are _typically_
   in [-100, 100] but can actually be exceeded by highly saturated colors.
 
+* Bug fix in `diverging_hcl()` and `divergingx_hcl()` where the central color
+  of the diverging palette could sometimes collapse to transparent white
+  due to numerical inaccuracies on 32-bit platforms.
+
 
 # colorspace 1.4-1
 

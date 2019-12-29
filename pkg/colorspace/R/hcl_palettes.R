@@ -581,7 +581,7 @@ diverging_hcl <- function(n, h = c(260, 0), c = 80, l = c(30, 90), power = 1.5,
 
     ## HCL trajectory
     n2 <- ceiling(n/2)    
-    rval <- seq.int(1, by = -2/(n - 1), length.out = n2)
+    rval <- pmax(0, seq.int(1, by = -2/(n - 1), length.out = n2))
     rval <- c(seqhcl(rval, pals["h1"], pals["h1"], pals["c1"], 0, pals["l1"], pals["l2"], pals["p1"], pals["p2"], pals["cmax"], as.logical(pals["fixup"]), ...),
     	  rev(seqhcl(rval, pals["h2"], pals["h2"], pals["c1"], 0, pals["l1"], pals["l2"], pals["p1"], pals["p2"], pals["cmax"], as.logical(pals["fixup"]), ...)))
     if(floor(n/2) < n2) rval <- rval[-n2]
