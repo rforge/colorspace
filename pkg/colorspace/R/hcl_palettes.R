@@ -386,7 +386,7 @@ qualitative_hcl <- function(n, h = c(0, 360 * (n - 1)/n), c = 80, l = 60,
     rval <- hex(polarLUV(
         L = pals["l1"],
         C = pals["c1"],
-        H = seq(pals["h1"], pals["h2"], length = n)),
+        H = seq(pals["h1"], pals["h2"], length.out = n)),
         fixup = as.logical(pals["fixup"]), ...)
 
     ## alpha transparency
@@ -497,7 +497,7 @@ sequential_hcl <- function(n, h = 260, c = 80, l = c(30, 90), power = 1.5,
     if(is.na(pals["p2"])) pals["p2"] <- pals["p1"]
 
     ## HCL trajectory
-    rval <- seq(1, 0, length = n)
+    rval <- seq(1, 0, length.out = n)
     rval <- seqhcl(rval, pals["h1"], pals["h2"], pals["c1"], pals["c2"], pals["l1"], pals["l2"], pals["p1"], pals["p2"], pals["cmax"], as.logical(pals["fixup"]), ...)
 
     ## alpha transparency

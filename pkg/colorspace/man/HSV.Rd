@@ -29,7 +29,7 @@ between 0 and 360, and the saturations and values should lie between 0 and
 }
 \examples{
 # A rainbow of full-intensity hues
-HSV(seq(0, 360, length = 13)[-13], 1, 1)
+HSV(seq(0, 360, length.out = 13)[-13], 1, 1)
 }
 \seealso{
 \code{\link{RGB}}, \code{\link{XYZ}}, \code{\link{LAB}},

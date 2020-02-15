@@ -29,7 +29,7 @@ and 1.
 }
 \examples{
 # A rainbow of full-intensity hues
-HLS(seq(0, 360, length = 13)[-13], 0.5, 1)
+HLS(seq(0, 360, length.out = 13)[-13], 0.5, 1)
 }
 \seealso{
 \code{\link{RGB}}, \code{\link{XYZ}}, \code{\link{LAB}},

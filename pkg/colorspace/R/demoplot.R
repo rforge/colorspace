@@ -162,7 +162,7 @@ plot_pie <- function(x, ...) {
 plot_perspective <- function(x, ...) {
    # Mixture of bivariate normals
    n <- 31
-   x1 <- x2 <- seq(-3, 3, length = n)
+   x1 <- x2 <- seq(-3, 3, length.out = n)
    y <- outer(x1, x2, 
             function(x, y) {
                 0.5 * stats::dnorm(x, mean = -1, sd = 0.80) * stats::dnorm(y, mean = -1, sd = 0.80) +

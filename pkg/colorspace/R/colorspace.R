@@ -439,7 +439,7 @@ polarLAB <-
 #' @keywords color
 #' @examples
 #' # A rainbow of full-intensity hues
-#' HSV(seq(0, 360, length = 13)[-13], 1, 1)
+#' HSV(seq(0, 360, length.out = 13)[-13], 1, 1)
 #' @export HSV
 HSV <-
   function(H, S, V, names)
@@ -481,7 +481,7 @@ HSV <-
 #' @keywords color
 #' @examples
 #' # A rainbow of full-intensity hues
-#' HLS(seq(0, 360, length = 13)[-13], 0.5, 1)
+#' HLS(seq(0, 360, length.out = 13)[-13], 0.5, 1)
 #' @export HLS
 HLS <-
   function(H, L, S, names)
@@ -668,7 +668,7 @@ setAs("color", "polarLUV", function(from)
 #' \code{\link{polarLAB}}, \code{\link{LUV}}, \code{\link{polarLUV}}.
 #' @keywords color
 #' @examples
-#' hsv <- HSV(seq(0, 360, length = 7)[-7], 1, 1)
+#' hsv <- HSV(seq(0, 360, length.out = 7)[-7], 1, 1)
 #' hsv
 #' hex(hsv)
 #' barplot(rep(1,6), col = hex(hsv))
