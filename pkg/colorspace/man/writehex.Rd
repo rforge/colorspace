@@ -26,7 +26,7 @@ the specified file.
 \examples{
 set.seed(1)
 x <- RGB(runif(10), runif(10), runif(10))
-writehex(x, "random.txt")
+writehex(x, file.path(tempdir(), "random.txt"))
 }
 \seealso{
 \code{\link{readhex}}, \code{\link{readRGB}},

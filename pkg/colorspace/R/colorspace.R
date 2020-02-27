@@ -806,7 +806,7 @@ readhex <-
 #' @examples
 #' set.seed(1)
 #' x <- RGB(runif(10), runif(10), runif(10))
-#' writehex(x, "random.txt")
+#' writehex(x, file.path(tempdir(), "random.txt"))
 #' @export writehex
 writehex <-
   function(x, file="")
