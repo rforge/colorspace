@@ -1,0 +1,853 @@
+\documentclass[11pt,t,usepdftitle=false,aspectratio=169]{beamer}
+%\usetheme[nototalframenumber, noslidenumber, license, url]{uibk}
+\usetheme[license, url]{uibk}
+\renewcommand{\headerimage}[1]{%
+   \IfStrEqCase{#1}{%
+      {1}{%
+         \gdef\myheaderimageid{#1}%
+         \gdef\myheaderimageposition{nw}%
+         \gdef\myheaderimage{colorspace.png}%
+      }}[%
+         \gdef\myheaderimageid{1}%
+         \gdef\myheaderimageposition{nw}%
+         \gdef\myheaderimage{colorspace.png}%
+      ]%
+}
+\headerimage{1}
+
+\title{Robust Color Maps That Work for Most Audiences (Including the U.S. President)}
+\subtitle{Reto Stauffer, Achim Zeileis\\EGU2020-7173}
+%\subtitle{Achim Zeileis, Jason C. Fisher, Kurt Hornik, Ross Ihaka, Claire D. McWhite, Paul Murrell, Reto Stauffer, Claus O. Wilke}
+\author{\vspace*{-5.92cm}\hspace*{12.5cm}\includegraphics[width=1.6cm]{palmfooter.png}\\[5.5cm]} %% -6.83 with "for Statistical Graphics"
+\URL{http://colorspace.R-Forge.R-project.org/}
+
+%% need no \usepackage{Sweave}
+\SweaveOpts{engine=R, eps=FALSE, echo=FALSE, results=hide, keep.source=TRUE}
+
+<<preliminaries>>=
+library("colorspace")
+@
+
+\definecolor{HighlightOrange}{rgb}{0.9490196,0.5725490,0.0000000}
+\definecolor{HighlightBlue}{rgb}{0.4784314,0.7490196,0.9803922}
+
+\begin{document}
+
+\section{colorspace: A Toolbox for Manipulating and Assessing Color Palettes} %
+
+\subsection{Motivation}%
+
+% ---------------------------------------------------------------------
+\begin{frame}
+\frametitle{Motivation}
+
+\vspace*{2em}
+
+\begin{minipage}{0.46\textwidth}
+    \includegraphics[width=\textwidth]{images/sharpie-small.png}
+\end{minipage}
+\pause
+\hfill
+\begin{minipage}{0.51\textwidth}
+    \includegraphics[width=\textwidth]{images/tweet.png}
+\end{minipage}
+
+    \vspace*{0.5em}
+    \begin{footnotesize}
+    Projected track and wind speed forecast of hurricane Dorian.
+    Screenshot of a video released by the White House (Sep. 4, 2019),
+    tweet by the U.S. president (Sep. 5, 2019).
+    \end{footnotesize}
+
+\end{frame}
+
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Motivation}
+%
+%\vspace*{-0.3cm}
+%
+%\begin{minipage}{0.54\textwidth}
+%    \only<1>{\includegraphics[width=\textwidth]{images/dorian-rainbow.png}}%
+%    \only<2-3>{\includegraphics[width=\textwidth]{images/dorian-rainbow-arrow.png}}%
+%    \only<4>{\includegraphics[width=\textwidth]{images/dorian-rainbow-deutan.png}}%
+%    \only<5>{\includegraphics[width=\textwidth]{images/dorian-rainbow-gray.png}}%
+%    \only<6>{\includegraphics[width=\textwidth]{images/dorian-hclrainbow.png}}%
+%    \only<7>{\includegraphics[width=\textwidth]{images/dorian-hclrainbow-gray.png}}
+%    \only<8>{\includegraphics[width=\textwidth]{images/dorian-hclrainbow-deutan.png}}
+%\end{minipage}
+%\hspace*{0.6cm}
+%\begin{minipage}{0.4\textwidth}
+%
+%    \textbf{Map:} Probability of exceeding wind speeds of 63\,km\,h$^{-1}$,
+%    Aug~30 -- Sep~04, 2019.
+%
+%    \medskip
+%    \textbf{Source:} NOAA (\href{https://noaa.gov}{noaa.gov})
+%
+%    \medskip
+%    \visible<3->{\textbf{Problems:} Flashy.}
+%    \visible<4->{Color vision deficiency.}
+%    \visible<5->{Grayscale.}
+%    
+%    \medskip
+%    \visible<6->{\textbf{Alternative:} HCL-based sequential palette.}
+%
+%\end{minipage}
+%
+%\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}
+\frametitle{Motivation}
+
+\vspace*{-0.3cm}
+
+    \begin{center}
+        \only<1>{\includegraphics[width=.55\textwidth]{images/dorian-rainbow.png}}%
+        \only<2>{\includegraphics[width=.55\textwidth]{images/dorian-rainbow-arrow.png}}%
+        \only<3>{\includegraphics[width=.55\textwidth]{images/dorian-rainbow-deutan.png}}%
+        \only<4>{\includegraphics[width=.55\textwidth]{images/dorian-rainbow-gray.png}}%
+        \only<5>{\includegraphics[width=.55\textwidth]{images/dorian-hclrainbow.png}}%
+        \only<6>{\includegraphics[width=.55\textwidth]{images/dorian-hclrainbow-gray.png}}
+        \only<7>{\includegraphics[width=.55\textwidth]{images/dorian-hclrainbow-deutan.png}}
+    \end{center}
+
+    \vspace*{-0.5em}
+    \begin{footnotesize} 
+    Probability of exceeding wind speeds of 39\,mph (63\,km\,h$^{-1}$),
+    Aug~30 -- Sep~04, 2019 (\href{https://noaa.gov}{noaa.gov}).
+    \end{footnotesize} 
+
+
+\end{frame}
+
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Motivation}
+%
+%\textbf{Need tools for:}
+%\begin{itemize}
+%  \item Construction of palettes with better perceptual properties.
+%  \item Assessment of color palettes.
+%  \item Manipulation of colors.
+%\end{itemize}
+%
+%\end{frame}
+
+\subsection{Color spaces}
+
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Color spaces}
+%
+%\textbf{Origin of the package:} Convert colors between various three-dimensional representations of color.
+%
+%\medskip
+%
+%\textbf{In particular:} From the perceptually-based HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB, and corresponding hex codes) space.
+%
+%\setkeys{Gin}{width=0.8\textwidth}
+%\begin{center}
+%<<color-spaces, fig = TRUE, width = 9.5, height = 4.5>>=
+%par(mar = rep(0, 4))
+%
+%d <- data.frame(
+%  x = c(1, 1, 2, 2, 3, 4, 5, 5, 5, 6),
+%  y = c(1, 3, 1, 3, 2, 2, 1, 3, 2, 2),
+%  lab = c("polarLAB", "polarLUV\n(= HCL)", "LAB", "LUV", "XYZ", "RGB", "HLS", "HSV", "sRGB", "hex"),
+%  stringsAsFactors = FALSE
+%)
+%
+%plot(0, 0, type = "n", axes = FALSE, xlab = "", ylab = "",
+%  xlim = c(0.7, 6.3), ylim = c(0.4, 3.6))
+%lines(y ~ x, data = d[-c(1, 3, 7, 8),])
+%lines(y ~ x, data = d[c(1, 3, 5),])
+%lines(y ~ x, data = d[c(6, 7, 9),])
+%lines(y ~ x, data = d[c(6, 8, 9),])
+%points(y ~ x, data = d[c(1, 2, 7, 8), ], pch = 21, cex = 12,
+%       bg = c("lightgray", "#F5CF8B", "lightgray", "lightgray"))
+%points(y ~ x, data = d[c(3, 4, 5, 6, 9), ], pch = 22, cex = 12,
+%       bg = ifelse(1:5 == 5, "#F5CF8B", "lightgray"))
+%points(y ~ x, data = d[10, ], pch = 23, bg = "white", cex = 12)
+%
+%text(d$x, d$y, d$lab)
+%text(3.5, 2, "white point\n= D65", cex = 0.7, pos = 3)
+%text(4.56, 2, "gamma\n(= 2.4)", cex = 0.7, pos = 3)
+%@
+%\end{center}
+%
+%\end{frame}
+
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Color spaces}
+%
+%\textbf{Origin of the package:} Convert colors between various three-dimensional representations of color.
+%
+%\medskip
+%
+%\textbf{In particular:} From the perceptually-based HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB, and corresponding hex codes) space.
+%
+%\setkeys{Gin}{width=0.8\textwidth}
+%\begin{center}
+%<<color-spaces, fig = TRUE, width = 9.5, height = 4.5>>=
+%par(mar = rep(0, 4))
+%
+%d <- data.frame(
+%  x = c(1, 1, 2, 2, 3, 4, 5, 5, 5, 6),
+%  y = c(1, 3, 1, 3, 2, 2, 1, 3, 2, 2),
+%  lab = c("polarLAB", "polarLUV\n(= HCL)", "LAB", "LUV", "XYZ", "RGB", "HLS", "HSV", "sRGB", "hex"),
+%  stringsAsFactors = FALSE
+%)
+%
+%plot(0, 0, type = "n", axes = FALSE, xlab = "", ylab = "",
+%  xlim = c(0.7, 6.3), ylim = c(0.4, 3.6))
+%lines(y ~ x, data = d[-c(1, 3, 7, 8),])
+%lines(y ~ x, data = d[c(1, 3, 5),])
+%lines(y ~ x, data = d[c(6, 7, 9),])
+%lines(y ~ x, data = d[c(6, 8, 9),])
+%points(y ~ x, data = d[c(1, 2, 7, 8), ], pch = 21, bg = "lightgray", cex = 12)
+%points(y ~ x, data = d[c(3, 4, 5, 6, 9), ], pch = 22, bg = "lightgray", cex = 12)
+%points(y ~ x, data = d[10, ], pch = 23, bg = "white", cex = 12)
+%
+%text(d$x, d$y, d$lab)
+%text(3.5, 2, "white point\n= D65", cex = 0.7, pos = 3)
+%text(4.56, 2, "gamma\n(= 2.4)", cex = 0.7, pos = 3)
+%@
+%\end{center}
+%
+%\end{frame}
+
+
+\subsection{HCL vs. RGB}
+
+% ---------------------------------------------------------------------
+\begin{frame}
+\frametitle{HCL vs.~RGB}
+
+\begin{minipage}{0.47\textwidth}
+\textbf{HCL:} Polar coordinates in CIELUV. Captures perceptual dimensions of the human visual system very well.
+
+\bigskip
+
+\setkeys{Gin}{width=\textwidth}
+<<hcl-properties, fig = TRUE, width = 4, height = 2.2>>=
+swatchplot(
+  "Hue\n(Type of color)"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
+  "Chroma\n(Colorfulness)"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
+  "Luminance\n(Brightness)" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
+  nrow = 3, line = 5.2, off = 0
+)
+@
+\end{minipage}
+\pause
+\hspace*{0.6cm}
+\begin{minipage}{0.47\textwidth}
+\textbf{RGB:} Motivated by how computers/TVs used to generate and still represent color.
+
+\bigskip
+
+\setkeys{Gin}{width=0.9\textwidth}
+<<rgb-properties, fig = TRUE, width = 3.6, height = 2.2>>=
+swatchplot(
+  "Red"       = rgb(0:4/4, 0, 0),
+  "Green"     = rgb(0, 0:4/4, 0),
+  "Blue"      = rgb(0, 0, 0:4/4),
+  nrow = 3, off = 0
+)
+@
+\end{minipage}
+
+\end{frame}
+
+
+% ---------------------------------------------------------------------
+\begin{frame}
+\frametitle{HCL vs.~RGB}
+
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width = \textwidth]{images/dorian-hclrainbow-spectrum.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width = \textwidth]{images/dorian-rainbow-spectrum.png}
+    \end{minipage}
+
+    \medskip
+    \begin{footnotesize}
+        Spectrum of the HCL (l.) and RGB (r.) color maps used for
+        the motivational figure.
+    \end{footnotesize}
+
+\end{frame}
+
+
+%%% ---------------------------------------------------------------------
+%%\begin{frame}
+%%\frametitle{HCL vs.~RGB: The End of the Rainbow}
+%%
+%%\setkeys{Gin}{width=0.44\textwidth}
+%%<<hcl-rainbow, fig = TRUE, width = 5.2, height = 6>>=
+%%specplot(rainbow_hcl(99, c = 60, l = 75), rgb = TRUE)
+%%@
+%%\hspace*{0.8cm}
+%%\pause
+%%<<rgb-rainbow, fig = TRUE, width = 5.2, height = 6>>=
+%%specplot(rainbow(95), rgb = TRUE)
+%%@
+%%
+%%\end{frame}
+
+
+\subsection{Color palettes}
+
+% ---------------------------------------------------------------------
+\begin{frame}
+\frametitle{Color palettes: Somewhere over the Rainbow}
+
+\setkeys{Gin}{width=\textwidth}
+<<hcl-palettes-principles, fig = TRUE, width = 12, height = 1.6>>=
+swatchplot(
+  "Qualitative (Set 2)"     = rbind("Color" = qualitative_hcl(5, "Set 2"),     "Desaturated" = desaturate(qualitative_hcl(5, "Set 2"))),
+  "Sequential (Blues 3)"    = rbind("Color" = sequential_hcl(7, "Blues 3"),    "Desaturated" = desaturate(sequential_hcl(7, "Blues 3"))),
+  "Diverging (Green-Brown)" = rbind("Color" = diverging_hcl(7, "Green-Brown"), "Desaturated" = desaturate(diverging_hcl(7, "Green-Brown"))),
+  nrow = 3, line = 7)
+@
+
+\bigskip
+
+%\textbf{Qualitative:} For categorical information, i.e., where no particular ordering of categories is available.
+%Function: \code{qualitative\_hcl()}.
+\textbf{Qualitative:} For categorical information.\\
+Constant chroma and luminance.
+
+\bigskip
+
+%\textbf{Sequential:} For ordered/numeric information, i.e., where colors go from high to low (or vice versa).
+%Function: \code{sequential\_hcl()}.
+\textbf{Sequential:} For ordered/numeric information (i.e., high to low).\\
+Monotonic increase/decrease of chroma and luminance.
+
+\bigskip
+
+%\textbf{Diverging:} For ordered/numeric information around a central neutral value, i.e.,
+%where colors diverge from neutral to two extremes. Function: \code{diverging\_hcl()}.
+\textbf{Diverging:} For ordered/numeric information around a central neutral value.\\
+Symmetric change in chroma and luminance.
+
+
+\end{frame}
+
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Color palettes: Somewhere over the Rainbow}
+%
+%\only<1>{
+%\textbf{Sequential:} Luminance contrast is crucial (dark to light or vice versa).
+%}
+%\only<2>{
+%\textbf{Blues 2:} Single hue. Decreasing chroma with increasing luminance.
+%}
+%\only<3>{
+%\textbf{Blues 3:} Single hue. Triangular chroma to achieve higher luminance contrast.
+%}
+%\only<4>{
+%\textbf{Blues:} Multi hue. Triangular chroma. High luminance contrast.
+%}
+%
+%\vspace*{-0.4cm}
+%
+%\begin{minipage}[t]{0.49\textwidth}
+%\vspace*{0.46cm}
+%
+%\setkeys{Gin}{width=\textwidth}
+%<<blues, fig = TRUE, width = 4, height = 2.2>>=
+%swatchplot(
+%  "Blues 2" = sequential_hcl(7, "Blues 2"),
+%  "Blues 3" = sequential_hcl(7, "Blues 3"),
+%  "Blues"   = sequential_hcl(7, "Blues")
+%)
+%@
+%\end{minipage}
+%\only<2>{%
+%\begin{minipage}[t]{0.49\textwidth}
+%\vspace*{0cm}
+%
+%\setkeys{Gin}{width=\textwidth}
+%<<blues2-spectrum, fig = TRUE, width = 5.2, height = 5.2>>=
+%specplot(sequential_hcl(7, "Blues 2"))
+%@
+%\end{minipage}%
+%}%
+%\only<3>{%
+%\begin{minipage}[t]{0.49\textwidth}
+%\vspace*{0cm}
+%
+%\setkeys{Gin}{width=\textwidth}
+%<<blues3-spectrum, fig = TRUE, width = 5.2, height = 5.2>>=
+%specplot(sequential_hcl(7, "Blues 3"))
+%@
+%\end{minipage}
+%}%
+%\only<4>{%
+%\begin{minipage}[t]{0.49\textwidth}
+%\vspace*{0cm}
+%
+%\setkeys{Gin}{width=\textwidth}
+%<<blues-spectrum, fig = TRUE, width = 5.2, height = 5.2>>=
+%specplot(sequential_hcl(7, "Blues"))
+%@
+%\end{minipage}
+%}
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Color palettes: Somewhere over the Rainbow}
+%
+%\textbf{Diverging:} Combine two sequential palettes with balanced chroma/luminance.
+%
+%\vspace*{-0.4cm}
+%
+%\begin{minipage}[t]{0.49\textwidth}
+%\vspace*{0cm}
+%
+%\setkeys{Gin}{width=\textwidth}
+%<<red-blue-spectrum, fig = TRUE, width = 5.2, height = 5.2>>=
+%specplot(diverging_hcl(9, "Blue-Red", h2 = 5, rev = TRUE))
+%@
+%\end{minipage}
+%\pause
+%\begin{minipage}[t]{0.49\textwidth}
+%\vspace*{0cm}
+%
+%\setkeys{Gin}{width=\textwidth}
+%<<green-brown-spectrum, fig = TRUE, width = 5.2, height = 5.2>>=
+%specplot(diverging_hcl(9, "Green-Brown"))
+%@
+%\end{minipage}
+%
+%\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}[fragile]
+\frametitle{Color palettes: Somewhere over the Rainbow}
+
+\setkeys{Gin}{width=\textwidth}
+<<hcl-palettes, fig = TRUE, width = 12, height = 6, echo = FALSE>>=
+hcl_palettes(plot = TRUE)
+@
+
+\end{frame}
+
+%\subsection{Statistical graphics}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Statistical graphics}
+%
+%\textbf{Base:}
+%
+%\begin{itemize}
+%  \item HCL palette functions return hex color vector.
+%  \item Typically passed to \code{col = } argument of base plotting functions.
+%\end{itemize}
+%
+%\bigskip
+%
+%\textbf{ggplot2:}
+%
+%\begin{itemize}
+%  \item Scales of type \code{scale_<aesthetic>_<datatype>_<colorscale>()}.
+%  \item \code{<aesthetic>} is \code{fill} or \code{color}/\code{colour}.
+%  \item \code{<datatype>} is \code{discrete} or \code{continuous}.
+%  \item \code{<colorscale>} is \code{qualitative}, \code{sequential}, \code{diverging}, or \code{divergingx}.
+%\end{itemize}
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Statistical graphics: Base}
+%
+%<<base-graphics, eval = FALSE, echo = TRUE>>=
+%q4 <- qualitative_hcl(4, palette = "Dark 3")
+%plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
+%legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
+%@
+%
+%\vspace*{-0.6cm}
+%
+%\setkeys{Gin}{width=0.8\textwidth}
+%<<base-graphics-plot, fig = TRUE, width = 10, height = 6>>=
+%<<base-graphics>>
+%@
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Statistical graphics: Base}
+%
+%<<base-graphics2, eval = FALSE, echo = TRUE>>=
+%ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
+%spineplot(ttnc, col = sequential_hcl(2, palette = "Purples 3"))
+%@
+%
+%\vspace*{-0.6cm}
+%
+%\setkeys{Gin}{width=0.8\textwidth}
+%<<base-graphics2-plot, fig = TRUE, width = 10, height = 6>>=
+%<<base-graphics2>>
+%@
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Statistical graphics: ggplot2}
+%
+%\setkeys{Gin}{width=0.8\textwidth}
+%<<ggplot2-graphics, fig = TRUE, width = 10, height = 5.5, echo = TRUE>>=
+%library("ggplot2")
+%ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
+%  scale_fill_discrete_qualitative(palette = "Dark 3")
+%@
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Statistical graphics: ggplot2}
+%
+%\setkeys{Gin}{width=0.8\textwidth}
+%<<ggplot2-graphics2, fig = TRUE, width = 10, height = 5.5, echo = TRUE>>=
+%dsamp <- diamonds[1 + 1:1000 * 50, ]
+%ggplot(dsamp, aes(carat, price, color = cut)) + geom_point() +
+%  scale_color_discrete_sequential(palette = "Purples 3", nmax = 6, order = 2:6)
+%@
+%
+%\end{frame}
+%
+%\subsection{Visualization and assessment}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Visualization and assessment}
+%
+%\textbf{Visualizations:} Based on vector of colors.
+%
+%\begin{itemize}
+%  \item \code{swatchplot()}: Color swatches.
+%  \item \code{specplot()}: Spectrum of HCL and/or RGB trajectories.
+%  \item \code{hclplot()}: Trajectories in 2-dimensional HCL space projections.
+%  \item \code{demoplot()}: Illustrations of typical (and simplified) statistical graphics.
+%\end{itemize}
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Visualization and assessment: \texttt{hclplot()}}
+%
+%<<hclplot, eval = FALSE, echo = TRUE>>=
+%hclplot(qualitative_hcl(7, palette = "Set 2"))
+%hclplot( sequential_hcl(7, palette = "Blues 3"))
+%hclplot(  diverging_hcl(7, palette = "Blue-Red"))
+%@
+%
+%\medskip
+%
+%\setkeys{Gin}{width=\textwidth}
+%<<hclplot-plot, fig = TRUE, width = 15, height = 5, png = TRUE, pdf = FALSE>>=
+%par(mfrow = c(1, 3))
+%<<hclplot>>
+%@
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Visualization and assessment: \texttt{demoplot()}}
+%
+%<<demoplot-code, echo = TRUE, eval = FALSE>>=
+%cl <- sequential_hcl(5, palette = "Heat")
+%demoplot(cl, type = "...")
+%@
+%
+%\medskip
+%
+%\setkeys{Gin}{width=\textwidth}
+%<<demoplot, fig = TRUE, width = 15, height = 6>>=
+%par(mfrow = c(2, 5))
+%cl <- sequential_hcl(5, "Heat")
+%for (i in c("map", "heatmap", "scatter", "spine", "bar", "pie", "perspective", "mosaic", "lines")) {
+%  demoplot(cl, type = i)
+%  mtext(side = 3, text = i, line = 1.5)
+%}
+%@
+%
+%\end{frame}
+%
+%
+%\subsection{Color vision deficiency}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Color vision deficiency}
+%
+%\textbf{Emulate:} Color vision deficiencies.
+%
+%\begin{itemize}
+%  \item \code{deutan()}: Deuteranopia (green deficient).
+%  \item \code{protan()}: Protanopia (red deficient).
+%  \item \code{tritan()}: Tritanopia (blue deficient).
+%\end{itemize}
+%
+%\bigskip
+%
+%\textbf{Example:} Maunga Whau \code{volcano} data.
+%
+%\vspace*{-2.2cm}
+%
+%\setkeys{Gin}{width=0.6\textwidth}
+%<<volcano-persp, fig = TRUE, width = 5.5, height = 5.5>>=
+%z <- 2 * volcano
+%x <- 10 * (1:nrow(z))
+%y <- 10 * (1:ncol(z))
+%par(mar = rep(0, 4))
+%persp(x, y, z, theta = 10, phi = 30, col = "lightgray", scale = FALSE,
+%  ltheta = 100, shade = 0.5, border = NA, box = FALSE)
+%@
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Color vision deficiency}
+%
+%\setkeys{Gin}{width=\textwidth}
+%<<volcano-cvd, fig = TRUE, width = 15, height = 7>>=
+%par(mfrow = c(2, 3), mar = rep(0.5, 4), oma = c(1, 20, 3, 1), las = 1)
+%rain <- rainbow(11, end = 2/3)
+%blyl <- sequential_hcl(11, "Blue-Yellow")
+%demoplot(rain, "heatmap")
+%mtext("rainbow(11, end = 2/3)", side = 2, line = 1)
+%mtext("Original", line = 1)
+%demoplot(desaturate(rain), "heatmap")
+%mtext("Desaturated", line = 1)
+%demoplot(deutan(rain), "heatmap")
+%mtext("Deuteranope", line = 1)
+%demoplot(blyl, "heatmap")
+%mtext("sequential_hcl(11, \"Blue-Yellow\")", side = 2, line = 1)
+%demoplot(desaturate(blyl), "heatmap")
+%demoplot(deutan(blyl), "heatmap")
+%@
+%
+%\end{frame}
+%
+%\subsection{Approximations of other palettes}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Approximations of other palettes}
+%
+%\vspace*{-0.1cm}
+%
+%\setkeys{Gin}{width=0.49\textwidth}
+%<<ylgnbu-spectrum, fig = TRUE, width = 5.3, height = 5.6>>=
+%specplot(
+%  rev(RColorBrewer::brewer.pal(9, "YlGnBu")),
+%  sequential_hcl(9, "YlGnBu"),
+%  main = "ColorBrewer.org: YlGnBu"
+%)
+%@
+%\pause
+%\setkeys{Gin}{width=0.49\textwidth}
+%<<viridis-spectrum, fig = TRUE, width = 5.3, height = 5.6>>=
+%specplot(
+%  viridis::viridis(9),
+%  sequential_hcl(9, "Viridis"),
+%  main = "Viridis")
+%@
+%
+%\end{frame}
+%
+%\subsection{Color apps}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}[fragile]
+%\frametitle{Color apps}
+%
+%\textbf{Facilitate exploration:} Graphical user interfaces as shiny apps.
+%
+%\begin{itemize}
+%  \item \emph{Palette constructor:} \code{choose\_palette()} or \code{hclwizard()} (also in tcltk).
+%  \item \emph{Color picker:} \code{choose\_color()} or \code{hcl\_color\_picker()}.
+%  \item \emph{Color vision deficiency emulator:} \code{cvd\_emulator()}.
+%\end{itemize}
+%
+%\bigskip
+%
+%\textbf{Online versions:} \url{http://hclwizard.org/}
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Color apps: \texttt{choose\_palette()} / \texttt{hclwizard()}}
+%
+%\includegraphics[width=0.9\textwidth]{images/choose_palette_1.png}
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Color apps: \texttt{choose\_color()} / \texttt{hcl\_color\_picker()}}
+%
+%\includegraphics[width=0.65\textwidth]{images/choose_color.png}
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Color apps: \texttt{cvd\_emulator()}}
+%
+%\includegraphics[width=0.34\textwidth]{images/cvd_emulator_1.png}
+%\includegraphics[width=0.34\textwidth]{images/cvd_emulator_2.png}
+%
+%\end{frame}
+%
+%\subsection{Base R}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Base R\only<2>{: Why you might not need our package after all}}
+%
+%\textbf{In 3.6.0:} All prespecified palettes also via \code{grDevices::hcl.colors()}.
+%
+%\vspace*{-1.8cm}
+%
+%\setkeys{Gin}{width=\textwidth}
+%<<hcl-colors, fig = TRUE, width = 11, height = 8>>=
+%hcl.swatch <- function(palette = hcl.pals(), n = 5, nrow = 11,
+%  border = if (n < 15) "black" else NA)
+%{
+%    cols <- sapply(palette, hcl.colors, n = n)
+%    ncol <- ncol(cols)
+%    nswatch <- min(ncol, nrow)
+%
+%    par(mar = rep(0.1, 4),
+%        mfrow = c(1, min(10, ncol %/% nrow + 1)),
+%        pin = c(1, 0.5 * nswatch),
+%        cex = 0.7)
+%
+%    while (length(palette)) {
+%        subset <- 1:min(nrow, ncol(cols))
+%        plot.new()
+%        plot.window(c(0, n), c(0, nrow + 1))
+%        text(0, rev(subset) + 0.1, palette[subset], adj = c(0, 0))
+%        y <- rep(subset, each = n)
+%        rect(rep(0:(n-1), n), rev(y), rep(1:n, n), rev(y) - 0.5,
+%             col = cols[, subset], border = border)
+%        palette <- palette[-subset]
+%        cols <- cols[, -subset]
+%    }
+%
+%    par(mfrow = c(1, 1), mar = c(5.1, 4.1, 4.1, 2.1), cex = 1)
+%}
+%hcl.swatch()
+%@
+%
+%\end{frame}
+
+
+\subsection{Recommendations}
+
+% ---------------------------------------------------------------------
+\begin{frame}
+\frametitle{Summary}
+
+\textbf{Our goal:}
+\begin{itemize}
+    \item Raise the awareness to avoid using inefficient color maps.
+    \item Provide tools to chose and modify efficient color maps.
+    \item Offer tools to assess color palettes to identify possible problems.
+\end{itemize}
+\bigskip
+
+\textbf{Guidelines:}
+\begin{itemize}
+    \item Avoid large areas of vivid colors.
+    \item Areas of interest should stand out from background.
+    \item Choose type of palette based on the data to be visualized.
+    \item Check color maps used: visual constraints, effectiveness.
+    %\item For areas use light colors (higher luminance, lower chroma).
+    %\item For points/lines darker colors are needed (lower luminance, higher chroma).
+    %\item For palettes with more colors stronger luminance contrasts are needed.
+    %%\item Triangular chroma trajectories useful for distinguishing central colors.
+\end{itemize}
+
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}
+\frametitle{Software, Tools and Information}
+
+    \textbf{R package:}
+    \begin{itemize}
+      \item \pkg{colorspace} facilitates exploration, manipulation, and assessment.
+      \item \url{http://colorspace.r-forge.r-project.org/}
+      %\item HCL approximations of palettes from \pkg{RColorBrewer}, \pkg{rcartocolor}, \pkg{scico}, \dots
+      %\item Prespecified palettes are also easily available in base R.
+      %\item R~version 4.0 comes with new (adjusted) default colors.
+    \end{itemize}
+    
+    \bigskip
+    \textbf{Python package:}
+    \begin{itemize}
+        \item \pkg{colorspace}; package still in $\beta$-state.
+        \item \href{https://github.com/retostauffer/python-colorspace}{https://github.com/retostauffer/python-colorspace}
+    \end{itemize}
+
+    \bigskip
+    \textbf{Web interface:}
+    \begin{itemize}
+        \item \url{http://hclwizard.org/}; interactive tools and more information.
+    \end{itemize}
+
+\end{frame}
+
+
+\subsection{References}
+
+% ---------------------------------------------------------------------
+\begin{frame}
+\frametitle{References}
+
+\small
+
+Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2019).
+  \dquote{colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.}
+  arXiv:1903.06490, arXiv.org E-Print Archive.
+  \url{http://arxiv.org/abs/1903.06490}
+
+\bigskip
+
+Zeileis A, Hornik K, Murrell P (2009).
+ \dquote{Escaping RGBland: Selecting Colors for Statistical Graphics.}
+ \textit{Computational Statistics \& Data Analysis}, \textbf{53}, 3259--3270.
+ \doi{10.1016/j.csda.2008.11.033}.
+
+\bigskip
+
+Stauffer R, Mayr GJ, Dabernig M, Zeileis A (2015).
+  \dquote{Somewhere over the Rainbow: How to Make Effective Use of Colors in Meteorological Visualizations.}
+  \emph{Bulletin of the American Meteorological Society}, \textbf{96}(2), 203--216.
+  \doi{10.1175/BAMS-D-13-00155.1}
+
+\end{frame}
+
+\end{document}
