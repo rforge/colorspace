@@ -785,7 +785,7 @@ hcl_palettes(plot = TRUE)
     
     \textbf{Take-home messages:}
     \begin{itemize}
-      \item Choose colors carefully..
+      \item Choose colors carefully.
       \item Make areas of interest stand out from background.
       \item Check robustness.
       \item Software helps you.
