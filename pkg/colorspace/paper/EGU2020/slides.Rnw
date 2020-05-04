@@ -17,8 +17,7 @@
 
 \title{Robust Color Maps That Work for Most Audiences (Including the U.S. President)}
 \subtitle{Reto Stauffer, Achim Zeileis\\EGU2020-7173}
-%\subtitle{Achim Zeileis, Jason C. Fisher, Kurt Hornik, Ross Ihaka, Claire D. McWhite, Paul Murrell, Reto Stauffer, Claus O. Wilke}
-\author{\vspace*{-5.92cm}\hspace*{12.5cm}\includegraphics[width=1.6cm]{palmfooter.png}\\[5.5cm]} %% -6.83 with "for Statistical Graphics"
+\author{\vspace*{-6.5cm}\hspace*{12.5cm}\includegraphics[width=1.6cm]{palmfooter.png}\\[5.5cm]\vspace{-1.5em}} %% -6.83 with "for Statistical Graphics"
 \URL{http://colorspace.R-Forge.R-project.org/}
 
 %% need no \usepackage{Sweave}
@@ -99,7 +98,7 @@ library("colorspace")
 
 % ---------------------------------------------------------------------
 \begin{frame}
-\frametitle{Motivation}
+    \frametitle{\only<1-4>{Problem}\only<5->{Solution}}
 
 \vspace*{-0.3cm}
 
@@ -266,19 +265,27 @@ swatchplot(
 \begin{frame}
 \frametitle{HCL vs.~RGB}
 
+
+\setkeys{Gin}{width=1.0\textwidth}
+
+<<specplot-init, include = FALSE>>=
+orig <- c("#008a02", "#00cb00", "#82fd00", "#f5f900", "#f7d600",
+          "#d28400", "#fb7502", "#a80003", "#740001", "#8c0084")
+hcl  <- c("#b0ceb9", "#9fca91", "#a5bc62", "#b3a924", "#c09000",
+          "#c87400", "#c85435", "#b9375c", "#a4176e", "#890075")
+@
+
     \begin{minipage}{0.48\textwidth}
-        \includegraphics[width = \textwidth]{images/dorian-hclrainbow-spectrum.png}
+<<specplot-orig, echo = FALSE, fig = TRUE, fig.width = 5, fig.height = 4>>=
+specplot(orig, rgb = FALSE, main = "Problem")
+@
     \end{minipage}
     \hfill
     \begin{minipage}{0.48\textwidth}
-        \includegraphics[width = \textwidth]{images/dorian-rainbow-spectrum.png}
+<<specplot-hcl, echo = FALSE, fig = TRUE, fig.width = 5, fig.height = 4>>=
+specplot(hcl, rgb = FALSE, main = "Solution")
+@
     \end{minipage}
-
-    \medskip
-    \begin{footnotesize}
-        Spectrum of the HCL (l.) and RGB (r.) color maps used for
-        the motivational figure.
-    \end{footnotesize}
 
 \end{frame}
 
@@ -302,42 +309,42 @@ swatchplot(
 
 \subsection{Color palettes}
 
-% ---------------------------------------------------------------------
-\begin{frame}
-\frametitle{Color palettes: Somewhere over the Rainbow}
-
-\setkeys{Gin}{width=\textwidth}
-<<hcl-palettes-principles, fig = TRUE, width = 12, height = 1.6>>=
-swatchplot(
-  "Qualitative (Set 2)"     = rbind("Color" = qualitative_hcl(5, "Set 2"),     "Desaturated" = desaturate(qualitative_hcl(5, "Set 2"))),
-  "Sequential (Blues 3)"    = rbind("Color" = sequential_hcl(7, "Blues 3"),    "Desaturated" = desaturate(sequential_hcl(7, "Blues 3"))),
-  "Diverging (Green-Brown)" = rbind("Color" = diverging_hcl(7, "Green-Brown"), "Desaturated" = desaturate(diverging_hcl(7, "Green-Brown"))),
-  nrow = 3, line = 7)
-@
-
-\bigskip
-
-%\textbf{Qualitative:} For categorical information, i.e., where no particular ordering of categories is available.
-%Function: \code{qualitative\_hcl()}.
-\textbf{Qualitative:} For categorical information.\\
-Constant chroma and luminance.
-
-\bigskip
-
-%\textbf{Sequential:} For ordered/numeric information, i.e., where colors go from high to low (or vice versa).
-%Function: \code{sequential\_hcl()}.
-\textbf{Sequential:} For ordered/numeric information (i.e., high to low).\\
-Monotonic increase/decrease of chroma and luminance.
-
-\bigskip
-
-%\textbf{Diverging:} For ordered/numeric information around a central neutral value, i.e.,
-%where colors diverge from neutral to two extremes. Function: \code{diverging\_hcl()}.
-\textbf{Diverging:} For ordered/numeric information around a central neutral value.\\
-Symmetric change in chroma and luminance.
-
-
-\end{frame}
+%%% ---------------------------------------------------------------------
+%%\begin{frame}
+%%\frametitle{Color palettes: Somewhere over the Rainbow}
+%%
+%%\setkeys{Gin}{width=\textwidth}
+%%<<hcl-palettes-principles, fig = TRUE, width = 12, height = 1.6>>=
+%%swatchplot(
+%%  "Qualitative (Set 2)"     = rbind("Color" = qualitative_hcl(5, "Set 2"),     "Desaturated" = desaturate(qualitative_hcl(5, "Set 2"))),
+%%  "Sequential (Blues 3)"    = rbind("Color" = sequential_hcl(7, "Blues 3"),    "Desaturated" = desaturate(sequential_hcl(7, "Blues 3"))),
+%%  "Diverging (Green-Brown)" = rbind("Color" = diverging_hcl(7, "Green-Brown"), "Desaturated" = desaturate(diverging_hcl(7, "Green-Brown"))),
+%%  nrow = 3, line = 7)
+%%@
+%%
+%%\bigskip
+%%
+%%%\textbf{Qualitative:} For categorical information, i.e., where no particular ordering of categories is available.
+%%%Function: \code{qualitative\_hcl()}.
+%%\textbf{Qualitative:} For categorical information.\\
+%%Constant chroma and luminance.
+%%
+%%\bigskip
+%%
+%%%\textbf{Sequential:} For ordered/numeric information, i.e., where colors go from high to low (or vice versa).
+%%%Function: \code{sequential\_hcl()}.
+%%\textbf{Sequential:} For ordered/numeric information (i.e., high to low).\\
+%%Monotonic increase/decrease of chroma and luminance.
+%%
+%%\bigskip
+%%
+%%%\textbf{Diverging:} For ordered/numeric information around a central neutral value, i.e.,
+%%%where colors diverge from neutral to two extremes. Function: \code{diverging\_hcl()}.
+%%\textbf{Diverging:} For ordered/numeric information around a central neutral value.\\
+%%Symmetric change in chroma and luminance.
+%%
+%%
+%%\end{frame}
 
 %% ---------------------------------------------------------------------
 %\begin{frame}[fragile]
@@ -764,61 +771,75 @@ hcl_palettes(plot = TRUE)
 %\end{frame}
 
 
-\subsection{Recommendations}
-
-% ---------------------------------------------------------------------
 \begin{frame}
-\frametitle{Summary}
+\frametitle{Do it yourself}
 
-\textbf{Our goal:}
-\begin{itemize}
-    \item Raise the awareness to avoid using inefficient color maps.
-    \item Provide tools to chose and modify efficient color maps.
-    \item Offer tools to assess color palettes to identify possible problems.
-\end{itemize}
-\bigskip
-
-\textbf{Guidelines:}
-\begin{itemize}
-    \item Avoid large areas of vivid colors.
-    \item Areas of interest should stand out from background.
-    \item Choose type of palette based on the data to be visualized.
-    \item Check color maps used: visual constraints, effectiveness.
-    %\item For areas use light colors (higher luminance, lower chroma).
-    %\item For points/lines darker colors are needed (lower luminance, higher chroma).
-    %\item For palettes with more colors stronger luminance contrasts are needed.
-    %%\item Triangular chroma trajectories useful for distinguishing central colors.
-\end{itemize}
-
-\end{frame}
-
-% ---------------------------------------------------------------------
-\begin{frame}
-\frametitle{Software, Tools and Information}
-
-    \textbf{R package:}
+    \textbf{Software:} \emph{colorspace}.
     \begin{itemize}
-      \item \pkg{colorspace} facilitates exploration, manipulation, and assessment.
-      \item \url{http://colorspace.r-forge.r-project.org/}
-      %\item HCL approximations of palettes from \pkg{RColorBrewer}, \pkg{rcartocolor}, \pkg{scico}, \dots
-      %\item Prespecified palettes are also easily available in base R.
-      %\item R~version 4.0 comes with new (adjusted) default colors.
+      \item R (mature): \url{http://colorspace.R-Forge.R-project.org/}.
+      \item Python (beta): \url{https://github.com/retostauffer/python-colorspace}.
+      \item Web (interactive): \url{http://www.hclwizard.org/}.
     \end{itemize}
     
     \bigskip
-    \textbf{Python package:}
+    
+    \textbf{Take-home messages:}
     \begin{itemize}
-        \item \pkg{colorspace}; package still in $\beta$-state.
-        \item \href{https://github.com/retostauffer/python-colorspace}{https://github.com/retostauffer/python-colorspace}
+      \item Choose colors carefully..
+      \item Make areas of interest stand out from background.
+      \item Check robustness.
+      \item Software helps you.
     \end{itemize}
 
-    \bigskip
-    \textbf{Web interface:}
-    \begin{itemize}
-        \item \url{http://hclwizard.org/}; interactive tools and more information.
-    \end{itemize}
+\end{frame} 
 
-\end{frame}
+%\subsection{Recommendations}
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Summary}
+%
+%\textbf{Our goal:}
+%\begin{itemize}
+%    \item Raise the awareness to avoid using inefficient color maps.
+%    \item Provide tools to chose and modify efficient color maps.
+%    \item Offer tools to assess color palettes to identify possible problems.
+%\end{itemize}
+%\bigskip
+%
+%\textbf{Guidelines:}
+%\begin{itemize}
+%    \item Avoid large areas of vivid colors.
+%    \item Areas of interest should stand out from background.
+%    \item Choose type of palette based on the data to be visualized.
+%    \item Check color maps used: visual constraints, effectiveness.
+%\end{itemize}
+%
+%\end{frame}
+%
+%% ---------------------------------------------------------------------
+%\begin{frame}
+%\frametitle{Software, Tools and Information}
+%
+%    \textbf{R package:}
+%    \begin{itemize}
+%      \item \pkg{colorspace} facilitates exploration, manipulation, and assessment.
+%      \item \url{http://colorspace.r-forge.r-project.org/}
+%    \end{itemize}
+%    
+%    \bigskip
+%    \textbf{Python package:}
+%    \begin{itemize}
+%        \item \pkg{colorspace}; package still in $\beta$-state.
+%        \item \href{https://github.com/retostauffer/python-colorspace}{https://github.com/retostauffer/python-colorspace}
+%    \end{itemize}
+%
+%    \bigskip
+%    \textbf{Web interface:}
+%    \begin{itemize}
+%        \item \url{http://hclwizard.org/}; interactive tools and more information.
+%    \end{itemize}
+%
+%\end{frame}
 
 
 \subsection{References}
@@ -829,10 +850,10 @@ hcl_palettes(plot = TRUE)
 
 \small
 
-Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2019).
+Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2020).
   \dquote{colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.}
-  arXiv:1903.06490, arXiv.org E-Print Archive.
-  \url{http://arxiv.org/abs/1903.06490}
+  Forthcoming in \emph{Journal of Statistical Software}, preprint available from
+  \url{http://arxiv.org/abs/1903.06490}.
 
 \bigskip
 

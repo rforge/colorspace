@@ -11,6 +11,7 @@ slides:
 clean:
 	-rm slides-hcl-*.pdf
 	-rm slides-rgb-*.pdf
+	-rm slides-spec*.pdf
 	-rm slides.aux
 	-rm slides.log
 	-rm slides.nav
