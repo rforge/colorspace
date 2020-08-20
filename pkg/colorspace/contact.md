@@ -39,7 +39,7 @@ For discussions we also try to follow these channels:
   <a href="https://twitter.com/RetoStauffer2"><span class="fa fa-twitter-square"></span></a>
 - Claus O. Wilke
   <a href="https://orcid.org/0000-0002-7470-9261" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a>
-  <a href="https://serialmentor.com/"><span class="fa fa-user"></span></a>
+  <a href="https://clauswilke.com/"><span class="fa fa-user"></span></a>
   <a href="https://github.com/clauswilke"><span class="fa fa-github"></span></a>
   <a href="https://twitter.com/ClausWilke"><span class="fa fa-twitter-square"></span></a>
 - Claire D. McWhite
@@ -50,4 +50,5 @@ For discussions we also try to follow these channels:
 - Achim Zeileis
   <a href="https://orcid.org/0000-0003-0918-3766" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a>
   <a href="https://eeecon.uibk.ac.at/~zeileis/"><span class="fa fa-user"></span></a>
+  <a href="https://github.com/zeileis"><span class="fa fa-github"></span></a>
   <a href="https://twitter.com/AchimZeileis"><span class="fa fa-twitter-square"></span></a>
