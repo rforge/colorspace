@@ -1,4 +1,12 @@
+<!-- index.md is generated from index.Rmd. Please edit that file and run knitr::knit("index.Rmd") -->
+
 ## A Toolbox for Manipulating and Assessing Colors and Palettes
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  fig.path = "index_files/figure-html/"
+)
+```
 
 ```{r, hcl, echo = FALSE, fig.show = "hide", fig.width = 4.5, fig.height = 4.5, fig.align = "center", dev = "png", dpi = 48}
 library("colorspace")

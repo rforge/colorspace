@@ -3,7 +3,9 @@
 ^docs$
 ^pkgdown$
 ^_pkgdown\.yml$
-^index.Rmd$
+^index\.Rmd$
+^index\.md$
+^index$
 ^contact.md$
 ^logo*.png$
 data/USSouthPolygon_script.R$
