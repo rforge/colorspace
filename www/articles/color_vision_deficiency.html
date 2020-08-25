@@ -12,20 +12,24 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Color Vision Deficiency Emulation">
-<meta property="og:description" content="">
+<meta property="og:description" content="colorspace">
 <meta property="og:image" content="http://colorspace.R-Forge.R-project.org/logo.png">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@AchimZeileis">
+<meta name="twitter:site" content="@AchimZeileis">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4-2</span>
       </span>
     </div>
 
@@ -102,10 +106,11 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Color Vision Deficiency Emulation</h1>
+      <h1 data-toc-skip>Color Vision Deficiency Emulation</h1>
             
       
       
@@ -125,15 +130,19 @@
 <div id="illustration-heatmap-with-sequential-palette" class="section level2">
 <h2 class="hasAnchor">
 <a href="#illustration-heatmap-with-sequential-palette" class="anchor"></a>Illustration: Heatmap with sequential palette</h2>
-<p>To illustrate that poor color choices can severely reduce the usefulness of a statistical graphic for readers with color vision deficiencies, we employ the infamous RGB rainbow color palette in a heatmap. In base R this can be generated by <code><a href="https://www.rdocumentation.org/packages/grDevices/topics/palettes">rainbow(11, end = 2/3)</a></code> ranging from red (for high values) to blue (for low values).</p>
+<p>To illustrate that poor color choices can severely reduce the usefulness of a statistical graphic for readers with color vision deficiencies, we employ the infamous RGB rainbow color palette in a heatmap. In base R this can be generated by <code><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow(11, end = 2/3)</a></code> ranging from red (for high values) to blue (for low values).</p>
 <p>The poor results for the RGB rainbow palette are contrasted with a proper sequential palette ranging from dark blue to light yellow: <code><a href="../reference/hcl_palettes.html">sequential_hcl(11, "Blue-Yellow")</a></code>.</p>
 <p>The statistical graphic employed for illustration is a heatmap of the well-known Maunga Whau <code>volcano</code> data from base R. This heatmap is easily available as <code><a href="../reference/demoplot.html">demoplot(x, "heatmap")</a></code> where <code>x</code> is the color vector to be used, e.g.,</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/palettes">rainbow</a></span>(<span class="dv">11</span>, <span class="dt">end =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</a></code></pre></div>
-<pre><code>##  [1] "#FF0000FF" "#FF6600FF" "#FFCC00FF" "#CCFF00FF" "#66FF00FF" "#00FF00FF"
-##  [7] "#00FF66FF" "#00FFCCFF" "#00CCFFFF" "#0066FFFF" "#0000FFFF"</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/simulate_cvd.html">deutan</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/palettes">rainbow</a></span>(<span class="dv">11</span>, <span class="dt">end =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>))</a></code></pre></div>
-<pre><code>##  [1] "#5D4700FF" "#B58C01FF" "#FFD005FF" "#FFE408FF" "#FFC809FF" "#DBAB0AFF"
-##  [7] "#C4B06DFF" "#ACB5D0FF" "#7595FFFF" "#1D50FBFF" "#000CF7FF"</code></pre>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span>(<span class="fl">11</span>, end = <span class="fl">2</span><span class="op">/</span><span class="fl">3</span>)
+</pre></div>
+<pre><code>##  [1] "#FF0000" "#FF6600" "#FFCC00" "#CCFF00" "#66FF00" "#00FF00" "#00FF66"
+##  [8] "#00FFCC" "#00CCFF" "#0066FF" "#0000FF"</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="../reference/simulate_cvd.html">deutan</a></span>(<span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span>(<span class="fl">11</span>, end = <span class="fl">2</span><span class="op">/</span><span class="fl">3</span>))
+</pre></div>
+<pre><code>##  [1] "#5D4700" "#B58C01" "#FFD005" "#FFE408" "#FFC809" "#DBAB0A" "#C4B06D"
+##  [8] "#ACB5D0" "#7595FF" "#1D50FB" "#000CF7"</code></pre>
 <p>and so on. To aid the interpretation of the heatmap a perspective display using only gray shades is included first, providing another intuitive display of what the terrain around Maunga Whau looks like.</p>
 <p><img src="color_vision_deficiency_files/figure-html/volcano-1.png" width="528" style="display: block; margin: auto;"></p>
 <p>Subsequently, all combinations of palette and color vision deficiency are visualized. Additionally, a grayscale version is created with <code><a href="../reference/desaturate.html">desaturate()</a></code>.</p>
@@ -144,7 +153,7 @@
 <h2 class="hasAnchor">
 <a href="#illustration-map-with-diverging-palette" class="anchor"></a>Illustration: Map with diverging palette</h2>
 <p>As another example for the poor performance of the RGB rainbow we employ a shaded map. This is available as <code><a href="../reference/demoplot.html">demoplot(..., "map")</a></code> and is based on county polygons for Alabama, Georgia, and South Carolina along with an artifical variable used for coloring.</p>
-<p>Often the red-yellow-green RGB spectrum is used for a diverging palette with yellow as the neutral value. In base R this can be generated by <code><a href="https://www.rdocumentation.org/packages/grDevices/topics/palettes">rainbow(11, end = 1/3)</a></code>. However, this palette has again a number of weaknesses, especially that the green-yellow part of the palette almost collapses to the same color when desaturated or when color blindness is emulated.</p>
+<p>Often the red-yellow-green RGB spectrum is used for a diverging palette with yellow as the neutral value. In base R this can be generated by <code><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow(11, end = 1/3)</a></code>. However, this palette has again a number of weaknesses, especially that the green-yellow part of the palette almost collapses to the same color when desaturated or when color blindness is emulated.</p>
 <p>To illustrate that much more balanced palettes for the same purpose are available the <code>Geyser</code> palette <span class="citation">(mimicked from CARTO 2019)</span> is adopted: <code><a href="../reference/divergingx_hcl.html">divergingx_hcl(11, "Geyser", rev = TRUE)</a></code>. This also goes from red via yellow to a green/blue and hence needs the <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code> function (as opposed to <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> which always uses a neutral gray).</p>
 <p><img src="color_vision_deficiency_files/figure-html/map-diverging-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>While many versions of the RGB rainbow displays are hard to read because they do not bring out any differences in the green-yellow arm of the palette, the HCL-based palette works reasonably well in all settings. Only the grayscale version cannot bring out the different arms of the palette. However, at least both directions of deviation are visible even if they cannot be distinguished. This is preferable to the RGB rainbow which hides all differences in the green-yellow arm of the palette. (However, if grayscale printing is desired a sequential rather than a diverging palette is probably necessary.)</p>
@@ -154,45 +163,38 @@
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
 <div id="ref-color:Brettel+Vienot+Mollon:1997">
-<p>Brettel, H, F Viénot, and J D Mollon. 1997. “Computerized Simulation of Color Appearance for Dichromats.” <em>Journal of the Optical Society of America A</em> 14: 2647–55. <a href="https://doi.org/10.1364/josaa.14.002647" class="uri">https://doi.org/10.1364/josaa.14.002647</a>.</p>
+<p>Brettel, H, F Viénot, and J D Mollon. 1997. “Computerized Simulation of Color Appearance for Dichromats.” <em>Journal of the Optical Society of America A</em> 14: 2647–55. <a href="https://doi.org/10.1364/josaa.14.002647">https://doi.org/10.1364/josaa.14.002647</a>.</p>
 </div>
 <div id="ref-color:CARTO">
-<p>CARTO. 2019. “CARTOColors – Data-Driven Color Schemes.” <a href="https://carto.com/carto-colors/" class="uri">https://carto.com/carto-colors/</a>.</p>
+<p>CARTO. 2019. “CARTOColors – Data-Driven Color Schemes.” <a href="https://carto.com/carto-colors/">https://carto.com/carto-colors/</a>.</p>
 </div>
 <div id="ref-color:Lumley:2006">
-<p>Lumley, Thomas. 2006. “Color Coding and Color Blindness in Statistical Graphics.” <em>ASA Statistical Computing &amp; Graphics Newsletter</em> 17 (2): 4–7. <a href="http://stat-computing.org/newsletter/issues/scgn-17-2.pdf" class="uri">http://stat-computing.org/newsletter/issues/scgn-17-2.pdf</a>.</p>
+<p>Lumley, Thomas. 2006. “Color Coding and Color Blindness in Statistical Graphics.” <em>ASA Statistical Computing &amp; Graphics Newsletter</em> 17 (2): 4–7. <a href="http://stat-computing.org/newsletter/issues/scgn-17-2.pdf">http://stat-computing.org/newsletter/issues/scgn-17-2.pdf</a>.</p>
 </div>
 <div id="ref-color:dichromat">
-<p>———. 2013. <em><span style="font-style:normal;">Dichromat</span>: Color Schemes for Dichromats</em>. <a href="https://CRAN.R-project.org/package=dichromat" class="uri">https://CRAN.R-project.org/package=dichromat</a>.</p>
+<p>———. 2013. <em><span style="font-style:normal;">Dichromat</span>: Color Schemes for Dichromats</em>. <a href="https://CRAN.R-project.org/package=dichromat">https://CRAN.R-project.org/package=dichromat</a>.</p>
 </div>
 <div id="ref-color:Machado+Oliveira+Fernandes:2009">
-<p>Machado, Gustavo M., Manuel M. Oliveira, and Leandro A. F. Fernandes. 2009. “A Physiologically-Based Model for Simulation of Color Vision Deficiency.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 15 (6): 1291–8. <a href="https://doi.org/10.1109/TVCG.2009.113" class="uri">https://doi.org/10.1109/TVCG.2009.113</a>.</p>
+<p>Machado, Gustavo M., Manuel M. Oliveira, and Leandro A. F. Fernandes. 2009. “A Physiologically-Based Model for Simulation of Color Vision Deficiency.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 15 (6): 1291–8. <a href="https://doi.org/10.1109/TVCG.2009.113">https://doi.org/10.1109/TVCG.2009.113</a>.</p>
 </div>
 <div id="ref-color:Vienot+Brettel+Mollon:1999">
-<p>Viénot, F, H Brettel, and J D Mollon. 1999. “Digital Video Colourmaps for Checking the Legibility of Displays by Dichromats.” <em>Color Research and Application</em> 24 (4): 243–52. <a href="https://doi.org/10.1002/(sici)1520-6378(199908)24:4&lt;243::aid-col5&gt;3.3.co;2-v" class="uri">https://doi.org/10.1002/(sici)1520-6378(199908)24:4&lt;243::aid-col5&gt;3.3.co;2-v</a>.</p>
+<p>Viénot, F, H Brettel, and J D Mollon. 1999. “Digital Video Colourmaps for Checking the Legibility of Displays by Dichromats.” <em>Color Research and Application</em> 24 (4): 243–52. <a href="https://doi.org/10.1002/(sici)1520-6378(199908)24:4&lt;243::aid-col5&gt;3.3.co;2-v">https://doi.org/10.1002/(sici)1520-6378(199908)24:4&lt;243::aid-col5&gt;3.3.co;2-v</a>.</p>
 </div>
 <div id="ref-color:Vienot+Brettel+Ott:1995">
-<p>Viénot, F, H Brettel, L Ott, A B M’Barek, and J D Mollon. 1995. “What Do Colour-Blind People See?” <em>Nature</em> 376: 127–28. <a href="https://doi.org/10.1038/376127a0" class="uri">https://doi.org/10.1038/376127a0</a>.</p>
+<p>Viénot, F, H Brettel, L Ott, A B M’Barek, and J D Mollon. 1995. “What Do Colour-Blind People See?” <em>Nature</em> 376: 127–28. <a href="https://doi.org/10.1038/376127a0">https://doi.org/10.1038/376127a0</a>.</p>
 </div>
 </div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#overview">Overview</a></li>
-      <li><a href="#illustration-heatmap-with-sequential-palette">Illustration: Heatmap with sequential palette</a></li>
-      <li><a href="#illustration-map-with-diverging-palette">Illustration: Map with diverging palette</a></li>
-      <li><a href="#references">References</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
+
 
 
       <footer><div class="copyright">
@@ -200,12 +202,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
