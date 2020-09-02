@@ -24,7 +24,7 @@ cvd_emulator <- function(file, overwrite = FALSE, shiny.trace = FALSE) {
    # If input 'file' is missing: start interactive GUI
    if ( missing(file) ) {
       # Requirements for shiny application
-      stopifnot(requireNamespace("shiny"))
+      stopifnot(requireNamespace("shiny"), requireNamespace("shinyjs"))
       appDir <- system.file("cvdemulator", package = "colorspace")
       if (appDir == "")
          stop("Could not find cvdemulator app directory. Try re-installing `colorspace`.", call. = FALSE)
