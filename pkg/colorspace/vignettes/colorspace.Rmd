@@ -7,6 +7,7 @@ output:
     toc_float: true
     theme: flatly
 bibliography: color.bib
+link-citations: true
 vignette: >
   %\VignetteIndexEntry{colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes}
   %\VignetteEngine{knitr::rmarkdown}

@@ -6,6 +6,7 @@ output:
     toc_float: true
     theme: flatly
 bibliography: color.bib
+link-citations: true
 vignette: >
   %\VignetteIndexEntry{Color Manipulation and Utilities}
   %\VignetteEngine{knitr::rmarkdown}

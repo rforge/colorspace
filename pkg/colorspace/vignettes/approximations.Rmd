@@ -6,6 +6,7 @@ output:
     toc_float: true
     theme: flatly
 bibliography: color.bib
+link-citations: true
 vignette: >
   %\VignetteIndexEntry{Approximating Palettes from Other Packages}
   %\VignetteEngine{knitr::rmarkdown}
