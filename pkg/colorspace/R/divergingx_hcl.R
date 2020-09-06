@@ -16,8 +16,8 @@
 #'
 #' With this additional flexibility various diverging palettes suggested by
 #' \url{http://ColorBrewer.org/} and CARTO (\url{https://carto.com/carto-colors/}),
-#' can be emulated along with the Zissou 1 palette from \pkg{wesanderson} and
-#' Cividis from \pkg{viridis}.
+#' can be emulated along with the Zissou 1 palette from \pkg{wesanderson},
+#' Cividis from \pkg{viridis}, and Hawaii and Roma from \pkg{scico}.
 #'
 #' Available CARTO palettes: ArmyRose, Earth, Fall, Geyser, TealRose, Temps, and
 #' Tropic (with Tropic also available in \code{diverging_hcl}).
@@ -195,3 +195,7 @@ divex_pals[["Zissou 1"]] <- c(218,  71,  12,  46,  88, 165,  59,  82,  52, 0.2, 
 
 ## Cividis
 divex_pals[["Cividis"]]  <- c(255,  NA,  75,  30,   0,  95,  13,  52,  92, 1.1, 1.0, 1.0,  NA,  47, NA)
+
+## scico
+divex_pals[["Hawaii"]]   <- c(-30,  80, 200,  70,  65,  35,  30,  60,  92, 1.0, 0.7, 1.3, 0.9,  55, 75)
+divex_pals[["Roma"]]     <- c( 10, 120, 265,  80,  25,  80,  25,  92,  25, 0.4, 1.5, 1.0, 1.2,  NA, NA)

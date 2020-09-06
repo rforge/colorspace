@@ -1,6 +1,6 @@
 
-R version 3.6.1 (2019-07-05) -- "Action of the Toes"
-Copyright (C) 2019 The R Foundation for Statistical Computing
+R version 4.0.2 (2020-06-22) -- "Taking Off Again"
+Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -38,7 +38,7 @@ Type 'q()' to quit R.
 > ### ** Examples
 > 
 > # A rainbow of full-intensity hues
-> HLS(seq(0, 360, length = 13)[-13], 0.5, 1)
+> HLS(seq(0, 360, length.out = 13)[-13], 0.5, 1)
         H   L S
  [1,]   0 0.5 1
  [2,]  30 0.5 1
@@ -69,7 +69,7 @@ Type 'q()' to quit R.
 > ### ** Examples
 > 
 > # A rainbow of full-intensity hues
-> HSV(seq(0, 360, length = 13)[-13], 1, 1)
+> HSV(seq(0, 360, length.out = 13)[-13], 1, 1)
         H S V
  [1,]   0 1 1
  [2,]  30 1 1
@@ -509,7 +509,7 @@ Names: Purple-Blue, Red-Purple, Red-Blue, Purple-Orange, Purple-Yellow,
        BurgYl, RedOr, OrYel, Purp, PurpOr, Sunset, Magenta, SunsetDark,
        ag_Sunset, BrwnYl, YlOrRd, YlOrBr, OrRd, Oranges, YlGn, YlGnBu,
        Reds, RdPu, PuRd, Purples, PuBuGn, PuBu, Greens, BuGn, GnBu,
-       BuPu, Blues, Lajolla, Turku
+       BuPu, Blues, Lajolla, Turku, Batlow
 
 Type:  Diverging 
 Names: Blue-Red, Blue-Red 2, Blue-Red 3, Red-Green, Purple-Green,
@@ -643,7 +643,7 @@ Parameter ranges:
 > 
 > ### ** Examples
 > 
-> hsv <- HSV(seq(0, 360, length = 7)[-7], 1, 1)
+> hsv <- HSV(seq(0, 360, length.out = 7)[-7], 1, 1)
 > hsv
        H S V
 [1,]   0 1 1
@@ -1393,8 +1393,8 @@ $RGB
 [10,] 1.0 0.0 0.6
 
 $hex
- [1] "#FF0000FF" "#FF9900FF" "#CCFF00FF" "#33FF00FF" "#00FF66FF" "#00FFFFFF"
- [7] "#0066FFFF" "#3300FFFF" "#CC00FFFF" "#FF0099FF"
+ [1] "#FF0000" "#FF9900" "#CCFF00" "#33FF00" "#00FF66" "#00FFFF" "#0066FF"
+ [8] "#3300FF" "#CC00FF" "#FF0099"
 
 > 
 > 
@@ -1484,8 +1484,10 @@ $hex
 > 
 > set.seed(1)
 > x <- RGB(runif(10), runif(10), runif(10))
-> writehex(x, "random.txt")
-[1] "random.txt"
+> ## IGNORE_RDIFF_BEGIN
+> writehex(x, file.path(tempdir(), "random.txt"))
+[1] "/tmp/Rtmp7w0utb/random.txt"
+> ## IGNORE_RDIFF_END
 > 
 > 
 > 
@@ -1494,7 +1496,7 @@ $hex
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  5.66 0.184 5.68 0.001 0 
+Time elapsed:  10.569 0.306 10.665 0.002 0 
 > grDevices::dev.off()
 null device 
           1 

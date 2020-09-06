@@ -99,8 +99,8 @@ between the two arms.
 
 With this additional flexibility various diverging palettes suggested by
 \url{http://ColorBrewer.org/} and CARTO (\url{https://carto.com/carto-colors/}),
-can be emulated along with the Zissou 1 palette from \pkg{wesanderson} and
-Cividis from \pkg{viridis}.
+can be emulated along with the Zissou 1 palette from \pkg{wesanderson},
+Cividis from \pkg{viridis}, and Hawaii and Roma from \pkg{scico}.
 
 Available CARTO palettes: ArmyRose, Earth, Fall, Geyser, TealRose, Temps, and
 Tropic (with Tropic also available in \code{diverging_hcl}).

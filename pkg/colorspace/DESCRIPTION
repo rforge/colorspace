@@ -59,4 +59,4 @@ License: BSD_3_clause + file LICENSE
 URL: http://colorspace.R-Forge.R-project.org, http://hclwizard.org/
 BugReports: http://colorspace.R-Forge.R-project.org/contact.html
 LazyData: yes
-RoxygenNote: 7.0.0
+RoxygenNote: 7.1.1
