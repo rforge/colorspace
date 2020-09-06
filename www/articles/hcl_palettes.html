@@ -156,7 +156,7 @@
 ##        BurgYl, RedOr, OrYel, Purp, PurpOr, Sunset, Magenta, SunsetDark,
 ##        ag_Sunset, BrwnYl, YlOrRd, YlOrBr, OrRd, Oranges, YlGn, YlGnBu,
 ##        Reds, RdPu, PuRd, Purples, PuBuGn, PuBu, Greens, BuGn, GnBu,
-##        BuPu, Blues, Lajolla, Turku
+##        BuPu, Blues, Lajolla, Turku, Batlow
 ## 
 ## Type:  Diverging 
 ## Names: Blue-Red, Blue-Red 2, Blue-Red 3, Red-Green, Purple-Green,
@@ -196,7 +196,7 @@
 <h2 class="hasAnchor">
 <a href="#qualitative-palettes" class="anchor"></a>Qualitative palettes</h2>
 <p><code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> distinguishes the underlying categories by a sequence of hues while keeping both chroma and luminance constant, to give each color in the resulting palette the same perceptual weight. Thus, <code>h</code> should be a pair of hues (or equivalently <code>h1</code> and <code>h2</code> can be used) with the starting and ending hue of the palette. Then, an equidistant sequence between these hues is employed, by default spanning the full color wheel (i.e., the full 360 degrees). Chroma <code>c</code> (or equivalently <code>c1</code>) and luminance <code>l</code> (or equivalently <code>l1</code>) are constants. Finally, <code>fixup</code> indicates whether colors with out-of-range coordinates should be corrected.</p>
-<p>In the following graphic the available named palettes are shown. The first five palettes are close to the <em>ColorBrewer.org</em> palettes of the same name <span class="citation">(Harrower and Brewer 2003)</span>. They employ different levels of chroma and luminance and, by default, span the full hue range. The remaining four palettes are taken from <span class="citation">Ihaka (2003)</span>. They are based on the same chroma (50) and luminance (70) but the hue is restricted to different intervals.</p>
+<p>In the following graphic the available named palettes are shown. The first five palettes are close to the <em>ColorBrewer.org</em> palettes of the same name <span class="citation">(Harrower and Brewer <a href="#ref-color:Harrower+Brewer:2003">2003</a>)</span>. They employ different levels of chroma and luminance and, by default, span the full hue range. The remaining four palettes are taken from <span class="citation">Ihaka (<a href="#ref-color:Ihaka:2003">2003</a>)</span>. They are based on the same chroma (50) and luminance (70) but the hue is restricted to different intervals.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit">
 <span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"qualitative"</span>, plot = <span class="fl">TRUE</span>)
 </pre></div>
@@ -214,7 +214,7 @@
 <span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"sequential (single-hue)"</span>, n = <span class="fl">7</span>, plot = <span class="fl">TRUE</span>)
 </pre></div>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-sequentials-1.png" width="70%" style="display: block; margin: auto;"></p>
-<p>All except the last are inspired by the <em>ColorBrewer.org</em> palettes with the same base name <span class="citation">(Harrower and Brewer 2003)</span> but restricted to a single hue only. They are intended for a white/light background. The last palette (Oslo) is taken from the scientific color maps of <span class="citation">Crameri (2018)</span> and is intended for a black/dark background and hence the order is reversed starting from a light blue (not a light gray).</p>
+<p>All except the last are inspired by the <em>ColorBrewer.org</em> palettes with the same base name <span class="citation">(Harrower and Brewer <a href="#ref-color:Harrower+Brewer:2003">2003</a>)</span> but restricted to a single hue only. They are intended for a white/light background. The last palette (Oslo) is taken from the scientific color maps of <span class="citation">Crameri (<a href="#ref-color:Crameri:2018">2018</a>)</span> and is intended for a black/dark background and hence the order is reversed starting from a light blue (not a light gray).</p>
 <p>To distinguish many colors in a sequential palette it is important to have a strong contrast on the luminance axis, possibly enhanced by an accompanying pronounced variation in chroma. When only a few colors are needed (e.g., for coding an ordinal categorical variable with few levels) then a lower luminance contrast may suffice.</p>
 </div>
 <div id="sequential-palettes-multi-hue" class="section level2">
@@ -223,11 +223,11 @@
 <p>To not only bring out extreme colors in a sequential palette but also better distinguish middle colors it is a common strategy to employ a sequence of hues. Thus, the basis of such a palette is still a monotonic luminance sequence as above (combined with a monotonic or triangular chroma sequence). But rather than using a single hue, an interval of hues in <code>h</code> (or beginning hue <code>h1</code> and ending hue <code>h2</code>) can be specified.</p>
 <p><code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> allows combined variations in hue (<code>h</code> and <code>h1</code>/<code>h2</code>, respectively), chroma (<code>c</code> and <code>c1</code>/<code>c2</code>/<code>cmax</code>, respectively), luminance (<code>l</code> and <code>l1</code>/<code>l2</code>, respectively), and power transformations for the chroma and luminance trajectories (<code>power</code> and <code>p1</code>/<code>p2</code>, respectively). This yields a broad variety of sequential palettes, including many that closely match other well-known color palettes. The plot below shows all the named multi-hue sequential palettes in <em>colorspace</em>:</p>
 <ul>
-<li>“Purple-Blue” to “Terrain 2” are various palettes created during the development of <em>colorspace</em>, e.g., by <span class="citation">Zeileis, Hornik, and Murrell (2009)</span> or <span class="citation">Stauffer et al. (2015)</span> among others.</li>
-<li>“Viridis” to “Inferno” closely match the palettes that <span class="citation">Smith and Van der Walt (2015)</span> developed for <em>matplotlib</em> and that gained popularity recently.</li>
-<li>“Dark Mint” to “BrwnYl” closely match palettes provided in <em>CARTO</em> <span class="citation">(CARTO 2019)</span>.</li>
-<li>“YlOrRd” to “Blues” closely match <em>ColorBrewer.org</em> palettes <span class="citation">(Harrower and Brewer 2003)</span>.</li>
-<li>“Lajolla” and “Turku” closely match the scientific color maps of the same name by <span class="citation">Crameri (2018)</span> and are intended for a black/dark background.</li>
+<li>“Purple-Blue” to “Terrain 2” are various palettes created during the development of <em>colorspace</em>, e.g., by <span class="citation">Zeileis, Hornik, and Murrell (<a href="#ref-color:Zeileis+Hornik+Murrell:2009">2009</a>)</span> or <span class="citation">Stauffer et al. (<a href="#ref-color:Stauffer+Mayr+Dabernig:2015">2015</a>)</span> among others.</li>
+<li>“Viridis” to “Inferno” closely match the palettes that <span class="citation">Smith and Van der Walt (<a href="#ref-color:Smith+VanDerWalt:2015">2015</a>)</span> developed for <em>matplotlib</em> and that gained popularity recently.</li>
+<li>“Dark Mint” to “BrwnYl” closely match palettes provided in <em>CARTO</em> <span class="citation">(CARTO <a href="#ref-color:CARTO">2019</a>)</span>.</li>
+<li>“YlOrRd” to “Blues” closely match <em>ColorBrewer.org</em> palettes <span class="citation">(Harrower and Brewer <a href="#ref-color:Harrower+Brewer:2003">2003</a>)</span>.</li>
+<li>“Lajolla” and “Turku” closely match the scientific color maps of the same name by <span class="citation">Crameri (<a href="#ref-color:Crameri:2018">2018</a>)</span> and are intended for a black/dark background.</li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="downlit">
 <span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"sequential (multi-hue)"</span>, n = <span class="fl">7</span>, plot = <span class="fl">TRUE</span>)
@@ -241,9 +241,9 @@
 <p><code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> codes the underlying numeric values by a triangular luminance sequence with different hues in the left and in the right “arms” of the palette. Thus, it can be seen as a combination of two sequential palettes with some restrictions: (a) a single hue is used for each arm of the palette, (b) chroma and luminance trajectory are balanced between the two arms, (c) the neutral central value has zero chroma. To specify such a palette a vector of two hues <code>h</code> (or equivalently <code>h1</code> and <code>h2</code>), either a single chroma value <code>c</code> (or <code>c1</code>) or a vector of two chroma values <code>c</code> (or <code>c1</code> and <code>cmax</code>), a vector of two luminances <code>l</code> (or <code>l1</code> and <code>l2</code>), and power parameter(s) <code>power</code> (or <code>p1</code> and <code>p2</code>) are used. For more flexible diverging palettes without the restrictions above (and consequently more parameters) see the <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code> palettes introduced below.</p>
 <p>The plot below shows all such diverging palettes that have been named in <em>colorspace</em>:</p>
 <ul>
-<li>“Blue-Red” to “Cyan-Magenta” have been developed for <em>colorspace</em> starting from <span class="citation">Zeileis, Hornik, and Murrell (2009)</span>, taking inspiration from various other palettes, including more balanced and simplified versions of several <em>ColorBrewer.org</em> palettes <span class="citation">(Harrower and Brewer 2003)</span>.</li>
-<li>“Tropic” closely matches the palette of the same name from <em>CARTO</em> <span class="citation">(CARTO 2019)</span>.</li>
-<li>“Broc” to “Vik” and “Berlin” to “Tofino” closely match the scientific color maps of the same name by <span class="citation">Crameri (2018)</span>, where the first three are intended for a white/light background and the other three for a black/dark background.</li>
+<li>“Blue-Red” to “Cyan-Magenta” have been developed for <em>colorspace</em> starting from <span class="citation">Zeileis, Hornik, and Murrell (<a href="#ref-color:Zeileis+Hornik+Murrell:2009">2009</a>)</span>, taking inspiration from various other palettes, including more balanced and simplified versions of several <em>ColorBrewer.org</em> palettes <span class="citation">(Harrower and Brewer <a href="#ref-color:Harrower+Brewer:2003">2003</a>)</span>.</li>
+<li>“Tropic” closely matches the palette of the same name from <em>CARTO</em> <span class="citation">(CARTO <a href="#ref-color:CARTO">2019</a>)</span>.</li>
+<li>“Broc” to “Vik” and “Berlin” to “Tofino” closely match the scientific color maps of the same name by <span class="citation">Crameri (<a href="#ref-color:Crameri:2018">2018</a>)</span>, where the first three are intended for a white/light background and the other three for a black/dark background.</li>
 </ul>
 <div class="sourceCode" id="cb16"><pre class="downlit">
 <span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"diverging"</span>, n = <span class="fl">7</span>, plot = <span class="fl">TRUE</span>)
@@ -351,10 +351,10 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <p>The <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code> function provides more flexible diverging palettes by simply calling <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> twice with prespecified sets of hue, chroma, and luminance parameters. Thus, it does not pose any restrictions that the two “arms” of the palette need to be balanced and also may go through a non-gray neutral color (typically light yellow). Consequently, the chroma/luminance paths can be rather unbalanced.</p>
 <p>The plot below shows all such flexible diverging palettes that have been named in <em>colorspace</em>:</p>
 <ul>
-<li>“ArmyRose” to “Tropic” closely match the palettes of the same name from <em>CARTO</em> <span class="citation">(CARTO 2019)</span>.</li>
-<li>“PuOr” to “Spectral” closely match the palettes of the same name from <em>ColorBrewer.org</em> <span class="citation">(Harrower and Brewer 2003)</span>.</li>
-<li>“Zissou 1” closely matches the palette of the same name from <em>wesanderson</em> <span class="citation">(Ram and Wickham 2018)</span>.</li>
-<li>“Cividis” closely matches the palette of the same name from the <em>viridis</em> family <span class="citation">(Garnier 2018)</span>. Note that despite having two “arms” with blue vs. yellow colors and a low-chroma center color, this is probably better classified as a sequential palette due to the monotonic chroma going from dark to light. (See <a href="approximations.html">Approximating Palettes from Other Packages</a> for more details.)</li>
+<li>“ArmyRose” to “Tropic” closely match the palettes of the same name from <em>CARTO</em> <span class="citation">(CARTO <a href="#ref-color:CARTO">2019</a>)</span>.</li>
+<li>“PuOr” to “Spectral” closely match the palettes of the same name from <em>ColorBrewer.org</em> <span class="citation">(Harrower and Brewer <a href="#ref-color:Harrower+Brewer:2003">2003</a>)</span>.</li>
+<li>“Zissou 1” closely matches the palette of the same name from <em>wesanderson</em> <span class="citation">(Ram and Wickham <a href="#ref-color:wesanderson">2018</a>)</span>.</li>
+<li>“Cividis” closely matches the palette of the same name from the <em>viridis</em> family <span class="citation">(Garnier <a href="#ref-color:viridis">2018</a>)</span>. Note that despite having two “arms” with blue vs. yellow colors and a low-chroma center color, this is probably better classified as a sequential palette due to the monotonic chroma going from dark to light. (See <a href="approximations.html">Approximating Palettes from Other Packages</a> for more details.)</li>
 </ul>
 <div class="sourceCode" id="cb22"><pre class="downlit">
 <span class="fu"><a href="../reference/divergingx_hcl.html">divergingx_palettes</a></span>(n = <span class="fl">7</span>, plot = <span class="fl">TRUE</span>)
@@ -376,7 +376,7 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <li>
 <code><a href="../reference/rainbow_hcl.html">diverging_hsv()</a></code>: Diverging palettes generated in HSV space rather than HCL space as in <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>. This is provided for didactic purposes to contrast the more balanced HCL palettes with the more flashy and unbalanced HSV palettes.</li>
 </ul>
-<p>Meanwhile, base R has also adopted the HCL-based palettes from <em>colorspace</em> into the <code><a href="https://rdrr.io/r/grDevices/palettes.html">hcl.colors()</a></code> function in <em>grDevices</em> <span class="citation">(Zeileis and Murrell 2019)</span>. This provides all the named palettes introduced in <em>colorspace</em> (with the same names) but without the flexibility to modify or adapt existing palettes.</p>
+<p>Meanwhile, base R has also adopted the HCL-based palettes from <em>colorspace</em> into the <code><a href="https://rdrr.io/r/grDevices/palettes.html">hcl.colors()</a></code> function in <em>grDevices</em> <span class="citation">(Zeileis and Murrell <a href="#ref-color:grDevices">2019</a>)</span>. This provides all the named palettes introduced in <em>colorspace</em> (with the same names) but without the flexibility to modify or adapt existing palettes.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
