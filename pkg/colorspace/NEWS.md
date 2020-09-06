@@ -5,7 +5,7 @@
   the alpha component is modified, added, or removed.
 
 * Added three more palettes from Fabio Crameri's scientific color maps
-  (_scico_), namely `"Batlow"` in `sequential_hcl()` and `"Hawaii"` and
+  (_scico_), namely `"Hawaii"` and `"Batlow"` in `sequential_hcl()` and
   `"Roma"` in `divergingx_hcl()`.
 
 * Changed the default colors in `specplot()` from `rainbow_hcl(3)` to

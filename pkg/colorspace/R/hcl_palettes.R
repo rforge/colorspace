@@ -693,6 +693,7 @@ seqm.pals[["BuPu"]]        <- c(320,  200,  40,  5, 15, 98, 1.2, 1.3,  65, 1) # 
 seqm.pals[["Blues"]]       <- c(260,  220,  45,  5, 25, 98, 1.2, 1.3,  70, 1) # ColorBrewer.org: Blues
 seqm.pals[["Lajolla"]]     <- c( 90,  -20,  40,  5, 99,  5, 0.7, 0.8, 100, 1) # scico: lajolla
 seqm.pals[["Turku"]]       <- c( 10,  120,  20,  0, 95,  1, 1.7, 0.8,  55, 1) # scico: turku
+seqm.pals[["Hawaii"]]      <- c(-30,  200,  70, 35, 30, 92, 0.3, 1.0,  75, 1) # scico: hawaii
 seqm.pals[["Batlow"]]      <- c(270,  -40,  35, 35, 12, 88, 0.6, 1.1,  75, 1) # scico: batlow
 
 dive.pals <- list()
@@ -826,7 +827,7 @@ GetPaletteConfig <- function(gui = NULL) {
            # Sequential multiple-hues advanced
            "Purple-Yellow", "YlGnBu", "Greens", "BuGn", "Teal", "Peach", "Blues", "BuPu", "Purples",
            "Purp", "Burg", "Reds", "YlOrRd", "Sunset", "RdPu", "Inferno",
-           "Lajolla", "Turku", "Batlow",
+           "Lajolla", "Turku", "Hawaii", "Batlow",
            # Base color maps (for shiny)
            "rainbow", "heat.colors", "topo.colors", "terrain.colors", "cm.colors", "bpy"
        ) # end of variable definition for "take"

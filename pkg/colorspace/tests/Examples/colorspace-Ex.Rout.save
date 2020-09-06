@@ -509,7 +509,7 @@ Names: Purple-Blue, Red-Purple, Red-Blue, Purple-Orange, Purple-Yellow,
        BurgYl, RedOr, OrYel, Purp, PurpOr, Sunset, Magenta, SunsetDark,
        ag_Sunset, BrwnYl, YlOrRd, YlOrBr, OrRd, Oranges, YlGn, YlGnBu,
        Reds, RdPu, PuRd, Purples, PuBuGn, PuBu, Greens, BuGn, GnBu,
-       BuPu, Blues, Lajolla, Turku, Batlow
+       BuPu, Blues, Lajolla, Turku, Hawaii, Batlow
 
 Type:  Diverging 
 Names: Blue-Red, Blue-Red 2, Blue-Red 3, Red-Green, Purple-Green,
@@ -1486,7 +1486,7 @@ $hex
 > x <- RGB(runif(10), runif(10), runif(10))
 > ## IGNORE_RDIFF_BEGIN
 > writehex(x, file.path(tempdir(), "random.txt"))
-[1] "/tmp/Rtmp7w0utb/random.txt"
+[1] "/tmp/RtmpDsV0VE/random.txt"
 > ## IGNORE_RDIFF_END
 > 
 > 
@@ -1496,7 +1496,7 @@ $hex
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  10.569 0.306 10.665 0.002 0 
+Time elapsed:  9.042 0.308 9.112 0.001 0 
 > grDevices::dev.off()
 null device 
           1 
