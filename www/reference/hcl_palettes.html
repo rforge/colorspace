@@ -442,7 +442,8 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## overview of all _named_ HCL palettes</span>
-<span class='fu'>hcl_palettes</span>()</div><div class='output co'>#&gt; HCL palettes
+<span class='fu'>hcl_palettes</span>()
+</div><div class='output co'>#&gt; HCL palettes
 #&gt; 
 #&gt; Type:  Qualitative 
 #&gt; Names: Pastel 1, Dark 2, Dark 3, Set 2, Set 3, Warm, Cold, Harmonic, Dynamic
@@ -467,22 +468,31 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 #&gt;        Green-Orange, Cyan-Magenta, Tropic, Broc, Cork, Vik, Berlin,
 #&gt;        Lisbon, Tofino</div><div class='input'>
 <span class='co'>## visualize</span>
-<span class='fu'>hcl_palettes</span>(<span class='st'>"qualitative"</span>, plot = <span class='fl'>TRUE</span>)</div><div class='img'><img src='hcl_palettes-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>hcl_palettes</span>(<span class='st'>"sequential (single-hue)"</span>, n = <span class='fl'>7</span>, plot = <span class='fl'>TRUE</span>)</div><div class='img'><img src='hcl_palettes-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>hcl_palettes</span>(<span class='st'>"sequential (multi-hue)"</span>, n = <span class='fl'>7</span>, plot = <span class='fl'>TRUE</span>)</div><div class='img'><img src='hcl_palettes-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>hcl_palettes</span>(<span class='st'>"diverging"</span>, n = <span class='fl'>7</span>, plot = <span class='fl'>TRUE</span>)</div><div class='img'><img src='hcl_palettes-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>hcl_palettes</span>(<span class='st'>"qualitative"</span>, plot = <span class='fl'>TRUE</span>)
+</div><div class='img'><img src='hcl_palettes-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>hcl_palettes</span>(<span class='st'>"sequential (single-hue)"</span>, n = <span class='fl'>7</span>, plot = <span class='fl'>TRUE</span>)
+</div><div class='img'><img src='hcl_palettes-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>hcl_palettes</span>(<span class='st'>"sequential (multi-hue)"</span>, n = <span class='fl'>7</span>, plot = <span class='fl'>TRUE</span>)
+</div><div class='img'><img src='hcl_palettes-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>hcl_palettes</span>(<span class='st'>"diverging"</span>, n = <span class='fl'>7</span>, plot = <span class='fl'>TRUE</span>)
+</div><div class='img'><img src='hcl_palettes-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## inspect a specific palette</span>
 <span class='co'>## (upper-case, spaces, etc. are ignored for matching)</span>
-<span class='fu'>hcl_palettes</span>(palette = <span class='st'>"Dark 2"</span>)</div><div class='output co'>#&gt; HCL palette
+<span class='fu'>hcl_palettes</span>(palette = <span class='st'>"Dark 2"</span>)
+</div><div class='output co'>#&gt; HCL palette
 #&gt; Name: Dark 2
 #&gt; Type: Qualitative
 #&gt; Parameter ranges:
 #&gt;  h1 h2 c1 c2 l1 l2 p1 p2 cmax fixup
-#&gt;   0 NA 50 NA 60 NA NA NA   NA  TRUE</div><div class='input'><span class='fu'>hcl_palettes</span>(palette = <span class='st'>"dark2"</span>)</div><div class='output co'>#&gt; HCL palette
+#&gt;   0 NA 50 NA 60 NA NA NA   NA  TRUE</div><div class='input'><span class='fu'>hcl_palettes</span>(palette = <span class='st'>"dark2"</span>)
+</div><div class='output co'>#&gt; HCL palette
 #&gt; Name: Dark 2
 #&gt; Type: Qualitative
 #&gt; Parameter ranges:
 #&gt;  h1 h2 c1 c2 l1 l2 p1 p2 cmax fixup
 #&gt;   0 NA 50 NA 60 NA NA NA   NA  TRUE</div><div class='input'>
 <span class='co'>## set up actual colors</span>
-<span class='fu'>qualitative_hcl</span>(<span class='fl'>4</span>, h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>288</span>), c = <span class='fl'>50</span>, l = <span class='fl'>60</span>) <span class='co'>## by hand</span></div><div class='output co'>#&gt; [1] "#C87A8A" "#8A9748" "#00A2A2" "#A782C3"</div><div class='input'><span class='fu'>qualitative_hcl</span>(<span class='fl'>4</span>, palette = <span class='st'>"dark2"</span>)             <span class='co'>## by name</span></div><div class='output co'>#&gt; [1] "#C87A8A" "#909646" "#00A396" "#9189C7"</div><div class='input'><span class='fu'>qualitative_hcl</span>(<span class='fl'>4</span>, palette = <span class='st'>"dark2"</span>, c = <span class='fl'>80</span>)     <span class='co'>## by name plus modification</span></div><div class='output co'>#&gt; [1] "#E16A86" "#909800" "#00AD9A" "#9183E6"</div><div class='input'>
+<span class='fu'>qualitative_hcl</span>(<span class='fl'>4</span>, h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>288</span>), c = <span class='fl'>50</span>, l = <span class='fl'>60</span>) <span class='co'>## by hand</span>
+</div><div class='output co'>#&gt; [1] "#C87A8A" "#8A9748" "#00A2A2" "#A782C3"</div><div class='input'><span class='fu'>qualitative_hcl</span>(<span class='fl'>4</span>, palette = <span class='st'>"dark2"</span>)             <span class='co'>## by name</span>
+</div><div class='output co'>#&gt; [1] "#C87A8A" "#909646" "#00A396" "#9189C7"</div><div class='input'><span class='fu'>qualitative_hcl</span>(<span class='fl'>4</span>, palette = <span class='st'>"dark2"</span>, c = <span class='fl'>80</span>)     <span class='co'>## by name plus modification</span>
+</div><div class='output co'>#&gt; [1] "#E16A86" "#909800" "#00AD9A" "#9183E6"</div><div class='input'>
 <span class='co'>## how HCL palettes are constructed:</span>
 <span class='co'>## by varying the perceptual properties via hue/chroma/luminance</span>
 <span class='fu'><a href='swatchplot.html'>swatchplot</a></span>(
@@ -490,30 +500,41 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
   <span class='st'>"Chroma"</span>    = <span class='fu'>sequential_hcl</span>(<span class='fl'>5</span>, h = <span class='fl'>0</span>, c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>0</span>), l = <span class='fl'>65</span>, rev = <span class='fl'>TRUE</span>, power = <span class='fl'>1</span>),
   <span class='st'>"Luminance"</span> = <span class='fu'>sequential_hcl</span>(<span class='fl'>5</span>, h = <span class='fl'>260</span>, c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>25</span>, <span class='fl'>25</span>), l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>25</span>, <span class='fl'>90</span>), rev = <span class='fl'>TRUE</span>, power = <span class='fl'>1</span>),
   off = <span class='fl'>0</span>
-)</div><div class='img'><img src='hcl_palettes-5.png' alt='' width='700' height='433' /></div><div class='input'>
+)
+</div><div class='img'><img src='hcl_palettes-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## for qualitative palettes luminance and chroma are fixed, varying only hue</span>
-<span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>qualitative_hcl</span>(<span class='fl'>9</span>, c = <span class='fl'>50</span>, l = <span class='fl'>70</span>))</div><div class='img'><img src='hcl_palettes-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>qualitative_hcl</span>(<span class='fl'>9</span>, c = <span class='fl'>50</span>, l = <span class='fl'>70</span>))
+</div><div class='img'><img src='hcl_palettes-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## single-hue sequential palette (h = 260) with linear vs. power-transformed trajectory</span>
-<span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fl'>260</span>, c = <span class='fl'>80</span>, l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35</span>, <span class='fl'>95</span>), power = <span class='fl'>1</span>))</div><div class='img'><img src='hcl_palettes-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fl'>260</span>, c = <span class='fl'>80</span>, l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35</span>, <span class='fl'>95</span>), power = <span class='fl'>1.5</span>))</div><div class='img'><img src='hcl_palettes-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fl'>260</span>, c = <span class='fl'>80</span>, l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35</span>, <span class='fl'>95</span>), power = <span class='fl'>1</span>))
+</div><div class='img'><img src='hcl_palettes-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fl'>260</span>, c = <span class='fl'>80</span>, l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35</span>, <span class='fl'>95</span>), power = <span class='fl'>1.5</span>))
+</div><div class='img'><img src='hcl_palettes-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## advanced single-hue sequential palette with triangular chroma trajectory</span>
 <span class='co'>## (piecewise linear vs. power-transformed)</span>
-<span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fl'>245</span>, c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40</span>, <span class='fl'>75</span>, <span class='fl'>0</span>), l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>95</span>), power = <span class='fl'>1</span>))</div><div class='img'><img src='hcl_palettes-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fl'>245</span>, c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40</span>, <span class='fl'>75</span>, <span class='fl'>0</span>), l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>95</span>), power = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.8</span>, <span class='fl'>1.4</span>)))</div><div class='img'><img src='hcl_palettes-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fl'>245</span>, c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40</span>, <span class='fl'>75</span>, <span class='fl'>0</span>), l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>95</span>), power = <span class='fl'>1</span>))
+</div><div class='img'><img src='hcl_palettes-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fl'>245</span>, c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40</span>, <span class='fl'>75</span>, <span class='fl'>0</span>), l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>95</span>), power = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.8</span>, <span class='fl'>1.4</span>)))
+</div><div class='img'><img src='hcl_palettes-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## multi-hue sequential palette with small hue range and triangular chroma vs.</span>
 <span class='co'>## large hue range and linear chroma trajectory</span>
-<span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>260</span>, <span class='fl'>220</span>), c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>75</span>, <span class='fl'>0</span>), l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>95</span>), power = <span class='fl'>1</span>))</div><div class='img'><img src='hcl_palettes-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>260</span>, <span class='fl'>60</span>), c = <span class='fl'>60</span>, l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40</span>, <span class='fl'>95</span>), power = <span class='fl'>1</span>))</div><div class='img'><img src='hcl_palettes-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>260</span>, <span class='fl'>220</span>), c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>75</span>, <span class='fl'>0</span>), l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>95</span>), power = <span class='fl'>1</span>))
+</div><div class='img'><img src='hcl_palettes-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>sequential_hcl</span>(<span class='fl'>7</span>, h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>260</span>, <span class='fl'>60</span>), c = <span class='fl'>60</span>, l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>40</span>, <span class='fl'>95</span>), power = <span class='fl'>1</span>))
+</div><div class='img'><img src='hcl_palettes-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## balanced diverging palette constructed from two simple single-hue sequential</span>
 <span class='co'>## palettes (for hues 260/blue and 0/red)</span>
-<span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>diverging_hcl</span>(<span class='fl'>7</span>, h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>260</span>, <span class='fl'>0</span>), c = <span class='fl'>80</span>, l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35</span>, <span class='fl'>95</span>), power = <span class='fl'>1</span>))</div><div class='img'><img src='hcl_palettes-13.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='hclplot.html'>hclplot</a></span>(<span class='fu'>diverging_hcl</span>(<span class='fl'>7</span>, h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>260</span>, <span class='fl'>0</span>), c = <span class='fl'>80</span>, l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35</span>, <span class='fl'>95</span>), power = <span class='fl'>1</span>))
+</div><div class='img'><img src='hcl_palettes-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## to register a particular adapted palette for re-use in the same session</span>
 <span class='co'>## with a new name the register=... argument can be used once, e.g.,</span>
 <span class='fu'>diverging_hcl</span>(<span class='fl'>7</span>, palette = <span class='st'>"Tropic"</span>, h2 = <span class='fl'>0</span>, register = <span class='st'>"mytropic"</span>)
 
 <span class='co'>## subsequently palete="mytropic" is available in diverging_hcl() and the diverging</span>
 <span class='co'>## ggplot2 scales such as scale_color_continuous_diverging() etc.</span>
-<span class='fu'><a href='demoplot.html'>demoplot</a></span>(<span class='fu'>diverging_hcl</span>(<span class='fl'>11</span>, <span class='st'>"mytropic"</span>), type = <span class='st'>"map"</span>)</div><div class='img'><img src='hcl_palettes-14.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='demoplot.html'>demoplot</a></span>(<span class='fu'>diverging_hcl</span>(<span class='fl'>11</span>, <span class='st'>"mytropic"</span>), type = <span class='st'>"map"</span>)
+</div><div class='img'><img src='hcl_palettes-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## to register this palette in all R sessions you could place the following</span>
 <span class='co'>## code in a startup script (e.g., .Rprofile):</span>
 <span class='co'>## colorspace::diverging_hcl(7, palette = "Tropic", h2 = 0, register = "mytropic")</span>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -530,7 +551,7 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

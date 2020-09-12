@@ -270,13 +270,17 @@ named palette. This enables easy customization of named palettes.</p>
 <span class='kw'>gg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>iris</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(x = <span class='kw'>Species</span>, y = <span class='kw'>Sepal.Width</span>, color = <span class='kw'>Sepal.Length</span>)) <span class='op'>+</span> 
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_jitter.html'>geom_jitter</a></span>(width = <span class='fl'>0.3</span>) <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span>()
   
-<span class='kw'>gg</span> <span class='op'>+</span> <span class='fu'>scale_color_continuous_qualitative</span>(palette = <span class='st'>"Warm"</span>)</div><div class='img'><img src='scale_colour_continuous_qualitative-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>gg</span> <span class='op'>+</span> <span class='fu'>scale_color_continuous_qualitative</span>(palette = <span class='st'>"Cold"</span>, l1 = <span class='fl'>60</span>)</div><div class='img'><img src='scale_colour_continuous_qualitative-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>gg</span> <span class='op'>+</span> <span class='fu'>scale_color_continuous_qualitative</span>(palette = <span class='st'>"Harmonic"</span>, rev = <span class='fl'>TRUE</span>)</div><div class='img'><img src='scale_colour_continuous_qualitative-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>gg</span> <span class='op'>+</span> <span class='fu'>scale_color_continuous_qualitative</span>(palette = <span class='st'>"Warm"</span>)
+</div><div class='img'><img src='scale_colour_continuous_qualitative-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>gg</span> <span class='op'>+</span> <span class='fu'>scale_color_continuous_qualitative</span>(palette = <span class='st'>"Cold"</span>, l1 = <span class='fl'>60</span>)
+</div><div class='img'><img src='scale_colour_continuous_qualitative-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>gg</span> <span class='op'>+</span> <span class='fu'>scale_color_continuous_qualitative</span>(palette = <span class='st'>"Harmonic"</span>, rev = <span class='fl'>TRUE</span>)
+</div><div class='img'><img src='scale_colour_continuous_qualitative-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>nx</span> <span class='op'>=</span> <span class='fl'>87</span>
 <span class='kw'>ny</span> <span class='op'>=</span> <span class='fl'>61</span>
 <span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(height = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>volcano</span>), x = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='kw'>nx</span>, <span class='kw'>ny</span>), y = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='kw'>ny</span>, each = <span class='kw'>nx</span>))
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='kw'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span>, <span class='kw'>y</span>, fill=<span class='kw'>height</span>)) <span class='op'>+</span> 
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_tile.html'>geom_raster</a></span>() <span class='op'>+</span> <span class='fu'>scale_fill_continuous_qualitative</span>(palette = <span class='st'>"Dark 3"</span>) <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span>(expand = <span class='fl'>FALSE</span>)</div><div class='img'><img src='scale_colour_continuous_qualitative-4.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_fixed.html'>coord_fixed</a></span>(expand = <span class='fl'>FALSE</span>)
+</div><div class='img'><img src='scale_colour_continuous_qualitative-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -292,7 +296,7 @@ named palette. This enables easy customization of named palettes.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

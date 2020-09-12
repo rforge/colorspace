@@ -207,13 +207,16 @@ primary values so that they lie between 0 and 255.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>hsv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='HSV.html'>HSV</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>360</span>, length.out = <span class='fl'>7</span>)[<span class='op'>-</span><span class='fl'>7</span>], <span class='fl'>1</span>, <span class='fl'>1</span>)
-<span class='kw'>hsv</span></div><div class='output co'>#&gt;        H S V
+<span class='kw'>hsv</span>
+</div><div class='output co'>#&gt;        H S V
 #&gt; [1,]   0 1 1
 #&gt; [2,]  60 1 1
 #&gt; [3,] 120 1 1
 #&gt; [4,] 180 1 1
 #&gt; [5,] 240 1 1
-#&gt; [6,] 300 1 1</div><div class='input'><span class='fu'>hex</span>(<span class='kw'>hsv</span>)</div><div class='output co'>#&gt; [1] "#FF0000" "#FFFF00" "#00FF00" "#00FFFF" "#0000FF" "#FF00FF"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>6</span>), col = <span class='fu'>hex</span>(<span class='kw'>hsv</span>))</div><div class='img'><img src='hex-1.png' alt='' width='700' height='433' /></div></pre>
+#&gt; [6,] 300 1 1</div><div class='input'><span class='fu'>hex</span>(<span class='kw'>hsv</span>)
+</div><div class='output co'>#&gt; [1] "#FF0000" "#FFFF00" "#00FF00" "#00FFFF" "#0000FF" "#FF00FF"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>6</span>), col = <span class='fu'>hex</span>(<span class='kw'>hsv</span>))
+</div><div class='img'><img src='hex-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -229,7 +232,7 @@ primary values so that they lie between 0 and 255.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

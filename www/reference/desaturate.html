@@ -223,8 +223,10 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## rainbow of colors and their desaturated counterparts</span>
-<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span>(<span class='fl'>12</span>)</div><div class='output co'>#&gt;  [1] "#E495A5" "#DB9D85" "#C7A76C" "#ABB065" "#86B875" "#5CBD92" "#39BEB1"
-#&gt;  [8] "#4CB9CC" "#7DB0DD" "#ACA4E2" "#CD99D8" "#E093C3"</div><div class='input'><span class='fu'>desaturate</span>(<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span>(<span class='fl'>12</span>))</div><div class='output co'>#&gt;  [1] "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB"
+<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span>(<span class='fl'>12</span>)
+</div><div class='output co'>#&gt;  [1] "#E495A5" "#DB9D85" "#C7A76C" "#ABB065" "#86B875" "#5CBD92" "#39BEB1"
+#&gt;  [8] "#4CB9CC" "#7DB0DD" "#ACA4E2" "#CD99D8" "#E093C3"</div><div class='input'><span class='fu'>desaturate</span>(<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span>(<span class='fl'>12</span>))
+</div><div class='output co'>#&gt;  [1] "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB"
 #&gt;  [8] "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB"</div><div class='input'>
 <span class='co'>## convenience demo function</span>
 <span class='kw'>wheel</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>col</span>, <span class='kw'>radius</span> = <span class='fl'>1</span>, <span class='kw'>...</span>)
@@ -237,10 +239,12 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 <span class='fu'>wheel</span>(<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span>(<span class='fl'>12</span>))
 <span class='fu'>wheel</span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>12</span>))
 <span class='fu'>wheel</span>(<span class='fu'>desaturate</span>(<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span>(<span class='fl'>12</span>)))
-<span class='fu'>wheel</span>(<span class='fu'>desaturate</span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>12</span>)))</div><div class='img'><img src='desaturate-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>wheel</span>(<span class='fu'>desaturate</span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>12</span>)))
+</div><div class='img'><img src='desaturate-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## apply desaturation directly on RGB values</span>
 <span class='kw'>RGB</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='hex2RGB.html'>hex2RGB</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>3</span>))<span class='op'>@</span>coords <span class='op'>*</span> <span class='fl'>255</span>)
-<span class='fu'>desaturate</span>(<span class='kw'>RGB</span>)</div><div class='output co'>#&gt;       [,1]     [,2]     [,3]
+<span class='fu'>desaturate</span>(<span class='kw'>RGB</span>)
+</div><div class='output co'>#&gt;       [,1]     [,2]     [,3]
 #&gt; R 127.1223 219.9281 75.94690
 #&gt; G 127.1213 219.9264 75.94625
 #&gt; B 127.1266 219.9352 75.94962</div></pre>
@@ -259,7 +263,7 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

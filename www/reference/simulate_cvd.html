@@ -235,18 +235,23 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># simulate color-vision deficiency by calling `simulate_cvd` with specified matrix</span>
-<span class='fu'>simulate_cvd</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span>), <span class='kw'>tritanomaly_cvd</span>[<span class='st'>"6"</span>][[<span class='fl'>1</span>]])</div><div class='output co'>#&gt; [1] "#004D19" "#000FAD" "#00B53B"</div><div class='input'>
+<span class='fu'>simulate_cvd</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span>), <span class='kw'>tritanomaly_cvd</span>[<span class='st'>"6"</span>][[<span class='fl'>1</span>]])
+</div><div class='output co'>#&gt; [1] "#004D19" "#000FAD" "#00B53B"</div><div class='input'>
 <span class='co'># simulate color-vision deficiency by calling the shortcut high-level function</span>
-<span class='fu'>tritan</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span>), severity = <span class='fl'>0.6</span>)</div><div class='output co'>#&gt; [1] "#004D19" "#000FAD" "#00B53B"</div><div class='input'>
+<span class='fu'>tritan</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span>), severity = <span class='fl'>0.6</span>)
+</div><div class='output co'>#&gt; [1] "#004D19" "#000FAD" "#00B53B"</div><div class='input'>
 <span class='co'># simulate color-vision deficiency by calling `simulate_cvd` with interpolated cvd matrix</span>
 <span class='fu'>simulate_cvd</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span>),
-             <span class='fu'>interpolate_cvd_transform</span>(<span class='kw'>tritanomaly_cvd</span>, severity = <span class='fl'>0.6</span>))</div><div class='output co'>#&gt; [1] "#004D19" "#000FAD" "#00B53B"</div><div class='input'>
+             <span class='fu'>interpolate_cvd_transform</span>(<span class='kw'>tritanomaly_cvd</span>, severity = <span class='fl'>0.6</span>))
+</div><div class='output co'>#&gt; [1] "#004D19" "#000FAD" "#00B53B"</div><div class='input'>
 <span class='co'># apply CVD directly on RGB matrix</span>
 <span class='kw'>RGB</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='hex2RGB.html'>hex2RGB</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>3</span>))<span class='op'>@</span>coords<span class='op'>*</span><span class='fl'>255</span>)
-<span class='fu'>deutan</span>(<span class='kw'>RGB</span>)</div><div class='output co'>#&gt;   [,1] [,2] [,3]
+<span class='fu'>deutan</span>(<span class='kw'>RGB</span>)
+</div><div class='output co'>#&gt;   [,1] [,2] [,3]
 #&gt; R   94  219    0
 #&gt; G   71  171   12
-#&gt; B    0   11  247</div><div class='input'></div></pre>
+#&gt; B    0   11  247</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -262,7 +267,7 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

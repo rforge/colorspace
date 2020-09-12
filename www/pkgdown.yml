@@ -1,8 +1,18 @@
 pandoc: '2.5'
-pkgdown: 1.5.1.9000
-pkgdown_sha: 60d1b4aa2fd4254d429676b6fe055311c4927ae3
-articles: []
-last_built: 2020-09-06T17:03Z
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  approximations: approximations.html
+  color_spaces: color_spaces.html
+  color_vision_deficiency: color_vision_deficiency.html
+  colorspace: colorspace.html
+  endrainbow: endrainbow.html
+  ggplot2_color_scales: ggplot2_color_scales.html
+  hcl_palettes: hcl_palettes.html
+  hclwizard: hclwizard.html
+  manipulation_utilities: manipulation_utilities.html
+  palette_visualization: palette_visualization.html
+last_built: 2020-09-12T17:10Z
 urls:
   reference: http://colorspace.R-Forge.R-project.org//reference
   article: http://colorspace.R-Forge.R-project.org//articles

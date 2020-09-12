@@ -223,13 +223,20 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## modify transparency of a color (in different formats)</span>
-<span class='fu'>adjust_transparency</span>(<span class='st'>"black"</span>,   alpha = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>)) <span class='co'>## name</span></div><div class='output co'>#&gt; [1] "#00000000" "#00000080" "#000000FF"</div><div class='input'><span class='fu'>adjust_transparency</span>(<span class='st'>"#000000"</span>, alpha = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>)) <span class='co'>## hex string</span></div><div class='output co'>#&gt; [1] "#00000000" "#00000080" "#000000FF"</div><div class='input'><span class='fu'>adjust_transparency</span>(<span class='fl'>1</span>,         alpha = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>)) <span class='co'>## palette() integer</span></div><div class='output co'>#&gt; [1] "#00000000" "#00000080" "#000000FF"</div><div class='input'>
+<span class='fu'>adjust_transparency</span>(<span class='st'>"black"</span>,   alpha = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>)) <span class='co'>## name</span>
+</div><div class='output co'>#&gt; [1] "#00000000" "#00000080" "#000000FF"</div><div class='input'><span class='fu'>adjust_transparency</span>(<span class='st'>"#000000"</span>, alpha = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>)) <span class='co'>## hex string</span>
+</div><div class='output co'>#&gt; [1] "#00000000" "#00000080" "#000000FF"</div><div class='input'><span class='fu'>adjust_transparency</span>(<span class='fl'>1</span>,         alpha = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>)) <span class='co'>## palette() integer</span>
+</div><div class='output co'>#&gt; [1] "#00000000" "#00000080" "#000000FF"</div><div class='input'>
 <span class='co'>## three shades of gray (in different formats:</span>
 <span class='co'>## name/opaque, hex/opaque, hex/semi-transparent)</span>
 <span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gray"</span>, <span class='st'>"#BEBEBE"</span>, <span class='st'>"#BEBEBE80"</span>)
 
 <span class='co'>## adjust transparency</span>
-<span class='fu'>adjust_transparency</span>(<span class='kw'>x</span>, alpha = <span class='kw'>NULL</span>)  <span class='co'>## only if necessary</span></div><div class='output co'>#&gt; [1] "#BEBEBE"   "#BEBEBE"   "#BEBEBE80"</div><div class='input'><span class='fu'>adjust_transparency</span>(<span class='kw'>x</span>, alpha = <span class='fl'>TRUE</span>)  <span class='co'>## add</span></div><div class='output co'>#&gt; [1] "#BEBEBEFF" "#BEBEBEFF" "#BEBEBE80"</div><div class='input'><span class='fu'>adjust_transparency</span>(<span class='kw'>x</span>, alpha = <span class='fl'>FALSE</span>) <span class='co'>## remove</span></div><div class='output co'>#&gt; [1] "#BEBEBE" "#BEBEBE" "#BEBEBE"</div><div class='input'><span class='fu'>adjust_transparency</span>(<span class='kw'>x</span>, alpha = <span class='fl'>0.8</span>)   <span class='co'>## modify</span></div><div class='output co'>#&gt; [1] "#BEBEBECC" "#BEBEBECC" "#BEBEBECC"</div></pre>
+<span class='fu'>adjust_transparency</span>(<span class='kw'>x</span>, alpha = <span class='kw'>NULL</span>)  <span class='co'>## only if necessary</span>
+</div><div class='output co'>#&gt; [1] "#BEBEBE"   "#BEBEBE"   "#BEBEBE80"</div><div class='input'><span class='fu'>adjust_transparency</span>(<span class='kw'>x</span>, alpha = <span class='fl'>TRUE</span>)  <span class='co'>## add</span>
+</div><div class='output co'>#&gt; [1] "#BEBEBEFF" "#BEBEBEFF" "#BEBEBE80"</div><div class='input'><span class='fu'>adjust_transparency</span>(<span class='kw'>x</span>, alpha = <span class='fl'>FALSE</span>) <span class='co'>## remove</span>
+</div><div class='output co'>#&gt; [1] "#BEBEBE" "#BEBEBE" "#BEBEBE"</div><div class='input'><span class='fu'>adjust_transparency</span>(<span class='kw'>x</span>, alpha = <span class='fl'>0.8</span>)   <span class='co'>## modify</span>
+</div><div class='output co'>#&gt; [1] "#BEBEBECC" "#BEBEBECC" "#BEBEBECC"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -245,7 +252,7 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

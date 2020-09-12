@@ -308,12 +308,17 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## spectrum of the (in)famous RGB rainbow palette (in both RGB and HCL)</span>
-<span class='fu'>specplot</span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>100</span>), rgb = <span class='fl'>TRUE</span>)</div><div class='img'><img src='specplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>specplot</span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>100</span>), rgb = <span class='fl'>TRUE</span>)
+</div><div class='img'><img src='specplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## spectrum of HCL-based palettes: qualitative/sequential/diverging</span>
-<span class='fu'>specplot</span>(<span class='fu'><a href='hcl_palettes.html'>qualitative_hcl</a></span>(<span class='fl'>100</span>, <span class='st'>"Set 2"</span>))</div><div class='img'><img src='specplot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>specplot</span>(<span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>100</span>, <span class='st'>"Blues 2"</span>))</div><div class='img'><img src='specplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>specplot</span>(<span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>100</span>, <span class='st'>"Blue-Red"</span>))</div><div class='img'><img src='specplot-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>specplot</span>(<span class='fu'><a href='hcl_palettes.html'>qualitative_hcl</a></span>(<span class='fl'>100</span>, <span class='st'>"Set 2"</span>))
+</div><div class='img'><img src='specplot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>specplot</span>(<span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>100</span>, <span class='st'>"Blues 2"</span>))
+</div><div class='img'><img src='specplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>specplot</span>(<span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>100</span>, <span class='st'>"Blue-Red"</span>))
+</div><div class='img'><img src='specplot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## return computed RGB and HCL coordinates</span>
 <span class='kw'>res</span> <span class='op'>&lt;-</span> <span class='fu'>specplot</span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>10</span>), plot = <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>res</span>)</div><div class='output co'>#&gt; $HCL
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>res</span>)
+</div><div class='output co'>#&gt; $HCL
 #&gt;               H         C        L
 #&gt;  [1,]  12.17395 179.04076 53.24059
 #&gt;  [2,]  39.43554 109.90223 72.26076
@@ -358,7 +363,7 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
