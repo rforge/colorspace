@@ -21,6 +21,12 @@
   of the diverging palette could sometimes collapse to transparent white
   due to numerical inaccuracies on 32-bit platforms.
 
+* Improve the documentation of the `HSV()` and `HLS()` color spaces.
+  These do NOT necessarily correspond to sRGB;  we can convert from
+  these to any RGB space that we choose (linear or non-linear, 
+  any whitepoint).  In particular, if we want to convert from one of
+  these color spaces to XYZ or beyond, we must first convert to a 
+  specific RGB color space.
 
 # colorspace 1.4-1
 
