@@ -422,10 +422,14 @@ polarLAB <-
 #' This function creates colors of class HSV; a subclass of the virtual
 #' \code{\link{color-class}} class.
 #' 
-#' This function creates colors in the HSV color space which corresponds to the
-#' standard sRGB color space (IEC standard 61966).  The hues should lie between
-#' between 0 and 360, and the saturations and values should lie between 0 and
-#' 1.
+#' This function creates colors in an HSV color space.  The hues should
+#' lie between between 0 and 360, and the saturations and values should
+#' lie between 0 and 1.
+#' 
+#' HSV is a relative color space; it is a transformation of an RGB color
+#' space.  Conversion of HSV colors to any other color space must first
+#' involve a conversion to a specific RGB color space, for example the
+#' standard \code{\link{sRGB}} color space (IEC standard 61966).
 #' 
 #' @param H,S,V These arguments give the hue, saturation and value of the
 #' colors. The values can be provided in separate \code{H}, \code{S} and
@@ -434,7 +438,7 @@ polarLAB <-
 #' \code{H} are used).
 #' @return An object of class \code{HSV} which inherits from class \code{color}.
 #' @author Ross Ihaka
-#' @seealso \code{\link{RGB}}, \code{\link{XYZ}}, \code{\link{LAB}},
+#' @seealso \code{\link{sRGB}}, \code{\link{RGB}}, \code{\link{XYZ}}, \code{\link{LAB}},
 #' \code{\link{polarLAB}}, \code{\link{LUV}}, \code{\link{polarLUV}}.
 #' @keywords color
 #' @examples
@@ -464,10 +468,14 @@ HSV <-
 #' This function creates colors of class HLS; a subclass of the virtual
 #' \code{\link{color-class}} class.
 #' 
-#' This function creates colors in the HLS color space which corresponds to the
-#' standard sRGB color space (IEC standard 61966).  The hues should lie between
-#' between 0 and 360, and the lightness and saturations should lie between 0
-#' and 1.
+#' This function creates colors in an HLS color space.  The hues should
+#' lie between between 0 and 360, and the lightness and saturations
+#' should lie between 0 and 1.
+#' 
+#' HLS is a relative color space; it is a transformation of an RGB color
+#' space.  Conversion of HLS colors to any other color space must first
+#' involve a conversion to a specific RGB color space, for example the
+#' standard \code{\link{sRGB}} color space (IEC standard 61966).
 #' 
 #' @param H,L,S These arguments give the hue, lightness, and saturation of the
 #' colors. The values can be provided in separate \code{H}, \code{L} and
@@ -476,7 +484,7 @@ HSV <-
 #' \code{H} are used).
 #' @return An object of class \code{HLS} which inherits from class \code{color}.
 #' @author Ross Ihaka
-#' @seealso \code{\link{RGB}}, \code{\link{XYZ}}, \code{\link{LAB}},
+#' @seealso \code{\link{sRGB}}, \code{\link{RGB}}, \code{\link{XYZ}}, \code{\link{LAB}},
 #' \code{\link{polarLAB}}, \code{\link{LUV}}, \code{\link{polarLUV}}.
 #' @keywords color
 #' @examples
