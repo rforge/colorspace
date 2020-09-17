@@ -76,13 +76,13 @@ constructors in _colorspace_ are:
   hardware. But it is still unintuitive for humans to work directly with this color space.
   Therefore, sRGB is a good place to end up in a color space manipulation but
   it is not a good place to start. [See @color:Wiki+sRGB.]
-* `HSV()` is a simple transformation of the (s)RGB space that tries to capture the
+* `HSV()` is a simple transformation of either the sRGB or the RGB space that tries to capture the
   perceptual axes: _hue_ (dominant wavelength, the type of color), _saturation_
   (colorfulness), and _value_ (brightness, i.e., light vs. dark). Unfortunately,
   the three axes in the HSV model are confounded so that, e.g., brightness changes
   dramaticaly with hue.
   [See @color:Wiki+HSV.]
-* `HLS()` (Hue-Lightness-Saturation) is another transformation of (s)RGB that tries
+* `HLS()` (Hue-Lightness-Saturation) is another transformation of either sRGB or RGB that tries
   to capture the perceptual axes. It does a somewhat better job but the dimensions
   are still strongly confounded.
   [See @color:Wiki+HSV.]
