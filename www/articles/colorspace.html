@@ -192,7 +192,7 @@
 <p><img src="colorspace_files/figure-html/eustockmarkets-plot-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>
 <p>As another example for a sequential palette, we demonstrate how to create a spine plot displaying the proportion of Titanic passengers that survived per class. The <code>Purples 3</code> palette is used, which is quite similar to the <strong>ColorBrewer.org</strong> palette <code>Purples</code>. Here, only two colors are employed, yielding a dark purple and a light gray.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">ttnc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/marginSums.html">margin.table</a></span>(<span class="kw">Titanic</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">4</span>))[, <span class="fl">2</span><span class="op">:</span><span class="fl">1</span>]
+<span class="kw">ttnc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/marginSums.html">margin.table</a></span>(<span class="kw">Titanic</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">4</span>))
 <span class="fu"><a href="https://rdrr.io/r/graphics/spineplot.html">spineplot</a></span>(<span class="kw">ttnc</span>, col = <span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">2</span>, palette = <span class="st">"Purples 3"</span>))
 </pre></div>
 <p><img src="colorspace_files/figure-html/titanic-plot-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>

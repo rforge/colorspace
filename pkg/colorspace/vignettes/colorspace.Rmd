@@ -153,12 +153,12 @@ palette `Purples`. Here, only two colors are employed, yielding a dark purple
 and a light gray.
 
 ```{r titanic, eval = FALSE}
-ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
+ttnc <- margin.table(Titanic, c(1, 4))
 spineplot(ttnc, col = sequential_hcl(2, palette = "Purples 3"))
 ```
 
 ```{r titanic-plot, echo = FALSE, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
-ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
+ttnc <- margin.table(Titanic, c(1, 4))
 par(mar = c(5, 4, 1, 1))
 spineplot(ttnc, col = sequential_hcl(2, "Purples 3"))
 ```
