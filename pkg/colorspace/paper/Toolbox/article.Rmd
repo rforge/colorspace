@@ -229,7 +229,7 @@ The `"Purples 3"` palette is used, which is quite similar to the \pkg{ColorBrewe
 employed: a dark purple that is highlighted against a light gray.
 
 ```{r titanic, eval = FALSE}
-ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
+ttnc <- margin.table(Titanic, c(1, 4))
 spineplot(ttnc, col = sequential_hcl(2, palette = "Purples 3"))
 ```
 
@@ -237,7 +237,7 @@ spineplot(ttnc, col = sequential_hcl(2, palette = "Purples 3"))
 par(mar = c(5, 4, 1, 2), mfrow = c(1, 2))
 plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
 legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
-ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
+ttnc <- margin.table(Titanic, c(1, 4))
 spineplot(ttnc, col = sequential_hcl(2, "Purples 3"))
 ```
 
