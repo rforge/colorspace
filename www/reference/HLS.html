@@ -189,13 +189,16 @@ colors. The values can be provided in separate <code>H</code>, <code>L</code> an
     <p>An object of class <code>HLS</code> which inherits from class <code>color</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function creates colors in the HLS color space which corresponds to the
-standard sRGB color space (IEC standard 61966).  The hues should lie between
-between 0 and 360, and the lightness and saturations should lie between 0
-and 1.</p>
+    <p>This function creates colors in an HLS color space.  The hues should
+lie between between 0 and 360, and the lightness and saturations
+should lie between 0 and 1.</p>
+<p>HLS is a relative color space; it is a transformation of an RGB color
+space.  Conversion of HLS colors to any other color space must first
+involve a conversion to a specific RGB color space, for example the
+standard <code><a href='sRGB.html'>sRGB</a></code> color space (IEC standard 61966).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='RGB.html'>RGB</a></code>, <code><a href='XYZ.html'>XYZ</a></code>, <code><a href='LAB.html'>LAB</a></code>,
+    <div class='dont-index'><p><code><a href='sRGB.html'>sRGB</a></code>, <code><a href='RGB.html'>RGB</a></code>, <code><a href='XYZ.html'>XYZ</a></code>, <code><a href='LAB.html'>LAB</a></code>,
 <code><a href='polarLAB.html'>polarLAB</a></code>, <code><a href='LUV.html'>LUV</a></code>, <code><a href='polarLUV.html'>polarLUV</a></code>.</p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 

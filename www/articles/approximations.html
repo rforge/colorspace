@@ -107,7 +107,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="approximations_files/header-attrs-2.3/header-attrs.js"></script><script src="approximations_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Approximating Palettes from Other Packages</h1>
@@ -126,11 +126,11 @@
 <p>The flexible specification of HCL-based color palettes in <em>colorspace</em> allows one to closely approximate color palettes from various other packages:</p>
 <ul>
 <li>
-<em>ColorBrewer.org</em> <span class="citation">(Harrower and Brewer <a href="#ref-color:Harrower+Brewer:2003">2003</a>)</span> as provided by the R package <em>RColorBrewer</em> <span class="citation">(Neuwirth <a href="#ref-color:RColorBrewer">2014</a>)</span>.</li>
+<em>ColorBrewer.org</em> <span class="citation">(Harrower and Brewer <a href="#ref-color:Harrower+Brewer:2003" role="doc-biblioref">2003</a>)</span> as provided by the R package <em>RColorBrewer</em> <span class="citation">(Neuwirth <a href="#ref-color:RColorBrewer" role="doc-biblioref">2014</a>)</span>.</li>
 <li>
-<em>CARTO</em> colors <span class="citation">(CARTO <a href="#ref-color:CARTO">2019</a>)</span> as provided by the R package <em>rcartocolor</em> <span class="citation">(Nowosad <a href="#ref-color:rcartocolor">2019</a>)</span>.</li>
-<li>The viridis palettes of <span class="citation">Smith and Van der Walt (<a href="#ref-color:Smith+VanDerWalt:2015">2015</a>)</span> developed for <em>matplotlib</em>, as provided by the R package <em>viridis</em> <span class="citation">(Garnier <a href="#ref-color:viridis">2018</a>)</span>.</li>
-<li>The scientific color maps of <span class="citation">Crameri (<a href="#ref-color:Crameri:2018">2018</a>)</span> as provided by the R package <em>scico</em> <span class="citation">(Pedersen and Crameri <a href="#ref-color:scico">2020</a>)</span>.</li>
+<em>CARTO</em> colors <span class="citation">(CARTO <a href="#ref-color:CARTO" role="doc-biblioref">2019</a>)</span> as provided by the R package <em>rcartocolor</em> <span class="citation">(Nowosad <a href="#ref-color:rcartocolor" role="doc-biblioref">2019</a>)</span>.</li>
+<li>The viridis palettes of <span class="citation">Smith and Van der Walt (<a href="#ref-color:Smith+VanDerWalt:2015" role="doc-biblioref">2015</a>)</span> developed for <em>matplotlib</em>, as provided by the R package <em>viridis</em> <span class="citation">(Garnier <a href="#ref-color:viridis" role="doc-biblioref">2018</a>)</span>.</li>
+<li>The scientific color maps of <span class="citation">Crameri (<a href="#ref-color:Crameri:2018" role="doc-biblioref">2018</a>)</span> as provided by the R package <em>scico</em> <span class="citation">(Pedersen and Crameri <a href="#ref-color:scico" role="doc-biblioref">2020</a>)</span>.</li>
 </ul>
 <p>See the discussion of <a href="hcl_palettes.html">HCL-based palettes</a> for more details. In the following sections <code><a href="../reference/specplot.html">specplot()</a></code> is used to compare the <a href="palette_visualization.html#hcl-and-rgb-spectrum">HCL spectrum</a> of the original palettes (top swatches, solid lines) and their HCL-based approximations (bottom swatches, dashed lines).</p>
 <p>Before, a selection of such approximations using <code><a href="../reference/specplot.html">specplot()</a></code> is highlighted and discussed in some more detail. Specifically, the graphic below shows two blue/green/yellow palettes (<code><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">RColorBrewer::brewer.pal(7, "YlGnBu")</a></code> and <code><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis::viridis(7)</a></code>) and two purple/red/yellow palettes (<code><a href="https://rdrr.io/pkg/rcartocolor/man/carto_pal.html">rcartocolor::carto_pal(7, "ag_Sunset")</a></code> and <code><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis::plasma(7)</a></code>). Each panel compares the hue, chroma, and luminance trajectories of the original palettes (top swatches, solid lines) and their HCL-based approximations (bottom swatches, dashed lines). The palettes are not identical but very close for most colors. Note also that the chroma trajectories from the HCL palettes (green dashed lines) have some kinks which are due to fixing HCL coordinates at the boundaries of admissible RGB colors.</p>
@@ -160,7 +160,7 @@
 )
 </pre></div>
 <p>This uses a slight power transformation with <code>p1 = 1</code> in the blue arm of the palette but otherwise essentially corresponds to what <code>cividis_hcl()</code> does. For convenience <code><a href="../reference/divergingx_hcl.html">divergingx_hcl(n, palette = "Cividis")</a></code> is preregistered using the above parameters.</p>
-<p>Finally, we compare the flexible diverging “Temps” palette, originally from <em>CARTO</em>, and the “Zissou 1” palette from the <em>wesanderson</em> <span class="citation">(Ram and Wickham <a href="#ref-color:wesanderson">2018</a>)</span> package. Both employ a similar hue trajectory going from blue/green via yellow to orange/red. Also, the luminance trajectory is similar but for “Temps” this is more balanced and provides a stronger luminance contrast. The chroma trajectory is rather unbalanced in both palettes but for “Zissou 1” much more so, leading to very high-chroma colors throughout. Thus, both palettes are more suitable for palettes with fewer colors but in “Zissou 1” this issue is more pronounced.</p>
+<p>Finally, we compare the flexible diverging “Temps” palette, originally from <em>CARTO</em>, and the “Zissou 1” palette from the <em>wesanderson</em> <span class="citation">(Ram and Wickham <a href="#ref-color:wesanderson" role="doc-biblioref">2018</a>)</span> package. Both employ a similar hue trajectory going from blue/green via yellow to orange/red. Also, the luminance trajectory is similar but for “Temps” this is more balanced and provides a stronger luminance contrast. The chroma trajectory is rather unbalanced in both palettes but for “Zissou 1” much more so, leading to very high-chroma colors throughout. Thus, both palettes are more suitable for palettes with fewer colors but in “Zissou 1” this issue is more pronounced.</p>
 <p><img src="approximations_files/figure-html/temps-zissou-1.png" width="288"><img src="approximations_files/figure-html/temps-zissou-2.png" width="288"></p>
 </div>
 <div id="approximations-of-colorbrewer-org-palettes" class="section level2">
@@ -198,7 +198,7 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references">
+<div id="refs" class="references hanging-indent">
 <div id="ref-color:CARTO">
 <p>CARTO. 2019. “CARTOColors – Data-Driven Color Schemes.” <a href="https://carto.com/carto-colors/">https://carto.com/carto-colors/</a>.</p>
 </div>

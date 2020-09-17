@@ -107,7 +107,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="endrainbow_files/header-attrs-2.3/header-attrs.js"></script><script src="endrainbow_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Somewhere over the Rainbow</h1>
@@ -124,7 +124,7 @@
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>The go-to palette in many software packages is - or used to be until rather recently - the so-called rainbow: a palette created by changing the hue in highly-saturated RGB colors. This has been widely recognized as having a number of disadvantages including: abrupt shifts in brightness, misleading for viewers with color vision deficiencies, too flashy to look at for a longer time. See also the article on <a href="color_vision_deficiency.html">color vision deficiencies</a> that compares the base R <code><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow()</a></code> with better HCL-based alternatives using <code><a href="../reference/demoplot.html">demoplot()</a></code>. Here, we provide further rainbow examples taken from actual publications (rather than simplified demos).</p>
-<p>For more details on the limitations of the rainbow palette and further pointers see “<a href="http://www.climate-lab-book.ac.uk/2014/end-of-the-rainbow/">The End of the Rainbow</a>” by <span class="citation">Hawkins et al. (<a href="#ref-color:Hawkins+McNeall+Stephenson:2014">2014</a>)</span>, “<a href="https://vdl.sci.utah.edu/publications/2019_eurovis_implicit-discretization/">Examining Implicit Discretization in Spectral Schemes</a>” by <span class="citation">Quinan et al. (<a href="#ref-color:Quinan+Padilla+CreemRegehr:2019">2019</a>)</span>, or “<a href="https://dx.doi.org/10.1175/BAMS-D-13-00155.1">Somewhere over the Rainbow: How to Make Effective Use of Colors in Meteorological Visualizations</a>” by <span class="citation">Stauffer et al. (<a href="#ref-color:Stauffer+Mayr+Dabernig:2015">2015</a>)</span> as well as the <a href="https://twitter.com/hashtag/endrainbow">#endrainbow</a> hashtag on Twitter.</p>
+<p>For more details on the limitations of the rainbow palette and further pointers see “<a href="http://www.climate-lab-book.ac.uk/2014/end-of-the-rainbow/">The End of the Rainbow</a>” by <span class="citation">Hawkins et al. (<a href="#ref-color:Hawkins+McNeall+Stephenson:2014" role="doc-biblioref">2014</a>)</span>, “<a href="https://vdl.sci.utah.edu/publications/2019_eurovis_implicit-discretization/">Examining Implicit Discretization in Spectral Schemes</a>” by <span class="citation">Quinan et al. (<a href="#ref-color:Quinan+Padilla+CreemRegehr:2019" role="doc-biblioref">2019</a>)</span>, or “<a href="https://dx.doi.org/10.1175/BAMS-D-13-00155.1">Somewhere over the Rainbow: How to Make Effective Use of Colors in Meteorological Visualizations</a>” by <span class="citation">Stauffer et al. (<a href="#ref-color:Stauffer+Mayr+Dabernig:2015" role="doc-biblioref">2015</a>)</span> as well as the <a href="https://twitter.com/hashtag/endrainbow">#endrainbow</a> hashtag on Twitter.</p>
 <p>In a nutshell, the (in-)famous RGB rainbow palette is virtually always a poor choice and properly balanced qualitative, sequential, or diverging palettes - such as the <a href="hcl_palettes.html">HCL-based color palettes</a> provided here - are preferable. Despite such alternatives becoming more and more widely available the rainbow palette is unfortunately still widely used. Below we illustrate some wild-caught examples, highlight their problems (e.g., by desaturation to grayscale or by emulating color vision deficiencies), and suggest better alternatives.</p>
 </div>
 <div id="would-bob-ross-approve" class="section level2">
@@ -137,7 +137,7 @@
 <div id="heatmap-from-the-grammar-of-graphics" class="section level2">
 <h2 class="hasAnchor">
 <a href="#heatmap-from-the-grammar-of-graphics" class="anchor"></a>Heatmap from The Grammar of Graphics</h2>
-<p>Even in the excellent book <a href="https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html">“The Grammar of Graphics”</a> by <span class="citation">Wilkinson (<a href="#ref-color:Wilkinson:2005">2005</a>)</span>, the rainbow palette is used in one of the first figures, depicting a heatmap of a bivariate kernel density estimate. The figure is shown below on the left and is contrasted with an HCL-based sequential heat color palette on the right (<code><a href="../reference/hcl_palettes.html">sequential_hcl(99, palette = "Heat")</a></code>).</p>
+<p>Even in the excellent book <a href="https://www.cs.uic.edu/~wilkinson/TheGrammarOfGraphics/GOG.html">“The Grammar of Graphics”</a> by <span class="citation">Wilkinson (<a href="#ref-color:Wilkinson:2005" role="doc-biblioref">2005</a>)</span>, the rainbow palette is used in one of the first figures, depicting a heatmap of a bivariate kernel density estimate. The figure is shown below on the left and is contrasted with an HCL-based sequential heat color palette on the right (<code><a href="../reference/hcl_palettes.html">sequential_hcl(99, palette = "Heat")</a></code>).</p>
 <p><img src="screenshots/bkde-rainbow.png" style="width:49.0%"><img src="screenshots/bkde-heat.png" style="width:49.0%"></p>
 <p>The original palette changes back and forth between dark and light colors and hence high- and low-density regions are difficult to tell apart, especially when desaturated to grayscale. In contrast, the heat colors go from light to dark and still work very well in grayscale.</p>
 <p><img src="screenshots/bkde-rainbow-gray.png" style="width:49.0%"><img src="screenshots/bkde-heat-gray.png" style="width:49.0%"></p>
@@ -147,7 +147,7 @@
 <div id="map-of-model-deviations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#map-of-model-deviations" class="anchor"></a>Map of model deviations</h2>
-<p>Often a subset of the RGB rainbow palette is used as a “traffic light”, coding “positive” (green) and “negative” (red) deviations from some neutral value (yellow), e.g., forecast errors or other model deviations, correlations, slopes, etc. A typical example is shown below, taken from Figure 5 of <span class="citation">Kneib (<a href="#ref-color:Kneib:2006">2006</a>)</span>, where deviations from a childhood moratlity model (without spatial effect) for Nigeria are depicted.</p>
+<p>Often a subset of the RGB rainbow palette is used as a “traffic light”, coding “positive” (green) and “negative” (red) deviations from some neutral value (yellow), e.g., forecast errors or other model deviations, correlations, slopes, etc. A typical example is shown below, taken from Figure 5 of <span class="citation">Kneib (<a href="#ref-color:Kneib:2006" role="doc-biblioref">2006</a>)</span>, where deviations from a childhood moratlity model (without spatial effect) for Nigeria are depicted.</p>
 <p>The original palette is <code><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow(99, start = 0, end = 1/3)</a></code> (left) and as a better alternative <code><a href="../reference/hcl_palettes.html">diverging_hcl(99, "Purple-Green")</a></code> is used. This avoids the flashy colors and uses light gray as the neutral value, making it easier to look at the display for a longer time. Instead of diverging to red/green the palette diverges to purple/green as this works better for colorblind viewers (see below).</p>
 <p><img src="screenshots/nigeria-rainbow.png" style="width:49.0%"><img src="screenshots/nigeria-purplegreen.png" style="width:49.0%"></p>
 <p>Emulating protanope vision most of the green-yellow contrasts in the RGB rainbow are collpased, making the plot very misleading while the HCL-based purple/green palette still works very well for colorblind viewers.</p>
@@ -196,7 +196,7 @@
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references">
+<div id="refs" class="references hanging-indent">
 <div id="ref-color:Hawkins+McNeall+Stephenson:2014">
 <p>Hawkins, Ed, Doug McNeall, David Stephenson, Jonny Williams, and Dave Carlson. 2014. “The End of the Rainbow – an Open Letter to the Climate Science Community.” <a href="http://www.climate-lab-book.ac.uk/2014/end-of-the-rainbow/">http://www.climate-lab-book.ac.uk/2014/end-of-the-rainbow/</a>.</p>
 </div>
