@@ -80,7 +80,7 @@ constructors in _colorspace_ are:
   perceptual axes: _hue_ (dominant wavelength, the type of color), _saturation_
   (colorfulness), and _value_ (brightness, i.e., light vs. dark). Unfortunately,
   the three axes in the HSV model are confounded so that, e.g., brightness changes
-  dramaticaly with hue.
+  dramatically with hue.
   [See @color:Wiki+HSV.]
 * `HLS()` (Hue-Lightness-Saturation) is another transformation of either sRGB or RGB that tries
   to capture the perceptual axes. It does a somewhat better job but the dimensions

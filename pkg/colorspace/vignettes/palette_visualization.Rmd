@@ -71,9 +71,9 @@ palette.
   (along with increasing luminance). This is typically sufficient to clearly bring
   out the extreme colors (dark/colorful vs. light gray).
 - Single-hue (advanced): The hue is fixed (as above) but the chroma trajectory is
-  triangular. Compared to the basic single-hue palette above this better
+  triangular. Compared to the basic single-hue palette above, this better
   distinguishes the colors in the middle and not only the extremes.
-- Multi-hue (advanced): As in the advanced single-hue palette the chroma trajectory
+- Multi-hue (advanced): As in the advanced single-hue palette, the chroma trajectory
   is triangular but additionally the hue varies slightly. This can further enhance
   the distinction of colors in the middle of the palette.
 
@@ -188,7 +188,7 @@ The function `hclplot()` has been designed to work well with the
 `hcl_palettes()` in this package. While it is possible to apply
 it to other color palettes as well, the results might look weird or confusing
 if these palettes are constructed very differently (e.g., like the
-highly saturated base R palettes). To infer the default `type` of projection
+highly saturated base R palettes). To infer the default `type` of projection,
 `hclplot()` assesses the luminance trajectory and sets the default correspondingly:
 
 - `type = "qualitative"` if luminance is approximately constant.
@@ -306,7 +306,7 @@ demoplot(diverging_hcl( 5, "Green-Orange"),        type = "mosaic")
 demoplot(diverging_hcl( 5, "Blue-Red 2"),          type = "bar")
 ```
 
-All displays above focused on palettes designed for light/white backgrounds.
+All displays above focus on palettes designed for light/white backgrounds.
 Therefore, to conclude, some palettes are highlighted that work well on
 dark/black backgrounds.
 

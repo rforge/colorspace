@@ -84,7 +84,7 @@ Another somewhat nonstandard palette from the viridis family is the
 cividis palette based on blue and yellow hues and hence safe for red-green deficient viewers.
 The figure below shows the corresponding `specplot()` along with an HCL-based approximation.
 This palette is unusual: The hue and chroma trajectories would suggest a diverging palette,
-as there are two "arms" wth different hues and a zero-chroma point in the center. However,
+as there are two "arms" with different hues and a zero-chroma point in the center. However,
 the luminance trajectory clearly indicates a sequential palette as colors go monotonically from
 dark to light. Due to this unusual mixture the palette cannot be composed using the trajectories
 discussed in the [construction details](hcl_palettes.html#construction-details).
