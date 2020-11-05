@@ -1,4 +1,12 @@
-# colorspace 1.4-2
+# colorspace 2.0-0
+
+* Release of version 2.0-0 accompanying the publication of the paper
+  "colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes"
+  in the _Journal of Statistcal Software_ at <https://doi.org/10.18637/jss.v096.i01>.
+  The paper is a compact version of the package web page
+  (<http://colorspace.R-Forge.R-project.org/>) including some more discussion
+  of related methods and software along with some more references to the
+  scientific literature.
 
 * New function `adjust_transparency()` that adjusts the alpha transparency
   of some color specification and returns a hexadecimal string where

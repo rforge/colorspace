@@ -98,7 +98,7 @@ yellow). Consequently, the chroma/luminance paths can be rather unbalanced
 between the two arms.
 
 With this additional flexibility various diverging palettes suggested by
-\url{http://ColorBrewer.org/} and CARTO (\url{https://carto.com/carto-colors/}),
+\url{https://ColorBrewer2.org/} and CARTO (\url{https://carto.com/carto-colors/}),
 can be emulated along with the Zissou 1 palette from \pkg{wesanderson},
 Cividis from \pkg{viridis}, and Roma from \pkg{scico}.
 
@@ -117,9 +117,9 @@ divergingx_palettes(plot = TRUE)
 specplot(divergingx_hcl(7, "ArmyRose"))
 }
 \references{
-Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2019).
+Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2020).
 \dQuote{ccolorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.}
-arXiv:1903.06490, arXiv.org E-Print Archive. \url{http://arxiv.org/abs/1903.06490}
+\emph{Journal of Statistical Software}, \bold{96}(1), 1--49. \doi{10.18637/jss.v096.i01}
 }
 \seealso{
 \code{\link[colorspace]{sequential_hcl}}, \code{\link[colorspace]{diverging_hcl}}
