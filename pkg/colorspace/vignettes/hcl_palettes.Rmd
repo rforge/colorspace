@@ -466,8 +466,17 @@ above, _colorspace_ provides a few convenience interfaces:
   in `diverging_hcl()`. This is provided for didactic purposes to contrast the more balanced
   HCL palettes with the more flashy and unbalanced HSV palettes.
 
-Meanwhile, base R has also adopted the HCL-based palettes from _colorspace_ into the `hcl.colors()`
-function in _grDevices_ [@color:grDevices]. This provides all the named palettes introduced in
+Meanwhile, base R has also adopted the HCL-based palettes from _colorspace_ into the function
+`hcl.colors()` in _grDevices_ [@color:grDevices]. This provides all the named palettes introduced in
 _colorspace_ (with the same names) but without the flexibility to modify or adapt existing palettes.
+
+Moreover, the _grDevices_ package in base R gained a new function
+`palette.colors()` [@color:grDevices2] that provides various
+well-established qualitative color palettes that can not be approximated well by
+`qualitative_hcl()` due to pronounced variations in luminance and chroma.
+While a qualitative palette with fixed luminance and chroma is more balanced,
+a certain amount of variations in these properties might be necessary to make
+more colors distinguishable, especially for viewers with color vision deficiencies.
+
 
 ## References

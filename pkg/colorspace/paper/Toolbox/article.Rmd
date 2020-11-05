@@ -1129,6 +1129,13 @@ function in \pkg{grDevices} [@color:grDevices]. This provides all the named pale
 \pkg{colorspace} (with the same names, and defaulting to `"Viridis"`) but without the flexibility
 to modify or adapt existing palettes.
 
+Moreover, the _grDevices_ package in base R gained a new function
+`palette.colors()` [@color:grDevices2] that provides various
+well-established qualitative color palettes that can not be approximated well by
+`qualitative_hcl()` due to pronounced variations in luminance and chroma.
+While a qualitative palette with fixed luminance and chroma is more balanced,
+a certain amount of variations in these properties might be necessary to make
+more colors distinguishable, especially for viewers with color vision deficiencies.
 
 
 # Palette visualization and assessment {#sec:palette_visualization}
