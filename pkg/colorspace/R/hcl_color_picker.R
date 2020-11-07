@@ -32,7 +32,7 @@ hcl_color_picker <- function(shiny.trace = FALSE) {
       stop("Could not find hclcolorpicker app directory. Try re-installing `colorspace`.", call. = FALSE)
    # Start shiny
    options(shiny.trace = shiny.trace)
-   pal <- shiny::runApp(appDir, display.mode = "normal", quiet = TRUE )
+   pal <- shiny::runApp(appDir, display.mode = "normal", quiet = TRUE)
    return(pal)
 }
 
