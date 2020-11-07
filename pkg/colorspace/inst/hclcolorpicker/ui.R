@@ -21,6 +21,7 @@
 
 library("shiny")
 library("shinyjs")
+library("colorspace")
 
 color_picker_sidebarPanel <- function() {
 

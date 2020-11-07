@@ -17,6 +17,7 @@
 
 library("shiny")
 library("shinyjs")
+library("colorspace")
 
 ##options( shiny.trace = TRUE )
 
