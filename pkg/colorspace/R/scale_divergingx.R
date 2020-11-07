@@ -161,7 +161,7 @@ scale_fill_discrete_divergingx <- function(..., aesthetics = "fill")
 scale_colour_continuous_divergingx <- function(palette = "Geyser", c1 = NULL, c2 = NULL, c3 = NULL,
                                              l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
                                              h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL,
-                                             cmax1 = NULL, cmax2 = NULL, rev = FALSE, begin = 0, end = 1, mid = 0, na.value = "grey50",
+                                             cmax1 = NULL, cmax2 = NULL, alpha = 1, rev = FALSE, begin = 0, end = 1, mid = 0, na.value = "grey50",
                                              guide = "colourbar", n_interp = 11, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function divergingx_hcl only if explicitly provided
@@ -174,8 +174,7 @@ scale_colour_continuous_divergingx <- function(palette = "Geyser", c1 = NULL, c2
   args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
   
   # set the remaining arguments and call qualitative_hcl
-  # alpha argument doesn't seem to work for continuous scale
-  args <- c(args, list(palette = palette, n = n_interp, rev = rev))
+  args <- c(args, list(palette = palette, n = n_interp, alpha = alpha, rev = rev))
   colors <- do.call(divergingx_hcl, args, envir = parent.frame())
   
   # diverging scale

@@ -124,7 +124,7 @@ scale_fill_discrete_diverging <- function(..., aesthetics = "fill")
 #' @importFrom stats na.omit
 #' @export
 scale_colour_continuous_diverging <- function(palette = NULL, c1 = NULL, cmax = NULL, l1 = NULL, l2 = NULL,
-                                               h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = FALSE,
+                                               h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = FALSE,
                                                mid = 0, na.value = "grey50", guide = "colourbar",
                                                n_interp = 11, aesthetics = "colour", ...)
 {
@@ -137,8 +137,7 @@ scale_colour_continuous_diverging <- function(palette = NULL, c1 = NULL, cmax = 
   args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
   
   # set the remaining arguments and call qualitative_hcl
-  # alpha argument doesn't seem to work for continuous scale
-  args <- c(args, list(n = n_interp, rev = rev))
+  args <- c(args, list(n = n_interp, alpha = alpha, rev = rev))
   colors <- do.call(diverging_hcl, args, envir = parent.frame())
 
   ggplot2::continuous_scale(aesthetics, "continuous_diverging",

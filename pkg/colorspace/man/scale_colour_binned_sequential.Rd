@@ -17,6 +17,7 @@ scale_colour_binned_sequential(
   h2 = NULL,
   p1 = NULL,
   p2 = NULL,
+  alpha = alpha,
   rev = TRUE,
   begin = 0,
   end = 1,
@@ -38,6 +39,7 @@ scale_color_binned_sequential(
   h2 = NULL,
   p1 = NULL,
   p2 = NULL,
+  alpha = alpha,
   rev = TRUE,
   begin = 0,
   end = 1,
@@ -71,6 +73,8 @@ scale_fill_binned_sequential(..., aesthetics = "fill")
 
 \item{p2}{Control parameter determining how luminance should vary (1 = linear, 2 = quadratic, etc.).}
 
+\item{alpha}{Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).}
+
 \item{rev}{If \code{TRUE} (default), reverses the order of the colors in the color scale (compared to \code{\link{sequential_hcl}}).}
 
 \item{begin}{Number in the range of \code{[0, 1]} indicating to which point in the color scale the smallest data value should be mapped.}
@@ -79,7 +83,7 @@ scale_fill_binned_sequential(..., aesthetics = "fill")
 
 \item{na.value}{Color to be used for missing data points.}
 
-\item{guide}{Type of legend. Use \code{"colourbar"} for continuous color bar.}
+\item{guide}{Type of legend. Use \code{"coloursteps"} for color bar with discrete steps.}
 
 \item{aesthetics}{The ggplot2 aesthetics to which this scale should be applied.}
 
@@ -97,7 +101,7 @@ named palette. This enables easy customization of named palettes.
 
 Compared to \code{\link{sequential_hcl}} the ordering of the colors in the sequential ggplot2 scale
 are reversed by default (i.e., \code{rev = TRUE}) to be more consistent with ggplot2's own scales such as
-\code{\link[ggplot2]{scale_color_brewer}}. For most named palettes this leads to darker and more
+\code{\link[ggplot2]{scale_color_fermenter}}. For most named palettes this leads to darker and more
 colorful colors for larger values on the scale. This is typically the better default on light/white
 backgrounds.
 }

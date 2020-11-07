@@ -23,6 +23,7 @@ scale_colour_continuous_divergingx(
   p4 = NULL,
   cmax1 = NULL,
   cmax2 = NULL,
+  alpha = 1,
   rev = FALSE,
   begin = 0,
   end = 1,
@@ -51,6 +52,7 @@ scale_color_continuous_divergingx(
   p4 = NULL,
   cmax1 = NULL,
   cmax2 = NULL,
+  alpha = 1,
   rev = FALSE,
   begin = 0,
   end = 1,
@@ -68,6 +70,8 @@ scale_fill_continuous_divergingx(..., aesthetics = "fill")
 \item{palette}{The name of the palette to be used.}
 
 \item{h1, h2, h3, c1, c2, c3, l1, l2, l3, p1, p2, p3, p4, cmax1, cmax2}{Parameters to customize the scale. See \code{\link{divergingx_hcl}} for details.}
+
+\item{alpha}{Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).}
 
 \item{rev}{If \code{TRUE}, reverses the order of the colors in the color scale.}
 

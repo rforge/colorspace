@@ -134,7 +134,7 @@ scale_fill_discrete_sequential <- function(..., aesthetics = "fill")
 #' @importFrom stats na.omit
 #' @export
 scale_colour_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, cmax = NULL, l1 = NULL, l2 = NULL,
-                                               h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = TRUE,
+                                               h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = 1, rev = TRUE,
                                                begin = 0, end = 1, na.value = "grey50", guide = "colourbar",
                                                aesthetics = "colour", n_interp = 11, ...)
 {
@@ -147,8 +147,7 @@ scale_colour_continuous_sequential <- function(palette = NULL, c1 = NULL, c2 = N
   args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
   
   # set the remaining arguments and call qualitative_hcl
-  # alpha argument doesn't seem to work for continuous scale
-  args <- c(args, list(n = n_interp, rev = rev))
+  args <- c(args, list(n = n_interp, alpha = alpha, rev = rev))
   colors <- do.call(sequential_hcl, args, envir = parent.frame())
 
   ggplot2::continuous_scale(aesthetics, "continuous_sequential",
@@ -205,7 +204,7 @@ scale_fill_continuous_sequential <- function(..., aesthetics = "fill")
 #' @importFrom stats na.omit
 #' @export
 scale_colour_binned_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL, cmax = NULL, l1 = NULL, l2 = NULL,
-                                           h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, rev = TRUE,
+                                           h1 = NULL, h2 = NULL, p1 = NULL, p2 = NULL, alpha = alpha, rev = TRUE,
                                            begin = 0, end = 1, na.value = "grey50", guide = "coloursteps",
                                            aesthetics = "colour", n_interp = 11, ...)
 {
@@ -218,8 +217,7 @@ scale_colour_binned_sequential <- function(palette = NULL, c1 = NULL, c2 = NULL,
   args <- args[na.omit(match(hcl_args, names(args)))] # remove other args
   
   # set the remaining arguments and call qualitative_hcl
-  # alpha argument doesn't seem to work for continuous scale
-  args <- c(args, list(n = n_interp, rev = rev))
+  args <- c(args, list(n = n_interp, alpha = alpha, rev = rev))
   colors <- do.call(sequential_hcl, args, envir = parent.frame())
   
   ggplot2::binned_scale(

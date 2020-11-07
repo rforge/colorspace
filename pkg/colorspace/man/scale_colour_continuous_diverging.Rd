@@ -16,6 +16,7 @@ scale_colour_continuous_diverging(
   h2 = NULL,
   p1 = NULL,
   p2 = NULL,
+  alpha = 1,
   rev = FALSE,
   mid = 0,
   na.value = "grey50",
@@ -35,6 +36,7 @@ scale_color_continuous_diverging(
   h2 = NULL,
   p1 = NULL,
   p2 = NULL,
+  alpha = 1,
   rev = FALSE,
   mid = 0,
   na.value = "grey50",
@@ -64,6 +66,8 @@ scale_fill_continuous_diverging(..., aesthetics = "fill")
 \item{p1}{Control parameter determining how chroma should vary (1 = linear, 2 = quadratic, etc.).}
 
 \item{p2}{Control parameter determining how luminance should vary (1 = linear, 2 = quadratic, etc.).}
+
+\item{alpha}{Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).}
 
 \item{rev}{If \code{TRUE}, reverses the order of the colors in the color scale.}
 

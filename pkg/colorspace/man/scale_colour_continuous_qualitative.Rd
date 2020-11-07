@@ -12,6 +12,7 @@ scale_colour_continuous_qualitative(
   l1 = NULL,
   h1 = NULL,
   h2 = NULL,
+  alpha = 1,
   rev = FALSE,
   begin = 0,
   end = 1,
@@ -28,6 +29,7 @@ scale_color_continuous_qualitative(
   l1 = NULL,
   h1 = NULL,
   h2 = NULL,
+  alpha = 1,
   rev = FALSE,
   begin = 0,
   end = 1,
@@ -50,6 +52,8 @@ scale_fill_continuous_qualitative(..., aesthetics = "fill")
 \item{h1}{Beginning hue value.}
 
 \item{h2}{Ending hue value.}
+
+\item{alpha}{Numeric vector of values in the range \code{[0, 1]} for alpha transparency channel (0 means transparent and 1 means opaque).}
 
 \item{rev}{If \code{TRUE}, reverses the order of the colors in the color scale.}
 
