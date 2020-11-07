@@ -11,9 +11,6 @@
 # -------------------------------------------------------------------
 
 
-library("shiny")
-library("shinyjs")
-
 # - Configuration
 ticks <- FALSE # to show ticks or not to show ticks
 
@@ -69,7 +66,7 @@ shinyUI(fluidPage(
            </script>")
        
    ),
-   useShinyjs(),
+   shinyjs::useShinyjs(),
    div(class = "version-info", htmlOutput("version_info")),
 
    # ----------------------------------------------------------------
