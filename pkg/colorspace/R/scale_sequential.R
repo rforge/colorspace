@@ -182,7 +182,7 @@ scale_fill_continuous_sequential <- function(..., aesthetics = "fill")
 #' 
 #' Compared to \code{\link{sequential_hcl}} the ordering of the colors in the sequential ggplot2 scale
 #' are reversed by default (i.e., \code{rev = TRUE}) to be more consistent with ggplot2's own scales such as
-#' \code{\link[ggplot2]{scale_color_brewer}}. For most named palettes this leads to darker and more
+#' \code{\link[ggplot2]{scale_color_fermenter}}. For most named palettes this leads to darker and more
 #' colorful colors for larger values on the scale. This is typically the better default on light/white
 #' backgrounds.
 #'
@@ -190,7 +190,7 @@ scale_fill_continuous_sequential <- function(..., aesthetics = "fill")
 #' @param begin Number in the range of \code{[0, 1]} indicating to which point in the color scale the smallest data value should be mapped.
 #' @param end Number in the range of \code{[0, 1]} indicating to which point in the color scale the largest data value should be mapped.
 #' @param na.value Color to be used for missing data points.
-#' @param guide Type of legend. Use \code{"colourbar"} for continuous color bar. 
+#' @param guide Type of legend. Use \code{"coloursteps"} for color bar with discrete steps. 
 #' @param n_interp Number of discrete colors that should be used to interpolate the binned color scale. 11 will work fine in most cases.
 #' @param ... common binned scale parameters: `name`, `breaks`, `labels`, and `limits`. See
 #'  \code{\link[ggplot2]{binned_scale}} for more details.
