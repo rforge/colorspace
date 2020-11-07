@@ -190,8 +190,8 @@ The plot below shows all the named multi-hue sequential palettes in _colorspace_
   developed for _matplotlib_ and that gained popularity recently.
 * "Dark Mint" to "BrwnYl" closely match palettes provided in _CARTO_ [@color:CARTO].
 * "YlOrRd" to "Blues" closely match _ColorBrewer.org_ palettes [@color:Harrower+Brewer:2003].
-* "Lajolla" and "Turku" closely match the scientific color maps of the same name by
-  @color:Crameri:2018 and are intended for a black/dark background.
+* "Lajolla" to "Batlow" closely match the scientific color maps of the same name by
+  @color:Crameri:2018 and the first two of these are intended for a black/dark background.
 
 ```{r hcl-palettes-sequentialm, fig.width = 8.5, fig.height = 9.0, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
 hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE)
@@ -441,6 +441,7 @@ The plot below shows all such flexible diverging palettes that have been named i
   Note that despite having two "arms" with blue vs. yellow colors and a low-chroma center color,
   this is probably better classified as a sequential palette due to the monotonic chroma going from dark to light.
   (See [Approximating Palettes from Other Packages](approximations.html) for more details.)
+* "Roma" closely matches the palette of the same name by @color:Crameri:2018.
 
 ```{r divergingx-palettes, fig.width = 4.0, fig.height = 8.5, fig.align = "center", dev = "png", dpi = 48, out.width = "70%"}
 divergingx_palettes(n = 7, plot = TRUE)

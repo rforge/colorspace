@@ -758,8 +758,8 @@ hcl_palettes("sequential (multi-hue)", n = 7, plot = TRUE, line = 6)
   developed for \pkg{matplotlib} and that gained popularity recently.
 * `"Dark Mint"` to `"BrwnYl"` closely match palettes provided in \pkg{CARTO} [@color:CARTO].
 * `"YlOrRd"` to `"Blues"` closely match \pkg{ColorBrewer.org} palettes [@color:Harrower+Brewer:2003].
-* `"Lajolla"` and `"Turku"` closely match the scientific color maps of the same name by
-  @color:Crameri:2018 and are intended for a black/dark background.
+* `"Lajolla"` to `"Batlow"` closely match the scientific color maps of the same name by
+  @color:Crameri:2018 and the first two of these are intended for a black/dark background.
 
 Note that the palettes differ substantially in the amount of chroma and luminance
 contrasts. For example, many palettes go from a dark high-chroma color
@@ -995,6 +995,7 @@ divergingx_palettes(n = 7, plot = TRUE, nrow = 10)
   Note that despite having two "arms" with blue vs.\ yellow colors and a low-chroma center color,
   this is probably better classified as a sequential palette due to the monotonic chroma going from dark to light.
   (See Section\ \ref{sec:approximations} for more details.)
+* `"Roma"` closely matches the palette of the same name by @color:Crameri:2018.
 
 Typically, the more restricted `diverging_hcl()` palettes should be preferred because they are
 more balanced. However, by being able to go through light yellow as the neutral
