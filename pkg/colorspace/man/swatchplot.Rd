@@ -14,7 +14,8 @@ swatchplot(
   mar = NULL,
   line = NULL,
   cex = NULL,
-  font = 1:2
+  font = 1:2,
+  cvd = FALSE
 )
 }
 \arguments{
@@ -47,6 +48,10 @@ in the margin.}
 
 \item{cex, font}{numeric vectors of length 1 or 2. Specifications for the
 annotation text for the individual palettes and lists of palettes, respectively.}
+
+\item{cvd}{logical or character indicating whether color vision deficiencies
+should be emulated with \code{\link{desaturate}}, \code{\link{deutan}},
+\code{\link{protan}}, \code{\link{tritan}}.}
 }
 \value{
 \code{swatchplot} invisibly returns a matrix with colors and annotations.
@@ -79,6 +84,14 @@ swatchplot(
   "Single-hue (advanced)" = t(sapply(paste(bprg, 3), sequential_hcl, n = 7)),
   "Multi-hue (advanced)"  = t(sapply(bprg,           sequential_hcl, n = 7)),
   nrow = 5
+)
+
+## swatches with color vision deficiency emulation
+swatchplot(sequential_hcl(5, "Viridis"), cvd = TRUE)
+swatchplot(
+  "YlGnBu"  = sequential_hcl(5, "YlGnBu"),
+  "Viridis" = sequential_hcl(5, "Viridis"),
+  cvd = c("deutan", "desaturate")
 )
 }
 \references{

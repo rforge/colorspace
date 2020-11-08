@@ -16,6 +16,9 @@
   (_scico_), namely `"Hawaii"` and `"Batlow"` in `sequential_hcl()` and
   `"Roma"` in `divergingx_hcl()`.
 
+* Additional option `cvd` in `swatchplot()` so that color vision deficiency
+  emulation can be included on the fly.
+
 * Changed the default colors in `specplot()` from `rainbow_hcl(3)` to
   `qualitative_hcl(3)` which is darker and has more chroma. Also, the order
   of the legend has been reversed (Luminance / Chroma / Hue) so that the
@@ -35,6 +38,7 @@
   any whitepoint).  In particular, if we want to convert from one of
   these color spaces to XYZ or beyond, we must first convert to a 
   specific RGB color space.
+
 
 # colorspace 1.4-1
 
