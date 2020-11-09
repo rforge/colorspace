@@ -125,9 +125,9 @@ shiny::shinyServer(function(input, output, session) {
       # If is either png or jpeg: go ahead
       if ( is_img$png | is_img$jpg ) { 
          if ( is_img$png ) {
-            img <- try( png::readPNG( file ) )
+            img <- try(png::readPNG(file))
          } else {
-            img <- try( jpg::readJPEG( file ) )
+            img <- try(jpeg::readJPEG(file))
          }
 
          # Broken image or no PNG/JPEG
