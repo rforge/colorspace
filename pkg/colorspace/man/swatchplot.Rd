@@ -87,10 +87,10 @@ swatchplot(
 )
 
 ## swatches with color vision deficiency emulation
-swatchplot(sequential_hcl(5, "Viridis"), cvd = TRUE)
+swatchplot(sequential_hcl(7, "Viridis"), cvd = TRUE)
 swatchplot(
-  "YlGnBu"  = sequential_hcl(5, "YlGnBu"),
-  "Viridis" = sequential_hcl(5, "Viridis"),
+  "YlGnBu"  = sequential_hcl(7, "YlGnBu"),
+  "Viridis" = sequential_hcl(7, "Viridis"),
   cvd = c("deutan", "desaturate")
 )
 }
