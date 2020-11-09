@@ -128,11 +128,11 @@ scale_fill_discrete_divergingx <- function(..., aesthetics = "fill")
 #' # select a range out of the entire palette
 #' gg + scale_color_continuous_divergingx(palette = "ArmyRose", begin = .2, end = .8)
 #' 
-#' # volcano plot
+#' # volcano plot (deviation from mean height)
 #' nx = 87
 #' ny = 61
-#' df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
-#' ggplot(df, aes(x, y, fill=height)) + 
+#' df <- data.frame(deviation = c(volcano) - mean(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
+#' ggplot(df, aes(x, y, fill=deviation)) + 
 #'   geom_raster() + scale_fill_continuous_divergingx(palette = "Fall", rev = TRUE) +
 #'   coord_fixed(expand = FALSE)
 #'
@@ -226,19 +226,15 @@ scale_fill_continuous_divergingx <- function(..., aesthetics = "fill")
 #' @param ... common binned scale parameters: `name`, `breaks`, `labels`, and `limits`. See
 #'  \code{\link[ggplot2]{binned_scale}} for more details.
 #' @examples
-#' # *** Example for sequential CARTO scales ***
-#' 
-#' # volcano plot
+#' # volcano plot (deviation from mean height)
 #' nx = 87
 #' ny = 61
-#' df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
-#' ggplot(df, aes(x, y, fill=height)) + 
+#' df <- data.frame(deviation = c(volcano) - mean(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
+#' ggplot(df, aes(x, y, fill=deviation)) + 
 #'   geom_raster() + scale_fill_binned_divergingx(palette = "Fall", rev = TRUE) +
 #'   coord_fixed(expand = FALSE)
 #'
 #'
-#' # *** Example for diverging CARTO scales ***
-#' 
 #' # adapted from stackoverflow: https://stackoverflow.com/a/20127706/4975218
 #'
 #' # generate dataset and base plot
