@@ -125,11 +125,11 @@ gg + scale_color_continuous_divergingx(palette = "ArmyRose")
 # select a range out of the entire palette
 gg + scale_color_continuous_divergingx(palette = "ArmyRose", begin = .2, end = .8)
 
-# volcano plot (deviation from mean height)
+# volcano plot (difference from mean height)
 nx = 87
 ny = 61
-df <- data.frame(deviation = c(volcano) - mean(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
-ggplot(df, aes(x, y, fill=deviation)) + 
+df <- data.frame(diff = c(volcano) - mean(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
+ggplot(df, aes(x, y, fill=diff)) + 
   geom_raster() + scale_fill_continuous_divergingx(palette = "Fall", rev = TRUE) +
   coord_fixed(expand = FALSE)
 

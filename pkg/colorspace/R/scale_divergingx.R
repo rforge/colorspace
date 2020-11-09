@@ -128,11 +128,11 @@ scale_fill_discrete_divergingx <- function(..., aesthetics = "fill")
 #' # select a range out of the entire palette
 #' gg + scale_color_continuous_divergingx(palette = "ArmyRose", begin = .2, end = .8)
 #' 
-#' # volcano plot (deviation from mean height)
+#' # volcano plot (difference from mean height)
 #' nx = 87
 #' ny = 61
-#' df <- data.frame(deviation = c(volcano) - mean(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
-#' ggplot(df, aes(x, y, fill=deviation)) + 
+#' df <- data.frame(diff = c(volcano) - mean(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
+#' ggplot(df, aes(x, y, fill=diff)) + 
 #'   geom_raster() + scale_fill_continuous_divergingx(palette = "Fall", rev = TRUE) +
 #'   coord_fixed(expand = FALSE)
 #'
@@ -226,11 +226,13 @@ scale_fill_continuous_divergingx <- function(..., aesthetics = "fill")
 #' @param ... common binned scale parameters: `name`, `breaks`, `labels`, and `limits`. See
 #'  \code{\link[ggplot2]{binned_scale}} for more details.
 #' @examples
-#' # volcano plot (deviation from mean height)
+#' library("ggplot2")
+#'
+#' # volcano plot (difference from mean height)
 #' nx = 87
 #' ny = 61
-#' df <- data.frame(deviation = c(volcano) - mean(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
-#' ggplot(df, aes(x, y, fill=deviation)) + 
+#' df <- data.frame(diff = c(volcano) - mean(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
+#' ggplot(df, aes(x, y, fill=diff)) + 
 #'   geom_raster() + scale_fill_binned_divergingx(palette = "Fall", rev = TRUE) +
 #'   coord_fixed(expand = FALSE)
 #'
@@ -238,7 +240,6 @@ scale_fill_continuous_divergingx <- function(..., aesthetics = "fill")
 #' # adapted from stackoverflow: https://stackoverflow.com/a/20127706/4975218
 #'
 #' # generate dataset and base plot
-#' library("ggplot2")
 #' set.seed(100)
 #' df <- data.frame(country = LETTERS, V = runif(26, -40, 40))
 #' df$country = factor(LETTERS, LETTERS[order(df$V)]) # reorder factors
