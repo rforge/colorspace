@@ -19,6 +19,9 @@
 * Additional option `cvd` in `swatchplot()` so that color vision deficiency
   emulation can be included on the fly.
 
+* Added _binned_ _ggplot2_ color scales (in addition to _discrete_ and
+  _continuous_).
+
 * Changed the default colors in `specplot()` from `rainbow_hcl(3)` to
   `qualitative_hcl(3)` which is darker and has more chroma. Also, the order
   of the legend has been reversed (Luminance / Chroma / Hue) so that the
@@ -74,7 +77,7 @@
 # colorspace 1.4-0
 
 * Major update of the package that enhances many of its capabilities,
-  e.g., more refined palettes, named palettes, ggplot2 color scales,
+  e.g., more refined palettes, named palettes, _ggplot2_ color scales,
   visualizations for assessing palettes, more and enhanced shiny and
   Tcl/Tk apps, color vision deficiency emulation, and much more. See
   below for further details. A new web site presenting and documenting

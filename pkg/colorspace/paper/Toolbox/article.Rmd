@@ -245,7 +245,7 @@ spineplot(ttnc, col = sequential_hcl(2, "Purples 3"))
 ## Usage with ggplot2 {#sec:ggplot2}
 
 To provide access to the HCL color palettes from within \pkg{ggplot2} graphics [@color:ggplot2; @color:ggplot2pkg]
-suitable discrete and/or continuous \pkg{ggplot2} color scales are provided.
+suitable discrete, continuous, and binned \pkg{ggplot2} color scales are provided.
 The scales are named via the scheme
 
     scale_<aesthetic>_<datatype>_<colorscale>()
@@ -253,7 +253,7 @@ The scales are named via the scheme
 where
 
 - `<aesthetic>` is the name of the aesthetic (`fill`, `color`, `colour`).
-- `<datatype>` is the type of the variable plotted (`discrete` or `continuous`).
+- `<datatype>` is the type of the variable plotted (`discrete`, `continuous`, `binned`).
 - `<colorscale>` sets the type of the color scale used (`qualitative`, `sequential`, `diverging`, `divergingx`).
 
 To illustrate their usage two simple examples are shown using the qualitative `"Dark 3"`
@@ -1163,6 +1163,8 @@ Figures\ \ref{fig:hcl-properties}--\ref{fig:hcl-palettes} as well as
 Figures\ \ref{fig:hcl-palettes-principles}--\ref{fig:hcl-palettes-diverging}
 all use `swatchplot()` internally. For a simple stand-alone illustration
 consider: `swatchplot("Palette" = sequential_hcl(5))`.
+Optionally, swatches emulating color vision deficiencies (see
+Section\ \ref{sec:color_vision_deficiency}) can be added by setting `cvd = TRUE`.
 
 Next, we demonstrate a more complex example of a `swatchplot()` with three matrices
 of sequential color palettes of blues, purples, reds, and greens

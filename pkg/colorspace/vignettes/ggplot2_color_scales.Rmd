@@ -25,7 +25,7 @@ set.seed(403)
 ## Overview
 
 All [HCL-based color palettes](hcl_palettes.html) in the _colorspace_ package [@color:colorspace]
-are also provided as discrete and/or continuous color scales for the use with the _ggplot2_ package
+are also provided as discrete, continuous, and binned color scales for the use with the _ggplot2_ package
 [@color:ggplot2; @color:ggplot2pkg].
 
 The scales are called via the scheme
@@ -35,7 +35,7 @@ The scales are called via the scheme
 where
 
 - `<aesthetic>` is the name of the aesthetic (`fill`, `color`, `colour`).
-- `<datatype>` is the type of the variable plotted (`discrete` or `continuous`).
+- `<datatype>` is the type of the variable plotted (`discrete`, `continuous`, `binned`).
 - `<colorscale>` sets the type of the color scale used (`qualitative`, `sequential`, `diverging`, `divergingx`).
 
 A few examples of these scales are illustrated in the following sections.
@@ -68,10 +68,16 @@ A continuous sequential scale applied to a fill aesthetic corresponds to the fun
 
 ```{r raster-sequential, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
 df <- data.frame(height = c(volcano), x = c(row(volcano)), y = c(col(volcano)))
-ggplot(df, aes(x, y, fill = height)) + 
+p <- ggplot(df, aes(x, y, fill = height)) + 
   geom_raster() + 
-  coord_fixed(expand = FALSE) +
-  scale_fill_continuous_sequential(palette = "Blues")
+  coord_fixed(expand = FALSE)
+p + scale_fill_continuous_sequential(palette = "Blues")
+```
+
+A binned version of the same sequential scale can be obtained with the function `scale_fill_binned_sequential()`:
+
+```{r raster-sequential-binned, fig.width = 6.5, fig.asp = 0.7, fig.align = "center"}
+p + scale_fill_binned_sequential(palette = "Blues")
 ```
 
 A continuous diverging scale applied to a fill aesthetic corresponds to the function `scale_fill_continuous_diverging()`:

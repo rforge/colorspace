@@ -87,6 +87,34 @@ swatchplot(
 )
 ```
 
+Another convenient option of `swatchplot()` for a single palette or list of palettes is
+to add swatches that emulate [color vision deficiency](color_vision_deficiency.html)
+by setting `cvd = TRUE`, e.g., for the Okabe-Ito palette provided in the base R
+`palette.colors()` function:
+
+```{r swatch-cvd, fig.width = 5, fig.height = 2.8, fig.align = "center", dev = "png"}
+swatchplot(palette.colors(), cvd = TRUE)
+```
+
+This shows that the Okabe-Ito palette is quite robust under various forms of color
+vision deficiency, by avoiding pure red or green and by suitably varying chroma and
+luminance to a certain degree.
+
+Moreover, the `cvd` argument can be set to a vector of transformation names, indicating
+which deficiencies to emulate. In the example below this is used to compare the
+Viridis and YlGnBu palettes under deuteranopia and desaturation.
+
+```{r swatch-cvd2, fig.width = 7, fig.height = 1.8, fig.align = "center", dev = "png"}
+swatchplot(
+  "YlGnBu"  = sequential_hcl(7, "YlGnBu"),
+  "Viridis" = sequential_hcl(7, "Viridis"),
+  cvd = c("deutan", "desaturate"),
+  nrow = 4
+)
+```
+
+
+
 ## HCL (and RGB) spectrum
 
 As the properties of a palette in terms of the perceptual dimensions _hue_,
