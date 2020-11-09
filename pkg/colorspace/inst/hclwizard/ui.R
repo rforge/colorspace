@@ -7,7 +7,7 @@
 # -------------------------------------------------------------------
 # - EDITORIAL:   2015-05-01, RS: Created file on thinkreto.
 # -------------------------------------------------------------------
-# - L@ST MODIFIED: 2019-01-13 11:36 on marvin
+# - L@ST MODIFIED: 2019-01-13 12:02 on marvin
 # -------------------------------------------------------------------
 
 
@@ -368,7 +368,7 @@ shinyUI(fluidPage(
                      tabPanel("Register",
                         includeHTML("html/Register.html"),
                         withTags(span(class = "registerpalette",
-                            textInput("registerpalettename", labe = NA, width = "200px"),
+                            textInput("registerpalettename", label = NULL, width = "200px"),
                             actionButton("registerpalettebutton","Register")
                         )),
                         includeHTML("html/RegisterRcode.html"),
