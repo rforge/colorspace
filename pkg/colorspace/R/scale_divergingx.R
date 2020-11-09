@@ -99,12 +99,7 @@ scale_fill_discrete_divergingx <- function(..., aesthetics = "fill")
 #' 
 #' @inheritParams scale_colour_discrete_divergingx
 #' @param h1,h2,h3,c1,c2,c3,l1,l2,l3,p1,p2,p3,p4,cmax1,cmax2 Parameters to customize the scale. See \code{\link{divergingx_hcl}} for details.
-#' @param begin For sequential scales, number in the range of \code{[0, 1]} indicating to which point in the color scale the 
-#'  smallest data value should be mapped. Ignored for diverging scales.
-#' @param end For sequential scales, number in the range of \code{[0, 1]} indicating to which point in the color scale the
-#'  largest data value should be mapped. Ignored for diverging scales.
-#' @param mid For diverging scales, data value that should be mapped to the mid-point of the diverging
-#'  color scale. Ignored for sequential scales.
+#' @param mid Data value that should be mapped to the mid-point of the diverging color scale.
 #' @param na.value Color to be used for missing data points.
 #' @param guide Type of legend. Use \code{"colourbar"} for continuous color bar. 
 #' @param n_interp Number of discrete colors that should be used to interpolate the continuous color scale.
@@ -112,21 +107,7 @@ scale_fill_discrete_divergingx <- function(..., aesthetics = "fill")
 #' @param ... common continuous scale parameters: `name`, `breaks`, `labels`, and `limits`. See
 #'  \code{\link[ggplot2]{continuous_scale}} for more details.
 #' @examples
-#' # *** Examples for sequential CARTO scales ***
-#' 
-#' # base plot
 #' library("ggplot2")
-#' gg <- ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + 
-#'   geom_jitter(width = 0.3) + theme_minimal()
-#' 
-#' # default settings
-#' gg + scale_color_continuous_divergingx()
-#' 
-#' # switch palette to ArmyRose
-#' gg + scale_color_continuous_divergingx(palette = "ArmyRose")
-#' 
-#' # select a range out of the entire palette
-#' gg + scale_color_continuous_divergingx(palette = "ArmyRose", begin = .2, end = .8)
 #' 
 #' # volcano plot (difference from mean height)
 #' nx = 87
@@ -137,12 +118,9 @@ scale_fill_discrete_divergingx <- function(..., aesthetics = "fill")
 #'   coord_fixed(expand = FALSE)
 #'
 #'
-#' # *** Examples for diverging CARTO scales ***
-#' 
 #' # adapted from stackoverflow: https://stackoverflow.com/a/20127706/4975218
 #'
 #' # generate dataset and base plot
-#' library("ggplot2")
 #' set.seed(100)
 #' df <- data.frame(country = LETTERS, V = runif(26, -40, 40))
 #' df$country = factor(LETTERS, LETTERS[order(df$V)]) # reorder factors
@@ -161,7 +139,7 @@ scale_fill_discrete_divergingx <- function(..., aesthetics = "fill")
 scale_colour_continuous_divergingx <- function(palette = "Geyser", c1 = NULL, c2 = NULL, c3 = NULL,
                                              l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
                                              h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL,
-                                             cmax1 = NULL, cmax2 = NULL, alpha = 1, rev = FALSE, begin = 0, end = 1, mid = 0, na.value = "grey50",
+                                             cmax1 = NULL, cmax2 = NULL, alpha = 1, rev = FALSE, mid = 0, na.value = "grey50",
                                              guide = "colourbar", n_interp = 11, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function divergingx_hcl only if explicitly provided
@@ -213,12 +191,7 @@ scale_fill_continuous_divergingx <- function(..., aesthetics = "fill")
 #' 
 #' @inheritParams scale_colour_discrete_divergingx
 #' @param h1,h2,h3,c1,c2,c3,l1,l2,l3,p1,p2,p3,p4,cmax1,cmax2 Parameters to customize the scale. See \code{\link{divergingx_hcl}} for details.
-#' @param begin For sequential scales, number in the range of \code{[0, 1]} indicating to which point in the color scale the 
-#'  smallest data value should be mapped. Ignored for diverging scales.
-#' @param end For sequential scales, number in the range of \code{[0, 1]} indicating to which point in the color scale the
-#'  largest data value should be mapped. Ignored for diverging scales.
-#' @param mid For diverging scales, data value that should be mapped to the mid-point of the diverging
-#'  color scale. Ignored for sequential scales.
+#' @param mid Data value that should be mapped to the mid-point of the diverging color scale.
 #' @param na.value Color to be used for missing data points.
 #' @param guide Type of legend. Use \code{"coloursteps"} for color bar with discrete steps. 
 #' @param n_interp Number of discrete colors that should be used to interpolate the binned color scale.
@@ -255,7 +228,7 @@ scale_fill_continuous_divergingx <- function(..., aesthetics = "fill")
 scale_colour_binned_divergingx <- function(palette = "Geyser", c1 = NULL, c2 = NULL, c3 = NULL,
                                            l1 = NULL, l2 = NULL, l3 = NULL, h1 = NULL, h2 = NULL,
                                            h3 = NULL, p1 = NULL, p2 = NULL, p3 = NULL, p4 = NULL,
-                                           cmax1 = NULL, cmax2 = NULL, alpha = 1, rev = FALSE, begin = 0, end = 1, mid = 0, na.value = "grey50",
+                                           cmax1 = NULL, cmax2 = NULL, alpha = 1, rev = FALSE, mid = 0, na.value = "grey50",
                                            guide = "coloursteps", n_interp = 11, aesthetics = "colour", ...)
 {
   # arguments we want to hand off to function divergingx_hcl only if explicitly provided

@@ -25,8 +25,6 @@ scale_colour_continuous_divergingx(
   cmax2 = NULL,
   alpha = 1,
   rev = FALSE,
-  begin = 0,
-  end = 1,
   mid = 0,
   na.value = "grey50",
   guide = "colourbar",
@@ -54,8 +52,6 @@ scale_color_continuous_divergingx(
   cmax2 = NULL,
   alpha = 1,
   rev = FALSE,
-  begin = 0,
-  end = 1,
   mid = 0,
   na.value = "grey50",
   guide = "colourbar",
@@ -75,14 +71,7 @@ scale_fill_continuous_divergingx(..., aesthetics = "fill")
 
 \item{rev}{If \code{TRUE}, reverses the order of the colors in the color scale.}
 
-\item{begin}{For sequential scales, number in the range of \code{[0, 1]} indicating to which point in the color scale the 
-smallest data value should be mapped. Ignored for diverging scales.}
-
-\item{end}{For sequential scales, number in the range of \code{[0, 1]} indicating to which point in the color scale the
-largest data value should be mapped. Ignored for diverging scales.}
-
-\item{mid}{For diverging scales, data value that should be mapped to the mid-point of the diverging
-color scale. Ignored for sequential scales.}
+\item{mid}{Data value that should be mapped to the mid-point of the diverging color scale.}
 
 \item{na.value}{Color to be used for missing data points.}
 
@@ -109,21 +98,7 @@ If both a valid palette name and palette parameters are provided then the provid
 named palette. This enables easy customization of named palettes.
 }
 \examples{
-# *** Examples for sequential CARTO scales ***
-
-# base plot
 library("ggplot2")
-gg <- ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + 
-  geom_jitter(width = 0.3) + theme_minimal()
-
-# default settings
-gg + scale_color_continuous_divergingx()
-
-# switch palette to ArmyRose
-gg + scale_color_continuous_divergingx(palette = "ArmyRose")
-
-# select a range out of the entire palette
-gg + scale_color_continuous_divergingx(palette = "ArmyRose", begin = .2, end = .8)
 
 # volcano plot (difference from mean height)
 nx = 87
@@ -134,12 +109,9 @@ ggplot(df, aes(x, y, fill=diff)) +
   coord_fixed(expand = FALSE)
 
 
-# *** Examples for diverging CARTO scales ***
-
 # adapted from stackoverflow: https://stackoverflow.com/a/20127706/4975218
 
 # generate dataset and base plot
-library("ggplot2")
 set.seed(100)
 df <- data.frame(country = LETTERS, V = runif(26, -40, 40))
 df$country = factor(LETTERS, LETTERS[order(df$V)]) # reorder factors

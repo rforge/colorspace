@@ -25,8 +25,6 @@ scale_colour_binned_divergingx(
   cmax2 = NULL,
   alpha = 1,
   rev = FALSE,
-  begin = 0,
-  end = 1,
   mid = 0,
   na.value = "grey50",
   guide = "coloursteps",
@@ -54,8 +52,6 @@ scale_color_binned_divergingx(
   cmax2 = NULL,
   alpha = 1,
   rev = FALSE,
-  begin = 0,
-  end = 1,
   mid = 0,
   na.value = "grey50",
   guide = "coloursteps",
@@ -75,14 +71,7 @@ scale_fill_binned_divergingx(..., aesthetics = "fill")
 
 \item{rev}{If \code{TRUE}, reverses the order of the colors in the color scale.}
 
-\item{begin}{For sequential scales, number in the range of \code{[0, 1]} indicating to which point in the color scale the 
-smallest data value should be mapped. Ignored for diverging scales.}
-
-\item{end}{For sequential scales, number in the range of \code{[0, 1]} indicating to which point in the color scale the
-largest data value should be mapped. Ignored for diverging scales.}
-
-\item{mid}{For diverging scales, data value that should be mapped to the mid-point of the diverging
-color scale. Ignored for sequential scales.}
+\item{mid}{Data value that should be mapped to the mid-point of the diverging color scale.}
 
 \item{na.value}{Color to be used for missing data points.}
 
