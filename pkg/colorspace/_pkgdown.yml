@@ -116,6 +116,18 @@ reference:
       - scale_colour_discrete_sequential
       - scale_color_discrete_sequential
       - scale_fill_discrete_sequential
+      - scale_colour_binned_diverging
+      - scale_color_binned_diverging
+      - scale_fill_binned_diverging
+      - scale_colour_binned_divergingx
+      - scale_color_binned_divergingx
+      - scale_fill_binned_divergingx
+      - scale_colour_binned_qualitative
+      - scale_color_binned_qualitative
+      - scale_fill_binned_qualitative
+      - scale_colour_binned_sequential
+      - scale_color_binned_sequential
+      - scale_fill_binned_sequential
   - title: "Color apps (shiny and Tcl/Tk)"
     contents: 
       - choose_palette
