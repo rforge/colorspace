@@ -1,5 +1,5 @@
 
-R version 4.0.2 (2020-06-22) -- "Taking Off Again"
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
 Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -997,6 +997,146 @@ Parameter ranges:
 > 
 > 
 > cleanEx()
+> nameEx("scale_colour_binned_diverging")
+> ### * scale_colour_binned_diverging
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scale_colour_binned_diverging
+> ### Title: HCL-Based Binned Diverging Color Scales for ggplot2
+> ### Aliases: scale_colour_binned_diverging scale_color_binned_diverging
+> ###   scale_fill_binned_diverging
+> 
+> ### ** Examples
+> 
+> # adapted from stackoverflow: https://stackoverflow.com/a/20127706/4975218
+> 
+> library("ggplot2")
+> 
+> # generate dataset and base plot
+> set.seed(100)
+> df <- data.frame(country = LETTERS, V = runif(26, -40, 40))
+> df$country = factor(LETTERS, LETTERS[order(df$V)]) # reorder factors
+> gg <- ggplot(df, aes(x = country, y = V, fill = V)) +
++   geom_bar(stat = "identity") +
++   labs(y = "Under/over valuation in %", x = "Country") +
++   coord_flip() + theme_minimal()
+>   
+> # plot with default diverging scale
+> gg + scale_fill_binned_diverging(n.breaks = 6)
+> 
+> # plot with alternative scale
+> gg + scale_fill_binned_diverging(palette = "Purple-Green", n.breaks = 6)
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
+> nameEx("scale_colour_binned_divergingx")
+> ### * scale_colour_binned_divergingx
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scale_colour_binned_divergingx
+> ### Title: HCL-Based Binned Flexible Diverging Scales for ggplot2
+> ### Aliases: scale_colour_binned_divergingx scale_color_binned_divergingx
+> ###   scale_fill_binned_divergingx
+> 
+> ### ** Examples
+> 
+> library("ggplot2")
+> 
+> # volcano plot (difference from mean height)
+> nx = 87
+> ny = 61
+> df <- data.frame(diff = c(volcano) - mean(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
+> ggplot(df, aes(x, y, fill=diff)) + 
++   geom_raster() + scale_fill_binned_divergingx(palette = "Fall", rev = TRUE) +
++   coord_fixed(expand = FALSE)
+> 
+> 
+> # adapted from stackoverflow: https://stackoverflow.com/a/20127706/4975218
+> 
+> # generate dataset and base plot
+> set.seed(100)
+> df <- data.frame(country = LETTERS, V = runif(26, -40, 40))
+> df$country = factor(LETTERS, LETTERS[order(df$V)]) # reorder factors
+> gg <- ggplot(df, aes(x = country, y = V, fill = V)) +
++   geom_bar(stat = "identity") +
++   labs(y = "Under/over valuation in %", x = "Country") +
++   coord_flip() + theme_minimal()
+>   
+> # plot with diverging scale "Geyser"
+> gg + scale_fill_binned_divergingx(palette = "Geyser",  n.breaks = 6)
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
+> nameEx("scale_colour_binned_qualitative")
+> ### * scale_colour_binned_qualitative
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scale_colour_binned_qualitative
+> ### Title: HCL-Based Binned Qualitative Color Scales for ggplot2
+> ### Aliases: scale_colour_binned_qualitative scale_color_binned_qualitative
+> ###   scale_fill_binned_qualitative
+> 
+> ### ** Examples
+> 
+> library("ggplot2")
+> 
+> # none of these examples are necessarily good ideas
+> gg <- ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + 
++   geom_jitter(width = 0.3) + theme_minimal()
+>   
+> gg + scale_color_binned_qualitative(palette = "Dynamic")
+> gg + scale_color_binned_qualitative(palette = "Dark3", l1 = 70)
+> 
+> nx = 87
+> ny = 61
+> df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
+> ggplot(df, aes(x, y, fill=height)) + 
++   geom_raster() + scale_fill_binned_qualitative(palette = "Dark 3") +
++   coord_fixed(expand = FALSE)
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
+> nameEx("scale_colour_binned_sequential")
+> ### * scale_colour_binned_sequential
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: scale_colour_binned_sequential
+> ### Title: HCL-Based Binned Sequential Color Scales for ggplot2
+> ### Aliases: scale_colour_binned_sequential scale_color_binned_sequential
+> ###   scale_fill_binned_sequential
+> 
+> ### ** Examples
+> 
+> library("ggplot2")
+> 
+> # volcano plot
+> df <- data.frame(height = c(volcano), x = c(row(volcano)), y = c(col(volcano)))
+> ggplot(df, aes(x, y, fill = height)) + 
++   geom_raster() + scale_fill_binned_sequential(palette = "Terrain", rev = FALSE) +
++   coord_fixed(expand = FALSE)
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:ggplot2’
+
 > nameEx("scale_colour_continuous_diverging")
 > ### * scale_colour_continuous_diverging
 > 
@@ -1049,37 +1189,20 @@ detaching ‘package:ggplot2’
 > 
 > ### ** Examples
 > 
-> # *** Examples for sequential CARTO scales ***
-> 
-> # base plot
 > library("ggplot2")
-> gg <- ggplot(iris, aes(x = Species, y = Sepal.Width, color = Sepal.Length)) + 
-+   geom_jitter(width = 0.3) + theme_minimal()
 > 
-> # default settings
-> gg + scale_color_continuous_divergingx()
-> 
-> # switch palette to ArmyRose
-> gg + scale_color_continuous_divergingx(palette = "ArmyRose")
-> 
-> # select a range out of the entire palette
-> gg + scale_color_continuous_divergingx(palette = "ArmyRose", begin = .2, end = .8)
-> 
-> # volcano plot
+> # volcano plot (difference from mean height)
 > nx = 87
 > ny = 61
-> df <- data.frame(height = c(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
-> ggplot(df, aes(x, y, fill=height)) + 
+> df <- data.frame(diff = c(volcano) - mean(volcano), x = rep(1:nx, ny), y = rep(1:ny, each = nx))
+> ggplot(df, aes(x, y, fill=diff)) + 
 +   geom_raster() + scale_fill_continuous_divergingx(palette = "Fall", rev = TRUE) +
 +   coord_fixed(expand = FALSE)
 > 
 > 
-> # *** Examples for diverging CARTO scales ***
-> 
 > # adapted from stackoverflow: https://stackoverflow.com/a/20127706/4975218
 > 
 > # generate dataset and base plot
-> library("ggplot2")
 > set.seed(100)
 > df <- data.frame(country = LETTERS, V = runif(26, -40, 40))
 > df$country = factor(LETTERS, LETTERS[order(df$V)]) # reorder factors
@@ -1429,6 +1552,14 @@ $hex
 +   nrow = 5
 + )
 > 
+> ## swatches with color vision deficiency emulation
+> swatchplot(sequential_hcl(7, "Viridis"), cvd = TRUE)
+> swatchplot(
++   "YlGnBu"  = sequential_hcl(7, "YlGnBu"),
++   "Viridis" = sequential_hcl(7, "Viridis"),
++   cvd = c("deutan", "desaturate")
++ )
+> 
 > 
 > 
 > cleanEx()
@@ -1486,7 +1617,7 @@ $hex
 > x <- RGB(runif(10), runif(10), runif(10))
 > ## IGNORE_RDIFF_BEGIN
 > writehex(x, file.path(tempdir(), "random.txt"))
-[1] "/tmp/RtmpDsV0VE/random.txt"
+[1] "/tmp/RtmpLS3KaK/random.txt"
 > ## IGNORE_RDIFF_END
 > 
 > 
@@ -1496,7 +1627,7 @@ $hex
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.042 0.308 9.112 0.001 0 
+Time elapsed:  9.612 0.177 9.768 0.002 0 
 > grDevices::dev.off()
 null device 
           1 
