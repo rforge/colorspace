@@ -97,6 +97,18 @@
     <loc>http://colorspace.R-Forge.R-project.org//reference/sRGB.html</loc>
   </url>
   <url>
+    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_diverging.html</loc>
+  </url>
+  <url>
+    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_divergingx.html</loc>
+  </url>
+  <url>
+    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_qualitative.html</loc>
+  </url>
+  <url>
+    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_sequential.html</loc>
+  </url>
+  <url>
     <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_continuous_diverging.html</loc>
   </url>
   <url>

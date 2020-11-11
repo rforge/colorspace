@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>All <a href="hcl_palettes.html">HCL-based color palettes</a> in the <em>colorspace</em> package <span class="citation">(Zeileis et al. <a href="#ref-color:colorspace" role="doc-biblioref">2019</a>)</span> are also provided as discrete and/or continuous color scales for the use with the <em>ggplot2</em> package <span class="citation">(Wickham <a href="#ref-color:ggplot2" role="doc-biblioref">2016</a>; Wickham et al. <a href="#ref-color:ggplot2pkg" role="doc-biblioref">2020</a>)</span>.</p>
+<p>All <a href="hcl_palettes.html">HCL-based color palettes</a> in the <em>colorspace</em> package <span class="citation">(Zeileis et al. <a href="#ref-color:colorspace" role="doc-biblioref">2019</a>)</span> are also provided as discrete, continuous, and binned color scales for the use with the <em>ggplot2</em> package <span class="citation">(Wickham <a href="#ref-color:ggplot2" role="doc-biblioref">2016</a>; Wickham et al. <a href="#ref-color:ggplot2pkg" role="doc-biblioref">2020</a>)</span>.</p>
 <p>The scales are called via the scheme</p>
 <pre><code>scale_&lt;aesthetic&gt;_&lt;datatype&gt;_&lt;colorscale&gt;()</code></pre>
 <p>where</p>
@@ -131,7 +131,7 @@
 <li>
 <code>&lt;aesthetic&gt;</code> is the name of the aesthetic (<code>fill</code>, <code>color</code>, <code>colour</code>).</li>
 <li>
-<code>&lt;datatype&gt;</code> is the type of the variable plotted (<code>discrete</code> or <code>continuous</code>).</li>
+<code>&lt;datatype&gt;</code> is the type of the variable plotted (<code>discrete</code>, <code>continuous</code>, <code>binned</code>).</li>
 <li>
 <code>&lt;colorscale&gt;</code> sets the type of the color scale used (<code>qualitative</code>, <code>sequential</code>, <code>diverging</code>, <code>divergingx</code>).</li>
 </ul>
@@ -161,14 +161,19 @@
 <p>A continuous sequential scale applied to a fill aesthetic corresponds to the function <code><a href="../reference/scale_colour_continuous_sequential.html">scale_fill_continuous_sequential()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="kw">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(height = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">volcano</span>), x = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/row.html">row</a></span>(<span class="kw">volcano</span>)), y = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span>(<span class="kw">volcano</span>)))
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span>, <span class="kw">y</span>, fill = <span class="kw">height</span>)) <span class="op">+</span> 
+<span class="kw">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span>, <span class="kw">y</span>, fill = <span class="kw">height</span>)) <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_raster</a></span>() <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed</a></span>(expand = <span class="fl">FALSE</span>) <span class="op">+</span>
-  <span class="fu"><a href="../reference/scale_colour_continuous_sequential.html">scale_fill_continuous_sequential</a></span>(palette = <span class="st">"Blues"</span>)
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed</a></span>(expand = <span class="fl">FALSE</span>)
+<span class="kw">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_colour_continuous_sequential.html">scale_fill_continuous_sequential</a></span>(palette = <span class="st">"Blues"</span>)
 </pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/raster-sequential-1.png" width="624" style="display: block; margin: auto;"></p>
-<p>A continuous diverging scale applied to a fill aesthetic corresponds to the function <code><a href="../reference/scale_colour_continuous_diverging.html">scale_fill_continuous_diverging()</a></code>:</p>
+<p>A binned version of the same sequential scale can be obtained with the function <code><a href="../reference/scale_colour_binned_sequential.html">scale_fill_binned_sequential()</a></code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="kw">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_colour_binned_sequential.html">scale_fill_binned_sequential</a></span>(palette = <span class="st">"Blues"</span>)
+</pre></div>
+<p><img src="ggplot2_color_scales_files/figure-html/raster-sequential-binned-1.png" width="624" style="display: block; margin: auto;"></p>
+<p>A continuous diverging scale applied to a fill aesthetic corresponds to the function <code><a href="../reference/scale_colour_continuous_diverging.html">scale_fill_continuous_diverging()</a></code>:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="kw">cm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span>(<span class="kw">mtcars</span>)
 <span class="kw">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(cor = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">cm</span>), var1 = <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span>(<span class="kw">cm</span>)), var2 = <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/row.html">row</a></span>(<span class="kw">cm</span>)))
 <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span>(<span class="kw">df</span><span class="op">$</span><span class="kw">var1</span>) <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span>(<span class="kw">df</span><span class="op">$</span><span class="kw">var2</span>) <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">mtcars</span>)
@@ -185,45 +190,45 @@
 <h2 class="hasAnchor">
 <a href="#customizing-the-scales" class="anchor"></a>Customizing the scales</h2>
 <p>All scale functions accept a <code>palette</code> argument which allows you to pick a specific color palette out of a selection of different options. All available palettes are listed at the end of this document. For example, we could use the “Harmonic” palette when we need a qualitative color scale:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">Sepal.Length</span>, fill = <span class="kw">Species</span>)) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span>(alpha = <span class="fl">0.6</span>) <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_colour_discrete_qualitative.html">scale_fill_discrete_qualitative</a></span>(palette = <span class="st">"Harmonic"</span>)
 </pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/density-qualitative2-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>The color palettes are calculated on the fly depending on the number of different colors needed. But sometimes, it may be desireable to pick specific colors out of a larger set, e.g., when we are making two plots where one contains a subset of the data of the other, or when the default order of colors is not ideal. Therefore, all discrete scales provide parameters <code>nmax</code> to set the total number of colors requested and <code>order</code> (a vector of integers) to reorder the color palette.</p>
 <p>Applied to the previous plot, we could for example do the following:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
+<div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">Sepal.Length</span>, fill = <span class="kw">Species</span>)) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span>(alpha = <span class="fl">0.6</span>) <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_colour_discrete_qualitative.html">scale_fill_discrete_qualitative</a></span>(palette = <span class="st">"Harmonic"</span>, nmax = <span class="fl">5</span>, order = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">5</span>, <span class="fl">1</span>, <span class="fl">2</span>))
 </pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/density-qualitative3-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>The <code>nmax</code> option is also convenient to remove some colors from a scale that may not be appropriate for the plot. For example, the <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer()</a></code> scale that comes with <em>ggplot2</em> tends to produce points that are too light:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
+<div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="kw">dsamp</span> <span class="op">&lt;-</span> <span class="kw">diamonds</span>[<span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span> <span class="op">*</span> <span class="fl">50</span>, ]
 <span class="kw">gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">dsamp</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">carat</span>, <span class="kw">price</span>, color = <span class="kw">cut</span>)) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>()
 <span class="kw">gg</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span>(palette = <span class="st">"Blues"</span>)
 </pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/point-brewer-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>Similar problems can arise with the HCL palettes, but there we have the option of creating additional colors that we then do not use:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
+<div class="sourceCode" id="cb11"><pre class="downlit">
 <span class="kw">gg</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_colour_discrete_sequential.html">scale_color_discrete_sequential</a></span>(palette = <span class="st">"Blues"</span>, nmax = <span class="fl">6</span>, order = <span class="fl">2</span><span class="op">:</span><span class="fl">6</span>)
 </pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/point-sequential-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>(We use <code>order = 2:6</code> to pick the five darkest colors and omit the lightest color.)</p>
 <p>All <a href="hcl_palettes.html">HCL-based color palettes</a> are defined via sets of hue (H), chroma (C), and luminance (L) values. For example, the qualitative scales vary hue from a start value to an end value while keeping chroma and luminance fixed. Similarly, single-hue sequential scales vary chroma and luminance while keeping the hue fixed. We can override these settings by specifying the corresponding H, C, or L values in addition to the palette name. As an example, consider the following plot:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
+<div class="sourceCode" id="cb12"><pre class="downlit">
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">Species</span>, y = <span class="kw">Sepal.Width</span>, color = <span class="kw">Sepal.Length</span>)) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span>(width = <span class="fl">0.2</span>) <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_colour_continuous_sequential.html">scale_color_continuous_sequential</a></span>(palette = <span class="st">"Terrain"</span>)
 </pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/jitter-sequential2-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>Now assume we generally like the color scale but find it a bit too pink at the end. We can fix this issue by specifying an alternative final hue value, e.g., <code>h2 = 60</code> corresponding to yellow:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
+<div class="sourceCode" id="cb13"><pre class="downlit">
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">Species</span>, y = <span class="kw">Sepal.Width</span>, color = <span class="kw">Sepal.Length</span>)) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span>(width = <span class="fl">0.2</span>) <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_colour_continuous_sequential.html">scale_color_continuous_sequential</a></span>(palette = <span class="st">"Terrain"</span>, h2 = <span class="fl">60</span>)
 </pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/jitter-sequential3-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>The next example uses a diverging scale. First consider the plot with the unmodified “Blue-Yellow 2” palette:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
+<div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="kw">cm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span>(<span class="kw">mtcars</span>)
 <span class="kw">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(cor = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">cm</span>), var1 = <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/col.html">col</a></span>(<span class="kw">cm</span>)), var2 = <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/row.html">row</a></span>(<span class="kw">cm</span>)))
 <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span>(<span class="kw">df</span><span class="op">$</span><span class="kw">var1</span>) <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span>(<span class="kw">df</span><span class="op">$</span><span class="kw">var2</span>) <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="kw">mtcars</span>)
@@ -237,19 +242,19 @@
 </pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/tile-diverging2-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>And now the same plot with some palette customizations: The ordering is reversed so that blue is used for positive correlations and yellow for negative ones. Moreover, the power parameter <code>p2</code> for the luminance is increased so that only correlations close to an absolute value of 1 have dark colors while intermediate correlations have relatively light colors.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
+<div class="sourceCode" id="cb15"><pre class="downlit">
 <span class="kw">gg</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_colour_continuous_diverging.html">scale_fill_continuous_diverging</a></span>(palette = <span class="st">"Blue-Yellow 2"</span>, rev = <span class="fl">TRUE</span>, p2 = <span class="fl">2</span>)
 </pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/tile-diverging3-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>See the reference manual for the exact set of customization parameters that are available for each scale.</p>
 <p>The continuous scales also provide the option to limit the scale range to which data are mapped, via the parameters <code>begin</code> and <code>end</code>. As an example, assume we are using the approximation of the viridis scale provided by <code><a href="../reference/scale_colour_continuous_sequential.html">scale_color_continuous_sequential()</a></code>:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
+<div class="sourceCode" id="cb16"><pre class="downlit">
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">Species</span>, y = <span class="kw">Sepal.Width</span>, color = <span class="kw">Sepal.Length</span>)) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span>(width = <span class="fl">0.2</span>) <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_colour_continuous_sequential.html">scale_color_continuous_sequential</a></span>(palette = <span class="st">"Viridis"</span>)
 </pre></div>
 <p><img src="ggplot2_color_scales_files/figure-html/jitter-sequential4-1.png" width="624" style="display: block; margin: auto;"></p>
 <p>If we want to remove some of the darkest blues and some of the brightest yellows from this scale, we can write:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
+<div class="sourceCode" id="cb17"><pre class="downlit">
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw">iris</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">Species</span>, y = <span class="kw">Sepal.Width</span>, color = <span class="kw">Sepal.Length</span>)) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span>(width = <span class="fl">0.2</span>) <span class="op">+</span>
   <span class="fu"><a href="../reference/scale_colour_continuous_sequential.html">scale_color_continuous_sequential</a></span>(palette = <span class="st">"Viridis"</span>, begin = <span class="fl">0.15</span>, end = <span class="fl">0.9</span>) 
 </pre></div>

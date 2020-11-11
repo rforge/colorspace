@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
       </span>
     </div>
 
@@ -174,7 +174,8 @@
   mar = <span class='kw'>NULL</span>,
   line = <span class='kw'>NULL</span>,
   cex = <span class='kw'>NULL</span>,
-  font = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>
+  font = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
+  cvd = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -228,6 +229,12 @@ in the margin.</p></td>
       <td><p>numeric vectors of length 1 or 2. Specifications for the
 annotation text for the individual palettes and lists of palettes, respectively.</p></td>
     </tr>
+    <tr>
+      <th>cvd</th>
+      <td><p>logical or character indicating whether color vision deficiencies
+should be emulated with <code><a href='desaturate.html'>desaturate</a></code>, <code><a href='simulate_cvd.html'>deutan</a></code>,
+<code><a href='simulate_cvd.html'>protan</a></code>, <code><a href='simulate_cvd.html'>tritan</a></code>.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -244,9 +251,9 @@ to work well for <code><a href='hcl_palettes.html'>hcl_palettes</a></code> and m
 in future versions.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2019).
+    <p>Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2020).
 &#8220;ccolorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.&#8221;
-arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.06490'>http://arxiv.org/abs/1903.06490</a></p>
+<em>Journal of Statistical Software</em>, <b>96</b>(1), 1--49. doi: <a href='https://doi.org/10.18637/jss.v096.i01'>10.18637/jss.v096.i01</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## swatches of several palette vectors</span>
@@ -265,7 +272,15 @@ arXiv:1903.06490, arXiv.org E-Print Archive. <a href='http://arxiv.org/abs/1903.
   <span class='st'>"Multi-hue (advanced)"</span>  = <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='kw'>bprg</span>,           <span class='kw'>sequential_hcl</span>, n = <span class='fl'>7</span>)),
   nrow = <span class='fl'>5</span>
 )
-</div><div class='img'><img src='swatchplot-2.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='img'><img src='swatchplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## swatches with color vision deficiency emulation</span>
+<span class='fu'>swatchplot</span>(<span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>7</span>, <span class='st'>"Viridis"</span>), cvd = <span class='fl'>TRUE</span>)
+</div><div class='img'><img src='swatchplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>swatchplot</span>(
+  <span class='st'>"YlGnBu"</span>  = <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>7</span>, <span class='st'>"YlGnBu"</span>),
+  <span class='st'>"Viridis"</span> = <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>7</span>, <span class='st'>"Viridis"</span>),
+  cvd = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"deutan"</span>, <span class='st'>"desaturate"</span>)
+)
+</div><div class='img'><img src='swatchplot-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

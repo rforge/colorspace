@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
       </span>
     </div>
 
@@ -136,7 +136,7 @@
 <p>Before, a selection of such approximations using <code><a href="../reference/specplot.html">specplot()</a></code> is highlighted and discussed in some more detail. Specifically, the graphic below shows two blue/green/yellow palettes (<code><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">RColorBrewer::brewer.pal(7, "YlGnBu")</a></code> and <code><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis::viridis(7)</a></code>) and two purple/red/yellow palettes (<code><a href="https://rdrr.io/pkg/rcartocolor/man/carto_pal.html">rcartocolor::carto_pal(7, "ag_Sunset")</a></code> and <code><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis::plasma(7)</a></code>). Each panel compares the hue, chroma, and luminance trajectories of the original palettes (top swatches, solid lines) and their HCL-based approximations (bottom swatches, dashed lines). The palettes are not identical but very close for most colors. Note also that the chroma trajectories from the HCL palettes (green dashed lines) have some kinks which are due to fixing HCL coordinates at the boundaries of admissible RGB colors.</p>
 <p><img src="approximations_files/figure-html/brewer-carto-viridis-1.png" width="288"><img src="approximations_files/figure-html/brewer-carto-viridis-2.png" width="288"><img src="approximations_files/figure-html/brewer-carto-viridis-3.png" width="288"><img src="approximations_files/figure-html/brewer-carto-viridis-4.png" width="288"></p>
 <p>These graphics illustrate what sets the viridis palettes apart from other sequential palettes. While the hue and luminance trajectories of <code>"Viridis"</code> and <code>"YlGnBu"</code> are very similar, the chroma trajectories differ: While lighter colors (with high luminance) have low chroma for <code>"YlGnBu"</code>, they have increasing chroma for <code>"Viridis"</code>. Similarly, <code>"ag_Sunset"</code> and <code>"Plasma"</code> have similar hue and luminance trajectories but different chroma trajectories. The result is that the viridis palettes have rather high chroma throughout which does not work as well for sequential palettes on a white/light background as all shaded areas convey high “intensity”. However, they work better on a dark/black background. Also, they might be a reasonable alternative for qualitative palettes when grayscale printing should also work.</p>
-<p>Another somewhat nonstandard palette from the viridis family is the cividis palette based on blue and yellow hues and hence safe for red-green deficient viewers. The figure below shows the corresponding <code><a href="../reference/specplot.html">specplot()</a></code> along with an HCL-based approximation. This palette is unusual: The hue and chroma trajectories would suggest a diverging palette, as there are two “arms” wth different hues and a zero-chroma point in the center. However, the luminance trajectory clearly indicates a sequential palette as colors go monotonically from dark to light. Due to this unusual mixture the palette cannot be composed using the trajectories discussed in the <a href="hcl_palettes.html#construction-details">construction details</a>.</p>
+<p>Another somewhat nonstandard palette from the viridis family is the cividis palette based on blue and yellow hues and hence safe for red-green deficient viewers. The figure below shows the corresponding <code><a href="../reference/specplot.html">specplot()</a></code> along with an HCL-based approximation. This palette is unusual: The hue and chroma trajectories would suggest a diverging palette, as there are two “arms” with different hues and a zero-chroma point in the center. However, the luminance trajectory clearly indicates a sequential palette as colors go monotonically from dark to light. Due to this unusual mixture the palette cannot be composed using the trajectories discussed in the <a href="hcl_palettes.html#construction-details">construction details</a>.</p>
 <p><img src="approximations_files/figure-html/cividis-1.png" width="288"></p>
 <p>However, the tools in <em>colorspace</em> can still be employed to easily reconstruct the palette. One strategy would be to set up the trajectories manually, using a linear luminance, piecewise linear chroma, and piecewise constant hue:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
@@ -209,13 +209,13 @@
 <p>Garnier, Simon. 2018. <em><span style="font-style:normal;">Viridis</span>: Default Color Maps from <span style="font-style:normal;">Matplotlib</span></em>. <a href="https://CRAN.R-project.org/package=viridis">https://CRAN.R-project.org/package=viridis</a>.</p>
 </div>
 <div id="ref-color:Harrower+Brewer:2003">
-<p>Harrower, Mark A., and Cynthia A. Brewer. 2003. “<em>ColorBrewer.org</em>: An Online Tool for Selecting Color Schemes for Maps.” <em>The Cartographic Journal</em> 40: 27–37. <a href="http://ColorBrewer.org/">http://ColorBrewer.org/</a>.</p>
+<p>Harrower, Mark A., and Cynthia A. Brewer. 2003. “<em>ColorBrewer.org</em>: An Online Tool for Selecting Color Schemes for Maps.” <em>The Cartographic Journal</em> 40 (1): 27–37. <a href="https://doi.org/10.1179/000870403235002042">https://doi.org/10.1179/000870403235002042</a>.</p>
 </div>
 <div id="ref-color:RColorBrewer">
 <p>Neuwirth, Erich. 2014. <em><span style="font-style:normal;">RColorBrewer</span>: ColorBrewer Palettes</em>. <a href="https://CRAN.R-project.org/package=RColorBrewer">https://CRAN.R-project.org/package=RColorBrewer</a>.</p>
 </div>
 <div id="ref-color:rcartocolor">
-<p>Nowosad, Jakub. 2019. <em><span style="font-style:normal;">Rcartocolor</span>: “CARTOColors” Palettes</em>. <a href="https://CRAN.R-project.org/package=rcartocolor">https://CRAN.R-project.org/package=rcartocolor</a>.</p>
+<p>Nowosad, Jakub. 2019. <em><span style="font-style:normal;">Rcartocolor</span>: CARTOColors Palettes</em>. <a href="https://CRAN.R-project.org/package=rcartocolor">https://CRAN.R-project.org/package=rcartocolor</a>.</p>
 </div>
 <div id="ref-color:scico">
 <p>Pedersen, Thomas Lin, and Fabio Crameri. 2020. <em><span style="font-style:normal;">Scico</span>: Colour Palettes Based on the Scientific Colour-Maps</em>. <a href="https://CRAN.R-project.org/package=scico">https://CRAN.R-project.org/package=scico</a>.</p>

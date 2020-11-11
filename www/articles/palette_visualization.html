@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
       </span>
     </div>
 
@@ -158,8 +158,8 @@
 <p>Next, we demonstrate a more complex example of a <code><a href="../reference/swatchplot.html">swatchplot()</a></code> with three matrices of sequential color palettes of blues, purples, reds, and greens. For all palettes, luminance increases monotonically to yield a proper sequential palette. However, the hue and chroma handling is somewhat different to emphasize different parts of the palette.</p>
 <ul>
 <li>Single-hue: In each palette the hue is fixed and chroma decreases monotonically (along with increasing luminance). This is typically sufficient to clearly bring out the extreme colors (dark/colorful vs. light gray).</li>
-<li>Single-hue (advanced): The hue is fixed (as above) but the chroma trajectory is triangular. Compared to the basic single-hue palette above this better distinguishes the colors in the middle and not only the extremes.</li>
-<li>Multi-hue (advanced): As in the advanced single-hue palette the chroma trajectory is triangular but additionally the hue varies slightly. This can further enhance the distinction of colors in the middle of the palette.</li>
+<li>Single-hue (advanced): The hue is fixed (as above) but the chroma trajectory is triangular. Compared to the basic single-hue palette above, this better distinguishes the colors in the middle and not only the extremes.</li>
+<li>Multi-hue (advanced): As in the advanced single-hue palette, the chroma trajectory is triangular but additionally the hue varies slightly. This can further enhance the distinction of colors in the middle of the palette.</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="kw">bprg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Blues"</span>, <span class="st">"Purples"</span>, <span class="st">"Reds"</span>, <span class="st">"Greens"</span>)
@@ -171,6 +171,22 @@
 )
 </pre></div>
 <p><img src="palette_visualization_files/figure-html/swatch-brpg-1.png" width="100%" style="display: block; margin: auto;"></p>
+<p>Another convenient option of <code><a href="../reference/swatchplot.html">swatchplot()</a></code> for a single palette or list of palettes is to add swatches that emulate <a href="color_vision_deficiency.html">color vision deficiency</a> by setting <code>cvd = TRUE</code>, e.g., for the Okabe-Ito palette provided in the base R <code><a href="https://rdrr.io/r/grDevices/palette.html">palette.colors()</a></code> function:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="../reference/swatchplot.html">swatchplot</a></span>(<span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html">palette.colors</a></span>(), cvd = <span class="fl">TRUE</span>)
+</pre></div>
+<p><img src="palette_visualization_files/figure-html/swatch-cvd-1.png" width="480" style="display: block; margin: auto;"></p>
+<p>This shows that the Okabe-Ito palette is quite robust under various forms of color vision deficiency, by avoiding pure red or green and by suitably varying chroma and luminance to a certain degree.</p>
+<p>Moreover, the <code>cvd</code> argument can be set to a vector of transformation names, indicating which deficiencies to emulate. In the example below this is used to compare the Viridis and YlGnBu palettes under deuteranopia and desaturation.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="../reference/swatchplot.html">swatchplot</a></span>(
+  <span class="st">"YlGnBu"</span>  = <span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">7</span>, <span class="st">"YlGnBu"</span>),
+  <span class="st">"Viridis"</span> = <span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">7</span>, <span class="st">"Viridis"</span>),
+  cvd = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"deutan"</span>, <span class="st">"desaturate"</span>),
+  nrow = <span class="fl">4</span>
+)
+</pre></div>
+<p><img src="palette_visualization_files/figure-html/swatch-cvd2-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="hcl-and-rgb-spectrum" class="section level2">
 <h2 class="hasAnchor">
@@ -185,23 +201,23 @@
 </ul>
 <p>Additionally, a color swatch for the palette is included. Optionally, a second spectrum for the corresponding trajectories of RGB coordinates can be included. However, this is usually just of interest for palettes created in RGB space (or simple transformations of RGB).</p>
 <p>The illustrations below show how basic qualitative, sequential, and diverging palettes are constructed in HCL space (the corresponding mathematical equations are provided in the <a href="hcl_palettes.html#construction-details">construction details</a>). In the qualitative “Set 2” palette below, the hue traverses the entire color “wheel” (from 0 to 360 degrees) while keeping chroma and luminance (almost) constant (C = 60 and L = 70).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
+<div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="fu"><a href="../reference/specplot.html">specplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="fl">100</span>, <span class="st">"Set 2"</span>))
 </pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-qualitative-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>Note that due to the restrictions of the HCL color space, some of the green/blue colors have a slightly smaller maximum chroma resulting in a small dip in the chroma curve. This is fixed automatically (by default) and is hardly noticable in visualizations, though.</p>
 <p>The sequential “Blues 2” palette below employs a single hue (H = 260) and a monotonically increasing luminance trajectory (from dark to light). Chroma simply decreases monotonically along with increasing luminance.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="fu"><a href="../reference/specplot.html">specplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">100</span>, <span class="st">"Blues 2"</span>))
 </pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-sequential-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>Finally, the diverging “Blue-Red” palette is depicted below. It simply combines a blue and a red sequential single-hue palette (similar to the “Blues 2” palette discussed above). Hue is constant in each “arm” of the palette and the chroma/luminance trajectories are balanced between both arms. In the center the palette passes through a light gray (with zero chroma) as the neutral value.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="fu"><a href="../reference/specplot.html">specplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>(<span class="fl">100</span>, <span class="st">"Blue-Red"</span>))
 </pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-diverging-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>To contrast these well-balanced HCL-based palettes with a poorly-balanced palette, the spectrum of the (in)famous RGB rainbow palette is depicted in both RGB and HCL space.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="fu"><a href="../reference/specplot.html">specplot</a></span>(<span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span>(<span class="fl">100</span>), rgb = <span class="fl">TRUE</span>)
 </pre></div>
 <p><img src="palette_visualization_files/figure-html/spec-rainbow-1.png" width="480" style="display: block; margin: auto;"></p>
@@ -212,7 +228,7 @@
 <a href="#trajectories-in-hcl-space" class="anchor"></a>Trajectories in HCL space</h2>
 <p>While the <code><a href="../reference/specplot.html">specplot()</a></code> function above works well for bringing out the HCL coordinates associated with a given palette, it does not show how the palette fits into the HCL space. For example, it is not so clear whether high chroma values are close to the maximum possible for a given hue. Thus, it cannot be easily judged how the parameters of the hue, chroma, and luminance trajectories can be modified to obtain another palette.</p>
 <p>Therefore, the <code><a href="../reference/hclplot.html">hclplot()</a></code> is another visualization of the HCL coordinates associated with a palette. It does so by collapsing over one of the coordinates (either the hue H or the luminance L) and displaying a heatmap of colors combining the remaining two dimensions. The coordinates for the given color palette are highlighted to bring out its trajectory. In case the hue is really fixed (as in single-hue sequential palettes) or the luminance is really fixed (as in the qualitative palettes), collapsing is straightforward. However, when the coordinate that is collapsed over is not actually constant in the palette, a simple bivariate linear model is used to capture how the collapsed coordinate varies along with the two displayed coordinates.</p>
-<p>The function <code><a href="../reference/hclplot.html">hclplot()</a></code> has been designed to work well with the <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> in this package. While it is possible to apply it to other color palettes as well, the results might look weird or confusing if these palettes are constructed very differently (e.g., like the highly saturated base R palettes). To infer the default <code>type</code> of projection <code><a href="../reference/hclplot.html">hclplot()</a></code> assesses the luminance trajectory and sets the default correspondingly:</p>
+<p>The function <code><a href="../reference/hclplot.html">hclplot()</a></code> has been designed to work well with the <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> in this package. While it is possible to apply it to other color palettes as well, the results might look weird or confusing if these palettes are constructed very differently (e.g., like the highly saturated base R palettes). To infer the default <code>type</code> of projection, <code><a href="../reference/hclplot.html">hclplot()</a></code> assesses the luminance trajectory and sets the default correspondingly:</p>
 <ul>
 <li>
 <code>type = "qualitative"</code> if luminance is approximately constant.</li>
@@ -222,12 +238,12 @@
 <code>type = "diverging"</code> if luminance is diverging with two monotonic “arms” in the trajectory.</li>
 </ul>
 <p>Thus, for qualitative palettes - where luminance and chroma are fixed - the varying hue is displayed in a projection onto the hue-chroma plane at a given fixed luminance:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="fu"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="fl">9</span>, <span class="st">"Dynamic"</span>))
 </pre></div>
 <p><img src="palette_visualization_files/figure-html/hcl-qualitative-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>The display below compares three single-hue sequential palettes (similar to “Blues 2” and “Blues 3”) by projection to the luminance-chroma plane for the given fixed hue. In the left panel the hue 260 is used with a simple linear chroma trajectory. The other two panels employ a triangular chroma trajectory for hue 245, either with a piecewise-linear (center) or power-transformed (right) trajectory.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
+<div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mfrow = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">3</span>))
 <span class="fu"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">7</span>, h = <span class="fl">260</span>, c = <span class="fl">80</span>, l = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">35</span>, <span class="fl">95</span>), power = <span class="fl">1</span>))
 <span class="fu"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">7</span>, h = <span class="fl">245</span>, c = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">40</span>, <span class="fl">75</span>, <span class="fl">0</span>), l = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">30</span>, <span class="fl">95</span>), power = <span class="fl">1</span>))
@@ -236,7 +252,7 @@
 <p><img src="palette_visualization_files/figure-html/hcl-sequential-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>Note that for H = 260 it is possible to go to dark colors (= low luminance) with high chroma while this is not possible to the same extent for H = 245. Hence, chroma has to be decreased when proceeding to the dark low-luminance colors.</p>
 <p>Finally, the display below compares two multi-hue sequential palettes along with a diverging palette.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
+<div class="sourceCode" id="cb11"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mfrow = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">3</span>))
 <span class="fu"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">7</span>, h = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">260</span>, <span class="fl">220</span>), c = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">50</span>, <span class="fl">75</span>, <span class="fl">0</span>), l = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">30</span>, <span class="fl">95</span>), power = <span class="fl">1</span>))
 <span class="fu"><a href="../reference/hclplot.html">hclplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">7</span>, h = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">260</span>, <span class="fl">60</span>), c = <span class="fl">60</span>, l = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">40</span>, <span class="fl">95</span>), power = <span class="fl">1</span>))
@@ -258,7 +274,7 @@
 </ul>
 <p>Hence, in the following some further illustrations are organized by type of palette, using suitable demos for the particular palettes.</p>
 <p><em>Qualitative palettes:</em> Light pastel colors typically work better for shading areas (pie, left) while darker and more colorful palettes are usually preferred for points (center) or lines (right).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
+<div class="sourceCode" id="cb12"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mfrow = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">3</span>))
 <span class="fu"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="fl">4</span>, <span class="st">"Pastel 1"</span>), type = <span class="st">"pie"</span>)
 <span class="fu"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="fl">4</span>, <span class="st">"Set 2"</span>),    type = <span class="st">"scatter"</span>)
@@ -266,7 +282,7 @@
 </pre></div>
 <p><img src="palette_visualization_files/figure-html/demoplot-qualitative-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p><em>Sequential palettes:</em> Heatmaps (left) or perspective plots (center) often employ almost continuous gradients with strong luminance contrasts. In contrast, when only a few ordered categories are to be displayed (e.g., in a spine plot, right) more colorful sequential palettes like the viridis palette can be useful.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
+<div class="sourceCode" id="cb13"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mfrow = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">3</span>))
 <span class="fu"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">99</span>, <span class="st">"Purple-Blue"</span>), type = <span class="st">"heatmap"</span>)
 <span class="fu"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">99</span>, <span class="st">"Reds"</span>),        type = <span class="st">"perspective"</span>)
@@ -274,15 +290,15 @@
 </pre></div>
 <p><img src="palette_visualization_files/figure-html/demoplot-sequential-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p><em>Diverging palettes:</em> In some displays (such as the map, left), it is useful to employ an almost continuous gradient with strong luminance contrast to bring out the extremes. Here, this contrast is amplified by a larger power transformation emphasizing the extremes even further. In contrast, when fewer colors are needed more colorful palettes with lower luminance contrasts can be desired. This is exemplified by a mosaic (center) and bar plot (right).</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
+<div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mfrow = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">3</span>))
 <span class="fu"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>(<span class="fl">99</span>, <span class="st">"Tropic"</span>, power = <span class="fl">2.5</span>), type = <span class="st">"map"</span>)
 <span class="fu"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>( <span class="fl">5</span>, <span class="st">"Green-Orange"</span>),        type = <span class="st">"mosaic"</span>)
 <span class="fu"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">diverging_hcl</a></span>( <span class="fl">5</span>, <span class="st">"Blue-Red 2"</span>),          type = <span class="st">"bar"</span>)
 </pre></div>
 <p><img src="palette_visualization_files/figure-html/demoplot-diverging-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>All displays above focused on palettes designed for light/white backgrounds. Therefore, to conclude, some palettes are highlighted that work well on dark/black backgrounds.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
+<p>All displays above focus on palettes designed for light/white backgrounds. Therefore, to conclude, some palettes are highlighted that work well on dark/black backgrounds.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mfrow = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">3</span>), bg = <span class="st">"black"</span>)
 <span class="fu"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">9</span>, <span class="st">"Oslo"</span>), <span class="st">"heatmap"</span>)
 <span class="fu"><a href="../reference/demoplot.html">demoplot</a></span>(<span class="fu"><a href="../reference/hcl_palettes.html">sequential_hcl</a></span>(<span class="fl">9</span>, <span class="st">"Turku"</span>), <span class="st">"heatmap"</span>)

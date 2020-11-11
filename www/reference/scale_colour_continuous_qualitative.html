@@ -86,7 +86,7 @@ for completeness. It is not normally a good idea to color a continuous variable 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
       </span>
     </div>
 
@@ -172,6 +172,7 @@ for completeness. It is not normally a good idea to color a continuous variable 
   l1 = <span class='kw'>NULL</span>,
   h1 = <span class='kw'>NULL</span>,
   h2 = <span class='kw'>NULL</span>,
+  alpha = <span class='fl'>1</span>,
   rev = <span class='fl'>FALSE</span>,
   begin = <span class='fl'>0</span>,
   end = <span class='fl'>1</span>,
@@ -188,6 +189,7 @@ for completeness. It is not normally a good idea to color a continuous variable 
   l1 = <span class='kw'>NULL</span>,
   h1 = <span class='kw'>NULL</span>,
   h2 = <span class='kw'>NULL</span>,
+  alpha = <span class='fl'>1</span>,
   rev = <span class='fl'>FALSE</span>,
   begin = <span class='fl'>0</span>,
   end = <span class='fl'>1</span>,
@@ -222,6 +224,10 @@ for completeness. It is not normally a good idea to color a continuous variable 
     <tr>
       <th>h2</th>
       <td><p>Ending hue value.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>Numeric vector of values in the range <code>[0, 1]</code> for alpha transparency channel (0 means transparent and 1 means opaque).</p></td>
     </tr>
     <tr>
       <th>rev</th>

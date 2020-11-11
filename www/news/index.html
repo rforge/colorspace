@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
       </span>
     </div>
 
@@ -158,13 +158,16 @@
       
     </div>
 
-    <div id="colorspace-14-2" class="section level1">
-<h1 class="page-header" data-toc-text="1.4-2">
-<a href="#colorspace-14-2" class="anchor"></a>colorspace 1.4-2<small> Unreleased </small>
+    <div id="colorspace-20-0" class="section level1">
+<h1 class="page-header" data-toc-text="2.0-0">
+<a href="#colorspace-20-0" class="anchor"></a>colorspace 2.0-0<small> 2020-11-11 </small>
 </h1>
 <ul>
+<li><p>Release of version 2.0-0 accompanying the publication of the paper “colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes” in the <em>Journal of Statistcal Software</em> at <a href="https://doi.org/10.18637/jss.v096.i01" class="uri">https://doi.org/10.18637/jss.v096.i01</a>. The paper is a compact version of the package web page (<a href="http://colorspace.R-Forge.R-project.org/" class="uri">http://colorspace.R-Forge.R-project.org/</a>) including some more discussion of related methods and software along with some more references to the scientific literature.</p></li>
 <li><p>New function <code><a href="../reference/adjust_transparency.html">adjust_transparency()</a></code> that adjusts the alpha transparency of some color specification and returns a hexadecimal string where the alpha component is modified, added, or removed.</p></li>
 <li><p>Added three more palettes from Fabio Crameri’s scientific color maps (<em>scico</em>), namely <code>"Hawaii"</code> and <code>"Batlow"</code> in <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code> and <code>"Roma"</code> in <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code>.</p></li>
+<li><p>Additional option <code>cvd</code> in <code><a href="../reference/swatchplot.html">swatchplot()</a></code> so that color vision deficiency emulation can be included on the fly.</p></li>
+<li><p>Added <em>binned</em> <em>ggplot2</em> color scales (in addition to <em>discrete</em> and <em>continuous</em>).</p></li>
 <li><p>Changed the default colors in <code><a href="../reference/specplot.html">specplot()</a></code> from <code><a href="../reference/rainbow_hcl.html">rainbow_hcl(3)</a></code> to <code><a href="../reference/hcl_palettes.html">qualitative_hcl(3)</a></code> which is darker and has more chroma. Also, the order of the legend has been reversed (Luminance / Chroma / Hue) so that the legend labels are closer to the axis that they pertain to.</p></li>
 <li><p>Improve the documentation of the <code><a href="../reference/LUV.html">LUV()</a></code> and <code><a href="../reference/LAB.html">LAB()</a></code> color spaces, pointing out that the <code>U</code>/<code>V</code> and <code>A</code>/<code>B</code> coordinates are <em>typically</em> in [-100, 100] but can actually be exceeded by highly saturated colors.</p></li>
 <li><p>Bug fix in <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> and <code><a href="../reference/divergingx_hcl.html">divergingx_hcl()</a></code> where the central color of the diverging palette could sometimes collapse to transparent white due to numerical inaccuracies on 32-bit platforms.</p></li>
@@ -189,7 +192,7 @@
 <a href="#colorspace-14-0" class="anchor"></a>colorspace 1.4-0<small> 2019-01-13 </small>
 </h1>
 <ul>
-<li><p>Major update of the package that enhances many of its capabilities, e.g., more refined palettes, named palettes, ggplot2 color scales, visualizations for assessing palettes, more and enhanced shiny and Tcl/Tk apps, color vision deficiency emulation, and much more. See below for further details. A new web site presenting and documenting the package has been launched at <a href="http://colorspace.R-Forge.R-project.org/" class="uri">http://colorspace.R-Forge.R-project.org/</a></p></li>
+<li><p>Major update of the package that enhances many of its capabilities, e.g., more refined palettes, named palettes, <em>ggplot2</em> color scales, visualizations for assessing palettes, more and enhanced shiny and Tcl/Tk apps, color vision deficiency emulation, and much more. See below for further details. A new web site presenting and documenting the package has been launched at <a href="http://colorspace.R-Forge.R-project.org/" class="uri">http://colorspace.R-Forge.R-project.org/</a></p></li>
 <li><p>Claus O. Wilke and Claire D. McWhite joined the <em>colorspace</em> team, adding and enhancing various features, including (but not limited to) especially the color vision deficiency emulation, the <em>ggplot2</em> palettes, and new shiny apps.</p></li>
 <li><p>New function <code><a href="../reference/simulate_cvd.html">simulate_cvd()</a></code> for simulating color vision deficiencies with convenience interfaces <code><a href="../reference/simulate_cvd.html">deutan()</a></code>, <code><a href="../reference/simulate_cvd.html">protan()</a></code>, and <code><a href="../reference/simulate_cvd.html">tritan()</a></code>.</p></li>
 <li><p>New function <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> to query pre-defined HCL-based palettes: qualitative, sequential (single-hue), sequential (multi-hue), diverging. The corresponding <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>, <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>, and <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> methods can help to explore the palettes.</p></li>
