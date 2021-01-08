@@ -4,7 +4,7 @@
   "colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes"
   in the _Journal of Statistcal Software_ at <https://doi.org/10.18637/jss.v096.i01>.
   The paper is a compact version of the package web page
-  (<http://colorspace.R-Forge.R-project.org/>) including some more discussion
+  (<https://colorspace.R-Forge.R-project.org/>) including some more discussion
   of related methods and software along with some more references to the
   scientific literature.
 
@@ -81,7 +81,7 @@
   visualizations for assessing palettes, more and enhanced shiny and
   Tcl/Tk apps, color vision deficiency emulation, and much more. See
   below for further details. A new web site presenting and documenting
-  the package has been launched at http://colorspace.R-Forge.R-project.org/
+  the package has been launched at https://colorspace.R-Forge.R-project.org/
 
 * Claus O. Wilke and Claire D. McWhite joined the _colorspace_ team,
   adding and enhancing various features, including (but not limited to)

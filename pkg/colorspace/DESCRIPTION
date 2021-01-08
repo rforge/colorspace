@@ -28,7 +28,7 @@ Description: Carries out mapping between assorted color spaces including RGB, HS
 	     HCL space, and trajectories in HCL and/or RGB spectrum. Color manipulation
 	     functions include: desaturation, lightening/darkening, mixing, and
 	     simulation of color vision deficiencies (deutanomaly, protanomaly, tritanomaly).
-	     Details can be found on the project web page at <http://colorspace.R-Forge.R-project.org/>
+	     Details can be found on the project web page at <https://colorspace.R-Forge.R-project.org/>
 	     and in the accompanying scientific paper: Zeileis et al. (2020, Journal of Statistical
 	     Software, <doi:10.18637/jss.v096.i01>).
 Depends: R (>= 3.0.0), methods
@@ -59,7 +59,7 @@ Suggests:
     wesanderson
 VignetteBuilder: knitr
 License: BSD_3_clause + file LICENSE
-URL: http://colorspace.R-Forge.R-project.org, http://hclwizard.org/
-BugReports: http://colorspace.R-Forge.R-project.org/contact.html
+URL: https://colorspace.R-Forge.R-project.org, http://hclwizard.org/
+BugReports: https://colorspace.R-Forge.R-project.org/contact.html
 LazyData: yes
 RoxygenNote: 7.1.1
