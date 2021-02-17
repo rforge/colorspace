@@ -20,7 +20,7 @@
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes">
 <meta property="og:description" content="colorspace">
-<meta property="og:image" content="http://colorspace.R-Forge.R-project.org/logo.png">
+<meta property="og:image" content="https://colorspace.R-Forge.R-project.org/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@AchimZeileis">
 <meta name="twitter:site" content="@AchimZeileis">
@@ -107,7 +107,8 @@
 
       
 
-      </header><script src="colorspace_files/header-attrs-2.3/header-attrs.js"></script><script src="colorspace_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="colorspace_files/header-attrs-2.5/header-attrs.js"></script><script src="colorspace_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="colorspace_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="colorspace_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes</h1>
@@ -140,15 +141,15 @@
 <p>To aid choice and application of these palettes there are: scales for use with <em>ggplot2</em>; <em>shiny</em> (and <em>tcltk</em>) apps for interactive exploration; visualizations of palette properties; accompanying manipulation utilities (like desaturation, lighten/darken, and emulation of color vision deficiencies).</p>
 <p>More detailed overviews and examples are provided in the articles:</p>
 <ul>
-<li><a href="http://colorspace.R-Forge.R-project.org/articles/color_spaces.html">Color Spaces: S4 Classes and Utilities</a></li>
-<li><a href="http://colorspace.R-Forge.R-project.org/articles/hcl_palettes.html">HCL-Based Color Palettes</a></li>
-<li><a href="http://colorspace.R-Forge.R-project.org/articles/ggplot2_color_scales.html">HCL-Based Color Scales for <em>ggplot2</em></a></li>
-<li><a href="http://colorspace.R-Forge.R-project.org/articles/palette_visualization.html">Palette Visualization and Assessment</a></li>
-<li><a href="http://colorspace.R-Forge.R-project.org/articles/hclwizard.html">Apps for Choosing Colors and Palettes Interactively</a></li>
-<li><a href="http://colorspace.R-Forge.R-project.org/articles/color_vision_deficiency.html">Color Vision Deficiency Emulation</a></li>
-<li><a href="http://colorspace.R-Forge.R-project.org/articles/manipulation_utilities.html">Color Manipulation and Utilities</a></li>
-<li><a href="http://colorspace.R-Forge.R-project.org/articles/approximations.html">Approximating Palettes from Other Packages</a></li>
-<li><a href="http://colorspace.R-Forge.R-project.org/articles/endrainbow.html">Somewhere over the Rainbow</a></li>
+<li><a href="https://colorspace.R-Forge.R-project.org/articles/color_spaces.html">Color Spaces: S4 Classes and Utilities</a></li>
+<li><a href="https://colorspace.R-Forge.R-project.org/articles/hcl_palettes.html">HCL-Based Color Palettes</a></li>
+<li><a href="https://colorspace.R-Forge.R-project.org/articles/ggplot2_color_scales.html">HCL-Based Color Scales for <em>ggplot2</em></a></li>
+<li><a href="https://colorspace.R-Forge.R-project.org/articles/palette_visualization.html">Palette Visualization and Assessment</a></li>
+<li><a href="https://colorspace.R-Forge.R-project.org/articles/hclwizard.html">Apps for Choosing Colors and Palettes Interactively</a></li>
+<li><a href="https://colorspace.R-Forge.R-project.org/articles/color_vision_deficiency.html">Color Vision Deficiency Emulation</a></li>
+<li><a href="https://colorspace.R-Forge.R-project.org/articles/manipulation_utilities.html">Color Manipulation and Utilities</a></li>
+<li><a href="https://colorspace.R-Forge.R-project.org/articles/approximations.html">Approximating Palettes from Other Packages</a></li>
+<li><a href="https://colorspace.R-Forge.R-project.org/articles/endrainbow.html">Somewhere over the Rainbow</a></li>
 </ul>
 </div>
 <div id="installation" class="section level2">
@@ -160,7 +161,7 @@
 </pre></div>
 <p>The development version of <em>colorspace</em> is hosted on R-Forge at <a href="https://R-Forge.R-project.org/projects/colorspace/" class="uri">https://R-Forge.R-project.org/projects/colorspace/</a> in a Subversion (SVN) repository. It can be installed via</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"colorspace"</span>, repos = <span class="st">"http://R-Forge.R-project.org"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"colorspace"</span>, repos = <span class="st">"https://R-Forge.R-project.org"</span>)
 </pre></div>
 <p>For Python users a beta re-implementation of the full <em>colorspace</em> package in Python 2/Python 3 is also available, see <a href="https://github.com/retostauffer/python-colorspace" class="uri">https://github.com/retostauffer/python-colorspace</a>.</p>
 </div>
@@ -169,7 +170,7 @@
 <a href="#choosing-hcl-based-color-palettes" class="anchor"></a>Choosing HCL-based color palettes</h2>
 <p>The <em>colorspace</em> package ships with a wide range of predefined color palettes, specified through suitable trajectories in the HCL (hue-chroma-luminance) color space. A quick overview can be gained easily with the <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> function:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st"><a href="http://colorspace.R-Forge.R-project.org">"colorspace"</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st"><a href="https://colorspace.R-Forge.R-project.org">"colorspace"</a></span>)
 <span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(plot = <span class="fl">TRUE</span>)
 </pre></div>
 <p><img src="colorspace_files/figure-html/hcl-palettes-1.png" width="100%" style="display: block; margin: auto auto auto 0;"></p>

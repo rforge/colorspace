@@ -12,8 +12,8 @@ articles:
   hclwizard: hclwizard.html
   manipulation_utilities: manipulation_utilities.html
   palette_visualization: palette_visualization.html
-last_built: 2020-11-11T15:38Z
+last_built: 2021-02-17T13:44Z
 urls:
-  reference: http://colorspace.R-Forge.R-project.org//reference
-  article: http://colorspace.R-Forge.R-project.org//articles
+  reference: https://colorspace.R-Forge.R-project.org//reference
+  article: https://colorspace.R-Forge.R-project.org//articles
 

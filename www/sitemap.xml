@@ -1,180 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//index.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//index.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/HLS.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/HLS.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/HSV.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/HSV.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/LAB.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/LAB.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/LUV.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/LUV.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/RGB.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/RGB.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/USSouthPolygon.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/USSouthPolygon.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/XYZ.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/XYZ.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/adjust_transparency.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/adjust_transparency.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/choose_palette.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/choose_palette.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/color-class.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/color-class.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/coords.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/coords.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/cvd.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/cvd.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/cvd_emulator.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/cvd_emulator.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/cvd_image.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/cvd_image.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/demoplot.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/demoplot.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/desaturate.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/desaturate.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/divergingx_hcl.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/divergingx_hcl.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/hcl_color_picker.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/hcl_color_picker.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/hcl_palettes.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/hcl_palettes.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/hclplot.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/hclplot.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/hex.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/hex.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/hex2RGB.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/hex2RGB.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/lighten.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/lighten.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/max_chroma.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/max_chroma.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/mixcolor.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/mixcolor.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/polarLAB.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/polarLAB.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/polarLUV.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/polarLUV.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/rainbow_hcl.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/rainbow_hcl.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/readRGB.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/readRGB.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/readhex.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/readhex.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/sRGB.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/sRGB.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_diverging.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_diverging.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_divergingx.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_divergingx.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_qualitative.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_qualitative.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_sequential.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_binned_sequential.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_continuous_diverging.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_continuous_diverging.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_continuous_divergingx.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_continuous_divergingx.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_continuous_qualitative.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_continuous_qualitative.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_continuous_sequential.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_continuous_sequential.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_discrete_diverging.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_discrete_diverging.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_discrete_divergingx.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_discrete_divergingx.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_discrete_qualitative.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_discrete_qualitative.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/scale_colour_discrete_sequential.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/scale_colour_discrete_sequential.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/simulate_cvd.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/simulate_cvd.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/specplot.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/specplot.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/swatchplot.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/swatchplot.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/whitepoint.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/whitepoint.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//reference/writehex.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//reference/writehex.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//articles/approximations.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//articles/approximations.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//articles/color_spaces.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//articles/color_spaces.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//articles/color_vision_deficiency.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//articles/color_vision_deficiency.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//articles/colorspace.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//articles/colorspace.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//articles/endrainbow.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//articles/endrainbow.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//articles/ggplot2_color_scales.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//articles/ggplot2_color_scales.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//articles/hcl_palettes.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//articles/hcl_palettes.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//articles/hclwizard.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//articles/hclwizard.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//articles/manipulation_utilities.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//articles/manipulation_utilities.html</loc>
   </url>
   <url>
-    <loc>http://colorspace.R-Forge.R-project.org//articles/palette_visualization.html</loc>
+    <loc>https://colorspace.R-Forge.R-project.org//articles/palette_visualization.html</loc>
   </url>
 </urlset>
