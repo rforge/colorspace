@@ -1,3 +1,11 @@
+# colorspace 2.0-1
+
+* Assure that all `do.call()` for the `ggplot2` scale functions are made with
+  `envir = parent.frame()` in order to avoid problems with non-standard
+  evaluation, as reported in:
+  <https://stackoverflow.com/questions/66049336/paste-name-in-scale-fill-color-in-colorspace-does-not-work-in-a-loop>
+
+
 # colorspace 2.0-0
 
 * Release of version 2.0-0 accompanying the publication of the paper
