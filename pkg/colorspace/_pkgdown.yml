@@ -44,7 +44,7 @@ navbar:
 home:
   links:
   - text: "Online color apps"
-    href: http://hclwizard.org/
+    href: https://hclwizard.org/
 
 reference:
   - title: "Color spaces"

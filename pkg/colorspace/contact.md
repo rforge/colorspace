@@ -13,7 +13,7 @@ For discussions we also try to follow these channels:
 
 ## Other resources
 
-- <http://hclwizard.org/>  
+- <https://hclwizard.org/>  
   Online color apps.
 - <https://github.com/retostauffer/python-colorspace>  
   Python re-implementation of the R package.

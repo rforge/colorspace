@@ -18,7 +18,7 @@
 \title{Robust Color Maps That Work for Most Audiences (Including the U.S. President)}
 \subtitle{Reto Stauffer, Achim Zeileis}
 \author{\vspace*{-6.1cm}\hspace*{12.5cm}\includegraphics[width=1.6cm]{palmfooter.png}\\[5.5cm]\vspace{-1.5em}} %% -6.83 with "for Statistical Graphics"
-\URL{http://hclwizard.org/}%
+\URL{https://hclwizard.org/}%
 
 %% need no \usepackage{Sweave}
 \SweaveOpts{engine=R, eps=FALSE, echo=FALSE, results=hide, keep.source=TRUE}
@@ -604,7 +604,7 @@ hcl.swatch()
 
 \bigskip
 
-\textbf{Online versions:} \url{http://hclwizard.org/}
+\textbf{Online versions:} \url{https://hclwizard.org/}
 
 \end{frame}
 
@@ -663,9 +663,9 @@ hcl.swatch()
 
     \textbf{Software:} \emph{colorspace}.
     \begin{itemize}
-      \item R (mature): \url{http://colorspace.R-Forge.R-project.org/}.
+      \item R (mature): \url{https://colorspace.R-Forge.R-project.org/}.
       \item Python (beta): \url{https://github.com/retostauffer/python-colorspace}.
-      \item Web (interactive): \url{http://www.hclwizard.org/}.
+      \item Web (interactive): \url{https://www.hclwizard.org/}.
     \end{itemize}
     
     \bigskip

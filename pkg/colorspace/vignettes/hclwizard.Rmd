@@ -24,7 +24,7 @@ library("colorspace")
 To facilitate exploring the package and employing it when working with colors,
 several graphical user interfaces (GUIs) are provided within the package as
 _shiny_ apps [@color:shiny]. All of these GUIs/apps can be run locally
-from within R and are also provided at <http://hclwizard.org/>.
+from within R and are also provided at <https://hclwizard.org/>.
 
 * _Palette constructor:_ `choose_palette()` or `hclwizard()` or `hcl_wizard()`.
 * _Color picker:_ `choose_color()` or equivalently `hcl_color_picker()`.
