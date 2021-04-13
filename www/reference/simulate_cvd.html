@@ -86,7 +86,7 @@ based on a CVD transform matrix." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-1</span>
       </span>
     </div>
 
@@ -166,15 +166,15 @@ based on a CVD transform matrix." />
 based on a CVD transform matrix.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>simulate_cvd</span>(<span class='kw'>col</span>, <span class='kw'>cvd_transform</span>)
+    <pre class="usage"><span class='fu'>simulate_cvd</span><span class='op'>(</span><span class='va'>col</span>, <span class='va'>cvd_transform</span><span class='op'>)</span>
 
-<span class='fu'>deutan</span>(<span class='kw'>col</span>, severity = <span class='fl'>1</span>)
+<span class='fu'>deutan</span><span class='op'>(</span><span class='va'>col</span>, severity <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
-<span class='fu'>protan</span>(<span class='kw'>col</span>, severity = <span class='fl'>1</span>)
+<span class='fu'>protan</span><span class='op'>(</span><span class='va'>col</span>, severity <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
-<span class='fu'>tritan</span>(<span class='kw'>col</span>, severity = <span class='fl'>1</span>)
+<span class='fu'>tritan</span><span class='op'>(</span><span class='va'>col</span>, severity <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
-<span class='fu'>interpolate_cvd_transform</span>(<span class='kw'>cvd</span>, severity = <span class='fl'>1</span>)</pre>
+<span class='fu'>interpolate_cvd_transform</span><span class='op'>(</span><span class='va'>cvd</span>, severity <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -235,18 +235,18 @@ This can be handy to avoid too many conversions.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># simulate color-vision deficiency by calling `simulate_cvd` with specified matrix</span>
-<span class='fu'>simulate_cvd</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span>), <span class='kw'>tritanomaly_cvd</span>[<span class='st'>"6"</span>][[<span class='fl'>1</span>]])
+<span class='fu'>simulate_cvd</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span><span class='op'>)</span>, <span class='va'>tritanomaly_cvd</span><span class='op'>[</span><span class='st'>"6"</span><span class='op'>]</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "#004D19" "#000FAD" "#00B53B"</div><div class='input'>
 <span class='co'># simulate color-vision deficiency by calling the shortcut high-level function</span>
-<span class='fu'>tritan</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span>), severity = <span class='fl'>0.6</span>)
+<span class='fu'>tritan</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span><span class='op'>)</span>, severity <span class='op'>=</span> <span class='fl'>0.6</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "#004D19" "#000FAD" "#00B53B"</div><div class='input'>
 <span class='co'># simulate color-vision deficiency by calling `simulate_cvd` with interpolated cvd matrix</span>
-<span class='fu'>simulate_cvd</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span>),
-             <span class='fu'>interpolate_cvd_transform</span>(<span class='kw'>tritanomaly_cvd</span>, severity = <span class='fl'>0.6</span>))
+<span class='fu'>simulate_cvd</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#005000"</span>, <span class='st'>"blue"</span>, <span class='st'>"#00BB00"</span><span class='op'>)</span>,
+             <span class='fu'>interpolate_cvd_transform</span><span class='op'>(</span><span class='va'>tritanomaly_cvd</span>, severity <span class='op'>=</span> <span class='fl'>0.6</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "#004D19" "#000FAD" "#00B53B"</div><div class='input'>
 <span class='co'># apply CVD directly on RGB matrix</span>
-<span class='kw'>RGB</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='hex2RGB.html'>hex2RGB</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>3</span>))<span class='op'>@</span>coords<span class='op'>*</span><span class='fl'>255</span>)
-<span class='fu'>deutan</span>(<span class='kw'>RGB</span>)
+<span class='va'>RGB</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='hex2RGB.html'>hex2RGB</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>@</span><span class='va'>coords</span><span class='op'>*</span><span class='fl'>255</span><span class='op'>)</span>
+<span class='fu'>deutan</span><span class='op'>(</span><span class='va'>RGB</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   [,1] [,2] [,3]
 #&gt; R   94  219    0
 #&gt; G   71  171   12

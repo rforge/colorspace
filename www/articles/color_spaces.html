@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-1</span>
       </span>
     </div>
 
@@ -107,8 +107,7 @@
 
       
 
-      </header><script src="color_spaces_files/header-attrs-2.5/header-attrs.js"></script><script src="color_spaces_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="color_spaces_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="color_spaces_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="color_spaces_files/header-attrs-2.7/header-attrs.js"></script><script src="color_spaces_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Color Spaces: S4 Classes and Utilities</h1>
@@ -195,33 +194,29 @@
 <h2 class="hasAnchor">
 <a href="#illustration-of-basic-colorspace-functionality" class="anchor"></a>Illustration of basic colorspace functionality</h2>
 <p>As an example a vector of colors <code>x</code> can be specified in the HCL (or polar LUV) model:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-(<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/polarLUV.html">polarLUV</a></span>(L = <span class="fl">70</span>, C = <span class="fl">50</span>, H = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">120</span>, <span class="fl">240</span>)))
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/polarLUV.html">polarLUV</a></span><span class="op">(</span>L <span class="op">=</span> <span class="fl">70</span>, C <span class="op">=</span> <span class="fl">50</span>, H <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">120</span>, <span class="fl">240</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##       L  C   H
 ## [1,] 70 50   0
 ## [2,] 70 50 120
 ## [3,] 70 50 240</code></pre>
 <p>The resulting three colors are pastel red (hue = 0), green (hue = 120), and blue (hue = 240) with moderate chroma and luminance. For display in other systems an sRGB representation might be needed:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-(<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu">as</span>(<span class="kw">x</span>, <span class="st">"sRGB"</span>))
-</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">x</span>, <span class="st">"sRGB"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##              R         G         B
 ## [1,] 0.8931564 0.5853740 0.6465459
 ## [2,] 0.5266113 0.7224335 0.4590469
 ## [3,] 0.4907804 0.6911937 0.8673877</code></pre>
 <p>The displayed coordinates can also be extracted as numeric matrices by <code><a href="../reference/coords.html">coords(x)</a></code> or <code><a href="../reference/coords.html">coords(y)</a></code>. We can also, for example, coerce from sRGB to HSV:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu">as</span>(<span class="kw">y</span>, <span class="st">"HSV"</span>)
-</pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">as</span><span class="op">(</span><span class="va">y</span>, <span class="st">"HSV"</span><span class="op">)</span></code></pre></div>
 <pre><code>##             H         S         V
 ## [1,] 348.0750 0.3446008 0.8931564
 ## [2,] 104.6087 0.3645825 0.7224335
 ## [3,] 208.0707 0.4341857 0.8673877</code></pre>
 <p>For display in many systems (including R itself) hex color codes based on the sRGB coordinates can be created:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="../reference/hex.html">hex</a></span>(<span class="kw">x</span>)
-</pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hex.html">hex</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#E495A5" "#86B875" "#7DB0DD"</code></pre>
 </div>
 <div id="references" class="section level2 unnumbered">

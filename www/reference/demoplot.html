@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-1</span>
       </span>
     </div>
 
@@ -164,12 +164,12 @@
     <p>Demonstration of color palettes in various kinds of statistical graphics.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>demoplot</span>(
-  <span class='kw'>x</span>,
-  type = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"map"</span>, <span class='st'>"heatmap"</span>, <span class='st'>"scatter"</span>, <span class='st'>"spine"</span>, <span class='st'>"bar"</span>, <span class='st'>"pie"</span>, <span class='st'>"perspective"</span>, <span class='st'>"mosaic"</span>,
-    <span class='st'>"lines"</span>),
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>demoplot</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"map"</span>, <span class='st'>"heatmap"</span>, <span class='st'>"scatter"</span>, <span class='st'>"spine"</span>, <span class='st'>"bar"</span>, <span class='st'>"pie"</span>, <span class='st'>"perspective"</span>, <span class='st'>"mosaic"</span>,
+    <span class='st'>"lines"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,41 +211,41 @@ chart) while others work better with more colors (e.g., the heatmap).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## all built-in demos with the same sequential heat color palette</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(mfrow = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>3</span>))
-<span class='kw'>cl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>5</span>, <span class='st'>"Heat"</span>)
-<span class='co'>for</span> (<span class='kw'>i</span> <span class='co'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"map"</span>, <span class='st'>"heatmap"</span>, <span class='st'>"scatter"</span>, <span class='st'>"spine"</span>, <span class='st'>"bar"</span>, <span class='st'>"pie"</span>, <span class='st'>"perspective"</span>, <span class='st'>"mosaic"</span>, <span class='st'>"lines"</span>)) {
-  <span class='fu'>demoplot</span>(<span class='kw'>cl</span>, type = <span class='kw'>i</span>)
-}
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='st'>"Heat"</span><span class='op'>)</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"map"</span>, <span class='st'>"heatmap"</span>, <span class='st'>"scatter"</span>, <span class='st'>"spine"</span>, <span class='st'>"bar"</span>, <span class='st'>"pie"</span>, <span class='st'>"perspective"</span>, <span class='st'>"mosaic"</span>, <span class='st'>"lines"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>demoplot</span><span class='op'>(</span><span class='va'>cl</span>, type <span class='op'>=</span> <span class='va'>i</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div><div class='img'><img src='demoplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## qualitative palettes: light pastel colors for shading areas (pie)</span>
 <span class='co'>## and darker colorful palettes for points or lines</span>
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>qualitative_hcl</a></span>(<span class='fl'>4</span>, <span class='st'>"Pastel 1"</span>), type = <span class='st'>"pie"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>qualitative_hcl</a></span>(<span class='fl'>4</span>, <span class='st'>"Set 2"</span>), type = <span class='st'>"scatter"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>qualitative_hcl</a></span>(<span class='fl'>4</span>, <span class='st'>"Dark 3"</span>), type = <span class='st'>"lines"</span>)
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>qualitative_hcl</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='st'>"Pastel 1"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"pie"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>qualitative_hcl</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='st'>"Set 2"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"scatter"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>qualitative_hcl</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='st'>"Dark 3"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"lines"</span><span class='op'>)</span>
 
 <span class='co'>## sequential palettes: display almost continuous gradients with</span>
 <span class='co'>## strong luminance contrasts (heatmap, perspective) and colorful</span>
 <span class='co'>## sequential palette for spine plot with only a few ordered categories</span>
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>99</span>, <span class='st'>"Purple-Blue"</span>), type = <span class='st'>"heatmap"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>99</span>, <span class='st'>"Reds"</span>), type = <span class='st'>"perspective"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>4</span>, <span class='st'>"Viridis"</span>), type = <span class='st'>"spine"</span>)
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>99</span>, <span class='st'>"Purple-Blue"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"heatmap"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>99</span>, <span class='st'>"Reds"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"perspective"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='st'>"Viridis"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"spine"</span><span class='op'>)</span>
 
 <span class='co'>## diverging palettes: display almost continuous gradient with</span>
 <span class='co'>## strong luminance contrast bringing out the extremes (map),</span>
 <span class='co'>## more colorful palette with lower luminance contrasts for displays</span>
 <span class='co'>## with fewer colors (mosaic, bar)</span>
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>99</span>, <span class='st'>"Tropic"</span>, power = <span class='fl'>2.5</span>), type = <span class='st'>"map"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>5</span>, <span class='st'>"Green-Orange"</span>), type = <span class='st'>"mosaic"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>5</span>, <span class='st'>"Blue-Red 2"</span>), type = <span class='st'>"bar"</span>)
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span><span class='op'>(</span><span class='fl'>99</span>, <span class='st'>"Tropic"</span>, power <span class='op'>=</span> <span class='fl'>2.5</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"map"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='st'>"Green-Orange"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"mosaic"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='st'>"Blue-Red 2"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"bar"</span><span class='op'>)</span>
 </div><div class='img'><img src='demoplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## some palettes that work well on black backgrounds</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(mfrow = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>), bg = <span class='st'>"black"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>9</span>, <span class='st'>"Oslo"</span>), <span class='st'>"heatmap"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>9</span>, <span class='st'>"Turku"</span>), <span class='st'>"heatmap"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>9</span>, <span class='st'>"Inferno"</span>, rev = <span class='fl'>TRUE</span>), <span class='st'>"heatmap"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>qualitative_hcl</a></span>(<span class='fl'>9</span>, <span class='st'>"Set 2"</span>), <span class='st'>"lines"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>9</span>, <span class='st'>"Berlin"</span>), <span class='st'>"scatter"</span>)
-<span class='fu'>demoplot</span>(<span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span>(<span class='fl'>9</span>, <span class='st'>"Cyan-Magenta"</span>, l2 = <span class='fl'>20</span>), <span class='st'>"lines"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, bg <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='st'>"Oslo"</span><span class='op'>)</span>, <span class='st'>"heatmap"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='st'>"Turku"</span><span class='op'>)</span>, <span class='st'>"heatmap"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='st'>"Inferno"</span>, rev <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, <span class='st'>"heatmap"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>qualitative_hcl</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='st'>"Set 2"</span><span class='op'>)</span>, <span class='st'>"lines"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='st'>"Berlin"</span><span class='op'>)</span>, <span class='st'>"scatter"</span><span class='op'>)</span>
+<span class='fu'>demoplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>diverging_hcl</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='st'>"Cyan-Magenta"</span>, l2 <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>, <span class='st'>"lines"</span><span class='op'>)</span>
 </div><div class='img'><img src='demoplot-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-1</span>
       </span>
     </div>
 
@@ -164,19 +164,19 @@
     <p>Visualization of color palettes in columns of color swatches.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>swatchplot</span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>...</span>,
-  nrow = <span class='fl'>20</span>,
-  border = <span class='kw'>NULL</span>,
-  sborder = <span class='kw'>NULL</span>,
-  off = <span class='kw'>NULL</span>,
-  mar = <span class='kw'>NULL</span>,
-  line = <span class='kw'>NULL</span>,
-  cex = <span class='kw'>NULL</span>,
-  font = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
-  cvd = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>swatchplot</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>...</span>,
+  nrow <span class='op'>=</span> <span class='fl'>20</span>,
+  border <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sborder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  off <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mar <span class='op'>=</span> <span class='cn'>NULL</span>,
+  line <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cex <span class='op'>=</span> <span class='cn'>NULL</span>,
+  font <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,
+  cvd <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -257,29 +257,29 @@ in future versions.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## swatches of several palette vectors</span>
-<span class='fu'>swatchplot</span>(
-  <span class='st'>"Hue"</span>       = <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>5</span>, h = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>300</span>), c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>60</span>, <span class='fl'>60</span>), l = <span class='fl'>65</span>),
-  <span class='st'>"Chroma"</span>    = <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>5</span>, h = <span class='fl'>0</span>, c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>, <span class='fl'>0</span>), l = <span class='fl'>65</span>, rev = <span class='fl'>TRUE</span>, power = <span class='fl'>1</span>),
-  <span class='st'>"Luminance"</span> = <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>5</span>, h = <span class='fl'>260</span>, c = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>25</span>, <span class='fl'>25</span>), l = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>25</span>, <span class='fl'>90</span>), rev = <span class='fl'>TRUE</span>, power = <span class='fl'>1</span>),
-  off = <span class='fl'>0</span>
-)
+<span class='fu'>swatchplot</span><span class='op'>(</span>
+  <span class='st'>"Hue"</span>       <span class='op'>=</span> <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>5</span>, h <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>300</span><span class='op'>)</span>, c <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>60</span>, <span class='fl'>60</span><span class='op'>)</span>, l <span class='op'>=</span> <span class='fl'>65</span><span class='op'>)</span>,
+  <span class='st'>"Chroma"</span>    <span class='op'>=</span> <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>5</span>, h <span class='op'>=</span> <span class='fl'>0</span>, c <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>0</span><span class='op'>)</span>, l <span class='op'>=</span> <span class='fl'>65</span>, rev <span class='op'>=</span> <span class='cn'>TRUE</span>, power <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+  <span class='st'>"Luminance"</span> <span class='op'>=</span> <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>5</span>, h <span class='op'>=</span> <span class='fl'>260</span>, c <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>25</span><span class='op'>)</span>, l <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>90</span><span class='op'>)</span>, rev <span class='op'>=</span> <span class='cn'>TRUE</span>, power <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+  off <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='swatchplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## swatches of named palette matrices</span>
-<span class='kw'>bprg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Blues"</span>, <span class='st'>"Purples"</span>, <span class='st'>"Reds"</span>, <span class='st'>"Greens"</span>)
-<span class='fu'>swatchplot</span>(
-  <span class='st'>"Single-hue"</span>            = <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='kw'>bprg</span>, <span class='fl'>2</span>), <span class='kw'>sequential_hcl</span>, n = <span class='fl'>7</span>)),
-  <span class='st'>"Single-hue (advanced)"</span> = <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='kw'>bprg</span>, <span class='fl'>3</span>), <span class='kw'>sequential_hcl</span>, n = <span class='fl'>7</span>)),
-  <span class='st'>"Multi-hue (advanced)"</span>  = <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='kw'>bprg</span>,           <span class='kw'>sequential_hcl</span>, n = <span class='fl'>7</span>)),
-  nrow = <span class='fl'>5</span>
-)
+<span class='va'>bprg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Blues"</span>, <span class='st'>"Purples"</span>, <span class='st'>"Reds"</span>, <span class='st'>"Greens"</span><span class='op'>)</span>
+<span class='fu'>swatchplot</span><span class='op'>(</span>
+  <span class='st'>"Single-hue"</span>            <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>bprg</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='va'>sequential_hcl</span>, n <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='st'>"Single-hue (advanced)"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>bprg</span>, <span class='fl'>3</span><span class='op'>)</span>, <span class='va'>sequential_hcl</span>, n <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>,
+  <span class='st'>"Multi-hue (advanced)"</span>  <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>bprg</span>,           <span class='va'>sequential_hcl</span>, n <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>,
+  nrow <span class='op'>=</span> <span class='fl'>5</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='swatchplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## swatches with color vision deficiency emulation</span>
-<span class='fu'>swatchplot</span>(<span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>7</span>, <span class='st'>"Viridis"</span>), cvd = <span class='fl'>TRUE</span>)
-</div><div class='img'><img src='swatchplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>swatchplot</span>(
-  <span class='st'>"YlGnBu"</span>  = <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>7</span>, <span class='st'>"YlGnBu"</span>),
-  <span class='st'>"Viridis"</span> = <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span>(<span class='fl'>7</span>, <span class='st'>"Viridis"</span>),
-  cvd = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"deutan"</span>, <span class='st'>"desaturate"</span>)
-)
+<span class='fu'>swatchplot</span><span class='op'>(</span><span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>7</span>, <span class='st'>"Viridis"</span><span class='op'>)</span>, cvd <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='swatchplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>swatchplot</span><span class='op'>(</span>
+  <span class='st'>"YlGnBu"</span>  <span class='op'>=</span> <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>7</span>, <span class='st'>"YlGnBu"</span><span class='op'>)</span>,
+  <span class='st'>"Viridis"</span> <span class='op'>=</span> <span class='fu'><a href='hcl_palettes.html'>sequential_hcl</a></span><span class='op'>(</span><span class='fl'>7</span>, <span class='st'>"Viridis"</span><span class='op'>)</span>,
+  cvd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"deutan"</span>, <span class='st'>"desaturate"</span><span class='op'>)</span>
+<span class='op'>)</span>
 </div><div class='img'><img src='swatchplot-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

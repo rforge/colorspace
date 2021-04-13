@@ -85,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-1</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@
     <p>This functions converts <code><a href='color-class.html'>color-class</a></code> objects into hexadecimal strings.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>hex</span>(<span class='kw'>from</span>, gamma = <span class='kw'>NULL</span>, fixup = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>hex</span><span class='op'>(</span><span class='va'>from</span>, gamma <span class='op'>=</span> <span class='cn'>NULL</span>, fixup <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,16 +206,16 @@ primary values so that they lie between 0 and 255.</p>
     <p>Ross Ihaka</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>hsv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='HSV.html'>HSV</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>360</span>, length.out = <span class='fl'>7</span>)[<span class='op'>-</span><span class='fl'>7</span>], <span class='fl'>1</span>, <span class='fl'>1</span>)
-<span class='kw'>hsv</span>
+    <pre class="examples"><div class='input'><span class='va'>hsv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='HSV.html'>HSV</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>360</span>, length.out <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>7</span><span class='op'>]</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>hsv</span>
 </div><div class='output co'>#&gt;        H S V
 #&gt; [1,]   0 1 1
 #&gt; [2,]  60 1 1
 #&gt; [3,] 120 1 1
 #&gt; [4,] 180 1 1
 #&gt; [5,] 240 1 1
-#&gt; [6,] 300 1 1</div><div class='input'><span class='fu'>hex</span>(<span class='kw'>hsv</span>)
-</div><div class='output co'>#&gt; [1] "#FF0000" "#FFFF00" "#00FF00" "#00FFFF" "#0000FF" "#FF00FF"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>6</span>), col = <span class='fu'>hex</span>(<span class='kw'>hsv</span>))
+#&gt; [6,] 300 1 1</div><div class='input'><span class='fu'>hex</span><span class='op'>(</span><span class='va'>hsv</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "#FF0000" "#FFFF00" "#00FF00" "#00FFFF" "#0000FF" "#FF00FF"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>6</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='fu'>hex</span><span class='op'>(</span><span class='va'>hsv</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='hex-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

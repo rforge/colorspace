@@ -86,7 +86,7 @@ reduced (by a tunable amount) in HCL space." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-1</span>
       </span>
     </div>
 
@@ -166,7 +166,7 @@ reduced (by a tunable amount) in HCL space." />
 reduced (by a tunable amount) in HCL space.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>desaturate</span>(<span class='kw'>col</span>, amount = <span class='fl'>1</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>desaturate</span><span class='op'>(</span><span class='va'>col</span>, amount <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -223,27 +223,27 @@ This can be handy to avoid too many conversions.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## rainbow of colors and their desaturated counterparts</span>
-<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span>(<span class='fl'>12</span>)
+<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] "#E495A5" "#DB9D85" "#C7A76C" "#ABB065" "#86B875" "#5CBD92" "#39BEB1"
-#&gt;  [8] "#4CB9CC" "#7DB0DD" "#ACA4E2" "#CD99D8" "#E093C3"</div><div class='input'><span class='fu'>desaturate</span>(<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span>(<span class='fl'>12</span>))
+#&gt;  [8] "#4CB9CC" "#7DB0DD" "#ACA4E2" "#CD99D8" "#E093C3"</div><div class='input'><span class='fu'>desaturate</span><span class='op'>(</span><span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB"
 #&gt;  [8] "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB" "#ABABAB"</div><div class='input'>
 <span class='co'>## convenience demo function</span>
-<span class='kw'>wheel</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>col</span>, <span class='kw'>radius</span> = <span class='fl'>1</span>, <span class='kw'>...</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/pie.html'>pie</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>col</span>)), col = <span class='kw'>col</span>, radius = <span class='kw'>radius</span>, <span class='kw'>...</span>) 
+<span class='va'>wheel</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>col</span>, <span class='va'>radius</span> <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/pie.html'>pie</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>col</span><span class='op'>)</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='va'>col</span>, radius <span class='op'>=</span> <span class='va'>radius</span>, <span class='va'>...</span><span class='op'>)</span> 
 
 <span class='co'>## compare base and colorspace palettes</span>
 <span class='co'>## (in color and desaturated)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(mar = <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>, <span class='fl'>4</span>), mfrow = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>4</span><span class='op'>)</span>, mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'>## rainbow color wheel</span>
-<span class='fu'>wheel</span>(<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span>(<span class='fl'>12</span>))
-<span class='fu'>wheel</span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>12</span>))
-<span class='fu'>wheel</span>(<span class='fu'>desaturate</span>(<span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span>(<span class='fl'>12</span>)))
-<span class='fu'>wheel</span>(<span class='fu'>desaturate</span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>12</span>)))
+<span class='fu'>wheel</span><span class='op'>(</span><span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>wheel</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>wheel</span><span class='op'>(</span><span class='fu'>desaturate</span><span class='op'>(</span><span class='fu'><a href='rainbow_hcl.html'>rainbow_hcl</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>wheel</span><span class='op'>(</span><span class='fu'>desaturate</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='desaturate-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## apply desaturation directly on RGB values</span>
-<span class='kw'>RGB</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='hex2RGB.html'>hex2RGB</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fl'>3</span>))<span class='op'>@</span>coords <span class='op'>*</span> <span class='fl'>255</span>)
-<span class='fu'>desaturate</span>(<span class='kw'>RGB</span>)
+<span class='va'>RGB</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='hex2RGB.html'>hex2RGB</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>@</span><span class='va'>coords</span> <span class='op'>*</span> <span class='fl'>255</span><span class='op'>)</span>
+<span class='fu'>desaturate</span><span class='op'>(</span><span class='va'>RGB</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       [,1]     [,2]     [,3]
 #&gt; R 127.1223 219.9281 75.94690
 #&gt; G 127.1213 219.9264 75.94625

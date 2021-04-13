@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-1</span>
       </span>
     </div>
 
@@ -107,8 +107,7 @@
 
       
 
-      </header><script src="hcl_palettes_files/header-attrs-2.5/header-attrs.js"></script><script src="hcl_palettes_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="hcl_palettes_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="hcl_palettes_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="hcl_palettes_files/header-attrs-2.7/header-attrs.js"></script><script src="hcl_palettes_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>HCL-Based Color Palettes</h1>
@@ -137,9 +136,8 @@
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-principles-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>More details about the construction of such palettes is provided in the following while the article on <a href="palette_visualization.html">Palette Visualization and Assessment</a> introduces further tools to better understand the properties of color palettes.</p>
 <p>To facilitate obtaining good sets of colors, HCL parameter combinations that yield useful palettes are accessible by name. These can be listed using the function <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code>:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## HCL palettes
 ## 
 ## Type:  Qualitative 
@@ -152,12 +150,12 @@
 ## Type:  Sequential (multi-hue) 
 ## Names: Purple-Blue, Red-Purple, Red-Blue, Purple-Orange, Purple-Yellow,
 ##        Blue-Yellow, Green-Yellow, Red-Yellow, Heat, Heat 2, Terrain,
-##        Terrain 2, Viridis, Plasma, Inferno, Dark Mint, Mint, BluGrn,
-##        Teal, TealGrn, Emrld, BluYl, ag_GrnYl, Peach, PinkYl, Burg,
-##        BurgYl, RedOr, OrYel, Purp, PurpOr, Sunset, Magenta, SunsetDark,
-##        ag_Sunset, BrwnYl, YlOrRd, YlOrBr, OrRd, Oranges, YlGn, YlGnBu,
-##        Reds, RdPu, PuRd, Purples, PuBuGn, PuBu, Greens, BuGn, GnBu,
-##        BuPu, Blues, Lajolla, Turku, Hawaii, Batlow
+##        Terrain 2, Viridis, Plasma, Inferno, Rocket, Mako, Dark Mint,
+##        Mint, BluGrn, Teal, TealGrn, Emrld, BluYl, ag_GrnYl, Peach,
+##        PinkYl, Burg, BurgYl, RedOr, OrYel, Purp, PurpOr, Sunset,
+##        Magenta, SunsetDark, ag_Sunset, BrwnYl, YlOrRd, YlOrBr, OrRd,
+##        Oranges, YlGn, YlGnBu, Reds, RdPu, PuRd, Purples, PuBuGn, PuBu,
+##        Greens, BuGn, GnBu, BuPu, Blues, Lajolla, Turku, Hawaii, Batlow
 ## 
 ## Type:  Diverging 
 ## Names: Blue-Red, Blue-Red 2, Blue-Red 3, Red-Green, Purple-Green,
@@ -165,9 +163,8 @@
 ##        Green-Orange, Cyan-Magenta, Tropic, Broc, Cork, Vik, Berlin,
 ##        Lisbon, Tofino</code></pre>
 <p>To inspect the HCL parameter combinations for a specific palette simply include the <code>palette</code> name where upper- vs. lower-case, spaces, etc. are ignored for matching the label, e.g., <code>"set2"</code> matches <code>"Set 2"</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(palette = <span class="st">"set2"</span>)
-</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"set2"</span><span class="op">)</span></code></pre></div>
 <pre><code>## HCL palette
 ## Name: Set 2
 ## Type: Qualitative
@@ -176,21 +173,17 @@
 ##   0 NA 60 NA 70 NA NA NA   NA  TRUE</code></pre>
 <p>To compute the actual color hex codes (representing sRGB coordinates), the functions <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, and <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>, respectively, can be used. Either all parameters can be specified “by hand” through the HCL parameters, an entire palette can be specified “by name”, or the name-based specification can be modified by a few HCL parameters. In case of the HCL parameters, either a vector-based specification such as <code>h = c(0, 270)</code> or individual parameters <code>h1 = 0</code> and <code>h2 = 270</code> can be used.</p>
 <p>The first three of the following commands lead to equivalent output. The fourth command yields a modified set of colors (lighter due to a luminance of 80 instead of 70).</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="fl">4</span>, h = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">270</span>), c = <span class="fl">60</span>, l = <span class="fl">70</span>)
-</pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span><span class="op">(</span><span class="fl">4</span>, h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">270</span><span class="op">)</span>, c <span class="op">=</span> <span class="fl">60</span>, l <span class="op">=</span> <span class="fl">70</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#ED90A4" "#ABB150" "#00C1B2" "#ACA2EC"</code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="fl">4</span>, h1 = <span class="fl">0</span>, h2 = <span class="fl">270</span>, c1 = <span class="fl">60</span>, l1 = <span class="fl">70</span>)
-</pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span><span class="op">(</span><span class="fl">4</span>, h1 <span class="op">=</span> <span class="fl">0</span>, h2 <span class="op">=</span> <span class="fl">270</span>, c1 <span class="op">=</span> <span class="fl">60</span>, l1 <span class="op">=</span> <span class="fl">70</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#ED90A4" "#ABB150" "#00C1B2" "#ACA2EC"</code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="fl">4</span>, palette = <span class="st">"set2"</span>)
-</pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span><span class="op">(</span><span class="fl">4</span>, palette <span class="op">=</span> <span class="st">"set2"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#ED90A4" "#ABB150" "#00C1B2" "#ACA2EC"</code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="fl">4</span>, palette = <span class="st">"set2"</span>, l = <span class="fl">80</span>)
-</pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span><span class="op">(</span><span class="fl">4</span>, palette <span class="op">=</span> <span class="st">"set2"</span>, l <span class="op">=</span> <span class="fl">80</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#FFACBF" "#C6CD70" "#32DDCD" "#C7BEFF"</code></pre>
 </div>
 <div id="qualitative-palettes" class="section level2">
@@ -198,9 +191,8 @@
 <a href="#qualitative-palettes" class="anchor"></a>Qualitative palettes</h2>
 <p><code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> distinguishes the underlying categories by a sequence of hues while keeping both chroma and luminance constant, to give each color in the resulting palette the same perceptual weight. Thus, <code>h</code> should be a pair of hues (or equivalently <code>h1</code> and <code>h2</code> can be used) with the starting and ending hue of the palette. Then, an equidistant sequence between these hues is employed, by default spanning the full color wheel (i.e., the full 360 degrees). Chroma <code>c</code> (or equivalently <code>c1</code>) and luminance <code>l</code> (or equivalently <code>l1</code>) are constants. Finally, <code>fixup</code> indicates whether colors with out-of-range coordinates should be corrected.</p>
 <p>In the following graphic the available named palettes are shown. The first five palettes are close to the <em>ColorBrewer.org</em> palettes of the same name <span class="citation">(Harrower and Brewer <a href="#ref-color:Harrower+Brewer:2003" role="doc-biblioref">2003</a>)</span>. They employ different levels of chroma and luminance and, by default, span the full hue range. The remaining four palettes are taken from <span class="citation">Ihaka (<a href="#ref-color:Ihaka:2003" role="doc-biblioref">2003</a>)</span>. They are based on the same chroma (50) and luminance (70) but the hue is restricted to different intervals.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"qualitative"</span>, plot = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span><span class="op">(</span><span class="st">"qualitative"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-qualitative-1.png" width="60%" style="display: block; margin: auto;"></p>
 <p>When palettes are employed for shading areas in statistical displays (e.g., in bar plots, pie charts, or regions in maps), lighter colors (with moderate chroma and high luminance) such as “Pastel 1” or “Set 3” are typically less distracting. By contrast, when coloring points or lines, more flashy colors (with high chroma) are often required: On a white background a moderate luminance as in “Dark 2” or “Dark 3” usually works better while on a black/dark background the luminance should be higher as in “Set 2” for example.</p>
 </div>
@@ -211,9 +203,8 @@
 <p>For adding chroma, a simple strategy would be to pick a single hue (via <code>h</code> or <code>h1</code>) and then decrease chroma from some value (<code>c</code> or <code>c1</code>) to zero (i.e., gray) along with increasing luminance. This is already very effective for bringing out the extremes (a dark high-chroma color vs. a light gray), see <code>"Blues 2"</code>, <code>"Purples 2"</code>, <code>"Reds 2"</code>, and <code>"Greens 2"</code>.</p>
 <p>For distinguishing colors in the middle, two strategies can be employed: (a) Hue can be varied as well by specifying an interval of hues in <code>h</code> (or beginning hue <code>h1</code> and ending hue <code>h2</code>). More details are provided in the next section. (b) Instead of a decreasing chroma, a triangular chroma trajectory can be employed from <code>c1</code> over <code>cmax</code> to <code>c2</code> (equivalently specified as a vector <code>c</code> of length 3). This yields high-chroma colors in the middle of the palette that are more easily distinguished from the dark and light extremes. See “Blues 3”, “Purples 3”, “Reds 3”, and “Greens 3” below.</p>
 <p>Instead of employing linear trajectories in the chroma or luminance coordinates, some palettes employ a power transformation of the chroma and/or luminance trajectory. Either a vector <code>power</code> of length 2 or separate <code>p1</code> (for chroma) and <code>p2</code> (for luminance) can be specified. If the latter is missing, it defaults to the former.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"sequential (single-hue)"</span>, n = <span class="fl">7</span>, plot = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span><span class="op">(</span><span class="st">"sequential (single-hue)"</span>, n <span class="op">=</span> <span class="fl">7</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-sequentials-1.png" width="70%" style="display: block; margin: auto;"></p>
 <p>All except the last are inspired by the <em>ColorBrewer.org</em> palettes with the same base name <span class="citation">(Harrower and Brewer <a href="#ref-color:Harrower+Brewer:2003" role="doc-biblioref">2003</a>)</span> but restricted to a single hue only. They are intended for a white/light background. The last palette (Oslo) is taken from the scientific color maps of <span class="citation">Crameri (<a href="#ref-color:Crameri:2018" role="doc-biblioref">2018</a>)</span> and is intended for a black/dark background and hence the order is reversed starting from a light blue (not a light gray).</p>
 <p>To distinguish many colors in a sequential palette it is important to have a strong contrast on the luminance axis, possibly enhanced by an accompanying pronounced variation in chroma. When only a few colors are needed (e.g., for coding an ordinal categorical variable with few levels) then a lower luminance contrast may suffice.</p>
@@ -230,9 +221,8 @@
 <li>“YlOrRd” to “Blues” closely match <em>ColorBrewer.org</em> palettes <span class="citation">(Harrower and Brewer <a href="#ref-color:Harrower+Brewer:2003" role="doc-biblioref">2003</a>)</span>.</li>
 <li>“Lajolla” to “Batlow” closely match the scientific color maps of the same name by <span class="citation">Crameri (<a href="#ref-color:Crameri:2018" role="doc-biblioref">2018</a>)</span> and the first two of these are intended for a black/dark background.</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"sequential (multi-hue)"</span>, n = <span class="fl">7</span>, plot = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span><span class="op">(</span><span class="st">"sequential (multi-hue)"</span>, n <span class="op">=</span> <span class="fl">7</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-sequentialm-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>Note that the palettes differ substantially in the amount of chroma and luminance contrasts. For example, many palettes go from a dark high-chroma color to a neutral low-chroma color (e.g., “Reds”, “Purples”, “Greens”, “Blues”) or even light gray (e.g., “Purple-Blue”). But some palettes also employ relatively high chroma throughout the palette (e.g., the viridis and many <em>CARTO</em> palettes). To emphasize the extremes the former strategy is typically more suitable while the latter works better if all values along the sequence should receive some more perceptual weight.</p>
 </div>
@@ -246,9 +236,8 @@
 <li>“Tropic” closely matches the palette of the same name from <em>CARTO</em> <span class="citation">(CARTO <a href="#ref-color:CARTO" role="doc-biblioref">2019</a>)</span>.</li>
 <li>“Broc” to “Vik” and “Berlin” to “Tofino” closely match the scientific color maps of the same name by <span class="citation">Crameri (<a href="#ref-color:Crameri:2018" role="doc-biblioref">2018</a>)</span>, where the first three are intended for a white/light background and the other three for a black/dark background.</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"diverging"</span>, n = <span class="fl">7</span>, plot = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span><span class="op">(</span><span class="st">"diverging"</span>, n <span class="op">=</span> <span class="fl">7</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/hcl-palettes-diverging-1.png" width="70%" style="display: block; margin: auto;"></p>
 <p>When choosing a particular palette for a display similar considerations apply as for the sequential palettes. Thus, large luminance differences are important when many colors are used while smaller luminance contrasts may suffice for palettes with fewer colors etc.</p>
 </div>
@@ -322,22 +311,19 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <h2 class="hasAnchor">
 <a href="#registering-your-own-palettes" class="anchor"></a>Registering your own palettes</h2>
 <p>The <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code> already come with a wide range of predefined palettes to which customizations can be easily added. However, it might also be convenient to register a custom palette so that it can subsequently be reused with a new dedicated name. This is supported by adding a <code>register</code> argument once to a call to <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>, <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>, or <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code>:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="fl">3</span>, palette = <span class="st">"set2"</span>, l = <span class="fl">80</span>, register = <span class="st">"myset"</span>)
-</pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span><span class="op">(</span><span class="fl">3</span>, palette <span class="op">=</span> <span class="st">"set2"</span>, l <span class="op">=</span> <span class="fl">80</span>, register <span class="op">=</span> <span class="st">"myset"</span><span class="op">)</span></code></pre></div>
 <p>The new palette is then included in <code><a href="../reference/hcl_palettes.html">hcl_palettes()</a></code>:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span>(<span class="st">"Qualitative"</span>)
-</pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">hcl_palettes</a></span><span class="op">(</span><span class="st">"Qualitative"</span><span class="op">)</span></code></pre></div>
 <pre><code>## HCL palettes
 ## 
 ## Type:  Qualitative 
 ## Names: Pastel 1, Dark 2, Dark 3, Set 2, Set 3, Warm, Cold, Harmonic, Dynamic,
 ##        myset</code></pre>
 <p>The palette can be used subsequently in <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code> as well as the qualitative <a href="ggplot2_color_scales.html">ggplot2 color scales</a>, e.g.,</p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span>(<span class="fl">4</span>, palette = <span class="st">"myset"</span>)
-</pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/hcl_palettes.html">qualitative_hcl</a></span><span class="op">(</span><span class="fl">4</span>, palette <span class="op">=</span> <span class="st">"myset"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#FFACBF" "#C6CD70" "#32DDCD" "#C7BEFF"</code></pre>
 <p>Remarks:</p>
 <ul>
@@ -358,9 +344,8 @@ j = \left(1 + \frac{|c_\max - c_1|}{|c_\max - c_2|} \right)^{-1}
 <li>“Cividis” closely matches the palette of the same name from the <em>viridis</em> family <span class="citation">(Garnier <a href="#ref-color:viridis" role="doc-biblioref">2018</a>)</span>. Note that despite having two “arms” with blue vs. yellow colors and a low-chroma center color, this is probably better classified as a sequential palette due to the monotonic chroma going from dark to light. (See <a href="approximations.html">Approximating Palettes from Other Packages</a> for more details.)</li>
 <li>“Roma” closely matches the palette of the same name by <span class="citation">Crameri (<a href="#ref-color:Crameri:2018" role="doc-biblioref">2018</a>)</span>.</li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="fu"><a href="../reference/divergingx_hcl.html">divergingx_palettes</a></span>(n = <span class="fl">7</span>, plot = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/divergingx_hcl.html">divergingx_palettes</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">7</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="hcl_palettes_files/figure-html/divergingx-palettes-1.png" width="70%" style="display: block; margin: auto;"></p>
 <p>Typically, the more restricted <code><a href="../reference/hcl_palettes.html">diverging_hcl()</a></code> palettes should be preferred because they are more balanced. However, by being able to go through light yellow as the neutral color warmer diverging palettes are available.</p>
 </div>

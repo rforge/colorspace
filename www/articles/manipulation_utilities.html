@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">colorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0-1</span>
       </span>
     </div>
 
@@ -107,8 +107,7 @@
 
       
 
-      </header><script src="manipulation_utilities_files/header-attrs-2.5/header-attrs.js"></script><script src="manipulation_utilities_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="manipulation_utilities_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="manipulation_utilities_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="manipulation_utilities_files/header-attrs-2.7/header-attrs.js"></script><script src="manipulation_utilities_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Color Manipulation and Utilities</h1>
@@ -143,30 +142,26 @@
 <p>The <code><a href="../reference/desaturate.html">desaturate()</a></code> function converts any given hex color code or named R color to the corresponding HCL coordinates and sets the chroma to zero. Thus, only the luminance matters which captures the “brightness” mentioned above. Finally, the resulting HCL coordinates are transformed back to hex color codes for use in R.</p>
 <p>For illustration, a few simple examples are presented below. More examples in the context of palettes for statistical graphics are discussed along with the <a href="color_vision_deficiency.html">color vision deficiency</a> article.</p>
 <p>First, <code><a href="../reference/desaturate.html">desaturate()</a></code> is used to desaturate a vector of R color names:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="../reference/desaturate.html">desaturate</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"white"</span>, <span class="st">"orange"</span>, <span class="st">"blue"</span>, <span class="st">"black"</span>))
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/desaturate.html">desaturate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"orange"</span>, <span class="st">"blue"</span>, <span class="st">"black"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#FFFFFF" "#B8B8B8" "#4C4C4C" "#000000"</code></pre>
 <p>Notice that the hex codes corresponding to three coordinates in sRGB space are always the same, indicating gray colors.</p>
 <p>Analogously, hex color codes can also be transformed - in this case RGB rainbow colors from the base R function <code><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow()</a></code>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span>(<span class="fl">3</span>)
-</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#FF0000" "#00FF00" "#0000FF"</code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/desaturate.html">desaturate</a></span>(<span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span>(<span class="fl">3</span>))
-</pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/desaturate.html">desaturate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#7F7F7F" "#DCDCDC" "#4C4C4C"</code></pre>
 <p>Even this simple example suffices to show that the three RGB rainbow colors have very different grayscale levels. This deficiency is even clearer when using a full color wheel (of colors with hues in [0, 360] degrees). While the RGB <code><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow()</a></code> is very unbalanced the HCL <code><a href="../reference/rainbow_hcl.html">rainbow_hcl()</a></code> (or also <code><a href="../reference/hcl_palettes.html">qualitative_hcl()</a></code>) is (by design) balanced with respect to luminance.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">wheel</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">col</span>, <span class="kw">radius</span> = <span class="fl">1</span>, <span class="kw">...</span>)
-  <span class="fu"><a href="https://rdrr.io/r/graphics/pie.html">pie</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">col</span>)), col = <span class="kw">col</span>, radius = <span class="kw">radius</span>, <span class="kw">...</span>) 
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mar = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0.5</span>, <span class="fl">4</span>), mfrow = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">2</span>))
-<span class="fu">wheel</span>(<span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span>(<span class="fl">8</span>))
-<span class="fu">wheel</span>(<span class="fu"><a href="../reference/desaturate.html">desaturate</a></span>(<span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span>(<span class="fl">8</span>)))
-<span class="fu">wheel</span>(<span class="fu"><a href="../reference/rainbow_hcl.html">rainbow_hcl</a></span>(<span class="fl">8</span>))
-<span class="fu">wheel</span>(<span class="fu"><a href="../reference/desaturate.html">desaturate</a></span>(<span class="fu"><a href="../reference/rainbow_hcl.html">rainbow_hcl</a></span>(<span class="fl">8</span>)))
-</pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wheel</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">col</span>, <span class="va">radius</span> <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/pie.html">pie</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">col</span><span class="op">)</span><span class="op">)</span>, col <span class="op">=</span> <span class="va">col</span>, radius <span class="op">=</span> <span class="va">radius</span>, <span class="va">...</span><span class="op">)</span> 
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">4</span><span class="op">)</span>, mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">wheel</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">wheel</span><span class="op">(</span><span class="fu"><a href="../reference/desaturate.html">desaturate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">rainbow</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">wheel</span><span class="op">(</span><span class="fu"><a href="../reference/rainbow_hcl.html">rainbow_hcl</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">wheel</span><span class="op">(</span><span class="fu"><a href="../reference/desaturate.html">desaturate</a></span><span class="op">(</span><span class="fu"><a href="../reference/rainbow_hcl.html">rainbow_hcl</a></span><span class="op">(</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="manipulation_utilities_files/figure-html/desaturate-wheel-1.png" width="576"></p>
 </div>
 <div id="lighten-or-darken-colors" class="section level2">
@@ -178,17 +173,16 @@
 <p>We have found that typically the HCL-based transformation performs best for lightening colors and this is hence the default in <code><a href="../reference/lighten.html">lighten()</a></code>. For darkening colors, the combined strategy often works best and is hence the default in <code><a href="../reference/lighten.html">darken()</a></code>. In either case it is recommended to try the other available strategies in case the default yields unexpected results.</p>
 <p>Regardless of the chosen color space, the adjustment of the <code>L</code> component can occur by two methods, relative (the default) and absolute. For example <code>L - 100 * amount</code> is used for absolute darkening, or <code>L * (1 - amount)</code> for relative darkening. See <code><a href="../reference/lighten.html">lighten()</a></code> and <code><a href="../reference/lighten.html">darken()</a></code> for more details.</p>
 <p>For illustration a qualitative palette (Okabe-Ito) is transformed by two levels of both lightening and darkening, respectively.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="kw">oi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#61A9D9"</span>, <span class="st">"#ADD668"</span>, <span class="st">"#E6D152"</span>, <span class="st">"#CE6BAF"</span>, <span class="st">"#797CBA"</span>)
-<span class="fu"><a href="../reference/swatchplot.html">swatchplot</a></span>(
-  <span class="st">"-40%"</span> = <span class="fu"><a href="../reference/lighten.html">lighten</a></span>(<span class="kw">oi</span>, <span class="fl">0.4</span>),
-  <span class="st">"-20%"</span> = <span class="fu"><a href="../reference/lighten.html">lighten</a></span>(<span class="kw">oi</span>, <span class="fl">0.2</span>),
-  <span class="st">"  0%"</span> = <span class="kw">oi</span>,
-  <span class="st">" 20%"</span> =  <span class="fu"><a href="../reference/lighten.html">darken</a></span>(<span class="kw">oi</span>, <span class="fl">0.2</span>),
-  <span class="st">" 40%"</span> =  <span class="fu"><a href="../reference/lighten.html">darken</a></span>(<span class="kw">oi</span>, <span class="fl">0.4</span>),
-  off = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>)
-)
-</pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">oi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#61A9D9"</span>, <span class="st">"#ADD668"</span>, <span class="st">"#E6D152"</span>, <span class="st">"#CE6BAF"</span>, <span class="st">"#797CBA"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/swatchplot.html">swatchplot</a></span><span class="op">(</span>
+  <span class="st">"-40%"</span> <span class="op">=</span> <span class="fu"><a href="../reference/lighten.html">lighten</a></span><span class="op">(</span><span class="va">oi</span>, <span class="fl">0.4</span><span class="op">)</span>,
+  <span class="st">"-20%"</span> <span class="op">=</span> <span class="fu"><a href="../reference/lighten.html">lighten</a></span><span class="op">(</span><span class="va">oi</span>, <span class="fl">0.2</span><span class="op">)</span>,
+  <span class="st">"  0%"</span> <span class="op">=</span> <span class="va">oi</span>,
+  <span class="st">" 20%"</span> <span class="op">=</span>  <span class="fu"><a href="../reference/lighten.html">darken</a></span><span class="op">(</span><span class="va">oi</span>, <span class="fl">0.2</span><span class="op">)</span>,
+  <span class="st">" 40%"</span> <span class="op">=</span>  <span class="fu"><a href="../reference/lighten.html">darken</a></span><span class="op">(</span><span class="va">oi</span>, <span class="fl">0.4</span><span class="op">)</span>,
+  off <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 <p><img src="manipulation_utilities_files/figure-html/lighten-darken-1.png" width="432"></p>
 </div>
 <div id="adjust-transparency-of-colors" class="section level2">
@@ -207,35 +201,28 @@
 <code>alpha</code> numeric: Returns a hex vector with alpha transparency for all colors set to the <code>alpha</code> argument (recycled if necessary).</li>
 </ul>
 <p>For illustration, the transparency of a single black color is modified to three alpha levels: fully transparent, semi-transparent, and fully opaque, respectively. Black can be equivalently specified by name (<code>"black"</code>), hex string (<code>"#000000"</code>), or integer position in the palette (<code>1</code>).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(<span class="st">"black"</span>,   alpha = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span>))
-</pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span><span class="op">(</span><span class="st">"black"</span>,   alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#00000000" "#00000080" "#000000FF"</code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(<span class="st">"#000000"</span>, alpha = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span>))
-</pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span><span class="op">(</span><span class="st">"#000000"</span>, alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#00000000" "#00000080" "#000000FF"</code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(<span class="fl">1</span>,         alpha = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span>))
-</pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span><span class="op">(</span><span class="fl">1</span>,         alpha <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#00000000" "#00000080" "#000000FF"</code></pre>
 <p>Subsequently, different settings of <code>alpha</code> are illustrated for adjusting a vector with three shades of gray, specified by name (<code>gray</code>, opaque), opaque hex string (<code>"#BEBEBE"</code>), and semi-transparent hex string (<code>"#BEBEBE80"</code>). Four types of adjustment are shown: only if necessary (<code>alpha = NULL</code>), add (<code>alpha = TRUE</code>), remove (<code>alpha = FALSE</code>), or modify (<code>alpha = 0.8</code>).</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"gray"</span>, <span class="st">"#BEBEBE"</span>, <span class="st">"#BEBEBE80"</span>)
-<span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(<span class="kw">x</span>, alpha = <span class="kw">NULL</span>)
-</pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gray"</span>, <span class="st">"#BEBEBE"</span>, <span class="st">"#BEBEBE80"</span><span class="op">)</span>
+<span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#BEBEBE"   "#BEBEBE"   "#BEBEBE80"</code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(<span class="kw">x</span>, alpha = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#BEBEBEFF" "#BEBEBEFF" "#BEBEBE80"</code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(<span class="kw">x</span>, alpha = <span class="fl">FALSE</span>)
-</pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#BEBEBE" "#BEBEBE" "#BEBEBE"</code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit">
-<span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span>(<span class="kw">x</span>, alpha = <span class="fl">0.8</span>)
-</pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#BEBEBECC" "#BEBEBECC" "#BEBEBECC"</code></pre>
 </div>
 <div id="maximum-chroma-for-given-hue-and-luminance" class="section level2">
@@ -243,14 +230,12 @@
 <a href="#maximum-chroma-for-given-hue-and-luminance" class="anchor"></a>Maximum chroma for given hue and luminance</h2>
 <p>As the possible combinations of chroma and luminance in HCL space depend on hue, it is not obvious which trajectories through HCL space are possible prior to trying a specific HCL coordinate by calling <code><a href="../reference/polarLUV.html">polarLUV()</a></code>. To avoid having to fix up the color upon conversion to RGB <code><a href="../reference/hex.html">hex()</a></code> color codes, the <code><a href="../reference/max_chroma.html">max_chroma()</a></code> function computes (approximately) the maximum chroma possible.</p>
 <p>For illustration we show that for given luminance (here: L = 50) the maximum chroma varies substantially with hue:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit">
-<span class="fu"><a href="../reference/max_chroma.html">max_chroma</a></span>(h = <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">360</span>, by = <span class="fl">60</span>), l = <span class="fl">50</span>)
-</pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/max_chroma.html">max_chroma</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">360</span>, by <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>, l <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 137.96  59.99  69.06  39.81  65.45 119.54 137.96</code></pre>
 <p>Similarly, maximum chroma also varies substantially across luminance values for a given hue (here: H = 120, green):</p>
-<div class="sourceCode" id="cb25"><pre class="downlit">
-<span class="fu"><a href="../reference/max_chroma.html">max_chroma</a></span>(h = <span class="fl">120</span>, l = <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">100</span>, by = <span class="fl">20</span>))
-</pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/max_chroma.html">max_chroma</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">120</span>, l <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, by <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1]   0.00  28.04  55.35  82.79 110.28   0.00</code></pre>
 <p>In the plots below more combinations are visualized: In the left panel for maximum chroma across hues given luminance and in the right panel with increasing luminance given hue.</p>
 <p><img src="manipulation_utilities_files/figure-html/max-chroma-plot-1.png" width="100%" style="display: block; margin: auto;"></p>
@@ -259,18 +244,16 @@
 <h2 class="hasAnchor">
 <a href="#additive-mixing-of-two-colors" class="anchor"></a>Additive mixing of two colors</h2>
 <p>In additive color models like <code><a href="../reference/RGB.html">RGB()</a></code> or <code><a href="../reference/XYZ.html">XYZ()</a></code> it can be useful to combine colors by additive mixing. Below a fully saturated red and green are mixed, yielding a medium brownish yellow.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit">
-<span class="kw">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RGB.html">RGB</a></span>(<span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>)
-<span class="kw">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RGB.html">RGB</a></span>(<span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>)
-<span class="kw">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mixcolor.html">mixcolor</a></span>(<span class="fl">0.5</span>, <span class="kw">R</span>, <span class="kw">G</span>)
-<span class="kw">Y</span>
-</pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RGB.html">RGB</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RGB.html">RGB</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mixcolor.html">mixcolor</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">R</span>, <span class="va">G</span><span class="op">)</span>
+<span class="va">Y</span></code></pre></div>
 <pre><code>##        R   G B
 ## [1,] 0.5 0.5 0</code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mar = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>, <span class="fl">4</span>))
-<span class="fu"><a href="../reference/swatchplot.html">swatchplot</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="../reference/hex.html">hex</a></span>(<span class="kw">R</span>), <span class="fu"><a href="../reference/hex.html">hex</a></span>(<span class="kw">Y</span>), <span class="fu"><a href="../reference/hex.html">hex</a></span>(<span class="kw">G</span>)))
-</pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/swatchplot.html">swatchplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/hex.html">hex</a></span><span class="op">(</span><span class="va">R</span><span class="op">)</span>, <span class="fu"><a href="../reference/hex.html">hex</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span>, <span class="fu"><a href="../reference/hex.html">hex</a></span><span class="op">(</span><span class="va">G</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="manipulation_utilities_files/figure-html/mixcolor-1.png" width="240"></p>
 </div>
   </div>
