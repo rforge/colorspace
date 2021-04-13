@@ -1,5 +1,8 @@
 # colorspace 2.0-1
 
+* Added two new palettes from the viridis family (_viridis_/_viridisLite_),
+  namely `"Rocket"` and `"Mako"` in `sequential_hcl()`.
+
 * Assure that all `do.call()` for the `ggplot2` scale functions are made with
   `envir = parent.frame()` in order to avoid problems with non-standard
   evaluation, as reported in:

@@ -651,6 +651,8 @@ seqm.pals[["Terrain 2"]]   <- c(130,   30,  65,  0, 45, 90, 0.5, 1.5,  NA, 1) # 
 seqm.pals[["Viridis"]]     <- c(300,   75,  40, 95, 15, 90, 1.0, 1.1,  NA, 1) # viridis::viridis
 seqm.pals[["Plasma"]]      <-c(-100,  100,  60,100, 15, 95, 2.0, 0.9,  NA, 1) # viridis::plasma
 seqm.pals[["Inferno"]]     <-c(-100,   85,   0, 65,  1, 98, 1.1, 0.9, 120, 1) # viridis::inferno
+seqm.pals[["Rocket"]]      <- c(-70,   60,   0, 10,  2, 97, 0.8, 0.8, 130, 1) # viridis::rocket
+seqm.pals[["Mako"]]        <- c(325,  130,   0, 18,  2, 95, 1.0, 1.0,  70, 1) # viridis::mako
 
 seqm.pals[["Dark Mint"]]   <- c(240,  130,  30, 33, 25, 95, 1.0,  NA,  NA, 1) # CARTO: Dark Mint
 seqm.pals[["Mint"]]        <- c(205,  140,  40, 12, 34, 94, 0.5, 1.0,  NA, 1) # CARTO: Mint
@@ -826,7 +828,7 @@ GetPaletteConfig <- function(gui = NULL) {
 	   "Dark Mint", "BluYl", "Blue-Yellow", "Viridis", "Plasma",
            # Sequential multiple-hues advanced
            "Purple-Yellow", "YlGnBu", "Greens", "BuGn", "Teal", "Peach", "Blues", "BuPu", "Purples",
-           "Purp", "Burg", "Reds", "YlOrRd", "Sunset", "RdPu", "Inferno",
+           "Purp", "Burg", "Reds", "YlOrRd", "Sunset", "RdPu", "Inferno", "Rocket", "Mako",
            "Lajolla", "Turku", "Hawaii", "Batlow",
            # Base color maps (for shiny)
            "rainbow", "heat.colors", "topo.colors", "terrain.colors", "cm.colors", "bpy"
