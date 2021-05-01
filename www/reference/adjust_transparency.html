@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Adjust Transparency of Colors — adjust_transparency • colorspace</title>
+<title>Adjust or Extract Transparency of Colors — adjust_transparency • colorspace</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Adjust Transparency of Colors — adjust_transparency" />
-<meta property="og:description" content="Add, remove, or modify alpha transparency of a vector of colors." />
+<meta property="og:title" content="Adjust or Extract Transparency of Colors — adjust_transparency" />
+<meta property="og:description" content="Adjust (i.e., add, remove, or modify) or extract alpha transparency of a vector of colors." />
 <meta property="og:image" content="https://colorspace.R-Forge.R-project.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@AchimZeileis" />
@@ -155,16 +155,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Adjust Transparency of Colors</h1>
+    <h1>Adjust or Extract Transparency of Colors</h1>
     
     <div class="hidden name"><code>adjust_transparency.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Add, remove, or modify alpha transparency of a vector of colors.</p>
+    <p>Adjust (i.e., add, remove, or modify) or extract alpha transparency of a vector of colors.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>adjust_transparency</span><span class='op'>(</span><span class='va'>col</span>, alpha <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>adjust_transparency</span><span class='op'>(</span><span class='va'>col</span>, alpha <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='fu'>extract_transparency</span><span class='op'>(</span><span class='va'>col</span>, mode <span class='op'>=</span> <span class='st'>"numeric"</span>, default <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,15 +183,27 @@ rows containing R/G/B (0-255) values.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
-      <td><p>either a new numeric alpha transparency value or logical (to add/remove alpha)
+      <td><p>either a new alpha transparency value or logical (to add/remove alpha)
 or <code>NULL</code>. See details.</p></td>
+    </tr>
+    <tr>
+      <th>mode</th>
+      <td><p>character specifying the output mode for the alpha transparency, can be
+<code>"numeric"</code>, <code>"integer"</code>, <code>"character"</code> or <code>"hexmode"</code>. See details.</p></td>
+    </tr>
+    <tr>
+      <th>default</th>
+      <td><p>vector of length 1 specifying the default alpha transparency that should
+be returned for colors that do not specify any explicitly (defaulting to fully opaque).
+Can either be numeric, integer, character, or hexmode.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A character vector with hexadecimal color strings with alpha transparency
-corresponding to <code>alpha</code> argument.</p>
+    <p>For <code>adjust_transparency</code> character vector with hexadecimal color strings with alpha transparency
+corresponding to <code>alpha</code> argument. For <code>extract_transparency</code> a vector of
+alpha transparency values with the indicated <code>mode</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Alpha transparency is useful for making colors semi-transparent, e.g., for
@@ -212,6 +226,14 @@ specification of <code>alpha</code>:</p><ul>
       all colors set to the <code>alpha</code> argument (recycled if necessary).</p></li>
 </ul>
 
+<p>The <code>extract_transparency</code> function can be used to extract the alpha transparency
+from a set of colors. It allows to specify the <code>default</code> value - that should be used
+for colors without an explicit alpha transparency (defaulting to fully opaque) - and
+<code>mode</code> of the return value. This can either be numeric (in [0, 1]), integer
+(0L, 1L, ..., 255L), character (&#8220;00&#8221;, &#8220;01&#8221;, ..., &#8220;FF&#8221;),
+or an object of class <code><a href='https://rdrr.io/r/base/hexmode.html'>hexmode</a></code> (internally represented as integer
+with printing as character). The <code>default</code> can use any of these modes as well
+(independent of the output <code>mode</code>) or be <code>NA</code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2020).
@@ -236,7 +258,19 @@ specification of <code>alpha</code>:</p><ul>
 </div><div class='output co'>#&gt; [1] "#BEBEBE"   "#BEBEBE"   "#BEBEBE80"</div><div class='input'><span class='fu'>adjust_transparency</span><span class='op'>(</span><span class='va'>x</span>, alpha <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>  <span class='co'>## add</span>
 </div><div class='output co'>#&gt; [1] "#BEBEBEFF" "#BEBEBEFF" "#BEBEBE80"</div><div class='input'><span class='fu'>adjust_transparency</span><span class='op'>(</span><span class='va'>x</span>, alpha <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='co'>## remove</span>
 </div><div class='output co'>#&gt; [1] "#BEBEBE" "#BEBEBE" "#BEBEBE"</div><div class='input'><span class='fu'>adjust_transparency</span><span class='op'>(</span><span class='va'>x</span>, alpha <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>   <span class='co'>## modify</span>
-</div><div class='output co'>#&gt; [1] "#BEBEBECC" "#BEBEBECC" "#BEBEBECC"</div></pre>
+</div><div class='output co'>#&gt; [1] "#BEBEBECC" "#BEBEBECC" "#BEBEBECC"</div><div class='input'>
+<span class='co'>## extract transparency in different formats</span>
+<span class='fu'>extract_transparency</span><span class='op'>(</span><span class='va'>x</span>, mode <span class='op'>=</span> <span class='st'>"numeric"</span><span class='op'>)</span> <span class='co'>## default</span>
+</div><div class='output co'>#&gt; [1] 1.0000000 1.0000000 0.5019608</div><div class='input'><span class='fu'>extract_transparency</span><span class='op'>(</span><span class='va'>x</span>, mode <span class='op'>=</span> <span class='st'>"integer"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 255 255 128</div><div class='input'><span class='fu'>extract_transparency</span><span class='op'>(</span><span class='va'>x</span>, mode <span class='op'>=</span> <span class='st'>"character"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "FF" "FF" "80"</div><div class='input'><span class='fu'>extract_transparency</span><span class='op'>(</span><span class='va'>x</span>, mode <span class='op'>=</span> <span class='st'>"hexmode"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "ff" "ff" "80"</div><div class='input'>
+<span class='co'>## extract transparency with different default values</span>
+<span class='fu'>extract_transparency</span><span class='op'>(</span><span class='va'>x</span>, default <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]        NA        NA 0.5019608</div><div class='input'><span class='fu'>extract_transparency</span><span class='op'>(</span><span class='va'>x</span>, default <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.5000000 0.5000000 0.5019608</div><div class='input'><span class='fu'>extract_transparency</span><span class='op'>(</span><span class='va'>x</span>, default <span class='op'>=</span> <span class='fl'>128L</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.5019608 0.5019608 0.5019608</div><div class='input'><span class='fu'>extract_transparency</span><span class='op'>(</span><span class='va'>x</span>, default <span class='op'>=</span> <span class='st'>"80"</span>, mode <span class='op'>=</span> <span class='st'>"integer"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 128 128 128</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

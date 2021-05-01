@@ -165,6 +165,7 @@
 <ul>
 <li><p>Added two new palettes from the viridis family (<em>viridis</em>/<em>viridisLite</em>), namely <code>"Rocket"</code> and <code>"Mako"</code> in <code><a href="../reference/hcl_palettes.html">sequential_hcl()</a></code>.</p></li>
 <li><p>Assure that all <code><a href="https://rdrr.io/r/base/do.call.html">do.call()</a></code> for the <code>ggplot2</code> scale functions are made with <code>envir = parent.frame()</code> in order to avoid problems with non-standard evaluation, as reported in: <a href="https://stackoverflow.com/questions/66049336/paste-name-in-scale-fill-color-in-colorspace-does-not-work-in-a-loop" class="uri">https://stackoverflow.com/questions/66049336/paste-name-in-scale-fill-color-in-colorspace-does-not-work-in-a-loop</a></p></li>
+<li><p>New function <code><a href="../reference/adjust_transparency.html">extract_transparency()</a></code> for extracting alpha transparency from color specifications, either as numeric, integer, character or hexmode vectors. This accompanies the previously available function <code><a href="../reference/adjust_transparency.html">adjust_transparency()</a></code> allowing for more flexible modifications of alpha transparencies in colors.</p></li>
 </ul>
 </div>
     <div id="colorspace-20-0" class="section level1">
