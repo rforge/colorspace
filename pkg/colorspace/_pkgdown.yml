@@ -152,6 +152,7 @@ reference:
       - lighten
       - darken
       - adjust_transparency
+      - extract_transparency
       - max_chroma
       - max_chroma_table
       - mixcolor

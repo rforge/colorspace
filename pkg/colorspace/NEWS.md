@@ -8,6 +8,11 @@
   evaluation, as reported in:
   <https://stackoverflow.com/questions/66049336/paste-name-in-scale-fill-color-in-colorspace-does-not-work-in-a-loop>
 
+* New function `extract_transparency()` for extracting alpha transparency
+  from color specifications, either as numeric, integer, character or hexmode vectors.
+  This accompanies the previously available function `adjust_transparency()`
+  allowing for more flexible modifications of alpha transparencies in colors.
+
 
 # colorspace 2.0-0
 
