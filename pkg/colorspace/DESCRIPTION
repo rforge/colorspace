@@ -1,6 +1,6 @@
 Package: colorspace
 Version: 2.0-1
-Date: 2021-03-18
+Date: 2021-05-03
 Title: A Toolbox for Manipulating and Assessing Colors and Palettes
 Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "ihaka@stat.auckland.ac.nz"),
              person(given = "Paul", family = "Murrell", role = "aut", email = "paul@stat.auckland.ac.nz",
@@ -59,7 +59,7 @@ Suggests:
     wesanderson
 VignetteBuilder: knitr
 License: BSD_3_clause + file LICENSE
-URL: https://colorspace.R-Forge.R-project.org, https://hclwizard.org/
+URL: https://colorspace.R-Forge.R-project.org/, https://hclwizard.org/
 BugReports: https://colorspace.R-Forge.R-project.org/contact.html
 LazyData: yes
 RoxygenNote: 7.1.1
