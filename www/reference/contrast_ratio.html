@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute Maximum Chroma for Given Hue and Luminance in HCL — max_chroma • colorspace</title>
+<title>W3C Contrast Ratio — contrast_ratio • colorspace</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,9 +48,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Compute Maximum Chroma for Given Hue and Luminance in HCL — max_chroma" />
-<meta property="og:description" content="Compute approximately the maximum chroma possible for a given hue and
-luminance combination in the HCL color space." />
+<meta property="og:title" content="W3C Contrast Ratio — contrast_ratio" />
+<meta property="og:description" content="Compute (and visualize) the contrast ratio of pairs of colors, as defined by the World Wide
+Web Consortium (W3C)." />
 <meta property="og:image" content="https://colorspace.R-Forge.R-project.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@AchimZeileis" />
@@ -156,65 +156,75 @@ luminance combination in the HCL color space." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute Maximum Chroma for Given Hue and Luminance in HCL</h1>
+    <h1>W3C Contrast Ratio</h1>
     
-    <div class="hidden name"><code>max_chroma.Rd</code></div>
+    <div class="hidden name"><code>contrast_ratio.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compute approximately the maximum chroma possible for a given hue and
-luminance combination in the HCL color space.</p>
+    <p>Compute (and visualize) the contrast ratio of pairs of colors, as defined by the World Wide
+Web Consortium (W3C).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>max_chroma</span><span class='op'>(</span><span class='va'>h</span>, <span class='va'>l</span>, floor <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='va'>max_chroma_table</span></pre>
+    <pre class="usage"><span class='fu'>contrast_ratio</span><span class='op'>(</span><span class='va'>col</span>, col2 <span class='op'>=</span> <span class='cn'>NULL</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>h</th>
-      <td><p>hue value in the HCL color description, has to be in [0, 360].</p></td>
+      <th>col</th>
+      <td><p>vector of any of the three kind of R colors, i.e., either a color
+name (an element of <code><a href='https://rdrr.io/r/grDevices/colors.html'>colors</a></code>), a hexadecimal string
+of the form <code>"#rrggbb"</code> or <code>"#rrggbbaa"</code> (see
+<code><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></code>), or an integer <code>i</code> meaning
+<code>palette()[i]</code>.</p></td>
     </tr>
     <tr>
-      <th>l</th>
-      <td><p>luminance value in the HCL color description, has to be in [0, 100].</p></td>
+      <th>col2</th>
+      <td><p>vector of background colors (as for <code>col</code> above). If <code>NULL</code>,
+all subsequent pairs from <code>col</code> are used.</p></td>
     </tr>
     <tr>
-      <th>floor</th>
-      <td><p>logical. Should the chroma value be rounded down to the next
-lower integer?</p></td>
+      <th>plot</th>
+      <td><p>logical indicating whether the contrast ratios should also be
+visualized by simple color swatches. Can also be a vector of length 2, indicating
+whether the foreground color should be visualized on the background color and/or
+the background color on the foreground color.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numeric vector with the maximum chroma coordinates.</p>
+    <p>A numeric vector with the contrast ratios is returned (invisibly, if <code>plot</code> is <code>TRUE</code>).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>As the possible combinations of chroma and luminance depend on hue, it is
-not obvious which maximum chroma can be used for a given combination of hue
-and luminance prior to calling <code><a href='polarLUV.html'>polarLUV</a></code>. To avoid having to
-<code>fixup</code> the color upon conversion to RGB <code><a href='hex.html'>hex</a></code> codes, the
-<code>max_chroma</code> function computes (approximately) the maximum chroma
-possible. The computations are based on interpolations of pre-computed
-maxima in <code>max_chroma_table</code>, containing the maximum chroma for a given
-hue-luminance combination (both in integers). Hence, the result may sometimes
-still be very slightly larger than the actual maximum which can be avoided
-by taking the <code>floor</code> of the approximate value.</p>
+    <p>The W3C Content Accessibility Guidelines (WCAG) recommend a contrast
+ratio of at least 4.5 for the color of regular text on the background color, and
+a ratio of at least 3 for large text. See <a href='https://www.w3.org/TR/WCAG21/#contrast-minimum'>https://www.w3.org/TR/WCAG21/#contrast-minimum</a>.</p>
+<p>The contrast ratio is defined in <a href='https://www.w3.org/TR/WCAG21/#dfn-contrast-ratio'>https://www.w3.org/TR/WCAG21/#dfn-contrast-ratio</a>
+as <code>(L1 + 0.05) / (L2 + 0.05)</code> where <code>L1</code> and <code>L2</code> are the relative luminances
+(see <a href='https://www.w3.org/TR/WCAG21/#dfn-relative-luminance'>https://www.w3.org/TR/WCAG21/#dfn-relative-luminance</a>) of the lighter and darker
+colors, respectively. The relative luminances are weighted sums of scaled sRGB coordinates:
+<code>0.2126 * R + 0.7152 * G + 0.0722 * B</code> where each of <code>R</code>, <code>G</code>, and <code>B</code>
+is defined as <code>ifelse(RGB &lt;= 0.03928, RGB/12.92, ((RGB + 0.055)/1.055)^2.4 )</code> based on
+the <code>RGB</code> coordinates between 0 and 1.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>W3C (2018). &#8220;Web Content Accessibility Guidelines (WCAG) 2.1.&#8221;
+<a href='https://www.w3.org/TR/WCAG21/'>https://www.w3.org/TR/WCAG21/</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='polarLUV.html'>polarLUV</a></code>, <code><a href='hex.html'>hex</a></code></p></div>
+    <div class='dont-index'><p><code><a href='desaturate.html'>desaturate</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>max_chroma</span><span class='op'>(</span>h <span class='op'>=</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>36</span> <span class='op'>*</span> <span class='fl'>10</span>, l <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] 137.96 161.61 121.85  91.86  75.55  65.86  59.99  56.66  55.28  55.61
-#&gt; [11]  57.70  61.92  69.06  72.78  58.06  49.54  44.38  41.33  39.81  39.55
-#&gt; [21]  40.52  42.87  47.04  53.90  65.45  86.65 124.44 123.87 127.15 131.17
-#&gt; [31] 119.54 112.95 110.23 110.93 115.15 123.62 137.96</div><div class='input'><span class='fu'>max_chroma</span><span class='op'>(</span>h <span class='op'>=</span> <span class='fl'>120</span>, l <span class='op'>=</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>10</span> <span class='op'>*</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1]   0.00  14.44  28.04  41.67  55.35  69.06  82.79  96.53 110.28 122.90
-#&gt; [11]   0.00</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># check contrast ratio of default palette on white background</span>
+<span class='fu'>contrast_ratio</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palette.html'>palette</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"white"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 21.000000  3.758588  1.973030  3.163940  1.603030  4.805641  1.608044
+#&gt; [8]  2.679156</div><div class='input'>
+<span class='co'># visualize contrast ratio of default palette on white and black background</span>
+<span class='fu'>contrast_ratio</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palette.html'>palette</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"white"</span>, plot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='contrast_ratio-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>contrast_ratio</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palette.html'>palette</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>, <span class='st'>"black"</span>, plot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='contrast_ratio-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -153,6 +153,7 @@ reference:
       - darken
       - adjust_transparency
       - extract_transparency
+      - contrast_ratio
       - max_chroma
       - max_chroma_table
       - mixcolor
