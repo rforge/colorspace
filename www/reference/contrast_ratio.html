@@ -166,7 +166,17 @@ Web Consortium (W3C)." />
 Web Consortium (W3C).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>contrast_ratio</span><span class='op'>(</span><span class='va'>col</span>, col2 <span class='op'>=</span> <span class='cn'>NULL</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>contrast_ratio</span><span class='op'>(</span>
+  <span class='va'>col</span>,
+  col2 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  border <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cex <span class='op'>=</span> <span class='fl'>2</span>,
+  off <span class='op'>=</span> <span class='fl'>0.05</span>,
+  mar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>4</span><span class='op'>)</span>,
+  digits <span class='op'>=</span> <span class='fl'>2L</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,6 +201,35 @@ visualized by simple color swatches. Can also be a vector of length 2, indicatin
 whether the foreground color should be visualized on the background color and/or
 the background color on the foreground color.</p></td>
     </tr>
+    <tr>
+      <th>border</th>
+      <td><p>logical or color specification for the borders around the color swatches (only
+used if <code>plot = TRUE</code>). The default is <code>FALSE</code> which is equivalent to
+<code>"transparent"</code>. If <code>TRUE</code> the border is drawn in the same color as the text in the
+rectangle.</p></td>
+    </tr>
+    <tr>
+      <th>cex</th>
+      <td><p>numeric. Size of the text in the color color swatches (only if <code>plot = TRUE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>off</th>
+      <td><p>numeric. Vertical offset between the different color swatches (only if <code>plot = TRUE</code>).
+Can also be of length 2 giving both vertical and horizontal offsets, respectively.</p></td>
+    </tr>
+    <tr>
+      <th>mar</th>
+      <td><p>numeric. Size of the margins around the color swatches (only if <code>plot = TRUE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>numeric. Number of digits for the contrast ratios displayed in the color swatches
+(only if <code>plot = TRUE</code>)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments passed to the plot of the color swatches (only if <code>plot = TRUE</code>).</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -206,7 +245,7 @@ as <code>(L1 + 0.05) / (L2 + 0.05)</code> where <code>L1</code> and <code>L2</co
 (see <a href='https://www.w3.org/TR/WCAG21/#dfn-relative-luminance'>https://www.w3.org/TR/WCAG21/#dfn-relative-luminance</a>) of the lighter and darker
 colors, respectively. The relative luminances are weighted sums of scaled sRGB coordinates:
 <code>0.2126 * R + 0.7152 * G + 0.0722 * B</code> where each of <code>R</code>, <code>G</code>, and <code>B</code>
-is defined as <code>ifelse(RGB &lt;= 0.03928, RGB/12.92, ((RGB + 0.055)/1.055)^2.4 )</code> based on
+is defined as <code>ifelse(RGB &lt;= 0.03928, RGB/12.92, ((RGB + 0.055)/1.055)^2.4)</code> based on
 the <code>RGB</code> coordinates between 0 and 1.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 

@@ -4,7 +4,17 @@
 \alias{contrast_ratio}
 \title{W3C Contrast Ratio}
 \usage{
-contrast_ratio(col, col2 = NULL, plot = FALSE)
+contrast_ratio(
+  col,
+  col2 = NULL,
+  plot = FALSE,
+  border = FALSE,
+  cex = 2,
+  off = 0.05,
+  mar = rep(0.5, 4),
+  digits = 2L,
+  ...
+)
 }
 \arguments{
 \item{col}{vector of any of the three kind of R colors, i.e., either a color
@@ -20,6 +30,23 @@ all subsequent pairs from \code{col} are used.}
 visualized by simple color swatches. Can also be a vector of length 2, indicating
 whether the foreground color should be visualized on the background color and/or
 the background color on the foreground color.}
+
+\item{border}{logical or color specification for the borders around the color swatches (only
+used if \code{plot = TRUE}). The default is \code{FALSE} which is equivalent to
+\code{"transparent"}. If \code{TRUE} the border is drawn in the same color as the text in the
+rectangle.}
+
+\item{cex}{numeric. Size of the text in the color color swatches (only if \code{plot = TRUE}).}
+
+\item{off}{numeric. Vertical offset between the different color swatches (only if \code{plot = TRUE}).
+Can also be of length 2 giving both vertical and horizontal offsets, respectively.}
+
+\item{mar}{numeric. Size of the margins around the color swatches (only if \code{plot = TRUE}).}
+
+\item{digits}{numeric. Number of digits for the contrast ratios displayed in the color swatches
+(only if \code{plot = TRUE})}
+
+\item{\dots}{further arguments passed to the plot of the color swatches (only if \code{plot = TRUE}).}
 }
 \value{
 A numeric vector with the contrast ratios is returned (invisibly, if \code{plot} is \code{TRUE}).
@@ -38,7 +65,7 @@ as \code{(L1 + 0.05) / (L2 + 0.05)} where \code{L1} and \code{L2} are the relati
 (see \url{https://www.w3.org/TR/WCAG21/#dfn-relative-luminance}) of the lighter and darker
 colors, respectively. The relative luminances are weighted sums of scaled sRGB coordinates:
 \code{0.2126 * R + 0.7152 * G + 0.0722 * B} where each of \code{R}, \code{G}, and \code{B}
-is defined as \code{ifelse(RGB <= 0.03928, RGB/12.92, ((RGB + 0.055)/1.055)^2.4 )} based on
+is defined as \code{ifelse(RGB <= 0.03928, RGB/12.92, ((RGB + 0.055)/1.055)^2.4)} based on
 the \code{RGB} coordinates between 0 and 1.
 }
 \examples{
