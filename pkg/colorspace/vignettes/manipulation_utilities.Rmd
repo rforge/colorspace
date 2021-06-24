@@ -26,6 +26,8 @@ useful for creating, assessing, or transforming color palettes, namely:
 
 * `desaturate()`: Desaturate colors by chroma removal in HCL space.
 * `darken()` and `lighten()`: Algorithmically lighten or darken colors in HCL and/or HLS space.
+* `adjust_transparency()` and `extract_transparency()`: Adjust or extract the transparency of colors.
+* `contrast_ratio()`: Computing and visualizing W3C contrast ratios of colors.
 * `max_chroma()`: Compute maximum chroma for given hue and luminance in HCL space.
 * `mixcolor()`: Additively mix two colors by computing their convex combination.
 
@@ -119,8 +121,7 @@ swatchplot(
 )
 ```
 
-
-## Adjust transparency of colors
+## Adjust or extract the transparency of colors
 
 Alpha transparency is useful for making colors semi-transparent, e.g., for
 overlaying different elements in graphics. An alpha value
@@ -168,6 +169,45 @@ adjust_transparency(x, alpha = TRUE)
 adjust_transparency(x, alpha = FALSE)
 adjust_transparency(x, alpha = 0.8)
 ```
+
+The `extract_transparency()` function can be used to extract the alpha transparency
+from a set of colors. It allows to specify the `default` value - that should be used
+for colors without an explicit alpha transparency (defaulting to fully opaque) - and
+`mode` of the return value. This can either be numeric (in [0, 1]), integer (0L, 1L, ..., 255L),
+character ("00", "01", ..., "FF"), or an object of class `hexmode` (internally represented
+as integer with printing as character). The `default` can use any of these modes as
+well (independent of the output `mode`) or be `NA`.
+
+For illustration we extract the transparency from the gray colors in `x` in different
+formats and with different default values
+
+```{r extract-gray}
+extract_transparency(x, mode = "numeric")
+extract_transparency(x, mode = "hexmode")
+extract_transparency(x, default = NA)
+extract_transparency(x, default = "80", mode = "integer")
+```
+
+
+
+## Compute and visualize W3C contrast ratios
+
+The Web Content Accessibility Guidelines (WCAG) by the World Wide Web Consortium (W3C)
+recommend a contrast ratio of at least 4.5 for the color of regular text on the background
+color, and a ratio of at least 3 for large text. See \url{https://www.w3.org/TR/WCAG21/#contrast-minimum}.
+This relies on a specific definition of relative luminances (essentially based on
+power-transformed sRGB coordinates) that is different from the perceptual luminance
+as defined, for example, in the HCL color model. Note also that the WCAG pertain to
+text and background color and not to colors used in data visualization.
+
+For illustration we compute and visualize the contrast ratios of the default palette
+in R compared to a white background.
+
+```{r contrast-ratio, fig.height = 3.5, fig.width = 3.5, dev = "png"}
+contrast_ratio(palette(), "white")
+contrast_ratio(palette(), "white", plot = TRUE)
+```
+
 
 
 ## Maximum chroma for given hue and luminance

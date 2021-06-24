@@ -6,6 +6,7 @@
 ^index\.Rmd$
 ^index\.md$
 ^index$
+^index_files$
 ^contact.md$
 ^logo*.png$
 data/USSouthPolygon_script.R$

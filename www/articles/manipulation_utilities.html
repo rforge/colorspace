@@ -130,6 +130,10 @@
 <li>
 <code><a href="../reference/lighten.html">darken()</a></code> and <code><a href="../reference/lighten.html">lighten()</a></code>: Algorithmically lighten or darken colors in HCL and/or HLS space.</li>
 <li>
+<code><a href="../reference/adjust_transparency.html">adjust_transparency()</a></code> and <code><a href="../reference/adjust_transparency.html">extract_transparency()</a></code>: Adjust or extract the transparency of colors.</li>
+<li>
+<code><a href="../reference/contrast_ratio.html">contrast_ratio()</a></code>: Computing and visualizing W3C contrast ratios of colors.</li>
+<li>
 <code><a href="../reference/max_chroma.html">max_chroma()</a></code>: Compute maximum chroma for given hue and luminance in HCL space.</li>
 <li>
 <code><a href="../reference/mixcolor.html">mixcolor()</a></code>: Additively mix two colors by computing their convex combination.</li>
@@ -185,9 +189,9 @@
 <span class="op">)</span></code></pre></div>
 <p><img src="manipulation_utilities_files/figure-html/lighten-darken-1.png" width="432"></p>
 </div>
-<div id="adjust-transparency-of-colors" class="section level2">
+<div id="adjust-or-extract-the-transparency-of-colors" class="section level2">
 <h2 class="hasAnchor">
-<a href="#adjust-transparency-of-colors" class="anchor"></a>Adjust transparency of colors</h2>
+<a href="#adjust-or-extract-the-transparency-of-colors" class="anchor"></a>Adjust or extract the transparency of colors</h2>
 <p>Alpha transparency is useful for making colors semi-transparent, e.g., for overlaying different elements in graphics. An alpha value (or alpha channel) of 0 (or 00 in hex strings) corresponds to fully transparent and an alpha value of 1 (or FF in hex strings) corresponds to fully opaque. If a color hex string in R does not provide an explicit alpha transparency, the color is assumed to be fully opaque.</p>
 <p>The <code><a href="../reference/adjust_transparency.html">adjust_transparency()</a></code> function can be used to adjust the alpha transparency of a set of colors. It always returns a hex color specification. This hex color can have the alpha transparency added/removed/modified depending on the specification of the argument <code>alpha</code>:</p>
 <ul>
@@ -224,17 +228,44 @@
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">adjust_transparency</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "#BEBEBECC" "#BEBEBECC" "#BEBEBECC"</code></pre>
+<p>The <code><a href="../reference/adjust_transparency.html">extract_transparency()</a></code> function can be used to extract the alpha transparency from a set of colors. It allows to specify the <code>default</code> value - that should be used for colors without an explicit alpha transparency (defaulting to fully opaque) - and <code>mode</code> of the return value. This can either be numeric (in [0, 1]), integer (0L, 1L, …, 255L), character (“00”, “01”, …, “FF”), or an object of class <code>hexmode</code> (internally represented as integer with printing as character). The <code>default</code> can use any of these modes as well (independent of the output <code>mode</code>) or be <code>NA</code>.</p>
+<p>For illustration we extract the transparency from the gray colors in <code>x</code> in different formats and with different default values</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">extract_transparency</a></span><span class="op">(</span><span class="va">x</span>, mode <span class="op">=</span> <span class="st">"numeric"</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 1.0000000 1.0000000 0.5019608</code></pre>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">extract_transparency</a></span><span class="op">(</span><span class="va">x</span>, mode <span class="op">=</span> <span class="st">"hexmode"</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "ff" "ff" "80"</code></pre>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">extract_transparency</a></span><span class="op">(</span><span class="va">x</span>, default <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1]        NA        NA 0.5019608</code></pre>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/adjust_transparency.html">extract_transparency</a></span><span class="op">(</span><span class="va">x</span>, default <span class="op">=</span> <span class="st">"80"</span>, mode <span class="op">=</span> <span class="st">"integer"</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 128 128 128</code></pre>
+</div>
+<div id="compute-and-visualize-w3c-contrast-ratios" class="section level2">
+<h2 class="hasAnchor">
+<a href="#compute-and-visualize-w3c-contrast-ratios" class="anchor"></a>Compute and visualize W3C contrast ratios</h2>
+<p>The Web Content Accessibility Guidelines (WCAG) by the World Wide Web Consortium (W3C) recommend a contrast ratio of at least 4.5 for the color of regular text on the background color, and a ratio of at least 3 for large text. See . This relies on a specific definition of relative luminances (essentially based on power-transformed sRGB coordinates) that is different from the perceptual luminance as defined, for example, in the HCL color model. Note also that the WCAG pertain to text and background color and not to colors used in data visualization.</p>
+<p>For illustration we compute and visualize the contrast ratios of the default palette in R compared to a white background.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/contrast_ratio.html">contrast_ratio</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html">palette</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"white"</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 21.000000  3.758588  1.973030  3.163940  1.603030  4.805641  1.608044
+## [8]  2.679156</code></pre>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/contrast_ratio.html">contrast_ratio</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palette.html">palette</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"white"</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="manipulation_utilities_files/figure-html/contrast-ratio-1.png" width="336"></p>
 </div>
 <div id="maximum-chroma-for-given-hue-and-luminance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#maximum-chroma-for-given-hue-and-luminance" class="anchor"></a>Maximum chroma for given hue and luminance</h2>
 <p>As the possible combinations of chroma and luminance in HCL space depend on hue, it is not obvious which trajectories through HCL space are possible prior to trying a specific HCL coordinate by calling <code><a href="../reference/polarLUV.html">polarLUV()</a></code>. To avoid having to fix up the color upon conversion to RGB <code><a href="../reference/hex.html">hex()</a></code> color codes, the <code><a href="../reference/max_chroma.html">max_chroma()</a></code> function computes (approximately) the maximum chroma possible.</p>
 <p>For illustration we show that for given luminance (here: L = 50) the maximum chroma varies substantially with hue:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/max_chroma.html">max_chroma</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">360</span>, by <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>, l <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 137.96  59.99  69.06  39.81  65.45 119.54 137.96</code></pre>
 <p>Similarly, maximum chroma also varies substantially across luminance values for a given hue (here: H = 120, green):</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/max_chroma.html">max_chroma</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">120</span>, l <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, by <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1]   0.00  28.04  55.35  82.79 110.28   0.00</code></pre>
 <p>In the plots below more combinations are visualized: In the left panel for maximum chroma across hues given luminance and in the right panel with increasing luminance given hue.</p>
@@ -244,14 +275,14 @@
 <h2 class="hasAnchor">
 <a href="#additive-mixing-of-two-colors" class="anchor"></a>Additive mixing of two colors</h2>
 <p>In additive color models like <code><a href="../reference/RGB.html">RGB()</a></code> or <code><a href="../reference/XYZ.html">XYZ()</a></code> it can be useful to combine colors by additive mixing. Below a fully saturated red and green are mixed, yielding a medium brownish yellow.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">R</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RGB.html">RGB</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>
 <span class="va">G</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RGB.html">RGB</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
 <span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mixcolor.html">mixcolor</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="va">R</span>, <span class="va">G</span><span class="op">)</span>
 <span class="va">Y</span></code></pre></div>
 <pre><code>##        R   G B
 ## [1,] 0.5 0.5 0</code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/swatchplot.html">swatchplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="../reference/hex.html">hex</a></span><span class="op">(</span><span class="va">R</span><span class="op">)</span>, <span class="fu"><a href="../reference/hex.html">hex</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span>, <span class="fu"><a href="../reference/hex.html">hex</a></span><span class="op">(</span><span class="va">G</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="manipulation_utilities_files/figure-html/mixcolor-1.png" width="240"></p>

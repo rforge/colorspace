@@ -6,7 +6,7 @@
 \usage{
 contrast_ratio(
   col,
-  col2 = NULL,
+  col2 = "white",
   plot = FALSE,
   border = FALSE,
   cex = 2,
@@ -17,14 +17,11 @@ contrast_ratio(
 )
 }
 \arguments{
-\item{col}{vector of any of the three kind of R colors, i.e., either a color
+\item{col, col2}{vectors of any of the three kind of R colors, i.e., either a color
 name (an element of \code{\link[grDevices]{colors}}), a hexadecimal string
 of the form \code{"#rrggbb"} or \code{"#rrggbbaa"} (see
 \code{\link[grDevices]{rgb}}), or an integer \code{i} meaning
-\code{palette()[i]}.}
-
-\item{col2}{vector of background colors (as for \code{col} above). If \code{NULL},
-all subsequent pairs from \code{col} are used.}
+\code{palette()[i]}. Both can be vectors and are recycled as necessary.}
 
 \item{plot}{logical indicating whether the contrast ratios should also be
 visualized by simple color swatches. Can also be a vector of length 2, indicating

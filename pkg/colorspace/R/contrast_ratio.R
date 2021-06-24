@@ -15,13 +15,11 @@
 #' is defined as \code{ifelse(RGB <= 0.03928, RGB/12.92, ((RGB + 0.055)/1.055)^2.4)} based on
 #' the \code{RGB} coordinates between 0 and 1.
 #' 
-#' @param col vector of any of the three kind of R colors, i.e., either a color
+#' @param col,col2 vectors of any of the three kind of R colors, i.e., either a color
 #' name (an element of \code{\link[grDevices]{colors}}), a hexadecimal string
 #' of the form \code{"#rrggbb"} or \code{"#rrggbbaa"} (see
 #' \code{\link[grDevices]{rgb}}), or an integer \code{i} meaning
-#' \code{palette()[i]}.
-#' @param col2 vector of background colors (as for \code{col} above). If \code{NULL},
-#' all subsequent pairs from \code{col} are used.
+#' \code{palette()[i]}. Both can be vectors and are recycled as necessary.
 #' @param plot logical indicating whether the contrast ratios should also be
 #' visualized by simple color swatches. Can also be a vector of length 2, indicating
 #' whether the foreground color should be visualized on the background color and/or
@@ -56,19 +54,14 @@
 #' @importFrom graphics rect
 #' @importFrom graphics text
 
-contrast_ratio <- function(col, col2 = NULL,
+contrast_ratio <- function(col, col2 = "white",
   plot = FALSE, border = FALSE, cex = 2, off = 0.05, mar = rep(0.5, 4), digits = 2L, ...)
 {
   ## https://www.w3.org/TR/WCAG21/#dfn-contrast-ratio
-  ## determine number of color pairs
-  n <- if(is.null(col2)) length(col) - 1L else max(c(length(col), length(col2)))
-  if(n < 1L) stop("need to specify at least two colors")
+  if(length(col) < 1L || length(col2) < 1L) stop("both 'col' and 'col2' need to specify at least one color")
 
   ## suitably recycle colors if necessary
-  if(is.null(col2)) {
-    col2 <- col[-1L]
-    col <- col[-length(col)]
-  }
+  n <- max(c(length(col), length(col2)))
   if(!(length(col) == n && length(col2) == n)) {
     col <- rep_len(col, n)
     col2 <- rep_len(col2, n)
