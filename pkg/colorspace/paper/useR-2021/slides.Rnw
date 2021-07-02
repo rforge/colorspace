@@ -1,0 +1,567 @@
+\documentclass[11pt,t,usepdftitle=false,aspectratio=169]{beamer}
+\usetheme[license, url, foot]{uibk}
+\renewcommand{\hrulefill}{}
+
+\title{Choosing Color Palettes for Data Visualization}
+\subtitle{Tools and Technologies for Supporting Algorithm Fairness and Inclusion}
+\author{Achim Zeileis}
+\URL{https://www.zeileis.org/}
+
+%% need no \usepackage{Sweave}
+\SweaveOpts{engine=R, eps=FALSE, echo=FALSE, results=hide, keep.source=TRUE}
+
+<<preliminaries>>=
+library("colorspace")
+eu <- window(EuStockMarkets, end = 1998)
+@
+
+\definecolor{HighlightOrange}{rgb}{0.9490196,0.5725490,0.0000000}
+\definecolor{HighlightBlue}{rgb}{0.4784314,0.7490196,0.9803922}
+
+\begin{document}
+
+\section{Robust Color Palettes for Data Visualization}
+
+
+\subsection{Motivation}
+
+\begin{frame}[fragile]
+\frametitle{Motivation}
+
+\textbf{Colors in data visualization:}
+\begin{itemize}
+  \item Ubiquitous.
+  \item Not always easy to choose.
+  \item But also perceived as fun.
+\end{itemize}
+
+\bigskip
+\pause
+
+\textbf{Potential problems:}
+\begin{itemize}
+  \item Power of color often overestimated.
+  \item Color vision deficiencies affect $\sim 8$\% of male and $\sim 0.5$\% of female viewers.
+  \item Other physical or technical limitations.
+\end{itemize}
+
+\bigskip
+\pause
+
+\textbf{Illustration:} Time series line plot using base graphics.
+
+<<echo=TRUE,eval=FALSE>>=
+p <- c(1:3, 5)
+plot(EuStockMarkets, log = "y", plot.type = "single", col = p, ...)
+legend("topleft", colnames(EuStockMarkets), col = p, ...)
+@
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Motivation}
+
+\begin{minipage}[t]{.73\textwidth}
+\setkeys{Gin}{width=\textwidth}
+\vspace*{-0.6cm}
+
+<<EuStockMarkets0, eval=FALSE, echo=FALSE, results=hide>>=
+par(mar = c(5, 4, 1, 1))
+plot(eu, log = "y", ylab = "EU Stock Prices", plot.type = "single", col = p, xlim = c(1991.6, 1998.4), lwd = 1.5)
+@
+<<EuStockMarketsLegend1, eval=FALSE, echo=FALSE, results=hide>>=
+legend("topleft", colnames(eu), col = p, lty = 1, lwd = 3, bty = "n")
+@
+<<EuStockMarketsLegend2, eval=FALSE, echo=FALSE, results=hide>>=
+text(1998, tail(eu, 1), colnames(eu), pos = 4, col = p, xpd = TRUE)
+@
+
+\only<1-2>{%
+<<EuStockMarkets1, fig=TRUE, height=6, width=8.5, echo=FALSE, results=hide>>=
+p <- palette.colors(8, "R3")[c(1:3, 5)]
+<<EuStockMarkets0>>
+<<EuStockMarketsLegend1>>
+@
+}%
+\only<3>{%
+<<EuStockMarkets2, fig=TRUE, height=6, width=8.5, echo=FALSE, results=hide>>=
+p <- protan(palette.colors(8, "R3")[c(1:3, 5)])
+<<EuStockMarkets0>>
+<<EuStockMarketsLegend1>>
+@
+}%
+\only<4>{%
+<<EuStockMarkets3, fig=TRUE, height=6, width=8.5, echo=FALSE, results=hide>>=
+p <- protan(palette.colors(8, "R3")[c(1:3, 5)])
+<<EuStockMarkets0>>
+<<EuStockMarketsLegend2>>
+@
+}%
+\only<5>{%
+<<EuStockMarkets4, fig=TRUE, height=6, width=8.5, echo=FALSE, results=hide>>=
+p <- palette.colors(8, "R3")[c(1:3, 5)]
+<<EuStockMarkets0>>
+<<EuStockMarketsLegend2>>
+@
+}%
+\only<6>{%
+<<EuStockMarkets5, fig=TRUE, height=6, width=8.5, echo=FALSE, results=hide>>=
+p <- palette.colors(8, "R4")[c(1:3, 5)]
+<<EuStockMarkets0>>
+<<EuStockMarketsLegend2>>
+@
+}%
+\only<7>{%
+<<EuStockMarkets6, fig=TRUE, height=6, width=8.5, echo=FALSE, results=hide>>=
+p <- protan(palette.colors(8, "R4")[c(1:3, 5)])
+<<EuStockMarkets0>>
+<<EuStockMarketsLegend2>>
+@
+}%
+\only<8>{%
+<<EuStockMarkets7, fig=TRUE, height=6, width=8.5, echo=FALSE, results=hide>>=
+p <- palette.colors(4, "Okabe-Ito")[c(1, 4, 2, 3)]
+<<EuStockMarkets0>>
+<<EuStockMarketsLegend2>>
+@
+}%
+\only<9>{%
+<<EuStockMarkets8, fig=TRUE, height=6, width=8.5, echo=FALSE, results=hide>>=
+p <- protan(palette.colors(4, "Okabe-Ito")[c(1, 4, 2, 3)])
+<<EuStockMarkets0>>
+<<EuStockMarketsLegend2>>
+@
+}%
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.26\textwidth}
+
+\small
+
+\textbf{Palette:}
+\only<1-5>{R $\le$ 3 default}%
+\only<6-7>{R $\ge$ 4 default}%
+\only<8-9>{Okabe-Ito}
+
+\medskip
+
+\textbf{Emulation:}
+\only<1-2,5-6,8>{None}%
+\only<3-4,7,9>{Protanope}
+
+\medskip
+
+\textbf{Labeling:}
+\only<1-3>{Legend}%
+\only<4-9>{Direct}
+
+\bigskip
+\bigskip
+
+\only<2->{\textbf{Comments:}}
+
+\only<2-5>{
+\medskip
+
+Too flashy
+
+\medskip
+
+Cyan too light
+
+}
+
+\only<3-5>{
+
+\medskip
+
+Hard to distinguish for protanope viewers
+
+}
+
+\only<6-7>{
+\medskip
+
+Similar hues
+
+\medskip
+
+More balanced
+
+brightness
+
+\medskip
+
+Avoid garish colors
+
+}
+
+\only<8-9>{
+\medskip
+
+Designed to be robust
+
+against color vision
+
+deficiencies
+
+}
+
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Motivation}
+
+%% png("drake.png", height = 570, width = 530, res = 100)
+%% contrast_ratio(rev(palette.colors(8, "R3")), rev(palette.colors(8, "R3")), plot = TRUE, main = "old base palette", mar = c(1, 1, 3, 5), off = 0.4)
+%% text(0, 7:0 + 0.73, palette.colors(8, "R3"), pos = 4)
+%% 
+%% png("drake.png", height = 570, width = 530, res = 100)
+%% contrast_ratio(rev(palette.colors(8, "R4")), rev(palette.colors(8, "R4")), plot = TRUE, main = "new base palette", mar = c(1, 1, 3, 5), off = 0.4)
+%% text(0, 7:0 + 0.73, palette.colors(8, "R4"), pos = 4)
+%% dev.off()
+
+\begin{minipage}[t]{0.51\textwidth}
+
+\vspace*{-0.6cm}
+
+\includegraphics[width=\textwidth]{images/palette-bling.png}
+
+{\footnotesize
+Source: Mara Averick via Twitter
+}
+
+\end{minipage}
+\hspace*{0.3cm}
+\pause
+\begin{minipage}[t]{0.44\textwidth}
+
+\textbf{Base R:} Neglected better color palettes for a long time.
+
+\bigskip
+
+\textbf{Earlier packages:} RColorBrewer, colorspace, ggplot2, viridis, rcartocolor, Polychrome, pals, paletteer, \dots
+
+\bigskip
+
+\textbf{Thus:} Many good palettes easily available.
+
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Motivation}
+
+\includegraphics[width=1.0\textwidth]{images/grdevices-qualitative.png}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Motivation}
+
+\setkeys{Gin}{width=0.6\textwidth}
+
+<<swatchplot-r4, fig=TRUE, height=4, width=6.5, echo=TRUE, results=hide>>=
+palette.colors(palette = "R4") |>
+  colorspace::swatchplot(cvd = TRUE)
+@
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Motivation}
+
+\setkeys{Gin}{width=0.6\textwidth}
+
+<<swatchplot-okabeito, fig=TRUE, height=4, width=6.5, echo=TRUE, results=hide>>=
+palette.colors(palette = "Okabe-Ito") |>
+  colorspace::swatchplot(cvd = TRUE)
+@
+
+\end{frame}
+
+
+\subsection{Color palette construction}
+
+\begin{frame}
+\frametitle{Color palette construction}
+
+\begin{minipage}{0.47\textwidth}
+\textbf{HCL:} Polar coordinates in CIELUV. Captures perceptual dimensions of the human visual system very well.
+
+\bigskip
+
+\setkeys{Gin}{width=\textwidth}
+<<hcl-properties, fig = TRUE, width = 4, height = 2.2>>=
+swatchplot(
+  "Hue\n(Type of color)"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
+  "Chroma\n(Colorfulness)"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
+  "Luminance\n(Brightness)" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
+  nrow = 3, line = 5.2, off = 0
+)
+@
+\end{minipage}
+\pause
+\hspace*{0.6cm}
+\begin{minipage}{0.47\textwidth}
+\textbf{RGB:} Motivated by how computers/TVs used to generate and still represent color.
+
+\bigskip
+
+\setkeys{Gin}{width=0.9\textwidth}
+<<rgb-properties, fig = TRUE, width = 3.6, height = 2.2>>=
+swatchplot(
+  "Red"       = rgb(0:4/4, 0, 0),
+  "Green"     = rgb(0, 0:4/4, 0),
+  "Blue"      = rgb(0, 0, 0:4/4),
+  nrow = 3, off = 0
+)
+@
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Color palette construction}
+
+\setkeys{Gin}{width=\textwidth}
+<<hcl-palettes-principles, fig = TRUE, width = 12, height = 1.6>>=
+swatchplot(
+  "Qualitative (Set 2)"     = rbind("Color" = qualitative_hcl(5, "Set 2"),     "Desaturated" = desaturate(qualitative_hcl(5, "Set 2"))),
+  "Sequential (Blues 3)"    = rbind("Color" = sequential_hcl(7, "Blues 3"),    "Desaturated" = desaturate(sequential_hcl(7, "Blues 3"))),
+  "Diverging (Green-Brown)" = rbind("Color" = diverging_hcl(7, "Green-Brown"), "Desaturated" = desaturate(diverging_hcl(7, "Green-Brown"))),
+  nrow = 3, line = 7)
+@
+
+\bigskip
+\pause
+
+\textbf{Qualitative:} For categorical information with no particular ordering.
+
+Luminance differences should be limited
+
+\bigskip
+\pause
+
+\textbf{Sequential:} For ordered/numeric information from high to low (or vice versa).
+
+\bigskip
+\pause
+
+\textbf{Diverging:} For ordered/numeric information diverging from a central neutral value to two extremes.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Color palette construction}
+
+\begin{minipage}[t]{0.47\textwidth}
+\vspace*{-0.9cm}
+\includegraphics[width=\textwidth]{images/grdevices-sequential.png}
+\end{minipage}
+\begin{minipage}[t]{0.39\textwidth}
+\vspace*{-0.8cm}
+\includegraphics[width=\textwidth]{images/grdevices-diverging.png}
+\end{minipage}
+
+\end{frame}
+
+
+\subsection{Risk maps and communication to the public}
+
+\begin{frame}
+\frametitle{Risk maps and communication to the public}
+
+\vspace*{-0.3cm}
+
+\begin{center}
+\only<1>{\includegraphics[width=.55\textwidth]{images/dorian-useR-2021-orig.png}}%
+\only<2>{\includegraphics[width=.55\textwidth]{images/dorian-useR-2021-orig-deutan.png}}%
+\only<3>{\includegraphics[width=.55\textwidth]{images/dorian-useR-2021-orig-gray.png}}%
+\only<4>{\includegraphics[width=.55\textwidth]{images/dorian-useR-2021-orrd.png}}%
+\only<5>{\includegraphics[width=.55\textwidth]{images/dorian-useR-2021-orrd-gray.png}}
+\only<6>{\includegraphics[width=.55\textwidth]{images/dorian-useR-2021-orrd-deutan.png}}
+\end{center}
+
+\vspace*{-0.5em}
+\begin{footnotesize} 
+Probability of wind speeds $>$ 39\,mph (63\,km\,h$^{-1}$), 2019-08-30--2019-09-04.
+Source: (\href{https://noaa.gov}{noaa.gov})
+\end{footnotesize} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Risk maps and communication to the public}
+
+\vspace*{2em}
+
+\begin{minipage}{0.46\textwidth}
+\includegraphics[width=\textwidth]{../EGU2020/images/sharpie-small.png}
+
+{\footnotesize
+Source: White House (2019-09-04)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.51\textwidth}
+\includegraphics[width=\textwidth]{../EGU2020/images/tweet.png}
+
+{\footnotesize
+Source: U.S. president via Twitter (2019-09-05)}
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Colors by designers, painters, and directors?}
+
+\begin{minipage}[t]{0.65\textwidth}
+\vspace*{-0.3cm}
+
+\only<1>{\includegraphics[width=\textwidth]{images/almodovar-madre-original.png}}
+\only<2>{\includegraphics[width=\textwidth]{images/almodovar-madre-palette.png}}
+\only<3>{\includegraphics[width=\textwidth]{images/almodovar-madre-desaturated.png}}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\textwidth}
+
+{\footnotesize
+
+Movie: \emph{Todo sobre mi madre} (\emph{All About My Mother}, 1999)
+
+\medskip
+
+Picture source: Sony Pictures Classics via MoMA
+
+\medskip
+
+\only<2->{Palette: Hadley Mendelsohn}
+}
+
+\end{minipage}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Colors by designers, painters, and directors?}
+
+\vspace*{-0.3cm}
+
+\begin{center}
+\only<1>{\includegraphics[width=.55\textwidth]{images/dorian-useR-2021-madre.png}}%
+\only<2>{\includegraphics[width=.55\textwidth]{images/dorian-useR-2021-orrd.png}}%
+\end{center}
+
+\vspace*{-0.5em}
+\begin{center}
+{\footnotesize
+Palette: \only<1>{Todo sobre mi madre}\only<2>{OrRd (ColorBrewer.org, HCL version)}\phantom{Org}}
+\end{center} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Colors by designers, painters, and directors?}
+
+\begin{minipage}[t]{0.45\textwidth}
+\vspace*{-0.3cm}
+
+\only<1>{\includegraphics[width=\textwidth]{images/almodovar-tacones-original.png}}
+\only<2>{\includegraphics[width=\textwidth]{images/almodovar-tacones-palette.png}}
+\only<3>{\includegraphics[width=\textwidth]{images/almodovar-tacones-deutan.png}}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.5\textwidth}
+
+{\footnotesize
+
+Movie: \emph{Tacones lejanos} (\emph{High Heels}, 1991)
+
+\medskip
+
+Picture source: El Deseo S.A. via Twitter
+
+\medskip
+
+\only<2->{Palette: Bibiana Fernandez}
+}
+
+\end{minipage}
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Wrap-up}
+
+\textbf{Tools:}
+\begin{itemize}
+  \item \emph{grDevices:} \code{palette.colors()}, \code{hcl.colors()}.
+  \item \emph{colorspace:} \code{swatchplot(..., cvd = TRUE)}.
+  \item Interactive shiny apps on \url{https://www.hclwizard.org/}.
+\end{itemize}
+
+\pause
+\bigskip
+
+\textbf{Strategy:}
+\begin{itemize}
+  \item Check whether color is appropriate for coding your information.
+  \item Use appropriate type of palette.
+  \item Don't reinvent the wheel, start out from well-established palettes.
+  \item Check robustness of palette.
+  \item Be careful with palettes with too much chroma.
+\end{itemize}
+
+\end{frame}
+
+
+\subsection{References}
+
+\begin{frame}
+\frametitle{References}
+
+\small
+
+Zeileis A, Fisher JC, Hornik K, Ihaka R, McWhite CD, Murrell P, Stauffer R, Wilke CO (2020).
+  \dquote{colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.}
+  \emph{Journal of Statistical Software}, \textbf{96}(1), 1--49.
+  \doi{10.18637/jss.v096.i01}
+
+\bigskip
+
+Zeileis A, Murrell P, Maechler M, Sarkar D (2019).
+  \dquote{A New \texttt{palette()} for R.}
+  \emph{R~Foundation Blog}, 2019-11-21.
+  \url{https://developer.R-project.org/Blog/public/2019/11/21/a-new-palette-for-r/}
+
+\bigskip
+
+Zeileis A, Murrell P (2019).
+  \dquote{HCL-Based Color Palettes in grDevices.}
+  \emph{R~Foundation Blog}, 2019-04-01.
+  \url{https://developer.R-project.org/Blog/public/2019/04/01/hcl-based-color-palettes-in-grdevices/}
+
+\bigskip
+\bigskip
+
+Web: \url{https://colorspace.R-Forge.R-project.org/}
+
+\smallskip
+
+Twitter: \href{https://twitter.com/AchimZeileis}{\tt @AchimZeileis}
+
+\end{frame}
+
+\end{document}
