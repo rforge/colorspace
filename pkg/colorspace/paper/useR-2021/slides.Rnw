@@ -41,7 +41,7 @@ eu <- window(EuStockMarkets, end = 1998)
 \textbf{Potential problems:}
 \begin{itemize}
   \item Power of color often overestimated.
-  \item Color vision deficiencies affect $\sim 8$\% of male and $\sim 0.5$\% of female viewers.
+  \item Color vision deficiencies ($\sim 8$\% of male and $\sim 0.5$\% of female viewers).
   \item Other physical or technical limitations.
 \end{itemize}
 
@@ -231,7 +231,7 @@ deficiencies
 \includegraphics[width=\textwidth]{images/palette-bling.png}
 
 {\footnotesize
-Source: Mara Averick via Twitter
+\textbf{Source:} Mara Averick via Twitter
 }
 
 \end{minipage}
@@ -390,8 +390,9 @@ Luminance differences should be limited
 
 \vspace*{-0.5em}
 \begin{footnotesize} 
-Probability of wind speeds $>$ 39\,mph (63\,km\,h$^{-1}$), 2019-08-30--2019-09-04.
-Source: (\href{https://noaa.gov}{noaa.gov})
+\textbf{Risk map:} Probability of wind speeds $>$ 39\,mph (63\,km\,h$^{-1}$), 2019-08-30--2019-09-04.
+
+\textbf{Source:} (\href{https://noaa.gov}{noaa.gov})
 \end{footnotesize} 
 
 \end{frame}
@@ -406,17 +407,19 @@ Source: (\href{https://noaa.gov}{noaa.gov})
 \includegraphics[width=\textwidth]{../EGU2020/images/sharpie-small.png}
 
 {\footnotesize
-Source: White House (2019-09-04)}
+\textbf{Source:} White House (2019-09-04)}
 \end{minipage}
 \hfill
 \begin{minipage}{0.51\textwidth}
 \includegraphics[width=\textwidth]{../EGU2020/images/tweet.png}
 
 {\footnotesize
-Source: U.S. president via Twitter (2019-09-05)}
+\textbf{Source:} U.S. president via Twitter (2019-09-05)}
 \end{minipage}
 
 \end{frame}
+
+\subsection{Colors by designers, painters, and directors?}
 
 \begin{frame}
 \frametitle{Colors by designers, painters, and directors?}
@@ -429,19 +432,19 @@ Source: U.S. president via Twitter (2019-09-05)}
 \only<3>{\includegraphics[width=\textwidth]{images/almodovar-madre-desaturated.png}}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.3\textwidth}
+\begin{minipage}[t]{0.32\textwidth}
 
 {\footnotesize
 
-Movie: \emph{Todo sobre mi madre} (\emph{All About My Mother}, 1999)
+\textbf{Movie:} \emph{Todo sobre mi madre} (\emph{All About My Mother}, 1999)
 
 \medskip
 
-Picture source: Sony Pictures Classics via MoMA
+\textbf{Source:} Sony Pictures Classics via MoMA
 
 \medskip
 
-\only<2->{Palette: Hadley Mendelsohn}
+\only<2->{\textbf{Palette:} Hadley Mendelsohn}
 }
 
 \end{minipage}
@@ -462,7 +465,7 @@ Picture source: Sony Pictures Classics via MoMA
 \vspace*{-0.5em}
 \begin{center}
 {\footnotesize
-Palette: \only<1>{Todo sobre mi madre}\only<2>{OrRd (ColorBrewer.org, HCL version)}\phantom{Org}}
+\textbf{Palette:} \only<1>{Todo sobre mi madre}\only<2>{OrRd (ColorBrewer.org, HCL version)}\phantom{Org}}
 \end{center} 
 
 \end{frame}
@@ -483,15 +486,15 @@ Palette: \only<1>{Todo sobre mi madre}\only<2>{OrRd (ColorBrewer.org, HCL versio
 
 {\footnotesize
 
-Movie: \emph{Tacones lejanos} (\emph{High Heels}, 1991)
+\textbf{Movie:} \emph{Tacones lejanos} (\emph{High Heels}, 1991)
 
 \medskip
 
-Picture source: El Deseo S.A. via Twitter
+\textbf{Source:} El Deseo S.A. via Twitter
 
 \medskip
 
-\only<2->{Palette: Bibiana Fernandez}
+\only<2->{\textbf{Palette:} Bibiana Fernandez}
 }
 
 \end{minipage}
@@ -501,6 +504,7 @@ Picture source: El Deseo S.A. via Twitter
 \end{frame}
 
 
+\subsection{Wrap-up}
 
 \begin{frame}
 \frametitle{Wrap-up}
