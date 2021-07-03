@@ -20,7 +20,7 @@ eu <- window(EuStockMarkets, end = 1998)
 
 \begin{document}
 
-\section{Robust Color Palettes for Data Visualization}
+\section{Choosing Color Palettes for Data Visualization}
 
 
 \subsection{Motivation}
@@ -239,15 +239,25 @@ deficiencies
 \pause
 \begin{minipage}[t]{0.44\textwidth}
 
-\textbf{Base R:} Neglected better color palettes for a long time.
+\textbf{Base R:} Neglected better color
+
+palettes for a long time.
 
 \bigskip
 
-\textbf{Earlier packages:} RColorBrewer, colorspace, ggplot2, viridis, rcartocolor, Polychrome, pals, paletteer, \dots
+\textbf{Earlier packages:} RColorBrewer,
+
+colorspace, ggplot2, viridis,
+
+rcartocolor, Polychrome, pals,
+
+paletteer, \dots
 
 \bigskip
 
-\textbf{Thus:} Many good palettes easily available.
+\textbf{Thus:} Many good palettes easily
+
+available.
 
 \end{minipage}
 
@@ -291,7 +301,11 @@ palette.colors(palette = "Okabe-Ito") |>
 \frametitle{Color palette construction}
 
 \begin{minipage}{0.47\textwidth}
-\textbf{HCL:} Polar coordinates in CIELUV. Captures perceptual dimensions of the human visual system very well.
+\textbf{HCL:} Polar coordinates in CIELUV.
+
+Captures perceptual dimensions of
+
+the human visual system very well.
 
 \bigskip
 
@@ -308,7 +322,11 @@ swatchplot(
 \pause
 \hspace*{0.6cm}
 \begin{minipage}{0.47\textwidth}
-\textbf{RGB:} Motivated by how computers/TVs used to generate and still represent color.
+\textbf{RGB:} Motivated by how computers
+
+and TVs used to generate and still
+
+represent color.
 
 \bigskip
 
@@ -342,7 +360,7 @@ swatchplot(
 
 \textbf{Qualitative:} For categorical information with no particular ordering.
 
-Luminance differences should be limited
+Luminance differences should be limited.
 
 \bigskip
 \pause
@@ -390,9 +408,9 @@ Luminance differences should be limited
 
 \vspace*{-0.5em}
 \begin{footnotesize} 
-\textbf{Risk map:} Probability of wind speeds $>$ 39\,mph (63\,km\,h$^{-1}$), 2019-08-30--2019-09-04.
+\textbf{Risk map:} Probability of wind speeds $>$ 39\,mph (63\,km\,h$^{-1}$), 2019-08-30--2019-09-04
 
-\textbf{Source:} (\href{https://noaa.gov}{noaa.gov})
+\textbf{Source:} National Oceanic and Atmospheric Administration (\href{https://noaa.gov}{noaa.gov})
 \end{footnotesize} 
 
 \end{frame}
@@ -424,7 +442,7 @@ Luminance differences should be limited
 \begin{frame}
 \frametitle{Colors by designers, painters, and directors?}
 
-\begin{minipage}[t]{0.65\textwidth}
+\begin{minipage}[t]{0.64\textwidth}
 \vspace*{-0.3cm}
 
 \only<1>{\includegraphics[width=\textwidth]{images/almodovar-madre-original.png}}
@@ -560,11 +578,11 @@ Zeileis A, Murrell P (2019).
 \bigskip
 \bigskip
 
-Web: \url{https://colorspace.R-Forge.R-project.org/}
+\textbf{Web:} \url{https://colorspace.R-Forge.R-project.org/}
 
 \smallskip
 
-Twitter: \href{https://twitter.com/AchimZeileis}{\tt @AchimZeileis}
+\textbf{Twitter:} \href{https://twitter.com/AchimZeileis}{\tt @AchimZeileis}
 
 \end{frame}
 
