@@ -249,9 +249,9 @@ palettes for a long time.
 
 colorspace, ggplot2, viridis,
 
-rcartocolor, Polychrome, pals,
+rcartocolor, Polychrome, scico,
 
-paletteer, \dots
+pals, paletteer, \dots
 
 \bigskip
 
